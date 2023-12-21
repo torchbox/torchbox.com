@@ -26,4 +26,4 @@ $ detect-secrets scan > .secrets.baseline
 
 ## Automatic checks on Github
 
-When commits are pushed to Github, CI pipelines including tests, and linting checks are run. This is configured here: https://github.com/torchbox/torchbox.com/blob/master/.github/workflows/test.yml
+When commits are pushed to Github, CI pipelines including tests, and linting checks are run. This is configured here: https://github.com/torchbox/torchbox.com/blob/main/.github/workflows/test.yml

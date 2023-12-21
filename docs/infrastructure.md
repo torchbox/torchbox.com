@@ -55,8 +55,8 @@ Steps for resetting the `staging` git branch, and deploying it with a clone of t
 
    ```bash
    $ git branch -a --merged origin/staging > branches_on_staging.txt
-   $ git branch -a --merged origin/master > branches_on_master.txt
-   $ diff branches_on_{master,staging}.txt
+   $ git branch -a --merged origin/main > branches_on_main.txt
+   $ diff branches_on_{main,staging}.txt
    ```
 
    Take note if any of the above are stale, not needing to be recreated.
@@ -70,13 +70,13 @@ Steps for resetting the `staging` git branch, and deploying it with a clone of t
 
 ### Git
 
-1. Use the [Heroku Repo plugin](https://elements.heroku.com/buildpacks/heroku/heroku-repo) to reset the repository on Heroku, otherwise CI will later fail (bear in mind that there may be incompatibilities between the old `staging` database and the new code from `master`; this will be resolved in the Database step below)
+1. Use the [Heroku Repo plugin](https://elements.heroku.com/buildpacks/heroku/heroku-repo) to reset the repository on Heroku, otherwise CI will later fail (bear in mind that there may be incompatibilities between the old `staging` database and the new code from `main`; this will be resolved in the Database step below)
    ```
    $ heroku repo:reset -a project-name
    ```
 1. Reset the staging branch
    ```bash
-   $ git checkout staging && git fetch && git reset --hard origin/master && git push --force
+   $ git checkout staging && git fetch && git reset --hard origin/main && git push --force
    ```
 1. Tell your colleagues
    > @here I have reset the staging branch. Please delete your local staging branches
@@ -96,7 +96,7 @@ Steps for resetting the `staging` git branch, and deploying it with a clone of t
 
 This site uses flightpath[^2] to manage staging reset. This is implemented as [Copy prod to staging](https://github.com/torchbox/torchbox.com/actions/workflows/flightpath.yml) Github Actions.
 
-To run, go the [Github Actions page](https://github.com/torchbox/torchbox.com/actions/workflows/flightpath.yml), click on 'Run workflow', and select `master`.
+To run, go the [Github Actions page](https://github.com/torchbox/torchbox.com/actions/workflows/flightpath.yml), click on 'Run workflow', and select `main`.
 
 ### Media
 

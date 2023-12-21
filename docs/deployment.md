@@ -4,9 +4,9 @@ The VM comes preinstalled with Fabric, Heroku CLI and AWS CLI.
 
 ## Deployed environments
 
-| Environment | Branch    | URL                                         | Heroku                        |
-| ----------- | --------- | ------------------------------------------- | ----------------------------- |
-| Production  | `master`  | e.g. https://torchbox.com                   | e.g. `projectname-production` |
+| Environment | Branch    | URL                                             | Heroku                        |
+| ----------- | --------- | ----------------------------------------------- | ----------------------------- |
+| Production  | `main`    | e.g. https://torchbox.com                       | e.g. `projectname-production` |
 | Staging     | `staging` | e.g. https://torchbox-com-staging.torchbox.dev/ | e.g. `projectname-staging`    |
 
 ## Login to Heroku
@@ -32,6 +32,6 @@ When you set up a server you should make sure the following scheduled tasks are 
 
 ## Deployment
 
-To deploy, merge your feature branch to `master` or `staging` branch. Once CI pipelines have passed, it will be deployed to the respective Heroku site automatically.
+To deploy, merge your feature branch to `main` or `staging` branch. Once CI pipelines have passed, it will be deployed to the respective Heroku site automatically.
 
 This is done via [Heroku Github integration](https://devcenter.heroku.com/articles/github-integration). You can view the progress of the deployment by logging into Heroku, navigating to the app's dashboard and checking the "Activity" section.

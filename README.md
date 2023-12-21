@@ -127,6 +127,6 @@ poetry install --no-root
 
 ## Deployments
 
-To deploy, merge your feature branch to `master` or `staging` branch. Once CI pipelines have passed, it will be deployed to the respective Heroku site automatically.
+To deploy, merge your feature branch to `main` or `staging` branch. Once CI pipelines have passed, it will be deployed to the respective Heroku site automatically.
 
 This is done via [Heroku Github integration](https://devcenter.heroku.com/articles/github-integration).
