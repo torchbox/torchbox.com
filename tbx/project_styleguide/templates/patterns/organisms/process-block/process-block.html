@@ -1,0 +1,20 @@
+{% load wagtailcore_tags %}
+{% load wagtailembeds_tags %}
+
+<div class="process__block">
+    {% include "patterns/atoms/section-title/section-title.html" with title=section_title %}
+    <div class="process__container">
+
+        <div class="process__list">
+            {% for process in processes %}
+                {% include "patterns/molecules/process-item/process-item.html" with item=process %}
+            {% endfor %}
+        </div>
+
+        {% if section_cta %}
+            <div class="process__cta">
+                {{ section_cta|richtext }}
+            </div>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,82 @@
+version: '3.7'
+services:
+  web:
+    build:
+      context: .
+      args:
+        BUILD_ENV: dev
+        POETRY_INSTALL_ARGS: ''
+      target: dev
+    environment:
+      ALLOWED_HOSTS: 127.0.0.1,0.0.0.0,localhost
+      DATABASE_URL: postgres://tbx:tbx@db:5432/tbx # pragma: allowlist secret
+      DJANGO_SETTINGS_MODULE: tbx.settings.dev
+      MEDIA_DIR: /app/media/
+      REDIS_URL: redis://redis
+      SECRET_KEY: local_dev_secret_key
+      SECURE_SSL_REDIRECT: 'false'
+      STATIC_DIR: /app/static/
+      STATIC_URL: /static/
+      HEROKU_APP_NAME: 'local-dev' # for birdbath HerokuAnonymisationAllowedCheck
+      ALLOWS_ANONYMISATION: 'local-dev'
+    command: tail -f /dev/null # do nothing forever - exec commands elsewhere
+    ports:
+      - 8000:8000 # runserver
+      - 8001:8001 # mkdocs serve
+    volumes:
+      - ./.git:/app/.git:rw
+      - ./docs:/app/docs:rw
+      - ./media:/app/media:rw
+      - ./public:/app/public:rw
+      - ./docker:/app/docker:rw
+      - ./tbx:/app/tbx:delegated,rw
+      - ./README.md:/app/README.md:rw
+      - ./fabfile.py:/app/fabfile.py:rw
+
+      # Docs config
+      - ./mkdocs.yml:/app/mkdocs.yml:rw
+
+      # Backend config
+      - ./manage.py:/app/manage.py:rw
+      - ./pyproject.toml:/app/pyproject.toml:rw
+      - ./poetry.lock:/app/poetry.lock:rw
+
+      # Frontend config
+      - ./.babelrc.js:/app/.babelrc.js:rw
+      - ./.editorconfig:/app/.editorconfig:rw
+      - ./.eslintignore:/app/.eslintignore:rw
+      - ./.eslintrc.js:/app/.eslintrc.js:rw
+      - ./.prettierignore:/app/.prettierignore:rw
+      - ./.prettierrc.toml:/app/.prettierrc.toml:rw
+      - ./.stylelintrc.js:/app/.stylelintrc.js:rw
+      - ./package-lock.json:/app/package-lock.json:rw
+      - ./package.json:/app/package.json:rw
+      - ./webpack.config.js:/app/webpack.config.js:rw
+
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:13.12
+    expose:
+      - 5432
+    environment:
+      POSTGRES_DB: tbx
+      POSTGRES_USER: tbx
+      POSTGRES_PASSWORD: tbx # pragma: allowlist secret
+      PGDATABASE: tbx
+      PGUSER: tbx
+      PGPASSWORD: tbx # pragma: allowlist secret
+      POSTGRES_HOST_AUTH_METHOD: trust
+    logging:
+      driver: none
+    volumes:
+      - .:/app:ro
+
+  redis:
+    image: redis:6.0
+    expose:
+      - 6379
+    logging:
+      driver: none

@@ -1,0 +1,57 @@
+.client-block {
+    $root: &;
+    position: relative;
+    background-color: var(--color--white);
+    padding-bottom: ($gutter * 5);
+
+    &__container {
+        @include container();
+        margin: 0;
+        padding: 0;
+
+        .service-section & {
+            // on sub-proposition pages client logos sit within a service-section container
+            // on proposition pages they sit within a proposition-section container, which has a left and right margin
+            // adds space below the absolutely positioned heading
+            padding: 90px 0 0;
+            // add left and right margin to match the proposition-section
+            margin: 0 $variable-gutter--small;
+        }
+    }
+
+    &__block {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-column-gap: 50px;
+    }
+
+    &__icon-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        @include media-query(medium) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include media-query(large) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @include media-query(menu-break-larger) {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        @include media-query(x-large) {
+            column-gap: 60px;
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        &--spaced {
+            margin-bottom: 100px;
+
+            @include media-query(medium) {
+                margin-bottom: 200px;
+            }
+        }
+    }
+}

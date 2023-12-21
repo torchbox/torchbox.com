@@ -1,0 +1,51 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="help-block">
+    <div class="help-block__container">
+        <section class="help-block__content">
+            <div class="help-block__section-title">
+                {% include "patterns/atoms/section-title/section-title.html" with title=title %}
+            </div>
+            <h2 class="help-block__title">
+                {{ intro|richtext }}
+            </h2>
+            <div class="help-block__links-container">
+                <ul class="help-block__link-list">
+                    {% for item in items %}
+                        {% include "patterns/molecules/list-item/list-item.html" with item=item %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+
+        {% if contact %}
+            <div class="help-block__contact-wrap">
+                <div class="help-block__contact-inner">
+                    <div class="help-block__avatar avatar">
+                        {% image contact.image fill-100x100 class="avatar__image" %}
+                    </div>
+                    <div class="help-block__contact-details">
+                        {% if contact_reasons %}
+                            <h2 class="help-block__contact-title">
+                                {{ contact_reasons.heading }}
+                            </h2>
+                        {% else %}
+                            <h2 class="help-block__contact-title">
+                                Get in touch about your project
+                            </h2>
+                        {% endif %}
+                        <div class="help-block__contact-meta">
+                            <a href="mailto:{{ contact.email_address }}" class="help-block__contact help-block__contact--email" aria-label="Email our New Business Director Will on {{ contact.email_address }}">
+                                {{ contact.email_address }}
+                            </a>
+                            {% if contact.phone_number %}
+                                <a href="tel:{{ contact.phone_number }}" class="help-block__contact help-block__contact--phone" aria-label="Phone our New Business Director Will on {{ contact.phone_number }}">
+                                    {{ contact.phone_number }}
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>

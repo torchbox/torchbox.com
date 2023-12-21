@@ -1,0 +1,104 @@
+.menu-button {
+    @include z-index(menu-button);
+    position: absolute;
+    top: $gutter;
+    right: $gutter;
+    width: 45px;
+    height: 45px;
+    display: block;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--color--white);
+    border-radius: 50%;
+    transition: background-color $transition;
+
+    @include media-query(menu-break) {
+        display: none;
+    }
+
+    @include hcm() {
+        filter: invert(1);
+    }
+
+    span {
+        &:nth-child(1) {
+            transition: all 0.2s ease-in;
+            position: absolute;
+            width: 20px;
+            background-color: var(--color--header-icon-color);
+            height: 3px;
+            left: 13px;
+            top: 15px;
+            transform: translateX(0);
+        }
+
+        &:nth-child(2) {
+            transition: all 0.2s ease-in;
+            background-color: var(--color--header-icon-color);
+            position: absolute;
+            width: 16px;
+            height: 3px;
+            left: 17px;
+            top: 22px;
+        }
+
+        &:nth-child(3) {
+            transition: all 0.2s ease-in;
+            background-color: var(--color--header-icon-color);
+            position: absolute;
+            width: 12px;
+            height: 3px;
+            left: 14px;
+            top: 29px;
+        }
+
+        @include hcm() {
+            filter: invert(1);
+        }
+    }
+
+    // Applied by js
+    .menu-active & {
+        span {
+            &:nth-child(1) {
+                opacity: 0;
+            }
+
+            &:nth-child(2) {
+                background-color: var(--color--coral);
+                transform: rotate(-45deg) scale(2);
+                left: 17px;
+                top: 22px;
+                height: 2px;
+                width: 12px;
+            }
+
+            &:nth-child(3) {
+                background-color: var(--color--coral);
+                transform: rotate(45deg) scale(2);
+                left: 17px;
+                top: 22px;
+                height: 2px;
+                width: 12px;
+            }
+        }
+    }
+
+    &:hover {
+        background-color: var(--color--header-icon-color);
+
+        span {
+            background-color: var(--color--white);
+        }
+    }
+
+    @include hcm() {
+        filter: invert(1);
+
+        &:focus,
+        &:hover {
+            filter: invert(0);
+        }
+    }
+}

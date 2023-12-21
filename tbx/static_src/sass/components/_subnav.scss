@@ -1,0 +1,121 @@
+.subnav {
+    $root: &;
+    @include z-index(two);
+    border-radius: 12px;
+    position: absolute;
+    // Style values taken from new careers site design
+    // https://www.figma.com/file/nTKNovsb1TY48FmDfZueov/Careers-section---Contentful?node-id=725%3A57908
+    padding: 31px 20px;
+    min-width: 186px;
+    left: 5px;
+    top: 55px;
+    background-color: var(--color--white);
+    outline: 5px solid var(--color--coral) transparent;
+
+    &__item {
+        margin-bottom: 22px;
+        line-height: 1;
+        font-size: 16px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &--with-badge {
+            position: relative;
+            height: 20px;
+        }
+    }
+
+    &__link {
+        @include link-underscore(0);
+        font-weight: $weight--bold;
+        position: relative;
+        border-bottom: 0;
+        transition: all $transition-quick;
+        color: var(--color--dark-indigo);
+        overflow: hidden;
+        display: inline-block;
+
+        &:hover,
+        &:focus,
+        &--active {
+            @include link-underscore(2);
+            color: var(--color--dark-indigo);
+        }
+
+        @include hcm() {
+            @include hcm-underline();
+            overflow: visible;
+
+            &::after {
+                display: none;
+            }
+
+            &:hover,
+            &:focus,
+            &--active {
+                &::after {
+                    display: none;
+                }
+
+                @include hcm-underline-hover();
+            }
+        }
+    }
+
+    &__badge-link {
+        position: relative;
+        left: 14px;
+        bottom: 10px;
+        border-bottom: 0;
+    }
+
+    &__external-link-icon {
+        width: 12px;
+        height: 12px;
+        fill: var(--color--dark-indigo);
+        transition: fill $transition-quick;
+        position: relative;
+        top: -1px;
+        opacity: 0.8;
+    }
+
+    #{$root}__link:hover #{$root}__external-link-icon {
+        fill: var(--color--accent);
+    }
+
+    // Don't style homepage nav with new rules, follow old design
+    .template__homepage & {
+        padding: 20px;
+        bottom: 40px;
+        min-width: 190px;
+        top: initial;
+
+        &__item {
+            margin-bottom: 5px;
+            line-height: unset;
+            font-size: 18px;
+
+            &:last-child {
+                margin-bottom: initial;
+            }
+
+            &--with-badge {
+                position: relative;
+                height: initial;
+            }
+        }
+
+        &__badge-link {
+            position: relative;
+            left: 20px;
+            bottom: 10px;
+            border-bottom: 0;
+        }
+
+        &__external-link-icon {
+            top: 4px;
+        }
+    }
+}

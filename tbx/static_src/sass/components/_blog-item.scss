@@ -1,0 +1,119 @@
+// Theme overrides:
+$blog-author: var(--testimonial-name);
+
+.blog-item {
+    $root: &;
+    display: block;
+    padding: 0 0 ($gutter * 2.5) 0;
+    margin: ($gutter * 2) 0 0;
+    text-decoration: none;
+    border-bottom: none;
+
+    &:focus,
+    &:hover {
+        #{$root}__title {
+            color: var(--color--coral);
+
+            @include hcm() {
+                text-decoration-thickness: 5px;
+            }
+        }
+    }
+
+    &:last-child {
+        padding-bottom: 0;
+
+        @include media-query(large) {
+            padding: 0 0 ($gutter * 2.5) 0;
+        }
+    }
+
+    &--standout {
+        #{$root}__title {
+            font-weight: $weight--heavy;
+        }
+
+        #{$root}__intro {
+            font-size: map-get($medium-font-sizes, s);
+        }
+    }
+
+    &__meta {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    &__title {
+        @include font-size(l);
+        font-weight: bold;
+        line-height: 40px;
+        margin: 0 0 $gutter;
+        color: var(--color--dark-indigo);
+        transition: color $transition-quick;
+
+        @include media-query(large) {
+            font-size: map-get($large-font-sizes, m);
+        }
+
+        // Add visual indication that it's a link
+        @include hcm() {
+            text-decoration: underline;
+        }
+    }
+
+    &__image {
+        width: 55px;
+        height: 55px;
+        min-height: 55px;
+        min-width: 55px;
+        margin-right: ($gutter * 0.75);
+    }
+
+    &__author {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__author-name {
+        @include font-size(s);
+        color: var(--color--dark-indigo);
+    }
+
+    &__author-role {
+        @include font-size(xxxs);
+        margin: 0 0 2px;
+        line-height: 1.4;
+        color: var(--color--coral-dark);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        font-weight: bold;
+    }
+
+    &__author-date {
+        @include font-size(xxxs);
+        font-weight: normal;
+        text-transform: none;
+        letter-spacing: 0;
+        color: var(--color--grey);
+        margin-left: 5px;
+        padding-left: 5px;
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+
+        & + & {
+            margin-left: 0;
+        }
+    }
+
+    .blog-listing__feature & {
+        #{$root}__title {
+            @include font-size(xxl);
+            font-weight: $weight--heavy;
+            line-height: 1.2;
+
+            @include media-query(large) {
+                max-width: 58.33vw;
+            }
+        }
+    }
+}

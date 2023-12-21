@@ -1,0 +1,48 @@
+.logo {
+    width: 20.8vw;
+
+    @include media-query(large) {
+        margin-left: -4.17vw;
+        margin-right: 4.17vw;
+        margin-top: -10px;
+    }
+
+    &__image {
+        width: 110px;
+        height: 40px;
+        position: relative;
+        display: inline-block;
+        fill: var(--color--primary);
+
+        @include media-query(medium) {
+            width: 130px;
+            height: 50px;
+        }
+
+        @include hcm() {
+            fill: var(--color--black);
+        }
+
+        @include high-contrast-dark-mode() {
+            fill: var(--color--white);
+        }
+    }
+
+    &__flame {
+        width: 25px;
+        height: 25px;
+        fill: var(--color--header-icon-color);
+
+        @include hcm() {
+            fill: var(--color--black);
+        }
+
+        @include high-contrast-dark-mode() {
+            fill: var(--color--white);
+        }
+    }
+
+    &__link {
+        border-bottom: none;
+    }
+}
