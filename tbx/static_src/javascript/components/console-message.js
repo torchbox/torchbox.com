@@ -8,7 +8,7 @@ function ConsoleMessage() {
     const heading = `font-size: 16px; font-weight: bold; margin: 9px 0 3px 0;`;
     console.log('%cSpotted an Issue? 💻', heading);
     console.log(
-        'The source code of this site is available at https://github.com/torchbox/wagtail-torchbox\nPull requests & issues most welcome!',
+        'The source code of this site is available at https://github.com/torchbox/torchbox.com\nPull requests & issues most welcome!',
     );
     console.log('%cGet in Touch 📬', heading);
     console.log(

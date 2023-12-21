@@ -1,6 +1,6 @@
 # Torchbox.com on Wagtail
 
-[![CI](https://github.com/torchbox/wagtail-torchbox/actions/workflows/test.yml/badge.svg)](https://github.com/torchbox/wagtail-torchbox/actions/workflows/test.yml)
+[![CI](https://github.com/torchbox/torchbox.com/actions/workflows/test.yml/badge.svg)](https://github.com/torchbox/torchbox.com/actions/workflows/test.yml)
 
 This is the main Torchbox.com website. The careers section of this site can be found at [torchbox/careers](https://github.com/torchbox/careers).
 
@@ -67,8 +67,8 @@ If you are using Docker Desktop, ensure the Resources:File Sharing settings allo
 Starting a local build can be done by running:
 
 ```bash
-git clone git@github.com:torchbox/wagtail-torchbox.git
-cd wagtail-torchbox
+git clone git@github.com:torchbox/torchbox.com.git
+cd torchbox.com
 fab build
 fab migrate
 fab start
