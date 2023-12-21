@@ -7,7 +7,7 @@ The VM comes preinstalled with Fabric, Heroku CLI and AWS CLI.
 | Environment | Branch    | URL                                         | Heroku                        |
 | ----------- | --------- | ------------------------------------------- | ----------------------------- |
 | Production  | `master`  | e.g. https://torchbox.com                   | e.g. `projectname-production` |
-| Staging     | `staging` | e.g. https://torchbox-staging.herokuapp.com | e.g. `projectname-staging`    |
+| Staging     | `staging` | e.g. https://torchbox-com-staging.torchbox.dev/ | e.g. `projectname-staging`    |
 
 ## Login to Heroku
 

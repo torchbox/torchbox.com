@@ -20,8 +20,8 @@ FRONTEND = os.getenv("FRONTEND", "docker")
 PROJECT_DIR = "/app"
 LOCAL_DUMP_DIR = "database_dumps"
 
-PRODUCTION_APP_INSTANCE = "cms-torchbox-com"
-STAGING_APP_INSTANCE = "torchbox-staging"
+PRODUCTION_APP_INSTANCE = "torchbox-com-production"
+STAGING_APP_INSTANCE = "com-torchbox-staging"
 DEVELOPMENT_APP_INSTANCE = ""
 
 LOCAL_MEDIA_DIR = "media"
