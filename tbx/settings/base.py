@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "tbx.taxonomy",
     "tbx.work",
     "tbx.images",
+    "tbx.users",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -474,6 +475,8 @@ if env.get("BASIC_AUTH_ENABLED", "false").lower().strip() == "true":
             "BASIC_AUTH_WHITELISTED_HTTP_HOSTS"
         ].split(",")
 
+
+AUTH_USER_MODEL = "users.User"
 
 # Front-end cache
 # https://docs.wagtail.io/en/latest/reference/contrib/frontendcache.html
