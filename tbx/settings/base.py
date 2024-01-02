@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     "tbx.impact_reports",
     "tbx.navigation",
     "tbx.people",
-    "tbx.propositions",
-    "tbx.services",
     "tbx.sign_up_form",
     "tbx.taxonomy",
     "tbx.work",
