@@ -18,12 +18,12 @@
 - [ ] Stay on point and keep it small so the merge request can be easily reviewed.
 - [ ] Tests and linting passes.
 
-##### Unit tests
+#### Unit tests
 
 - [ ] Not required
 - [ ] Added
 
-##### Documentation
+#### Documentation
 
 - [ ] Updated
 
