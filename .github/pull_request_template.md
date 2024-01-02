@@ -20,16 +20,18 @@
 
 #### Unit tests
 
-- [ ] Not required
 - [ ] Added
+- [ ] Not required
 
 #### Documentation
 
 - [ ] Updated
+- [ ] Not required
 
 #### Browser testing
 
 - [ ] I have tested in the following browsers and environments:
+- [ ] Not required
 
 #### Data protection
 
@@ -42,7 +44,7 @@
 - [ ] Manual WCAG 2.1 tests completed
 - [ ] I have tested in a screen reader
 - [ ] I have tested in high-contrast mode
-- [ ] Not relevant to this PR
+- [ ] Not required
 
 #### Sustainability
 
@@ -50,4 +52,4 @@
 - [ ] Perfomance and transfer of data considered
 - [ ] If JavaScript is needed alternatives have been considered
 - [ ] New font variants have not been added
-- [ ] Not relevant to this PR
+- [ ] Not required
