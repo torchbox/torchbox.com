@@ -1,13 +1,12 @@
 {% load navigation_tags %}
-<header class="header">
-    <div class="header__inner">
-        {% include "patterns/atoms/logo/logo.html" %}
-        {% if show_primary_nav %}
-            <nav class="primary-nav desktop-nav" role="navigation" aria-label="Main navigation">
-                <ul class="primary-nav__list">
-                    {% primarynav is_home=False is_desktop=True %}
-                </ul>
-            </nav>
-        {% endif %}
+<header>
+    <div>
+        {# commented out for now to stop it looking huge while it is unstyled #}
+        {% comment %} {% include "patterns/atoms/logo/logo.html" %} {% endcomment %}
+        <nav role="navigation" aria-label="Main navigation">
+            <ul>
+                {% primarynav is_home=False is_desktop=True %}
+            </ul>
+        </nav>
     </div>
 </header>

@@ -56,12 +56,6 @@
         {% if social_img.alt %}
             <meta name="twitter:image:alt" content="{{ social_img.alt }}">
         {% endif %}
-    {% else %}
-        {% comment %}
-        An example of how to add a default image to use for social sharing in case one is not provided on the page.
-        Note that you need to explicitly add the root url here as the static path will not include it
-        <meta name="twitter:image" content="{{ current_site.root_url }}{% static 'images/social-image.png' %}">
-        {% endcomment %}
     {% endif %}
 
     {# facebook opengraph tags #}
@@ -70,10 +64,8 @@
     {% endif %}
 
     <meta property="og:type" content="website" />
-    {% if page %}
-        <meta property="og:url" content="{{ site.root_url }}{% pageurl page %}" />
-        <meta property="og:title" content="{{ page.title }}" />
-    {% endif %}
+    <meta property="og:url" content="{{ site.root_url }}{% pageurl page %}" />
+    <meta property="og:title" content="{{ page.title }}" />
     {% if page.social_image or page.feed_image or page.hero_image %}
         {% if page.social_image %}
             {% image page.social_image fill-1200x630 as social_img %}
@@ -108,9 +100,7 @@
 
 {% block header %}
     {% include "patterns/atoms/skip-link/skip-link.html" %}
-    {% include "patterns/organisms/header/header.html" with show_primary_nav=True %}
-    {% include "patterns/atoms/menu-button/menu-button.html" %}
-    {% include "patterns/molecules/navigation/mobile-nav.html" %}
+    {% include "patterns/organisms/header/header.html" %}
 {% endblock header %}
 
 {% block footer %}

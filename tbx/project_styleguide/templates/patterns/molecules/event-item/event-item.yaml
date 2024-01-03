@@ -7,8 +7,8 @@ context:
 
 tags:
   image:
-    item.author.image fill-100x100 class="avatar__image":
-      raw: '<img src="https://placekitten.com/100/100" class="avatar__image">'
+    item.author.image fill-100x100 alt="":
+      raw: '<img src="https://placekitten.com/100/100">'
   pageurl:
     item:
       raw: '#'

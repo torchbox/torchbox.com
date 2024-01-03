@@ -5,18 +5,11 @@
 
     {% include "patterns/molecules/title-block/title-block.html" with item=page tags=related_services %}
 
-    <div class="related-content">
-        <div class="related-content__content">
+    {% include "patterns/organisms/work-listing/work-listing.html" with works=works %}
 
-            <div class="related-content__list" data-fetch-destination="work-pages" data-fetch-max-pages="{{ works.paginator.num_pages }}">
-                {% include "patterns/organisms/work-listing/work-listing.html" with works=works %}
-            </div>
-
-            {% if works.has_next %}
-                {% include "patterns/atoms/see-more/see-more.html" with text="See more case studies" fetch_data="work-pages" %}
-            {% endif %}
-        </div>
-    </div>
+    {% if works.has_next %}
+        {% include "patterns/atoms/see-more/see-more.html" with text="See more case studies" %}
+    {% endif %}
 
     {% include_block page.call_to_action %}
 

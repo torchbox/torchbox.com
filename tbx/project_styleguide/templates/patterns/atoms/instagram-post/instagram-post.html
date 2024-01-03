@@ -1,14 +1,9 @@
 {% load wagtailimages_tags %}
-{% comment %} Used on careers_page.html and impact_report_page.html {% endcomment %}
+{% comment %} Used on impact_report_page.html {% endcomment %}
 
-<a class="instagram-post" href="{% firstof post.value.link post.link|default:"https://www.instagram.com/torchboxltd/" %}" target="_blank" rel="nofollow noreferrer">
-    {% if post.value.image %}
-        {% image post.value.image fill-500x500 as post_img %}
-    {% elif post.image %}
-        {% image post.image fill-500x500 as post_img %}
-    {% endif %}
-    <img src="{{ post_img.url }}" class="instagram-post__image" width="500" height="500" loading="lazy" alt="{{ post_img.alt }}"  />
-    <svg class="instagram-post__icon" viewBox="0 0 100 100" aria-hidden="true">
+<a href="{% firstof post.value.link post.link|default:"https://www.instagram.com/torchboxltd/" %}" target="_blank" rel="nofollow noreferrer">
+    {% image post.value.image fill-500x500 loading="lazy" %}
+    <svg viewBox="0 0 100 100" aria-hidden="true">
         <use xlink:href="#instagram" href="#instagram" />
     </svg>
 </a>

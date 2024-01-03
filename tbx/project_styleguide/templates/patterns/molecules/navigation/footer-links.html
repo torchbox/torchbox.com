@@ -1,8 +1,8 @@
 {% load wagtailcore_tags %}
-<nav class="footer__links" aria-label="Footer navigation">
+<nav aria-label="Footer navigation">
     {% for item in footerlinks %}
         {% with link=item.value %}
-            <a class="footer__link" href="{{ link.url }}" {% if not link.is_page %}target="_blank" rel="nofollow noreferrer"{% endif %}>
+            <a href="{{ link.url }}" {% if not link.is_page %}target="_blank" rel="nofollow noreferrer"{% endif %}>
                 {{ link.text }}
                 {# external link #}
                 {% if not link.is_page %}

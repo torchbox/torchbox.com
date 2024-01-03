@@ -15,3 +15,10 @@ context:
       - { title: James Leavesley, role: Managing Director }
       - { title: Paul Vetch, role: Strategy Director }
       - { title: Olly Willans, role: Creative Director }
+
+tags:
+  image:
+    item.image fill-550x550 as image:
+      target_var: image
+      raw:
+        url: '//placekitten.com/550/550'

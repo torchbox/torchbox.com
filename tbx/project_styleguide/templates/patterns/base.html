@@ -21,14 +21,14 @@
             <meta name="robots" content="noindex">
         {% endif %}
 
-        {% block meta_tags %}{% endblock %}
+        {% comment %} {% block meta_tags %}{% endblock %} {% endcomment %}
 
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
         {% block extra_css %}{% endblock %}
     </head>
 
-    <body class="{% block theme_class %}{% if page.theme %}theme--{{ page.theme }}{% else %}theme--light{% endif %}{% endblock %}">
+    <body>
         {% block body_top %}{% endblock %}
 
         {% include "patterns/atoms/sprites/sprites.html" %}
