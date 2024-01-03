@@ -797,6 +797,19 @@ django = ">=3.0"
 pytz = "*"
 
 [[package]]
+name = "djhtml"
+version = "3.0.6"
+description = "Django/Jinja template indenter"
+optional = false
+python-versions = "*"
+files = [
+    {file = "djhtml-3.0.6.tar.gz", hash = "sha256:abfc4d7b4730432ca6a98322fbdf8ae9d6ba254ea57ba3759a10ecb293bc57de"},
+]
+
+[package.extras]
+dev = ["nox", "pre-commit"]
+
+[[package]]
 name = "draftjs-exporter"
 version = "2.1.7"
 description = "Library to convert rich text from Draft.js raw ContentState to HTML"
@@ -2794,4 +2807,4 @@ gunicorn = ["gunicorn"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "89f7743afdfbdc30b089cfb2155aa08841bbb073ad5b46ed9a70f868e871ad15"
+content-hash = "d5ceb5b845e87e61a6f32a258b7a6904040bda256f7498bcc5be793b3c234558"
