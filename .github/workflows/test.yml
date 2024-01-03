@@ -21,8 +21,10 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/.nvmrc') }}-${{ hashFiles('**/package-lock.json') }}
-      - if: steps.node-cache.outputs.cache-hit != 'true'
+      - name: install-node
         run: npm ci --no-audit
+      # - if: steps.node-cache.outputs.cache-hit != 'true'
+      #   run: npm ci --no-audit
       - uses: actions/cache@v3
         with:
           path: ${{ env.HOME }}/.cache/pre-commit
