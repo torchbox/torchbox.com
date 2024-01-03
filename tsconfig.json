@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    // Webpack will convert ES modules to the required format.
+    "module": "esnext",
+    "esModuleInterop": true,
+    // Setting a very low target for IE11 compatibility.
+    "target": "es5",
+    // Make it possible to gradually adopt TypeScript, or not use it at all.
+    "allowJs": true,
+    // Turn on stricter type checking.
+    "strict": true,
+    /* feature:use_vue */
+    // For Vue compatibility. Can be removed when Vue is not in use.
+    "noImplicitAny": false,
+    /* endfeature */
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "sourceMap": true,
+    "jsx": "react",
+    "moduleResolution": "node"
+  },
+  "include": ["tbx/static_src"],
+  "exclude": ["node_modules", "tbx/static_compiled"]
+}

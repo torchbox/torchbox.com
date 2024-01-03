@@ -1,0 +1,25 @@
+@use "config" as *;
+
+.icon {
+    width: 20px;
+    height: 20px;
+    transition: fill $transition;
+    fill: $color--white;
+
+    &--dark {
+        fill: $color--black;
+    }
+
+    &--home {
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+        fill: $color--primary;
+    }
+
+    &--footer-social {
+        @include media-query(medium) {
+            margin-right: 10px;
+        }
+    }
+}

@@ -1,0 +1,173 @@
+@use "sass:color";
+// --------------------------------- Colors ------------------------------------
+
+$color--primary: #444;
+$color--secondary: #fff;
+$color--tertiary: #f9f9f9;
+
+$color--white: #fff;
+$color--black: #000;
+$color--off-black: #0b0c0c;
+$color--red: #d4351c;
+$color--border: color.adjust($color--off-black, $alpha: -0.8);
+
+$color--default: $color--off-black;
+
+// Button colours
+$button-colours: (
+    primary: (
+        bg: $color--primary,
+        color: $color--white,
+    ),
+    secondary: (
+        bg: $color--secondary,
+        color: $color--black,
+    ),
+    tertiary: (
+        bg: $color--tertiary,
+        color: $color--off-black,
+    ),
+);
+
+// --------------------------------- Fonts -------------------------------------
+
+$font--primary: sans-serif;
+$font--secondary: sans-serif;
+
+// Font weights
+$weight--bold: 700;
+$weight--semibold: 600;
+$weight--medium: 500;
+$weight--normal: 400;
+$weight--light: 200;
+
+// Font sizes
+$base-font-size: 16px;
+$base-line-height: 25px;
+
+// Font sizes
+$large-font-sizes: (
+    feature-one: 90px,
+    feature-two: 76px,
+    heading-one: 64px,
+    heading-two: 46px,
+    heading-three: 32px,
+    heading-four: 30px,
+    heading-five: 24px,
+    body-feature: 18px,
+    body: 14px,
+    supporting: 12px,
+);
+
+$medium-font-sizes: (
+    feature-one: 78px,
+    feature-two: 68px,
+    heading-one: 52px,
+    heading-two: 38px,
+    heading-three: 28px,
+    heading-four: 26px,
+    heading-five: 20px,
+    body-feature: 16px,
+    body: 14px,
+    supporting: 12px,
+);
+
+$small-font-sizes: (
+    feature-one: 44px,
+    feature-two: 38px,
+    heading-one: 32px,
+    heading-two: 28px,
+    heading-three: 24px,
+    heading-four: 22px,
+    heading-five: 18px,
+    body-feature: 14px,
+    body: 12px,
+    supporting: 12px,
+);
+
+// --------------------------------- Sizing ------------------------------------
+
+$breakpoints: ('medium' '(min-width: 599px)', 'large' '(min-width: 1023px)');
+
+// Layout
+$site-width: 1280px;
+
+// Grid setup
+$grid: 20px;
+
+// --------------------------------- Misc --------------------------------------
+
+$transition: 0.25s ease-out;
+$z-index: (
+    under: -1,
+    base: 10,
+    overlap: 20,
+    header: 30,
+    footer: 40,
+    nav: 50,
+    cookie-message: 100,
+    modal: 110,
+    modal-controls: 120,
+);
+
+// --------------------------------- Accessibility -----------------------------
+
+$focus-bg: #ffbf47;
+$focus-color: $color--off-black;
+$focus-width: 3px;
+
+// --------------------------------- TBX forms ---------------------------------
+
+// Colours
+// -------
+
+$tbxforms-error-colour: $color--red;
+$tbxforms-text-colour: $focus-color;
+$tbxforms-print-text-colour: $color--black;
+$tbxforms-secondary-text-colour: #505a5f; // Used for help text
+$tbxforms-border-colour-conditional: #b1b4b6;
+$tbxforms-input-border-colour: $tbxforms-text-colour();
+$tbxforms-hover-colour: #b1b4b6;
+$tbxforms-focus-colour: $focus-bg;
+$tbxforms-active-bg: $color--primary;
+$tbxforms-active-colour: $color--white;
+
+// Sizing
+// ------
+
+$tbxforms-base-font-size: $base-font-size;
+$tbxforms-base-line-height: $base-line-height;
+
+// Misc
+// ----
+
+$tbxforms-weight--bold: $weight--bold;
+$tbxforms-weight--normal: $weight--normal;
+
+$tbxforms-grid: $grid;
+$tbxforms-spacer: $tbxforms-grid;
+$tbxforms-in-field-spacer: ($tbxforms-grid / 2);
+$tbxforms-form-group-spacer: ($tbxforms-grid * 1.5);
+
+$tbxforms-border-width: 4px;
+$tbxforms-border-width-narrow: 2px;
+$tbxforms-border-width-form-element: $tbxforms-border-width-narrow;
+$tbxforms-border-width-form-element-error: $tbxforms-border-width-narrow;
+$tbxforms-border-width-form-group: $tbxforms-border-width;
+$tbxforms-border-width-conditional: $tbxforms-border-width;
+
+$tbxforms-hover-width: 10px;
+$tbxforms-focus-width: $focus-width;
+// When the default focus width is used on a curved edge it looks visually smaller.
+// So for the circular radios we bump the default to make it look visually consistent.
+$tbxforms-radios-focus-width: $tbxforms-focus-width + 1px;
+
+$tbxforms-touch-target-size: 44px;
+
+$tbxforms-checkboxes-size: 40px;
+$tbxforms-small-checkboxes-size: 24px;
+$tbxforms-checkboxes-label-padding-left-right: $tbxforms-in-field-spacer;
+
+$tbxforms-radios-size: 40px;
+$tbxforms-small-radios-size: 24px;
+$tbxforms-radios-label-padding-left-right: $tbxforms-in-field-spacer;

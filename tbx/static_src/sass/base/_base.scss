@@ -1,3 +1,6 @@
+@use "config" as *;
+@use "sass:color";
+
 // Box Sizing
 *,
 *::before,
@@ -5,23 +8,27 @@
     box-sizing: border-box;
 }
 
+// Prevent text size change on orientation change.
 html {
+    font-family: $font--primary;
+    text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
 
     @media (prefers-reduced-motion: reduce) {
         scroll-behavior: auto;
     }
 
-    &.template__service-page {
-        scroll-padding-top: 65px;
+    // Fix for Chrome which doesn't correctly scroll to form validation messages when this is set to smooth
+    &.no-scroll-behaviour {
+        scroll-behavior: auto;
     }
 }
 
 body {
-    @include font-size(s);
     overflow-x: hidden;
-    background-color: var(--color--white);
-    font-variant-ligatures: none;
+    background-color: $color--tertiary;
 
     &.no-scroll {
         overflow-y: hidden;
@@ -47,15 +54,36 @@ textarea {
     font-family: inherit;
 }
 
+form:not(.tbxforms) {
+    // Basic :focus styles to keep consistency with tbxforms form elements.
+    button:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: $focus-width solid $focus-bg;
+        outline-offset: 0;
+    }
+}
+
 a {
-    color: var(--color--link);
+    color: $color--primary;
     text-decoration: none;
     transition: color $transition;
-    border-bottom: 2px solid var(--color--underline);
 
     &:hover {
-        color: var(--color--hover);
+        color: color.adjust($color--primary, $lightness: -20%);
         cursor: pointer;
+    }
+
+    &:focus {
+        outline: $focus-width solid transparent;
+        color: $focus-color;
+        background-color: $focus-bg;
+        box-shadow: (
+            0 (-$focus-width/2) $focus-bg,
+            0 $focus-width $focus-color
+        );
+        text-decoration: none;
     }
 }
 
@@ -64,11 +92,4 @@ ol {
     padding: 0;
     margin: 0;
     list-style: none;
-}
-
-//Used to prevent any subnav / overlay flicker on load.
-//https://alpinejs.dev/directives/cloak
-[x-cloak] {
-    /* stylelint-disable-next-line declaration-no-important */
-    display: none !important;
 }
