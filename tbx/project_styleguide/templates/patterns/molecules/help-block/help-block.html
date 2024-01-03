@@ -1,13 +1,13 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-    {% include "patterns/atoms/section-title/section-title.html" with title=title %}
-    <h2>
-        {{ intro|richtext }}
-    </h2>
-    <ul>
-        {% for item in items %}
-            {% include "patterns/molecules/list-item/list-item.html" with item=item %}
-        {% endfor %}
-    </ul>
+{% include "patterns/atoms/section-title/section-title.html" with title=title %}
+<h2>
+    {{ intro|richtext }}
+</h2>
+<ul>
+    {% for item in items %}
+        {% include "patterns/molecules/list-item/list-item.html" with item=item %}
+    {% endfor %}
+</ul>
 
 {% if contact %}
     {% image contact.image fill-100x100 %}

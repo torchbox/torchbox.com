@@ -7,12 +7,11 @@
     <a href="{{ value.external_link }}">{{ value.button_text }}</a>
 {% endif %}
 {% if value.embed or value.image %}
-        {% if value.embed %}
-            {{ value.embed }}
-        {% endif %}
-        {% if value.image %}
-            {% image value.image max-1280x860 as img %}
-            <img src="{{ img.url }}" alt="{{ img.title }}" loading="lazy" />
-        {% endif %}
-    </div>
+    {% if value.embed %}
+        {{ value.embed }}
+    {% endif %}
+    {% if value.image %}
+        {% image value.image max-1280x860 as img %}
+        <img src="{{ img.url }}" alt="{{ img.title }}" loading="lazy" />
+    {% endif %}
 {% endif %}
