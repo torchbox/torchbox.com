@@ -1,5 +1,4 @@
 from django.db import models
-from django.shortcuts import render
 
 from modelcluster.fields import ParentalKey
 from tbx.core.blocks import PageSectionStoryBlock
@@ -17,7 +16,6 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, Page
 from wagtail.snippets.models import register_snippet
 
-from .api import PeopleHRFeed
 from .blocks import StoryBlock
 from .fields import ColorField
 
@@ -326,60 +324,6 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-
-
-# Jobs index page
-
-# NOTE: This block has been retired due to the jobs page now being fed via PeopleHR API
-class JobIndexPageJob(Orderable):
-    page = ParentalKey("torchbox.JobIndexPage", related_name="jobs")
-    title = models.CharField(max_length=255)
-    level = models.CharField(max_length=255)
-    url = models.URLField(null=True)
-    location = models.CharField(max_length=255, blank=True)
-
-    panels = [
-        FieldPanel("title"),
-        FieldPanel("level"),
-        FieldPanel("url"),
-        FieldPanel("location"),
-    ]
-
-
-class JobIndexPage(SocialFields, Page):
-    template = "patterns/pages/job/job_listing.html"
-
-    strapline = models.CharField(max_length=255)
-    intro = RichTextField(blank=True)
-    jobs_xml_feed = models.URLField(blank=True)
-
-    content_panels = Page.content_panels + [
-        FieldPanel("strapline", classname="title"),
-        FieldPanel("intro"),
-        FieldPanel("jobs_xml_feed"),
-    ]
-
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
-
-    def serve(self, request):
-        try:
-            feed = PeopleHRFeed()
-            jobs = feed.get_jobs(url=self.jobs_xml_feed)
-        except Exception as e:
-            jobs = []
-            raise e
-
-        return render(
-            request,
-            self.template,
-            {"page": self, "jobs": jobs, "feed_success": len(jobs) > 0},
-        )
-
-    def serve_preview(self, request, mode_name):
-        return self.serve(request)
 
 
 class BaseAddress(blocks.StructBlock):
