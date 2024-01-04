@@ -44,11 +44,13 @@
 - [ ] Manual WCAG 2.1 tests completed
 - [ ] I have tested in a screen reader
 - [ ] I have tested in high-contrast mode
+- [ ] Any animations removed for prefers-reduced-motion
 - [ ] Not required
 
 #### Sustainability
 
 - [ ] Images are optimised and lazy-loading used where appropriate
+- [ ] SVGs have been optimised
 - [ ] Perfomance and transfer of data considered
 - [ ] If JavaScript is needed alternatives have been considered
 - [ ] New font variants have not been added
