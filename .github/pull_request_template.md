@@ -31,7 +31,7 @@
 
 #### Browser testing
 
-- [ ] I have tested in the following browsers and environments (edit as required)
+- [ ] I have tested in the following browsers and environments (edit the list as required)
   - Latest version of Chrome on mac
   - Latest version of Firefox on mac
   - Latest version of Safari on mac
