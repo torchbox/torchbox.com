@@ -1,5 +1,6 @@
 import DesktopSubMenu from './desktop-sub-menu';
 
+// todo: update markup when navigation is implemented
 describe('DesktopSubMenu', () => {
     beforeEach(() => {
         document.body.innerHTML = `

@@ -1,5 +1,7 @@
 import MobileMenu from './mobile-menu';
 
+// todo: update markup when navigation is implemented
+
 describe('MobileMenu', () => {
     beforeEach(() => {
         document.body.innerHTML = `
