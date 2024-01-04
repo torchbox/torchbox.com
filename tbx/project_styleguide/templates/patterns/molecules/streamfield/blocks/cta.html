@@ -1,5 +1,5 @@
 {% load wagtailcore_tags %}
-<p>{{ value.text|richtext }}</p>
+<div>{{ value.text|richtext }}</div>
 {% with link=value.link.0.value %}
     <a href="{{ link.url }}">{{ link.text }}</a>
 {% endwith %}
