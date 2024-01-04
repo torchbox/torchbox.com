@@ -16,6 +16,7 @@ html {
 */
 @mixin heading-text() {
     font-family: $font--primary;
+    color: var(--color--heading);
     font-style: inherit;
     font-weight: inherit;
 }

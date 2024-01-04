@@ -1,11 +1,54 @@
 @use "sass:color";
 // --------------------------------- Colors ------------------------------------
 
+$color--off-black: #171c1d;
+$color--dark-blue: #481cd9;
+$color--coral: #fd5765;
+$color--pink: #fe7eec;
+$color--white: #fff;
+$color--purple-light: #7045ff;
+$color--coral-light: #fc8698;
+$color--purple: #5e1998;
+$color--lagoon: #0c829b;
+$color--lagoon-light: #6bd8ef;
+$color--light-blue: #659ff2;
+$color--blue: #2828ef;
+$color--grey: #ccc;
+$color--dark-grey: #1d2325;
+
+// Coral dark by default
+:root {
+    --color--background: #{$color--dark-grey};
+    --color--heading: #{$color--white};
+    --color--text: #{$color--grey};
+    --color--link: #{$color--grey};
+    --color--link-interaction: #{$color--white};
+    --color--footer-background: #{$color--off-black};
+    --color--accent-one: #{$color--dark-grey};
+    --color--accent-two: #{$color--purple-light};
+    --color--accent-three: #{$color--coral-light};
+    --color--accent-four: #{$color--purple};
+    --color--accent-five: #{$color--white};
+}
+
+.theme-lagoon-dark {
+    --color--background: #{$color--dark-grey};
+    --color--heading: #{$color--white};
+    --color--text: #{$color--white};
+    --color--link: #{$color--grey};
+    --color--link-interaction: #{$color--white};
+    --color--footer-background: #{$color--lagoon};
+    --color--accent-one: #{$color--dark-grey};
+    --color--accent-two: #{$color--purple-light};
+    --color--accent-three: #{$color--lagoon-light};
+    --color--accent-four: #{$color--blue};
+    --color--accent-five: #{$color--white};
+}
+
 $color--primary: #444;
 $color--secondary: #fff;
 $color--tertiary: #f9f9f9;
 
-$color--white: #fff;
 $color--black: #000;
 $color--off-black: #0b0c0c;
 $color--red: #d4351c;

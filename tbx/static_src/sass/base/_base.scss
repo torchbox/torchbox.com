@@ -28,7 +28,8 @@ html {
 
 body {
     overflow-x: hidden;
-    background-color: $color--tertiary;
+    background-color: var(--color--background);
+    color: var(--color--text);
 
     &.no-scroll {
         overflow-y: hidden;
@@ -66,12 +67,12 @@ form:not(.tbxforms) {
 }
 
 a {
-    color: $color--primary;
-    text-decoration: none;
+    color: var(--color--link);
+    text-decoration: underline;
     transition: color $transition;
 
     &:hover {
-        color: color.adjust($color--primary, $lightness: -20%);
+        color: var(--color--link-interaction);
         cursor: pointer;
     }
 
