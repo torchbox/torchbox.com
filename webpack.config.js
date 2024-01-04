@@ -111,14 +111,7 @@ const options = {
                 // only looks in the fonts folder so pngs in the images folder won't get put in the fonts folder
                 test: /\.(woff|woff2)$/,
                 include: /fonts/,
-                use: {
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[ext]',
-                        outputPath: 'fonts/',
-                        publicPath: '../fonts',
-                    },
-                },
+                type: 'asset/resource',
             },
             {
                 // Handles CSS background images in the cssBackgrounds folder
