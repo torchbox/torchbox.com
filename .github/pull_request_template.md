@@ -25,12 +25,18 @@
 
 #### Documentation
 
-- [ ] Updated
+- [ ] Updated build docs
+- [ ] Updated editor guidelines (https://docs.google.com/document/d/1PAWccdQ4tfaZsrEWmpDhvP3GH5RRmBOARFVp4b-kje8/edit?usp=sharing)
 - [ ] Not required
 
 #### Browser testing
 
-- [ ] I have tested in the following browsers and environments:
+- [ ] I have tested in the following browsers and environments (edit as required)
+  - Latest version of Chrome on mac
+  - Latest version of Firefox on mac
+  - Latest version of Safari on mac
+  - Safari on last two versions of iOS
+  - Chrome on last two versions of Android
 - [ ] Not required
 
 #### Data protection
