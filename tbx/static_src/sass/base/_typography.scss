@@ -1,19 +1,12 @@
-@use 'sass:math';
+@use "config" as *;
 
 /* ============================================
     Base font
 */
 html {
-    font-family: $font--primary;
+    font-size: ($base-font-size / 16px) * 100%;
     line-height: 1.4;
-    color: var(--color--grey);
-    text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
-    // Make this equivalent to $base-font-size in typography.scss
-    // I'm using 16px as this seems to be the standard base font size across browsers.
-    font-size: 16px;
+    color: $color--default;
 }
 
 /* ============================================
@@ -35,7 +28,7 @@ html {
 }
 
 @mixin quote-text() {
-    font-family: $font--primary;
+    font-family: $font--secondary;
     font-style: italic;
     font-weight: inherit;
     text-transform: inherit;
@@ -49,83 +42,89 @@ h5,
 h6,
 .heading {
     @include heading-text();
+    margin: 0 0 1rem;
 }
 
-html,
-.body-text {
-    @include body-text();
+// ------------------------------- Default sizes ----------------------------
+h1 {
+    @include font-size(heading-one);
+}
+
+h2 {
+    @include font-size(heading-two);
+}
+
+h3 {
+    @include font-size(heading-three);
+}
+
+h4 {
+    @include font-size(heading-four);
+}
+
+h5,
+h6 {
+    @include font-size(heading-five);
+}
+
+small {
+    @include font-size(supporting);
+}
+
+// ------------------------------- Feature ----------------------------------
+.feature {
+    &--one {
+        @include font-size(feature-one);
+        font-weight: $weight--semibold;
+        line-height: 1.1;
+    }
+
+    &--two {
+        @include font-size(feature-two);
+        font-weight: $weight--semibold;
+        line-height: 1.1;
+    }
+}
+
+// ------------------------------- Heading ----------------------------------
+.heading {
+    &--one {
+        @include font-size(heading-one);
+    }
+
+    &--two {
+        @include font-size(heading-two);
+    }
+
+    &--three {
+        @include font-size(heading-three);
+    }
+
+    &--four {
+        @include font-size(heading-four);
+    }
+
+    &--five {
+        @include font-size(heading-five);
+    }
+}
+
+// ------------------------------- Body ----------------------------------
+.body {
+    @include font-size(body);
+    font-weight: $weight--normal;
+    line-height: 1.4;
+
+    &--feature {
+        @include font-size(body-feature);
+    }
+}
+
+// ------------------------------- Supporting ----------------------------------
+.supporting {
+    @include font-size(supporting);
 }
 
 blockquote {
     @include quote-text();
-}
-
-// Default sizes
-h1,
-.heading--1 {
-    @include font-size(xl);
-    font-weight: $weight--bold;
-    margin: 0 0 ($gutter * 0.5);
-    color: var(--color--dark-indigo);
-
-    @include media-query(medium) {
-        margin-right: $variable-gutter--small;
-    }
-}
-
-h2,
-.heading--2 {
-    @include font-size(l);
-    font-weight: $weight--heavy;
-    margin: ($gutter * 3) 0 $gutter;
-    color: var(--color--dark-indigo);
-}
-
-h3,
-h4,
-.heading--3,
-.heading--4 {
-    @include font-size(m);
-    font-weight: $weight--bold;
-    margin: ($gutter * 3) 0 ($gutter * 0.5);
-    color: var(--color--dark-indigo);
-}
-
-h5,
-h6,
-.heading--5,
-.heading--6 {
-    @include font-size(m);
-}
-
-small {
-    @include font-size(xxs);
-}
-
-p {
-    margin: 0 0 ($gutter * 1.5);
-    color: var(--color--grey);
-}
-
-b,
-strong {
-    font-weight: $weight--bold;
-}
-
-.strong-black {
-    font-weight: $weight--heavy;
-}
-
-i {
-    font-style: italic;
-}
-
-pre {
-    margin: 0 0 ($gutter * 1.5) 0;
-    padding: ($gutter * 0.5);
-    font-family: monospace;
-    word-break: break-all;
-    white-space: pre-wrap;
-    background: var(--color--light-grey);
-    border-radius: 5px;
 }

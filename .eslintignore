@@ -1,6 +1,5 @@
 node_modules
 coverage
 static_compiled
-static
 venv
 cloudflare/workers.js

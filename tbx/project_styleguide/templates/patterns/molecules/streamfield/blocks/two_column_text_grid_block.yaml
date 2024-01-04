@@ -16,5 +16,5 @@ context:
 
 tags:
   image:
-    item.image fill-50x50:
+    item.image fill-70x70:
       raw: '<img src="https://placekitten.com/50/50">'

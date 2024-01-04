@@ -1,3 +1,5 @@
+@use "config" as *;
+
 .sprites-preview-icons {
     padding: 40px;
     display: flex;
@@ -23,8 +25,8 @@
     &__icon {
         width: 30px;
         height: 30px;
-        color: var(--color--black);
-        fill: var(--color--black);
+        color: $color--black;
+        fill: $color--black;
     }
 
     &__name {

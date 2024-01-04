@@ -6,6 +6,10 @@ context:
 
 tags:
   image:
-    value.image fill-730x490 as aligned_image:
-      raw: |
-        <img src="http://via.placeholder.com/730x490" alt="Some alt">
+    value.image max-1280x860 as aligned_image:
+      target_var: aligned_image
+      raw:
+        url: '//placekitten.com/1280/860'
+        alt: Some alt
+        height: 860
+        width: 1280

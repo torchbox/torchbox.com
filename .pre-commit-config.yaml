@@ -22,8 +22,8 @@ repos:
     hooks:
       - id: eslint
         additional_dependencies:
-          - eslint@8.10.0
-          - eslint-config-torchbox@0.6.0
+          - eslint@8.51.0
+          - eslint-config-torchbox@1.1.0
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.3.2
     hooks:

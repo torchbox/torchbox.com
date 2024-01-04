@@ -1,6 +1,6 @@
 tags:
   image:
-    value.image fill-1600x900 as wide_image:
+    value.image max-1600x900 as wide_image:
       target_var: wide_image
       raw:
         url: '//placekitten.com/1600/900'

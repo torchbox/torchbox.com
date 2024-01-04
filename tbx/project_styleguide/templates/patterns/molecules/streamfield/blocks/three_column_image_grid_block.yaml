@@ -10,5 +10,5 @@ context:
 
 tags:
   image:
-    item.image fill-100x100:
+    item.image height-80:
       raw: '<img src="https://placekitten.com/100/100">'

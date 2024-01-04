@@ -1,20 +1,10 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-<div class="streamfield__aligned-image
-    {% if value.alignment == 'full' %}streamfield__aligned-image--full-width
-    {% elif value.alignment == 'half' %}streamfield__aligned-image--half-width
-    {% elif value.alignment == 'left' %}streamfield__aligned-image--wrap-left
-    {% elif value.alignment == 'right' %}streamfield__aligned-image--wrap-right
-    {% endif %}"
->
-    {% if value.alignment == 'full' %}
-        {% image value.image max-1280x860 as aligned_image %}
-    {% else %}
-        {% image value.image max-730x490 as aligned_image %}
-    {% endif %}
-    <img src="{{ aligned_image.url }}" alt="{{ aligned_image.alt }}" height="{{ aligned_image.height }}" width="{{ aligned_image.width }}" loading="lazy" />
-    {% if value.caption %}
-        <div class="streamfield__aligned-image-caption">
-            <span>{{ value.caption }}</span>
-        </div>
-    {% endif %}
-</div>
+{% if value.alignment == 'full' %}
+    {% image value.image max-1280x860 as aligned_image %}
+{% else %}
+    {% image value.image max-730x490 as aligned_image %}
+{% endif %}
+<img src="{{ aligned_image.url }}" alt="{{ aligned_image.alt }}" height="{{ aligned_image.height }}" width="{{ aligned_image.width }}" loading="lazy" />
+{% if value.caption %}
+    {{ value.caption }}
+{% endif %}

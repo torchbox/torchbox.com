@@ -1,0 +1,12 @@
+@use "config" as *;
+
+.tabs {
+    &__panel {
+        padding: 20px;
+        outline: 1px solid transparent;
+
+        &--hidden {
+            display: none;
+        }
+    }
+}

@@ -546,9 +546,18 @@ if "MAILCHIMP_MAILING_LIST_ID" in env:
 PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
 # Styleguide
 PATTERN_LIBRARY_ENABLED = env.get("PATTERN_LIBRARY_ENABLED", "false").lower() == "true"
-PATTERN_LIBRARY_TEMPLATE_DIR = os.path.join(
-    PROJECT_DIR, "project_styleguide", "templates"
-)
+PATTERN_LIBRARY = {
+    "SECTIONS": (
+        ("atoms", ["patterns/atoms"]),
+        ("molecules", ["patterns/molecules"]),
+        ("organisms", ["patterns/organisms"]),
+        ("pages", ["patterns/pages"]),
+    ),
+    "TEMPLATE_SUFFIX": ".html",
+    "PATTERN_BASE_TEMPLATE_NAME": "patterns/base.html",
+    "BASE_TEMPLATE_NAMES": ["patterns/base_page.html"],
+}
+
 
 # Google Tag Manager ID from env
 GOOGLE_TAG_MANAGER_ID = env.get("GOOGLE_TAG_MANAGER_ID")

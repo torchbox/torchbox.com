@@ -1,26 +1,26 @@
 {% load wagtailcore_tags %}
-<blockquote class="pullquote {% if classes %}{{ classes }}{% endif %}">
-    <svg class="pullquote__icon" width="120" height="90" aria-hidden="true">
+<blockquote>
+    <svg width="120" height="90" aria-hidden="true">
         <use xlink:href="#quote-icon" />
     </svg>
-    <p class="pullquote__text">{{ value.quote }}</p>
-    <cite class="pullquote__cite">
+    <p>{{ value.quote }}</p>
+    <cite>
         {% if value.attribution %}
-            <span class="pullquote__attribution">{{ value.attribution }}</span>
+            <span>{{ value.attribution }}</span>
         {% endif %}
 
         {% if value.name %}
-            <span class="pullquote__name">{{ value.name }}</span>
+            <span>{{ value.name }}</span>
         {% endif %}
 
         {% if value.role %}
-            <span class="pullquote__role">{{ value.role }}</span>
+            <span>{{ value.role }}</span>
         {% endif %}
     </cite>
 
     {% with link=value.link.0.value %}
         {% if link %}
-            <a href="{{ link.url }}" class="pullquote__link">{{ link.text }}</a>
+            <a href="{{ link.url }}">{{ link.text }}</a>
         {% endif %}
     {% endwith %}
 </blockquote>

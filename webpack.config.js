@@ -1,17 +1,22 @@
 const path = require('path');
-const autoprefixer = require('autoprefixer');
-const cssnano = require('cssnano');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const postcssCustomProperties = require('postcss-custom-properties');
 const sass = require('sass');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const StylelintPlugin = require('stylelint-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const projectRoot = 'tbx';
 
 const options = {
     entry: {
         // multiple entries can be added here
-        main: `./${projectRoot}/static_src/javascript/main.js`,
+        // 'main' is ignored from prettier because if vue (or anything else) isn't added
+        // here, it will deem the quotes uneccessary.
+        'main': `./${projectRoot}/static_src/javascript/main.js`, // prettier-ignore
+    },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js'],
     },
     output: {
         path: path.resolve(`./${projectRoot}/static_compiled/`),
@@ -36,21 +41,38 @@ const options = {
         new MiniCssExtractPlugin({
             filename: 'css/[name].css',
         }),
+        new ESLintPlugin({
+            failOnError: false,
+            lintDirtyModulesOnly: true,
+            emitWarning: true,
+        }),
+        new StylelintPlugin({
+            failOnError: false,
+            lintDirtyModulesOnly: true,
+            emitWarning: true,
+            extensions: ['scss'],
+        }),
+        //  Automatically remove all unused webpack assets on rebuild
+        new CleanWebpackPlugin(),
     ],
     module: {
         rules: [
             {
-                // tells webpack how to handle js and jsx files
-                test: /\.(js|jsx)$/,
+                test: /\.(js|ts|tsx)$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'babel-loader',
+                    loader: 'ts-loader',
                 },
             },
             {
                 test: /\.(scss|css)$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            esModule: false,
+                        },
+                    },
                     {
                         loader: 'css-loader',
                         options: {
@@ -62,12 +84,11 @@ const options = {
                         options: {
                             sourceMap: true,
                             postcssOptions: {
-                                plugins: () => [
-                                    autoprefixer(),
-                                    postcssCustomProperties(),
-                                    cssnano({
-                                        preset: 'default',
-                                    }),
+                                plugins: [
+                                    'tailwindcss',
+                                    'autoprefixer',
+                                    'postcss-custom-properties',
+                                    ['cssnano', { preset: 'default' }],
                                 ],
                             },
                         },
@@ -85,7 +106,11 @@ const options = {
                 ],
             },
             {
-                test: /\.(ttf|eot|woff|woff2)$/,
+                // sync font files referenced by the css to the fonts directory
+                // the publicPath matches the path from the compiled css to the font file
+                // only looks in the fonts folder so pngs in the images folder won't get put in the fonts folder
+                test: /\.(woff|woff2)$/,
+                include: /fonts/,
                 type: 'asset/resource',
             },
             {
@@ -120,10 +145,70 @@ const options = {
     via the Django JSi18n helper, and uncomment it from the 'externals' object above.
 */
 
-if (process.env.NODE_ENV === 'development') {
-    // Create JS source maps in the dev mode
-    // See https://webpack.js.org/configuration/devtool/ for more options
-    options.devtool = 'inline-source-map';
-}
+const webpackConfig = (environment, argv) => {
+    const isProduction = argv.mode === 'production';
 
-module.exports = options;
+    options.mode = isProduction ? 'production' : 'development';
+
+    if (!isProduction) {
+        // https://webpack.js.org/configuration/stats/
+        const stats = {
+            // Tells stats whether to add the build date and the build time information.
+            builtAt: false,
+            // Add chunk information (setting this to `false` allows for a less verbose output)
+            chunks: false,
+            // Add the hash of the compilation
+            hash: false,
+            // `webpack --colors` equivalent
+            colors: true,
+            // Add information about the reasons why modules are included
+            reasons: false,
+            // Add webpack version information
+            version: false,
+            // Add built modules information
+            modules: false,
+            // Show performance hint when file size exceeds `performance.maxAssetSize`
+            performance: false,
+            // Add children information
+            children: false,
+            // Add asset Information.
+            assets: false,
+        };
+
+        options.stats = stats;
+
+        // Create JS source maps in the dev mode
+        // See https://webpack.js.org/configuration/devtool/ for more options
+        options.devtool = 'inline-source-map';
+
+        // See https://webpack.js.org/configuration/dev-server/.
+        options.devServer = {
+            // Enable gzip compression for everything served.
+            compress: true,
+            static: false,
+            host: '0.0.0.0',
+            // When set to 'auto' this option always allows localhost, host, and client.webSocketURL.hostname
+            allowedHosts: 'auto',
+            port: 3000,
+            proxy: {
+                context: () => true,
+                target: 'http://localhost:8000',
+            },
+            client: {
+                // Shows a full-screen overlay in the browser when there are compiler errors.
+                overlay: true,
+                logging: 'error',
+            },
+            devMiddleware: {
+                index: true,
+                publicPath: '/static/',
+                writeToDisk: true,
+                stats,
+            },
+        };
+    }
+
+    return options;
+};
+
+module.exports = webpackConfig;

@@ -1,4 +1,4 @@
-FROM node:16 as frontend
+FROM node:20 as frontend
 
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true

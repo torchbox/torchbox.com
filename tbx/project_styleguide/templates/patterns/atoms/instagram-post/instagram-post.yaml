@@ -1,5 +1,9 @@
 context:
-  embed:
-    url: https://example.com
-    author_name: torchboxltd
-    thumbnail_url: https://placekitten.com/480/360
+  post:
+    value:
+      link: '#'
+
+tags:
+  image:
+    post.value.image fill-500x500 loading="lazy":
+      raw: '<img src="https://placekitten.com/500/500" loading="lazy">'

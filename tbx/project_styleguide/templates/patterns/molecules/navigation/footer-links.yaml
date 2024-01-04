@@ -1,16 +1,15 @@
 context:
   footerlinks:
     - value:
-        title: Blog
+        text: Blog
     - value:
-        title: Work
+        text: Work
     - value:
-        title: Team
+        text: Team
     - value:
-        title: Privacy
+        text: Privacy
     - value:
-        title: Privacy & Cookies
-      title: Cookies
+        text: Privacy & Cookies
 
 tags:
   pageurl:

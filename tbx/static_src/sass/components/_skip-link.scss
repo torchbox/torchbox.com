@@ -1,10 +1,11 @@
+@use "config" as *;
+
 .skip-link {
-    @include z-index(skip-link);
     position: absolute;
     top: -200px;
     left: 0;
-    color: var(--color--black);
-    background-color: var(--color--white);
+    color: $color--black;
+    background-color: $color--white;
     padding: $grid;
 
     &:focus {

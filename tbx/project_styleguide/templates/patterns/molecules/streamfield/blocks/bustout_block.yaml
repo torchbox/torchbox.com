@@ -4,7 +4,7 @@ context:
 
 tags:
   image:
-    value.image fill-1500x1200 as bustout_image:
+    value.image fill-1060x655 as bustout_image:
       target_var: bustout_image
       raw:
-        url: '//placekitten.com/1500/1200'
+        url: '//placekitten.com/1060/655'

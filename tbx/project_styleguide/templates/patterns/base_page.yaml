@@ -1,0 +1,7 @@
+tags:
+  primary_nav:
+    '':
+      template_name: 'patterns/components/navigation/primary_nav.html'
+  footerlinks:
+    '':
+      template_name: 'patterns/components/navigation/footerlinks.html'

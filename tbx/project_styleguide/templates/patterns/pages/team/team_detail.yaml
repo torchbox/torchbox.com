@@ -8,7 +8,5 @@ context:
 
 tags:
   image:
-    page.image width-1280 as image:
-      target_var: image
-      raw:
-        url: '//placekitten.com/1280/1706'
+    page.image width-1280:
+      raw: '<img src="https://placekitten.com/1280/1706">'
