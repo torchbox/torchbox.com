@@ -4,7 +4,7 @@ FROM node:20 as frontend
 ARG CI=true
 
 # Install front-end dependencies.
-COPY package.json package-lock.json .babelrc.js webpack.config.js ./
+COPY package.json package-lock.json tsconfig.json webpack.config.js tailwind.config.js  ./
 RUN npm ci --no-optional --no-audit --progress=false
 
 # Compile static files
