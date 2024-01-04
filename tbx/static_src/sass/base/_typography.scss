@@ -28,7 +28,7 @@ html {
 }
 
 @mixin quote-text() {
-    font-family: $font--secondary;
+    font-family: $font--primary;
     font-style: italic;
     font-weight: inherit;
     text-transform: inherit;
