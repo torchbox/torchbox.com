@@ -1,12 +1,6 @@
+// Base styles. Some reset rules that would usually be here are now set by Preflight (see tailwind.config.js).
 @use "config" as *;
 @use "sass:color";
-
-// Box Sizing
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
 
 // Prevent text size change on orientation change.
 html {
@@ -42,19 +36,6 @@ svg {
     vertical-align: top;
 }
 
-// Responsive images
-img {
-    height: auto;
-    max-width: 100%;
-}
-
-button,
-input,
-select,
-textarea {
-    font-family: inherit;
-}
-
 form:not(.tbxforms) {
     // Basic :focus styles to keep consistency with tbxforms form elements.
     button:focus,
@@ -86,11 +67,4 @@ a {
         );
         text-decoration: none;
     }
-}
-
-ul,
-ol {
-    padding: 0;
-    margin: 0;
-    list-style: none;
 }
