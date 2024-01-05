@@ -139,7 +139,12 @@ $breakpoints: (
 $site-width: 1500px;
 
 // Grid setup
-$grid: 20px;
+$grid: 30px;
+$grid-column-gap: $grid;
+$grid-column-gap-large: 50px;
+$grid-column-gap-x-large: 80px;
+$grid-gutters-large: 80px;
+$grid-gutters-x-large: 120px;
 
 // --------------------------------- Misc --------------------------------------
 
