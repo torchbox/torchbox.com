@@ -45,43 +45,14 @@ $color--dark-grey: #1d2325;
     --color--accent-five: #{$color--white};
 }
 
-$color--primary: #444;
-$color--secondary: #fff;
-$color--tertiary: #f9f9f9;
-
-$color--black: #000;
-$color--off-black: #0b0c0c;
-$color--red: #d4351c;
-$color--border: color.adjust($color--off-black, $alpha: -0.8);
-
-$color--default: $color--off-black;
-
-// Button colours
-$button-colours: (
-    primary: (
-        bg: $color--primary,
-        color: $color--white,
-    ),
-    secondary: (
-        bg: $color--secondary,
-        color: $color--black,
-    ),
-    tertiary: (
-        bg: $color--tertiary,
-        color: $color--off-black,
-    ),
-);
-
 // --------------------------------- Fonts -------------------------------------
 
 $font--primary: 'Outfit', sans-serif;
 
 // Font weights
-$weight--bold: 700;
 $weight--semibold: 600;
-$weight--medium: 500;
 $weight--normal: 400;
-$weight--light: 200;
+$weight--light: 300;
 
 // Font sizes
 $base-font-size: 16px;
@@ -181,15 +152,15 @@ $focus-width: 3px;
 // Colours
 // -------
 
-$tbxforms-error-colour: $color--red;
+$tbxforms-error-colour: #f00;
 $tbxforms-text-colour: $focus-color;
-$tbxforms-print-text-colour: $color--black;
+$tbxforms-print-text-colour: $color--off-black;
 $tbxforms-secondary-text-colour: #505a5f; // Used for help text
 $tbxforms-border-colour-conditional: #b1b4b6;
 $tbxforms-input-border-colour: $tbxforms-text-colour();
 $tbxforms-hover-colour: #b1b4b6;
 $tbxforms-focus-colour: $focus-bg;
-$tbxforms-active-bg: $color--primary;
+$tbxforms-active-bg: $color--off-black;
 $tbxforms-active-colour: $color--white;
 
 // Sizing
@@ -201,7 +172,7 @@ $tbxforms-base-line-height: $base-line-height;
 // Misc
 // ----
 
-$tbxforms-weight--bold: $weight--bold;
+$tbxforms-weight--bold: $weight--semibold;
 $tbxforms-weight--normal: $weight--normal;
 
 $tbxforms-grid: $grid;

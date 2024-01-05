@@ -6,15 +6,10 @@
     transition: fill $transition;
     fill: $color--white;
 
-    &--dark {
-        fill: $color--black;
-    }
-
     &--home {
         width: 15px;
         height: 15px;
         margin-right: 5px;
-        fill: $color--primary;
     }
 
     &--footer-social {
