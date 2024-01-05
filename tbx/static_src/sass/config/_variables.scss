@@ -146,6 +146,15 @@ $grid-column-gap-x-large: 80px;
 $grid-gutters-large: 80px;
 $grid-gutters-x-large: 120px;
 
+// Vertical spacing
+$spacer-mini: 15px;
+$spacer-small: ($spacer-mini * 2); // 30px
+$spacer-medium: ($spacer-mini * 4); // 60px
+$spacer-large: ($spacer-mini * 8); // 120px
+$spacer: 160px;
+$spacer-x-large: ($spacer-mini * 16); // 240px
+$spacer-massive: ($spacer-mini * 24); // 360px
+
 // --------------------------------- Misc --------------------------------------
 
 $transition: 0.25s ease-out;
