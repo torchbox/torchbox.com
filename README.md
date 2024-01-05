@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/torchbox/torchbox.com/actions/workflows/test.yml/badge.svg)](https://github.com/torchbox/torchbox.com/actions/workflows/test.yml)
 
-This is the main Torchbox.com website. The careers section of this site can be found at [torchbox/careers](https://github.com/torchbox/careers).
+This is the main Torchbox.com website.
 
 ## Technical documentation
 
@@ -21,6 +21,8 @@ mkdocs serve
 
 The documentation will be available at: <http://localhost:8001/>
 
+It is also available via github pages at https://torchbox.github.io/torchbox.com/
+
 ## Setting up a local build
 
 This repository includes `docker-compose` configuration for running the project in local Docker containers,
@@ -38,10 +40,10 @@ The following are required to run the local environment. The minimum versions sp
 if you have older versions already installed they _may_ work, but are not guaranteed to do so.
 
 - [Docker](https://www.docker.com/), version 19.0.0 or up
-  - [Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac) installer
+  - [Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac) installer OR [Orbstack](https://docs.orbstack.dev/install)
   - [Docker Engine for Linux](https://hub.docker.com/search?q=&type=edition&offering=community&sort=updated_at&order=desc&operating_system=linux) installers
 - [Docker Compose](https://docs.docker.com/compose/), version 1.24.0 or up
-  - [Install instructions](https://docs.docker.com/compose/install/) (Linux-only: Compose is already installed for Mac users as part of Docker Desktop.)
+  - [Install instructions](https://docs.docker.com/compose/install/) (Linux-only: Compose is already installed for Mac users as part of Docker Desktop or Orbstack.)
 - [Fabric](https://www.fabfile.org/), version 2.4.0 or up
   - [Install instructions](https://www.fabfile.org/installing.html)
 - Python, version 3.6.9 or up
