@@ -21,13 +21,6 @@ html {
     font-weight: inherit;
 }
 
-@mixin body-text() {
-    font-family: $font--primary;
-    font-style: inherit;
-    font-weight: inherit;
-    text-transform: inherit;
-}
-
 @mixin quote-text() {
     font-family: $font--primary;
     font-style: italic;
@@ -40,61 +33,27 @@ h2,
 h3,
 h4,
 h5,
-h6,
-.heading {
-    @include heading-text();
-    margin: 0 0 1rem;
-}
-
-// ------------------------------- Default sizes ----------------------------
-h1 {
-    @include font-size(heading-one);
-}
-
-h2 {
-    @include font-size(heading-two);
-}
-
-h3 {
-    @include font-size(heading-three);
-}
-
-h4 {
-    @include font-size(heading-four);
-}
-
-h5,
 h6 {
-    @include font-size(heading-five);
-}
-
-small {
-    @include font-size(supporting);
-}
-
-// ------------------------------- Feature ----------------------------------
-.feature {
-    &--one {
-        @include font-size(feature-one);
-        font-weight: $weight--semibold;
-        line-height: 1.1;
-    }
-
-    &--two {
-        @include font-size(feature-two);
-        font-weight: $weight--semibold;
-        line-height: 1.1;
-    }
+    @include heading-text();
 }
 
 // ------------------------------- Heading ----------------------------------
 .heading {
+    @include heading-text();
+
     &--one {
         @include font-size(heading-one);
+        @include drop-cap(100px, 160px);
+    }
+
+    &--one-b {
+        @include font-size(heading-one-b);
+        @include drop-cap(80px, 150px);
     }
 
     &--two {
         @include font-size(heading-two);
+        @include drop-cap(72px, 90px);
     }
 
     &--three {
@@ -108,6 +67,10 @@ small {
     &--five {
         @include font-size(heading-five);
     }
+
+    &--six {
+        @include font-size(heading-six);
+    }
 }
 
 // ------------------------------- Body ----------------------------------
@@ -115,10 +78,6 @@ small {
     @include font-size(body);
     font-weight: $weight--normal;
     line-height: 1.4;
-
-    &--feature {
-        @include font-size(body-feature);
-    }
 }
 
 // ------------------------------- Supporting ----------------------------------

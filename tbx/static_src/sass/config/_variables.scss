@@ -58,44 +58,99 @@ $weight--light: 300;
 $base-font-size: 16px;
 $base-line-height: 25px;
 
-// Font sizes
+// Font sizes and line heights
 $large-font-sizes: (
-    feature-one: 90px,
-    feature-two: 76px,
-    heading-one: 64px,
-    heading-two: 46px,
-    heading-three: 32px,
-    heading-four: 30px,
-    heading-five: 24px,
-    body-feature: 18px,
-    body: 14px,
-    supporting: 12px,
-);
-
-$medium-font-sizes: (
-    feature-one: 78px,
-    feature-two: 68px,
-    heading-one: 52px,
-    heading-two: 38px,
-    heading-three: 28px,
-    heading-four: 26px,
-    heading-five: 20px,
-    body-feature: 16px,
-    body: 14px,
-    supporting: 12px,
+    heading-one: (
+        80px,
+        1.2,
+    ),
+    heading-one-b: (
+        66px,
+        1.3,
+    ),
+    heading-two: (
+        54px,
+        1.3,
+    ),
+    heading-three: (
+        38px,
+        1.4,
+    ),
+    heading-four: (
+        32px,
+        1.4,
+    ),
+    heading-five: (
+        24px,
+        1.5,
+    ),
+    heading-six: (
+        20px,
+        1.6,
+    ),
+    body: (
+        20px,
+        1.6,
+    ),
+    body-one: (
+        18px,
+        1.6,
+    ),
+    body-two: (
+        16px,
+        1.5,
+    ),
+    supporting: (
+        14px,
+        1.5,
+    ),
 );
 
 $small-font-sizes: (
-    feature-one: 44px,
-    feature-two: 38px,
-    heading-one: 32px,
-    heading-two: 28px,
-    heading-three: 24px,
-    heading-four: 22px,
-    heading-five: 18px,
-    body-feature: 14px,
-    body: 12px,
-    supporting: 12px,
+    heading-one: (
+        50px,
+        1.2,
+    ),
+    heading-one-b: (
+        42px,
+        1.3,
+    ),
+    heading-two: (
+        36px,
+        1.3,
+    ),
+    heading-three: (
+        32px,
+        1.4,
+    ),
+    heading-four: (
+        28px,
+        1.4,
+    ),
+    heading-five: (
+        24px,
+        1.4,
+    ),
+    heading-six: (
+        20px,
+        1.6,
+    ),
+    body: (
+        16px,
+        1.6,
+    ),
+    body-one: (
+        18px,
+        1.5,
+    ),
+    body-two: (
+        16px,
+        1.5,
+    ),
+    supporting: (
+        14px,
+        1.5,
+    ),
 );
 
 // --------------------------------- Sizing ------------------------------------
