@@ -129,7 +129,11 @@ $small-font-sizes: (
 
 // --------------------------------- Sizing ------------------------------------
 
-$breakpoints: ('medium' '(min-width: 599px)', 'large' '(min-width: 1023px)');
+$breakpoints: (
+    'medium' '(min-width: 599px)',
+    'large' '(min-width: 1023px)',
+    'x-large' '(min-width: 1280px)'
+);
 
 // Layout
 $site-width: 1280px;
