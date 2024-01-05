@@ -1,7 +1,5 @@
 # Front end tooling
 
-This set of tooling should form the basis for any new wagtail projects. It can also be used for custom django builds: copy the `static_src` directory from here to your build. And various config files from the project root too.
-
 ## What's required
 
 To install node on the host machine we recommend using [`nvm`](https://github.com/creationix/nvm). Once you have `nvm` installed simply run `nvm install` to install and activate the version of node required for the project. Refer to the [`nvm` documentation](https://github.com/creationix/nvm#usage) for more details about available commands.
@@ -50,7 +48,7 @@ To only build assets for either development or production you can use
 
 ## Third party libraries
 
-We no longer have a 'vendor' folder for these. Instead find ones that are packaged as npm libraries and install them as dependencies (see 'using npm' above). If they have CSS that needs including, this can be imported directly from the node_modules folder - see the example for glide in main.scss.
+We no longer have a 'vendor' folder for these. Instead find ones that are packaged as npm libraries and install them as dependencies (see 'using npm' above). If they have CSS that needs including, this can be imported directly from the node_modules folder.
 
 ## CSS Background images
 
