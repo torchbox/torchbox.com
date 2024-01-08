@@ -1,11 +1,36 @@
 @use "config" as *;
 
 .rich-text {
+    h3 {
+        @include font-size(heading-three);
+        margin-bottom: $spacer-small;
+    }
+
+    h4 {
+        @include font-size(heading-four);
+        margin-bottom: $spacer-small;
+    }
+
     ul {
         list-style: inside disc;
+        margin-bottom: $spacer-small;
     }
 
     ol {
         list-style: inside decimal;
+        margin-bottom: $spacer-small;
+    }
+
+    a {
+        @include link-styles(var(--color--text), var(--color--text));
+    }
+
+    p {
+        margin-bottom: $spacer-small;
+    }
+
+    b,
+    strong {
+        font-weight: $weight--semibold;
     }
 }
