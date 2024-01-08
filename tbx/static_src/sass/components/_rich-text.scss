@@ -1,6 +1,8 @@
 @use "config" as *;
 
 .rich-text {
+    @include font-size(body);
+
     h3 {
         @include font-size(heading-three);
         margin-bottom: $spacer-small;
