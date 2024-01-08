@@ -45,7 +45,3 @@ form:not(.tbxforms) {
         outline-offset: 0;
     }
 }
-
-a {
-    @include link-styles();
-}

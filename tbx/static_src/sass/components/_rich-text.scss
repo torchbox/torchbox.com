@@ -27,6 +27,10 @@
 
     p {
         margin-bottom: $spacer-small;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 
     b,

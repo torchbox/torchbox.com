@@ -1,0 +1,29 @@
+@use "config" as *;
+
+.link {
+    $root: &;
+    @include link-styles();
+
+    &--with-arrow {
+        display: inline-flex;
+        align-items: center;
+        column-gap: $spacer-mini;
+
+        #{$root}__icon {
+            transition: transform $transition-quick, fill $transition-quick;
+            transform: translate3d(0, 0, 0);
+        }
+
+        &:focus {
+            padding-right: $link-transition-gap;
+        }
+
+        &:hover,
+        &:focus {
+            #{$root}__icon {
+                transform: translate3d($link-transition-gap, 0, 0);
+                fill: var(--color--link-interaction);
+            }
+        }
+    }
+}

@@ -185,7 +185,10 @@ $spacer-massive: ($spacer-mini * 24); // 360px
 
 // --------------------------------- Misc --------------------------------------
 
+$transition-quick: 0.15s ease-out;
 $transition: 0.25s ease-out;
+$link-transition-gap: 10px; // The gap between the link and the arrow
+
 $z-index: (
     under: -1,
     base: 10,
