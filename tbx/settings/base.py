@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     "scout_apm.django",
     "tbx.blog",
     "tbx.core.apps.TorchboxCoreAppConfig",
-    "tbx.events",
-    "tbx.impact_reports",
     "tbx.navigation",
     "tbx.people",
     "tbx.sign_up_form",
