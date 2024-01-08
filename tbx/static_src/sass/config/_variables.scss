@@ -21,9 +21,10 @@ $color--dark-grey: #1d2325;
     --color--background: #{$color--dark-grey};
     --color--heading: #{$color--white};
     --color--text: #{$color--grey};
-    --color--link: #{$color--grey};
+    --color--link: #{$color--white};
     --color--link-interaction: #{$color--white};
     --color--footer-background: #{$color--off-black};
+    --color--focus-ring: #{$color--coral-light};
     --color--accent-one: #{$color--dark-grey};
     --color--accent-two: #{$color--purple-light};
     --color--accent-three: #{$color--coral-light};
@@ -35,9 +36,10 @@ $color--dark-grey: #1d2325;
     --color--background: #{$color--dark-grey};
     --color--heading: #{$color--white};
     --color--text: #{$color--white};
-    --color--link: #{$color--grey};
+    --color--link: #{$color--white};
     --color--link-interaction: #{$color--white};
     --color--footer-background: #{$color--lagoon};
+    --color--focus-ring: #{$color--lagoon-light};
     --color--accent-one: #{$color--dark-grey};
     --color--accent-two: #{$color--purple-light};
     --color--accent-three: #{$color--lagoon-light};
@@ -198,8 +200,7 @@ $z-index: (
 
 // --------------------------------- Accessibility -----------------------------
 
-$focus-bg: #ffbf47;
-$focus-color: $color--off-black;
+$focus-color: var(--color--focus-ring);
 $focus-width: 3px;
 
 // --------------------------------- TBX forms ---------------------------------
@@ -214,7 +215,7 @@ $tbxforms-secondary-text-colour: #505a5f; // Used for help text
 $tbxforms-border-colour-conditional: #b1b4b6;
 $tbxforms-input-border-colour: $tbxforms-text-colour();
 $tbxforms-hover-colour: #b1b4b6;
-$tbxforms-focus-colour: $focus-bg;
+$tbxforms-focus-colour: var(--color--focus-ring);
 $tbxforms-active-bg: $color--off-black;
 $tbxforms-active-colour: $color--white;
 
