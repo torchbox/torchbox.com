@@ -130,3 +130,40 @@ poetry install --no-root
 To deploy, merge your feature branch to `main` or `staging` branch. Once CI pipelines have passed, it will be deployed to the respective Heroku site automatically.
 
 This is done via [Heroku Github integration](https://devcenter.heroku.com/articles/github-integration).
+
+## Database snapshots during development
+
+Database snapshots are a valuable asset in development, especially when dealing with [Django migrations](https://docs.djangoproject.com/en/4.2/topics/migrations/).
+
+The following set of fabric commands are available for local execution:
+
+**Create a database snapshot**
+
+```bash
+fab dellar-snapshot <filename>
+```
+
+**Restore a database snapshot**
+
+```bash
+fab dellar-restore <filename>
+```
+
+**List available database snapshots**
+
+```bash
+fab dellar-list
+```
+
+**Remove a database snapshot**
+
+```bash
+fab dellar-remove <filename>
+```
+
+These snapshots are created and restored behind the scenes using `pg_dump` and `psql` within the `db` container, as detailed in the [official Postgres documentation](https://www.postgresql.org/docs/13/backup-dump.html#BACKUP-DUMP-RESTORE).
+
+<details>
+  <summary>What's with the dellar name?</summary>
+    These commands draw inspiration from [Stellar](https://pypi.org/project/stellar/) — a database snapshot and restore tool that is no longer maintained.
+</details>
