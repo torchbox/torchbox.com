@@ -4,7 +4,6 @@
 
 // Prevent text size change on orientation change.
 html {
-    font-family: $font--primary;
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -21,6 +20,7 @@ html {
 }
 
 body {
+    font-family: $font--primary;
     overflow-x: hidden;
     background-color: var(--color--background);
 
