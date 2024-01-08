@@ -25,8 +25,8 @@
     &__icon {
         width: 30px;
         height: 30px;
-        color: $color--off-black;
-        fill: $color--off-black;
+        color: var(--color--text);
+        fill: var(--color--text);
     }
 
     &__name {
