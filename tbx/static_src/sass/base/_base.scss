@@ -23,7 +23,6 @@ html {
 body {
     overflow-x: hidden;
     background-color: var(--color--background);
-    color: var(--color--text);
 
     &.no-scroll {
         overflow-y: hidden;
