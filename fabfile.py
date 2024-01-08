@@ -413,6 +413,29 @@ def dellar_restore(c, filename):
     print("Database restored.")
 
 
+@task
+def dellar_list(c):
+    """List available database snapshots"""
+    print("Database snapshots:")
+    dexec(
+        """for f in *.psql; do
+            printf ' - %s\n' "${f%.psql}"
+        done""",
+        service="db",
+    ),
+    print("Restore with `dellar-restore <snapshot>`")
+
+
+@task
+def dellar_remove(c, filename):
+    """Remove database snapshots"""
+    dexec(
+        "rm {filename}.psql".format(filename=filename),
+        service="db",
+    ),
+    print(f"Snapshot {filename} removed")
+
+
 def get_heroku_variable(c, app_instance, variable):
     return local(
         "heroku config:get {var} --app {app}".format(app=app_instance, var=variable)
