@@ -6,7 +6,7 @@
 html {
     font-size: ($base-font-size / 16px) * 100%;
     line-height: 1.4;
-    color: $color--default;
+    color: var(--color--text);
 }
 
 /* ============================================
@@ -16,6 +16,7 @@ html {
 */
 @mixin heading-text() {
     font-family: $font--primary;
+    color: var(--color--heading);
     font-style: inherit;
     font-weight: inherit;
 }
@@ -28,7 +29,7 @@ html {
 }
 
 @mixin quote-text() {
-    font-family: $font--secondary;
+    font-family: $font--primary;
     font-style: italic;
     font-weight: inherit;
     text-transform: inherit;

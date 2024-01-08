@@ -87,7 +87,7 @@
     $large-size: map.get($large-font-sizes, $keyword);
 
     @if $small-size == null or $medium-size == null or $large-size == null {
-        @warn 'Font size ‘#{$keyword}’ does not exist';
+        @warn 'Font size `#{$keyword}` does not exist';
     } @else {
         @include rem-font-size($small-size);
 
