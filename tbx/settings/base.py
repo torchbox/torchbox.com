@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     "tbx.core.apps.TorchboxCoreAppConfig",
     "tbx.navigation",
     "tbx.people",
-    "tbx.sign_up_form",
     "tbx.taxonomy",
     "tbx.work",
     "tbx.images",
