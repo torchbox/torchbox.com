@@ -52,6 +52,8 @@ markdown_extensions:
 
 nav:
   - 'Home': 'index.md'
+  - 'General principles': 'general-principles.md'
+  - 'External documentation': 'external-docs.md'
   - 'Infrastructure': 'infrastructure.md'
   - 'Project conventions': 'project-conventions.md'
   - 'Deployment': 'deployment.md'
