@@ -4,7 +4,7 @@
     width: 20px;
     height: 20px;
     transition: fill $transition;
-    fill: $color--white;
+    fill: var(--color--text);
 
     &--home {
         width: 15px;
