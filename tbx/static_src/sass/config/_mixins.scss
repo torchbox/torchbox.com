@@ -130,11 +130,12 @@
 }
 
 /* ============================================
-    Link styles
+    Link styles - set to be the same colour as the text by default
+    but can be overridden by passing in a resting colour and interaction colour
 */
 @mixin link-styles(
-    $color: var(--color--link),
-    $interaction-color: var(--color--link-interaction)
+    $color: var(--color--text),
+    $interaction-color: var(--color--text)
 ) {
     color: $color;
     text-decoration: underline;
