@@ -188,6 +188,8 @@ $spacer-massive: ($spacer-mini * 24); // 360px
 $transition-quick: 0.15s ease-out;
 $transition: 0.25s ease-out;
 $link-transition-gap: 10px; // The gap between the link and the arrow
+$link-underline-thickness: 1px; // The thickness of the underline for links
+$link-underline-thickness-interaction: 2px; // The thickness of the underline for links on hover/focus
 
 $z-index: (
     under: -1,
@@ -200,9 +202,6 @@ $z-index: (
     modal: 110,
     modal-controls: 120,
 );
-
-$link-underline-thickness: 1px;
-$link-underline-thickness-interaction: 2px;
 
 // --------------------------------- Accessibility -----------------------------
 
