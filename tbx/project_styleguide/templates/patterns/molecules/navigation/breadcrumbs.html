@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
 
-{% if page.get_ancestors|length > 2 %}
+{% if page.get_ancestors|length > 1 %}
     <nav aria-label="breadcrumb">
         <ul class="breadcrumbs-nav">
             {% for ancestor_page in page.get_ancestors %}
