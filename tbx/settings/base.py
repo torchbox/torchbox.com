@@ -548,6 +548,7 @@ PATTERN_LIBRARY = {
         ("molecules", ["patterns/molecules"]),
         ("organisms", ["patterns/organisms"]),
         ("pages", ["patterns/pages"]),
+        ("styleguide", ["patterns/styleguide"]),
     ),
     "TEMPLATE_SUFFIX": ".html",
     "PATTERN_BASE_TEMPLATE_NAME": "patterns/base.html",

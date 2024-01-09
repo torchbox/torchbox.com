@@ -35,35 +35,13 @@ svg {
     vertical-align: top;
 }
 
-form:not(.tbxforms) {
-    // Basic :focus styles to keep consistency with tbxforms form elements.
+form {
+    // Basic :focus styles
     button:focus,
     input:focus,
     select:focus,
     textarea:focus {
-        outline: $focus-width solid $focus-bg;
+        outline: $focus-width solid var(--color--focus-ring);
         outline-offset: 0;
-    }
-}
-
-a {
-    color: var(--color--link);
-    text-decoration: underline;
-    transition: color $transition;
-
-    &:hover {
-        color: var(--color--link-interaction);
-        cursor: pointer;
-    }
-
-    &:focus {
-        outline: $focus-width solid transparent;
-        color: $focus-color;
-        background-color: $focus-bg;
-        box-shadow: (
-            0 (-$focus-width/2) $focus-bg,
-            0 $focus-width $focus-color
-        );
-        text-decoration: none;
     }
 }

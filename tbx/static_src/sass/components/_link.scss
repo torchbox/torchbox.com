@@ -1,0 +1,36 @@
+@use "config" as *;
+
+.link {
+    $root: &;
+    @include link-styles(var(--color--link), var(--color--link-interaction));
+
+    &--with-arrow {
+        display: inline-flex;
+        align-items: center;
+        column-gap: $spacer-mini;
+
+        #{$root}__icon {
+            transition: transform $transition-quick, fill $transition-quick;
+            transform: translate3d(0, 0, 0);
+
+            // Hide the arrow in high-contrast mode as
+            // there's already an underline on hover/focus
+            @include high-contrast-mode() {
+                display: none;
+            }
+        }
+
+        &:focus {
+            // This is needed so that the focus ring surrounds the arrow
+            padding-right: $link-transition-gap;
+        }
+
+        &:hover,
+        &:focus {
+            #{$root}__icon {
+                transform: translate3d($link-transition-gap, 0, 0);
+                fill: var(--color--link-interaction);
+            }
+        }
+    }
+}

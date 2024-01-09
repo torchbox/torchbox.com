@@ -1,11 +1,47 @@
 @use "config" as *;
 
 .rich-text {
+    @include font-size(body);
+
+    h2 {
+        @include font-size(heading-two);
+        margin-bottom: $spacer-small;
+    }
+
+    h3 {
+        @include font-size(heading-three);
+        margin-bottom: $spacer-small;
+    }
+
+    h4 {
+        @include font-size(heading-four);
+        margin-bottom: $spacer-small;
+    }
+
     ul {
         list-style: inside disc;
+        margin-bottom: $spacer-small;
     }
 
     ol {
         list-style: inside decimal;
+        margin-bottom: $spacer-small;
+    }
+
+    a {
+        @include link-styles();
+    }
+
+    p {
+        margin-bottom: $spacer-small;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    b,
+    strong {
+        font-weight: $weight--semibold;
     }
 }
