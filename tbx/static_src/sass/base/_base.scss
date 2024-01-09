@@ -35,8 +35,8 @@ svg {
     vertical-align: top;
 }
 
-form:not(.tbxforms) {
-    // Basic :focus styles to keep consistency with tbxforms form elements.
+form {
+    // Basic :focus styles
     button:focus,
     input:focus,
     select:focus,
