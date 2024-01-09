@@ -19,4 +19,14 @@
     &:focus {
         @include focus-style();
     }
+
+    @include high-contrast-mode() {
+        text-decoration: underline;
+        text-decoration-thickness: $link-underline-thickness;
+
+        &:focus,
+        &:hover {
+            text-decoration-thickness: $link-underline-thickness-interaction;
+        }
+    }
 }

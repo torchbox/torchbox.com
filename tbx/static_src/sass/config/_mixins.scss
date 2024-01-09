@@ -124,7 +124,7 @@
 @mixin focus-style($color: var(--color--link)) {
     &:focus {
         outline: $focus-width solid var(--color--focus-ring);
-        text-decoration-thickness: 2px;
+        text-decoration-thickness: $link-underline-thickness-interaction;
         text-shadow: 0 0 0.4px $color, 0 0 0.4px $color;
     }
 }
@@ -138,11 +138,11 @@
 ) {
     color: $color;
     text-decoration: underline;
-    text-decoration-thickness: 1px;
+    text-decoration-thickness: $link-underline-thickness;
 
     &:hover {
         color: $interaction-color;
-        text-decoration-thickness: 2px;
+        text-decoration-thickness: $link-underline-thickness-interaction;
         text-shadow: 0 0 0.4px $color, 0 0 0.4px $color;
     }
 
