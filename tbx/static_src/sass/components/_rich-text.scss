@@ -3,6 +3,11 @@
 .rich-text {
     @include font-size(body);
 
+    h2 {
+        @include font-size(heading-two);
+        margin-bottom: $spacer-small;
+    }
+
     h3 {
         @include font-size(heading-three);
         margin-bottom: $spacer-small;
