@@ -21,6 +21,7 @@
         }
 
         &:focus {
+            // This is needed so that the focus ring surrounds the arrow
             padding-right: $link-transition-gap;
         }
 
