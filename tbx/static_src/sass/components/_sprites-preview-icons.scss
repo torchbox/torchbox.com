@@ -25,12 +25,12 @@
     &__icon {
         width: 30px;
         height: 30px;
-        color: $color--black;
-        fill: $color--black;
+        color: var(--color--text);
+        fill: var(--color--text);
     }
 
     &__name {
-        font-weight: $weight--bold;
+        font-weight: $weight--semibold;
         padding: $grid;
     }
 }

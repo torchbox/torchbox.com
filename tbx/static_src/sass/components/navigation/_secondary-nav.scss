@@ -30,7 +30,6 @@
             border-bottom: 0;
 
             &::after {
-                color: $color--tertiary;
                 content: '|';
             }
 
@@ -54,11 +53,9 @@
         @include media-query(medium) {
             padding: 5px 0;
             margin: 0 10px;
-            color: $color--secondary;
 
             &:hover {
-                color: color.adjust($color--secondary, $lightness: -20%);
-                border-bottom: 1px solid $color--secondary;
+                border-bottom: 1px solid;
             }
         }
     }

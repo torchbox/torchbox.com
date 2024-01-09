@@ -74,6 +74,7 @@ module.exports = {
         'overflow',
         'padding',
         'position',
+        'preflight',
         'space',
         'textAlign',
         'textColor',

@@ -38,7 +38,6 @@
     }
 
     &__icon {
-        fill: $color--primary;
         display: inline-block;
         vertical-align: middle;
         height: 10px;
@@ -46,7 +45,6 @@
     }
 
     &__link {
-        color: $color--primary;
         border-bottom: 1px solid transparent;
         transition: color, border $transition;
 

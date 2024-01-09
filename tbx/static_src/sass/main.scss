@@ -4,8 +4,10 @@
 @use 'base/fonts';
 
 // Components
+@use 'components/button';
 @use 'components/grid';
 @use 'components/icon';
+@use 'components/link';
 @use 'components/responsive-object';
 @use 'components/rich-text';
 @use 'components/skip-link';

@@ -18,7 +18,6 @@
         width: 60%;
         padding-bottom: 10px;
         margin-bottom: 10px;
-        font-weight: $weight--bold;
         text-align: center;
         border-bottom: 1px solid color.adjust($color--off-black, $alpha: -0.8);
 
@@ -36,7 +35,6 @@
             position: relative;
 
             &::after {
-                color: $color--tertiary;
                 content: '|';
             }
 
@@ -60,11 +58,9 @@
         @include media-query(medium) {
             padding: 5px 0;
             margin: 0 10px;
-            color: $color--secondary;
 
             &:hover {
-                color: color.adjust($color--secondary, $lightness: -20%);
-                border-bottom: 1px solid $color--secondary;
+                border-bottom: 1px solid;
             }
         }
     }

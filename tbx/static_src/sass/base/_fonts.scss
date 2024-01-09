@@ -1,9 +1,9 @@
 @use "config" as *;
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Outfit';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300 600; // Define the range of font weights to be used
     font-display: swap;
-    src: url(../fonts/Montserrat.woff2) format('woff2');
+    src: url(../fonts/outfit-variable-font.woff2) format('woff2-variations');
 }
