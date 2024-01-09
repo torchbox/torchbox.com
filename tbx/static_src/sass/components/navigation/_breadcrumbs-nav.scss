@@ -14,8 +14,8 @@
         margin: 0 5px 0 0;
         font-size: 12px;
         font-weight: $weight--light;
-        text-transform: uppercase;
         border-bottom: 0;
+
 
         &:first-child {
             a {
@@ -25,7 +25,13 @@
 
         &:last-child {
             margin-left: 10px;
-            border-bottom: 1px solid;
+        }
+
+        &:not(:last-child)::after {
+            content: "/";
+            margin: 5px;
+            text-decoration: none;
+            
         }
 
         @include media-query(medium) {
@@ -47,7 +53,8 @@
     &__link {
         border-bottom: 1px solid transparent;
         transition: color, border $transition;
-
+        text-decoration: underline;
+        
         &:hover {
             cursor: pointer;
         }

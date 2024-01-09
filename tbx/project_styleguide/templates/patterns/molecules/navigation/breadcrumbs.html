@@ -7,7 +7,6 @@
         {% if not ancestor_page.is_root %}
             <li class="breadcrumbs-nav__item">
                 <a href="{% pageurl ancestor_page %}" class="breadcrumbs-nav__link">{{ ancestor_page.title }}</a>
-                {% include "patterns/atoms/icons/icon.html" with name="arrow-right" classname="breadcrumbs-nav__icon" %}
             </li>
         {% endif %}
         {% endfor %}
