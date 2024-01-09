@@ -140,6 +140,7 @@ def delete_docker_database(c, local_database_name=LOCAL_DATABASE_NAME):
         ),
         "db",
     )
+    psql(c, "CREATE SCHEMA heroku_ext;")
 
 
 @task
