@@ -40,11 +40,8 @@ INSTALLED_APPS = [
     "scout_apm.django",
     "tbx.blog",
     "tbx.core.apps.TorchboxCoreAppConfig",
-    "tbx.events",
-    "tbx.impact_reports",
     "tbx.navigation",
     "tbx.people",
-    "tbx.sign_up_form",
     "tbx.taxonomy",
     "tbx.work",
     "tbx.images",
@@ -111,7 +108,6 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "tbx.core.context_processors.fb_app_id",
-                "tbx.core.context_processors.peoplehr_jobs_count",
                 "tbx.core.context_processors.global_vars",
                 "wagtail.contrib.settings.context_processors.settings",
             ],
@@ -579,7 +575,4 @@ BIRDBATH_PROCESSORS = [
     "birdbath.processors.users.UserEmailAnonymiser",
     "birdbath.processors.users.UserPasswordAnonymiser",
 ]
-# people hr feed
-PEOPLEHR_FEED_URL = env.get("PEOPLEHR_FEED_URL", "")
-
 WILLOW_OPTIMIZERS = True

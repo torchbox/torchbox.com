@@ -10,4 +10,4 @@ To start working on this project, please refer to the README.
 
 ## External integrations
 
-The jobs listing on the site is pulled from [PeopleHR](https://www.peoplehr.com/).
+TODO: document external integrations if they exist.

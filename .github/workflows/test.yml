@@ -72,7 +72,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:13.12
+        image: postgres:15.5
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres # pragma: allowlist secret

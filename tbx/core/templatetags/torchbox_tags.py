@@ -2,7 +2,7 @@ from django import template
 from django.conf import settings
 
 from tbx.blog.models import BlogPage
-from tbx.core.models import Advert, JobIndexPage, MainMenu
+from tbx.core.models import Advert, MainMenu
 from tbx.core.utils import roundrobin
 from tbx.people.models import PersonPage
 from tbx.work.models import WorkPage
@@ -100,27 +100,6 @@ def homepage_work_listing(context, count=3):
     work = WorkPage.objects.filter(live=True)[:count]
     return {
         "work": work,
-        # required by the pageurl tag that we want to use within this template
-        "request": context["request"],
-    }
-
-
-# Jobs feed for home page
-@register.inclusion_tag("torchbox/tags/homepage_job_listing.html", takes_context=True)
-def homepage_job_listing(context, count=3, intro_text=None):
-    # Assume there is only one job index page
-    jobindex = JobIndexPage.objects.filter(live=True).first()
-    if jobindex:
-        jobs = jobindex.job.all()
-        if count:
-            jobs = jobs[:count]
-    else:
-        jobs = []
-    jobintro = intro_text or jobindex and jobindex.listing_intro
-    return {
-        "jobintro": jobintro,
-        "jobindex": jobindex,
-        "jobs": jobs,
         # required by the pageurl tag that we want to use within this template
         "request": context["request"],
     }
