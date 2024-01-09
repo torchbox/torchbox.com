@@ -38,8 +38,7 @@ gunicorn = ["gunicorn"]
 Werkzeug = "^2.1.2"
 django-debug-toolbar = "^4.1.0"
 django-extensions = "^3.2.1"
-fabric = "~2.5"
-stellar = "^0.4.5"
+fabric = "^3.2.2"
 pudb = "^2020.1"
 honcho = "^1.1.0"
 
