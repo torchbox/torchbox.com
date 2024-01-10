@@ -6,8 +6,12 @@ This is the main Torchbox.com website.
 
 ## Technical documentation
 
+Please do have a read through of the documentation before starting any work on the project, as there is lots of detail in there.
+
 This project contains technical documentation written in Markdown in the `/docs` folder. This covers, among others:
 
+- our general apporach and principles for the build
+- lots of front-end details specific to this build
 - continuous integration
 - deployment
 - git branching
