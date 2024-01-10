@@ -13,6 +13,10 @@ fab pull-staging-data
 fab pull-production-data
 ```
 
+??? tip
+
+    Running the `pull-<staging|production>-data` command downloads the latest [database backup from Heroku Postgres](https://devcenter.heroku.com/articles/heroku-postgres-backups#downloading-your-backups) and saves it in the `database_dumps` directory in the project root.
+
 To get images for a build, the following commands will fetch original images only, with no documents, leaving your local build to create image renditions when needed:
 
 ```sh
