@@ -1,9 +1,0 @@
-context:
-  post:
-    value:
-      link: '#'
-
-tags:
-  image:
-    post.value.image fill-500x500 loading="lazy":
-      raw: '<img src="https://placekitten.com/500/500" loading="lazy">'
