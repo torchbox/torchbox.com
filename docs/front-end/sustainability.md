@@ -5,3 +5,5 @@ In order to make the site more sustainable we ensure that images are served in a
 We use lazy loading for all images below the fold.
 
 We use dark mode by default.
+
+All images should be renedered in the template file as webp format.
