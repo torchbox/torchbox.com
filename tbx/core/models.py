@@ -1,7 +1,6 @@
 from django.db import models
 
 from modelcluster.fields import ParentalKey
-from tbx.core.blocks import PageSectionStoryBlock
 from tbx.core.utils.models import SocialFields
 from wagtail import blocks
 from wagtail.admin.panels import (
@@ -226,17 +225,9 @@ class StandardPage(SocialFields, Page):
     template = "patterns/pages/standard/standard_page.html"
 
     body = StreamField(StoryBlock(), use_json_field=True)
-    additional_content = StreamField(
-        PageSectionStoryBlock(),
-        blank=True,
-        use_json_field=True,
-        collapsed=True,
-        verbose_name="Call to action",
-    )
 
     content_panels = Page.content_panels + [
         FieldPanel("body"),
-        FieldPanel("additional_content"),
     ]
 
     promote_panels = [

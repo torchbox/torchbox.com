@@ -5,11 +5,9 @@ from django.db import models
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
-from tbx.core.blocks import PageSectionStoryBlock
 from tbx.core.utils.models import SocialFields
 from tbx.taxonomy.models import Service
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page
 
 
@@ -18,13 +16,6 @@ class EventIndexPage(SocialFields, Page):
 
     parent_page_types = ["torchbox.HomePage"]
     subpage_types = []
-
-    call_to_action = StreamField(
-        PageSectionStoryBlock(),
-        blank=True,
-        use_json_field=True,
-        collapsed=True,
-    )
 
     content_panels = Page.content_panels + [
         InlinePanel("events", label="events"),

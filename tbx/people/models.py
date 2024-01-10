@@ -8,12 +8,11 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from phonenumber_field.modelfields import PhoneNumberField
 from tbx.blog.models import BlogPage
-from tbx.core.blocks import PageSectionStoryBlock
 from tbx.core.utils.models import SocialFields
 from tbx.people.forms import ContactForm
 from tbx.work.models import WorkIndexPage, WorkPage
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.fields import RichTextField, StreamField
+from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page
 from wagtail.search import index
 from wagtail.signals import page_published
@@ -36,12 +35,6 @@ class PersonPage(SocialFields, Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    call_to_action = StreamField(
-        PageSectionStoryBlock(),
-        blank=True,
-        use_json_field=True,
-        collapsed=True,
-    )
 
     search_fields = Page.search_fields + [
         index.SearchField("intro"),
@@ -54,7 +47,6 @@ class PersonPage(SocialFields, Page):
         FieldPanel("intro"),
         FieldPanel("biography"),
         FieldPanel("image"),
-        FieldPanel("call_to_action"),
     ]
 
     promote_panels = [
@@ -100,12 +92,6 @@ class PersonPage(SocialFields, Page):
 # Person index
 class PersonIndexPage(SocialFields, Page):
     strapline = models.CharField(max_length=255)
-    call_to_action = StreamField(
-        PageSectionStoryBlock(),
-        blank=True,
-        use_json_field=True,
-        collapsed=True,
-    )
 
     template = "patterns/pages/team/team_listing.html"
 
@@ -117,7 +103,6 @@ class PersonIndexPage(SocialFields, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("strapline"),
-        FieldPanel("call_to_action"),
     ]
 
     promote_panels = [
