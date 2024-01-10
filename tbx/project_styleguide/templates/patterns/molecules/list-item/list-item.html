@@ -1,9 +1,0 @@
-{% load wagtailcore_tags wagtailimages_tags %}
-
-<li>
-    {% if item.linked_page %}
-        <a href="{% pageurl item.linked_page %}">{{ item.text }}</a>
-    {% else %}
-        <span>{{ item.text }}</span>
-    {% endif %}
-</li>

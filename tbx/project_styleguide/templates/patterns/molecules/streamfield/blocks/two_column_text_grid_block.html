@@ -1,7 +1,0 @@
-{% load wagtailimages_tags %}
-
-{% for item in value.items %}
-    {% image item.image fill-70x70 %}
-    <h3>{{ item.heading }}</h3>
-    <p>{{ item.text }}</p>
-{% endfor %}
