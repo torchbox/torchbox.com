@@ -1,4 +1,4 @@
-## Grid
+# Grid
 
 The grid setup can be found in `sass/components/_grid.scss`.
 

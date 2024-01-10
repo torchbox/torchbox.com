@@ -59,6 +59,12 @@ nav:
   - 'Deployment': 'deployment.md'
   - 'VSCode Dev container': 'vscode-dev-container.md'
   - 'Front end':
+      - front-end/breakpoints.md
+      - front-end/design-guide.md
+      - front-end/fonts.md
+      - front-end/grid.md
+      - front-end/streamfield-blocks.md
+      - front-end/sustainability.md
       - front-end/tooling.md
       - front-end/placeholder-images.md
   - 'Continuous integration': 'continuous-integration.md'
