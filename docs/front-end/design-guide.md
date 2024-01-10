@@ -1,4 +1,4 @@
-## Design guide
+# Design guide
 
 The design guide is a reference for designers and developers to understand the design system and how to use it.
 

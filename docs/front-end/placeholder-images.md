@@ -1,4 +1,4 @@
-## Using Unsplash Source for placeholder images
+# Using Unsplash Source for placeholder images
 
 Images can be queried using the url `https://source.unsplash.com` followed by the endpoints `/random`, `/featured`, `/user/{USERNAME}`, `/collection/{COLLECTION ID}` and `/{PHOTO ID}`.
 

@@ -1,4 +1,4 @@
-## Breakpoints
+# Breakpoints
 
 Breakpoints are used to define the responsive behavior of the site.
 
