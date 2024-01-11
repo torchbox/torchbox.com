@@ -15,6 +15,9 @@ from wagtail.blocks import (
 )
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail_webstories.blocks import (
+    ExternalStoryEmbedBlock as WebstoryExternalStoryEmbedBlock,
+)
 from wagtailmarkdown.blocks import MarkdownBlock
 from wagtailmedia.blocks import VideoChooserBlock
 
@@ -127,6 +130,19 @@ class VideoBlock(StructBlock):
     class Meta:
         icon = "media"
         template = "patterns/molecules/streamfield/blocks/video_block.html"
+
+
+class ExternalStoryEmbedBlock(WebstoryExternalStoryEmbedBlock):
+    """This code is no longer in use, unfortunately an early migration depends explicitly on it & migrations cannot be simply squashed to get around this"""
+
+    # Work around due to Attribute Error https://github.com/torchbox/wagtail-webstories/pull/12
+    def get_prep_value(self, value):
+        if value is None:
+            return ""
+        elif isinstance(value, str):
+            return value
+        else:
+            return value.url
 
 
 class StoryBlock(StreamBlock):
