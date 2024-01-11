@@ -42,7 +42,7 @@
         border: 2px solid var(--color--accent-three);
         height: 95%;
         width: 95%;
-        inset: 8px 5px;
+        inset: 2px 3px;
 
         @include media-query(medium) {
             width: 102%;
