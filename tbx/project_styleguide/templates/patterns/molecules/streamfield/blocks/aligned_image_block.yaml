@@ -6,7 +6,7 @@ context:
 
 tags:
   image:
-    value.image max-1280x860 as aligned_image:
+    value.image max-1280x860 format-webp as aligned_image:
       target_var: aligned_image
       raw:
         url: '//placekitten.com/1280/860'

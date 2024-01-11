@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% image author.image fill-100x100 as image %}
+{% image author.image fill-100x100 format-webp as image %}
 
 <img src="{{ image.url }}" alt="{{ image.alt }}" loading="lazy" aria-hidden="true">
 {% if author.person_page %}

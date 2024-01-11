@@ -10,10 +10,10 @@
                             {% with link=logo.link.0.value %}
                                 {% if link %}
                                     <a href="{{ link.url }}" title="{{ link.link_text }}">
-                                        {% image logo.image height-90 loading="lazy" alt=link.link_text %}
+                                        {% image logo.image height-90 format-webp loading="lazy" alt=link.link_text %}
                                     </a>
                                 {% else %}
-                                    {% image logo.image height-90 loading="lazy" %}
+                                    {% image logo.image height-90 format-webp loading="lazy" %}
                                 {% endif %}
                             {% endwith %}
                         </li>

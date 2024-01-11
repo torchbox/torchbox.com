@@ -12,7 +12,7 @@
     {% endif %}
 
     {% if item.author %}
-        {% image item.author.image fill-100x100 %}
+        {% image item.author.image fill-100x100 format-webp %}
         {{ item.author.name }}
         {{ item.author.role }}
         {% if item.event_type %}
