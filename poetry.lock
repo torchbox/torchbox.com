@@ -694,13 +694,13 @@ Django = ">=3.2"
 
 [[package]]
 name = "django-phonenumber-field"
-version = "7.0.2"
+version = "7.3.0"
 description = "An international phone number field for django models."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "django-phonenumber-field-7.0.2.tar.gz", hash = "sha256:de3e47b986b4959949762c16fd8fe26b3e462ef3e5531ed00950bd20c698576a"},
-    {file = "django_phonenumber_field-7.0.2-py3-none-any.whl", hash = "sha256:9edad2b2602af25f2aefc73c4cf53eaf7abf9e17d73c1c4372bd3052bebb26f9"},
+    {file = "django-phonenumber-field-7.3.0.tar.gz", hash = "sha256:f9cdb3de085f99c249328293a3b93d4e5fa440c0c8e3b99eb0d0f54748629797"},
+    {file = "django_phonenumber_field-7.3.0-py3-none-any.whl", hash = "sha256:bc6eaa49d1f9d870944f5280258db511e3a1ba5e2fbbed255488dceacae45d06"},
 ]
 
 [package.dependencies]
