@@ -1,3 +1,5 @@
+from django import forms
+from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
 
 from wagtail.blocks import (
@@ -12,6 +14,7 @@ from wagtail.blocks import (
     StructValue,
     URLBlock,
 )
+from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail_webstories.blocks import (
@@ -104,6 +107,28 @@ class ImageWithLinkBlock(StructBlock):
 class PullQuoteBlock(StructBlock):
     quote = CharBlock(form_classname="quote title")
     attribution = CharBlock()
+    company_logo = ImageChooserBlock(
+        required=False, help_text="Add either a company logo or author image"
+    )
+    author_image = ImageChooserBlock(
+        required=False, help_text="Add either a company logo or author image"
+    )
+    link = LinkBlock(required=False)
+
+    def clean(self, value):
+        result = super().clean(value)
+        if value["company_logo"] and value["author_image"]:
+            raise StructBlockValidationError(
+                block_errors={
+                    "author_image": ValidationError(
+                        "You must specify either an author image or a company logo, not both."
+                    ),
+                    "company_logo": ValidationError(
+                        "You must specify either an author image or a company logo, not both."
+                    ),
+                }
+            )
+        return result
 
     class Meta:
         icon = "openquote"
@@ -192,3 +217,4 @@ class StoryBlock(StreamBlock):
 
     class Meta:
         template = "patterns/molecules/streamfield/stream_block.html"
+
