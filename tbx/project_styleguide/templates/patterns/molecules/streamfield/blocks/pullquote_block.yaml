@@ -1,15 +1,21 @@
 context:
   value:
-    quote: We are so pleased with the result - a beautiful website telling Oxfam's story through the voices of the people we work with.
+    quote: Torchbox's collaboration has been delightful, significantly elevating NHS.UK team's appreciation of SEO. They're diligent, eager, and proactive, consistently delivering optimal solutions for any challenge”
     name: Theo Smart
     role: Head of Digital
-    link:
-      0:
-        value:
-          link: '#'
-          text: See Oxfam's case study
+    company: NHS UK
+    company_logo: True
 
 tags:
   pageurl:
     link:
       raw: '#'
+
+tags:
+  image:
+    avatar width-143 format-webp class="avatar__image":
+      raw: |
+        <img src="https://source.unsplash.com/143x143?face" width="143" height="143" alt="Some alt" class="avatar__image">
+    value.company_logo width-110 format-webp class="blockquote__company-logo":
+      raw: |
+        <img src="https://source.unsplash.com/110x110?logo" width="110" height="110" alt="Some alt" class="blockquote__company-logo">

@@ -1,0 +1,36 @@
+@use "config" as *;
+
+.blockquote {
+    &__icon {
+        margin-bottom: $spacer-small;
+    }
+
+    &__text {
+        font-style: normal;
+        margin-bottom: $spacer-small;
+
+        @include media-query(medium) {
+            margin-bottom: $spacer-medium;
+        }
+    }
+
+    &__reference {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    &__cite {
+        font-style: normal;
+    }
+
+    &__name {
+        color: var(--color--heading);
+        display: block;
+        font-weight: $weight--semibold;
+    }
+
+    &__company-logo {
+        filter: grayscale(1);
+    }
+}
