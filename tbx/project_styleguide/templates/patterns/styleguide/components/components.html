@@ -5,6 +5,12 @@
 
     <h2 class="underline mt-8 mb-2">Avatar (small)</h2>
     {% include "patterns/atoms/avatar/avatar.html" with classes="avatar--small" %}
+
+    <p class="underline mt-8 mb-2">Pullquote (person)</p>
+    {% include "patterns/molecules/streamfield/blocks/pullquote_block.html" with value=blockquote_person_data %}
+
+    <p class="underline mt-8 mb-2">Pullquote (client)</p>
+    {% include "patterns/molecules/streamfield/blocks/pullquote_block.html" with value=blockquote_client_data %}
 </div>
 
 <div class="p-4">
