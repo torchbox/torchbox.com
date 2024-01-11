@@ -1,9 +1,0 @@
-{% load wagtailcore_tags wagtailimages_tags static %}
-
-{% image value.image fill-1792x597 alt="" %}
-
-<div id="{{ value.short_heading|slugify }}"></div>
-<p>
-    {{ value.short_heading }}
-</p>
-<h2>{{ value.heading|richtext }}</h2>

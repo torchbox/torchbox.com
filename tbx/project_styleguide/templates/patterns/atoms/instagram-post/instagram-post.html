@@ -1,9 +1,0 @@
-{% load wagtailimages_tags %}
-{% comment %} Used on impact_report_page.html {% endcomment %}
-
-<a href="{% firstof post.value.link post.link|default:"https://www.instagram.com/torchboxltd/" %}" target="_blank" rel="nofollow noreferrer">
-    {% image post.value.image fill-500x500 loading="lazy" %}
-    <svg viewBox="0 0 100 100" aria-hidden="true">
-        <use xlink:href="#instagram" href="#instagram" />
-    </svg>
-</a>
