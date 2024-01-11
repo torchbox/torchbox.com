@@ -37,6 +37,8 @@
 
         {% block header %}{% endblock %}
 
+        {% block breadcrumbs %}{% endblock %}
+
         <main {% if not pattern_library_rendered_pattern %}class="page"{% endif %} id="main-content">
             {% block content %}
                 {{ pattern_library_rendered_pattern }}
