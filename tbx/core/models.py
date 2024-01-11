@@ -13,10 +13,8 @@ from wagtail.blocks import PageChooserBlock, StreamBlock, StructBlock
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, Page
-from wagtail.snippets.models import register_snippet
 
 from .blocks import StoryBlock
-from .fields import ColorField
 
 
 # A couple of abstract classes that contain commonly used fields
@@ -103,41 +101,7 @@ class RelatedLink(LinkFields):
         abstract = True
 
 
-# Advert Snippet
-class AdvertPlacement(models.Model):
-    page = ParentalKey("wagtailcore.Page", related_name="advert_placements")
-    advert = models.ForeignKey(
-        "torchbox.Advert", on_delete=models.CASCADE, related_name="+"
-    )
-
-
-class Advert(models.Model):
-    page = models.ForeignKey(
-        "wagtailcore.Page",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="adverts",
-    )
-    url = models.URLField(null=True, blank=True)
-    text = models.CharField(max_length=255)
-
-    panels = [
-        FieldPanel("page"),
-        FieldPanel("url"),
-        FieldPanel("text"),
-    ]
-
-    def __str__(self):
-        return self.text
-
-
-register_snippet(Advert)
-
-
 # Home Page
-
-
 class HomePageFeaturedPost(Orderable):
     page = ParentalKey(
         "torchbox.HomePage", on_delete=models.CASCADE, related_name="featured_posts"
@@ -234,77 +198,6 @@ class StandardPage(SocialFields, Page):
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
     ]
-
-
-@register_snippet
-class ParticleSnippet(models.Model):
-    """
-    Snippet for configuring particlejs options
-    """
-
-    # particle type choices
-    CIRCLE = 1
-    EDGE = 2
-    TRIANGLE = 3
-    POLYGON = 4
-    STAR = 5
-    IMAGE = 6
-    PARTICLES_TYPE_CHOICES = (
-        (CIRCLE, "circle"),
-        (EDGE, "edge"),
-        (TRIANGLE, "triangle"),
-        (POLYGON, "polygon"),
-        (STAR, "star"),
-        (IMAGE, "image"),
-    )
-    # particle movement direction choices
-    NONE = 1
-    TOP = 2
-    TOP_RIGHT = 3
-    RIGHT = 4
-    BOTTOM_RIGHT = 5
-    BOTTOM = 6
-    BOTTOM_LEFT = 7
-    LEFT = 8
-    PARTICLES_MOVE_DIRECTION_CHOICES = (
-        (NONE, "none"),
-        (TOP, "top"),
-        (TOP_RIGHT, "top-right"),
-        (RIGHT, "right"),
-        (BOTTOM_RIGHT, "bottom-right"),
-        (BOTTOM, "bottom"),
-        (BOTTOM_LEFT, "bottom-left"),
-        (LEFT, "left"),
-    )
-    title = models.CharField(max_length=50)
-    number = models.PositiveSmallIntegerField(default=50)
-    shape_type = models.PositiveSmallIntegerField(
-        choices=PARTICLES_TYPE_CHOICES, default=CIRCLE
-    )
-    polygon_sides = models.PositiveSmallIntegerField(default=5)
-    size = models.DecimalField(default=2.5, max_digits=4, decimal_places=1)
-    size_random = models.BooleanField(default=False)
-    colour = ColorField(default="ffffff", help_text="Don't include # symbol.")
-    opacity = models.DecimalField(default=0.9, max_digits=2, decimal_places=1)
-    opacity_random = models.BooleanField(default=False)
-    move_speed = models.DecimalField(default=2.5, max_digits=2, decimal_places=1)
-    move_direction = models.PositiveSmallIntegerField(
-        choices=PARTICLES_MOVE_DIRECTION_CHOICES, default=NONE
-    )
-    line_linked = models.BooleanField(default=True)
-    css_background_colour = ColorField(
-        blank=True,
-        help_text="Don't include # symbol. Will be overridden by linear gradient",
-    )
-    css_background_linear_gradient = models.CharField(
-        blank=True,
-        max_length=255,
-        help_text="Enter in the format 'to right, #2b2b2b 0%, #243e3f 28%, #2b2b2b 100%'",
-    )
-    css_background_url = models.URLField(blank=True, max_length=255)
-
-    def __str__(self):
-        return self.title
 
 
 # Currently hidden. These were used in the past and may be used again in the future

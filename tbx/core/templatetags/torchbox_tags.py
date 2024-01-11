@@ -2,7 +2,7 @@ from django import template
 from django.conf import settings
 
 from tbx.blog.models import BlogPage
-from tbx.core.models import Advert, MainMenu
+from tbx.core.models import MainMenu
 from tbx.core.utils import roundrobin
 from tbx.people.models import PersonPage
 from tbx.work.models import WorkPage
@@ -101,15 +101,6 @@ def homepage_work_listing(context, count=3):
     return {
         "work": work,
         # required by the pageurl tag that we want to use within this template
-        "request": context["request"],
-    }
-
-
-# Advert snippets
-@register.inclusion_tag("torchbox/tags/adverts.html", takes_context=True)
-def adverts(context):
-    return {
-        "adverts": Advert.objects.all(),
         "request": context["request"],
     }
 
