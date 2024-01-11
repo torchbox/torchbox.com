@@ -1,0 +1,57 @@
+@use "config" as *;
+
+.avatar {
+    position: relative;
+    width: 98px;
+    height: 98px;
+
+    @include media-query(medium) {
+        width: 145px;
+        height: 145px;
+    }
+
+    &--small {
+        width: 98px;
+        height: 98px;
+    }
+
+    &::after,
+    &::before {
+        content: '';
+        display: block;
+        border-radius: 50%;
+        position: absolute;
+        opacity: 0.8;
+    }
+
+    &::before {
+        border: 1px solid var(--color--accent-two);
+        width: 102%;
+        height: 103%;
+        inset: -3px 2px;
+
+        @include media-query(medium) {
+            width: 95%;
+            height: 95%;
+            border-width: 3px;
+            inset: 2px -3px;
+        }
+    }
+
+    &::after {
+        border: 2px solid var(--color--accent-three);
+        height: 95%;
+        width: 95%;
+        inset: 2px 3px;
+
+        @include media-query(medium) {
+            width: 102%;
+            height: 103%;
+            inset: -5px -4px;
+        }
+    }
+
+    &__image {
+        border-radius: 50%;
+    }
+}
