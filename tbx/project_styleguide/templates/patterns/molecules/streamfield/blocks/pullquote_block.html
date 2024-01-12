@@ -2,7 +2,7 @@
 <blockquote class="blockquote">
 
     {# This needs to be inline as masks or clipPaths are not supported in <use> elements #}
-    {% include "patterns/atoms/icons/quote-icon.html" with classes="blockquote__icon" %}
+    {% include "patterns/atoms/icons/quote-icon.html" with classes="blockquote__icon" unique_id=unique_id %}
 
     <p class="blockquote__text heading heading--four">{{ value.quote }}</p>
 
