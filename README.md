@@ -136,3 +136,59 @@ poetry install --no-root
 To deploy, merge your feature branch to `main` or `staging` branch. Once CI pipelines have passed, it will be deployed to the respective Heroku site automatically.
 
 This is done via [Heroku Github integration](https://devcenter.heroku.com/articles/github-integration).
+
+## Database snapshots during development
+
+Database snapshots are a valuable asset in development, especially when dealing with [Django migrations](https://docs.djangoproject.com/en/4.2/topics/migrations/).
+
+The following set of fabric commands are available for local execution:
+
+**Create a database snapshot**
+
+```bash
+fab dellar-snapshot <filename>
+```
+
+**Restore a database snapshot**
+
+```bash
+fab dellar-restore <filename>
+```
+
+**List available database snapshots**
+
+```bash
+fab dellar-list
+```
+
+**Remove a database snapshot**
+
+```bash
+fab dellar-remove <filename>
+```
+
+These snapshots are created and restored behind the scenes using `pg_dump` and `psql` within the `db` container, as detailed in the [official Postgres documentation](https://www.postgresql.org/docs/13/backup-dump.html#BACKUP-DUMP-RESTORE).
+
+Running `fab dellar-snapshot <filename>` creates a `<filename>.psql` file in the root directory `/` of the `db` container:
+
+```console
+❯ fab dellar-snapshot test01
+Database snapshot created
+❯ fab dellar-snapshot test02
+Database snapshot created
+❯ fab dellar-list
+Database snapshots:
+ - test01
+ - test02
+Restore with `dellar-restore <snapshot>`
+❯ docker-compose exec db bash
+root@ad84f5154816:/# ls -lah | grep sql
+-rw-r--r--   1 root root  545 Jan 10 12:03 test01.psql
+-rw-r--r--   1 root root  545 Jan 10 12:03 test02.psql
+root@ad84f5154816:/#
+```
+
+<details>
+  <summary>What's with the dellar name?</summary>
+    These commands draw inspiration from [Stellar](https://pypi.org/project/stellar/) — a database snapshot and restore tool that is no longer maintained.
+</details>
