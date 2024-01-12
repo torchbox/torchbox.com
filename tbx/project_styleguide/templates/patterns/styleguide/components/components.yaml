@@ -10,6 +10,11 @@ context:
     company_logo: True
     name: Theo Smart
     role: Head of Digital, NHS UK
+    link:
+      0:
+        value:
+          url: '#'
+          text: Book a free 1-hour call with Michael
 
 tags:
   image:
