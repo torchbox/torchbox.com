@@ -1,11 +1,11 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% if item.image %}
-    {% image item.image width-1280 as related_item_image %}
+    {% image item.image width-1280 format-webp as related_item_image %}
 {% elif item.homepage_image %}
-    {% image item.homepage_image width-1280 as related_item_image %}
+    {% image item.homepage_image width-1280 format-webp as related_item_image %}
 {% elif item.feed_image %}
-    {% image item.feed_image width-1280 as related_item_image %}
+    {% image item.feed_image width-1280 format-webp as related_item_image %}
 {% endif %}
 
 {% if item.url %}

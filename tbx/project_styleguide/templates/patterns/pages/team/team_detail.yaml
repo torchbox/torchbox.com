@@ -8,5 +8,5 @@ context:
 
 tags:
   image:
-    page.image width-1280:
-      raw: '<img src="https://placekitten.com/1280/1706">'
+    page.image format-webp width-1280:
+      raw: '<img src="https://source.unsplash.com/1280x800/?person">'

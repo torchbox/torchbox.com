@@ -21,4 +21,4 @@ tags:
     item.image fill-550x550 as image:
       target_var: image
       raw:
-        url: '//placekitten.com/550/550'
+        url: 'https://source.unsplash.com/550x550/?trees'

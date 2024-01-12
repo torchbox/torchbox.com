@@ -7,10 +7,10 @@ context:
 
 tags:
   image:
-    item.image fill-550x550 as image:
+    item.image fill-550x550 format-webp as image:
       target_var: image
       raw:
-        url: '//placekitten.com/550/550'
+        url: 'https://source.unsplash.com/550x550/?person'
 
   pageurl:
     item:

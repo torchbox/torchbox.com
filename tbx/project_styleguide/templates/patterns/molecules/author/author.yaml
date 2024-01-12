@@ -11,7 +11,7 @@ context:
 
 tags:
   image:
-    author.image fill-100x100 as image:
+    author.image fill-100x100 format-webp as image:
       target_var: image
       raw:
         alt: 'Alt'
