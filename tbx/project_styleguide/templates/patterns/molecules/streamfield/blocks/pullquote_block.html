@@ -19,30 +19,32 @@
     <p class="blockquote__text heading heading--four">{{ value.quote }}</p>
 
     <div class="blockquote__reference">
-        {% if value.author_image %}
-            {% include "patterns/atoms/avatar/avatar.html" with avatar=value.author_image classes="avatar--small" %}
-        {% elif value.company_logo %}
-            {% image value.company_logo width-110 format-webp class="blockquote__company-logo" %}
-        {% endif %}
-
-        <cite class="blockquote__cite">
-            {% if value.name %}
-                <span class="blockquote__name">{{ value.name }}</span>
+        <div class="blockquote__meta">
+            {% if value.author_image %}
+                {% include "patterns/atoms/avatar/avatar.html" with avatar=value.author_image classes="avatar--small" %}
+            {% elif value.company_logo %}
+                {% image value.company_logo width-110 format-webp class="blockquote__company-logo" %}
             {% endif %}
 
-            {% if value.role %}
-                <span class="blockquote__role">{{ value.role }},</span>
-            {% endif %}
+            <cite class="blockquote__cite">
+                {% if value.name %}
+                    <span class="blockquote__name">{{ value.name }}</span>
+                {% endif %}
 
-            {% if value.company %}
-                <span class="blockquote__company">{{ value.company }}</span>
+                {% if value.role %}
+                    <span class="blockquote__role">{{ value.role }},</span>
+                {% endif %}
+
+                {% if value.company %}
+                    <span class="blockquote__company">{{ value.company }}</span>
+                {% endif %}
+            </cite>
+        </div>
+
+        {% with link=value.link.0.value %}
+            {% if link %}
+                <a class="button" href="{{ link.url }}">{{ link.text }}</a>
             {% endif %}
-        </cite>
+        {% endwith %}
     </div>
-
-    {% with link=value.link.0.value %}
-        {% if link %}
-            <a href="{{ link.url }}">{{ link.text }}</a>
-        {% endif %}
-    {% endwith %}
 </blockquote>
