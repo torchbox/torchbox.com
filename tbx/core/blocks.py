@@ -133,16 +133,10 @@ class VideoBlock(StructBlock):
 
 
 class ExternalStoryEmbedBlock(WebstoryExternalStoryEmbedBlock):
-    """This code is no longer in use, unfortunately an early migration depends explicitly on it & migrations cannot be simply squashed to get around this"""
+    """This code is no longer in use, unfortunately tbx/core/0001 migration (L407) depends explicitly on it & migrations cannot be simply squashed to get around this
+    See https://github.com/wagtail/wagtail/issues/3710 for a discussion of a similar issue"""
 
-    # Work around due to Attribute Error https://github.com/torchbox/wagtail-webstories/pull/12
-    def get_prep_value(self, value):
-        if value is None:
-            return ""
-        elif isinstance(value, str):
-            return value
-        else:
-            return value.url
+    pass
 
 
 class StoryBlock(StreamBlock):
