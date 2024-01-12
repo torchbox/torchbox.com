@@ -192,3 +192,26 @@ root@ad84f5154816:/#
   <summary>What's with the dellar name?</summary>
     These commands draw inspiration from [Stellar](https://pypi.org/project/stellar/) — a database snapshot and restore tool that is no longer maintained.
 </details>
+
+## Tests
+
+Run python unit tests in the `web` container as follows:
+
+```sh
+# Run the whole test suite once.
+djtest
+
+# Run the whole test suite, collecting test coverage information.
+djcov
+```
+
+JavaScript unit tests for this project use [Jest](https://jestjs.io/). Here are commands you can use:
+
+```sh
+# Run the whole test suite once.
+npm run test
+# Run the whole test suite, collecting test coverage information.
+npm run test:coverage
+# Start Jest in watch mode, to run tests on a subset of the files.
+npm run test:watch
+```
