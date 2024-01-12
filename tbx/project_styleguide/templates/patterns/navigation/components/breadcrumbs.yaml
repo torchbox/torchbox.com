@@ -11,3 +11,5 @@ context:
       - is_root: false
         depth: 5
         title: We need to go deeper
+        id: 2
+        pattern_library_is_parent: True # allows us to set a parent page just in the pattern library

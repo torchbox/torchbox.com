@@ -544,11 +544,12 @@ PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
 PATTERN_LIBRARY_ENABLED = env.get("PATTERN_LIBRARY_ENABLED", "false").lower() == "true"
 PATTERN_LIBRARY = {
     "SECTIONS": (
+        ("styleguide", ["patterns/styleguide"]),
         ("atoms", ["patterns/atoms"]),
         ("molecules", ["patterns/molecules"]),
         ("organisms", ["patterns/organisms"]),
         ("pages", ["patterns/pages"]),
-        ("styleguide", ["patterns/styleguide"]),
+        ("navigation", ["patterns/navigation"]),
     ),
     "TEMPLATE_SUFFIX": ".html",
     "PATTERN_BASE_TEMPLATE_NAME": "patterns/base.html",
