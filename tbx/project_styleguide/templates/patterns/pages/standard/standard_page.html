@@ -2,10 +2,12 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block content %}
+    <div class="grid streamfield">
+        <div class="streamfield__title">
+            <h1 class="heading heading--one">{{ page.title }}</h1>
+        </div>
 
-    {% include "patterns/molecules/title-block/title-block.html" with item=page tags=false %}
-
-    {% include_block page.body %}
-    {% include_block page.additional_content %}
-
+        {% include_block page.body %}
+        {% include_block page.additional_content %}
+    </div>
 {% endblock %}

@@ -1,0 +1,40 @@
+@use "config" as *;
+
+.streamfield {
+    &__title {
+        margin-bottom: $spacer-small;
+        grid-column: 1 / span 4;
+
+        @include media-query(large) {
+            grid-column: 3 / span 9;
+        }
+    }
+
+    &__intro {
+        margin-bottom: $spacer-medium;
+        grid-column: 1 / span 4;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 3 / span 7;
+        }
+    }
+
+    &__heading {
+        margin-bottom: $spacer-mini;
+        grid-column: 1 / span 4;
+
+        @include media-query(large) {
+            grid-column: 3 / span 7;
+        }
+    }
+
+    &__paragraph {
+        @include font-size(body);
+        grid-column: 1 / span 4;
+
+        @include media-query(large) {
+            grid-column: 3 / span 7;
+        }
+    }
+}
