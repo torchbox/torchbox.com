@@ -8,6 +8,7 @@
                     {% if not ancestor_page.is_root %}
                         <li class="breadcrumbs-nav__item {% if ancestor_page == parent_page or ancestor_page.pattern_library_is_parent %}breadcrumbs-nav__item--parent{% else %}breadcrumbs-nav__item--ancestor{% endif %}">
                             <a href="{% pageurl ancestor_page %}" class="breadcrumbs-nav__link">{{ ancestor_page.title }}</a>
+                            <span aria-hidden="true" class="breadcrumbs-nav__divider">/</span>
                         </li>
                     {% endif %}
                 {% endfor %}
