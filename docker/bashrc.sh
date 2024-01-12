@@ -5,6 +5,9 @@ alias dj="python manage.py"
 if [ "$BUILD_ENV" = "dev" ]; then
     alias djrun="python manage.py runserver 0.0.0.0:8000"
     alias djtest="python manage.py test --settings=tbx.settings.test"
+    alias djcov="coverage erase && \
+                coverage run --branch manage.py test --settings=tbx.settings.test && \
+                coverage report --skip-covered --skip-empty --show-missing"
 fi
 
 # nvm
