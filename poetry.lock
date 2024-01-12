@@ -2540,17 +2540,20 @@ testing = ["Jinja2 (>=3.0,<3.2)", "azure-mgmt-cdn (>=12.0,<13.0)", "azure-mgmt-f
 
 [[package]]
 name = "wagtail-accessibility"
-version = "0.2.1"
-description = "A plugin to assist with accessibility when developing in Wagtail."
+version = "2.0.0"
+description = "Accessibility content checks for Wagtail websites"
 optional = false
 python-versions = "*"
 files = [
-    {file = "wagtail-accessibility-0.2.1.tar.gz", hash = "sha256:70a246bfa3bc85751317633353491c2f2432bd4ed54968f89ad1406d9e4d0190"},
-    {file = "wagtail_accessibility-0.2.1-py3-none-any.whl", hash = "sha256:c69679a420c2699be3b9fe2aea90b7c62cd3952402c396f470cfc2d2f7fa11c5"},
+    {file = "wagtail-accessibility-2.0.0.tar.gz", hash = "sha256:b425feb5feb51df3530670759f9312cc0ac01c6db3824eb07cb099bf3999f8a3"},
+    {file = "wagtail_accessibility-2.0.0-py3-none-any.whl", hash = "sha256:36b16a85a7a4447e97715078701ffabcbfd730287896ad644b4658eb028c0517"},
 ]
 
 [package.dependencies]
-wagtail = ">=1.0"
+wagtail = ">=4.1"
+
+[package.extras]
+test = ["coverage (==6.0)", "pytest (==6.2.5)", "pytest-cov (==3.0.0)", "pytest-django (==4.5.0)", "pytest-pythonpath (==0.7.3)"]
 
 [[package]]
 name = "wagtail-factories"
@@ -2858,4 +2861,4 @@ gunicorn = ["gunicorn"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "da032270d80b3b5d8b12d9e533dd98e930a63279876dcd4b29679425d6dc33b8"
+content-hash = "2b5d8dcc4a3f9e776a138cd189919ba9a385f2b8c641d5272ab59d99497cd9af"
