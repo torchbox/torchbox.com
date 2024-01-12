@@ -1,6 +1,8 @@
 @use "config" as *;
 
 .blockquote {
+    font-style: normal;
+
     &__icon {
         margin-bottom: $spacer-small;
     }
@@ -15,6 +17,15 @@
     }
 
     &__reference {
+        @include media-query(large) {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    &__meta {
         display: flex;
         align-items: center;
         gap: 20px;
