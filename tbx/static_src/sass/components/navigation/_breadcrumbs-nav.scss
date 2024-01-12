@@ -6,7 +6,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-    margin: 15px 0 5px; // bottom margin of 5px is a 15px margin minus the 10px bottom margin on the li.
+    margin: $spacer-mini 0 calc(#{$spacer-mini} - 10px); // 15px margin minus the 10px bottom margin on the li.
 
     &__item {
         width: auto;
