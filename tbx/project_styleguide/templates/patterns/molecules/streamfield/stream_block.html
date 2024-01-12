@@ -3,7 +3,7 @@
 {% if value %}
     <div class="streamfield">
         {% for block in value %}
-            {% include_block block %}
+            {% include_block block with unique_id=block.id %}
         {% endfor %}
     </div>
 {% endif %}

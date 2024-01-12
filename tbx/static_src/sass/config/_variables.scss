@@ -17,7 +17,8 @@ $color--grey: #ccc;
 $color--dark-grey: #1d2325;
 
 // Coral dark by default
-:root {
+:root,
+.theme-coral-dark {
     --color--background: #{$color--dark-grey};
     --color--heading: #{$color--white};
     --color--text: #{$color--grey};

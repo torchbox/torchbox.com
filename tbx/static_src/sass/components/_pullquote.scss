@@ -1,0 +1,55 @@
+@use "config" as *;
+
+.pullquote {
+    font-style: normal;
+
+    &__icon {
+        margin-bottom: $spacer-small;
+    }
+
+    &__text {
+        font-style: normal;
+        margin-bottom: $spacer-small;
+
+        @include media-query(medium) {
+            margin-bottom: $spacer-medium;
+        }
+    }
+
+    &__reference {
+        @include media-query(large) {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    &__meta {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    &__cite {
+        font-style: normal;
+    }
+
+    &__name {
+        color: var(--color--heading);
+        display: block;
+        font-weight: $weight--semibold;
+    }
+
+    &__company-logo {
+        filter: grayscale(1);
+    }
+
+    &__cta {
+        margin-top: $spacer-medium;
+
+        @include media-query(large) {
+            margin-top: 0;
+        }
+    }
+}

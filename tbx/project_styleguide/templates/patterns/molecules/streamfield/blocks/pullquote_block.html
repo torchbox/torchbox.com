@@ -1,26 +1,34 @@
-{% load wagtailcore_tags %}
-<blockquote>
-    <svg width="120" height="90" aria-hidden="true">
-        <use xlink:href="#quote-icon" />
-    </svg>
-    <p>{{ value.quote }}</p>
-    <cite>
-        {% if value.attribution %}
-            <span>{{ value.attribution }}</span>
-        {% endif %}
+{% load wagtailcore_tags wagtailimages_tags %}
+<blockquote class="pullquote">
 
-        {% if value.name %}
-            <span>{{ value.name }}</span>
-        {% endif %}
+    {# This needs to be inline as masks or clipPaths are not supported in <use> elements #}
+    {% include "patterns/atoms/icons/quote-icon.html" with classes="pullquote__icon" unique_id=unique_id %}
 
-        {% if value.role %}
-            <span>{{ value.role }}</span>
-        {% endif %}
-    </cite>
+    <p class="pullquote__text heading heading--four">{{ value.quote }}</p>
 
-    {% with link=value.link.0.value %}
-        {% if link %}
-            <a href="{{ link.url }}">{{ link.text }}</a>
-        {% endif %}
-    {% endwith %}
+    <div class="pullquote__reference">
+        <div class="pullquote__meta">
+            {% if value.author_image %}
+                {% include "patterns/atoms/avatar/avatar.html" with avatar=value.author_image classes="avatar--small" %}
+            {% elif value.company_logo %}
+                {% image value.company_logo fill-110x70 format-webp class="pullquote__company-logo" %}
+            {% endif %}
+
+            <cite class="pullquote__cite">
+                {% if value.name %}
+                    <span class="pullquote__name">{{ value.name }}</span>
+                {% endif %}
+
+                {% if value.role %}
+                    <span class="pullquote__role">{{ value.role }}</span>
+                {% endif %}
+            </cite>
+        </div>
+
+        {% with link=value.link.0.value %}
+            {% if link %}
+                <a class="pullquote__cta button" href="{{ link.url }}">{{ link.text }}</a>
+            {% endif %}
+        {% endwith %}
+    </div>
 </blockquote>

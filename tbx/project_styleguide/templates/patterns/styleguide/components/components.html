@@ -1,13 +1,35 @@
-<h1 class="heading--one">Styleguide</h1>
+<div class="p-4 flex items-center justify-between">
+    <h1 class="heading--one">Styleguide</h1>
+    <div class="flex items-center gap-2">
+        <label for="theme-chooser">Choose a theme:</label>
+        <select name="theme-chooser" id="theme-chooser" class="p-2 text-black select" onchange="changeTheme(this.value)">
+            <option value="theme-coral-dark">Coral Dark</option>
+            <option value="theme-lagoon-dark">Lagoon Dark</option>
+        </select>
+    </div>
+</div>
+
 <div class="p-4">
     <h2 class="underline mb-2">Avatar</h2>
     {% include "patterns/atoms/avatar/avatar.html" %}
 
     <h2 class="underline mt-8 mb-2">Avatar (small)</h2>
     {% include "patterns/atoms/avatar/avatar.html" with classes="avatar--small" %}
-</div>
 
-<div class="p-4">
-    <h2 class="underline mb-2">Breadcrumb</h2>
+    <h2 class="underline mt-8 mb-2">Pullquote (person)</h2>
+    {% include "patterns/molecules/streamfield/blocks/pullquote_block.html" with value=blockquote_person_data %}
+
+    <h2 class="underline mt-8 mb-2">Pullquote (client)</h2>
+    {% include "patterns/molecules/streamfield/blocks/pullquote_block.html" with value=blockquote_client_data %}
+
+    <h2 class="underline mt-8  mb-2">Breadcrumb</h2>
     {% include "patterns/navigation/components/breadcrumbs.html" %}
 </div>
+
+<script>
+    // JS to change the theme of the styleguide
+    function changeTheme(theme) {
+        document.body.className = '';
+        document.body.classList.add(theme);
+    }
+</script>
