@@ -11,7 +11,7 @@
             {% if value.author_image %}
                 {% include "patterns/atoms/avatar/avatar.html" with avatar=value.author_image classes="avatar--small" %}
             {% elif value.company_logo %}
-                {% image value.company_logo width-110 format-webp class="blockquote__company-logo" %}
+                {% image value.company_logo fill-110x70 format-webp class="blockquote__company-logo" %}
             {% endif %}
 
             <cite class="blockquote__cite">
