@@ -8,7 +8,7 @@ context:
 
 tags:
   image:
-    item.image width-1280 format-webp as related_item_image:
+    image item.image width-1280 format-webp as related_item_image:
       target_var: related_item_image
       raw:
-        url: '//placekitten.com/1280/800'
+        url: 'https://source.unsplash.com/1280x800/?trees'

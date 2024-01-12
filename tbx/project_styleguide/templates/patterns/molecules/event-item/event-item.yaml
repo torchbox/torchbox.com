@@ -8,7 +8,7 @@ context:
 tags:
   image:
     item.author.image fill-100x100 format-webp alt="":
-      raw: '<img src="https://placekitten.com/100/100">'
+      raw: '<img src="https://source.unsplash.com/100x100/?event">'
   pageurl:
     item:
       raw: '#'
