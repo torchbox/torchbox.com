@@ -61,3 +61,9 @@
 - [ ] If JavaScript is needed alternatives have been considered
 - [ ] New font variants have not been added
 - [ ] Not required
+
+#### Pattern library
+
+- [ ] The pattern library component for this template displays correctly, and does not break parent templates
+- [ ] The styleguide is updated if relevant
+- [ ] Changes are not relevant the pattern library

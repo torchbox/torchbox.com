@@ -140,6 +140,7 @@
     color: $color;
     text-decoration: underline;
     text-decoration-thickness: $link-underline-thickness;
+    text-underline-offset: 2px;
 
     &:hover {
         color: $interaction-color;
