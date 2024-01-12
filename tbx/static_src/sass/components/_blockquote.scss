@@ -44,4 +44,12 @@
     &__company-logo {
         filter: grayscale(1);
     }
+
+    &__cta {
+        margin-top: $spacer-medium;
+
+        @include media-query(large) {
+            margin-top: 0;
+        }
+    }
 }

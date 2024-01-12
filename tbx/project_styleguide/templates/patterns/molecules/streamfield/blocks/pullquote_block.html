@@ -44,7 +44,7 @@
 
         {% with link=value.link.0.value %}
             {% if link %}
-                <a class="button" href="{{ link.url }}">{{ link.text }}</a>
+                <a class="blockquote__cta button" href="{{ link.url }}">{{ link.text }}</a>
             {% endif %}
         {% endwith %}
     </div>
