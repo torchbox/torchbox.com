@@ -81,8 +81,13 @@ class ImageFormatChoiceBlock(FieldBlock):
 
 class ImageBlock(StructBlock):
     image = ImageChooserBlock()
-    alignment = ImageFormatChoiceBlock()
-    caption = CharBlock()
+    alt_text = CharBlock(required=False)
+    image_is_decorative = BooleanBlock(
+        required=False,
+        default=False,
+        help_text="If checked, this will make the alt text empty.",
+    )
+    caption = CharBlock(required=False)
     attribution = CharBlock(required=False)
 
     class Meta:
@@ -134,7 +139,8 @@ class VideoBlock(StructBlock):
 
 class ExternalStoryEmbedBlock(WebstoryExternalStoryEmbedBlock):
     """This code is no longer in use, unfortunately tbx/core/0001 migration (L407) depends explicitly on it & migrations cannot be simply squashed to get around this
-    See https://github.com/wagtail/wagtail/issues/3710 for a discussion of a similar issue"""
+    See https://github.com/wagtail/wagtail/issues/3710 for a discussion of a similar issue
+    """
 
     pass
 
