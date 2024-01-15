@@ -8,7 +8,7 @@ COPY package.json package-lock.json tsconfig.json webpack.config.js tailwind.con
 RUN npm ci --no-optional --no-audit --progress=false
 
 # Compile static files
-COPY ./tbx/static_src/ ./tbx/static_src/
+COPY ./tbx/ ./tbx/
 RUN npm run build:prod
 
 
