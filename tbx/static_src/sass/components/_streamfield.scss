@@ -41,9 +41,11 @@
     }
 
     &__image {
+        margin-bottom: $spacer-medium;
         grid-column: 1 / span 4;
 
         @include media-query(large) {
+            margin-bottom: $spacer-large;
             grid-column: 3 / span 7;
         }
     }
