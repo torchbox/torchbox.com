@@ -17,6 +17,7 @@ from wagtail.blocks import (
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail_webstories.blocks import (
     ExternalStoryEmbedBlock as WebstoryExternalStoryEmbedBlock,
 )
@@ -191,6 +192,16 @@ class CallToActionBlock(StructBlock):
         value_class = CallToActionStructValue
 
 
+class ContactCTABlock(StructBlock):
+    call_to_action = blocks.StreamBlock(
+        [("call_to_action", CallToActionBlock())], max_num=1
+    )
+    person = SnippetChooserBlock("people.Author")
+
+    class Meta:
+        template = "patterns/molecules/streamfield/blocks/contact_call_to_action.html"
+
+
 class ExternalStoryEmbedBlock(WebstoryExternalStoryEmbedBlock):
     """
     This code is no longer in use, unfortunately tbx/core/0001 migration (L407)
@@ -231,6 +242,10 @@ class StoryBlock(StreamBlock):
     call_to_action = CallToActionBlock(
         label="Call to Action",
         template="patterns/molecules/streamfield/blocks/call_to_action.html",
+    )
+    contact_call_to_action = ContactCTABlock(
+        label="Contact Call to Action",
+        template="patterns/molecules/streamfield/blocks/contact_call_to_action.html",
     )
     pullquote = PullQuoteBlock(
         template="patterns/molecules/streamfield/blocks/pullquote_block.html"

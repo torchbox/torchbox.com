@@ -1,0 +1,22 @@
+context:
+  value:
+    text: 'Work with the best in the business'
+    button_text: 'Contact Us'
+    button_link:
+      - internal_link:
+          id: 1
+      - external_link:
+          url: 'https://example.com'
+      - email:
+          email: 'example@example.com'
+    person:
+      image:
+        value.person.image fill-100x100:
+          target_var: person_image
+          raw:
+        url: 'https://source.unsplash.com/1280x860/?trees'
+        alt: Some alt
+        height: 860
+        width: 1280
+      name: 'John Doe'
+      role: 'CEO'

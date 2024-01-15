@@ -1,0 +1,14 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="call-to-action-block">
+    <p>{{ value.text }}</p>
+
+    {% if value.button_text and value.button_link %}
+        <a href="{{ value.button_link.get_link }}" class="btn">{{ value.button_text }}</a>
+    {% endif %}
+
+    {% if value.person %}
+        {% image value.person.image fill-100x100 format-webp as person_image %}
+        {{ value.person.name }}
+        {{ value.person.role }}
+    {% endif %}
+</div>
