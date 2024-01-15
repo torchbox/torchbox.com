@@ -2,13 +2,13 @@ context:
   value:
     alt_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     image_is_decorative: false
-    caption: Some caption
-    attribution: Some attribution
+    caption: Effortlessly blending innovation with functionality - the future of sustainable design.
+    attribution: Jeth Ordeniza, Torchbox
 
 tags:
   image:
-    value.image max-1280x860 format-webp as aligned_image:
-      target_var: aligned_image
+    value.image max-1280x860 format-webp as img:
+      target_var: img
       raw:
         url: 'https://source.unsplash.com/1280x860/?trees'
         alt: Some alt
