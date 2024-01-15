@@ -1,5 +1,6 @@
 from django.utils.functional import cached_property
 
+from wagtail import blocks
 from wagtail.blocks import (
     BooleanBlock,
     CharBlock,
@@ -129,6 +130,23 @@ class VideoBlock(StructBlock):
         template = "patterns/molecules/streamfield/blocks/video_block.html"
 
 
+class CallToActionBlock(StructBlock):
+    text = blocks.CharBlock(required=True, max_length=255)
+    button_text = blocks.CharBlock(max_length=55)
+    button_link = blocks.StreamBlock(
+        [
+            ("internal_link", blocks.PageChooserBlock()),
+            ("external_link", blocks.URLBlock()),
+            ("email", blocks.EmailBlock()),
+        ],
+        required=True,
+        max_num=1,
+    )
+
+    class Meta:
+        template = "patterns/molecules/streamfield/blocks/call_to_action.html"
+
+
 class ExternalStoryEmbedBlock(WebstoryExternalStoryEmbedBlock):
     """
     This code is no longer in use, unfortunately tbx/core/0001 migration (L407)
@@ -165,6 +183,10 @@ class StoryBlock(StreamBlock):
     )
     image = ImageBlock(
         template="patterns/molecules/streamfield/blocks/image_block.html",
+    )
+    call_to_action = CallToActionBlock(
+        label="Call to Action",
+        template="patterns/molecules/streamfield/blocks/call_to_action.html",
     )
     pullquote = PullQuoteBlock(
         template="patterns/molecules/streamfield/blocks/pullquote_block.html"
