@@ -10,13 +10,13 @@ context:
       - email:
           email: 'example@example.com'
     person:
-      image:
-        value.person.image fill-100x100:
-          target_var: person_image
-          raw:
-        url: 'https://source.unsplash.com/1280x860/?trees'
-        alt: Some alt
-        height: 860
-        width: 1280
       name: 'John Doe'
       role: 'CEO'
+
+tags:
+  image:
+    value.person.image max-100x100 format-webp as person_image:
+      target_var: person_image
+      raw:
+        url: 'https://source.unsplash.com/100x100/?trees'
+        alt: Some alt

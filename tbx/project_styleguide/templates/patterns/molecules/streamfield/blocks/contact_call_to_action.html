@@ -7,7 +7,7 @@
     {% endif %}
 
     {% if value.person %}
-        {% image value.person.image fill-100x100 format-webp as person_image %}
+        {% image value.person.image max-100x100 format-webp as person_image %}
         {{ value.person.name }}
         {{ value.person.role }}
     {% endif %}
