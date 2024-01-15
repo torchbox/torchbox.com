@@ -1,0 +1,27 @@
+context:
+  blockquote_client_data:
+    quote: Torchbox's collaboration has been delightful, significantly elevating NHS.UK team's appreciation of SEO. They're diligent, eager, and proactive, consistently delivering optimal solutions for any challenge
+    company_logo: True
+    name: Theo Smart
+    role: Head of Digital, NHS UK
+    link:
+      0:
+        value:
+          url: '#'
+          text: Book a free 1-hour call with Michael
+
+tags:
+  image:
+    avatar width-143 format-webp class="avatar__image":
+      raw: |
+        <img src="https://source.unsplash.com/143x143?face" width="143" height="143" alt="Some alt" class="avatar__image">
+    value.company_logo fill-110x70 format-webp class="pullquote__company-logo":
+      raw: |
+        <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="pullquote__company-logo">
+    value.image max-1280x860 format-webp as img:
+      target_var: img
+      raw:
+        url: 'https://source.unsplash.com/1280x860/?trees'
+        alt: Some alt
+        height: 860
+        width: 1280
