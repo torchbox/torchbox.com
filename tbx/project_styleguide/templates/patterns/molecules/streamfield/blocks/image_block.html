@@ -5,7 +5,7 @@
     {% if value.image_is_decorative %}
         alt=""
     {% else %}
-        alt="{% firstof value.alt img.alt %}"
+        alt="{% firstof value.alt_text img.alt %}"
     {% endif %}
     height="{{ img.height }}"
     width="{{ img.width }}"
