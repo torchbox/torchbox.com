@@ -92,6 +92,8 @@ jobs:
           cache: 'poetry'
       - name: Install Python dependencies
         run: poetry install
+      - name: collectstatic
+        run: python manage.py collectstatic --verbosity 0 --noinput --clear
       - name: System checks
         run: poetry run ./manage.py check
       - name: Check for missing migrations
