@@ -191,7 +191,10 @@ class StoryBlock(StreamBlock):
     image = ImageBlock(
         template="patterns/molecules/streamfield/blocks/image_block.html",
     )
-    pullquote = PullQuoteBlock(
+    bustout = BustoutBlock(
+        template="patterns/molecules/streamfield/blocks/bustout_block.html"
+    )
+    quote = PullQuoteBlock(
         template="patterns/molecules/streamfield/blocks/pullquote_block.html"
     )
     raw_html = RawHTMLBlock(
