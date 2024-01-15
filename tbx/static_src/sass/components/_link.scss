@@ -2,7 +2,11 @@
 
 .link {
     $root: &;
-    @include link-styles(var(--color--link), var(--color--link-interaction));
+    @include link-styles(
+        var(--color--link),
+        var(--color--link-interaction),
+        $shadow: true
+    );
 
     &--with-arrow {
         display: inline-flex;

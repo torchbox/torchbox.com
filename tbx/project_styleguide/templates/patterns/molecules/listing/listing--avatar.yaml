@@ -1,0 +1,18 @@
+context:
+  link: '/'
+  title: Reimagining our Agile training and ways of working
+  name: Suzanne Begley
+  job_title: Product Director
+  page_type: Insight
+  reading_time: 4 min read
+  tags:
+    - name: Innovation
+      slug: innovation
+    - name: Culture
+      slug: culture
+
+tags:
+  image:
+    avatar width-143 format-webp loading="lazy" class="avatar__image":
+      raw: |
+        <img src="https://source.unsplash.com/143x143?face" width="143" height="143" alt="Some alt" class="avatar__image">

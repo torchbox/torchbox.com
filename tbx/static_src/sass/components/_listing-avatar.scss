@@ -1,0 +1,44 @@
+// styles specific to the avatar version of the listing
+
+@use "config" as *;
+
+.listing-avatar {
+    &__link {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        column-gap: $spacer-mini;
+
+        @include media-query(medium) {
+            column-gap: $spacer-half;
+        }
+    }
+
+    &__avatar {
+        @include media-query(medium) {
+            order: 1;
+            grid-row: 1 / 3;
+        }
+    }
+
+    &__title {
+        grid-column: 1 / 3;
+
+        @include media-query(medium) {
+            order: 2;
+            grid-column: auto;
+        }
+    }
+
+    &__details {
+        @include media-query(medium) {
+            order: 3;
+        }
+    }
+
+    &__tags {
+        @include media-query(medium) {
+            grid-row: 2 / 3;
+            margin-left: calc(#{$avatar-size-desktop} + #{$spacer-half});
+        }
+    }
+}

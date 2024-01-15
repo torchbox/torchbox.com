@@ -15,6 +15,7 @@ $color--light-blue: #659ff2;
 $color--dark-blue: #481cd9;
 $color--grey: #ccc;
 $color--dark-grey: #1d2325;
+$color--grey-50: #808080;
 
 // Coral dark by default
 :root,
@@ -31,6 +32,8 @@ $color--dark-grey: #1d2325;
     --color--accent-three: #{$color--coral-light};
     --color--accent-four: #{$color--purple};
     --color--accent-five: #{$color--white};
+    --color--link-icon: #{$color--grey-50};
+    --color--page: #{$color--dark-grey};
 }
 
 .theme-lagoon-dark {
@@ -46,6 +49,8 @@ $color--dark-grey: #1d2325;
     --color--accent-three: #{$color--lagoon-light};
     --color--accent-four: #{$color--blue};
     --color--accent-five: #{$color--white};
+    --color--link-icon: #{$color--grey-50};
+    --color--page: #{$color--dark-grey};
 }
 
 // --------------------------------- Fonts -------------------------------------
@@ -175,10 +180,12 @@ $grid-gutters-x-large: 120px;
 
 // Vertical spacing
 $spacer-mini: 15px;
+$spacer-mini-plus: 20px;
 $spacer-small: ($spacer-mini * 2); // 30px
 $spacer-medium: ($spacer-mini * 4); // 60px
 $spacer-large: ($spacer-mini * 8); // 120px
 $spacer: 160px;
+$spacer-half: ($spacer / 2); // 80px
 $spacer-x-large: ($spacer-mini * 16); // 240px
 $spacer-massive: ($spacer-mini * 24); // 360px
 
@@ -206,3 +213,6 @@ $z-index: (
 
 $focus-color: var(--color--focus-ring);
 $focus-width: 3px;
+
+// --------------------------------- Specific styles ---------------------------
+$avatar-size-desktop: 145px;

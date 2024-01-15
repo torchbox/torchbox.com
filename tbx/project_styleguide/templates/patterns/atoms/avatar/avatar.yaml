@@ -1,5 +1,5 @@
 tags:
   image:
-    avatar width-143 format-webp class="avatar__image":
+    avatar width-143 format-webp loading="lazy" class="avatar__image":
       raw: |
         <img src="https://source.unsplash.com/143x143?face" width="143" height="143" alt="Some alt" class="avatar__image">

@@ -2,12 +2,12 @@
 
 .avatar {
     position: relative;
-    width: 98px;
-    height: 98px;
+    width: 72px;
+    height: 72px;
 
     @include media-query(medium) {
-        width: 145px;
-        height: 145px;
+        width: $avatar-size-desktop;
+        height: $avatar-size-desktop;
     }
 
     &--small {

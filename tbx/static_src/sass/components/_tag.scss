@@ -1,0 +1,20 @@
+@use "config" as *;
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 5px;
+    row-gap: 15px;
+}
+
+.tag {
+    padding: 5px $spacer-mini;
+    border-radius: 50px;
+    border: 1px solid var(--color--text);
+
+    &:hover {
+        color: var(--color--page);
+        background-color: var(--color--heading);
+        border-color: var(--color--heading);
+    }
+}

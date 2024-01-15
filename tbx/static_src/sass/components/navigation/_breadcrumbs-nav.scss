@@ -43,6 +43,6 @@
     }
 
     &__link {
-        @include link-styles();
+        @include link-styles($shadow: true);
     }
 }
