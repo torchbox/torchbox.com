@@ -1,4 +1,3 @@
-from django import forms
 from django.utils.functional import cached_property
 
 from wagtail.blocks import (
@@ -69,14 +68,14 @@ class LinkBlock(StreamBlock):
 
 
 class ImageFormatChoiceBlock(FieldBlock):
-    field = forms.ChoiceField(
-        choices=(
-            ("left", "Wrap left"),
-            ("right", "Wrap right"),
-            ("half", "Half width"),
-            ("full", "Full width"),
-        )
-    )
+    """
+    This block is no longer in use. However, because several migrations
+    make explicit references to the block class, we cannot remove it
+    without breaking the migrations.
+    See https://github.com/wagtail/wagtail/issues/3710 for more details.
+    """
+
+    pass
 
 
 class ImageBlock(StructBlock):
@@ -110,13 +109,6 @@ class PullQuoteBlock(StructBlock):
         icon = "openquote"
 
 
-class WideImage(StructBlock):
-    image = ImageChooserBlock()
-
-    class Meta:
-        icon = "image"
-
-
 class VideoBlock(StructBlock):
     video = VideoChooserBlock()
     # setting autoplay to True adds 'autoplay', 'loop' & 'muted' attrs to video element
@@ -138,7 +130,9 @@ class VideoBlock(StructBlock):
 
 
 class ExternalStoryEmbedBlock(WebstoryExternalStoryEmbedBlock):
-    """This code is no longer in use, unfortunately tbx/core/0001 migration (L407) depends explicitly on it & migrations cannot be simply squashed to get around this
+    """
+    This code is no longer in use, unfortunately tbx/core/0001 migration (L407)
+    depends explicitly on it & migrations cannot be simply squashed to get around this
     See https://github.com/wagtail/wagtail/issues/3710 for a discussion of a similar issue
     """
 
@@ -169,13 +163,8 @@ class StoryBlock(StreamBlock):
         icon="pilcrow",
         template="patterns/molecules/streamfield/blocks/paragraph_block.html",
     )
-    aligned_image = ImageBlock(
-        label="Aligned image",
-        template="patterns/molecules/streamfield/blocks/aligned_image_block.html",
-    )
-    wide_image = WideImage(
-        label="Wide image",
-        template="patterns/molecules/streamfield/blocks/wide_image_block.html",
+    image = ImageBlock(
+        template="patterns/molecules/streamfield/blocks/image_block.html",
     )
     pullquote = PullQuoteBlock(
         template="patterns/molecules/streamfield/blocks/pullquote_block.html"
