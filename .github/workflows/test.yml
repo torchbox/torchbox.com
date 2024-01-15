@@ -93,12 +93,12 @@ jobs:
       - name: Install Python dependencies
         run: poetry install
       - name: collectstatic
-        run: python manage.py collectstatic --verbosity 0 --noinput --clear
+        run: poetry run ./manage.py collectstatic --verbosity 0 --noinput --clear
       - name: System checks
         run: poetry run ./manage.py check
       - name: Check for missing migrations
         run: poetry run ./manage.py makemigrations --check --noinput
       - name: Create cache table
-        run: python manage.py createcachetable
+        run: poetry run ./manage.py createcachetable
       - name: Test
         run: poetry run ./manage.py test
