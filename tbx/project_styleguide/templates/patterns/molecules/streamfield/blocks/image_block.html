@@ -1,0 +1,20 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% image value.image max-1280x860 format-webp as img %}
+<img
+    src="{{ img.url }}"
+    {% if value.image_is_decorative %}
+        alt=""
+    {% else %}
+        alt="{% firstof value.alt img.alt %}"
+    {% endif %}
+    height="{{ img.height }}"
+    width="{{ img.width }}"
+    loading="lazy"
+/>
+{% if value.caption %}
+    {{ value.caption }}
+{% endif %}
+<br />
+{% if value.attribution %}
+    {{ value.attribution }}
+{% endif %}
