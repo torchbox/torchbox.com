@@ -7,6 +7,6 @@
     <picture>
         <source media="(max-width: 598px)" srcset="{{  avatar_mobile.url }} 1x, {{ avatar_desktop.url }} 2x" />
         <source media="(min-width: 599px)" srcset="{{ avatar_desktop.url }} 1x, {{ avatar_desktop_retina.url }} 2x" />
-        <img src="{{ avatar_desktop.url }}" alt="{{ avatar_desktop.alt }}" loading="lazy" class="avatar__image" />
+        <img src="{{ avatar_desktop.url }}" alt="{{ avatar_desktop.alt }}" {% if lazy_load %}loading="lazy"{% endif %} class="avatar__image" />
     </picture>
 </div>

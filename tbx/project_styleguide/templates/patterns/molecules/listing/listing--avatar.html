@@ -3,7 +3,7 @@
     <a class="listing-avatar__link listing__link" href="{{ link }}" aria-label="{{ aria_text|default:title }} by {{ name }}">
         <h2 class="listing-avatar__title listing__title">{{ title }}</h2>
         <div class="listing-avatar__avatar">
-            {% include "patterns/atoms/avatar/avatar.html" %}
+            {% include "patterns/atoms/avatar/avatar.html" with lazy_load=True %}
         </div>
 
         <div class="listing-avatar__details listing__details">
