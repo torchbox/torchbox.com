@@ -7,8 +7,8 @@ context:
 
 tags:
   image:
-    value.image max-1280x860 format-webp as img:
-      target_var: img
+    value.image max-1280x860 format-webp as desktop_image:
+      target_var: desktop_image
       raw:
         url: 'https://source.unsplash.com/1280x860/?trees'
         alt: Some alt
