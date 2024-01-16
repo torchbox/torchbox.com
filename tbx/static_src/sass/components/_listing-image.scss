@@ -12,6 +12,10 @@
         gap: $spacer-half;
     }
 
+    &__link {
+        display: block;
+    }
+
     &__image {
         width: 100%;
         height: auto;
