@@ -2,8 +2,8 @@
 <div class="image streamfield__image">
     {% image value.image max-1280x860 format-webp as desktop_image %}
     {% image value.image max-2560x1720 format-webp as desktop_image_retina %}
-    {% image value.image max-1080x726 format-webp as mobile_image %}
-    {% image value.image max-2160x1452 format-webp as mobile_image_retina %}
+    {% image value.image max-800x538 format-webp as mobile_image %}
+    {% image value.image max-1600x1076 format-webp as mobile_image_retina %}
 
     <picture>
         <source media="(max-width: 598px)" srcset="{{ mobile_image.url }} 1x, {{ mobile_image_retina.url }} 2x" />
