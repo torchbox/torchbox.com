@@ -1,10 +1,11 @@
 context:
   link: '/'
-  title: Reimagining our Agile training and ways of working
-  name: Suzanne Begley
-  job_title: Product Director
-  page_type: Insight
-  reading_time: 4 min read
+  title: Joining the battle to protect our oceans
+  name: Marine Conservation Society
+  aria_text: 'Joining the battle to protect our oceans: a case study for the Marine Conservation Society'
+  tags_screenreader_text: 'Filter work posts by category'
+  page_type: Case study
+  reading_time: 3 min read
   tags:
     - name: Innovation
       slug: innovation
