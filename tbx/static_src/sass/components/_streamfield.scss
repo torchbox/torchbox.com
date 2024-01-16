@@ -3,7 +3,7 @@
 .streamfield {
     &__title {
         margin-bottom: $spacer-small;
-        grid-column: 1 / span 4;
+        grid-column: 2 / span 4;
 
         @include media-query(large) {
             grid-column: 4 / span 9;
@@ -12,7 +12,7 @@
 
     &__intro {
         margin-bottom: $spacer-medium;
-        grid-column: 1 / span 4;
+        grid-column: 2 / span 4;
 
         @include media-query(large) {
             margin-bottom: $spacer-large;
@@ -22,7 +22,7 @@
 
     &__heading {
         margin-bottom: $spacer-mini;
-        grid-column: 1 / span 4;
+        grid-column: 2 / span 4;
 
         @include media-query(large) {
             grid-column: 4 / span 7;
@@ -32,7 +32,7 @@
     &__paragraph {
         @include font-size(body);
         margin-bottom: $spacer-medium;
-        grid-column: 1 / span 4;
+        grid-column: 2 / span 4;
 
         @include media-query(large) {
             margin-bottom: $spacer-large;
@@ -42,7 +42,7 @@
 
     &__image {
         margin-bottom: $spacer-medium;
-        grid-column: 1 / span 4;
+        grid-column: 2 / span 4;
 
         @include media-query(large) {
             margin-bottom: $spacer-large;
@@ -52,7 +52,7 @@
 
     &__quote {
         margin-bottom: $spacer-medium;
-        grid-column: 1 / span 4;
+        grid-column: 2 / span 4;
 
         @include media-query(large) {
             margin-bottom: $spacer-large;
