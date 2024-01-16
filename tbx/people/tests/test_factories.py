@@ -1,6 +1,19 @@
 from django.test import TestCase
 
-from tbx.people.factories import ContactFactory, ContactReasonsListFactory
+from tbx.people.factories import (
+    AuthorFactory,
+    ContactFactory,
+    ContactReasonsListFactory,
+)
+
+
+class AuthorFactoryTestCase(TestCase):
+    def test_author_factory(self):
+        author = AuthorFactory()
+        self.assertIsNotNone(author.name)
+        self.assertIsNotNone(author.role)
+        self.assertIsNone(author.person_page)
+        self.assertIsNone(author.image)
 
 
 class ContactFactoryTestCase(TestCase):
