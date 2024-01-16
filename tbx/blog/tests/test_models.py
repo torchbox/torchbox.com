@@ -19,7 +19,12 @@ fake = Faker(["en_GB"])
 
 class TestBlogPageFactory(WagtailPageTestCase):
     def test_create(self):
-        BlogPageFactory()
+        blog_post = BlogPageFactory()
+        self.assertEqual(blog_post.related_services.count(), 1)
+
+        services = ServiceFactory.create_batch(size=3)
+        another_blog_post = BlogPageFactory(related_services=list(services))
+        self.assertEqual(another_blog_post.related_services.count(), 3)
 
 
 class TestBlogIndexPageFactory(WagtailPageTestCase):
