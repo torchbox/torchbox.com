@@ -212,7 +212,7 @@ class BlogPage(SocialFields, Page):
             .live()
             .distinct()
             .order_by("-first_published_at")
-            .exclude(pk=self.pk)[:2]
+            .exclude(pk=self.pk)[:3]
         ]
 
     @cached_property
