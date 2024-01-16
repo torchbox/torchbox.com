@@ -107,7 +107,8 @@ class ImageWithLinkBlock(StructBlock):
 class PullQuoteBlock(StructBlock):
     quote = CharBlock(form_classname="quote title")
     attribution = CharBlock()
-    company_logo = ImageChooserBlock(
+    role = CharBlock()
+    logo = ImageChooserBlock(
         required=False, help_text="Add either a company logo or author image"
     )
     author_image = ImageChooserBlock(
@@ -117,13 +118,13 @@ class PullQuoteBlock(StructBlock):
 
     def clean(self, value):
         result = super().clean(value)
-        if value["company_logo"] and value["author_image"]:
+        if value["logo"] and value["author_image"]:
             raise StructBlockValidationError(
                 block_errors={
                     "author_image": ValidationError(
                         "You must specify either an author image or a company logo, not both."
                     ),
-                    "company_logo": ValidationError(
+                    "logo": ValidationError(
                         "You must specify either an author image or a company logo, not both."
                     ),
                 }
@@ -191,7 +192,7 @@ class StoryBlock(StreamBlock):
     image = ImageBlock(
         template="patterns/molecules/streamfield/blocks/image_block.html",
     )
-    quote = PullQuoteBlock(
+    pullquote = PullQuoteBlock(
         template="patterns/molecules/streamfield/blocks/pullquote_block.html"
     )
     raw_html = RawHTMLBlock(
