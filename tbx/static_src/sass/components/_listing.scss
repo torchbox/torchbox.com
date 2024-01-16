@@ -57,7 +57,7 @@
             height: 22px;
             transition: transform, $transition-quick;
 
-            @include reduced-motion {
+            @include reduced-motion() {
                 transition: none;
             }
 
@@ -65,7 +65,7 @@
                 color: var(--color--link-interaction);
                 transform: translateX(8px);
 
-                @include reduced-motion {
+                @include reduced-motion() {
                     transform: none;
                 }
             }
