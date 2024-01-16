@@ -185,7 +185,7 @@ $spacer-small: ($spacer-mini * 2); // 30px
 $spacer-medium: ($spacer-mini * 4); // 60px
 $spacer-large: ($spacer-mini * 8); // 120px
 $spacer: 160px;
-$spacer-half: ($spacer / 2); // 80px
+$spacer-half: ($spacer * 0.5); // 80px
 $spacer-x-large: ($spacer-mini * 16); // 240px
 $spacer-massive: ($spacer-mini * 24); // 360px
 
