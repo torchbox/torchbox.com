@@ -169,9 +169,7 @@ $site-width: 1500px;
 
 // Grid setup - update any changes here in the grid.md docs file too
 $grid: 30px;
-$grid-column-gap: $grid;
-$grid-column-gap-large: 50px;
-$grid-column-gap-x-large: 80px;
+$grid-gutters: $grid;
 $grid-gutters-large: 80px;
 $grid-gutters-x-large: 120px;
 
