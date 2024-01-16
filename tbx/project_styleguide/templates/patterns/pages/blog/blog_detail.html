@@ -32,26 +32,12 @@
 
     {% include_block page.body %}
 
-
-    {% for page_author in page.authors.all %}
-        {% include "patterns/molecules/author/author.html" with author=page_author.author item=page tag_link_base=blog_index_url %}
-    {% endfor %}
-
-    {% include_block page.call_to_action %}
-
     {% if page.related_blog_posts %}
-        {% include "patterns/atoms/section-title/section-title.html" with title="More of our thinking"%}
+        {% include "patterns/atoms/section-title/section-title.html" with title="More"%}
 
         {% for post in page.related_blog_posts %}
             {% include "patterns/molecules/blog-item/blog-item.html" with item=post %}
         {% endfor %}
-        {% include "patterns/atoms/see-more/see-more.html" with link=blog_index_url text="See more posts" %}
     {% endif %}
 
-    {% if page.related_works %}
-        {% include "patterns/atoms/section-title/section-title.html" with title="More of our work" %}
-        {% include "patterns/organisms/work-listing/work-listing.html" with works=page.related_works %}
-        {% pageurl page.work_index as work_index_url %}
-        {% include "patterns/atoms/see-more/see-more.html" with link=work_index_url text="See more case studies" %}
-    {% endif %}
 {% endblock %}
