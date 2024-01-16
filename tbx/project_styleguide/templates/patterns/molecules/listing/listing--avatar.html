@@ -1,0 +1,27 @@
+{# Designed to be included from another template and values passed in #}
+<li class="listing-avatar listing">
+    <a class="listing-avatar__link listing__link" href="{{ link }}" aria-label="{{ aria_text|default:title }} by {{ name }}">
+        <h2 class="listing-avatar__title listing__title">{{ title }}</h2>
+        <div class="listing-avatar__avatar">
+            {% include "patterns/atoms/avatar/avatar.html" %}
+        </div>
+
+        <div class="listing-avatar__details listing__details">
+            <div>
+                <p class="listing__details-group">
+                    <span class="listing__name mr-1.5">{{ name }}</span>
+                </p>
+                <p class="listing__meta">
+                    <span class="mr-1.5">{{ page_type }},</span> {{ reading_time }}
+                </p>
+            </div>
+            {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-avatar__arrow listing__arrow" %}
+        </div>
+    </a>
+    <div class="listing-avatar__tags listing__tags tags">
+        <span class="sr-only">{{ tags_screenreader_text|default:"Filter posts by category" }}</span>
+        {% for tag in tags %}
+            {% include "patterns/atoms/tag/tag.html" with tag_name=tag.name tag_slug=tag.slug %}
+        {% endfor %}
+    </div>
+</li>

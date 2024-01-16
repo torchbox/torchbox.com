@@ -10,6 +10,9 @@
 @use 'components/icon';
 @use 'components/image';
 @use 'components/link';
+@use 'components/listing';
+@use 'components/listing-avatar';
+@use 'components/listing-image';
 @use 'components/pullquote';
 @use 'components/responsive-object';
 @use 'components/rich-text';
@@ -19,6 +22,7 @@
 @use 'components/tab-nav-item';
 @use 'components/tabs';
 @use 'components/tabs-nav';
+@use 'components/tag';
 
 // Navigation
 @use 'components/navigation/breadcrumbs-nav';

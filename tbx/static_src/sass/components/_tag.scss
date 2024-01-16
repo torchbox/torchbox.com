@@ -1,0 +1,32 @@
+@use "config" as *;
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 5px;
+    row-gap: 15px;
+}
+
+.tag {
+    padding: 5px $spacer-mini;
+    border-radius: 50px;
+    border: 1px solid var(--color--text);
+
+    &:hover,
+    &:active {
+        color: var(--color--background);
+        background-color: var(--color--heading);
+        border-color: var(--color--heading);
+    }
+
+    &:focus {
+        @include focus-style(--color--heading);
+    }
+
+    @include high-contrast-mode() {
+        &:hover,
+        &:active {
+            outline: 2px solid var(--color--heading);
+        }
+    }
+}

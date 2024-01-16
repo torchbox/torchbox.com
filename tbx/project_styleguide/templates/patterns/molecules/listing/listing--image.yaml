@@ -1,0 +1,36 @@
+context:
+  link: '/'
+  title: Joining the battle to protect our oceans
+  name: Marine Conservation Society
+  aria_text: 'Joining the battle to protect our oceans: a case study for the Marine Conservation Society'
+  tags_screenreader_text: 'Filter work posts by category'
+  page_type: Case study
+  reading_time: 3 min read
+  tags:
+    - name: Innovation
+      slug: innovation
+    - name: Culture
+      slug: culture
+
+tags:
+  image:
+    listing_image fill-370x370 format-webp as listing_desktop_image:
+      target_var: listing_desktop_image
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/370x370?trees'
+    listing_image fill-740x740 format-webp as listing_desktop_image_retina:
+      target_var: listing_desktop_image_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/740x740?trees'
+    listing_image fill-370x335 format-webp as listing_mobile_image:
+      target_var: listing_mobile_image
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/370x335?trees'
+    listing_image fill-740x670 format-webp as listing_mobile_image_retina:
+      target_var: listing_mobile_image_retina
+      raw:
+        alt: 'mobile image retina'
+        url: 'https://source.unsplash.com/740x670?trees'

@@ -1,4 +1,4 @@
 {% load wagtailimages_tags %}
 <div class="avatar{% if classes %} {{ classes }}{% endif %}">
-    {% image avatar width-143 format-webp class="avatar__image" %}
+    {% image avatar width-143 format-webp loading="lazy" class="avatar__image" %}
 </div>

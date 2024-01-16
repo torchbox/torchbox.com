@@ -9,24 +9,46 @@
     </div>
 </div>
 
-<div class="p-4">
-    <h2 class="underline mb-2">Avatar</h2>
-    {% include "patterns/atoms/avatar/avatar.html" %}
+<div class="p-4 flex flex-col gap-y-16">
+    <div>
+        <h2 class="underline mb-2">Avatar</h2>
+        {% include "patterns/atoms/avatar/avatar.html" %}
+    </div>
 
-    <h2 class="underline mt-8 mb-2">Avatar (small)</h2>
-    {% include "patterns/atoms/avatar/avatar.html" with classes="avatar--small" %}
+    <div>
+        <h2 class="underline mt-8 mb-2">Avatar (small)</h2>
+        {% include "patterns/atoms/avatar/avatar.html" with classes="avatar--small" %}
+    </div>
 
-    <h2 class="underline mt-8 mb-2">Pullquote (person)</h2>
-    {% include "patterns/molecules/streamfield/blocks/pullquote_block.html" with value=blockquote_person_data %}
+    <div>
+        <h2 class="underline mt-8 mb-2">Pullquote (person)</h2>
+        {% include "patterns/molecules/streamfield/blocks/pullquote_block.html" with value=blockquote_person_data %}
+    </div>
 
-    <h2 class="underline mt-8 mb-2">Pullquote (client)</h2>
-    {% include "patterns/molecules/streamfield/blocks/pullquote_block.html" with value=blockquote_client_data %}
+    <div>
+        <h2 class="underline mt-8 mb-2">Pullquote (client)</h2>
+        {% include "patterns/molecules/streamfield/blocks/pullquote_block.html" with value=blockquote_client_data %}
+    </div>
 
-    <h2 class="underline mt-8  mb-2">Breadcrumb</h2>
-    {% include "patterns/navigation/components/breadcrumbs.html" %}
+    <div>
+        <h2 class="underline mt-8  mb-2">Breadcrumb</h2>
+        {% include "patterns/navigation/components/breadcrumbs.html" %}
+    </div>
 
-    <h2 class="underline mt-8  mb-2">Image</h2>
-    {% include "patterns/molecules/streamfield/blocks/image_block.html" %}
+    <div>
+        <h2 class="underline mt-8  mb-2">Image</h2>
+        {% include "patterns/molecules/streamfield/blocks/image_block.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8  mb-2">Listing item with image</h2>
+        {% include "patterns/molecules/listing/listing--image.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8  mb-2">Listing item with avatar</h2>
+        {% include "patterns/molecules/listing/listing--avatar.html" %}
+    </div>
 </div>
 
 <script>

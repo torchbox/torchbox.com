@@ -29,7 +29,7 @@
     }
 
     a {
-        @include link-styles();
+        @include link-styles($shadow: true);
     }
 
     p {

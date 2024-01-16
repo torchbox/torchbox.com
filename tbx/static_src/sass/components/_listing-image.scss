@@ -1,0 +1,30 @@
+// styles specific to listings with an image
+
+@use "config" as *;
+
+.listing-image {
+    display: flex;
+    flex-direction: column;
+    gap: $spacer-mini;
+
+    @include media-query(medium) {
+        flex-direction: row;
+        gap: $spacer-half;
+    }
+
+    &__link {
+        display: block;
+    }
+
+    &__image {
+        width: 100%;
+        height: auto;
+        max-height: 340px;
+        object-fit: cover;
+
+        @include media-query(medium) {
+            max-width: 370px;
+            max-height: auto;
+        }
+    }
+}

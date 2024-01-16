@@ -1,0 +1,42 @@
+{# Designed to be included from another template and values passed in #}
+{% load wagtailimages_tags %}
+
+{% image listing_image fill-370x370 format-webp as listing_desktop_image %}
+{% image listing_image fill-740x740 format-webp as listing_desktop_image_retina %}
+{% image listing_image fill-370x335 format-webp as listing_mobile_image %}
+{% image listing_image fill-740x670 format-webp as listing_mobile_image_retina %}
+
+<li class="listing-image listing">
+    <div>
+        {# alt text is empty for consistency with listing--avatar.html where the image is inside the link, and therefore not announced #}
+        <picture>
+            <source media="(max-width: 598px)" srcset="{{  listing_mobile_image.url }} 1x, {{ listing_mobile_image_retina.url }} 2x" />
+            <source media="(min-width: 599px)" srcset="{{ listing_desktop_image_retina.url }} 1x, {{ listing_desktop_image_retina.url }} 2x" />
+            <img src="{{ listing_desktop_image.url }}" alt="" loading="lazy" class="listing-image__image" />
+        </picture>
+    </div>
+
+    <div>
+        <a class="listing-image__link listing__link" href="{{ link }}" aria-label="{{ aria_text|default:title }}">
+            <h2 class="listing-image__title listing__title">{{ title }}</h2>
+            <div class="listing-image__details listing__details">
+                <div>
+                    <p class="listing__details-group">
+                        <span class="listing__name mr-1.5">{{ name }}</span>
+                        <span class="listing__job-title">{{ job_title }}</span>
+                    </p>
+                    <p class="listing__meta">
+                        <span class="mr-1.5">{{ page_type }},</span> {{ reading_time }}
+                    </p>
+                </div>
+                {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-image__arrow listing__arrow" %}
+            </div>
+        </a>
+        <div class="listing-image__tags listing__tags tags">
+            <span class="sr-only">{{ tags_screenreader_text|default:"Filter posts by category" }}</span>
+            {% for tag in tags %}
+                {% include "patterns/atoms/tag/tag.html" with tag_name=tag.name tag_slug=tag.slug %}
+            {% endfor %}
+        </div>
+    </div>
+</li>
