@@ -1,6 +1,7 @@
 context:
   value:
-    alignment: full
+    alt_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    image_is_decorative: false
     caption: Some caption
     attribution: Some attribution
 

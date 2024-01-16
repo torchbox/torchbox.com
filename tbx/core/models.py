@@ -13,6 +13,7 @@ from wagtail.blocks import PageChooserBlock, StreamBlock, StructBlock
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, Page
+from wagtail.search import index
 
 from .blocks import StoryBlock
 
@@ -197,6 +198,10 @@ class StandardPage(SocialFields, Page):
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField("body"),
     ]
 
 

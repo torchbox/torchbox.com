@@ -14,8 +14,7 @@ SECURE_HSTS_SECONDS = 0
 # Don't insist on having run birdbath
 BIRDBATH_REQUIRED = False
 
-# Allow all hosts in tests.
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["example.com", "localhost", "127.0.0.1"]
 
 # #############
 # Performance
