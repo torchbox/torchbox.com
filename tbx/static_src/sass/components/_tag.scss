@@ -12,9 +12,21 @@
     border-radius: 50px;
     border: 1px solid var(--color--text);
 
-    &:hover {
+    &:hover,
+    &:active {
         color: var(--color--page);
         background-color: var(--color--heading);
         border-color: var(--color--heading);
+
+        @include high-contrast-mode() {
+            &:hover,
+            &:active {
+                outline: 2px solid var(--color--heading);
+            }
+        }
+    }
+
+    &:focus {
+        @include focus-style(--color--heading);
     }
 }

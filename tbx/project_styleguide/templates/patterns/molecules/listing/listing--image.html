@@ -8,10 +8,11 @@
 
 <li class="listing-image listing">
     <div>
+        {# alt text is empty for consistency with listing--avatar.html where the image is inside the link, and therefore not announced #}
         <picture>
             <source media="(max-width: 598px)" srcset="{{  mobile_image.url }} 1x, {{ mobile_image_retina.url }} 2x" />
             <source media="(min-width: 599px)" srcset="{{ desktop_image.url }} 1x, {{ desktop_image_retina.url }} 2x" />
-            <img src="{{ desktop_image.url }}" alt="{{ desktop_image.alt }}" loading="lazy" class="listing-image__image" />
+            <img src="{{ desktop_image.url }}" alt="" loading="lazy" class="listing-image__image" />
         </picture>
     </div>
 
@@ -39,27 +40,3 @@
         </div>
     </div>
 </li>
-
-{% comment %} retina mobile
-mobile
-retina desktop
-desktop
-
-
-<img
-srcset="image-mobile-non-retina.webp 1x, image-mobile-retina.web 2x"
-/>
-
-<img
-  srcset="elva-fairy-480w.jpg 480w, elva-fairy-800w.jpg 800w"
-  sizes="(max-width: 600px) 480px,
-         800px"
-  src="elva-fairy-800w.jpg"
-  alt="Elva dressed as a fairy" />
-
-
-<picture>
-  <source media="(max-width: 799px)" srcset="elva-480w-close-portrait.jpg" />
-  <source media="(min-width: 800px)" srcset="elva-800w.jpg" />
-  <img src="elva-800w.jpg" alt="Chris standing up holding his daughter Elva" />
-</picture> {% endcomment %}
