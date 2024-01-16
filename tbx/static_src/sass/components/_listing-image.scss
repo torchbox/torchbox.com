@@ -15,10 +15,12 @@
     &__image {
         width: 100%;
         height: auto;
+        max-height: 340px;
+        object-fit: cover;
 
         @include media-query(medium) {
             max-width: 370px;
-            max-height: 340px;
+            max-height: auto;
         }
     }
 }
