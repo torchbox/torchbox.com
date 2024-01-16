@@ -1,0 +1,20 @@
+@use "config" as *;
+
+.image {
+    $root: &;
+    margin-bottom: $spacer-mini;
+
+    &__caption {
+        text-align: right;
+        margin-top: $spacer-mini;
+
+        + #{$root}__attribution {
+            margin-top: 10px;
+        }
+    }
+
+    &__attribution {
+        text-align: right;
+        font-weight: $weight--semibold;
+    }
+}

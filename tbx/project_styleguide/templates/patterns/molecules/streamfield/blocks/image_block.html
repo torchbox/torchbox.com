@@ -1,20 +1,21 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-{% image value.image max-1280x860 format-webp as img %}
-<img
-    src="{{ img.url }}"
-    {% if value.image_is_decorative %}
-        alt=""
-    {% else %}
-        alt="{% firstof value.alt_text img.alt %}"
+<div class="image streamfield__image">
+    {% image value.image max-1280x860 format-webp as image_block_desktop_image %}
+    {% image value.image max-2560x1720 format-webp as image_block_desktop_image_retina %}
+    {% image value.image max-800x538 format-webp as image_block_mobile_image %}
+    {% image value.image max-1600x1076 format-webp as image_block_mobile_image_retina %}
+
+    <picture>
+        <source media="(max-width: 598px)" srcset="{{ image_block_mobile_image.url }} 1x, {{ image_block_mobile_image_retina.url }} 2x" />
+        <source media="(min-width: 599px)" srcset="{{ image_block_desktop_image.url }} 1x, {{ image_block_desktop_image_retina.url }} 2x" />
+        <img src="{{ image_block_desktop_image.url }}" {% if value.image_is_decorative %} alt="" {% else %} alt="{% firstof value.alt_text img.alt %}" {% endif %} loading="lazy" />
+    </picture>
+
+    {% if value.caption %}
+        <p class="image__caption supporting">{{ value.caption }}</p>
     {% endif %}
-    height="{{ img.height }}"
-    width="{{ img.width }}"
-    loading="lazy"
-/>
-{% if value.caption %}
-    {{ value.caption }}
-{% endif %}
-<br />
-{% if value.attribution %}
-    {{ value.attribution }}
-{% endif %}
+
+    {% if value.attribution %}
+        <p class="image__attribution supporting">{{ value.attribution }}</p>
+    {% endif %}
+</div>

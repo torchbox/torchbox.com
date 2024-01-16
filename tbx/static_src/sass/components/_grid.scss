@@ -3,23 +3,15 @@
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    padding-left: $grid-column-gap;
-    padding-right: $grid-column-gap;
-    column-gap: $grid-column-gap;
+    grid-template-columns: $grid-gutters repeat(4, 1fr) $grid-gutters;
     max-width: $site-width;
     margin: 0 auto;
 
     @include media-query(large) {
-        grid-template-columns: repeat(12, 1fr);
-        padding-left: $grid-gutters-large;
-        padding-right: $grid-gutters-large;
-        column-gap: $grid-column-gap-large;
+        grid-template-columns: $grid-gutters-large repeat(12, 1fr) $grid-gutters-large;
     }
 
     @include media-query(x-large) {
-        padding-left: $grid-gutters-x-large;
-        padding-right: $grid-gutters-x-large;
-        column-gap: $grid-column-gap-x-large;
+        grid-template-columns: $grid-gutters-x-large repeat(12, 1fr) $grid-gutters-x-large;
     }
 }

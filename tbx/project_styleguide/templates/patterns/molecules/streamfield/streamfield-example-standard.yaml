@@ -1,10 +1,4 @@
 context:
-  blockquote_person_data:
-    quote: We spent significant time designing CHI's website navigation to ensure easy access to key content on each page, focusing on usability for all devices. This includes details about staff, nearby hospitals, and CHI's services
-    author_image: True
-    name: Jeth Ordeniza
-    role: UI Designer, Torchbox
-
   blockquote_client_data:
     quote: Torchbox's collaboration has been delightful, significantly elevating NHS.UK team's appreciation of SEO. They're diligent, eager, and proactive, consistently delivering optimal solutions for any challenge
     company_logo: True
@@ -18,9 +12,6 @@ context:
 
 tags:
   image:
-    avatar width-143 format-webp class="avatar__image":
-      raw: |
-        <img src="https://source.unsplash.com/143x143?face" width="143" height="143" alt="Some alt" class="avatar__image">
     value.company_logo fill-110x70 format-webp class="pullquote__company-logo":
       raw: |
         <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="pullquote__company-logo">

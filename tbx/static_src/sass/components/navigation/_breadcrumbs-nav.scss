@@ -1,12 +1,20 @@
 @use "config" as *;
 
 .breadcrumbs-nav {
-    @include font-size(supporting);
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-    margin: $spacer-mini 0 calc(#{$spacer-mini} - 10px); // 15px margin minus the 10px bottom margin on the li.
+    grid-column: 2 / span 4;
+
+    @include media-query(large) {
+        grid-column: 2 / span 12;
+    }
+
+    &__list {
+        @include font-size(supporting);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        margin: $spacer-mini 0 calc(#{$spacer-mini} - 10px); // 15px margin minus the 10px bottom margin on the li.
+    }
 
     &__item {
         width: auto;

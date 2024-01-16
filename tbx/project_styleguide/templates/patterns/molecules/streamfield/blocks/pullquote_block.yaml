@@ -15,6 +15,6 @@ tags:
     avatar width-143 format-webp class="avatar__image":
       raw: |
         <img src="https://source.unsplash.com/143x143?face" width="143" height="143" alt="Some alt" class="avatar__image">
-    value.company_logo fill-110x70 format-webp class="blockquote__company-logo":
+    value.company_logo fill-110x70 format-webp class="pullquote__company-logo":
       raw: |
-        <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="blockquote__company-logo">
+        <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="pullquote__company-logo">
