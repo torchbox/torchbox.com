@@ -58,16 +58,6 @@ class ExternalLinkBlock(StructBlock):
         value_class = LinkStructValue
 
 
-# class EmailLinkBlock(StructBlock):
-#     email_address = EmailBlock(label="Email")
-#     email_text = CharBlock()
-
-#     class Meta:
-#         label = "Email link"
-#         icon = "mail"
-#         value_class = LinkStructValue
-
-
 class LinkBlock(StreamBlock):
     internal_link = InternalLinkBlock()
     external_link = ExternalLinkBlock()
