@@ -30,10 +30,6 @@
         @include focus-style(--color--heading);
     }
 
-    &:focus {
-        @include focus-style(--color--heading);
-    }
-
     @include high-contrast-mode() {
         &:hover,
         &:active {
