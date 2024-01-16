@@ -18,6 +18,7 @@ context:
 
 tags:
   image:
+    # avatar image variants
     avatar width-144 format-webp as avatar_desktop:
       target_var: avatar_desktop
       raw:
