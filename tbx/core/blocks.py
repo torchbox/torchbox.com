@@ -109,12 +109,14 @@ class PullQuoteBlock(StructBlock):
     attribution = CharBlock()
     role = CharBlock()
     logo = ImageChooserBlock(
-        required=False, help_text="Add either a company logo or author image"
+        required=False,
+        help_text="You may optionally add either a company logo or author image",
     )
     author_image = ImageChooserBlock(
-        required=False, help_text="Add either a company logo or author image"
+        required=False,
+        help_text="You may optionally add either a company logo or author image",
     )
-    link = LinkBlock(required=False)
+    call_to_action = LinkBlock(required=False)
 
     def clean(self, value):
         result = super().clean(value)

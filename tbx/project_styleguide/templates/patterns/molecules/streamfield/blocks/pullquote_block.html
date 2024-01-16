@@ -25,9 +25,9 @@
             </cite>
         </div>
 
-        {% with link=value.link.0.value %}
-            {% if link %}
-                <a class="pullquote__cta button" href="{{ link.url }}">{{ link.text }}</a>
+        {% with call_to_action=value.call_to_action.0.value %}
+            {% if call_to_action %}
+                <a class="pullquote__cta button" href="{{ call_to_action.url }}">{{ call_to_action.text }}</a>
             {% endif %}
         {% endwith %}
     </div>

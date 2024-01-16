@@ -4,7 +4,7 @@ context:
     name: Theo Smart
     role: Head of Digital, NHS UK
     logo: True
-    link:
+    call_to_action:
       0:
         value:
           url: '#'
