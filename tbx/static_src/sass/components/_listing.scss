@@ -57,9 +57,17 @@
             height: 22px;
             transition: transform, $transition-quick;
 
+            @include reduced-motion {
+                transition: none;
+            }
+
             a:hover & {
                 color: var(--color--link-interaction);
                 transform: translateX(8px);
+
+                @include reduced-motion {
+                    transform: none;
+                }
             }
         }
     }

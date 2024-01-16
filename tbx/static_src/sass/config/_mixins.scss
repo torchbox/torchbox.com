@@ -176,3 +176,12 @@
         @content;
     }
 }
+
+/* ============================================
+    Prefers reduced motion
+*/
+@mixin reduced-motion() {
+    @media (prefers-reduced-motion) {
+        @content;
+    }
+}
