@@ -1,14 +1,24 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-<div class="call-to-action-block">
-    <p>{{ value.text }}</p>
+<div class="contact-call-to-action-block">
 
-    {% if value.button_text and value.button_link %}
-        <a href="{{ value.button_link.get_link }}" class="btn">{{ value.button_text }}</a>
-    {% endif %}
+    {% for cta in value.call_to_action %}
+        <p class="contact-cta__text heading heading--four">{{ cta.value.text }}</p>
+        {% if cta.value.button_text and cta.value.button_link %}
+            <a href="{{ cta.value.get_button_link }}" class="button">{{ cta.value.button_text }}</a>
+        {% endif %}
+    {% endfor %}
 
     {% if value.person %}
-        {% image value.person.image max-100x100 format-webp as person_image %}
-        {{ value.person.name }}
-        {{ value.person.role }}
+        {% include "patterns/atoms/avatar/avatar.html" with avatar=value.person.image classes="avatar--small" %}
+        <cite class="contact-cta__cite">
+            {% if value.person.name %}
+                <span class="contact-cta__name">{{ value.person.name }}</span>
+            {% endif %}
+
+            {% if value.person.role %}
+                <span class="contact-cta__role">{{ value.person.role }}</span>
+            {% endif %}
+        </cite>
+
     {% endif %}
 </div>
