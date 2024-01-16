@@ -1,0 +1,29 @@
+@use "config" as *;
+
+.call-to-action {
+    background-color: var(--color--streamfield-background);
+    padding: $spacer-small;
+
+    @include media-query(large) {
+        padding: $spacer-medium;
+    }
+
+    &__inner {
+        @include media-query(large) {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 40px;
+        }
+    }
+
+    &__text {
+        @include font-size(heading-four);
+        color: var(--color--heading);
+        max-width: 720px;
+    }
+
+    &__button {
+        margin-top: $spacer-small;
+    }
+}
