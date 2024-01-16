@@ -32,8 +32,7 @@ $color--grey-50: #808080;
     --color--accent-three: #{$color--coral-light};
     --color--accent-four: #{$color--purple};
     --color--accent-five: #{$color--white};
-    --color--link-icon: #{$color--grey-50};
-    --color--page: #{$color--dark-grey};
+    --color--decoration: #{$color--grey-50};
 }
 
 .theme-lagoon-dark {
@@ -49,8 +48,7 @@ $color--grey-50: #808080;
     --color--accent-three: #{$color--lagoon-light};
     --color--accent-four: #{$color--blue};
     --color--accent-five: #{$color--white};
-    --color--link-icon: #{$color--grey-50};
-    --color--page: #{$color--dark-grey};
+    --color--decoration: #{$color--grey-50};
 }
 
 // --------------------------------- Fonts -------------------------------------
