@@ -4,6 +4,6 @@
     <p>{{ value.text }}</p>
 
     {% if value.button_text and value.button_link %}
-        <a href="{{ value.button_link.get_link }}" class="btn">{{ value.button_text }}</a>
+        <a href="{{ value.get_button_link }}" class="btn">{{ value.button_text }}</a>
     {% endif %}
 </div>

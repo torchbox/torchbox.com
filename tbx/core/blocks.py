@@ -58,6 +58,16 @@ class ExternalLinkBlock(StructBlock):
         value_class = LinkStructValue
 
 
+# class EmailLinkBlock(StructBlock):
+#     email_address = EmailBlock(label="Email")
+#     email_text = CharBlock()
+
+#     class Meta:
+#         label = "Email link"
+#         icon = "mail"
+#         value_class = LinkStructValue
+
+
 class LinkBlock(StreamBlock):
     internal_link = InternalLinkBlock()
     external_link = ExternalLinkBlock()
@@ -130,6 +140,23 @@ class VideoBlock(StructBlock):
         template = "patterns/molecules/streamfield/blocks/video_block.html"
 
 
+class CallToActionStructValue(blocks.StructValue):
+    # return an href-ready value for action_link
+    def get_button_link(self):
+        block = self.get("button_link")[0]
+        print(block, "here it is")
+        if (block_type := block.block_type) == "internal_link":
+            # Ensure page exists and is live.
+            if block.value and block.value.live:
+                return block.value.url
+        elif block_type == "external_link":
+            return block.value
+        elif block_type == "email":
+            return f"mailto:{block.value}"
+
+        return ""
+
+
 class CallToActionBlock(StructBlock):
     text = blocks.CharBlock(required=True, max_length=255)
     button_text = blocks.CharBlock(max_length=55)
@@ -145,6 +172,7 @@ class CallToActionBlock(StructBlock):
 
     class Meta:
         template = "patterns/molecules/streamfield/blocks/call_to_action.html"
+        value_class = CallToActionStructValue
 
 
 class ExternalStoryEmbedBlock(WebstoryExternalStoryEmbedBlock):
