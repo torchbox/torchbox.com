@@ -131,10 +131,9 @@ class VideoBlock(StructBlock):
 
 
 class CallToActionStructValue(blocks.StructValue):
-    # return an href-ready value for action_link
+    # return an href-ready value for button_link
     def get_button_link(self):
         block = self.get("button_link")[0]
-        print(block, "here it is")
         if (block_type := block.block_type) == "internal_link":
             # Ensure page exists and is live.
             if block.value and block.value.live:
