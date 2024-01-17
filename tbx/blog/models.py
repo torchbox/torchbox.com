@@ -209,9 +209,14 @@ class BlogPage(SocialFields, Page):
                 "url": blog_post.url,
                 "author": blog_post.first_author,
                 "date": blog_post.date,
+                "read_time": blog_post.read_time,
+                "type": blog_post.type,
+                "related_services": blog_post.related_services.all(),
             }
             for blog_post in BlogPage.objects.filter(related_services__in=services)
             .live()
+            .prefetch_related("related_services")
+            .defer_streamfields()
             .distinct()
             .order_by("-first_published_at")
             .exclude(pk=self.pk)[:3]
