@@ -9,9 +9,9 @@
     <div class="pullquote__reference">
         <div class="pullquote__meta">
             {% if value.author_image %}
-                {% include "patterns/atoms/avatar/avatar.html" with avatar=value.author_image classes="avatar--small" lazy_load=True %}
-            {% elif value.company_logo %}
-                {% image value.company_logo fill-110x70 format-webp class="pullquote__company-logo" %}
+                {% include "patterns/atoms/avatar/avatar.html" with avatar=value.author_image classes="avatar--small" %}
+            {% elif value.logo %}
+                {% image value.logo fill-110x70 format-webp class="pullquote__company-logo" %}
             {% endif %}
 
             <cite class="pullquote__cite">
