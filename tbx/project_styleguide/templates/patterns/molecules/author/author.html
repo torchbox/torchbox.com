@@ -14,16 +14,4 @@
 {% if author.role %}
     {{ author.role }}
 {% endif %}
-{% if item.date %}
-    <time datetime="{{ item.date|date:'Y-m-d' }}">{{ item.date }}</time>
-{% endif %}
 
-{% if item.read_time %}
-    {{ item.read_time }} min read
-{% endif %}
-
-{% if tag_link_base %}
-    {% for tag in item.related_services.all %}
-        {% include "patterns/atoms/tag/tag.html" with item=tag small=True tag_link_base=tag_link_base %}
-    {% endfor %}
-{% endif %}
