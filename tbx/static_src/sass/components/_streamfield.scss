@@ -54,4 +54,19 @@
             grid-column: 4 / span 7;
         }
     }
+
+    // Move everything over by 1 column on the blog page
+    .template-blog-page & {
+        &__title,
+        &__heading,
+        &__intro,
+        &__paragraph,
+        &__image,
+        &__raw-html,
+        &__markdown {
+            @include media-query(large) {
+                grid-column: 5 / span 7;
+            }
+        }
+    }
 }
