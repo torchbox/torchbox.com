@@ -7,7 +7,6 @@ from django.db import models
 from django.dispatch import receiver
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.utils.functional import cached_property
 
 from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -16,7 +15,6 @@ from tbx.core.models import RelatedLink, Tag
 from tbx.core.utils.cache import get_default_cache_control_decorator
 from tbx.core.utils.models import SocialFields
 from tbx.taxonomy.models import Service
-from tbx.work.models import WorkIndexPage, WorkPage
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page
@@ -138,6 +136,10 @@ class BlogIndexPage(SocialFields, Page):
 
 # Blog page
 class BlogPageRelatedLink(Orderable, RelatedLink):
+    """
+    TODO: this may need to be removed as `related_links` aren't displayed on the blog page
+    """
+
     page = ParentalKey("blog.BlogPage", related_name="related_links")
 
 
@@ -215,24 +217,6 @@ class BlogPage(SocialFields, Page):
             .exclude(pk=self.pk)[:3]
         ]
 
-    @cached_property
-    def related_works(self):
-        services = self.related_services.all()
-
-        # Get the latest 2 work pages with the same service
-        works = (
-            WorkPage.objects.filter(related_services__in=services)
-            .live()
-            .public()
-            .distinct()
-            .order_by("-date")[:2]
-        )
-        return works
-
-    @cached_property
-    def work_index(self):
-        return WorkIndexPage.objects.live().public().first()
-
     @property
     def blog_index(self):
         ancestor = BlogIndexPage.objects.ancestor_of(self).order_by("-depth").first()
@@ -267,6 +251,7 @@ class BlogPage(SocialFields, Page):
         InlinePanel("authors", label="Author", min_num=1),
         FieldPanel("date"),
         FieldPanel("body"),
+        # TODO: `related_links` pending possible removal upon further discussion
         InlinePanel("related_links", label="Related links"),
     ]
 
