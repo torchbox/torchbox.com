@@ -37,7 +37,6 @@
 
     &__tags {
         @include media-query(medium) {
-            grid-row: 2 / 3;
             margin-left: calc(#{$avatar-size-desktop} + #{$spacer-half});
         }
     }

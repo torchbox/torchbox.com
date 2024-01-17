@@ -11,7 +11,7 @@
         {# alt text is empty for consistency with listing--avatar.html where the image is inside the link, and therefore not announced #}
         <picture>
             <source media="(max-width: 598px)" srcset="{{  listing_mobile_image.url }} 1x, {{ listing_mobile_image_retina.url }} 2x" />
-            <source media="(min-width: 599px)" srcset="{{ listing_desktop_image_retina.url }} 1x, {{ listing_desktop_image_retina.url }} 2x" />
+            <source media="(min-width: 599px)" srcset="{{ listing_desktop_image.url }} 1x, {{ listing_desktop_image_retina.url }} 2x" />
             <img src="{{ listing_desktop_image.url }}" alt="" loading="lazy" class="listing-image__image" />
         </picture>
     </div>
