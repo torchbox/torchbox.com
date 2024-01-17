@@ -10,9 +10,10 @@
             <div>
                 <p class="listing__details-group">
                     <span class="listing__name mr-1.5">{{ name }}</span>
+                    <span class="listing__job-title">{{ job_title }}</span>
                 </p>
                 <p class="listing__meta">
-                    <span class="mr-1.5">{{ page_type }},</span> {{ reading_time }}
+                    <span class="mr-1.5">{{ page_type }}{% if reading_time %},</span> {{ reading_time }} min{{ reading_time|pluralize }} read{% endif %}
                 </p>
             </div>
             {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-avatar__arrow listing__arrow" %}
