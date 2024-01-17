@@ -18,11 +18,22 @@ context:
 
 tags:
   image:
-    # avatar image
-    avatar width-143 format-webp loading="lazy" class="avatar__image":
-      raw: |
-        <img src="https://source.unsplash.com/143x143?face" width="143" height="143" alt="Some alt" class="avatar__image">
-    # logo used by pullquote
+    # avatar image variants
+    avatar width-144 format-webp as avatar_desktop:
+      target_var: avatar_desktop
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/144x144?face'
+    avatar width-286 format-webp as avatar_desktop_retina:
+      target_var: avatar_desktop_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/286x286?face'
+    avatar width-72 format-webp as avatar_mobile:
+      target_var: avatar_mobile
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/72x72?face'
     value.company_logo fill-110x70 format-webp class="pullquote__company-logo":
       raw: |
         <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="pullquote__company-logo">
