@@ -5,10 +5,9 @@
 
     {% include "patterns/molecules/title-block/title-block.html" with item=page tags=related_services %}
 
-
-    <div data-fetch-destination="blog-pages" data-fetch-max-pages="{{ blog_posts.paginator.num_pages }}">
-        {% include "patterns/organisms/blog-listing/blog-listing.html" with blog_posts=blog_posts %}
-    </div>
+    {% for post in blog_posts %}
+        {% include "patterns/molecules/blog-item/blog-item.html" with item=post %}
+    {% endfor %}
 
     {% if blog_posts.has_next %}
         {% include "patterns/atoms/see-more/see-more.html" with text="See more posts" fetch_data="blog-pages" %}

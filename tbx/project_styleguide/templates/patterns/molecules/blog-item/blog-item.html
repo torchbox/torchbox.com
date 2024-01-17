@@ -1,38 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<a href="{% firstof item.url item.link_external %}">
-    <h2>{{ item.title }}</h2>
+{% firstof item.url item.link_external as link %}
 
-    {% if item.intro %}
-        <p>{{ item.intro }}</p>
-    {% endif %}
+{% include "patterns/molecules/listing/listing--avatar.html" with link=link avatar=item.author.image title=item.title name=item.author.name job_title=item.author.role page_type="Blog post" reading_time=item.read_time tags=item.tags %}
 
-    {% if item.description %}
-        <div>{{ item.description|richtext }}</div>
-    {% endif %}
-
-    {% if item.author %}
-        {% image item.author.image fill-100x100 format-webp %}
-        {{ item.author.name }}
-        {{ item.author.role }}
-        {% if item.event_type %}
-            {{ item.event_type }}
-        {% endif %}
-        {% if item.date %}
-            {{ item.date }}
-        {% endif %}
-    {% endif %}
-
-    <div>
-        {% if item.read_time %}
-            {{ item.read_time }} min read
-        {% endif %}
-    </div>
-
-    <div>
-        {% for tag in item.related_services %}
-            {% include "patterns/atoms/tag/tag.html" with item=tag small=True tag_link_base=blog_index_url %}
-        {% endfor %}
-    </div>
-
-</a>
+{# item.date to come #}
