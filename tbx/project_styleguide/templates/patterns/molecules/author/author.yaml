@@ -15,7 +15,7 @@ tags:
       target_var: image
       raw:
         alt: 'Alt'
-        url: 'https://placekitten.com/100/100'
+        url: 'https://source.unsplash.com/100x100/?face'
   pageurl:
     author.person_page:
       raw: '#'

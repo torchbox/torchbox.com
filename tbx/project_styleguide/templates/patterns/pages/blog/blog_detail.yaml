@@ -5,6 +5,9 @@ context:
         - author:
             name: Nick Lee
             role: Designer
+        - author:
+            name: Chris Lawton
+            role: Developer
     blog_index:
       url: '#'
     title: The stages (and jargon) of digital product innovation
@@ -12,20 +15,28 @@ context:
     get_verbose_name: Blog detail
     read_time: 5
     related_blog_posts:
-      all:
-        - authors:
-            first:
-              author:
-                name: Paul Vetch
-                role: Strategy Director
-          title: We already dropped Drupal - maybe it’s time for you to do the same.
-        - authors:
-            first:
-              author:
-                name: Will Heinemann
-                role: New Business Director
-          title: Wagtail for Public Sector
-      exists: True
+      - author:
+          name: Paul Vetch
+          role: Strategy Director
+        title: We already dropped Drupal - maybe it’s time for you to do the same.
+        read_time: 3
+        url: '#'
+        type: BLOG POST
+        related_services:
+          - name: Digital products
+            slug: digital-products
+      - author:
+          name: Will Heinemann
+          role: New Business Director
+        title: Wagtail for Public Sector
+        read_time: 4
+        url: '#'
+        type: BLOG POST
+        related_services:
+          - name: Digital products
+            slug: digital-products
+          - name: Social media
+            slug: social-media
     related_services:
       all:
         - name: Digital products
@@ -35,3 +46,9 @@ tags:
   include_block:
     page.body:
       template_name: 'patterns/molecules/streamfield/streamfield-example-blog.html'
+  image:
+    author.image fill-100x100 format-webp as image:
+      target_var: image
+      raw:
+        alt: 'Alt'
+        url: 'https://source.unsplash.com/100x100/?face'
