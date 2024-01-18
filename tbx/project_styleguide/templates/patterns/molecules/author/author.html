@@ -4,25 +4,27 @@
 
     {% include "patterns/atoms/avatar/avatar.html" with avatar=author.image classes="avatar--small author__avatar" %}
 
-    {% if author.person_page %}
-        <p class="author__name">
-            <a class="author__link" href="{% pageurl author.person_page %}" aria-label="View {{ author.name }}'s team profile page">
+    <div>
+        {% if author.person_page %}
+            <p class="author__name">
+                <a class="author__link" href="{% pageurl author.person_page %}" aria-label="View {{ author.name }}'s team profile page">
+                    {{ author.name }}
+                </a>
+            </p>
+        {% else %}
+            <p class="author__name">
                 {{ author.name }}
-            </a>
-        </p>
-    {% else %}
-        <p class="author__name">
-            {{ author.name }}
-        </p>
-    {% endif %}
+            </p>
+        {% endif %}
 
-    {% if author.role %}
-        <p class="author__role">{{ author.role }}</p>
-    {% endif %}
+        {% if author.role %}
+            <p class="author__role">{{ author.role }}</p>
+        {% endif %}
 
-    {% if tag_link_base and show_tags %}
-        {% for tag in item.related_services.all %}
-            {% include "patterns/atoms/tag/tag.html" with item=tag small=True tag_link_base=tag_link_base %}
-        {% endfor %}
-    {% endif %}
+        {% if tag_link_base and show_tags %}
+            {% for tag in item.related_services.all %}
+                {% include "patterns/atoms/tag/tag.html" with item=tag small=True tag_link_base=tag_link_base %}
+            {% endfor %}
+        {% endif %}
+    </div>
 </div>

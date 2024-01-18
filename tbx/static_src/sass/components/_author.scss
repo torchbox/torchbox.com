@@ -1,12 +1,30 @@
 @use "config" as *;
 
-.author {
+.authors {
     grid-column: 2 / span 4;
     grid-row: 2;
 
     @include media-query(large) {
         grid-column: 2 / span 2;
         grid-row: 1;
+    }
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    gap: $spacer-small;
+
+    @include media-query(large) {
+        display: block;
+    }
+
+    & + & {
+        margin-top: $spacer-small;
+
+        @include media-query(large) {
+            margin-top: $spacer-medium;
+        }
     }
 
     &__avatar {
@@ -17,6 +35,7 @@
 
     &__name {
         @include font-size(body-one);
+        font-weight: $weight--semibold;
     }
 
     &__link {
