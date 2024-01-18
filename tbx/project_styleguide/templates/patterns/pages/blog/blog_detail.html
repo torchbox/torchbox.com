@@ -8,7 +8,7 @@
             'author-title' : '{{ page.authors.all.0.author.role }}',
             'author-name' : '{{ page.authors.all.0.author.name }}',
             'published' : '{{ page.date|date:"Ymd" }}',
-            'tags' : [{% for tag in page.related_services.all %}'{{tag.name}}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+            'tags' : [{% for tag in page.services %}'{{tag.name}}'{% if not forloop.last %}, {% endif %}{% endfor %}],
             'read-time' : '{{ page.read_time }}',
             'id': '{{ page.id }}',
             'page-h1' : '{{ page.title }}',
@@ -31,7 +31,7 @@
     {% endfor %}
 
     <div>
-        {% for tag in page.related_services.all %}
+        {% for tag in page.services %}
             {% include "patterns/atoms/tag/tag.html" with item=tag small=True tag_link_base=blog_index_url %}
         {% endfor %}
     </div>

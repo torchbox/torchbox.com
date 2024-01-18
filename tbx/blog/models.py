@@ -7,6 +7,7 @@ from django.db import models
 from django.dispatch import receiver
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
+from django.utils.functional import cached_property
 
 from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -135,14 +136,6 @@ class BlogIndexPage(SocialFields, Page):
 
 
 # Blog page
-class BlogPageRelatedLink(Orderable, RelatedLink):
-    """
-    TODO: this may need to be removed as `related_links` aren't displayed on the blog page
-    """
-
-    page = ParentalKey("blog.BlogPage", related_name="related_links")
-
-
 # Currently hidden. These were used in the past and may be used again in the future
 class BlogPageTagSelect(Orderable):
     page = ParentalKey("blog.BlogPage", related_name="tags")
@@ -198,10 +191,12 @@ class BlogPage(SocialFields, Page):
         ).split()
         self.body_word_count = len(body_words)
 
+    @cached_property
+    def services(self):
+        return self.related_services.all()
+
     @property
     def related_blog_posts(self):
-        services = self.related_services.all()
-
         # format for template
         return [
             {
@@ -213,7 +208,7 @@ class BlogPage(SocialFields, Page):
                 "type": blog_post.type,
                 "related_services": blog_post.related_services.all(),
             }
-            for blog_post in BlogPage.objects.filter(related_services__in=services)
+            for blog_post in BlogPage.objects.filter(related_services__in=self.services)
             .live()
             .prefetch_related("related_services")
             .defer_streamfields()
@@ -256,8 +251,6 @@ class BlogPage(SocialFields, Page):
         InlinePanel("authors", label="Author", min_num=1),
         FieldPanel("date"),
         FieldPanel("body"),
-        # TODO: `related_links` pending possible removal upon further discussion
-        InlinePanel("related_links", label="Related links"),
     ]
 
     promote_panels = [
