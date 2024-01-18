@@ -16,10 +16,10 @@
     }
 
     &--spacer-large {
-        margin: $spacer-medium 0;
+        margin: $spacer-medium auto;
 
         @include media-query(large) {
-            margin: $spacer-large 0;
+            margin: $spacer-large auto;
         }
     }
 }
