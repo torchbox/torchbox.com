@@ -5,6 +5,10 @@
     flex-wrap: wrap;
     column-gap: 5px;
     row-gap: 15px;
+
+    &--with-title {
+        margin-top: $spacer-small;
+    }
 }
 
 .tag {
