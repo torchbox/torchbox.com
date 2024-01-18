@@ -1,0 +1,32 @@
+@use "config" as *;
+
+.blog-meta {
+    margin-top: $spacer-medium;
+    position: relative;
+    padding-left: ($spacer-small + $spacer-mini);
+
+    @include media-query(large) {
+        margin-top: $spacer-half;
+        padding-left: ($spacer-half + $spacer-mini);
+    }
+
+    &::before {
+        content: '';
+        display: block;
+        height: 1px;
+        background-color: var(--color--text);
+        margin-bottom: $spacer-mini;
+        width: $spacer-small;
+        position: absolute;
+        left: 0;
+        top: 50%;
+
+        @include media-query(large) {
+            width: $spacer-half;
+        }
+    }
+
+    &__divider {
+        margin: 0 7px;
+    }
+}
