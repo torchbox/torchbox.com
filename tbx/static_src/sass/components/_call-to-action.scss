@@ -20,7 +20,7 @@
     &__text {
         @include font-size(heading-four);
         color: var(--color--heading);
-        max-width: 720px;
+        max-width: $streamfield-content-width;
     }
 
     &__button {
