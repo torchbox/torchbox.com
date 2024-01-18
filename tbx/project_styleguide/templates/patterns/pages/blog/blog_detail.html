@@ -39,18 +39,19 @@
                     {% endfor %}
                 </div>
 
-                <div class="blog-meta">
-                    <span>Insight</span>
-                    <span aria-hidden="true" class="blog-meta__divider">/</span>
+        </div>
 
-                    <time datetime="{{ item.date|date:'Y-m-d' }}">{{ page.date }}</time>
+        <div class="blog-meta">
+            <span>Insight</span>
+            <span aria-hidden="true" class="blog-meta__divider">/</span>
+
+            <time datetime="{{ item.date|date:'Y-m-d' }}">{{ page.date }}</time>
 
 
-                    {% if page.read_time %}
-                        <span aria-hidden="true" class="blog-meta__divider">/</span>
-                        {{ page.read_time }} min read
-                    {% endif %}
-                </div>
+            {% if page.read_time %}
+                <span aria-hidden="true" class="blog-meta__divider">/</span>
+                {{ page.read_time }} min read
+            {% endif %}
         </div>
 
         {% include_block page.body %}

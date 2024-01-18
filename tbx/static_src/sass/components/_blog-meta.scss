@@ -1,13 +1,15 @@
 @use "config" as *;
 
 .blog-meta {
-    margin-top: $spacer-medium;
+    margin: $spacer-small 0;
     position: relative;
     padding-left: ($spacer-small + $spacer-mini);
+    grid-column: 2 / span 4;
 
     @include media-query(large) {
-        margin-top: $spacer-half;
+        margin: $spacer-medium 0 $spacer-small;
         padding-left: ($spacer-half + $spacer-mini);
+        grid-column: 5 / span 7;
     }
 
     &::before {
