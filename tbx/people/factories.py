@@ -2,20 +2,7 @@ import factory
 from factory.django import DjangoModelFactory
 from phonenumber_field.phonenumber import PhoneNumber
 from tbx.images.factories import CustomImageFactory
-from tbx.people.models import (
-    Author,
-    Contact,
-    ContactReason,
-    ContactReasonsList,
-)
-
-
-class AuthorFactory(DjangoModelFactory):
-    name = factory.Faker("name")
-    role = factory.Faker("job")
-
-    class Meta:
-        model = Author
+from tbx.people.models import Contact, ContactReason, ContactReasonsList
 
 
 class ContactFactory(DjangoModelFactory):
