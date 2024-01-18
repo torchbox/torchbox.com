@@ -20,7 +20,7 @@
         </div>
     </a>
     <div class="listing-avatar__tags listing__tags tags">
-        <span class="sr-only">{{ tags_screenreader_text|default:"Filter posts by category" }}</span>
+        <span class="sr-only">{{ tags_screenreader_text|default:"See more blog posts in this category" }}</span>
         {% for tag in tags %}
             {% include "patterns/atoms/tag/tag.html" with tag_name=tag.name tag_slug=tag.slug %}
         {% endfor %}
