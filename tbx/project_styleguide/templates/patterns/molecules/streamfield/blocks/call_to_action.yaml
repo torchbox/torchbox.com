@@ -1,6 +1,6 @@
 context:
   value:
-    text: 'Work with the best in the business'
+    text: Get in touch to learn about our journey to becoming employee-owned
     button_text: 'Contact Us'
     button_link:
       - internal_link:
