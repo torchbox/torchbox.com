@@ -84,7 +84,11 @@ class ImageFormatChoiceBlock(FieldBlock):
 
 class ImageBlock(StructBlock):
     image = ImageChooserBlock()
-    alt_text = CharBlock(required=False)
+    alt_text = CharBlock(
+        required=False,
+        help_text="By default, the image title (as indicated above) is used as alt text. "
+        "Use this field to override the default.",
+    )
     image_is_decorative = BooleanBlock(
         required=False,
         default=False,
