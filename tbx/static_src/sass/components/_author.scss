@@ -1,0 +1,35 @@
+@use "config" as *;
+
+.author {
+    grid-column: 2 / span 4;
+    grid-row: 2;
+
+    @include media-query(large) {
+        grid-column: 2 / span 2;
+        grid-row: 1;
+    }
+
+    &__avatar {
+        @include media-query(large) {
+            margin-bottom: $spacer-small;
+        }
+    }
+
+    &__name {
+        @include font-size(body-one);
+    }
+
+    &__link {
+        @include link-styles(var(--color--link), var(--color--link));
+    }
+
+    &__role {
+        @include font-size(body-two);
+        color: var(--color--heading);
+    }
+
+    &__read-time {
+        @include font-size(supporting);
+        margin-top: $spacer-mini-plus;
+    }
+}
