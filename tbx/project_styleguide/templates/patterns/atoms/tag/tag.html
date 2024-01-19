@@ -1,6 +1,6 @@
-<a  class="tag {% if is_active %}tag--active{% endif %}"
-    href="{{ tag_link_base }}?filter={{ tag_slug }}"
-    {% if is_active %}aria-current="page" {% endif %}
+<a class="tag {% if is_active %}tag--active{% endif %}"
+   href="{{ tag_link_base }}?filter={{ tag_slug }}"
+   {% if is_active %}aria-current="page" {% endif %}
 >
     {% if has_all_filter %}All{% else %}{{ tag_name }}{% endif %}
 </a>
