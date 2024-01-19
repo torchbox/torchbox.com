@@ -39,6 +39,16 @@
         }
     }
 
+    &__contact-cta {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 5;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 5 / span 10;
+        }
+    }
+
     // The following components follow the same pattern of
     // spanning 7 columns on desktop and 4 columns on mobile.
     &__intro,
