@@ -68,5 +68,17 @@
                 grid-column: 5 / span 7;
             }
         }
+
+        &__call-to-action {
+            @include media-query(large) {
+                grid-column: 5 / span 10;
+            }
+        }
+
+        &__quote {
+            @include media-query(large) {
+                grid-column: 5 / span 9;
+            }
+        }
     }
 }
