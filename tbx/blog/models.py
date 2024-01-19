@@ -80,6 +80,9 @@ class BlogIndexPage(SocialFields, Page):
                 "url": blog_post.url,
                 "author": blog_post.first_author,
                 "date": blog_post.date,
+                "read_time": blog_post.read_time,
+                "type": blog_post.type,
+                "related_services": blog_post.related_services.all(),
             }
             for blog_post in blog_posts
         ]

@@ -1,7 +1,7 @@
 {% load wagtailimages_tags %}
-{% image avatar width-144 format-webp as avatar_desktop %}
-{% image avatar width-286 format-webp as avatar_desktop_retina %}
-{% image avatar width-72 format-webp as avatar_mobile %}
+{% image avatar fill-144x144 format-webp as avatar_desktop %}
+{% image avatar fill-286x286 format-webp as avatar_desktop_retina %}
+{% image avatar fill-72x72 format-webp as avatar_mobile %}
 
 <div class="avatar{% if classes %} {{ classes }}{% endif %}">
     <picture>

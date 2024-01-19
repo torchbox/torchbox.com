@@ -1,0 +1,100 @@
+@use "config" as *;
+
+.pagination {
+    $root: &;
+
+    &__list {
+        display: flex;
+        gap: $spacer-small;
+        justify-content: center;
+    }
+
+    &__page {
+        @include font-size('heading-five');
+        color: var(--color--heading);
+        display: block;
+
+        &--current {
+            background-color: var(--color--heading);
+            color: var(--color--background);
+
+            @include high-contrast-mode() {
+                border: 2px solid var(--color--heading);
+            }
+        }
+    }
+
+    &__link,
+    &__span {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        max-width: 3.125rem; // 50px
+        max-height: 3.125rem;
+        padding: 13px 19px;
+        line-height: 0;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__link {
+        @include link-styles(
+            $color: inherit,
+            $interaction-color: var(--color--heading),
+            $shadow: true
+        );
+        text-underline-offset: 4px;
+
+        &:hover,
+        &:active {
+            border: 1px solid var(--color--heading);
+
+            #{$root}__page--current & {
+                color: var(--color--background);
+            }
+        }
+
+        &--previous,
+        &--next {
+            max-width: none;
+
+            &:hover,
+            &:active {
+                border: 0;
+            }
+        }
+    }
+
+    &__prev-icon,
+    &__next-icon {
+        width: 20px;
+        height: 24px;
+        fill: var(--color--heading);
+        transition: $transition-quick;
+    }
+
+    &__prev-icon {
+        transform: rotate(180deg);
+        margin-right: $spacer-small;
+
+        a:hover & {
+            transform: rotate(180deg) translateX(8px);
+
+            @include reduced-motion() {
+                transform: none;
+            }
+        }
+    }
+
+    &__next-icon {
+        margin-left: $spacer-small;
+
+        a:hover & {
+            transform: translateX(8px);
+
+            @include reduced-motion() {
+                transform: none;
+            }
+        }
+    }
+}

@@ -6,60 +6,100 @@ context:
     - name: Digital products
       slug: digital-products
 
-    - name: Digital products
-      slug: digital-products
+    - name: Wagtail
+      slug: wagtail
 
-    - name: Digital products
-      slug: digital-products
+    - name: Social media
+      slug: social-media
 
-    - name: Digital products
-      slug: digital-products
+    - name: Culture
+      slug: culture
 
   blog_posts:
-    - title: We already dropped Drupal - maybe it’s time for you to do the same.
-      date: 20 Oct '20
-      authors:
-        first:
-          author:
-            name: Paul Vetch
-            role: Strategy Director
+    - title: Explore the potential of AI in content management
+      date: 20 Oct 2023
+      author:
+        name: Paul Vetch
+        role: Strategy Director
+      related_services:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
 
     - title: Wagtail for Public Sector
-      date: 20 Oct '20
-      authors:
-        first:
-          author:
-            name: Will Heinemann
-            role: New Business Director
+      date: 20 Oct 2023
+      author:
+        name: Paul Vetch
+        role: Strategy Director
+      related_services:
+        - name: Social Media
+          slug: social-media
+        - name: Culture
+          slug: culture
 
-    - title: We already dropped Drupal - maybe it’s time for you to do the same.
-      date: 20 Oct '20
-      authors:
-        first:
-          author:
-            name: Paul Vetch
-            role: Strategy Director
-
-    - title: Wagtail for Public Sector
-      date: 20 Oct '20
-      authors:
-        first:
-          author:
-            name: Will Heinemann
-            role: New Business Director
-
-    - title: We already dropped Drupal - maybe it’s time for you to do the same.
-      date: 20 Oct '20
-      authors:
-        first:
-          author:
-            name: Paul Vetch
-            role: Strategy Director
+    - title: Explore the potential of AI in content management
+      date: 20 Oct 2023
+      author:
+        name: Paul Vetch
+        role: Strategy Director
+      related_services:
+        - name: Social Media
+          slug: social-media
+        - name: Culture
+          slug: culture
 
     - title: Wagtail for Public Sector
-      date: 20 Oct '20
-      authors:
-        first:
-          author:
-            name: Will Heinemann
-            role: New Business Director
+      date: 20 Oct 2023
+      author:
+        name: Will Heinemann
+        role: New Business Director
+      related_services:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
+
+    - title: Explore the potential of AI in content management
+      date: 20 Oct 2023
+      author:
+        name: Will Heinemann
+        role: New Business Director
+      related_services:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
+
+    - title: Wagtail for Public Sector
+      date: 20 Oct 2023
+      author:
+        name: Will Heinemann
+        role: New Business Director
+      related_services:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
+
+tags:
+  image:
+    avatar fill-144x144 format-webp as avatar_desktop:
+      target_var: avatar_desktop
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/144x144?face'
+    avatar fill-286x286 format-webp as avatar_desktop_retina:
+      target_var: avatar_desktop_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/286x286?face'
+    avatar fill-72x72 format-webp as avatar_mobile:
+      target_var: avatar_mobile
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/72x72?face'
+  pageurl:
+    item as index:
+      target_var: index
+      raw: '#'

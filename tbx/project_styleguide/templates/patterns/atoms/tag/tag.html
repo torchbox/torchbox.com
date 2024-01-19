@@ -1,4 +1,5 @@
-<a class="tag"
+<a
+    class="tag {% if is_active %}tag--active{% endif %}"
     href="{{ tag_link_base }}?filter={{ tag_slug }}"
     {% if is_active %}aria-current="page" {% endif %}
 >

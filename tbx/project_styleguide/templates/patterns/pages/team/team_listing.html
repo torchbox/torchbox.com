@@ -2,7 +2,7 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block content %}
-    {% include "patterns/molecules/title-block/title-block.html" with title=page.strapline %}
+    {% include "patterns/molecules/title-filters/title-filters.html" with title=page.strapline %}
 
     {% for member in page.team %}
         {% include "patterns/molecules/team-member/team-member.html" with item=member %}

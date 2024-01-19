@@ -1,16 +1,16 @@
 tags:
   image:
-    avatar width-144 format-webp as avatar_desktop:
+    avatar fill-144x144 format-webp as avatar_desktop:
       target_var: avatar_desktop
       raw:
         alt: 'desktop image'
         url: 'https://source.unsplash.com/144x144?face'
-    avatar width-286 format-webp as avatar_desktop_retina:
+    avatar fill-286x286 format-webp as avatar_desktop_retina:
       target_var: avatar_desktop_retina
       raw:
         alt: 'desktop image retina'
         url: 'https://source.unsplash.com/286x286?face'
-    avatar width-72 format-webp as avatar_mobile:
+    avatar fill-72x72 format-webp as avatar_mobile:
       target_var: avatar_mobile
       raw:
         alt: 'mobile image'

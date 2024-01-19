@@ -68,6 +68,10 @@
                 @include reduced-motion() {
                     transform: none;
                 }
+
+                @include high-contrast-mode() {
+                    color: var(--color--decoration);
+                }
             }
         }
     }

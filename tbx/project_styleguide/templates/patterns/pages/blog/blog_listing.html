@@ -2,18 +2,17 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block content %}
+    <div class="grid">
+        {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=related_services %}
 
-    {% include "patterns/molecules/title-block/title-block.html" with item=page tags=related_services %}
+        <ul class="blog-listing">
+            {% for post in blog_posts %}
+                {% include "patterns/molecules/blog-item/blog-item.html" with item=post %}
+            {% endfor %}
+        </ul>
 
-
-    <div data-fetch-destination="blog-pages" data-fetch-max-pages="{{ blog_posts.paginator.num_pages }}">
-        {% include "patterns/organisms/blog-listing/blog-listing.html" with blog_posts=blog_posts %}
+        <div class="blog-listing__pagination">
+            {% include "patterns/molecules/pagination/pagination.html" with pages=blog_posts %}
+        </div>
     </div>
-
-    {% if blog_posts.has_next %}
-        {% include "patterns/atoms/see-more/see-more.html" with text="See more posts" fetch_data="blog-pages" %}
-    {% endif %}
-
-    {% include_block page.call_to_action %}
-
 {% endblock %}
