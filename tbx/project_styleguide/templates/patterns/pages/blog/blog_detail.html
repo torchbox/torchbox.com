@@ -60,9 +60,8 @@
 
         {% include_block page.call_to_action %}
 
-        {% comment %}
         {% if page.related_blog_posts %}
-            {% include "patterns/atoms/section-title/section-title.html" with title="More of our thinking"%}
+            {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Realated blog posts" classes="section-title--related-posts" %}
 
             {% for post in page.related_blog_posts %}
                 {% include "patterns/molecules/blog-item/blog-item.html" with item=post %}
@@ -76,6 +75,5 @@
             {% pageurl page.work_index as work_index_url %}
             {% include "patterns/atoms/see-more/see-more.html" with link=work_index_url text="See more case studies" %}
         {% endif %}
-        {% endcomment %}
     </div>
 {% endblock %}

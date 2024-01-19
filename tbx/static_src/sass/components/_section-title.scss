@@ -1,0 +1,13 @@
+@use "config" as *;
+
+.section-title {
+    &--related-posts {
+        margin-bottom: $spacer-small;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-half;
+            grid-column: 2 / span 2;
+        }
+    }
+}
