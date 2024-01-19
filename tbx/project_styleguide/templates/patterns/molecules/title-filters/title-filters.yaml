@@ -25,4 +25,5 @@ context:
 tags:
   pageurl:
     item as index:
+      target_var: index
       raw: '#'
