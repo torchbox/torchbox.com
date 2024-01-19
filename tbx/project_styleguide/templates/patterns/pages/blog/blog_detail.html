@@ -44,9 +44,6 @@
         </div>
 
         <div class="blog-meta">
-            <span>Insight</span>
-            <span aria-hidden="true" class="blog-meta__divider">/</span>
-
             <time datetime="{{ item.date|date:'Y-m-d' }}">{{ page.date }}</time>
 
             {% if page.read_time %}
@@ -62,11 +59,11 @@
 
             <ul class="streamfield__related-posts">
                 {% for post in page.related_blog_posts %}
-                    {% include "patterns/molecules/listing/listing--avatar.html" with title=post.title name=post.author.name job_title=post.author.role link=post.url reading_time=post.read_time tags=post.related_services listing_image=post.listing_image page_type="Insight" avatar=post.author.image %}
+                    {% include "patterns/molecules/listing/listing--avatar.html" with title=post.title name=post.author.name job_title=post.author.role link=post.url reading_time=post.read_time tags=post.related_services listing_image=post.listing_image avatar=post.author.image %}
                 {% endfor %}
 
                 <li class="mx-auto lg:mx-0 mt-spacerSmall">
-                    {% include "patterns/atoms/see-more/see-more.html" with link=blog_index_url text="More insights" %}
+                    {% include "patterns/atoms/see-more/see-more.html" with link=blog_index_url text="See more posts" %}
                 </li>
             </ul>
         {% endif %}
