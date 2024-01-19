@@ -58,7 +58,7 @@
         {% include_block page.body %}
 
         {% if page.related_blog_posts %}
-            {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Realated blog posts" classes="section-title--related-posts" %}
+            {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Related blog posts" classes="section-title--related-posts" %}
 
             <ul class="streamfield__related-posts">
                 {% for post in page.related_blog_posts %}
