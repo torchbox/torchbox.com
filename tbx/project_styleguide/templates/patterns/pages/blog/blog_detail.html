@@ -49,7 +49,6 @@
 
             <time datetime="{{ item.date|date:'Y-m-d' }}">{{ page.date }}</time>
 
-
             {% if page.read_time %}
                 <span aria-hidden="true" class="blog-meta__divider">/</span>
                 {{ page.read_time }} min read
@@ -68,14 +67,6 @@
 
                 {% include "patterns/atoms/see-more/see-more.html" with link=blog_index_url text="More insights" classes="mx-auto lg:mx-0 mt-spacerSmall" %}
             </div>
-
-        {% endif %}
-
-        {% if page.related_works %}
-            {% include "patterns/atoms/section-title/section-title.html" with title="More of our work" %}
-            {% include "patterns/organisms/work-listing/work-listing.html" with works=page.related_works %}
-            {% pageurl page.work_index as work_index_url %}
-            {% include "patterns/atoms/see-more/see-more.html" with link=work_index_url text="See more case studies" %}
         {% endif %}
     </div>
 {% endblock %}
