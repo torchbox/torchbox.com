@@ -4,8 +4,10 @@
 @use 'base/fonts';
 
 // Components
+@use 'components/author';
 @use 'components/avatar';
 @use 'components/button';
+@use 'components/blog-meta';
 @use 'components/call-to-action';
 @use 'components/grid';
 @use 'components/icon';
@@ -17,6 +19,7 @@
 @use 'components/pullquote';
 @use 'components/responsive-object';
 @use 'components/rich-text';
+@use 'components/section-title';
 @use 'components/skip-link';
 @use 'components/sprites-preview-icons';
 @use 'components/streamfield';

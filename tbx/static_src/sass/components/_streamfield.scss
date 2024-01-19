@@ -54,4 +54,44 @@
             grid-column: 4 / span 7;
         }
     }
+
+    // Move everything over by 1 column on the blog page
+    .template-blog-page & {
+        &__title,
+        &__heading,
+        &__intro,
+        &__paragraph,
+        &__image,
+        &__raw-html,
+        &__markdown {
+            @include media-query(large) {
+                grid-column: 5 / span 7;
+            }
+        }
+
+        &__call-to-action {
+            @include media-query(large) {
+                grid-column: 5 / span 10;
+            }
+        }
+
+        &__quote {
+            @include media-query(large) {
+                grid-column: 5 / span 9;
+            }
+        }
+
+        &__related-posts {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: $spacer-small;
+            grid-column: 2 / span 4;
+
+            @include media-query(large) {
+                gap: $spacer-half;
+                grid-column: 5 / span 9;
+            }
+        }
+    }
 }

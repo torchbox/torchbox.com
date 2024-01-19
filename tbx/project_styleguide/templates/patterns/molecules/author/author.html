@@ -1,17 +1,24 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% image author.image fill-100x100 format-webp as image %}
+<div class="author{% if classes %} {{ classes }}{% endif %}">
 
-<img src="{{ image.url }}" alt="{{ image.alt }}" loading="lazy" aria-hidden="true">
-{% if author.person_page %}
-    <a href="{% pageurl author.person_page %}">
-        {{ author.name }}
-    </a>
-{% else %}
-    {{ author.name }}
-{% endif %}
+    {% include "patterns/atoms/avatar/avatar.html" with avatar=author.image classes="avatar--small author__avatar" %}
 
-{% if author.role %}
-    {{ author.role }}
-{% endif %}
+    <div>
+        {% if author.person_page %}
+            <p class="author__name">
+                <a class="author__link" href="{% pageurl author.person_page %}" aria-label="View {{ author.name }}'s team profile page">
+                    {{ author.name }}
+                </a>
+            </p>
+        {% else %}
+            <p class="author__name">
+                {{ author.name }}
+            </p>
+        {% endif %}
 
+        {% if author.role %}
+            <p class="author__role">{{ author.role }}</p>
+        {% endif %}
+    </div>
+</div>

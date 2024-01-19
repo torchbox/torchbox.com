@@ -181,6 +181,7 @@ $grid-gutters-large: 80px;
 $grid-gutters-x-large: 120px;
 
 // Vertical spacing
+// Any changes here will also need to be made in tailwind.config.js
 $spacer-mini: 15px;
 $spacer-mini-plus: 20px;
 $spacer-small: ($spacer-mini * 2); // 30px
@@ -217,4 +218,6 @@ $focus-color: var(--color--focus-ring);
 $focus-width: 3px;
 
 // --------------------------------- Specific styles ---------------------------
-$avatar-size-desktop: 145px;
+$avatar-size-large: 145px;
+$avatar-size-medium: 120px;
+$avatar-size-small: 72px;

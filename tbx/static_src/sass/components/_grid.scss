@@ -14,4 +14,12 @@
     @include media-query(x-large) {
         grid-template-columns: $grid-gutters-x-large repeat(12, 1fr) $grid-gutters-x-large;
     }
+
+    &--spacer-large {
+        margin: $spacer-medium auto;
+
+        @include media-query(large) {
+            margin: $spacer-large auto;
+        }
+    }
 }

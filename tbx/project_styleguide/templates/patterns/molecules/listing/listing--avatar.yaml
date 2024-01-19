@@ -4,7 +4,7 @@ context:
   name: Suzanne Begley
   job_title: Product Director
   page_type: Insight
-  reading_time: 4 min read
+  reading_time: 4
   tags_screenreader_text: 'Filter blog posts by category'
   tags:
     - name: Innovation

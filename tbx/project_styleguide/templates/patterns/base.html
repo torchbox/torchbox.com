@@ -1,6 +1,6 @@
 {% load static wagtailuserbar wagtailcore_tags wagtailimages_tags navigation_tags util_tags wagtailaccessibility_tags %}
 <!doctype html>
-<html class="{% block body_class %}template__{{ page.get_verbose_name|slugify }}{% endblock %}" lang="en-GB">
+<html class="{% block body_class %}template-{{ page.get_verbose_name|slugify }}{% endblock %}" lang="en-GB">
     <head>
         {% if request.in_preview_panel %}
             <base target="_blank">

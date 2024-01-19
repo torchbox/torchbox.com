@@ -2,17 +2,19 @@
 
 .avatar {
     position: relative;
-    width: 72px;
-    height: 72px;
+    width: $avatar-size-small;
+    height: $avatar-size-small;
 
     @include media-query(medium) {
-        width: $avatar-size-desktop;
-        height: $avatar-size-desktop;
+        width: $avatar-size-large;
+        height: $avatar-size-large;
     }
 
     &--small {
-        width: 98px;
-        height: 98px;
+        @include media-query(medium) {
+            width: $avatar-size-medium;
+            height: $avatar-size-medium;
+        }
     }
 
     &::after,

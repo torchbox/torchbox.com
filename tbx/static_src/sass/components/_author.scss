@@ -1,0 +1,55 @@
+@use "config" as *;
+
+.authors {
+    grid-column: 2 / span 4;
+    grid-row: 2;
+
+    @include media-query(large) {
+        grid-column: 2 / span 2;
+        grid-row: 1;
+    }
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    gap: $spacer-small;
+
+    @include media-query(large) {
+        display: block;
+    }
+
+    & + & {
+        margin-top: $spacer-small;
+
+        @include media-query(large) {
+            margin-top: $spacer-medium;
+        }
+    }
+
+    &__avatar {
+        @include media-query(large) {
+            margin-bottom: $spacer-small;
+        }
+    }
+
+    &__name {
+        @include font-size(body-one);
+        font-weight: $weight--semibold;
+        color: var(--color--heading);
+    }
+
+    &__link {
+        @include link-styles(var(--color--link), var(--color--link));
+    }
+
+    &__role {
+        @include font-size(body-two);
+        color: var(--color--heading);
+    }
+
+    &__read-time {
+        @include font-size(supporting);
+        margin-top: $spacer-mini-plus;
+    }
+}
