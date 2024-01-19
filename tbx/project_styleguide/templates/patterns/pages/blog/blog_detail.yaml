@@ -27,7 +27,7 @@ context:
         author:
           name: Suzanne Begley
           role: Product Director
-        page_type: Insight
+        date: 05 Sep 23
         read_time: 4
         tags_screenreader_text: 'Filter blog posts by category'
         tags:
@@ -40,7 +40,7 @@ context:
         author:
           name: Emily Johnson
           role: Data Scientist
-        page_type: Insight
+        date: 05 Sep 23
         read_time: 6
         tags_screenreader_text: 'Filter blog posts by category'
         tags:
@@ -53,7 +53,7 @@ context:
         author:
           name: Sarah Thompson
           role: Financial Analyst
-        page_type: Insight
+        date: 05 Sep 23
         read_time: 8
         tags_screenreader_text: 'Filter blog posts by category'
         tags:

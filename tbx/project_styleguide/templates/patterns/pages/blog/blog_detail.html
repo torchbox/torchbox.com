@@ -48,7 +48,7 @@
 
             {% if page.read_time %}
                 <span aria-hidden="true" class="blog-meta__divider">/</span>
-                {{ page.read_time }} min read
+                {{ page.read_time }} min{{ page.read_time|pluralize }} read
             {% endif %}
         </div>
 
@@ -59,7 +59,7 @@
 
             <ul class="streamfield__related-posts">
                 {% for post in page.related_blog_posts %}
-                    {% include "patterns/molecules/listing/listing--avatar.html" with title=post.title name=post.author.name job_title=post.author.role link=post.url reading_time=post.read_time tags=post.related_services listing_image=post.listing_image avatar=post.author.image %}
+                    {% include "patterns/molecules/listing/listing--avatar.html" with title=post.title name=post.author.name job_title=post.author.role link=post.url date=post.date reading_time=post.read_time tags=post.related_services listing_image=post.listing_image avatar=post.author.image %}
                 {% endfor %}
 
                 <li class="mx-auto lg:mx-0 mt-spacerSmall">
