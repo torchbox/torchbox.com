@@ -8,8 +8,8 @@
     {% comment %} {% if meta %}
         {{ meta }}
     {% endif %} {% endcomment %}
-    <div class="title-filters__tags">
-        {% if tags %}
+    {% if tags %}
+        <div class="title-filters__tags">
             <div class="tags">
                 <p class="sr-only">Filter by category</p>
                 {% pageurl item as index %}
@@ -27,6 +27,6 @@
                     {% endif %}
                 {% endfor %}
             </div>
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 </div>
