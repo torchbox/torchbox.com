@@ -37,7 +37,7 @@
 
     &__tags {
         @include media-query(medium) {
-            margin-left: calc(#{$avatar-size-desktop} + #{$spacer-half});
+            margin-left: calc(#{$avatar-size-large} + #{$spacer-half});
         }
     }
 }
