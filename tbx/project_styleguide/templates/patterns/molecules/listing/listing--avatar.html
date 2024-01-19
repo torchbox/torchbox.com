@@ -1,5 +1,5 @@
 {# Designed to be included from another template and values passed in #}
-<li class="listing-avatar listing">
+<li class="listing-avatar listing {{ base_class }}">
     <a class="listing-avatar__link listing__link" href="{{ link }}" aria-label="{{ aria_text|default:title }} by {{ name }}">
         <h2 class="listing-avatar__title listing__title">{{ title }}</h2>
         <div class="listing-avatar__avatar">

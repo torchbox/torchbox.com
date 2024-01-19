@@ -1,0 +1,12 @@
+context:
+  paginator_page:
+    number: 2
+    has_previous: true
+    previous_page_number: 1
+    has_next: true
+    next_page_number: 3
+    paginator:
+      number: 2
+      num_pages: 10
+      page_range: '123456789'
+#todo: update once back-end is done

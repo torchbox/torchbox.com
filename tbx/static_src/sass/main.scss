@@ -6,6 +6,7 @@
 // Components
 @use 'components/author';
 @use 'components/avatar';
+@use 'components/blog-listing';
 @use 'components/button';
 @use 'components/blog-meta';
 @use 'components/call-to-action';
@@ -16,6 +17,7 @@
 @use 'components/listing';
 @use 'components/listing-avatar';
 @use 'components/listing-image';
+@use 'components/pagination';
 @use 'components/pullquote';
 @use 'components/responsive-object';
 @use 'components/rich-text';
@@ -27,6 +29,7 @@
 @use 'components/tabs';
 @use 'components/tabs-nav';
 @use 'components/tag';
+@use 'components/title-filters';
 
 // Navigation
 @use 'components/navigation/breadcrumbs-nav';

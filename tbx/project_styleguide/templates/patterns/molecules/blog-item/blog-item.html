@@ -2,7 +2,8 @@
 
 {% firstof item.url item.link_external as link %}
 
-{% include "patterns/molecules/listing/listing--avatar.html" with link=link avatar=item.author.image title=item.title name=item.author.name job_title=item.author.role page_type="Blog post" reading_time=item.read_time tags=item.related_services tag_link_base=blog_index_url %}
+{% include "patterns/molecules/listing/listing--avatar.html" with link=link avatar=item.author.image title=item.title name=item.author.name job_title=item.author.role page_type="Blog post" reading_time=item.read_time tags=item.related_services tag_link_base=blog_index_url base_class="blog-listing__item" %}
+
 
 {# item.date to come #}
 {% comment %} Need to add tag_link_base {% endcomment %}

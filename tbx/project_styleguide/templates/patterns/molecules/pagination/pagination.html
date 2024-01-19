@@ -1,0 +1,38 @@
+{% if pages.paginator.num_pages > 1 %}
+    <nav aria-label="Pagination" class="pagination">
+        <ul class="pagination__list">
+            <li class="pagination__page">
+                <a href="?page=previous" class="pagination__link pagination__link--previous" rel="prev" aria-label="Go to previous page">
+                    {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="pagination__prev-icon" %}
+                    Previous
+                </a>
+            </li>
+            <li class="pagination__page pagination__page--current">
+                <a href="?page=2" class="pagination__link pagination__link--active" aria-label="Page {{ page_num }} of {{ pages.paginator.num_pages }}" aria-current="page">
+                    2
+                </a>
+            </li>
+            <li class="pagination__page">
+                <span class="pagination__span">
+                    ...
+                </span>
+            </li>
+            <li class="pagination__page">
+                <a href="?page=6" class="pagination__link" aria-label="Page {{ page_num }} of {{ pages.paginator.num_pages }}">
+                    6
+                </a>
+            </li>
+                <li class="pagination__page">
+                <a href="?page=6" class="pagination__link" aria-label="Page {{ page_num }} of {{ pages.paginator.num_pages }}">
+                    7
+                </a>
+            </li>
+            <li class="pagination__page">
+                <a href="?page=next" class="pagination__link pagination__link--next" rel="next" aria-label="Go to next page">
+                    Next
+                    {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="pagination__next-icon" %}
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endif %}

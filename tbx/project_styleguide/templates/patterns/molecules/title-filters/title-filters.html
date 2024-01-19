@@ -1,0 +1,32 @@
+{% load wagtailcore_tags %}
+
+<div class="title-filters">
+    <div class="title-filters__title">
+        <h1 class="heading heading--one">{{ item.title }}</h1>
+    </div>
+    {# todo: see if this is needed when implementing the team page #}
+    {% comment %} {% if meta %}
+        {{ meta }}
+    {% endif %} {% endcomment %}
+    <div class="title-filters__tags">
+        {% if tags %}
+            <div class="tags">
+                <p class="sr-only">Filter by category</p>
+                {% pageurl item as index %}
+                {% if request.GET.filter == '' or not request.GET.filter %}
+                    {% include "patterns/atoms/tag/tag.html" with tag_link_base=index has_all_filter=True item=None is_active=True %}
+                {% else %}
+                    {% include "patterns/atoms/tag/tag.html" with tag_link_base=index has_all_filter=True item=None %}
+                {% endif %}
+
+                {% for tag in tags %}
+                    {% if request.GET.filter == tag.slug %}
+                        {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name is_active=True %}
+                    {% else %}
+                        {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>

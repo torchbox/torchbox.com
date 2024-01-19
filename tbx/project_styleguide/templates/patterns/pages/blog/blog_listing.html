@@ -3,16 +3,18 @@
 
 {% block content %}
 
-    {% include "patterns/molecules/title-block/title-block.html" with item=page tags=related_services %}
+<div class="grid">
+    {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=related_services %}
 
-    {% for post in blog_posts %}
-        {% include "patterns/molecules/blog-item/blog-item.html" with item=post %}
-    {% endfor %}
+    <ul class="blog-listing">
+        {% for post in blog_posts %}
+            {% include "patterns/molecules/blog-item/blog-item.html" with item=post %}
+        {% endfor %}
+    </ul>
 
-    {% if blog_posts.has_next %}
-        {% include "patterns/atoms/see-more/see-more.html" with text="See more posts" fetch_data="blog-pages" %}
-    {% endif %}
-
-    {% include_block page.call_to_action %}
+    <div class="blog-listing__pagination">
+        {% include "patterns/molecules/pagination/pagination.html" with pages=blog_posts %}
+    </div>
+</div>
 
 {% endblock %}

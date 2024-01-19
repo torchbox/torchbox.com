@@ -27,7 +27,7 @@
     {% pageurl page.work_index as work_index_url %}
     {% with author=page.authors.first.author %}
 
-        {% include "patterns/molecules/title-block/title-block.html" with item=page %}
+        {% include "patterns/molecules/title-filters/title-filters.html" with item=page %}
         {% include "patterns/molecules/author/author.html" with item=page author=author tag_link_base=work_index_url %}
 
         {% include_block page.body %}

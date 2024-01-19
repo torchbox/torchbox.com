@@ -1,0 +1,42 @@
+@use 'config' as *;
+
+.title-filters {
+    grid-column: 2 / span 4;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: $spacer-half;
+
+    @include media-query(large) {
+        grid-column: 2 / span 11;
+        flex-direction: row;
+        margin-bottom: $spacer-large;
+    }
+
+    &::before {
+        @include media-query(large) {
+            content: '';
+            display: block;
+            width: 145px;
+            height: 1px;
+            background-color: var(--color--decoration);
+            margin-right: 40px;
+            position: relative;
+            top: 28px;
+        }
+    }
+
+    &__title {
+        margin-bottom: $spacer-small;
+
+        @include media-query(large) {
+            margin-bottom: 0;
+            margin-right: $spacer-half;
+        }
+    }
+
+    &__tags {
+        @include media-query(large) {
+            align-self: flex-end;
+        }
+    }
+}
