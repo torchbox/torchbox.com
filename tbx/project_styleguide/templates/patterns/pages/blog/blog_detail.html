@@ -37,7 +37,7 @@
 
             <div class="tags tags--with-title">
                 <span class="sr-only">Filter blog posts by category</span>
-                {% for tag in page.related_services.all %}
+                {% for tag in page.services %}
                     {% include "patterns/atoms/tag/tag.html" with item=tag small=True tag_link_base=blog_index_url %}
                 {% endfor %}
             </div>
