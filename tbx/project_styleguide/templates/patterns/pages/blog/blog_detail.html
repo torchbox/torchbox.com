@@ -61,10 +61,14 @@
         {% if page.related_blog_posts %}
             {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Realated blog posts" classes="section-title--related-posts" %}
 
-            {% for post in page.related_blog_posts %}
-                {% include "patterns/molecules/blog-item/blog-item.html" with item=post %}
-            {% endfor %}
-            {% include "patterns/atoms/see-more/see-more.html" with link=blog_index_url text="See more posts" %}
+            <div class="streamfield__related-posts">
+                {% for post in page.related_blog_posts %}
+                    {% include "patterns/molecules/listing/listing--avatar.html" with title=post.title name=post.author.name job_title=post.author.role link=post.url reading_time=post.read_time tags=post.related_services listing_image=post.listing_image page_type="Insight" avatar=post.author.image %}
+                {% endfor %}
+
+                {% include "patterns/atoms/see-more/see-more.html" with link=blog_index_url text="More insights" classes="mx-auto lg:mx-0 mt-spacerSmall" %}
+            </div>
+
         {% endif %}
 
         {% if page.related_works %}
