@@ -58,8 +58,6 @@
 
         {% include_block page.body %}
 
-        {% include_block page.call_to_action %}
-
         {% if page.related_blog_posts %}
             {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Realated blog posts" classes="section-title--related-posts" %}
 
