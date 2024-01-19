@@ -21,6 +21,46 @@ context:
         slug: wagtail
       - name: Digital Marketing
         slug: digital-marketing
+    related_blog_posts:
+      - link: '/'
+        title: Reimagining our Agile training and ways of working
+        author:
+          name: Suzanne Begley
+          role: Product Director
+        page_type: Insight
+        read_time: 4
+        tags_screenreader_text: 'Filter blog posts by category'
+        tags:
+          - name: Innovation
+            slug: innovation
+          - name: Culture
+            slug: culture
+      - link: '/'
+        title: The future of AI in healthcare
+        author:
+          name: Emily Johnson
+          role: Data Scientist
+        page_type: Insight
+        read_time: 6
+        tags_screenreader_text: 'Filter blog posts by category'
+        tags:
+          - name: Artificial Intelligence
+            slug: ai
+          - name: Healthcare
+            slug: healthcare
+      - link: '/'
+        title: The impact of machine learning in finance
+        author:
+          name: Sarah Thompson
+          role: Financial Analyst
+        page_type: Insight
+        read_time: 8
+        tags_screenreader_text: 'Filter blog posts by category'
+        tags:
+          - name: Machine Learning
+            slug: machine-learning
+          - name: Finance
+            slug: finance
 
 tags:
   include_block:
