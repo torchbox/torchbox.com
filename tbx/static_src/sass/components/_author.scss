@@ -36,6 +36,7 @@
     &__name {
         @include font-size(body-one);
         font-weight: $weight--semibold;
+        color: var(--color--heading);
     }
 
     &__link {
