@@ -2,20 +2,25 @@ context:
   author:
     name: Nick Lee
     role: Designer
-  item:
-    date: 07 Aug ’20
-    read_time: 5
-    related_services:
-      all:
-        - { name: Digital products, slug: digital-products }
+    person_page: '#'
 
 tags:
   image:
-    author.image fill-100x100 format-webp as image:
-      target_var: image
+    avatar width-144 format-webp as avatar_desktop:
+      target_var: avatar_desktop
       raw:
-        alt: 'Alt'
-        url: 'https://source.unsplash.com/100x100/?face'
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/144x144?face'
+    avatar width-286 format-webp as avatar_desktop_retina:
+      target_var: avatar_desktop_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/286x286?face'
+    avatar width-72 format-webp as avatar_mobile:
+      target_var: avatar_mobile
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/72x72?face'
   pageurl:
     author.person_page:
       raw: '#'

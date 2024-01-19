@@ -20,11 +20,5 @@
         {% if author.role %}
             <p class="author__role">{{ author.role }}</p>
         {% endif %}
-
-        {% if tag_link_base and show_tags %}
-            {% for tag in item.related_services.all %}
-                {% include "patterns/atoms/tag/tag.html" with item=tag small=True tag_link_base=tag_link_base %}
-            {% endfor %}
-        {% endif %}
     </div>
 </div>
