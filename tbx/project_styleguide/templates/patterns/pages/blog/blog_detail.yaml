@@ -11,44 +11,37 @@ context:
     blog_index:
       url: '#'
     title: The stages (and jargon) of digital product innovation
-    date: 07 Aug ’20
-    get_verbose_name: Blog detail
+    date: 07 Aug 2024
+    get_verbose_name: Blog page
     read_time: 5
-    related_blog_posts:
-      - author:
-          name: Paul Vetch
-          role: Strategy Director
-        title: We already dropped Drupal - maybe it’s time for you to do the same.
-        read_time: 3
-        url: '#'
-        type: BLOG POST
-        related_services:
-          - name: Digital products
-            slug: digital-products
-      - author:
-          name: Will Heinemann
-          role: New Business Director
-        title: Wagtail for Public Sector
-        read_time: 4
-        url: '#'
-        type: BLOG POST
-        related_services:
-          - name: Digital products
-            slug: digital-products
-          - name: Social media
-            slug: social-media
-    related_services:
-      all:
-        - name: Digital products
-          slug: digital-products
+    services:
+      - name: Digital products
+        slug: digital-products
+      - name: Wagtail
+        slug: wagtail
+      - name: Digital Marketing
+        slug: digital-marketing
 
 tags:
   include_block:
     page.body:
       template_name: 'patterns/molecules/streamfield/streamfield-example-blog.html'
   image:
-    author.image fill-100x100 format-webp as image:
-      target_var: image
+    avatar width-144 format-webp as avatar_desktop:
+      target_var: avatar_desktop
       raw:
-        alt: 'Alt'
-        url: 'https://source.unsplash.com/100x100/?face'
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/144x144?face'
+    avatar width-286 format-webp as avatar_desktop_retina:
+      target_var: avatar_desktop_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/286x286?face'
+    avatar width-72 format-webp as avatar_mobile:
+      target_var: avatar_mobile
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/72x72?face'
+  pageurl:
+    page.blog_index as blog_index_url:
+      raw: '#'
