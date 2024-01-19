@@ -17,6 +17,10 @@
         &--current {
             background-color: var(--color--heading);
             color: var(--color--background);
+
+            @include high-contrast-mode() {
+                border: 2px solid var(--color--heading);
+            }
         }
     }
 
