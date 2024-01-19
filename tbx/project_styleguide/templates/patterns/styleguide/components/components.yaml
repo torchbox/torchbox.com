@@ -16,7 +16,37 @@ context:
           url: '#'
           text: Book a free 1-hour call with Michael
 
+  # for title-filters.html
+  item:
+    title: Example title
+
+  # for title-filters.html
+  tags:
+    - name: Culture
+      slug: culture
+    - name: Digital products
+      slug: digital-products
+    - name: Wagtail
+      slug: wagtail
+    - name: Digital Marketing
+      slug: digital-marketing
+    - name: PPC
+      slug: ppc
+    - name: SEO
+      slug: seo
+    - name: Social media
+      slug: social-media
+    - name: Data
+      slug: data
+    - name: Google Ad Grants
+      slug: google-ad-grants
+
 tags:
+  pageurl:
+    # for title-filters.html
+    item as index:
+      target_var: index
+      raw: '#'
   image:
     # avatar image variants
     avatar fill-144x144 format-webp as avatar_desktop:
