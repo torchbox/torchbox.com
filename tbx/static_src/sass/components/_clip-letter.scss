@@ -1,0 +1,20 @@
+.clip-letter {
+    -webkit-text-fill-color: transparent;
+    background: url(../images/test.svg);
+    background-size: cover;
+    background-clip: text;
+    font-size: 160px;
+    animation: animatedBackground 7s linear infinite alternate;
+
+    @keyframes animatedBackground {
+        0% {
+            background-position: 0 0;
+        }
+        50% {
+            background-position: 250% 50%;
+        }
+        100% {
+            background-position: 500% 100%;
+        }
+    }
+}
