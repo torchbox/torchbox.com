@@ -1,5 +1,5 @@
 context:
-  paginator_page:
+  pages:
     number: 2
     has_previous: true
     previous_page_number: 1
