@@ -46,6 +46,10 @@ h6 {
         @include drop-cap(100px, 160px);
     }
 
+    &--one-simple {
+        @include font-size(heading-one);
+    }
+
     &--one-b {
         @include font-size(heading-one-b);
         @include drop-cap(80px, 150px);

@@ -53,6 +53,7 @@
     <p class="mb-1 underline">Button</p>
     <p class="mb-4"><a class="button" href="#">Digital products</a></p>
 
-
-    <h1 class="clip-letter">Test</h1>
+    {# clip-letter styles don't work with pseudo classes so we need a span, and therefore an aria-label #}
+    <p class="mb-1 underline">Heading one with animated first letter</p>
+    <h1 class="heading heading--one-simple" aria-label="Joining the battle to protect our oceans"><span class="clip-letter">J</span>oining the battle to protect our oceans</h1>
 </div>

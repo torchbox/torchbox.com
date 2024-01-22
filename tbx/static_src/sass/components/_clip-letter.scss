@@ -1,20 +1,26 @@
+@use "config" as *;
+
 .clip-letter {
     -webkit-text-fill-color: transparent;
     background: url(../images/test.svg);
-    background-size: cover;
+    background-size: 300% 150%;
     background-clip: text;
-    font-size: 160px;
-    animation: animatedBackground 7s linear infinite alternate;
+    animation: animatedBackground 3s linear;
+    background-position: 0 0;
+
+    .heading--one-simple & {
+        font-size: 160px;
+    }
 
     @keyframes animatedBackground {
         0% {
-            background-position: 0 0;
+            background-position: 20% 50%;
         }
         50% {
-            background-position: 250% 50%;
+            background-position: 5% 45%;
         }
         100% {
-            background-position: 500% 100%;
+            background-position: 0 20%;
         }
     }
 }
