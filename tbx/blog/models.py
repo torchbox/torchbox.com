@@ -5,14 +5,13 @@ from django import forms
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.dispatch import receiver
-from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
+from django.utils.http import urlencode
 
 from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
-from tbx.core.models import RelatedLink, Tag
 from tbx.core.utils.cache import get_default_cache_control_decorator
 from tbx.core.utils.models import SocialFields
 from tbx.taxonomy.models import Service
@@ -23,36 +22,11 @@ from wagtail.search import index
 from wagtail.signals import page_published
 
 
-class BlogIndexPageRelatedLink(Orderable, RelatedLink):
-    page = ParentalKey("blog.BlogIndexPage", related_name="related_links")
-
-
 @method_decorator(get_default_cache_control_decorator(), name="serve")
 class BlogIndexPage(SocialFields, Page):
     template = "patterns/pages/blog/blog_listing.html"
 
     subpage_types = ["BlogPage"]
-
-    intro = models.TextField(blank=True)
-
-    search_fields = Page.search_fields + [
-        index.SearchField("intro"),
-    ]
-
-    def get_popular_tags(self):
-        # Get a ValuesQuerySet of tags ordered by most popular (exclude 'planet-drupal' as this is effectively
-        # the same as Drupal and only needed for the rss feed)
-        popular_tags = (
-            BlogPageTagSelect.objects.all()
-            .exclude(tag__name="planet-drupal")
-            .values("tag")
-            .annotate(item_count=models.Count("tag"))
-            .order_by("-item_count")
-        )
-
-        # Return first 10 popular tags as tag objects
-        # Getting them individually to preserve the order
-        return [Tag.objects.get(id=tag["tag"]) for tag in popular_tags[:10]]
 
     @property
     def blog_posts(self):
@@ -64,14 +38,19 @@ class BlogIndexPage(SocialFields, Page):
 
         return blog_posts
 
-    def serve(self, request):
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
         # Get blog_posts
         blog_posts = self.blog_posts
 
         # Filter by related_service slug
         slug_filter = request.GET.get("filter")
+        extra_url_params = {}
+
         if slug_filter:
             blog_posts = blog_posts.filter(related_services__slug=slug_filter)
+            extra_url_params["filter"] = slug_filter
 
         # format for template
         blog_posts = [
@@ -87,64 +66,32 @@ class BlogIndexPage(SocialFields, Page):
             for blog_post in blog_posts
         ]
 
+        # use page to filter
+        page = request.GET.get("page", 1)
+
         # Pagination
         paginator = Paginator(blog_posts, 10)  # Show 10 blog_posts per page
 
-        if request.headers.get("x-requested-with") == "XMLHttpRequest":
-            # use page to filter
-            page = request.GET.get("page")
-            try:
-                blog_posts = paginator.page(page)
-            except PageNotAnInteger:
-                blog_posts = paginator.page(1)
-            except EmptyPage:
-                blog_posts = None
+        try:
+            blog_posts = paginator.page(page)
+        except PageNotAnInteger:
+            blog_posts = paginator.page(1)
+        except EmptyPage:
+            blog_posts = paginator.page(paginator.num_pages)
 
-            return render(
-                request,
-                "patterns/organisms/blog-listing/blog-listing.html",
-                {"page": self, "blog_posts": blog_posts},
-            )
-        else:
-            # return first page contents
-            try:
-                blog_posts = paginator.page(1)
-            except EmptyPage:
-                blog_posts = None
+        related_services = Service.objects.all()
 
-            related_services = Service.objects.all()
-
-            return render(
-                request,
-                self.template,
-                {
-                    "page": self,
-                    "blog_posts": blog_posts,
-                    "related_services": related_services,
-                },
-            )
-
-    def serve_preview(self, request, mode_name):
-        return self.serve(request)
-
-    content_panels = Page.content_panels + [
-        FieldPanel("intro"),
-        InlinePanel("related_links", label="Related links"),
-    ]
+        context.update(
+            blog_posts=blog_posts,
+            related_services=related_services,
+            extra_url_params=urlencode(extra_url_params),
+        )
+        return context
 
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
     ]
-
-
-# Blog page
-# Currently hidden. These were used in the past and may be used again in the future
-class BlogPageTagSelect(Orderable):
-    page = ParentalKey("blog.BlogPage", related_name="tags")
-    tag = models.ForeignKey(
-        "torchbox.Tag", on_delete=models.CASCADE, related_name="blog_page_tag_select"
-    )
 
 
 class BlogPageAuthor(Orderable):
