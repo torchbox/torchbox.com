@@ -11,7 +11,6 @@ from django.utils.decorators import method_decorator
 from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
-from tbx.core.models import Tag
 from tbx.core.utils.cache import get_default_cache_control_decorator
 from tbx.core.utils.models import SocialFields
 from tbx.taxonomy.models import Service
@@ -21,16 +20,7 @@ from wagtail.models import Orderable, Page
 from wagtail.signals import page_published
 
 
-# Currently hidden. These were used in the past and may be used again in the future
-class WorkPageTagSelect(Orderable):
-    page = ParentalKey("work.WorkPage", related_name="tags")
-    tag = models.ForeignKey(
-        "torchbox.Tag", on_delete=models.CASCADE, related_name="work_page_tag_select"
-    )
-
-
-class WorkPageScreenshot(Orderable):
-    page = ParentalKey("work.WorkPage", related_name="screenshots")
+class AbstractPageScreenshot(models.Model):
     image = models.ForeignKey(
         "images.CustomImage",
         null=True,
@@ -43,9 +33,11 @@ class WorkPageScreenshot(Orderable):
         FieldPanel("image"),
     ]
 
+    class Meta:
+        abstract = True
 
-class WorkPageAuthor(Orderable):
-    page = ParentalKey("work.WorkPage", related_name="authors")
+
+class AbstractPageAuthor(models.Model):
     author = models.ForeignKey(
         "people.Author", on_delete=models.CASCADE, related_name="+"
     )
@@ -54,11 +46,28 @@ class WorkPageAuthor(Orderable):
         FieldPanel("author"),
     ]
 
+    class Meta:
+        abstract = True
 
-class WorkPage(SocialFields, Page):
+
+class HistoricalWorkPageScreenshot(Orderable, AbstractPageScreenshot):
+    page = ParentalKey("work.HistoricalWorkPage", related_name="screenshots")
+
+
+class HistoricalWorkPageAuthor(Orderable, AbstractPageAuthor):
+    page = ParentalKey("work.HistoricalWorkPage", related_name="authors")
+
+
+class HistoricalWorkPage(SocialFields, Page):
+    """
+    This represents Work Pages as they were prior to the 2024
+    rebuild of the site. It is kept here for historical purposes.
+    """
+
     template = "patterns/pages/work/work_detail.html"
 
-    parent_page_types = ["WorkIndexPage"]
+    # Prevent this page type from being created in Wagtail Admin
+    parent_page_types = []
 
     date = models.DateField("Post date", blank=True, null=True)
     body = StreamField(StoryBlock(), use_json_field=True)
@@ -119,7 +128,7 @@ class WorkPage(SocialFields, Page):
         services = self.related_services.all()
         # get 4 pages with same services and exclude self page
         works = (
-            WorkPage.objects.filter(related_services__in=services)
+            HistoricalWorkPage.objects.filter(related_services__in=services)
             .live()
             .distinct()
             .order_by("-id")
@@ -162,29 +171,14 @@ class WorkPage(SocialFields, Page):
 class WorkIndexPage(SocialFields, Page):
     template = "patterns/pages/work/work_listing.html"
 
-    subpage_types = ["WorkPage"]
+    subpage_types = ["HistoricalWorkPage"]
 
     intro = RichTextField(blank=True)
-
-    hide_popular_tags = models.BooleanField(default=False)
-
-    def get_popular_tags(self):
-        # Get a ValuesQuerySet of tags ordered by most popular
-        popular_tags = (
-            WorkPageTagSelect.objects.all()
-            .values("tag")
-            .annotate(item_count=models.Count("tag"))
-            .order_by("-item_count")
-        )
-
-        # Return first 10 popular tags as tag objects
-        # Getting them individually to preserve the order
-        return [Tag.objects.get(id=tag["tag"]) for tag in popular_tags[:10]]
 
     @property
     def works(self):
         # Get list of work pages that are descendants of this page
-        work_pages = WorkPage.objects.descendant_of(self).live()
+        work_pages = HistoricalWorkPage.objects.descendant_of(self).live()
 
         # Order by most recent date first
         work_pages = work_pages.order_by("-date", "-pk")
@@ -249,7 +243,6 @@ class WorkIndexPage(SocialFields, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("intro"),
-        FieldPanel("hide_popular_tags"),
     ]
 
     promote_panels = [
@@ -258,7 +251,7 @@ class WorkIndexPage(SocialFields, Page):
     ]
 
 
-@receiver(page_published, sender=WorkPage)
+@receiver(page_published, sender=HistoricalWorkPage)
 def update_body_word_count_on_page_publish(instance, **kwargs):
     instance.set_body_word_count()
     instance.save(update_fields=["body_word_count"])
