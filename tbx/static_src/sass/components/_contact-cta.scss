@@ -9,7 +9,7 @@
         margin-bottom: $spacer-mini-plus;
 
         @include media-query(large) {
-            grid-column: 3 / span 10;
+            grid-column: 3 / span 9;
             grid-row: 1;
         }
     }
