@@ -1,0 +1,11 @@
+context:
+  value:
+    text: Get in touch to learn about our journey to becoming employee-owned
+    button_text: 'Contact Us'
+    button_link:
+      - internal_link:
+          id: 1
+      - external_link:
+          url: 'https://example.com'
+      - email:
+          email: 'example@example.com'

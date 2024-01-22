@@ -1,0 +1,21 @@
+context:
+  value:
+    text: 'Work with the best in the business'
+    button_text: 'Contact Us'
+    button_link:
+      - internal_link:
+          id: 1
+      - external_link:
+          url: 'https://example.com'
+      - email:
+          email: 'example@example.com'
+    person:
+      name: 'John Doe'
+      role: 'CEO'
+
+tags:
+  image:
+    avatar width-143 format-webp class="avatar__image":
+      # target_var: person_image
+      raw: |
+        <img src="https://source.unsplash.com/143x143?face" width="143" height="143" alt="Some alt" class="avatar__image">

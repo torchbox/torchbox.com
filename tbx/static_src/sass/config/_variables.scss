@@ -16,6 +16,7 @@ $color--dark-blue: #481cd9;
 $color--grey: #ccc;
 $color--dark-grey: #1d2325;
 $color--grey-50: #808080;
+$color--mid-grey: #282e30;
 
 // Coral dark by default
 :root,
@@ -27,6 +28,7 @@ $color--grey-50: #808080;
     --color--link-interaction: #{$color--white};
     --color--footer-background: #{$color--off-black};
     --color--focus-ring: #{$color--coral-light};
+    --color--streamfield-background: #{$color--mid-grey};
     --color--accent-one: #{$color--dark-grey};
     --color--accent-two: #{$color--purple-light};
     --color--accent-three: #{$color--coral-light};
@@ -43,6 +45,7 @@ $color--grey-50: #808080;
     --color--link-interaction: #{$color--white};
     --color--footer-background: #{$color--lagoon};
     --color--focus-ring: #{$color--lagoon-light};
+    --color--streamfield-background: #{$color--mid-grey};
     --color--accent-one: #{$color--dark-grey};
     --color--accent-two: #{$color--purple-light};
     --color--accent-three: #{$color--lagoon-light};
@@ -169,6 +172,7 @@ $breakpoints: (
 
 // Layout
 $site-width: 1500px;
+$streamfield-content-width: 720px;
 
 // Grid setup - update any changes here in the grid.md docs file too
 $grid: 30px;
@@ -177,6 +181,7 @@ $grid-gutters-large: 80px;
 $grid-gutters-x-large: 120px;
 
 // Vertical spacing
+// Any changes here will also need to be made in tailwind.config.js
 $spacer-mini: 15px;
 $spacer-mini-plus: 20px;
 $spacer-small: ($spacer-mini * 2); // 30px
@@ -213,4 +218,6 @@ $focus-color: var(--color--focus-ring);
 $focus-width: 3px;
 
 // --------------------------------- Specific styles ---------------------------
-$avatar-size-desktop: 145px;
+$avatar-size-large: 145px;
+$avatar-size-medium: 120px;
+$avatar-size-small: 72px;

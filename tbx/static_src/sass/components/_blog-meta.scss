@@ -1,0 +1,34 @@
+@use "config" as *;
+
+.blog-meta {
+    margin: $spacer-small 0;
+    position: relative;
+    padding-left: ($spacer-small + $spacer-mini);
+    grid-column: 2 / span 4;
+
+    @include media-query(large) {
+        margin: $spacer-medium 0 $spacer-small;
+        padding-left: ($spacer-half + $spacer-mini);
+        grid-column: 5 / span 7;
+    }
+
+    &::before {
+        content: '';
+        display: block;
+        height: 1px;
+        background-color: var(--color--text);
+        margin-bottom: $spacer-mini;
+        width: $spacer-small;
+        position: absolute;
+        left: 0;
+        top: 50%;
+
+        @include media-query(large) {
+            width: $spacer-half;
+        }
+    }
+
+    &__divider {
+        margin: 0 7px;
+    }
+}

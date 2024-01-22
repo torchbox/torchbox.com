@@ -1,3 +1,5 @@
+from django.utils.text import slugify
+
 import factory
 from factory.django import DjangoModelFactory
 from tbx.people.factories import ContactFactory, ContactReasonsListFactory
@@ -23,7 +25,7 @@ class ServiceFactory(DjangoModelFactory):
     """
 
     name = factory.Faker("text", max_nb_chars=20)
-    slug = factory.Faker("slug")
+    slug = factory.LazyAttribute(lambda o: slugify(o.name))
     description = factory.Faker("paragraph")
     sort_order = factory.Sequence(lambda n: n)
     preferred_contact = factory.SubFactory(ContactFactory)

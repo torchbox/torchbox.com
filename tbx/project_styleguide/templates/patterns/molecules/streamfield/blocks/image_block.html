@@ -8,7 +8,7 @@
     <picture>
         <source media="(max-width: 598px)" srcset="{{ image_block_mobile_image.url }} 1x, {{ image_block_mobile_image_retina.url }} 2x" />
         <source media="(min-width: 599px)" srcset="{{ image_block_desktop_image.url }} 1x, {{ image_block_desktop_image_retina.url }} 2x" />
-        <img src="{{ image_block_desktop_image.url }}" {% if value.image_is_decorative %} alt="" {% else %} alt="{% firstof value.alt_text img.alt %}" {% endif %} loading="lazy" />
+        <img src="{{ image_block_desktop_image.url }}" {% if value.image_is_decorative %} alt="" {% else %} alt="{% firstof value.alt_text image_block_desktop_image.alt %}" {% endif %} loading="lazy" />
     </picture>
 
     {% if value.caption %}

@@ -16,7 +16,6 @@ from tbx.core.models import RelatedLink, Tag
 from tbx.core.utils.cache import get_default_cache_control_decorator
 from tbx.core.utils.models import SocialFields
 from tbx.taxonomy.models import Service
-from tbx.work.models import WorkIndexPage, WorkPage
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page
@@ -81,6 +80,9 @@ class BlogIndexPage(SocialFields, Page):
                 "url": blog_post.url,
                 "author": blog_post.first_author,
                 "date": blog_post.date,
+                "read_time": blog_post.read_time,
+                "type": blog_post.type,
+                "related_services": blog_post.related_services.all(),
             }
             for blog_post in blog_posts
         ]
@@ -137,10 +139,6 @@ class BlogIndexPage(SocialFields, Page):
 
 
 # Blog page
-class BlogPageRelatedLink(Orderable, RelatedLink):
-    page = ParentalKey("blog.BlogPage", related_name="related_links")
-
-
 # Currently hidden. These were used in the past and may be used again in the future
 class BlogPageTagSelect(Orderable):
     page = ParentalKey("blog.BlogPage", related_name="tags")
@@ -196,10 +194,12 @@ class BlogPage(SocialFields, Page):
         ).split()
         self.body_word_count = len(body_words)
 
+    @cached_property
+    def services(self):
+        return self.related_services.all()
+
     @property
     def related_blog_posts(self):
-        services = self.related_services.all()
-
         # format for template
         return [
             {
@@ -207,31 +207,18 @@ class BlogPage(SocialFields, Page):
                 "url": blog_post.url,
                 "author": blog_post.first_author,
                 "date": blog_post.date,
+                "read_time": blog_post.read_time,
+                "type": blog_post.type,
+                "related_services": blog_post.related_services.all(),
             }
-            for blog_post in BlogPage.objects.filter(related_services__in=services)
+            for blog_post in BlogPage.objects.filter(related_services__in=self.services)
             .live()
+            .prefetch_related("related_services")
+            .defer_streamfields()
             .distinct()
             .order_by("-first_published_at")
-            .exclude(pk=self.pk)[:2]
+            .exclude(pk=self.pk)[:3]
         ]
-
-    @cached_property
-    def related_works(self):
-        services = self.related_services.all()
-
-        # Get the latest 2 work pages with the same service
-        works = (
-            WorkPage.objects.filter(related_services__in=services)
-            .live()
-            .public()
-            .distinct()
-            .order_by("-date")[:2]
-        )
-        return works
-
-    @cached_property
-    def work_index(self):
-        return WorkIndexPage.objects.live().public().first()
 
     @property
     def blog_index(self):
@@ -267,7 +254,6 @@ class BlogPage(SocialFields, Page):
         InlinePanel("authors", label="Author", min_num=1),
         FieldPanel("date"),
         FieldPanel("body"),
-        InlinePanel("related_links", label="Related links"),
     ]
 
     promote_panels = [

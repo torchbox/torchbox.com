@@ -5,6 +5,10 @@
     flex-wrap: wrap;
     column-gap: 5px;
     row-gap: 15px;
+
+    &--with-title {
+        margin-top: $spacer-small;
+    }
 }
 
 .tag {
@@ -13,7 +17,8 @@
     border: 1px solid var(--color--text);
 
     &:hover,
-    &:active {
+    &:active,
+    &--active {
         color: var(--color--background);
         background-color: var(--color--heading);
         border-color: var(--color--heading);
@@ -25,7 +30,8 @@
 
     @include high-contrast-mode() {
         &:hover,
-        &:active {
+        &:active,
+        &--active {
             outline: 2px solid var(--color--heading);
         }
     }

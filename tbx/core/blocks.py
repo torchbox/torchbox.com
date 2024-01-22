@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
 
+from wagtail import blocks
 from wagtail.blocks import (
     BooleanBlock,
     CharBlock,
@@ -16,6 +17,7 @@ from wagtail.blocks import (
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail_webstories.blocks import (
     ExternalStoryEmbedBlock as WebstoryExternalStoryEmbedBlock,
 )
@@ -82,7 +84,11 @@ class ImageFormatChoiceBlock(FieldBlock):
 
 class ImageBlock(StructBlock):
     image = ImageChooserBlock()
-    alt_text = CharBlock(required=False)
+    alt_text = CharBlock(
+        required=False,
+        help_text="By default the image title (shown above) is used as the alt text. "
+        "Use this field to provide more specific alt text if required.",
+    )
     image_is_decorative = BooleanBlock(
         required=False,
         default=False,
@@ -156,6 +162,50 @@ class VideoBlock(StructBlock):
         template = "patterns/molecules/streamfield/blocks/video_block.html"
 
 
+class CallToActionStructValue(blocks.StructValue):
+    # return an href-ready value for button_link
+    def get_button_link(self):
+        block = self.get("button_link")[0]
+        if (block_type := block.block_type) == "internal_link":
+            # Ensure page exists and is live.
+            if block.value and block.value.live:
+                return block.value.url
+        elif block_type == "external_link":
+            return block.value
+        elif block_type == "email":
+            return f"mailto:{block.value}"
+
+        return ""
+
+
+class CallToActionBlock(StructBlock):
+    text = blocks.CharBlock(required=True, max_length=255)
+    button_text = blocks.CharBlock(max_length=55)
+    button_link = blocks.StreamBlock(
+        [
+            ("internal_link", blocks.PageChooserBlock()),
+            ("external_link", blocks.URLBlock()),
+            ("email", blocks.EmailBlock()),
+        ],
+        required=True,
+        max_num=1,
+    )
+
+    class Meta:
+        template = "patterns/molecules/streamfield/blocks/call_to_action.html"
+        value_class = CallToActionStructValue
+
+
+class ContactCTABlock(StructBlock):
+    call_to_action = blocks.StreamBlock(
+        [("call_to_action", CallToActionBlock())], max_num=1
+    )
+    person = SnippetChooserBlock("people.Author")
+
+    class Meta:
+        template = "patterns/molecules/streamfield/blocks/contact_call_to_action.html"
+
+
 class ExternalStoryEmbedBlock(WebstoryExternalStoryEmbedBlock):
     """
     This code is no longer in use, unfortunately tbx/core/0001 migration (L407)
@@ -192,6 +242,14 @@ class StoryBlock(StreamBlock):
     )
     image = ImageBlock(
         template="patterns/molecules/streamfield/blocks/image_block.html",
+    )
+    call_to_action = CallToActionBlock(
+        label="Call to Action",
+        template="patterns/molecules/streamfield/blocks/call_to_action.html",
+    )
+    contact_call_to_action = ContactCTABlock(
+        label="Contact Call to Action",
+        template="patterns/molecules/streamfield/blocks/contact_call_to_action.html",
     )
     pullquote = PullQuoteBlock(
         template="patterns/molecules/streamfield/blocks/pullquote_block.html"

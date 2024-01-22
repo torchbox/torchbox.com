@@ -1,5 +1,5 @@
 {# Designed to be included from another template and values passed in #}
-<li class="listing-avatar listing">
+<li class="listing-avatar listing {{ base_class }}">
     <a class="listing-avatar__link listing__link" href="{{ link }}" aria-label="{{ aria_text|default:title }} by {{ name }}">
         <h2 class="listing-avatar__title listing__title">{{ title }}</h2>
         <div class="listing-avatar__avatar">
@@ -10,16 +10,17 @@
             <div>
                 <p class="listing__details-group">
                     <span class="listing__name mr-1.5">{{ name }}</span>
+                    <span class="listing__job-title">{{ job_title }}</span>
                 </p>
                 <p class="listing__meta">
-                    <span class="mr-1.5">{{ page_type }},</span> {{ reading_time }}
+                    <span class="mr-1.5">{{ date }}{% if reading_time %},{% endif %}</span> {% if reading_time %}{{ reading_time }} min{{ reading_time|pluralize }} read{% endif %}
                 </p>
             </div>
             {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-avatar__arrow listing__arrow" %}
         </div>
     </a>
     <div class="listing-avatar__tags listing__tags tags">
-        <span class="sr-only">{{ tags_screenreader_text|default:"Filter posts by category" }}</span>
+        <span class="sr-only">{{ tags_screenreader_text|default:"See more blog posts in this category" }}</span>
         {% for tag in tags %}
             {% include "patterns/atoms/tag/tag.html" with tag_name=tag.name tag_slug=tag.slug %}
         {% endfor %}

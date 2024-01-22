@@ -16,24 +16,55 @@ context:
           url: '#'
           text: Book a free 1-hour call with Michael
 
+  # for title-filters.html
+  item:
+    title: Example title
+
+  # for title-filters.html
+  tags:
+    - name: Culture
+      slug: culture
+    - name: Digital products
+      slug: digital-products
+    - name: Wagtail
+      slug: wagtail
+    - name: Digital Marketing
+      slug: digital-marketing
+    - name: PPC
+      slug: ppc
+    - name: SEO
+      slug: seo
+    - name: Social media
+      slug: social-media
+    - name: Data
+      slug: data
+    - name: Google Ad Grants
+      slug: google-ad-grants
+
 tags:
+  pageurl:
+    # for title-filters.html
+    item as index:
+      target_var: index
+      raw: '#'
   image:
     # avatar image variants
-    avatar width-144 format-webp as avatar_desktop:
+    avatar fill-144x144 format-webp as avatar_desktop:
       target_var: avatar_desktop
       raw:
         alt: 'desktop image'
         url: 'https://source.unsplash.com/144x144?face'
-    avatar width-286 format-webp as avatar_desktop_retina:
+    avatar fill-286x286 format-webp as avatar_desktop_retina:
       target_var: avatar_desktop_retina
       raw:
         alt: 'desktop image retina'
         url: 'https://source.unsplash.com/286x286?face'
-    avatar width-72 format-webp as avatar_mobile:
+    avatar fill-72x72 format-webp as avatar_mobile:
       target_var: avatar_mobile
       raw:
         alt: 'mobile image'
         url: 'https://source.unsplash.com/72x72?face'
+    # company logo for pull quote
     value.company_logo fill-110x70 format-webp class="pullquote__company-logo":
       raw: |
         <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="pullquote__company-logo">

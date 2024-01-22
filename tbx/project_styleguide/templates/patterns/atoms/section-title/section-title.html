@@ -1,1 +1,3 @@
-<h2>{{ title }}</h2>
+<h2 class="section-title heading heading--two{% if classes %} {{ classes }}{% endif %}"{% if aria_label %} aria-label="{{ aria_label }}"{% endif %}>
+    {{ title }}
+</h2>

@@ -4,11 +4,29 @@ context:
       name: Paul Vetch
       role: Strategy Director
     title: We already dropped Drupal - maybe it’s time for you to do the same.
+    related_services:
+      - name: Digital products
+        slug: digital-products
+      - name: Wagtail
+        slug: wagtail
 
 tags:
   image:
-    item.author.image fill-100x100 format-webp:
-      raw: '<img src="https://source.unsplash.com/100x100/?face">'
+    avatar fill-144x144 format-webp as avatar_desktop:
+      target_var: avatar_desktop
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/144x144?face'
+    avatar fill-286x286 format-webp as avatar_desktop_retina:
+      target_var: avatar_desktop_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/286x286?face'
+    avatar fill-72x72 format-webp as avatar_mobile:
+      target_var: avatar_mobile
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/72x72?face'
   pageurl:
     item:
       raw: '#'

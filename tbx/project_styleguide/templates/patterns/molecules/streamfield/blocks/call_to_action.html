@@ -1,0 +1,11 @@
+{% load wagtailcore_tags %}
+
+<div class="call-to-action streamfield__call-to-action">
+    <div class="call-to-action__inner">
+        <p class="call-to-action__text">{{ value.text }}</p>
+
+        {% if value.button_text and value.button_link %}
+            <a href="{{ value.get_button_link }}" class="call-to-action__button button">{{ value.button_text }}</a>
+        {% endif %}
+    </div>
+</div>
