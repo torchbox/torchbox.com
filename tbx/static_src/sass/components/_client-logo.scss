@@ -1,0 +1,20 @@
+@use 'config' as *;
+
+.client-logo {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__image-card {
+        // display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    // &__image-wrapper {
+    //     padding:10px;
+    // }
+}

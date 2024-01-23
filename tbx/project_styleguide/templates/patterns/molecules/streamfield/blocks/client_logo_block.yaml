@@ -1,0 +1,14 @@
+context:
+  value:
+    title: 'Happy Partners'
+    client_logos:
+      - logo:
+      - logo:
+      - logo:
+      - logo:
+
+tags:
+  image:
+    logo.image max-200x200 alt="":
+      raw: |
+        <img src="https://source.unsplash.com/100x100?logo" width="100" height="100" alt="" class="client_logo__logo">
