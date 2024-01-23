@@ -1,21 +1,23 @@
 context:
   value:
-    text: 'Work with the best in the business'
-    button_text: 'Contact Us'
-    button_link:
-      - internal_link:
-          id: 1
-      - external_link:
-          url: 'https://example.com'
-      - email:
-          email: 'example@example.com'
+    call_to_action:
+      - value:
+          text: Get in touch to learn about our journey to becoming employee-owned
+          button_text: 'Contact Us'
+          button_link: True
     person:
-      name: 'John Doe'
-      role: 'CEO'
+      name: Olly Willans
+      role: Chief People and Planet Officer
 
 tags:
   image:
-    avatar width-143 format-webp class="avatar__image":
-      # target_var: person_image
-      raw: |
-        <img src="https://source.unsplash.com/143x143?face" width="143" height="143" alt="Some alt" class="avatar__image">
+    avatar fill-144x144 format-webp as avatar_desktop:
+      target_var: avatar_desktop
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/144x144?face'
+    avatar fill-72x72 format-webp as avatar_mobile:
+      target_var: avatar_mobile
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/72x72?face'

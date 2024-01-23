@@ -35,3 +35,13 @@ tags:
       raw:
         alt: 'mobile image retina'
         url: 'https://source.unsplash.com/1600x1076?face'
+    avatar fill-144x144 format-webp as avatar_desktop:
+      target_var: avatar_desktop
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/144x144?face'
+    avatar fill-72x72 format-webp as avatar_mobile:
+      target_var: avatar_mobile
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/72x72?face'
