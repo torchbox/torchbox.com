@@ -1,0 +1,115 @@
+@use "config" as *;
+
+.showcase {
+    $root: &;
+
+    &__title {
+        margin-bottom: $spacer-medium;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+        }
+    }
+
+    &__list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $spacer-small;
+
+        @include media-query(large) {
+            grid-template-columns: 1fr 1fr;
+            gap: $spacer-half;
+        }
+    }
+
+    &__item {
+        display: flex;
+        align-items: flex-start;
+        gap: $spacer-small;
+
+        &--link {
+            &:focus {
+                @include focus-style($shadow: true);
+            }
+
+            &:focus,
+            &:hover {
+                #{$root}__icon {
+                    transform: translate3d($link-transition-gap, 0, 0);
+                }
+
+                #{$root}__heading {
+                    text-decoration-thickness: $link-underline-thickness-interaction;
+                }
+
+                #{$root}__ring--one {
+                    color: var(--color--accent-two);
+                    opacity: 1;
+                }
+
+                #{$root}__ring--two {
+                    color: var(--color--accent-three);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &__rings {
+        position: relative;
+        width: 40px;
+        flex-shrink: 0;
+    }
+
+    &__ring {
+        position: absolute;
+        inset: 0;
+        width: 32px;
+        height: 32px;
+        opacity: 0.5;
+        transition: color $transition-quick, opacity $transition-quick;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        &--one {
+            top: 8px;
+            color: var(--color--accent-three);
+        }
+
+        &--two {
+            left: 8px;
+            color: var(--color--accent-two);
+        }
+    }
+
+    &__heading {
+        @include font-size(heading-five);
+        margin-bottom: $spacer-mini;
+
+        &--with-icon {
+            display: flex;
+            align-items: flex-start;
+            text-decoration: underline;
+            text-decoration-thickness: $link-underline-thickness;
+            text-underline-offset: 2px;
+            gap: $spacer-mini;
+        }
+    }
+
+    &__icon {
+        transition: transform $transition-quick;
+        transform: translate3d(0, 0, 0);
+        flex-shrink: 0;
+        margin-top: 8px;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+    }
+
+    &__summary {
+        @include font-size(body-one);
+    }
+}
