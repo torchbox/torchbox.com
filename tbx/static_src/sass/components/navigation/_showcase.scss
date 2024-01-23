@@ -4,6 +4,17 @@
     &__item {
         display: flex;
     }
+
+    &__item-details {
+        display: flex;
+        align-items: flex-end;
+        gap: $spacer-mini-plus;
+
+        @include media-query(medium) {
+            align-items: flex-start;
+        }
+    }
+
     &__link {
         @include link-styles();
     }

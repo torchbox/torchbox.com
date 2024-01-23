@@ -1,0 +1,14 @@
+context:
+  value:
+    title: Our Services
+    showcase_paragraphs:
+      - page: '#'
+        heading: 'Child Service page'
+        summary: 'This is a demo child service page summary'
+      - heading: 'Another Child Service page'
+        summary: 'This is another demo child service page summary'
+
+tags:
+  pageurl:
+    item.page:
+      raw: '#'
