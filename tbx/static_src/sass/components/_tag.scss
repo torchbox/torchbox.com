@@ -25,7 +25,7 @@
     }
 
     &:focus {
-        @include focus-style(--color--heading);
+        @include focus-style(var(--color--heading), $shadow: true);
     }
 
     @include high-contrast-mode() {
