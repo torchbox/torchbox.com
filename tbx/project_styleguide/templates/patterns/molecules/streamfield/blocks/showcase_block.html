@@ -10,21 +10,21 @@
                     <a href="{% pageurl item.page %}" class="showcase__item showcase__item--link" aria-label="{{ item.heading }}">
                 {% endif %}
 
-                    <div class="showcase__rings">
-                        {% include "patterns/atoms/icons/icon.html" with name="ring-one" classname="icon--stroke showcase__ring showcase__ring--one" %}
-                        {% include "patterns/atoms/icons/icon.html" with name="ring-two" classname="icon--stroke showcase__ring showcase__ring--two" %}
-                    </div>
+                <div class="showcase__rings">
+                    {% include "patterns/atoms/icons/icon.html" with name="ring-one" classname="icon--stroke showcase__ring showcase__ring--one" %}
+                    {% include "patterns/atoms/icons/icon.html" with name="ring-two" classname="icon--stroke showcase__ring showcase__ring--two" %}
+                </div>
 
-                    <div class="showcase__content">
-                        <h3 class="showcase__heading{% if item.page %} showcase__heading--with-icon{% endif %}">
-                            {{ item.heading }}
-                            {% if item.page %}
-                                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="showcase__icon" %}
-                            {% endif %}
-                        </h3>
+                <div class="showcase__content">
+                    <h3 class="showcase__heading{% if item.page %} showcase__heading--with-icon{% endif %}">
+                        {{ item.heading }}
+                        {% if item.page %}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="showcase__icon" %}
+                        {% endif %}
+                    </h3>
 
-                        <p class="showcase__summary">{{ item.summary }}</p>
-                    </div>
+                    <p class="showcase__summary">{{ item.summary }}</p>
+                </div>
 
                 {% if item.page %}
                     </a>
