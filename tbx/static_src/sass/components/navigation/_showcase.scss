@@ -1,0 +1,10 @@
+@use "config" as *;
+
+.showcase {
+    &__item {
+        display: flex;
+    }
+    &__link {
+        @include link-styles();
+    }
+}

@@ -142,6 +142,27 @@ class PullQuoteBlock(StructBlock):
         icon = "openquote"
 
 
+class ShowcaseBlock(StructBlock):
+    title = CharBlock(max_length=255)
+    showcase_paragraphs = blocks.ListBlock(
+        blocks.StructBlock(
+            [
+                ("heading", blocks.CharBlock()),
+                ("summary", blocks.RichTextBlock()),
+                ("page", blocks.PageChooserBlock(required=False)),
+            ],
+            help_text="Add a showcase paragraph, with summary text and an optional link",
+            icon="breadcrumb-expand",
+        ),
+        min_num=2,
+        max_num=10,
+    )
+
+    class Meta:
+        icon = "tasks"
+        template = "patterns/molecules/streamfield/blocks/showcase_block.html"
+
+
 class VideoBlock(StructBlock):
     video = VideoChooserBlock()
     # setting autoplay to True adds 'autoplay', 'loop' & 'muted' attrs to video element
@@ -272,6 +293,10 @@ class StoryBlock(StreamBlock):
         icon="code",
         template="patterns/molecules/streamfield/blocks/embed_block.html",
         group="Media",
+    )
+    showcase = ShowcaseBlock(
+        icon="tasks",
+        template="patterns/molecules/streamfield/blocks/showcase_block.html",
     )
     video_block = VideoBlock(group="Media")
 
