@@ -2,11 +2,11 @@
 
 .clip-letter {
     -webkit-text-fill-color: transparent;
-    background: url(../images/test.svg);
-    background-size: 300% 150%;
+    background: var(--letter-motif), no-repeat;
+    background-size: 200% 150%;
     background-clip: text;
-    animation: animatedBackground 3s linear;
-    background-position: 0 0;
+    animation: animatedBackground 0.75s ease-out;
+    background-position: top left;
 
     .heading--one-simple & {
         font-size: 160px;
@@ -14,13 +14,10 @@
 
     @keyframes animatedBackground {
         0% {
-            background-position: 20% 50%;
-        }
-        50% {
-            background-position: 5% 45%;
+            background-position: bottom right;
         }
         100% {
-            background-position: 0 20%;
+            background-position: top left;
         }
     }
 }
