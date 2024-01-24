@@ -5,14 +5,22 @@
 
     &__list {
         display: flex;
-        gap: $spacer-small;
         justify-content: center;
+        gap: $spacer-mini;
+
+        @include media-query(large) {
+            gap: $spacer-small;
+        }
     }
 
     &__page {
-        @include font-size('heading-five');
+        @include font-size('heading-six');
         color: var(--color--heading);
         display: block;
+
+        @include media-query(large) {
+            @include font-size('heading-five');
+        }
 
         &--current {
             background-color: var(--color--heading);
@@ -29,12 +37,16 @@
         display: flex;
         width: 100%;
         height: 100%;
-        max-width: 3.125rem; // 50px
-        max-height: 3.125rem;
-        padding: 13px 19px;
         line-height: 0;
         align-items: center;
         justify-content: center;
+        padding: 10px 15px;
+
+        @include media-query(large) {
+            max-width: 3.125rem; // 50px
+            max-height: 3.125rem;
+            padding: 13px 19px;
+        }
     }
 
     &__link {
@@ -71,11 +83,18 @@
         height: 24px;
         fill: var(--color--heading);
         transition: $transition-quick;
+
+        @include high-contrast-mode() {
+            fill: LinkText;
+        }
     }
 
     &__prev-icon {
         transform: rotate(180deg);
-        margin-right: $spacer-small;
+
+        @include media-query(medium) {
+            margin-right: $spacer-small;
+        }
 
         a:hover & {
             transform: rotate(180deg) translateX(8px);
@@ -87,7 +106,9 @@
     }
 
     &__next-icon {
-        margin-left: $spacer-small;
+        @include media-query(medium) {
+            margin-left: $spacer-small;
+        }
 
         a:hover & {
             transform: translateX(8px);
