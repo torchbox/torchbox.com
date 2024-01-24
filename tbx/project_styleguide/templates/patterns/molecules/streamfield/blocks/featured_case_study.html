@@ -7,7 +7,7 @@
 
 <div class="featured-case-study">
     {# Image with gradient if logo added #}
-    <div class="featured-case-study__image">
+    <div class="featured-case-study__image{% if logo %} featured-case-study__image--with-logo{% endif %}">
         <picture>
             <source media="(max-width: 598px)" srcset="{{  featured_mobile_image.url }} 1x, {{ featured_mobile_image_retina.url }} 2x" />
             <source media="(min-width: 599px)" srcset="{{ featured_desktop_image.url }} 1x, {{ featured_desktop_image_retina.url }} 2x" />
@@ -15,10 +15,8 @@
         </picture>
 
         {# Optional logo #}
-        {% if client_logo.url %}
-            <div class="featured-case-study__logo">
-                <img src="{{ client_logo.url }}" alt="" />
-            </div>
+        {% if logo %}
+            {% image logo fill-110x70 format-webp class="featured-case-study__company-logo" %}
         {% endif %}
 
         {# Results SVG #}
