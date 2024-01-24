@@ -1,6 +1,7 @@
 {# Designed to be included from another template and values passed in #}
 {% load wagtailimages_tags %}
 
+
 {% image listing_image fill-370x370 format-webp as listing_desktop_image %}
 {% image listing_image fill-740x740 format-webp as listing_desktop_image_retina %}
 {% image listing_image fill-370x335 format-webp as listing_mobile_image %}
@@ -23,7 +24,7 @@
                 <div>
                     <p class="listing__details-group">
                         <span class="listing__name mr-1.5">{{ name }}</span>
-                        <span class="listing__job-title">{{ job_title }}</span>
+                        {% if job_title %}<span class="listing__job-title">{{ job_title }}</span>{% endif %}
                     </p>
                     <p class="listing__meta">
                         <span class="mr-1.5">{{ date }}{% if reading_time %},{% endif %}</span> {% if reading_time %}{{ reading_time }} min{{ reading_time|pluralize }} read{% endif %}
