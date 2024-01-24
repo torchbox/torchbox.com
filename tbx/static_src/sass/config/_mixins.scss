@@ -159,6 +159,39 @@
 }
 
 /* ============================================
+    Arrow icon styles - Hidden below medium breakpoint, shown above
+    Translates on hover
+*/
+@mixin arrow-link-icon-styles() {
+    display: none;
+
+    @include media-query(medium) {
+        display: block;
+        color: var(--color--decoration);
+        width: 72px;
+        height: 22px;
+        transition: transform, $transition-quick;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        a:hover & {
+            color: var(--color--link-interaction);
+            transform: translateX(8px);
+
+            @include reduced-motion() {
+                transform: none;
+            }
+
+            @include high-contrast-mode() {
+                color: var(--color--decoration);
+            }
+        }
+    }
+}
+
+/* ============================================
     High Contrast mode in dark mode
     prefers-color-scheme: dark + forced-colors: active
 */
