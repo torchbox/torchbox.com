@@ -1,0 +1,69 @@
+@use "config" as *;
+
+.featured-case-study {
+    padding-top: $spacer-half;
+
+    @include media-query(large) {
+        display: grid;
+        gap: $spacer-half;
+        grid-template-columns: 1.5fr 1fr;
+        padding-top: 0;
+    }
+
+    &__image {
+        position: relative;
+    }
+
+    &__logo {
+        margin-bottom: $spacer-small;
+    }
+
+    &__content {
+        @include media-query(large) {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &__title {
+        @include media-query(large) {
+            margin-top: auto;
+        }
+    }
+
+    &__link {
+        display: flex;
+        gap: $spacer-mini-plus;
+        align-items: flex-end;
+
+        @include media-query(large) {
+            // Keep link at the bottom of the container
+            margin-top: auto;
+        }
+    }
+
+    &__link-inner {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__link-meta {
+        @include font-size(supporting);
+        color: var(--color--text);
+    }
+
+    &__icon {
+        @include arrow-link-icon-styles();
+    }
+
+    &__results-icon {
+        position: absolute;
+        top: -80px;
+        right: 10%;
+
+        @include media-query(large) {
+            top: 60%;
+            right: -40px;
+        }
+    }
+}
