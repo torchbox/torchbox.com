@@ -18,7 +18,7 @@
                     </li>
                     {# Ellipsis between the first page and the page before the current page  #}
                     {% if pages.number > 3 %}
-                        <li class="pagination__page hidden lg:block">
+                        <li class="pagination__page hidden lg:block" aria-label="dot dot dot">
                             <span class="pagination__span">
                                 ...
                             </span>
@@ -47,7 +47,7 @@
             {% if pages.has_next %}
                 {% if pages.number < pages.paginator.num_pages|add:'-2' %}
                     {# Ellipsis - shows if there are numbers between the page after the current page and the last page #}
-                    <li class="pagination__page hidden lg:block">
+                    <li class="pagination__page hidden lg:block" aria-label="dot dot dot">
                         <span class="pagination__span">
                             ...
                         </span>
