@@ -7,14 +7,10 @@
     justify-content: space-between;
 
     &__image-card {
-        // display: flex;
+        display: flex;
         align-items: flex-start;
         flex-wrap: wrap;
         justify-content: center;
         flex-direction: row;
     }
-
-    // &__image-wrapper {
-    //     padding:10px;
-    // }
 }

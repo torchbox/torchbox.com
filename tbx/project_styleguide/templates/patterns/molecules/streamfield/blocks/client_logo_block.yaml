@@ -9,6 +9,6 @@ context:
 
 tags:
   image:
-    logo.image max-200x200 alt="":
+    logo.image fill-100x100 format-webp alt="":
       raw: |
         <img src="https://source.unsplash.com/100x100?logo" width="100" height="100" alt="" class="client_logo__logo">
