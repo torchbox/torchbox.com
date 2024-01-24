@@ -74,8 +74,6 @@
 
         {% if page.related_works %}
             {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Related work pages" classes="section-title--related-posts" %}
-            {% comment %} {% include "patterns/organisms/work-listing/work-listing.html" with works=page.related_works %}
-            {% include "patterns/atoms/see-more/see-more.html" with link=work_index_url text="See more case studies" %} {% endcomment %}
 
             <ul class="streamfield__related-posts">
                 {% for work_page in page.related_works %}
