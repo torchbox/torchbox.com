@@ -35,8 +35,8 @@
                             {{ num }}
                         </a>
                     </li>
-                {# One page either side of the current page #}
                 {% elif num > pages.number|add:'-2' and num < pages.number|add:'2' %}
+                    {# One page either side of the current page #}
                     <li class="pagination__page">
                         <a href="?page={{ num }}{% if extra_url_params %}&amp;{{ extra_url_params }}{% endif %}" class="pagination__link" aria-label="Page {{ num }} of {{ pages.paginator.num_pages }}">
                             {{ num }}
