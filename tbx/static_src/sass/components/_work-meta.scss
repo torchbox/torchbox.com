@@ -1,0 +1,22 @@
+@use "config" as *;
+
+.work-meta {
+    grid-column: 2 / span 4;
+
+    @include media-query(large) {
+        grid-column: 5 / span 7;
+    }
+
+    &__client {
+        @include font-size('body-two');
+        font-weight: $weight--semibold;
+    }
+
+    &__meta {
+        @include font-size('supporting');
+    }
+
+    &__divider {
+        margin: 0 7px;
+    }
+}

@@ -10,6 +10,12 @@
         }
     }
 
+    &__intro {
+        a {
+            @include link-styles(var(--color--heading), var(--color--heading));
+        }
+    }
+
     &__heading {
         margin-bottom: $spacer-mini;
         grid-column: 2 / span 4;
@@ -49,13 +55,22 @@
         }
     }
 
+    &__embed {
+        iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            height: auto;
+        }
+    }
+
     // The following components follow the same pattern of
     // spanning 7 columns on desktop and 4 columns on mobile.
     &__intro,
     &__paragraph,
     &__image,
     &__raw-html,
-    &__markdown {
+    &__markdown,
+    &__embed {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
 
@@ -65,15 +80,17 @@
         }
     }
 
-    // Move everything over by 1 column on the blog page
-    .template-blog-page & {
+    // Move everything over by 1 column on the blog page and work page
+    .template-blog-page &,
+    .template-work-page & {
         &__title,
         &__heading,
         &__intro,
         &__paragraph,
         &__image,
         &__raw-html,
-        &__markdown {
+        &__markdown,
+        &__embed {
             @include media-query(large) {
                 grid-column: 5 / span 7;
             }
@@ -102,6 +119,12 @@
                 gap: $spacer-half;
                 grid-column: 5 / span 9;
             }
+        }
+    }
+
+    .template-work-page & {
+        &__intro {
+            margin-bottom: $spacer-mini;
         }
     }
 }

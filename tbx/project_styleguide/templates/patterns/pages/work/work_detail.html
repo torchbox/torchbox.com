@@ -5,8 +5,8 @@
     <script>
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-            'author-title' : '{{ page.authors.all.0.author.role }}',
-            'author-name' : '{{ page.authors.all.0.author.name }}',
+            'author-title' : '{{ page.first_author.role }}',
+            'author-name' : '{{ page.first_author.name }}',
             'published' : '{{ page.first_published_at|date:"Ymd" }}',
             'tags' : [{% for tag in page.related_services.all %}'{{tag.name}}'{% if not forloop.last %}, {% endif %}{% endfor %}],
             'read-time' : '{{ page.read_time }}',
@@ -17,29 +17,75 @@
             'event': 'page-information'
         });
     </script>
-    <meta name="author" content="{{ page.authors.all.0.author.name }}">
+    <meta name="author" content="{{ page.first_author.name }}">
     <meta property="og:article:published_time" content="{{ page.date|date:'Y-m-d' }}" />
     {{ block.super }}
 
 {% endblock %}
 
 {% block content %}
-    {% pageurl page.work_index as work_index_url %}
-    {% with author=page.authors.first.author %}
+    <div class="grid grid--spacer-large streamfield">
+        <div class="authors">
+            {% with author=page.first_author %}
+                {% include "patterns/molecules/author/author.html" with author=author %}
+            {% endwith %}
+        </div>
+        <div class="streamfield__title">
+            <h1 class="heading heading--one-b">{{ page.title }}</h1>
 
-        {% include "patterns/molecules/title-filters/title-filters.html" with item=page %}
-        {% include "patterns/molecules/author/author.html" with item=page author=author tag_link_base=work_index_url %}
+            {% pageurl page.work_index as work_index_url %}
 
-        {% include_block page.body %}
+            <div class="tags tags--with-title">
+                <span class="sr-only">Related work categories</span>
+                {% for tag in page.related_services.all %}
+                    {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name tag_link_base=work_index_url %}
+                {% endfor %}
+            </div>
+        </div>
 
-        {% include "patterns/molecules/author/author.html" with item=page author=author tag_link_base=work_index_url %}
+        {% for intro_block in page.body %}
+            {% if intro_block.block_type == 'intro' %}
+                {% include_block intro_block %}
+            {% endif %}
+        {% endfor %}
 
-        {% include_block page.call_to_action %}
+        <div class="work-meta mt-spacerSmall mb-spacerSmall lg:mb-spacerLarge">
+            {% if page.client %}
+                <p class="work-meta__client">
+                    {{ page.client }}
+                </p>
+            {% endif %}
+
+            <p class="work-meta__meta">
+                <time datetime="{{ item.date|date:'Y-m-d' }}">{{ page.date }}</time>
+
+                {% if page.read_time %}
+                    <span aria-hidden="true" class="blog-meta__divider">/</span>
+                    {{ page.read_time }} min{{ page.read_time|pluralize }} read
+                {% endif %}
+            </p>
+        </div>
+
+        {% for block in page.body %}
+            {% if block.block_type != 'intro' %}
+                {% include_block block %}
+            {% endif %}
+        {% endfor %}
 
         {% if page.related_works %}
-            {% include "patterns/atoms/section-title/section-title.html" with title="More of our work" %}
-            {% include "patterns/organisms/work-listing/work-listing.html" with works=page.related_works %}
-            {% include "patterns/atoms/see-more/see-more.html" with link=work_index_url text="See more case studies" %}
+            {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Related work pages" classes="section-title--related-posts" %}
+            {% comment %} {% include "patterns/organisms/work-listing/work-listing.html" with works=page.related_works %}
+            {% include "patterns/atoms/see-more/see-more.html" with link=work_index_url text="See more case studies" %} {% endcomment %}
+
+            <ul class="streamfield__related-posts">
+                {% for work_page in page.related_works %}
+                    {% include "patterns/molecules/listing/listing--image.html" with listing_image=work_page.feed_image title=work_page.title name=work_page.client link=work_page.url date=work_page.date reading_time=work_page.read_time tags=work_page.related_services.all %}
+                {% endfor %}
+
+                <li class="mx-auto lg:mx-0 mt-spacerSmall">
+                    {% include "patterns/atoms/see-more/see-more.html" with link=work_index_url text="See more work" %}
+                </li>
+            </ul>
         {% endif %}
-    {% endwith %}
+    </div>
 {% endblock %}
