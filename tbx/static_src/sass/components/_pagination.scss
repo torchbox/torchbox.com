@@ -85,7 +85,9 @@
         transition: $transition-quick;
 
         @include high-contrast-mode() {
+            /* stylelint-disable value-keyword-case  */
             fill: LinkText;
+            /* stylelint-enable value-keyword-case  */
         }
     }
 
