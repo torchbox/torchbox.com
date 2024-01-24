@@ -223,11 +223,27 @@ class StandardPage(SocialFields, Page):
     template = "patterns/pages/standard/standard_page.html"
 
     body = StreamField(StoryBlock(), use_json_field=True)
+    featured_blog_heading = models.TextField(blank=True)
+    featured_work_post_heading = models.TextField(blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel("body"),
-        InlinePanel("featured_blogs", label="Featured Blogs", max_num=3),
-        InlinePanel("featured_work_posts", label="Featured Work Posts", max_num=3),
+        MultiFieldPanel(
+            [
+                FieldPanel("featured_blog_heading", heading="Heading"),
+                InlinePanel("featured_blogs", label="Featured Blogs", max_num=3),
+            ],
+            heading="Featured Blog Post Section",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("featured_work_post_heading", heading="Heading"),
+                InlinePanel(
+                    "featured_work_posts", label="Featured Work Posts", max_num=3
+                ),
+            ],
+            heading="Featured Work Post Section",
+        ),
     ]
 
     promote_panels = [
