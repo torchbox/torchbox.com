@@ -20,6 +20,18 @@ context:
   item:
     title: Example title
 
+  # pagination
+  pages:
+    number: 5
+    has_previous: true
+    previous_page_number: 4
+    has_next: true
+    next_page_number: 6
+    paginator:
+      number: 5
+      num_pages: 10
+      page_range: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
   # for title-filters.html
   tags:
     - name: Culture
