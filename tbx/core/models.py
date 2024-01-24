@@ -107,6 +107,7 @@ class HomePageFeaturedPost(Orderable):
     page = ParentalKey(
         "torchbox.HomePage", on_delete=models.CASCADE, related_name="featured_posts"
     )
+
     featured_post = models.ForeignKey(
         "wagtailcore.Page",
         null=True,
@@ -115,9 +116,41 @@ class HomePageFeaturedPost(Orderable):
         related_name="+",
     )
 
-    panels = [
-        PageChooserPanel("featured_post", ["blog.BlogPage", "work.WorkPage"]),
-    ]
+    panels = [PageChooserPanel("featured_post", ["blog.BlogPage", "work.WorkPage"])]
+
+
+class ServicePageFeaturedBlogPost(Orderable):
+    page = ParentalKey(
+        "torchbox.StandardPage", on_delete=models.CASCADE, related_name="featured_blogs"
+    )
+
+    featured_blog = models.ForeignKey(
+        "wagtailcore.Page",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+    panels = [PageChooserPanel("featured_blog", "blog.BlogPage")]
+
+
+class ServicePageFeaturedWorkPost(Orderable):
+    page = ParentalKey(
+        "torchbox.StandardPage",
+        on_delete=models.CASCADE,
+        related_name="featured_work_posts",
+    )
+
+    featured_work_post = models.ForeignKey(
+        "wagtailcore.Page",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+    panels = [PageChooserPanel("featured_work_post", "work.WorkPage")]
 
 
 class HomePageHeroImage(Orderable):
@@ -193,6 +226,8 @@ class StandardPage(SocialFields, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("body"),
+        InlinePanel("featured_blogs", label="Featured Blogs", max_num=3),
+        InlinePanel("featured_work_posts", label="Featured Work Posts", max_num=3),
     ]
 
     promote_panels = [
