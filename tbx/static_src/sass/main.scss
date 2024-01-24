@@ -4,6 +4,7 @@
 @use 'base/fonts';
 
 // Components
+@use 'components/icon'; // Icon at the top to be able to override
 @use 'components/author';
 @use 'components/avatar';
 @use 'components/blog-listing';
@@ -12,7 +13,6 @@
 @use 'components/call-to-action';
 @use 'components/contact-cta';
 @use 'components/grid';
-@use 'components/icon';
 @use 'components/image';
 @use 'components/link';
 @use 'components/listing';
