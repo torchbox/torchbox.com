@@ -1,9 +1,9 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% image featured_image fill-828x546 format-webp as featured_desktop_image %}
-{% image featured_image fill-1656x1092 format-webp as featured_desktop_image_retina %}
-{% image featured_image fill-860x646 format-webp as featured_mobile_image %}
-{% image featured_image fill-430x323 format-webp as featured_mobile_image_retina %}
+{% image featured_case_study_image fill-828x546 format-webp as featured_desktop_image %}
+{% image featured_case_study_image fill-1656x1092 format-webp as featured_desktop_image_retina %}
+{% image featured_case_study_image fill-860x646 format-webp as featured_mobile_image %}
+{% image featured_case_study_image fill-430x323 format-webp as featured_mobile_image_retina %}
 
 <div class="featured-case-study">
     {# Image (with gradient if logo added) #}
@@ -15,8 +15,8 @@
         </picture>
 
         {# Optional logo #}
-        {% if logo %}
-            {% image logo fill-110x70 format-webp class="featured-case-study__company-logo" %}
+        {% if featured_case_study_logo %}
+            {% image featured_case_study_logo fill-110x70 format-webp class="featured-case-study__company-logo" %}
         {% endif %}
     </div>
 
