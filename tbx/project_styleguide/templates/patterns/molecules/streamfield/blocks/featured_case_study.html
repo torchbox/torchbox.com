@@ -6,7 +6,7 @@
 {% image featured_image fill-430x323 format-webp as featured_mobile_image_retina %}
 
 <div class="featured-case-study">
-    {# Image with gradient if logo added #}
+    {# Image (with gradient if logo added) #}
     <div class="featured-case-study__image{% if logo %} featured-case-study__image--with-logo{% endif %}">
         <picture>
             <source media="(max-width: 598px)" srcset="{{  featured_mobile_image.url }} 1x, {{ featured_mobile_image_retina.url }} 2x" />
@@ -29,7 +29,9 @@
 
         {# Stats/Rich text #}
         {% if text %}
-            {{ text|richtext }}
+            <div class="featured-case-study__text">
+                {{ text|richtext }}
+            </div>
         {% endif %}
 
         {# Meta link #}

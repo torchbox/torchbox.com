@@ -14,6 +14,11 @@
         position: relative;
         // make sure that the gradient doesn't extend beyond the image width
         display: inline-block;
+        margin-bottom: $spacer-small;
+
+        @include media-query(large) {
+            margin-bottom: 0;
+        }
 
         &--with-logo {
             &::before {
@@ -55,8 +60,19 @@
     }
 
     &__title {
+        margin-bottom: $spacer-small;
+
         @include media-query(large) {
             margin-top: auto;
+            margin-bottom: 0;
+        }
+    }
+
+    &__text {
+        margin-bottom: $spacer-small;
+
+        @include media-query(large) {
+            margin-bottom: 0;
         }
     }
 
