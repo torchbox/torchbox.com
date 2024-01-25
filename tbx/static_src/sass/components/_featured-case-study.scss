@@ -11,14 +11,16 @@
         margin-top: 0;
     }
 
-    &__image {
+    &__image-wrap {
         position: relative;
         // make sure that the gradient doesn't extend beyond the image width
         display: inline-block;
         margin-bottom: $spacer-small;
+        width: 100%;
 
         @include media-query(large) {
             margin-bottom: 0;
+            width: auto;
         }
 
         &--with-logo {
@@ -44,6 +46,14 @@
                     );
                 }
             }
+        }
+    }
+
+    &__image {
+        width: 100%;
+
+        @include media-query(large) {
+            width: auto;
         }
     }
 

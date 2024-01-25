@@ -7,7 +7,7 @@
 
 <div class="featured-case-study">
     {# Image (with gradient if logo added) #}
-    <div class="featured-case-study__image{% if logo %} featured-case-study__image--with-logo{% endif %}">
+    <div class="featured-case-study__image-wrap{% if logo %} featured-case-study__image-wrap--with-logo{% endif %}">
         <picture>
             <source media="(max-width: 598px)" srcset="{{  featured_mobile_image.url }} 1x, {{ featured_mobile_image_retina.url }} 2x" />
             <source media="(min-width: 599px)" srcset="{{ featured_desktop_image.url }} 1x, {{ featured_desktop_image_retina.url }} 2x" />
