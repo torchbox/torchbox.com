@@ -95,7 +95,7 @@ class BlogIndexPage(SocialFields, Page):
 
 
 class BlogPageAuthor(Orderable):
-    page = ParentalKey("blog.BlogPage", related_name="authors")
+    page = ParentalKey("blog.BlogPage", related_name="page_authors")
     author = models.ForeignKey(
         "people.Author",
         on_delete=models.CASCADE,
