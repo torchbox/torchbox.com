@@ -7,6 +7,7 @@ from django.db import models
 from django.dispatch import receiver
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
+from django.utils.functional import cached_property
 
 from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -14,6 +15,7 @@ from tbx.core.blocks import StoryBlock
 from tbx.core.utils.cache import get_default_cache_control_decorator
 from tbx.core.utils.models import SocialFields
 from tbx.taxonomy.models import Service
+from tbx.work.blocks import WorkStoryBlock
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, Page
@@ -68,9 +70,21 @@ class HistoricalWorkPage(SocialFields, Page):
     )
     listing_summary = models.CharField(max_length=255, blank=True)
     related_services = ParentalManyToManyField(
-        "taxonomy.Service", related_name="case_studies"
+        "taxonomy.Service", related_name="historical_case_studies"
     )
     client = models.TextField(blank=True)
+
+    # We are setting `db_index=False` on the social_image, otherwise
+    # we encounter migration errors on the New Work Page.
+    # See Django bug: <https://code.djangoproject.com/ticket/23577>
+    social_image = models.ForeignKey(
+        "images.CustomImage",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        db_index=False,
+    )
 
     def set_body_word_count(self):
         body_basic_html = self.body.stream_block.render_basic(self.body)
@@ -143,12 +157,135 @@ class HistoricalWorkPage(SocialFields, Page):
     ]
 
 
+class WorkPageAuthor(Orderable, AbstractPageAuthor):
+    page = ParentalKey("work.WorkPage", related_name="authors")
+
+
+class WorkPage(SocialFields, Page):
+    template = "patterns/pages/work/work_page.html"
+    parent_page_types = ["WorkIndexPage"]
+
+    intro = RichTextField(blank=True)
+    client = models.CharField(max_length=255, blank=True)
+    date = models.DateField("Post date", blank=True, null=True)
+    body_word_count = models.PositiveIntegerField(null=True, editable=False)
+
+    header_image = models.ForeignKey(
+        "images.CustomImage",
+        verbose_name="Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    header_caption = models.CharField("Caption", max_length=255, blank=True)
+    header_attribution = models.CharField("Attribution", max_length=255, blank=True)
+
+    body = StreamField(WorkStoryBlock(), use_json_field=True)
+
+    listing_summary = models.CharField(max_length=255, blank=True)
+    related_services = ParentalManyToManyField(
+        "taxonomy.Service", related_name="case_studies"
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro"),
+        InlinePanel("authors", label="Author", min_num=1),
+        FieldPanel("client", classname="client"),
+        FieldPanel("date"),
+        MultiFieldPanel(
+            [
+                FieldPanel("header_image"),
+                FieldPanel("header_caption"),
+                FieldPanel("header_attribution"),
+            ],
+            heading="Header image",
+        ),
+        FieldPanel("body"),
+    ]
+
+    promote_panels = [
+        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        FieldPanel("listing_summary"),
+        FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
+        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+    ]
+
+    @property
+    def type(self):
+        return "CASE STUDY"
+
+    @cached_property
+    def services(self):
+        return self.related_services.all()
+
+    @property
+    def first_author(self):
+        """Safely return the first author if one exists."""
+        author = self.authors.first()
+        if author:
+            return author.author
+        return None
+
+    @property
+    def work_index(self):
+        ancestor = WorkIndexPage.objects.ancestor_of(self).order_by("-depth").first()
+
+        if ancestor:
+            return ancestor
+        else:
+            # No ancestors are work indexes,
+            # just return first work index in database
+            return WorkIndexPage.objects.live().public().first()
+
+    @property
+    def related_works(self):
+        return [
+            {
+                "client": case_study.client,
+                "title": case_study.title,
+                "url": case_study.url,
+                "author": case_study.first_author,
+                "date": case_study.date,
+                "read_time": case_study.read_time,
+                "related_services": case_study.related_services.all(),
+                "listing_image": case_study.header_image,
+            }
+            # get 3 pages with same services and exclude self page
+            for case_study in WorkPage.objects.filter(
+                related_services__in=self.services
+            )
+            .live()
+            .prefetch_related("related_services")
+            .defer_streamfields()
+            .distinct()
+            .order_by("-id")
+            .exclude(pk=self.pk)[:3]
+        ]
+
+    def set_body_word_count(self):
+        body_basic_html = self.body.stream_block.render_basic(self.body)
+        body_text = BeautifulSoup(body_basic_html, "html.parser").get_text()
+        remove_chars = string.punctuation + "“”’"
+        body_words = body_text.translate(
+            body_text.maketrans(dict.fromkeys(remove_chars))
+        ).split()
+        self.body_word_count = len(body_words)
+
+    @property
+    def read_time(self):
+        if self.body_word_count:
+            return math.ceil(self.body_word_count / 275)
+        else:
+            return "x"
+
+
 # Work index page
 @method_decorator(get_default_cache_control_decorator(), name="serve")
 class WorkIndexPage(SocialFields, Page):
     template = "patterns/pages/work/work_listing.html"
 
-    subpage_types = ["HistoricalWorkPage"]
+    subpage_types = ["HistoricalWorkPage", "WorkPage"]
 
     intro = RichTextField(blank=True)
 
@@ -228,6 +365,7 @@ class WorkIndexPage(SocialFields, Page):
     ]
 
 
+@receiver(page_published, sender=WorkPage)
 @receiver(page_published, sender=HistoricalWorkPage)
 def update_body_word_count_on_page_publish(instance, **kwargs):
     instance.set_body_word_count()
