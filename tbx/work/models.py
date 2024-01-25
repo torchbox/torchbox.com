@@ -35,17 +35,6 @@ class HistoricalWorkPageScreenshot(Orderable):
     ]
 
 
-class WorkPageAuthor(Orderable):
-    page = ParentalKey("work.HistoricalWorkPage", related_name="page_authors")
-    author = models.ForeignKey(
-        "people.Author", on_delete=models.CASCADE, related_name="+"
-    )
-
-    panels = [
-        FieldPanel("author"),
-    ]
-
-
 class HistoricalWorkPage(SocialFields, Page):
     """
     This represents Work Pages as they were prior to the 2024
