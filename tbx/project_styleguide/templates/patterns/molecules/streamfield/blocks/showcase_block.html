@@ -1,0 +1,21 @@
+{% load wagtailcore_tags %}
+
+<div class="showcase__block">
+    <h1 class="heading heading--two streamfield__heading">{{value.title}}</h1>
+    <div class="showcase__paragraph">
+        <ul class="showcase__list">
+            {% for item in value.showcase_paragraphs %}
+                <li class="showcase__item">
+                    {% if item.page %}
+                        <a href="{% pageurl item.page %}" class="showcase__link link--with-arrow heading--three">
+                            <span class="link__text"> {{ item.heading }}</span>
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="link__icon" %}</a>
+                    {% else %}
+                        <h3 class="heading--three">{{ item.heading }}</h3>
+                    {% endif %}
+                    <p class="showcase__item-details">{{ item.summary }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
