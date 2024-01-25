@@ -12,6 +12,6 @@ context:
 
 tags:
   image:
-    value.company_logo fill-110x70 format-webp class="pullquote__company-logo":
+    value.logo fill-110x70 format-webp class="pullquote__company-logo":
       raw: |
         <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="pullquote__company-logo">
