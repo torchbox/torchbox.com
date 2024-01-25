@@ -44,12 +44,10 @@ h6 {
 
     &--one {
         @include font-size(heading-one);
-        @include drop-cap(100px, 160px);
     }
 
     &--one-b {
         @include font-size(heading-one-b);
-        @include drop-cap(80px, 150px);
     }
 
     &--two {
