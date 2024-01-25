@@ -1,12 +1,11 @@
 context:
   pages:
-    number: 2
+    number: 5
     has_previous: true
-    previous_page_number: 1
+    previous_page_number: 4
     has_next: true
-    next_page_number: 3
+    next_page_number: 6
     paginator:
-      number: 2
+      number: 5
       num_pages: 10
-      page_range: '123456789'
-#todo: update once back-end is done
+      page_range: [1, 2, 3, 4, 5, 6, 7, 8, 9]
