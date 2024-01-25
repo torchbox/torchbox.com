@@ -15,7 +15,7 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, Page
 from wagtail.search import index
 
-from .blocks import StoryBlock
+from .blocks import ServiceStoryBlock, StoryBlock
 
 
 # A couple of abstract classes that contain commonly used fields
@@ -257,4 +257,25 @@ class MainMenu(BaseSiteSetting):
 
     panels = [
         FieldPanel("menu"),
+    ]
+
+
+class ServicePage(SocialFields, Page):
+    template = "patterns/pages/service/service_page.html"
+
+    intro = RichTextField(blank=True)
+    body = StreamField(ServiceStoryBlock(), use_json_field=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro"),
+        FieldPanel("body"),
+    ]
+
+    promote_panels = [
+        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField("body"),
     ]
