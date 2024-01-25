@@ -2,12 +2,13 @@
 
 .featured-case-study {
     $gradient-z-index: 1;
-    padding-top: $spacer-half;
+    position: relative;
+    margin-top: $spacer-large;
 
     @include media-query(large) {
         display: flex;
         gap: $spacer-half;
-        padding-top: 0;
+        margin-top: 0;
     }
 
     &__image {
@@ -54,6 +55,7 @@
         max-width: 480px;
 
         @include media-query(large) {
+            padding-top: $spacer-large;
             display: flex;
             flex-direction: column;
         }
@@ -64,7 +66,7 @@
 
         @include media-query(large) {
             margin-top: auto;
-            margin-bottom: 0;
+            margin-bottom: $spacer-small;
         }
     }
 
@@ -72,7 +74,7 @@
         margin-bottom: $spacer-small;
 
         @include media-query(large) {
-            margin-bottom: 0;
+            position: relative;
         }
     }
 
@@ -108,8 +110,8 @@
         z-index: ($gradient-z-index + 1);
 
         @include media-query(large) {
-            top: 60%;
-            right: -40px;
+            top: 0;
+            left: -140px;
         }
     }
 

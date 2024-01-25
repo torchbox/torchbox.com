@@ -18,9 +18,6 @@
         {% if logo %}
             {% image logo fill-110x70 format-webp class="featured-case-study__company-logo" %}
         {% endif %}
-
-        {# Results SVG #}
-        {% include "patterns/atoms/icons/results-ring.html" with classes="featured-case-study__results-icon" %}
     </div>
 
     <div class="featured-case-study__content">
@@ -31,6 +28,8 @@
         {% if text %}
             <div class="featured-case-study__text">
                 {{ text|richtext }}
+                {# Results SVG #}
+                {% include "patterns/atoms/icons/results-ring.html" with classes="featured-case-study__results-icon" %}
             </div>
         {% endif %}
 
