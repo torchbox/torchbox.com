@@ -1,9 +1,22 @@
 from django.db import models
 
+from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.models import Orderable
 
 SEARCH_DESCRIPTION_LABEL = "Meta description"  # NOTE changing this requires migrations
+
+
+class PageAuthor(Orderable):
+    page = ParentalKey("wagtailcore.Page", related_name="authors")
+    author = models.ForeignKey(
+        "people.Author", on_delete=models.CASCADE, related_name="+"
+    )
+
+    panels = [
+        FieldPanel("author"),
+    ]
 
 
 # Generic social fields abstract class to add social image/text to any new content type easily.

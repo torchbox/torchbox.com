@@ -20,7 +20,8 @@ from wagtail.models import Orderable, Page
 from wagtail.signals import page_published
 
 
-class AbstractPageScreenshot(models.Model):
+class HistoricalWorkPageScreenshot(Orderable):
+    page = ParentalKey("work.HistoricalWorkPage", related_name="screenshots")
     image = models.ForeignKey(
         "images.CustomImage",
         null=True,
@@ -33,11 +34,9 @@ class AbstractPageScreenshot(models.Model):
         FieldPanel("image"),
     ]
 
-    class Meta:
-        abstract = True
 
-
-class AbstractPageAuthor(models.Model):
+class WorkPageAuthor(Orderable):
+    page = ParentalKey("work.HistoricalWorkPage", related_name="page_authors")
     author = models.ForeignKey(
         "people.Author", on_delete=models.CASCADE, related_name="+"
     )
@@ -45,17 +44,6 @@ class AbstractPageAuthor(models.Model):
     panels = [
         FieldPanel("author"),
     ]
-
-    class Meta:
-        abstract = True
-
-
-class HistoricalWorkPageScreenshot(Orderable, AbstractPageScreenshot):
-    page = ParentalKey("work.HistoricalWorkPage", related_name="screenshots")
-
-
-class HistoricalWorkPageAuthor(Orderable, AbstractPageAuthor):
-    page = ParentalKey("work.HistoricalWorkPage", related_name="authors")
 
 
 class HistoricalWorkPage(SocialFields, Page):
