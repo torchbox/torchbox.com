@@ -77,7 +77,7 @@ tags:
         alt: 'mobile image'
         url: 'https://source.unsplash.com/72x72?face'
     # company logo for pull quote
-    value.company_logo fill-110x70 format-webp class="pullquote__company-logo":
+    value.logo fill-110x70 format-webp class="pullquote__company-logo":
       raw: |
         <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="pullquote__company-logo">
     # image block variants
