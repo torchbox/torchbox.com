@@ -157,10 +157,6 @@ class HistoricalWorkPage(SocialFields, Page):
     ]
 
 
-class WorkPageAuthor(Orderable, AbstractPageAuthor):
-    page = ParentalKey("work.WorkPage", related_name="authors")
-
-
 class WorkPage(SocialFields, Page):
     template = "patterns/pages/work/work_page.html"
     parent_page_types = ["WorkIndexPage"]
