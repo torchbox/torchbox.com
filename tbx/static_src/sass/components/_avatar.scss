@@ -56,4 +56,9 @@
     &__image {
         border-radius: 50%;
     }
+
+    // Make sure avatars don't get squashed on small screens
+    .author & {
+        flex-shrink: 0;
+    }
 }
