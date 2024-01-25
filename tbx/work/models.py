@@ -41,7 +41,7 @@ class HistoricalWorkPage(SocialFields, Page):
     rebuild of the site. It is kept here for historical purposes.
     """
 
-    template = "patterns/pages/work/work_detail.html"
+    template = "patterns/pages/work/historical_work_page.html"
 
     # Prevent this page type from being created in Wagtail Admin
     parent_page_types = []
