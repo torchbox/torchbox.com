@@ -2,6 +2,18 @@ from tbx.core.blocks import StoryBlock
 from wagtail import blocks
 
 
+class NumericStatisticsBlock(blocks.StructBlock):
+    class Meta:
+        icon = "table"
+        template = "patterns/molecules/streamfield/blocks/stats_numeric.html"
+
+
+class TextualStatisticsBlock(blocks.StructBlock):
+    class Meta:
+        icon = "info-circle"
+        template = "patterns/molecules/streamfield/blocks/stats_textual.html"
+
+
 class WorkSectionContent(StoryBlock):
     # TODO: add stats block here, and any other StreamField blocks specific to WorkPage
     pass
