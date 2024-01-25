@@ -1,21 +1,35 @@
 {% load wagtailcore_tags %}
 
-<div class="showcase__block">
-    <h1 class="heading heading--two streamfield__heading">{{value.title}}</h1>
-    <div class="showcase__paragraph">
-        <ul class="showcase__list">
-            {% for item in value.showcase_paragraphs %}
-                <li class="showcase__item">
-                    {% if item.page %}
-                        <a href="{% pageurl item.page %}" class="showcase__link link--with-arrow heading--three">
-                            <span class="link__text"> {{ item.heading }}</span>
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="link__icon" %}</a>
-                    {% else %}
-                        <h3 class="heading--three">{{ item.heading }}</h3>
-                    {% endif %}
-                    <p class="showcase__item-details">{{ item.summary }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+<div class="showcase">
+    <h2 class="showcase__title heading heading--two">{{ value.title }}</h2>
+    <ul class="showcase__list">
+        {% for item in value.showcase_paragraphs %}
+            <li {% if not item.page %}class="showcase__item"{% endif %}>
+
+                {% if item.page %}
+                    <a href="{% pageurl item.page %}" class="showcase__item showcase__item--link" aria-label="{{ item.heading }}">
+                {% endif %}
+
+                <div class="showcase__rings">
+                    {% include "patterns/atoms/icons/icon.html" with name="ring-one" classname="icon--stroke showcase__ring showcase__ring--one" %}
+                    {% include "patterns/atoms/icons/icon.html" with name="ring-two" classname="icon--stroke showcase__ring showcase__ring--two" %}
+                </div>
+
+                <div class="showcase__content">
+                    <h3 class="showcase__heading{% if item.page %} showcase__heading--with-icon{% endif %}">
+                        {{ item.heading }}
+                        {% if item.page %}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="showcase__icon" %}
+                        {% endif %}
+                    </h3>
+
+                    <p class="showcase__summary">{{ item.summary }}</p>
+                </div>
+
+                {% if item.page %}
+                    </a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
 </div>

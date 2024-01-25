@@ -121,10 +121,11 @@
     }
 }
 
-@mixin focus-style($color: var(--color--link)) {
-    &:focus {
-        outline: $focus-width solid var(--color--focus-ring);
-        text-decoration-thickness: $link-underline-thickness-interaction;
+@mixin focus-style($color: var(--color--link), $shadow: false) {
+    outline: $focus-width solid var(--color--focus-ring);
+    text-decoration-thickness: $link-underline-thickness-interaction;
+
+    @if $shadow {
         text-shadow: 0 0 0.4px $color, 0 0 0.4px $color;
     }
 }
@@ -153,7 +154,7 @@
     }
 
     &:focus {
-        @include focus-style($color);
+        @include focus-style($color, $shadow: true);
     }
 }
 
