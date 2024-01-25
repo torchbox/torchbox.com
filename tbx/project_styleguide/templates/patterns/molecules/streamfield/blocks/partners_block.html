@@ -1,12 +1,12 @@
 {% load wagtailimages_tags %}
 
 {% if value.title %}
-    <h2 class="client-logo__title heading--two">{{ value.title }}</h2>
+    <h2 class="partners__title heading--two">{{ value.title }}</h2>
 {% endif %}
 
 
-<div class="client-logo__image-card">
-    {% for logo in value.client_logos %}
+<div class="partners__image-card">
+    {% for logo in value.partner_logos %}
         {% image logo.image fill-100x100 format-webp alt="" %}
     {% endfor %}
 </div>

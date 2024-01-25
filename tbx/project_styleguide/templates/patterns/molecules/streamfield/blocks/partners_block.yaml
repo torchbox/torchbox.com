@@ -1,7 +1,7 @@
 context:
   value:
     title: 'Happy Partners'
-    client_logos:
+    partner_logos:
       - logo:
       - logo:
       - logo:
@@ -11,4 +11,4 @@ tags:
   image:
     logo.image fill-100x100 format-webp alt="":
       raw: |
-        <img src="https://source.unsplash.com/100x100?logo" width="100" height="100" alt="" class="client_logo__logo">
+        <img src="https://source.unsplash.com/100x100?logo" width="100" height="100" alt="" class="partners__logo">

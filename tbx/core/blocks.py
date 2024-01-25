@@ -162,16 +162,16 @@ class VideoBlock(StructBlock):
         template = "patterns/molecules/streamfield/blocks/video_block.html"
 
 
-class ClientLogoBlock(blocks.StructBlock):
+class PartnersBlock(blocks.StructBlock):
     title = blocks.CharBlock(
         max_length=255,
     )
-    client_logos = blocks.ListBlock(ImageChooserBlock(), label="Logos")
+    partner_logos = blocks.ListBlock(ImageChooserBlock(), label="Logos")
 
     class Meta:
         icon = "openquote"
-        label = "Client logos"
-        template = "patterns/molecules/streamfield/blocks/client_logo_block.html"
+        label = "Partner logos"
+        template = "patterns/molecules/streamfield/blocks/partners_block.html"
 
 
 class CallToActionStructValue(blocks.StructValue):
@@ -286,10 +286,10 @@ class StoryBlock(StreamBlock):
         group="Media",
     )
     video_block = VideoBlock(group="Media")
-    client_logo_block = ClientLogoBlock(
+    partners_block = PartnersBlock(
         icon="openquote",
-        label="Client logos",
-        template="patterns/molecules/streamfield/blocks/client_logo_block.html",
+        label="Partners logos",
+        template="patterns/molecules/streamfield/blocks/partners_block.html",
     )
 
     class Meta:
