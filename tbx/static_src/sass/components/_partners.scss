@@ -1,16 +1,27 @@
 @use 'config' as *;
 
 .partners {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: row;
-    justify-content: space-between;
-
-    &__image-card {
+    &__logos {
         display: flex;
-        align-items: flex-start;
         flex-wrap: wrap;
-        justify-content: center;
-        flex-direction: row;
+        gap: $spacer-mini;
+    }
+
+    &__logo-wrapper {
+        width: 120px;
+        height: 120px;
+        display: flex;
+        align-items: center;
+
+        @include media-query(medium) {
+            width: 160px;
+            height: 160px;
+        }
+    }
+
+    &__logo {
+        filter: grayscale(1) invert(1) brightness(1.25);
+        width: auto;
+        height: auto;
     }
 }
