@@ -1,0 +1,60 @@
+@use 'config' as *;
+
+.stats {
+    $root: &;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: $spacer-small;
+    row-gap: $spacer-medium;
+
+    @include media-query(medium) {
+        column-gap: $spacer-medium;
+        flex-wrap: nowrap;
+    }
+
+    &__stat {
+        #{$root}--numeric & {
+            flex-basis: calc(50% - #{$spacer-small} * 0.5);
+
+            @include media-query(medium) {
+                flex-basis: calc(33.33% - #{$spacer-medium} * 0.5);
+            }
+        }
+
+        #{$root}--textual & {
+            flex-basis: 100%;
+
+            @include media-query(medium) {
+                flex-basis: calc(50% - #{$spacer-medium} * 0.5);
+            }
+        }
+    }
+
+    &__number {
+        @include font-size(stat);
+        font-weight: $weight--light;
+        color: var(--color--heading);
+        display: block;
+        margin-bottom: $spacer-mini;
+    }
+
+    &__text {
+        @include font-size(stat-text);
+        font-weight: $weight--semibold;
+        color: var(--color--heading);
+        display: block;
+        margin-bottom: $spacer-small;
+    }
+
+    &__description {
+        @include font-size('heading-six');
+        color: var(--color--heading);
+        display: block;
+        margin-bottom: $spacer-small;
+    }
+
+    &__details {
+        @include font-size('supporting');
+        display: block;
+    }
+}

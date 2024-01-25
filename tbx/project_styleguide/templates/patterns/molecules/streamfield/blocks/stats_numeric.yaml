@@ -1,0 +1,12 @@
+context:
+  value:
+    stats:
+      - headline_number: 19%
+        description: Reduction in accessibility issues
+        further_details: '*Over 80% fewer pages'
+      - headline_number: 28%
+        description: Increase in site performance
+        further_details: '*Over 80% fewer pages'
+      - headline_number: 300%
+        description: Increase in return visitors
+        further_details: '*Over 80% fewer pages'
