@@ -18,6 +18,13 @@
             margin-bottom: 0;
         }
     }
+
+    .template-work-page &,
+    .template-blog-page & {
+        @include media-query(large) {
+            margin-top: $spacer-small;
+        }
+    }
 }
 
 .author {
