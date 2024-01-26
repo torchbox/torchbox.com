@@ -1,0 +1,142 @@
+@use "config" as *;
+
+.featured-case-study {
+    $gradient-z-index: 1;
+    position: relative;
+    margin-top: $spacer-large;
+
+    @include media-query(large) {
+        display: flex;
+        gap: $spacer-half;
+        margin-top: 0;
+    }
+
+    &__image-wrap {
+        position: relative;
+        // make sure that the gradient doesn't extend beyond the image width
+        display: inline-block;
+        margin-bottom: $spacer-small;
+        width: 100%;
+
+        @include media-query(large) {
+            margin-bottom: 0;
+            width: auto;
+        }
+
+        &--with-logo {
+            &::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                top: auto;
+                height: 50%;
+                z-index: $gradient-z-index;
+                background: linear-gradient(
+                    180deg,
+                    transparent 0%,
+                    $color--black 100%
+                );
+
+                @include media-query(large) {
+                    top: 0;
+                    background: linear-gradient(
+                        0deg,
+                        transparent 0%,
+                        $color--black 100%
+                    );
+                }
+            }
+        }
+    }
+
+    &__image {
+        width: 100%;
+
+        @include media-query(large) {
+            width: auto;
+        }
+    }
+
+    &__logo {
+        margin-bottom: $spacer-small;
+    }
+
+    &__content {
+        max-width: 480px;
+
+        @include media-query(large) {
+            padding-top: $spacer-large;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &__title {
+        margin-bottom: $spacer-small;
+
+        @include media-query(large) {
+            margin-top: auto;
+            margin-bottom: $spacer-small;
+        }
+    }
+
+    &__text {
+        margin-bottom: $spacer-small;
+
+        @include media-query(large) {
+            position: relative;
+        }
+    }
+
+    &__link {
+        display: flex;
+        gap: $spacer-mini-plus;
+        align-items: flex-end;
+
+        @include media-query(large) {
+            // Keep link at the bottom of the container
+            margin-top: auto;
+        }
+    }
+
+    &__link-inner {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__link-meta {
+        @include font-size(supporting);
+        color: var(--color--text);
+    }
+
+    &__icon {
+        @include arrow-link-icon-styles();
+    }
+
+    &__results-icon {
+        position: absolute;
+        top: -80px;
+        right: 10%;
+        z-index: ($gradient-z-index + 1);
+
+        @include media-query(large) {
+            top: 0;
+            left: -140px;
+        }
+    }
+
+    &__company-logo {
+        filter: grayscale(1);
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+        z-index: ($gradient-z-index + 1);
+
+        @include media-query(large) {
+            bottom: auto;
+            left: auto;
+            top: 30px;
+            right: 30px;
+        }
+    }
+}
