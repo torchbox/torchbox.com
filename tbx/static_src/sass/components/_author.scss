@@ -19,9 +19,9 @@
         }
     }
 
-    .template-work-page &,
     .template-blog-page & {
         @include media-query(large) {
+            position: absolute;
             margin-top: $spacer-small;
         }
     }

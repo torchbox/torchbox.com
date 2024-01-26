@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="grid grid--spacer-large streamfield">
+    <div class="grid grid--spacer-large streamfield lg:relative">
         <div class="authors">
             {% for page_author in page.authors.all %}
                 {% include "patterns/molecules/author/author.html" with author=page_author.author %}
