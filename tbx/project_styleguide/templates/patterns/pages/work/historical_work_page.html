@@ -30,7 +30,7 @@
                 {% include "patterns/molecules/author/author.html" with author=author %}
             {% endwith %}
         </div>
-        <div class="streamfield__title">
+        <div class="grid__title">
             <h1 class="heading heading--one-b">{{ page.title }}</h1>
 
             {% pageurl page.work_index as work_index_url %}
@@ -75,7 +75,7 @@
         {% if page.related_works %}
             {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Related work pages" classes="section-title--related-posts" %}
 
-            <ul class="streamfield__related-posts">
+            <ul class="grid__related-posts streamfield__related-posts">
                 {% for work_page in page.related_works %}
                     {% include "patterns/molecules/listing/listing--image.html" with listing_image=work_page.feed_image title=work_page.title name=work_page.client link=work_page.url date=work_page.date reading_time=work_page.read_time tags=work_page.related_services.all %}
                 {% endfor %}

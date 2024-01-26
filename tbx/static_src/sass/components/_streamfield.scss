@@ -1,57 +1,9 @@
 @use "config" as *;
 
 .streamfield {
-    &__title {
-        margin-bottom: $spacer-small;
-        grid-column: 2 / span 4;
-
-        @include media-query(large) {
-            grid-column: 4 / span 9;
-        }
-    }
-
     &__intro {
         a {
             @include link-styles(var(--color--heading), var(--color--heading));
-        }
-    }
-
-    &__heading {
-        margin-bottom: $spacer-mini;
-        grid-column: 2 / span 4;
-
-        @include media-query(large) {
-            grid-column: 4 / span 7;
-        }
-    }
-
-    &__quote {
-        margin-bottom: $spacer-medium;
-        grid-column: 2 / span 4;
-
-        @include media-query(large) {
-            margin-bottom: $spacer-large;
-            grid-column: 4 / span 9;
-        }
-    }
-
-    &__call-to-action {
-        margin-bottom: $spacer-medium;
-        grid-column: 2 / span 5;
-
-        @include media-query(large) {
-            margin-bottom: $spacer-large;
-            grid-column: 4 / span 12;
-        }
-    }
-
-    &__contact-cta {
-        margin-bottom: $spacer-medium;
-        grid-column: 2 / span 5;
-
-        @include media-query(large) {
-            margin-bottom: $spacer-large;
-            grid-column: 5 / span 10;
         }
     }
 
@@ -63,62 +15,16 @@
         }
     }
 
-    // The following components follow the same pattern of
-    // spanning 7 columns on desktop and 4 columns on mobile.
-    &__intro,
-    &__paragraph,
-    &__image,
-    &__raw-html,
-    &__markdown,
-    &__embed {
-        margin-bottom: $spacer-medium;
+    &__related-posts {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $spacer-small;
         grid-column: 2 / span 4;
 
         @include media-query(large) {
-            margin-bottom: $spacer-large;
-            grid-column: 4 / span 7;
-        }
-    }
-
-    // Move everything over by 1 column on the blog page and work page
-    .template-blog-page &,
-    .template-work-page & {
-        &__title,
-        &__heading,
-        &__intro,
-        &__paragraph,
-        &__image,
-        &__raw-html,
-        &__markdown,
-        &__embed {
-            @include media-query(large) {
-                grid-column: 5 / span 7;
-            }
-        }
-
-        &__call-to-action {
-            @include media-query(large) {
-                grid-column: 5 / span 10;
-            }
-        }
-
-        &__quote {
-            @include media-query(large) {
-                grid-column: 5 / span 9;
-            }
-        }
-
-        &__related-posts {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: $spacer-small;
-            grid-column: 2 / span 4;
-
-            @include media-query(large) {
-                gap: $spacer-half;
-                grid-column: 5 / span 9;
-            }
+            gap: $spacer-half;
+            grid-column: 5 / span 9;
         }
     }
 
