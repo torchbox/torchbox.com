@@ -11,7 +11,7 @@
         <picture>
             <source media="(max-width: 598px)" srcset="{{ featured_mobile_image.url }} 1x, {{ featured_mobile_image_retina.url }} 2x" />
             <source media="(min-width: 599px)" srcset="{{ featured_desktop_image.url }} 1x, {{ featured_desktop_image_retina.url }} 2x" />
-            <img src="{{ featured_desktop_image.url }}" alt="" class="featured-case-study__image" />
+            <img src="{{ featured_desktop_image.url }}" alt="{{ featured_desktop_image.alt }}" class="featured-case-study__image" />
         </picture>
 
         {# Optional logo #}
