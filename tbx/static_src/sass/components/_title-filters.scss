@@ -16,10 +16,10 @@
         @include media-query(large) {
             content: '';
             display: block;
-            width: 145px;
+            width: 150px;
             height: 1px;
             background-color: var(--color--decoration);
-            margin-right: 40px;
+            margin-right: 30px;
             position: relative;
             top: 28px;
         }
