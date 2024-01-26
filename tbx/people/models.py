@@ -10,7 +10,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from tbx.blog.models import BlogPage
 from tbx.core.utils.models import SocialFields
 from tbx.people.forms import ContactForm
-from tbx.work.models import WorkIndexPage, WorkPage
+from tbx.work.models import HistoricalWorkPage, WorkIndexPage
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page
@@ -76,7 +76,7 @@ class PersonPage(SocialFields, Page):
     def related_works(self):
         # Get the latest 2 work pages by this author
         works = (
-            WorkPage.objects.filter(authors__author__person_page=self.pk)
+            HistoricalWorkPage.objects.filter(authors__author__person_page=self.pk)
             .live()
             .public()
             .distinct()

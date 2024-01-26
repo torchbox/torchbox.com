@@ -10,14 +10,14 @@ from django.utils.functional import cached_property
 from django.utils.http import urlencode
 
 from bs4 import BeautifulSoup
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.fields import ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
 from tbx.core.utils.cache import get_default_cache_control_decorator
 from tbx.core.utils.models import SocialFields
 from tbx.taxonomy.models import Service
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import StreamField
-from wagtail.models import Orderable, Page
+from wagtail.models import Page
 from wagtail.search import index
 from wagtail.signals import page_published
 
@@ -91,19 +91,6 @@ class BlogIndexPage(SocialFields, Page):
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
-
-
-class BlogPageAuthor(Orderable):
-    page = ParentalKey("blog.BlogPage", related_name="authors")
-    author = models.ForeignKey(
-        "people.Author",
-        on_delete=models.CASCADE,
-        related_name="+",
-    )
-
-    panels = [
-        FieldPanel("author"),
     ]
 
 
