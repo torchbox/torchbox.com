@@ -82,7 +82,8 @@
 
     // Move everything over by 1 column on the blog page and work page
     .template-blog-page &,
-    .template-work-page & {
+    .template-work-page &,
+    .template-historical-work-page & {
         &__title,
         &__heading,
         &__intro,
@@ -122,7 +123,8 @@
         }
     }
 
-    .template-work-page & {
+    .template-work-page &,
+    .template-historical-work-page {
         &__intro {
             margin-bottom: $spacer-mini;
         }
