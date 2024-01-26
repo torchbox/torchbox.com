@@ -2,14 +2,14 @@
 
 {% image featured_case_study_image fill-828x546 format-webp as featured_desktop_image %}
 {% image featured_case_study_image fill-1656x1092 format-webp as featured_desktop_image_retina %}
-{% image featured_case_study_image fill-860x646 format-webp as featured_mobile_image %}
-{% image featured_case_study_image fill-430x323 format-webp as featured_mobile_image_retina %}
+{% image featured_case_study_image fill-860x646 format-webp as featured_mobile_image_retina %}
+{% image featured_case_study_image fill-430x323 format-webp as featured_mobile_image %}
 
 <div class="featured-case-study">
     {# Image (with gradient if logo added) #}
     <div class="featured-case-study__image-wrap{% if featured_case_study_logo %} featured-case-study__image-wrap--with-logo{% endif %}">
         <picture>
-            <source media="(max-width: 598px)" srcset="{{  featured_mobile_image.url }} 1x, {{ featured_mobile_image_retina.url }} 2x" />
+            <source media="(max-width: 598px)" srcset="{{ featured_mobile_image.url }} 1x, {{ featured_mobile_image_retina.url }} 2x" />
             <source media="(min-width: 599px)" srcset="{{ featured_desktop_image.url }} 1x, {{ featured_desktop_image_retina.url }} 2x" />
             <img src="{{ featured_desktop_image.url }}" alt="" class="featured-case-study__image" />
         </picture>
