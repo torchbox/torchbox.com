@@ -72,6 +72,12 @@
             {% endif %}
         {% endfor %}
 
+        <div class="work-page-authors">
+            {% for author in page.authors.all %}
+                {% include "patterns/molecules/author/author.html" with author=author %}
+            {% endfor %}
+        </div>
+
         {% if page.related_works %}
             {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Related work pages" classes="section-title--related-posts" %}
 
