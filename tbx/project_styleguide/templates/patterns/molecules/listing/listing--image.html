@@ -18,6 +18,7 @@
     </div>
 
     <div>
+        {% if client %}<span>{{ client }}</span>{% endif %}
         <a class="listing-image__link listing__link" href="{{ link }}" aria-label="{{ aria_text|default:title }}">
             <h2 class="listing-image__title listing__title">{{ title }}</h2>
             <div class="listing-image__details listing__details">
@@ -36,7 +37,7 @@
         <div class="listing-image__tags listing__tags tags">
             <span class="sr-only">{{ tags_screenreader_text|default:"Filter posts by category" }}</span>
             {% for tag in tags %}
-                {% include "patterns/atoms/tag/tag.html" with tag_name=tag.name tag_slug=tag.slug %}
+                {% include "patterns/atoms/tag/tag.html" with tag_name=tag.name tag_slug=tag.slug tag_link_base="../" %}
             {% endfor %}
         </div>
     </div>

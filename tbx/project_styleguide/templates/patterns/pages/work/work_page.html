@@ -1,0 +1,107 @@
+{% extends "patterns/base_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block meta_tags %}
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'author-title' : '{{ page.first_author.role }}',
+            'author-name' : '{{ page.first_author.name }}',
+            'published' : '{{ page.first_published_at|date:"Ymd" }}',
+            'tags' : [{% for tag in page.related_services.all %}'{{tag.name}}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+            'read-time' : '{{ page.read_time }}',
+            'id': '{{ page.id }}',
+            'page-h1' : '{{ page.title }}',
+            'page-title' : '{{ page.title }} | Torchbox',
+            'page-path': '{{ page.slug }}',
+            'event': 'page-information'
+        });
+    </script>
+    <meta name="author" content="{{ page.first_author.name }}">
+    <meta property="og:article:published_time" content="{{ page.date|date:'Y-m-d' }}" />
+    {{ block.super }}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="authors">
+        {% for page_author in page.authors.all %}
+            {% include "patterns/molecules/author/author.html" with author=page_author.author item=page %}
+        {% endfor %}
+    </div>
+
+    <div class="streamfield__title">
+        <h1 class="heading heading--one">{{ page.title }}</h1>
+
+        <div class="tags tags--with-title">
+            <span class="sr-only">Filter case studies by category</span>
+            {% for tag in page.services %}
+                {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name tag_link_base="../" %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div>
+        {% if page.intro %}
+            {{ page.intro|richtext }}
+        {% endif %}
+    </div>
+
+    <div class="blog-meta">
+        {% if page.client %}
+            <div>
+                {{ page.client }}
+            </div>
+        {% endif %}
+
+        {% if page.date %}
+            <time datetime="{{ page.date|date:'Y-m-d' }}">{{ page.date }}</time>
+        {% endif %}
+
+        {% if page.read_time %}
+            <span aria-hidden="true" class="blog-meta__divider">/</span>
+            {{ page.read_time }} min{{ page.read_time|pluralize }} read
+        {% endif %}
+    </div>
+
+    {% if page.header_image %}
+        <div>
+            {% image page.header_image max-1280x860 format-webp as desktop_header_image %}
+            {% image page.header_image max-2560x1720 format-webp as desktop_header_image_retina %}
+            {% image page.header_image max-800x538 format-webp as mobile_header_image %}
+            {% image page.header_image max-1600x1076 format-webp as mobile_header_image_retina %}
+
+            <picture>
+                <source media="(max-width: 598px)" srcset="{{ mobile_header_image.url }} 1x, {{ mobile_header_image_retina.url }} 2x" />
+                <source media="(min-width: 599px)" srcset="{{ desktop_header_image.url }} 1x, {{ desktop_header_image_retina.url }} 2x" />
+                <img src="{{ desktop_header_image.url }}" alt="{{ desktop_header_image.alt }}" loading="lazy" />
+            </picture>
+
+            {% if page.header_caption %}
+                <p class="image__caption supporting">{{ page.header_caption }}</p>
+            {% endif %}
+
+            {% if page.header_attribution %}
+                <p class="image__attribution supporting">{{ page.header_attribution }}</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% include_block page.body %}
+
+    {% if page.related_works %}
+        {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Related blog posts" classes="section-title--related-posts" %}
+
+        <ul class="streamfield__related-posts">
+            {% for post in page.related_works %}
+                {% include "patterns/molecules/listing/listing--image.html" with title=post.title client=post.client name=post.author.name job_title=post.author.role link=post.url date=post.date reading_time=post.read_time tags=post.related_services listing_image=post.listing_image listing_image=post.listing_image tags_screenreader_text="Filter work posts by category" %}
+            {% endfor %}
+
+            <li class="mx-auto lg:mx-0 mt-spacerSmall">
+                {% include "patterns/atoms/see-more/see-more.html" with link="../" text="More case studies" %}
+            </li>
+        </ul>
+    {% endif %}
+
+{% endblock %}

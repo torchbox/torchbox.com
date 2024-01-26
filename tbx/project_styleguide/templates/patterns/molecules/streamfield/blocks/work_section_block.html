@@ -1,0 +1,8 @@
+{% load wagtailcore_tags %}
+
+<div>
+    {{ value.title }}
+</div>
+<div>
+    {% include_block value.content %}
+</div>
