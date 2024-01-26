@@ -162,18 +162,6 @@ class VideoBlock(StructBlock):
         template = "patterns/molecules/streamfield/blocks/video_block.html"
 
 
-class PartnersBlock(blocks.StructBlock):
-    title = blocks.CharBlock(
-        max_length=255,
-    )
-    partner_logos = blocks.ListBlock(ImageChooserBlock(), label="Logos")
-
-    class Meta:
-        icon = "openquote"
-        label = "Partner logos"
-        template = "patterns/molecules/streamfield/blocks/partners_block.html"
-
-
 class CallToActionStructValue(blocks.StructValue):
     # return an href-ready value for button_link
     def get_button_link(self):
@@ -286,11 +274,6 @@ class StoryBlock(StreamBlock):
         group="Media",
     )
     video_block = VideoBlock(group="Media")
-    partners_block = PartnersBlock(
-        icon="openquote",
-        label="Partners logos",
-        template="patterns/molecules/streamfield/blocks/partners_block.html",
-    )
 
     class Meta:
         template = "patterns/molecules/streamfield/stream_block.html"
