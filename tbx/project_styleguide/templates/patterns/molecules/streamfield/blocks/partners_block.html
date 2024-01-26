@@ -9,8 +9,7 @@
     <div class="partners__logos">
         {% for logo in value.partner_logos %}
             <div class="partners__logo-wrapper">
-                {# todo: add alt text when be is updated #}
-                {% image logo max-100x90 format-webp alt="" class="partners__logo" %}
+                {% image logo max-100x90 format-webp class="partners__logo" %}
             </div>
         {% endfor %}
     </div>
