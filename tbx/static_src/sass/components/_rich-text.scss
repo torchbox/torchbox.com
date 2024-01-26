@@ -5,17 +5,17 @@
 
     h2 {
         @include font-size(heading-two);
-        margin-bottom: $spacer-small;
+        @include rich-text-heading-spacing();
     }
 
     h3 {
         @include font-size(heading-three);
-        margin-bottom: $spacer-small;
+        @include rich-text-heading-spacing();
     }
 
     h4 {
         @include font-size(heading-four);
-        margin-bottom: $spacer-small;
+        @include rich-text-heading-spacing();
     }
 
     ul {

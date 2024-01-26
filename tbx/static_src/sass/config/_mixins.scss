@@ -219,3 +219,14 @@
         @content;
     }
 }
+
+/* ============================================
+    Spacing for h2, h3 and h4 inside rich text
+*/
+@mixin rich-text-heading-spacing() {
+    margin: $spacer-small 0 $spacer-mini;
+
+    @include media-query(large) {
+        margin: $spacer-medium 0 $spacer-mini;
+    }
+}
