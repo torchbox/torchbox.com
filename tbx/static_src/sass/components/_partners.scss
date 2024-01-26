@@ -23,5 +23,9 @@
         filter: grayscale(1) invert(1) brightness(1.25);
         width: auto;
         height: auto;
+
+        @include high-contrast-light-mode() {
+            filter: none;
+        }
     }
 }
