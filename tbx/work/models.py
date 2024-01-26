@@ -163,7 +163,7 @@ class WorkPage(SocialFields, Page):
 
     intro = RichTextField(blank=True)
     client = models.CharField(max_length=255, blank=True)
-    date = models.DateField("Post date", blank=True, null=True)
+    date = models.DateField("post date", blank=True, null=True)
     body_word_count = models.PositiveIntegerField(null=True, editable=False)
 
     header_image = models.ForeignKey(
@@ -174,8 +174,8 @@ class WorkPage(SocialFields, Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    header_caption = models.CharField("Caption", max_length=255, blank=True)
-    header_attribution = models.CharField("Attribution", max_length=255, blank=True)
+    header_caption = models.CharField("caption", max_length=255, blank=True)
+    header_attribution = models.CharField("attribution", max_length=255, blank=True)
 
     body = StreamField(WorkStoryBlock(), use_json_field=True)
 
@@ -215,24 +215,12 @@ class WorkPage(SocialFields, Page):
     def services(self):
         return self.related_services.all()
 
-    @property
+    @cached_property
     def first_author(self):
         """Safely return the first author if one exists."""
-        author = self.authors.first()
-        if author:
+        if author := self.authors.first():
             return author.author
         return None
-
-    @property
-    def work_index(self):
-        ancestor = WorkIndexPage.objects.ancestor_of(self).order_by("-depth").first()
-
-        if ancestor:
-            return ancestor
-        else:
-            # No ancestors are work indexes,
-            # just return first work index in database
-            return WorkIndexPage.objects.live().public().first()
 
     @property
     def related_works(self):
@@ -252,7 +240,7 @@ class WorkPage(SocialFields, Page):
                 related_services__in=self.services
             )
             .live()
-            .prefetch_related("related_services")
+            .prefetch_related("related_services", "authors", "authors__author")
             .defer_streamfields()
             .distinct()
             .order_by("-id")
