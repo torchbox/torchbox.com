@@ -6,6 +6,7 @@
         grid-column: 2 / span 4;
 
         @include media-query(large) {
+            margin-top: $spacer-x-large;
             margin-bottom: $spacer-half;
             grid-column: 2 / span 2;
         }
