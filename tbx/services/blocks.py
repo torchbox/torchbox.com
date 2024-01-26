@@ -39,7 +39,7 @@ class PartnersBlock(blocks.StructBlock):
 
 
 class ServiceStoryBlock(StoryBlock):
-    # Dev note - include work listing and blog listing blocks here when merged
+
     partners_block = PartnersBlock(
         icon="openquote",
         label="Partners logos",
