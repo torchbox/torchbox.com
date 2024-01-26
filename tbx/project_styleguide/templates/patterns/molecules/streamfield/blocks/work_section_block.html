@@ -4,7 +4,5 @@
     {{ value.title }}
 </div>
 <div>
-    {% for block in value.content %}
-        {% include_block block with unique_id=block.id %}
-    {% endfor %}
+    {% include_block value.content %}
 </div>
