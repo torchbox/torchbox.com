@@ -1,0 +1,16 @@
+@use 'config' as *;
+
+.partners {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__image-card {
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-direction: row;
+    }
+}
