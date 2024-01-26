@@ -34,21 +34,21 @@
 
     &__name {
         @include font-size('body-two');
+        color: var(--color--heading);
         font-weight: $weight--semibold;
     }
 
     &__job-title {
         @include font-size('body-two');
-        @include link-styles(var(--color--text), var(--color--text));
     }
 
     &__meta {
         @include font-size('supporting');
-        @include link-styles(var(--color--text), var(--color--text));
     }
 
     &__arrow {
         @include arrow-link-icon-styles();
+        margin-left: $spacer-mini-plus;
     }
 
     &__tags {
