@@ -71,6 +71,14 @@
         }
     }
 
+    &__related-posts {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 5 / span 9;
+        }
+    }
+
     // The following components follow the same pattern of
     // spanning 7 columns on desktop and 4 columns on mobile.
     &__intro,

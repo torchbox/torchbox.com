@@ -20,11 +20,9 @@
         flex-direction: column;
         align-items: flex-start;
         gap: $spacer-small;
-        grid-column: 2 / span 4;
 
         @include media-query(large) {
             gap: $spacer-half;
-            grid-column: 5 / span 9;
         }
     }
 
