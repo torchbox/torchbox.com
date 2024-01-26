@@ -38,7 +38,8 @@ class HistoricalWorkPageScreenshot(Orderable):
 class HistoricalWorkPage(SocialFields, Page):
     """
     This represents Work Pages as they were prior to the 2024
-    rebuild of the site. It is kept here for historical purposes.
+    rebuild of the site. It is kept here to display the older
+    work pages that were created prior to 2024.
     """
 
     template = "patterns/pages/work/historical_work_page.html"
