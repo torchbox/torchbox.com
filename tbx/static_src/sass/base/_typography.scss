@@ -44,28 +44,34 @@ h6 {
     &--one {
         @include font-size(heading-one);
         @include drop-cap(100px, 160px);
+        font-weight: $weight--light;
     }
 
     &--one-b {
         @include font-size(heading-one-b);
         @include drop-cap(80px, 150px);
+        font-weight: $weight--light;
     }
 
     &--two {
         @include font-size(heading-two);
         @include drop-cap(72px, 90px);
+        font-weight: $weight--light;
     }
 
     &--three {
         @include font-size(heading-three);
+        font-weight: $weight--light;
     }
 
     &--four {
         @include font-size(heading-four);
+        font-weight: $weight--light;
     }
 
     &--five {
         @include font-size(heading-five);
+        font-weight: $weight--light;
     }
 
     &--six {
