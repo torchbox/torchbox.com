@@ -17,6 +17,7 @@ $color--dark-blue: #481cd9;
 $color--grey: #ccc;
 $color--dark-grey: #1d2325;
 $color--grey-50: #808080;
+$color--grey-60: #4e5152;
 $color--mid-grey: #282e30;
 
 // Coral dark by default
@@ -36,6 +37,7 @@ $color--mid-grey: #282e30;
     --color--accent-four: #{$color--purple};
     --color--accent-five: #{$color--white};
     --color--decoration: #{$color--grey-50};
+    --color--border: #{$color--grey-60};
 }
 
 .theme-lagoon-dark {
@@ -53,6 +55,7 @@ $color--mid-grey: #282e30;
     --color--accent-four: #{$color--blue};
     --color--accent-five: #{$color--white};
     --color--decoration: #{$color--grey-50};
+    --color--border: #{$color--grey-60};
 }
 
 // --------------------------------- Fonts -------------------------------------
