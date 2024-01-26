@@ -4,43 +4,40 @@ The grid setup can be found in `sass/components/_grid.scss`.
 
 The site uses a grid that changes with the breakpoints of the site. Above the large breakpoint `(min-width: 1023px)` the grid is split into 12 columns and below the large breakpoint the grid is split into 4 columns.
 
-The column gap and gutter space also changes with the breakpoints:
-
-### Column gap
+### CSS setup
 
 ```css
 .grid {
-  column-gap: 30px;
+  display: grid;
+  grid-template-columns: $grid-gutters repeat(4, 1fr) $grid-gutters;
+  max-width: $site-width; // 1500px
+  margin: 0 auto;
 
   @include media-query(large) {
-    column-gap: 50px;
+    grid-template-columns:
+      $grid-gutters-large repeat(12, 1fr)
+      $grid-gutters-large;
   }
 
   @include media-query(x-large) {
-    column-gap: 80px;
+    grid-template-columns:
+      $grid-gutters-x-large repeat(12, 1fr)
+      $grid-gutters-x-large;
   }
 }
 ```
 
-### Gutter space
+Any alignment or spacing rules for a component should be added using BEM syntax with `grid` as the block selector:
 
 ```css
 .grid {
-  padding-left: 30px;
-  padding-right: 30px;
+  &__title {
+    margin-bottom: $spacer-small;
+    grid-column: 2 / span 4;
 
-  @include media-query(large) {
-    padding-left: 80px;
-    padding-right: 80px;
-  }
-
-  @include media-query(x-large) {
-    padding-left: 120px;
-    padding-right: 120px;
+    @include media-query(large) {
+      grid-column: 4 / span 9;
+    }
   }
 }
 ```
-
-### Site width
-
-The maximum site-width is `1500px`.
