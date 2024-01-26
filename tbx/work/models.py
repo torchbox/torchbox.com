@@ -4,15 +4,14 @@ import string
 from django import forms
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
+from django.db.models import Q
 from django.dispatch import receiver
-from django.shortcuts import render
-from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
+from django.utils.http import urlencode
 
 from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
-from tbx.core.utils.cache import get_default_cache_control_decorator
 from tbx.core.utils.models import SocialFields
 from tbx.taxonomy.models import Service
 from tbx.work.blocks import WorkStoryBlock
@@ -271,83 +270,87 @@ class WorkPage(SocialFields, Page):
 
 
 # Work index page
-@method_decorator(get_default_cache_control_decorator(), name="serve")
 class WorkIndexPage(SocialFields, Page):
-    template = "patterns/pages/work/work_listing.html"
+    template = "patterns/pages/work/work_index_page.html"
 
     subpage_types = ["HistoricalWorkPage", "WorkPage"]
 
-    intro = RichTextField(blank=True)
-
-    @property
+    @cached_property
     def works(self):
-        # Get list of work pages that are descendants of this page
-        work_pages = HistoricalWorkPage.objects.descendant_of(self).live()
+        pages = (
+            self.get_children()
+            .live()
+            .type(HistoricalWorkPage, WorkPage)
+            .specific()
+            .prefetch_related(
+                "workpage",
+                "historicalworkpage",
+                "workpage__related_services",
+                "historicalworkpage__related_services",
+                "related_services",
+                "authors",
+                "authors__author",
+            )
+        )
 
         # Order by most recent date first
-        work_pages = work_pages.order_by("-date", "-pk")
+        return pages.order_by("-workpage__date", "-historicalworkpage__date", "-pk")
 
-        return work_pages
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
 
-    def serve(self, request):
         # Get work pages
         works = self.works
 
+        # for pagination
+        extra_url_params = {}
+
         # Filter by related_service slug
-        slug_filter = request.GET.get("filter")
-        if slug_filter:
-            works = works.filter(related_services__slug=slug_filter)
+        if slug_filter := request.GET.get("filter"):
+            works = works.filter(
+                Q(workpage__related_services__slug=slug_filter)
+                | Q(historicalworkpage__related_services__slug=slug_filter),
+            )
+            extra_url_params["filter"] = slug_filter
 
         # format for template
         works = [
             {
                 "title": work.title,
-                "subtitle": work.client,
-                "description": work.listing_summary,
+                "client": work.client,
                 "url": work.url,
-                "image": work.homepage_image,
+                "author": work.first_author,
+                "date": work.date,
+                "related_services": work.related_services.all(),
+                "read_time": work.read_time,
+                "listing_image": getattr(work, "header_image", None)
+                or getattr(work, "homepage_image", None),
             }
             for work in works
         ]
 
+        # use page to filter
+        page = request.GET.get("page", 1)
+
         # Pagination
         paginator = Paginator(works, 10)  # Show 10 works per page
 
-        if request.headers.get("x-requested-with") == "XMLHttpRequest":
-            page = request.GET.get("page")
-            try:
-                works = paginator.page(page)
-            except PageNotAnInteger:
-                works = paginator.page(1)
-            except EmptyPage:
-                works = None
+        try:
+            works = paginator.page(page)
+        except PageNotAnInteger:
+            works = paginator.page(1)
+        except EmptyPage:
+            works = paginator.page(paginator.num_pages)
 
-            return render(
-                request,
-                "patterns/organisms/work-listing/work-listing.html",
-                {"page": self, "works": works},
-            )
-        else:
-            # return first page contents
-            try:
-                works = paginator.page(1)
-            except EmptyPage:
-                works = None
+        related_services = Service.objects.all()
 
-            related_services = Service.objects.all()
+        context.update(
+            works=works,
+            related_services=related_services,
+            extra_url_params=urlencode(extra_url_params),
+        )
 
-            return render(
-                request,
-                self.template,
-                {"page": self, "works": works, "related_services": related_services},
-            )
-
-    def serve_preview(self, request, mode_name):
-        return self.serve(request)
-
-    content_panels = Page.content_panels + [
-        FieldPanel("intro"),
-    ]
+        return context
 
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
