@@ -24,47 +24,46 @@
 {% endblock %}
 
 {% block content %}
-    <div class="grid grid--spacer-large streamfield">
-        <div class="authors">
-            {% with author=page.first_author %}
-                {% include "patterns/molecules/author/author.html" with author=author %}
-            {% endwith %}
+
+    <div class="work-hero grid grid--spacer-large">
+        <div class="work-hero__left">
+            <h1 class="heading heading--one-b mb-spacerMini md:mb-spacerSmall">{{ page.title }}</h1>
+
+            {% for intro_block in page.body %}
+                {% if intro_block.block_type == 'intro' %}
+                    {% include_block intro_block %}
+                {% endif %}
+            {% endfor %}
         </div>
-        <div class="grid__title">
-            <h1 class="heading heading--one-b">{{ page.title }}</h1>
+
+        <div class="work-hero__right">
+            {% if page.client %}
+                <p class="work-hero__client">
+                    {{ page.client }}
+                </p>
+            {% endif %}
+
+            <p class="work-hero__meta">
+                <time datetime="{{ item.date|date:'Y-m-d' }}">{{ page.date }}</time>
+
+                {% if page.read_time %}
+                    <span aria-hidden="true" class="work-hero__divider">/</span>
+                    {{ page.read_time }} min{{ page.read_time|pluralize }} read
+                {% endif %}
+            </p>
 
             {% pageurl page.work_index as work_index_url %}
 
-            <div class="tags tags--with-title">
+            <div class="tags">
                 <span class="sr-only">Related work categories</span>
                 {% for tag in page.related_services.all %}
                     {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name tag_link_base=work_index_url %}
                 {% endfor %}
             </div>
         </div>
+    </div>
 
-        {% for intro_block in page.body %}
-            {% if intro_block.block_type == 'intro' %}
-                {% include_block intro_block %}
-            {% endif %}
-        {% endfor %}
-
-        <div class="work-meta mt-spacerSmall mb-spacerSmall lg:mb-spacerLarge">
-            {% if page.client %}
-                <p class="work-meta__client">
-                    {{ page.client }}
-                </p>
-            {% endif %}
-
-            <p class="work-meta__meta">
-                <time datetime="{{ item.date|date:'Y-m-d' }}">{{ page.date }}</time>
-
-                {% if page.read_time %}
-                    <span aria-hidden="true" class="blog-meta__divider">/</span>
-                    {{ page.read_time }} min{{ page.read_time|pluralize }} read
-                {% endif %}
-            </p>
-        </div>
+    <div class="grid grid--spacer-large streamfield">
 
         {% for block in page.body %}
             {% if block.block_type != 'intro' %}
@@ -74,7 +73,11 @@
 
         <div class="work-page-authors">
             {% for author in page.authors.all %}
-                {% include "patterns/molecules/author/author.html" with author=author %}
+                {% if page.first_author == author.author %}
+                    {% include "patterns/molecules/author/author.html" with author=author.author author_attribution="by" %}
+                {% else %}
+                    {% include "patterns/molecules/author/author.html" with author=author.author author_attribution="and" %}
+                {% endif %}
             {% endfor %}
         </div>
 
