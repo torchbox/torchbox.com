@@ -18,8 +18,7 @@
         {% if client %}<span>{{ client }}</span>{% endif %}
         <a class="listing-image__link listing__link" href="{{ link }}">
             <h2 class="listing-image__title listing__title">
-                {{ title }}
-                {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-image__arrow listing__arrow" %}
+                {{ title }}<span class="listing__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-image__arrow listing__arrow" %}</span>
             </h2>
         </a>
         <div class="listing-image__details listing__details">

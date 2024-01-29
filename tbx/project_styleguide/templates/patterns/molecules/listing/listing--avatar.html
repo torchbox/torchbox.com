@@ -6,8 +6,7 @@
         </div>
         <a class="listing-avatar__link listing__link" href="{{ link }}" aria-label="{{ aria_text|default:title }} by {{ name }}">
             <h2 class="listing-avatar__title listing__title">
-                {{ title }}
-                {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-avatar__arrow listing__arrow" %}
+                {{ title }}<span class="listing__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-avatar__arrow listing__arrow" %}</span>
             </h2>
         </a>
         <div class="listing-avatar__details listing__details">

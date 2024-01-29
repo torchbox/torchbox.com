@@ -54,4 +54,14 @@
     &__tags {
         margin-top: $spacer-small;
     }
+
+    &__tail {
+        // Keep the arrow attached to the last word so it's not orphaned on a new line
+        white-space: nowrap;
+        display: none;
+
+        @include media-query(medium) {
+            display: inline;
+        }
+    }
 }
