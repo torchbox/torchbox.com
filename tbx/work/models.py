@@ -244,9 +244,7 @@ class WorkPage(SocialFields, Page):
                 "listing_image": work_page.header_image,
             }
             # get 3 pages with same services and exclude self page
-            for work_page in WorkPage.objects.filter(
-                related_services__in=self.services
-            )
+            for work_page in WorkPage.objects.filter(related_services__in=self.services)
             .live()
             .prefetch_related("related_services", "authors", "authors__author")
             .defer_streamfields()
