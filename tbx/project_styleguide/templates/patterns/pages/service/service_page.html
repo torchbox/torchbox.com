@@ -3,12 +3,12 @@
 
 {% block content %}
     <div class="grid streamfield">
-        <div class="streamfield__title">
+        <div class="grid__title">
             <h1 class="heading heading--one">{{ page.title }}</h1>
         </div>
 
         {% if page.intro %}
-            <div class="streamfield__intro">
+            <div class="grid__intro streamfield__intro">
                 <div class="heading heading--five">{{page.intro|richtext}}</div>
             </div>
         {% endif %}

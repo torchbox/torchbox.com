@@ -30,7 +30,7 @@
             {% endfor %}
         </div>
 
-        <div class="streamfield__title">
+        <div class="grid__title">
             <h1 class="heading heading--one-b">{{ page.title }}</h1>
 
             {% pageurl page.blog_index as blog_index_url %}
@@ -57,7 +57,7 @@
         {% if page.related_blog_posts %}
             {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Related blog posts" classes="section-title--related-posts" %}
 
-            <ul class="streamfield__related-posts">
+            <ul class="grid__related-posts streamfield__related-posts">
                 {% for post in page.related_blog_posts %}
                     {% include "patterns/molecules/listing/listing--avatar.html" with title=post.title name=post.author.name job_title=post.author.role link=post.url date=post.date reading_time=post.read_time tags=post.related_services listing_image=post.listing_image avatar=post.author.image %}
                 {% endfor %}

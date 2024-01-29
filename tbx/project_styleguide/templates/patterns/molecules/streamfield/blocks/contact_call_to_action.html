@@ -1,5 +1,5 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-<div class="contact-cta streamfield__contact-cta">
+<div class="contact-cta grid__contact-cta">
     {% for cta in value.call_to_action %}
         <p class="contact-cta__text heading heading--four">{{ cta.value.text }}</p>
     {% endfor %}

@@ -22,4 +22,111 @@
             margin: $spacer-large auto;
         }
     }
+
+    &__title {
+        margin-bottom: $spacer-small;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 4 / span 9;
+        }
+    }
+
+    &__heading {
+        margin-bottom: $spacer-mini;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 4 / span 7;
+        }
+    }
+
+    &__quote {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 4 / span 9;
+        }
+    }
+
+    &__call-to-action {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 5;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 4 / span 12;
+        }
+    }
+
+    &__contact-cta {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 5;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 5 / span 10;
+        }
+    }
+
+    &__related-posts {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 5 / span 9;
+        }
+    }
+
+    // The following components follow the same pattern of
+    // spanning 7 columns on desktop and 4 columns on mobile.
+    &__intro,
+    &__paragraph,
+    &__image,
+    &__raw-html,
+    &__markdown,
+    &__embed {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 4 / span 7;
+        }
+    }
+
+    // Move everything over by 1 column on the blog page and work page
+    .template-blog-page &,
+    .template-work-page & {
+        &__heading,
+        &__intro,
+        &__paragraph,
+        &__image,
+        &__raw-html,
+        &__markdown,
+        &__embed {
+            @include media-query(large) {
+                grid-column: 5 / span 7;
+            }
+        }
+
+        &__title {
+            @include media-query(large) {
+                grid-column: 5 / span 9;
+            }
+        }
+
+        &__call-to-action {
+            @include media-query(large) {
+                grid-column: 5 / span 10;
+            }
+        }
+
+        &__quote {
+            @include media-query(large) {
+                grid-column: 5 / span 9;
+            }
+        }
+    }
 }
