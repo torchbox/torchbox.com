@@ -12,6 +12,7 @@
     }
 
     &__rings {
+        display: block;
         position: relative;
         width: 33px;
         flex-shrink: 0;

@@ -45,7 +45,7 @@
 
             <p class="work-hero__meta">
                 {% if page.date %}
-                    <time datetime="{{ item.date|date:'Y-m-d' }}">{{ page.date }}</time>
+                    <time datetime="{{ page.date|date:'Y-m-d' }}">{{ page.date }}</time>
                 {% endif %}
 
                 {% if page.read_time and page.date %}
