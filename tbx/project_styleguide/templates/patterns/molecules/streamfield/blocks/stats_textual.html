@@ -1,13 +1,15 @@
 
 <ul class="stats stats--textual">
-    {% for stat in value.stats %}
+    {% for stat in value %}
         <li class="stats__stat">
             <span class="stats__text">
                 {{ stat.headline_text }}
             </span>
-            <span class="stats__details">
-                {{ stat.further_details }}
-            </span>
+            {% if stat.further_details %}
+                <span class="stats__details">
+                    {{ stat.further_details }}
+                </span>
+            {% endif %}
         </li>
     {% endfor %}
 </ul>
