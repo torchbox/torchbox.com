@@ -82,11 +82,11 @@
         {% endblock %}
 
         <div class="work-page-authors">
-            {% for author in page.authors.all %}
-                {% if page.first_author == author.author %}
-                    {% include "patterns/molecules/author/author.html" with author=author.author author_attribution="by" %}
+            {% for item in page.authors.all %}
+                {% if page.first_author == item.author %}
+                    {% include "patterns/molecules/author/author.html" with author=item.author author_attribution="by" %}
                 {% else %}
-                    {% include "patterns/molecules/author/author.html" with author=author.author author_attribution="and" %}
+                    {% include "patterns/molecules/author/author.html" with author=item.author author_attribution="and" %}
                 {% endif %}
             {% endfor %}
         </div>

@@ -1,22 +1,20 @@
 context:
   page:
-    context:
-  page:
     title: Turning five hospital websites into one
     client: Children’s Health Ireland
     get_verbose_name: work-page
     date: 07 Aug 2023
     read_time: '5'
     first_author:
-        name: Nick Lee
-        role: Designer
+      name: Nick Lee
+      role: Designer
     authors:
       all:
-        - author:
+        - item:
           author:
             name: Nick Lee
             role: Designer
-        - author:
+        - item:
           author:
             name: Victor Miti
             role: Developer

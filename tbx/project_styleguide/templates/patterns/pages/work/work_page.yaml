@@ -8,17 +8,17 @@ context:
     date: 07 Aug 2023
     read_time: '5'
     first_author:
-        name: Nick Lee
-        role: Designer
+      name: Nick Lee
+      role: Designer
     header_caption: An image
     header_attribution: Google image
     authors:
       all:
-        - author:
+        - item:
           author:
             name: Nick Lee
             role: Designer
-        - author:
+        - item:
           author:
             name: Victor Miti
             role: Developer
