@@ -579,3 +579,7 @@ BIRDBATH_PROCESSORS = [
     "birdbath.processors.users.UserPasswordAnonymiser",
 ]
 WILLOW_OPTIMIZERS = True
+
+
+# Locale-specific formats are configured in `tbx/locales/en/formats.py`.
+FORMAT_MODULE_PATH = ["tbx.locales"]

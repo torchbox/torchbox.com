@@ -18,7 +18,7 @@
         });
     </script>
     <meta name="author" content="{{ page.authors.all.0.author.name }}">
-    <meta property="og:article:published_time" content="{{ page.date|date:'Y-m-d' }}" />
+    <meta property="og:article:published_time" content="{{ page.date|date }}" />
     {{ block.super }}
 {% endblock %}
 
@@ -44,7 +44,7 @@
         </div>
 
         <div class="blog-meta">
-            <time datetime="{{ item.date|date:'Y-m-d' }}">{{ page.date }}</time>
+            <time datetime="{{ item.date|date }}">{{ page.date }}</time>
 
             {% if page.read_time %}
                 <span aria-hidden="true" class="blog-meta__divider">/</span>
