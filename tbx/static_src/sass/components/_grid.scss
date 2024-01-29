@@ -75,7 +75,16 @@
         grid-column: 2 / span 4;
 
         @include media-query(large) {
+            margin-top: ($spacer-x-large + $spacer-large);
             grid-column: 5 / span 9;
+        }
+    }
+
+    &__image {
+        grid-column: 1 / span 6;
+
+        @include media-query(large) {
+            grid-column: 4 / span 11;
         }
     }
 
@@ -83,7 +92,6 @@
     // spanning 7 columns on desktop and 4 columns on mobile.
     &__intro,
     &__paragraph,
-    &__image,
     &__raw-html,
     &__markdown,
     &__embed {
@@ -126,6 +134,12 @@
         &__quote {
             @include media-query(large) {
                 grid-column: 5 / span 9;
+            }
+        }
+
+        &__image {
+            @include media-query(large) {
+                grid-column: 5 / span 11;
             }
         }
     }

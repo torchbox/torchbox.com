@@ -113,7 +113,7 @@
     &::first-letter {
         @include rem-font-size($small-size);
         line-height: 1; // Reset line height to 1 to avoid spacing issues
-        font-weight: $weight--semibold;
+        font-weight: $weight--medium;
 
         @include media-query(large) {
             @include rem-font-size($large-size);
@@ -166,7 +166,7 @@
     display: none;
 
     @include media-query(medium) {
-        display: block;
+        display: inline-block;
         color: var(--color--decoration);
         width: 72px;
         height: 22px;
@@ -217,5 +217,16 @@
 @mixin reduced-motion() {
     @media (prefers-reduced-motion) {
         @content;
+    }
+}
+
+/* ============================================
+    Spacing for h2, h3 and h4 inside rich text
+*/
+@mixin rich-text-heading-spacing() {
+    margin: $spacer-small 0 $spacer-mini;
+
+    @include media-query(large) {
+        margin: $spacer-medium 0 $spacer-mini;
     }
 }

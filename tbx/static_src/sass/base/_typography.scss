@@ -40,6 +40,7 @@ h6 {
 // ------------------------------- Heading ----------------------------------
 .heading {
     @include heading-text();
+    font-weight: $weight--light;
 
     &--one {
         @include font-size(heading-one);
@@ -53,7 +54,6 @@ h6 {
 
     &--two {
         @include font-size(heading-two);
-        @include drop-cap(72px, 90px);
     }
 
     &--three {

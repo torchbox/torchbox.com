@@ -1,0 +1,34 @@
+@use "config" as *;
+
+.image {
+    $root: &;
+    margin-bottom: $spacer-mini;
+
+    img {
+        padding: $spacer-mini-plus;
+        background-color: var(--color--streamfield-background);
+        width: 100%;
+
+        @include media-query(large) {
+            padding: $spacer-medium;
+        }
+    }
+
+    &__caption,
+    &__attribution {
+        text-align: right;
+        margin-right: $spacer-mini-plus;
+
+        @include media-query(large) {
+            margin-right: $spacer-medium;
+        }
+    }
+
+    &__caption {
+        margin-top: $spacer-mini;
+    }
+
+    &__attribution {
+        font-weight: $weight--semibold;
+    }
+}

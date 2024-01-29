@@ -12,9 +12,10 @@
 }
 
 .tag {
+    @include font-size(supporting);
     padding: 5px $spacer-mini;
     border-radius: 50px;
-    border: 1px solid var(--color--text);
+    border: 1px solid var(--color--border);
 
     &:hover,
     &:active,
