@@ -2,7 +2,7 @@
 
 The grid setup can be found in `sass/components/_grid.scss`.
 
-The site uses a grid that changes with the breakpoints of the site. Above the large breakpoint `(min-width: 1023px)` the grid is split into 12 columns and below the large breakpoint the grid is split into 4 columns.
+The site uses a grid that changes with the breakpoints of the site. Above the large breakpoint `(min-width: 1023px)` the grid is split into 14 columns with 12 equal columns surrounded by 2 fixed width columns and below the large breakpoint the grid is split into 6 columns with 4 equal columns surrounded by 2 fixed width columns.
 
 ### CSS setup
 
