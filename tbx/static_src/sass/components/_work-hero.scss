@@ -30,6 +30,10 @@
         @include media-query(large) {
             margin-bottom: $spacer-mini-plus;
         }
+
+        @include high-contrast-light-mode() {
+            filter: none;
+        }
     }
 
     &__client {
