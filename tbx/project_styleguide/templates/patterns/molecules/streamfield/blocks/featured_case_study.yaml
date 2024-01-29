@@ -4,10 +4,11 @@ context:
     text: >
       <p>By empathizing with users, designers can identify pain points and opportunities, creating more effective and user-friendly products. This process is ongoing, adapting to evolving user needs, ensuring solutions remain relevant and effective over time.</p>
     link:
-      title: MQ - Transforming Mental Health
-      url: '#'
-      date: 19 Jan 2024
-      read_time: 5
+      specific:
+        title: MQ - Transforming Mental Health
+        url: '#'
+        date: 19 Jan 2024
+        read_time: 5
     featured_case_study_logo: True
 
 tags:
@@ -31,3 +32,6 @@ tags:
     value.featured_case_study_logo fill-110x70 format-webp class="featured-case-study__company-logo":
       raw: |
         <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="featured-case-study__company-logo">
+  pageurl:
+    link:
+      raw: '#'
