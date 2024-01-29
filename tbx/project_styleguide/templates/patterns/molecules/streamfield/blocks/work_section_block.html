@@ -1,8 +1,8 @@
 {% load wagtailcore_tags %}
 
-<div>
-    {{ value.title }}
-</div>
-<div>
-    {% include_block value.content %}
-</div>
+
+<h2 class="work-section__title">{{ value.title }}</h2>
+
+
+{% include_block value.content %}
+

@@ -163,6 +163,13 @@ class WorkPage(SocialFields, Page):
     parent_page_types = ["WorkIndexPage"]
 
     intro = RichTextField(blank=True)
+    logo = models.ForeignKey(
+        "images.CustomImage",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
     client = models.CharField(max_length=255, blank=True)
     date = models.DateField("post date", blank=True, null=True)
     body_word_count = models.PositiveIntegerField(null=True, editable=False)
@@ -171,7 +178,6 @@ class WorkPage(SocialFields, Page):
         "images.CustomImage",
         verbose_name="Image",
         null=True,
-        blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
     )
@@ -188,6 +194,7 @@ class WorkPage(SocialFields, Page):
     content_panels = Page.content_panels + [
         FieldPanel("intro"),
         InlinePanel("authors", label="Author", min_num=1),
+        # FieldPanel("logo"),
         FieldPanel("client", classname="client"),
         FieldPanel("date"),
         MultiFieldPanel(

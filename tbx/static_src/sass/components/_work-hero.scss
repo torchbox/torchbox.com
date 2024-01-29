@@ -23,6 +23,14 @@
         }
     }
 
+    // &__logo {
+    //     margin-bottom: $spacer-mini;
+
+    //     @include media-query(large) {
+    //         margin-bottom: $spacer-mini-plus;
+    //     }
+    // }
+
     &__client {
         @include font-size('body-two');
         font-weight: $weight--semibold;

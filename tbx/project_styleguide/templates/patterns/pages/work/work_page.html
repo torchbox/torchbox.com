@@ -1,29 +1,43 @@
-{% extends "patterns/base_page.html" %}
+{% extends "patterns/pages/work/work_page_base.html" %}
 {% load wagtailcore_tags wagtailimages_tags static %}
 
-{% block meta_tags %}
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            'author-title' : '{{ page.first_author.role }}',
-            'author-name' : '{{ page.first_author.name }}',
-            'published' : '{{ page.first_published_at|date:"Ymd" }}',
-            'tags' : [{% for tag in page.related_services.all %}'{{tag.name}}'{% if not forloop.last %}, {% endif %}{% endfor %}],
-            'read-time' : '{{ page.read_time }}',
-            'id': '{{ page.id }}',
-            'page-h1' : '{{ page.title }}',
-            'page-title' : '{{ page.title }} | Torchbox',
-            'page-path': '{{ page.slug }}',
-            'event': 'page-information'
-        });
-    </script>
-    <meta name="author" content="{{ page.first_author.name }}">
-    <meta property="og:article:published_time" content="{{ page.date|date:'Y-m-d' }}" />
-    {{ block.super }}
-
+{% block intro %}
+    {% if page.intro %}
+        <div class="streamfield__intro heading heading--five">
+            {{ page.intro|richtext }}
+        </div>
+    {% endif %}
 {% endblock %}
 
-{% block content %}
+{% block main_image %}
+    <div class="grid grid--spacer-large streamfield">
+        {% image page.header_image max-1280x860 format-webp as desktop_header_image %}
+        {% image page.header_image max-2560x1720 format-webp as desktop_header_image_retina %}
+        {% image page.header_image max-800x538 format-webp as mobile_header_image %}
+        {% image page.header_image max-1600x1076 format-webp as mobile_header_image_retina %}
+
+        <picture>
+            <source media="(max-width: 598px)" srcset="{{ mobile_header_image.url }} 1x, {{ mobile_header_image_retina.url }} 2x" />
+            <source media="(min-width: 599px)" srcset="{{ desktop_header_image.url }} 1x, {{ desktop_header_image_retina.url }} 2x" />
+            <img src="{{ desktop_header_image.url }}" alt="{{ desktop_header_image.alt }}" loading="lazy" />
+        </picture>
+
+        {% if page.header_caption %}
+            <p class="image__caption supporting">{{ page.header_caption }}</p>
+        {% endif %}
+
+        {% if page.header_attribution %}
+            <p class="image__attribution supporting">{{ page.header_attribution }}</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{# The historical work pages have a simple, un-nested streamfield without any titles #}
+{% block body_streamfield %}
+    {% include_block page.body %}
+{% endblock %}
+
+{% comment %} {% block content %}
 
     <div class="authors">
         {% for page_author in page.authors.all %}
@@ -104,4 +118,4 @@
         </ul>
     {% endif %}
 
-{% endblock %}
+{% endblock %} {% endcomment %}
