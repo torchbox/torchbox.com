@@ -234,17 +234,17 @@ class WorkPage(SocialFields, Page):
     def related_works(self):
         return [
             {
-                "client": case_study.client,
-                "title": case_study.title,
-                "url": case_study.url,
-                "author": case_study.first_author,
-                "date": case_study.date,
-                "read_time": case_study.read_time,
-                "related_services": case_study.related_services.all(),
-                "listing_image": case_study.header_image,
+                "client": work_page.client,
+                "title": work_page.title,
+                "url": work_page.url,
+                "author": work_page.first_author,
+                "date": work_page.date,
+                "read_time": work_page.read_time,
+                "related_services": work_page.related_services.all(),
+                "listing_image": work_page.header_image,
             }
             # get 3 pages with same services and exclude self page
-            for case_study in WorkPage.objects.filter(
+            for work_page in WorkPage.objects.filter(
                 related_services__in=self.services
             )
             .live()

@@ -36,14 +36,12 @@
 
         <div class="work-hero__right">
             {% if page.logo %}
-                {% image page.logo width-175 format-webp class="work-hero__logo"  %}
+                {% image page.logo width-175 format-webp class="work-hero__logo" %}
             {% endif %}
-
 
             <p class="work-hero__client">
                 {{ page.client }}
             </p>
-
 
             <p class="work-hero__meta">
                 {% if page.date %}
@@ -98,7 +96,7 @@
 
             <ul class="grid__related-posts streamfield__related-posts">
                 {% for work_page in page.related_works %}
-                    {% include "patterns/molecules/listing/listing--image.html" with listing_image=work_page.feed_image title=work_page.title name=work_page.client link=work_page.url date=work_page.date reading_time=work_page.read_time tags=work_page.related_services.all %}
+                    {% include "patterns/molecules/listing/listing--image.html" with listing_image=work_page.listing_image title=work_page.title name=work_page.client link=work_page.url date=work_page.date reading_time=work_page.read_time tags=work_page.related_services.all %}
                 {% endfor %}
 
                 <li class="mx-auto lg:mx-0 mt-spacerSmall">

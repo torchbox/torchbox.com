@@ -8,7 +8,7 @@
 
 <li class="listing-image listing">
     {# alt text is empty for consistency with listing--avatar.html that includes avatar.html which has empty alt text #}
-    <picture>
+    <picture class="listing-image__picture">
         <source media="(max-width: 598px)" srcset="{{  listing_mobile_image.url }} 1x, {{ listing_mobile_image_retina.url }} 2x" />
         <source media="(min-width: 599px)" srcset="{{ listing_desktop_image.url }} 1x, {{ listing_desktop_image_retina.url }} 2x" />
         <img src="{{ listing_desktop_image.url }}" alt="" loading="lazy" class="listing-image__image" />
