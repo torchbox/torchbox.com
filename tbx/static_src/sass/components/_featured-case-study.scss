@@ -63,8 +63,10 @@
 
     &__content {
         max-width: 480px;
+        margin: 0 $grid-gutters;
 
         @include media-query(large) {
+            margin: 0;
             padding-top: $spacer-large;
             display: flex;
             flex-direction: column;

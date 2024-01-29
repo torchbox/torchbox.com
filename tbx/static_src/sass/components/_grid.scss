@@ -172,4 +172,12 @@
             }
         }
     }
+
+    &__featured-case-study {
+        grid-column: 1 / span 6;
+
+        @include media-query(large) {
+            grid-column: 1 / span 13;
+        }
+    }
 }

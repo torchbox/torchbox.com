@@ -5,7 +5,7 @@
 {% image value.featured_case_study_image fill-860x646 format-webp as featured_mobile_image_retina %}
 {% image value.featured_case_study_image fill-430x323 format-webp as featured_mobile_image %}
 
-<div class="featured-case-study">
+<div class="featured-case-study grid__featured-case-study">
     {# Image (with gradient if logo added) #}
     <div class="featured-case-study__image-wrap{% if value.featured_case_study_logo %} featured-case-study__image-wrap--with-logo{% endif %}">
         <picture>
