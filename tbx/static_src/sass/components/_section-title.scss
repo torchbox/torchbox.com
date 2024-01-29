@@ -4,6 +4,7 @@
     &--related-posts {
         @include drop-cap(72px, 90px);
         margin-bottom: $spacer-small;
+        margin-top: $spacer-medium;
         grid-column: 2 / span 4;
 
         @include media-query(large) {

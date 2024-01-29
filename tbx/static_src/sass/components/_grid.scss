@@ -75,6 +75,7 @@
         grid-column: 2 / span 4;
 
         @include media-query(large) {
+            margin-top: ($spacer-x-large + $spacer-large);
             grid-column: 5 / span 9;
         }
     }
