@@ -23,13 +23,14 @@
         }
     }
 
-    // &__logo {
-    //     margin-bottom: $spacer-mini;
+    &__logo {
+        margin-bottom: $spacer-mini;
+        filter: brightness(0) invert(1);
 
-    //     @include media-query(large) {
-    //         margin-bottom: $spacer-mini-plus;
-    //     }
-    // }
+        @include media-query(large) {
+            margin-bottom: $spacer-mini-plus;
+        }
+    }
 
     &__client {
         @include font-size('body-two');

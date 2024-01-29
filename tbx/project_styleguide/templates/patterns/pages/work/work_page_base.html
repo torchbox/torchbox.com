@@ -35,21 +35,26 @@
         </div>
 
         <div class="work-hero__right">
-            {% comment %} {% if page.logo %}
+            {% if page.logo %}
                 {% image page.logo width-175 format-webp class="work-hero__logo"  %}
-            {% endif %} {% endcomment %}
-
-            {% if page.client %}
-                <p class="work-hero__client">
-                    {{ page.client }}
-                </p>
             {% endif %}
 
+
+            <p class="work-hero__client">
+                {{ page.client }}
+            </p>
+
+
             <p class="work-hero__meta">
-                <time datetime="{{ item.date|date:'Y-m-d' }}">{{ page.date }}</time>
+                {% if page.date %}
+                    <time datetime="{{ item.date|date:'Y-m-d' }}">{{ page.date }}</time>
+                {% endif %}
+
+                {% if page.read_time and page.date %}
+                    <span aria-hidden="true" class="work-hero__divider">/</span>
+                {% endif %}
 
                 {% if page.read_time %}
-                    <span aria-hidden="true" class="work-hero__divider">/</span>
                     {{ page.read_time }} min{{ page.read_time|pluralize }} read
                 {% endif %}
             </p>
@@ -91,13 +96,13 @@
         {% if page.related_works %}
             {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Related work pages" classes="section-title--related-posts" %}
 
-            <ul class="streamfield__related-posts">
+            <ul class="grid__related-posts streamfield__related-posts">
                 {% for work_page in page.related_works %}
                     {% include "patterns/molecules/listing/listing--image.html" with listing_image=work_page.feed_image title=work_page.title name=work_page.client link=work_page.url date=work_page.date reading_time=work_page.read_time tags=work_page.related_services.all %}
                 {% endfor %}
 
                 <li class="mx-auto lg:mx-0 mt-spacerSmall">
-                    {% include "patterns/atoms/see-more/see-more.html" with link=work_index_url text="See more work" %}
+                    {% include "patterns/atoms/see-more/see-more.html" with link="../" text="See more work" %}
                 </li>
             </ul>
         {% endif %}

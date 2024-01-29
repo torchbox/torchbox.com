@@ -98,6 +98,22 @@
         }
     }
 
+    &__work-image {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 1 / span 13;
+        }
+    }
+
+    &__work-title {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 2 / span 3;
+        }
+    }
+
     // The following components follow the same pattern of
     // spanning 7 columns on desktop and 4 columns on mobile.
     &__intro,
@@ -114,9 +130,10 @@
         }
     }
 
-    // Move everything over by 1 column on the blog page and work page
+    // Move everything over by 1 column on the blog page and work pages
     .template-blog-page &,
-    .template-work-page & {
+    .template-work-page &,
+    .template-historical-work-page & {
         &__heading,
         &__intro,
         &__paragraph,

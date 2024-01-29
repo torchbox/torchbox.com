@@ -170,7 +170,7 @@ class WorkPage(SocialFields, Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    client = models.CharField(max_length=255, blank=True)
+    client = models.CharField(max_length=255)
     date = models.DateField("post date", blank=True, null=True)
     body_word_count = models.PositiveIntegerField(null=True, editable=False)
 
@@ -194,7 +194,7 @@ class WorkPage(SocialFields, Page):
     content_panels = Page.content_panels + [
         FieldPanel("intro"),
         InlinePanel("authors", label="Author", min_num=1),
-        # FieldPanel("logo"),
+        FieldPanel("logo"),
         FieldPanel("client", classname="client"),
         FieldPanel("date"),
         MultiFieldPanel(
