@@ -20,7 +20,7 @@
             <picture>
                 <source media="(max-width: 598px)" srcset="{{ mobile_header_image.url }} 1x, {{ mobile_header_image_retina.url }} 2x" />
                 <source media="(min-width: 599px)" srcset="{{ desktop_header_image.url }} 1x, {{ desktop_header_image_retina.url }} 2x" />
-                <img src="{{ desktop_header_image.url }}" alt="{{ desktop_header_image.alt }}" loading="lazy" class="image" />
+                <img src="{{ desktop_header_image.url }}" alt="{{ desktop_header_image.alt }}" loading="lazy" />
             </picture>
 
             {% if page.header_caption %}
