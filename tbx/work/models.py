@@ -115,14 +115,6 @@ class HistoricalWorkPage(SocialFields, Page):
             return author.author
         return None
 
-    @cached_property
-    def first_intro(self):
-        """Return the first intro in the streamfield if one exists."""
-        for block in self.body:
-            if block.block_type == "intro":
-                return block
-        return None
-
     @property
     def related_works(self):
         services = self.related_services.all()
