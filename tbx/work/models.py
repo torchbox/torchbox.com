@@ -4,7 +4,7 @@ import string
 from django import forms
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
-from django.db.models import Q
+from django.db.models import Case, DateField, F, Q, When
 from django.dispatch import receiver
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
@@ -287,14 +287,22 @@ class WorkIndexPage(SocialFields, Page):
                 "historicalworkpage",
                 "workpage__related_services",
                 "historicalworkpage__related_services",
-                "related_services",
                 "authors",
                 "authors__author",
             )
+            .annotate(
+                priority=Case(
+                    When(workpage__isnull=False, then=F("workpage__date")),
+                    default=F("historicalworkpage__date"),
+                    output_field=DateField(),
+                )
+            )
+            .order_by(
+                "-priority",
+                "-pk",
+            )
         )
-
-        # Order by most recent date first
-        return pages.order_by("-workpage__date", "-historicalworkpage__date", "-pk")
+        return pages
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
