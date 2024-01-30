@@ -2,13 +2,13 @@ context:
   value:
     title: 'Happy Partners'
     partner_logos:
-      - logo:
-      - logo:
-      - logo:
-      - logo:
+      - partner_logo:
+      - partner_logo:
+      - partner_logo:
+      - partner_logo:
 
 tags:
   image:
-    logo max-100x90 format-webp class="partners__logo":
+    partner_logo max-100x90 format-webp class="partners__logo":
       raw: |
         <img src="https://source.unsplash.com/100x90?logo" width="100" height="90" alt="" class="partners__logo">
