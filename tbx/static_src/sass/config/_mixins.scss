@@ -202,6 +202,16 @@
 }
 
 /* ============================================
+    High Contrast mode in light mode
+    prefers-color-scheme: light + forced-colors: active
+*/
+@mixin high-contrast-light-mode() {
+    @media (prefers-color-scheme: light) and (forced-colors: active) {
+        @content;
+    }
+}
+
+/* ============================================
     High Contrast mode (forced-colors: active)
 */
 
