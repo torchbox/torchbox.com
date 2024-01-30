@@ -5,4 +5,4 @@ context:
 tags:
   include_block:
     value.content:
-      template_name: 'patterns/molecules/streamfield/stream_block.html'
+      template_name: 'patterns/molecules/streamfield/stream_block_work.html'
