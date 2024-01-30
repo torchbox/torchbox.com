@@ -2,17 +2,17 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block content %}
-    <div>
+     <div class="grid">
         {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=related_services %}
 
-        {% for post in works %}
-            <ul>
-                {% include "patterns/molecules/listing/listing--image.html" with title=post.title client=post.client name=post.author.name job_title=post.author.role link=post.url date=post.date reading_time=post.read_time tags=post.related_services listing_image=post.listing_image tag_link_base="." tags_screenreader_text="Filter work posts by category" %}
-        {% endfor %}
-    </ul>
+        <ul class="page-listing page-listing--work">
+            {% for post in works %}
+                {% include "patterns/molecules/listing/listing--image.html" with title=post.title name=post.client link=post.url date=post.date reading_time=post.read_time tags=post.related_services listing_image=post.listing_image tag_link_base="." tags_screenreader_text="Filter work posts by category" base_class="page-listing__item" %}
+            {% endfor %}
+        </ul>
 
-    <div class="blog-listing__pagination">
-        {% include "patterns/molecules/pagination/pagination.html" with pages=works %}
-    </div>
+        <div class="page-listing__pagination">
+            {% include "patterns/molecules/pagination/pagination.html" with pages=works %}
+        </div>
     </div>
 {% endblock %}

@@ -7,7 +7,6 @@
 @use 'components/icon'; // Icon at the top to be able to override
 @use 'components/author';
 @use 'components/avatar';
-@use 'components/blog-listing';
 @use 'components/button';
 @use 'components/blog-meta';
 @use 'components/call-to-action';
@@ -25,6 +24,7 @@
 @use 'components/pullquote';
 @use 'components/responsive-object';
 @use 'components/rich-text';
+@use 'components/page-listing';
 @use 'components/section-title';
 @use 'components/showcase';
 @use 'components/skip-link';
