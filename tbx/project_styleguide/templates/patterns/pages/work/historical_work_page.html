@@ -1,16 +1,14 @@
 {% extends "patterns/pages/work/work_page_base.html" %}
 {% load wagtailcore_tags wagtailimages_tags static %}
 
-{# The historical work pages did not have a separate intro - so we just loop over the body streamfield to find the intro block(s) #}
+{# The historical work pages did not have a separate intro - so we just display the first intro block here #}
 {% block intro %}
-    {% for intro_block in page.body %}
-        {% if intro_block.block_type == 'intro' %}
-            {% include_block intro_block %}
-        {% endif %}
-    {% endfor %}
+    {% if page.first_intro %}
+        {% include_block page.first_intro %}
+    {% endif %}
 {% endblock %}
 
-{# The historical work pages have a simple, un-nested streamfield without any titles #}
+{# The historical work pages have a simple, un-nested streamfield without any titles. Exclude the intro block. #}
 {% block body_streamfield %}
     {% for block in page.body %}
         {% if block.block_type != 'intro' %}
