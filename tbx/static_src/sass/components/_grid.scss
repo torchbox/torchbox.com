@@ -120,7 +120,8 @@
     &__paragraph,
     &__raw-html,
     &__markdown,
-    &__embed {
+    &__embed,
+    &__stats {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
 
@@ -140,7 +141,8 @@
         &__image,
         &__raw-html,
         &__markdown,
-        &__embed {
+        &__embed,
+        &__stats {
             @include media-query(large) {
                 grid-column: 5 / span 7;
             }
