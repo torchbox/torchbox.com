@@ -163,7 +163,14 @@ class WorkPage(SocialFields, Page):
     parent_page_types = ["WorkIndexPage"]
 
     intro = RichTextField(blank=True)
-    client = models.CharField(max_length=255, blank=True)
+    logo = models.ForeignKey(
+        "images.CustomImage",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    client = models.CharField(max_length=255)
     date = models.DateField("post date", blank=True, null=True)
     body_word_count = models.PositiveIntegerField(null=True, editable=False)
 
@@ -171,7 +178,6 @@ class WorkPage(SocialFields, Page):
         "images.CustomImage",
         verbose_name="Image",
         null=True,
-        blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
     )
@@ -188,6 +194,7 @@ class WorkPage(SocialFields, Page):
     content_panels = Page.content_panels + [
         FieldPanel("intro"),
         InlinePanel("authors", label="Author", min_num=1),
+        FieldPanel("logo"),
         FieldPanel("client", classname="client"),
         FieldPanel("date"),
         MultiFieldPanel(
@@ -227,19 +234,17 @@ class WorkPage(SocialFields, Page):
     def related_works(self):
         return [
             {
-                "client": case_study.client,
-                "title": case_study.title,
-                "url": case_study.url,
-                "author": case_study.first_author,
-                "date": case_study.date,
-                "read_time": case_study.read_time,
-                "related_services": case_study.related_services.all(),
-                "listing_image": case_study.header_image,
+                "client": work_page.client,
+                "title": work_page.title,
+                "url": work_page.url,
+                "author": work_page.first_author,
+                "date": work_page.date,
+                "read_time": work_page.read_time,
+                "related_services": work_page.related_services.all(),
+                "listing_image": work_page.header_image,
             }
             # get 3 pages with same services and exclude self page
-            for case_study in WorkPage.objects.filter(
-                related_services__in=self.services
-            )
+            for work_page in WorkPage.objects.filter(related_services__in=self.services)
             .live()
             .prefetch_related("related_services", "authors", "authors__author")
             .defer_streamfields()

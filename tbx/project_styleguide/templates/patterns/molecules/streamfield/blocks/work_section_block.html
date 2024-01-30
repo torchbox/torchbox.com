@@ -1,8 +1,17 @@
 {% load wagtailcore_tags %}
 
-<div>
+
+{# see _grid.scss for how the titles and content streamfields are placed on grid #}
+<h2 class="grid__work-title work-sections__title">
+    <span class="work-sections__rings">
+        {% include "patterns/atoms/icons/icon.html" with name="ring-one" classname="icon--stroke work-sections__ring work-sections__ring--one" %}
+        {% include "patterns/atoms/icons/icon.html" with name="ring-two" classname="icon--stroke work-sections__ring work-sections__ring--two" %}
+    </span>
     {{ value.title }}
-</div>
-<div>
-    {% include_block value.content %}
-</div>
+</h2>
+
+
+{# A nested set of streamfield blocks for each title #}
+{# Note there is no wrapping markup here. This means each block is a direct child of a parent with class 'grid', so the layout works correctly  #}
+{% include_block value.content %}
+

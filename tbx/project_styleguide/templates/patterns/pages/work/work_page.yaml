@@ -1,15 +1,27 @@
 context:
   page:
-    title: We’ve launched a supporter-centred Wagtail website for Oxfam GB
-    client: Oxfam
-    get_verbose_name: work-detail
-    date: 07 Aug ’20
+    title: Turning five hospital websites into one
+    intro: In collaboration with CHI, we have transformed their digital presence by merging five individual hospital websites into one cohesive platform, powered by Wagtail CMS.
+    logo: True
+    client: Children’s Health Ireland
+    get_verbose_name: work-page
+    date: 07 Aug 2023
     read_time: '5'
+    first_author:
+      name: Nick Lee
+      role: Designer
+    header_caption: An image
+    header_attribution: Google image
     authors:
-      first:
-        author:
-          name: Nick Lee
-          role: Designer
+      all:
+        - item:
+          author:
+            name: Nick Lee
+            role: Designer
+        - item:
+          author:
+            name: Victor Miti
+            role: Developer
     related_services:
       all:
         - name: Digital products
@@ -31,4 +43,64 @@ context:
 tags:
   include_block:
     page.body:
-      template_name: 'patterns/molecules/streamfield/streamfield-example-work.html'
+      template_name: 'patterns/molecules/streamfield/blocks/work_section_block.html'
+  image:
+    # client logo
+    page.logo width-175 format-webp class="work-hero__logo":
+      raw: '<img src="https://source.unsplash.com/175x100/?logo" class="work-hero__logo">'
+    # listing image for related pages
+    listing_image fill-370x370 format-webp as listing_desktop_image:
+      target_var: listing_desktop_image
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/370x370?trees'
+    listing_image fill-740x740 format-webp as listing_desktop_image_retina:
+      target_var: listing_desktop_image_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/740x740?trees'
+    listing_image fill-370x335 format-webp as listing_mobile_image:
+      target_var: listing_mobile_image
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/370x335?trees'
+    listing_image fill-740x670 format-webp as listing_mobile_image_retina:
+      target_var: listing_mobile_image_retina
+      raw:
+        alt: 'mobile image retina'
+        url: 'https://source.unsplash.com/740x670?trees'
+    # avatar image for authors
+    avatar fill-144x144 format-webp as avatar_desktop:
+      target_var: avatar_desktop
+      raw:
+        url: 'https://source.unsplash.com/144x144?face'
+    avatar fill-286x286 format-webp as avatar_desktop_retina:
+      target_var: avatar_desktop_retina
+      raw:
+        url: 'https://source.unsplash.com/286x286?face'
+    avatar fill-72x72 format-webp as avatar_mobile:
+      target_var: avatar_mobile
+      raw:
+        url: 'https://source.unsplash.com/72x72?face'
+
+    # header image
+    page.header_image max-1280x860 format-webp as desktop_header_image:
+      target_var: desktop_header_image
+      raw:
+        url: 'https://source.unsplash.com/1280x860/?trees'
+        alt: 'desktop image'
+    page.header_image max-2560x1720 format-webp as desktop_header_image_retina:
+      target_var: desktop_header_image_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/2560x1720?trees'
+    page.header_image max-800x538 format-webp as mobile_header_image:
+      target_var: mobile_header_image
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/800x538?trees'
+    page.header_image max-1600x1076 format-webp as mobile_header_image_retina:
+      target_var: mobile_header_image_retina
+      raw:
+        alt: 'mobile image retina'
+        url: 'https://source.unsplash.com/1600x1076?face'

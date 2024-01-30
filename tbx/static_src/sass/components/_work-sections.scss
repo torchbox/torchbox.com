@@ -1,0 +1,42 @@
+@use "config" as *;
+
+// These are used in the body streamfield for the work page
+.work-sections {
+    &__title {
+        @include font-size('heading-six');
+        font-weight: $weight--semibold;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: $spacer-medium;
+    }
+
+    &__rings {
+        display: block;
+        position: relative;
+        width: 33px;
+        flex-shrink: 0;
+    }
+
+    &__ring {
+        position: absolute;
+        inset: 0;
+        width: 30px;
+        height: 30px;
+        opacity: 0.75;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        &--one {
+            top: 3px;
+            color: var(--color--accent-two);
+        }
+
+        &--two {
+            left: 3px;
+            color: var(--color--accent-three);
+        }
+    }
+}

@@ -5,6 +5,9 @@
     {% include "patterns/atoms/avatar/avatar.html" with avatar=author.image classes="avatar--small author__avatar" %}
 
     <div>
+        {% if author_attribution %}
+            <p class="author__attribution">{{ author_attribution }}</p>
+        {% endif %}
         {% if author.person_page %}
             <p class="author__name">
                 <a class="author__link" href="{% pageurl author.person_page %}" aria-label="By {{ author.name }}. View {{ author.name }}'s team profile page">

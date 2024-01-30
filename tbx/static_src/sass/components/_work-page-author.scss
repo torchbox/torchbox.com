@@ -1,0 +1,14 @@
+@use 'config' as *;
+
+.work-page-authors {
+    grid-column: 2 / span 5;
+    border-top: 1px solid var(--color--decoration);
+    padding-top: $spacer-small;
+    padding-right: $spacer-mini;
+    margin-bottom: $spacer-medium;
+
+    @include media-query(large) {
+        grid-column: 4 / span 8;
+        padding-right: 0;
+    }
+}

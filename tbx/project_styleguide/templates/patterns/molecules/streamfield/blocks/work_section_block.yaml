@@ -1,0 +1,8 @@
+context:
+  value:
+    title: The results
+
+tags:
+  include_block:
+    value.content:
+      template_name: 'patterns/molecules/streamfield/stream_block_work.html'

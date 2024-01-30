@@ -1,0 +1,56 @@
+@use "config" as *;
+
+.work-hero {
+    @include media-query(large) {
+        align-items: end;
+    }
+
+    &__left {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 2 / span 8;
+        }
+    }
+
+    &__right {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 11 / span 3;
+            grid-row: 1 / span 2;
+            margin-bottom: 7px; // aligns better with the bottom of the intro, accounting for line height
+        }
+    }
+
+    &__logo {
+        margin-bottom: $spacer-mini;
+        filter: grayscale(1) invert(1) brightness(1.5);
+
+        @include media-query(large) {
+            margin-bottom: $spacer-mini-plus;
+        }
+
+        @include high-contrast-light-mode() {
+            filter: none;
+        }
+    }
+
+    &__client {
+        @include font-size('body-two');
+        font-weight: $weight--semibold;
+    }
+
+    &__meta {
+        @include font-size('supporting');
+        margin-bottom: $spacer-mini;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-small;
+        }
+    }
+
+    &__divider {
+        margin: 0 7px;
+    }
+}
