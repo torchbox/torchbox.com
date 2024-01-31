@@ -43,6 +43,18 @@ class PartnersBlock(blocks.StructBlock):
 class CaseStudyStructValue(blocks.StructValue):
     @cached_property
     def featured_case_study_image(self):
+        """
+        Retrieve the main image for a featured case study.
+
+        This property attempts to fetch the main image associated with the current object.
+        If the object has a direct 'image' attribute, it returns that image.
+        If the object has a 'link' attribute, it checks the linked page's content type
+        and returns the corresponding image:
+            - If the linked page is a 'WorkPage', it returns the `header_image`.
+            - If the linked page is a 'HistoricalWorkPage', it returns the `feed_image`.
+
+        If no suitable image is found, it returns None.
+        """
         if image := self.get("image"):
             return image
         elif page := self.get("link"):
@@ -55,6 +67,16 @@ class CaseStudyStructValue(blocks.StructValue):
 
     @cached_property
     def featured_case_study_logo(self):
+        """
+        Retrieve the logo for a featured case study.
+
+        This property attempts to fetch the logo associated with the current object.
+        If the object has a direct 'logo' attribute, it returns that logo.
+        If the object has a 'link' attribute and the linked page is of type 'WorkPage',
+        it returns the logo from that page.
+
+        If no suitable logo is found, it returns None.
+        """
         if logo := self.get("logo"):
             return logo
         elif page := self.get("link"):
