@@ -42,6 +42,11 @@ h6 {
     @include heading-text();
     font-weight: $weight--light;
 
+    // Legacy CMS used italics in headings so reset that here
+    i {
+        font-style: normal;
+    }
+
     &--one {
         @include font-size(heading-one);
     }
