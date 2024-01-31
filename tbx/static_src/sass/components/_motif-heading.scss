@@ -11,7 +11,7 @@
         background-repeat: no-repeat;
         background-size: 100%;
         -webkit-text-fill-color: transparent;
-        animation: animateBackground 1.7s ease-in-out;
+        animation: motifAnimation 1.7s cubic-bezier(0.3, 0, 0.6, 1);
         background-origin: border-box;
 
         @include reduced-motion() {
@@ -19,7 +19,7 @@
         }
     }
 
-    @keyframes animateBackground {
+    @keyframes motifAnimation {
         0% {
             background-position: 120px -40px, -120px -90px;
         }
