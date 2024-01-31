@@ -182,6 +182,12 @@
                 grid-column: 5 / span 11;
             }
         }
+
+        &__stats {
+            @include media-query(large) {
+                grid-column: 5 / span 9;
+            }
+        }
     }
 
     // Service page alignment
