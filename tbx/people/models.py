@@ -8,7 +8,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from phonenumber_field.modelfields import PhoneNumberField
 from tbx.blog.models import BlogPage
-from tbx.core.utils.models import SocialFields
+from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.people.forms import ContactForm
 from tbx.work.models import HistoricalWorkPage, WorkIndexPage
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -19,7 +19,7 @@ from wagtail.signals import page_published
 from wagtail.snippets.models import register_snippet
 
 
-class PersonPage(SocialFields, Page):
+class PersonPage(ColourThemeMixin, SocialFields, Page):
     template = "patterns/pages/team/team_detail.html"
 
     parent_page_types = ["PersonIndexPage"]
@@ -41,13 +41,17 @@ class PersonPage(SocialFields, Page):
         index.SearchField("biography"),
     ]
 
-    content_panels = Page.content_panels + [
-        FieldPanel("role"),
-        FieldPanel("is_senior"),
-        FieldPanel("intro"),
-        FieldPanel("biography"),
-        FieldPanel("image"),
-    ]
+    content_panels = (
+        Page.content_panels
+        + ColourThemeMixin.content_panels
+        + [
+            FieldPanel("role"),
+            FieldPanel("is_senior"),
+            FieldPanel("intro"),
+            FieldPanel("biography"),
+            FieldPanel("image"),
+        ]
+    )
 
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
@@ -90,7 +94,7 @@ class PersonPage(SocialFields, Page):
 
 
 # Person index
-class PersonIndexPage(SocialFields, Page):
+class PersonIndexPage(ColourThemeMixin, SocialFields, Page):
     strapline = models.CharField(max_length=255)
 
     template = "patterns/pages/team/team_listing.html"
@@ -101,9 +105,13 @@ class PersonIndexPage(SocialFields, Page):
     def team(self):
         return PersonPage.objects.order_by("-is_senior", "title").live().public()
 
-    content_panels = Page.content_panels + [
-        FieldPanel("strapline"),
-    ]
+    content_panels = (
+        Page.content_panels
+        + ColourThemeMixin.content_panels
+        + [
+            FieldPanel("strapline"),
+        ]
+    )
 
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),

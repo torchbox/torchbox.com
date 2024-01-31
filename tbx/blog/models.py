@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
 from tbx.core.utils.cache import get_default_cache_control_decorator
-from tbx.core.utils.models import SocialFields
+from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.taxonomy.models import Service
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import StreamField
@@ -23,7 +23,7 @@ from wagtail.signals import page_published
 
 
 @method_decorator(get_default_cache_control_decorator(), name="serve")
-class BlogIndexPage(SocialFields, Page):
+class BlogIndexPage(ColourThemeMixin, SocialFields, Page):
     template = "patterns/pages/blog/blog_listing.html"
 
     subpage_types = ["BlogPage"]
@@ -88,13 +88,15 @@ class BlogIndexPage(SocialFields, Page):
         )
         return context
 
+    content_panels = Page.content_panels + ColourThemeMixin.content_panels
+
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
     ]
 
 
-class BlogPage(SocialFields, Page):
+class BlogPage(ColourThemeMixin, SocialFields, Page):
     template = "patterns/pages/blog/blog_detail.html"
 
     parent_page_types = ["BlogIndexPage"]
@@ -184,11 +186,15 @@ class BlogPage(SocialFields, Page):
     def type(self):
         return "BLOG POST"
 
-    content_panels = Page.content_panels + [
-        InlinePanel("authors", label="Author", min_num=1),
-        FieldPanel("date"),
-        FieldPanel("body"),
-    ]
+    content_panels = (
+        Page.content_panels
+        + ColourThemeMixin.content_panels
+        + [
+            InlinePanel("authors", label="Author", min_num=1),
+            FieldPanel("date"),
+            FieldPanel("body"),
+        ]
+    )
 
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
