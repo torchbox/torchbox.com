@@ -6,7 +6,7 @@
 {% image listing_image fill-370x335 format-webp as listing_mobile_image %}
 {% image listing_image fill-740x670 format-webp as listing_mobile_image_retina %}
 
-<li class="listing-image listing">
+<li class="listing-image listing {{ base_class }}">
     {# alt text is empty for consistency with listing--avatar.html that includes avatar.html which has empty alt text #}
     <picture class="listing-image__picture">
         <source media="(max-width: 598px)" srcset="{{  listing_mobile_image.url }} 1x, {{ listing_mobile_image_retina.url }} 2x" />
