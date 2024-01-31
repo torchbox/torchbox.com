@@ -11,8 +11,7 @@
         background-repeat: no-repeat;
         background-size: 100%;
         -webkit-text-fill-color: transparent;
-        animation: animateBackground 1.5s ease-in-out;
-        display: inline-block;
+        animation: animateBackground 1.7s ease-in-out;
         background-origin: border-box;
 
         @include reduced-motion() {
