@@ -7,7 +7,8 @@
         color: transparent;
         background-image: var(--letter-motif-two), var(--letter-motif-one);
         background-clip: text;
-        background-color: $color--white;
+        // background-color is essential here as a fallback for browsers that don't support background-clip
+        background-color: var(--color--heading);
         background-repeat: no-repeat;
         background-size: 100%;
         -webkit-text-fill-color: transparent;
