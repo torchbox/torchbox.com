@@ -27,7 +27,7 @@
 
     <div class="work-hero grid grid--spacer-large">
         <div class="work-hero__left">
-            <h1 class="heading heading--one-b mb-spacerMini md:mb-spacerSmall">{{ page.title }}</h1>
+            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.title classes="motif-heading--one-b mb-spacerMini md:mb-spacerSmall" %}
 
             {% block intro %}
                 {# intro content goes here - different for work page and historical work page #}
