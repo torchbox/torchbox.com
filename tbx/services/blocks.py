@@ -2,7 +2,7 @@ from django.utils.functional import cached_property
 
 from tbx.core.blocks import StoryBlock
 from wagtail import blocks
-from wagtail.blocks import CharBlock, StructBlock, PageChooserBlock
+from wagtail.blocks import CharBlock, PageChooserBlock, StructBlock
 from wagtail.images.blocks import ImageChooserBlock
 
 
@@ -115,7 +115,7 @@ class BlogChooserBlock(blocks.StructBlock):
 class WorkChooserBlock(blocks.StructBlock):
     featured_work_heading = CharBlock(max_length=255)
     work_pages = blocks.ListBlock(
-        PageChooserBlock(page_type=['work.WorkPage', 'work.HistoricalWorkPage']),
+        PageChooserBlock(page_type=["work.WorkPage", "work.HistoricalWorkPage"]),
         min_num=1,
         max_num=3,
     )

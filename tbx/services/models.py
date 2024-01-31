@@ -1,8 +1,5 @@
 from tbx.core.utils.models import SocialFields
-from wagtail.admin.panels import (
-    FieldPanel,
-    MultiFieldPanel,
-)
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 from wagtail.search import index
