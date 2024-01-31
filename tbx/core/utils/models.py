@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext as _
 
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
@@ -61,3 +62,42 @@ class SocialMediaSettings(BaseSiteSetting):
         default="{{ cookiecutter.project_name }}",
         help_text="Site name, used by Open Graph.",
     )
+
+
+class ColourTheme(models.TextChoices):
+    NONE = "", "None"
+    CORAL = "theme-coral", "Coral"
+    LAGOON = "theme-lagoon", "Lagoon"
+    BANANA = "theme-banana", "Banana"
+
+
+class ColourThemeMixin(models.Model):
+    """
+    Provides a `theme` field to allow pages to be styled with a colour theme.
+    """
+
+    theme = models.CharField(
+        max_length=25,
+        blank=True,
+        choices=ColourTheme.choices,
+        help_text=_(
+            "The theme will be applied to this page and all of it's "
+            "descendants. If no theme is selected, it will be derived from "
+            "this page's ancestors."
+        ),
+    )
+
+    @property
+    def theme_class(self):
+        if theme := self.theme:
+            return theme
+        if parent := self.get_parent():
+            specific_parent = parent.get_specific(deferred=True)
+            if not parent.is_root() and hasattr(specific_parent, "theme"):
+                return specific_parent.theme_class
+        return ColourTheme.NONE
+
+    content_panels = [FieldPanel("theme")]
+
+    class Meta:
+        abstract = True
