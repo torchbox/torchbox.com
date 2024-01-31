@@ -4,24 +4,28 @@
     $root: &;
 
     &__drop-cap {
-        -webkit-text-fill-color: transparent;
-        background: var(--letter-motif), no-repeat;
-        background-size: 200% 150%;
+        color: transparent;
+        background-image: var(--letter-motif-two), var(--letter-motif-one);
         background-clip: text;
-        animation: motifAnimation 0.75s ease-out;
-        background-position: top left;
-
-        @keyframes motifAnimation {
-            0% {
-                background-position: bottom right;
-            }
-            100% {
-                background-position: top left;
-            }
-        }
+        background-color: $color--white;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        -webkit-text-fill-color: transparent;
+        animation: animateBackground 1.5s ease-in-out;
+        display: inline-block;
+        background-origin: border-box;
 
         @include reduced-motion() {
             animation: none;
+        }
+    }
+
+    @keyframes animateBackground {
+        0% {
+            background-position: 120px -40px, -120px -90px;
+        }
+        100% {
+            background-position: 0 0, 0 0;
         }
     }
 
