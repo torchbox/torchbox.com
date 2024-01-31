@@ -27,17 +27,7 @@
                     <span class="listing__name mr-1.5">{{ name }}</span>
                 </p>
                 <p class="listing__meta">
-                    {% if date %}
-                        <time datetime="{{ page.date|date:'Y-m-d' }}">{{ date }}</time>
-                    {% endif %}
-
-                    {% if reading_time and date %}
-                        <span aria-hidden="true" class="listing__divider">/</span>
-                    {% endif %}
-
-                    {% if reading_time %}
-                        {{ reading_time }} min{{ reading_time|pluralize }} read
-                    {% endif %}
+                    {% include "patterns/atoms/date_and_reading_time/date_and_reading_time.html" %}
                 </p>
             </div>
         </div>

@@ -1,5 +1,7 @@
 context:
   item:
+    date: 21 jan 2024
+    read_time: '5'
     author:
       name: Paul Vetch
       role: Strategy Director

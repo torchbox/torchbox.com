@@ -135,6 +135,10 @@ class HistoricalWorkPage(SocialFields, Page):
             return "x"
 
     @property
+    def listing_image(self):
+        return self.homepage_image
+
+    @property
     def type(self):
         return "CASE STUDY"
 
@@ -267,6 +271,21 @@ class WorkPage(SocialFields, Page):
             return math.ceil(self.body_word_count / 275)
         else:
             return "x"
+
+    @property
+    def listing_image(self):
+        return self.header_image
+
+    @property
+    def work_index(self):
+        ancestor = WorkIndexPage.objects.ancestor_of(self).order_by("-depth").first()
+
+        if ancestor:
+            return ancestor
+        else:
+            # No ancestors are work indexes,
+            # just return first work index in database
+            return WorkIndexPage.objects.live().public().first()
 
 
 # Work index page

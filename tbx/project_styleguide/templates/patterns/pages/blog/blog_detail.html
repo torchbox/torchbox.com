@@ -44,12 +44,7 @@
         </div>
 
         <div class="blog-meta">
-            <time datetime="{{ item.date|date:'Y-m-d' }}">{{ page.date }}</time>
-
-            {% if page.read_time %}
-                <span aria-hidden="true" class="blog-meta__divider">/</span>
-                {{ page.read_time }} min{{ page.read_time|pluralize }} read
-            {% endif %}
+            {% include "patterns/atoms/date_and_reading_time/date_and_reading_time.html" with date=page.date reading_time=page.read_time %}
         </div>
 
         {% include_block page.body %}
@@ -59,7 +54,7 @@
 
             <ul class="grid__related-posts streamfield__related-posts">
                 {% for post in page.related_blog_posts %}
-                    {% include "patterns/molecules/listing/listing--avatar.html" with title=post.title name=post.author.name job_title=post.author.role link=post.url date=post.date reading_time=post.read_time tags=post.related_services listing_image=post.listing_image avatar=post.author.image tag_link_base=blog_index_url %}
+                    {% include "patterns/molecules/listing/listing--avatar.html" with title=post.title name=post.author.name job_title=post.author.role link=post.url date=post.date reading_time=post.read_time tags=post.related_services avatar=post.author.image tag_link_base=blog_index_url %}
                 {% endfor %}
 
                 <li class="mx-auto lg:mx-0 mt-spacerSmall">

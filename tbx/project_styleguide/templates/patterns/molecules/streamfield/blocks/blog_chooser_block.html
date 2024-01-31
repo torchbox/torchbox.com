@@ -1,0 +1,9 @@
+{% load wagtailcore_tags %}
+{% include "patterns/atoms/section-title/section-title.html" with title=value.featured_blog_heading classes="section-title--related-posts" %}
+
+<ul class="grid__related-posts streamfield__related-posts">
+    {% for blog_page in value.blog_pages %}
+        {% pageurl blog_page.blog_index as blog_index_url %}
+        {% include "patterns/molecules/listing/listing--avatar.html" with title=blog_page.title name=blog_page.first_author.name job_title=blog_page.first_author.role link=blog_page.url date=blog_page.date reading_time=blog_page.read_time tags=blog_page.related_services.all avatar=blog_page.first_author.image %}
+    {% endfor %}
+</ul>

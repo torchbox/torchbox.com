@@ -8,8 +8,8 @@
 
         @include media-query(large) {
             margin-top: $spacer-x-large;
-            margin-bottom: $spacer-half;
-            grid-column: 2 / span 2;
+            margin-bottom: $spacer-medium;
+            grid-column: 2 / span 12;
         }
 
         &::first-letter {
