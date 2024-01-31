@@ -97,7 +97,7 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
     class Meta:
         icon = "bars"
         value_class = CaseStudyStructValue
-        template = "patterns/molecules/streamfield/blocks/featured_case_study.html",
+        template = ("patterns/molecules/streamfield/blocks/featured_case_study.html",)
 
 
 class BlogChooserBlock(blocks.StructBlock):
