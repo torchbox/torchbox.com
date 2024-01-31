@@ -2,7 +2,7 @@
 
 <div class="title-filters">
     <div class="title-filters__title">
-        <h1 class="heading heading--one">{{ item.title }}</h1>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=item.title classes="motif-heading--one" %}
     </div>
     {# todo: see if this is needed when implementing the team page #}
     {% comment %} {% if meta %}

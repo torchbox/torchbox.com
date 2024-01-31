@@ -110,14 +110,12 @@
     Drop cap - used for heading one, heading one-b and heading two
 */
 @mixin drop-cap($small-size, $large-size) {
-    &::first-letter {
-        @include rem-font-size($small-size);
-        line-height: 1; // Reset line height to 1 to avoid spacing issues
-        font-weight: $weight--medium;
+    @include rem-font-size($small-size);
+    line-height: 1; // Reset line height to 1 to avoid spacing issues
+    font-weight: $weight--semibold;
 
-        @include media-query(large) {
-            @include rem-font-size($large-size);
-        }
+    @include media-query(large) {
+        @include rem-font-size($large-size);
     }
 }
 

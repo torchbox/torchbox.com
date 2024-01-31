@@ -42,14 +42,23 @@ h6 {
     @include heading-text();
     font-weight: $weight--light;
 
+    // Legacy CMS used italics in headings so reset that here
+    i {
+        font-style: normal;
+    }
+
+    b {
+        // <b> tags were used in the legacy CMS within headings
+        // so we're resetting the font-style here
+        font-weight: inherit;
+    }
+
     &--one {
         @include font-size(heading-one);
-        @include drop-cap(100px, 160px);
     }
 
     &--one-b {
         @include font-size(heading-one-b);
-        @include drop-cap(80px, 150px);
     }
 
     &--two {

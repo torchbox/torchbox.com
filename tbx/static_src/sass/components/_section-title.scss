@@ -2,7 +2,6 @@
 
 .section-title {
     &--related-posts {
-        @include drop-cap(72px, 90px);
         margin-bottom: $spacer-small;
         margin-top: $spacer-medium;
         grid-column: 2 / span 4;
@@ -11,6 +10,10 @@
             margin-top: $spacer-x-large;
             margin-bottom: $spacer-half;
             grid-column: 2 / span 2;
+        }
+
+        &::first-letter {
+            @include drop-cap(72px, 90px);
         }
     }
 }

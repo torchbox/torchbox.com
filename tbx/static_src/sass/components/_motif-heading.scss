@@ -1,0 +1,55 @@
+@use "config" as *;
+
+.motif-heading {
+    $root: &;
+
+    &__drop-cap {
+        color: transparent;
+        background-image: var(--letter-motif-two), var(--letter-motif-one);
+        background-clip: text;
+        // background-color is essential here as a fallback for browsers that don't support background-clip
+        background-color: var(--color--heading);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        -webkit-text-fill-color: transparent;
+        animation: motifAnimation 1.7s cubic-bezier(0.3, 0, 0.6, 1);
+        background-origin: border-box;
+
+        @include reduced-motion() {
+            animation: none;
+        }
+    }
+
+    @keyframes motifAnimation {
+        0% {
+            background-position: 120px -40px, -120px -90px;
+        }
+        100% {
+            background-position: 0 0, 0 0;
+        }
+    }
+
+    &--one {
+        @include font-size(heading-one);
+
+        #{$root}__drop-cap {
+            @include drop-cap(100px, 160px);
+        }
+    }
+
+    &--one-b {
+        @include font-size(heading-one-b);
+
+        #{$root}__drop-cap {
+            @include drop-cap(80px, 150px);
+        }
+    }
+
+    &--two {
+        @include font-size(heading-two);
+
+        #{$root}__drop-cap {
+            @include drop-cap(72px, 90px);
+        }
+    }
+}

@@ -1,5 +1,5 @@
 <div class="p-4 flex items-center justify-between">
-    <h1 class="heading--one">Styleguide</h1>
+    <h1 class="heading heading--one">Styleguide</h1>
     <div class="flex items-center gap-2">
         <label for="theme-chooser">Choose a theme:</label>
         <select name="theme-chooser" id="theme-chooser" class="p-2 text-black select" onchange="changeTheme(this.value)">
@@ -10,6 +10,11 @@
 </div>
 
 <div class="p-4 flex flex-col gap-y-16">
+    <div>
+        <h2 class="underline mb-2">Letter Motif</h2>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with classes="motif-heading--one" %}
+    </div>
+
     <div>
         <h2 class="underline mb-2">Avatar</h2>
         {% include "patterns/atoms/avatar/avatar.html" %}
