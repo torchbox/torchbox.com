@@ -95,7 +95,7 @@ class HistoricalWorkPage(SocialFields, Page):
         ).split()
         self.body_word_count = len(body_words)
 
-    @property
+    @cached_property
     def work_index(self):
         ancestor = WorkIndexPage.objects.ancestor_of(self).order_by("-depth").first()
 
@@ -276,7 +276,7 @@ class WorkPage(SocialFields, Page):
     def listing_image(self):
         return self.header_image
 
-    @property
+    @cached_property
     def work_index(self):
         ancestor = WorkIndexPage.objects.ancestor_of(self).order_by("-depth").first()
 

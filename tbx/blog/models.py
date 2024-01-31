@@ -154,7 +154,7 @@ class BlogPage(SocialFields, Page):
             .exclude(pk=self.pk)[:3]
         ]
 
-    @property
+    @cached_property
     def blog_index(self):
         ancestor = BlogIndexPage.objects.ancestor_of(self).order_by("-depth").first()
 
