@@ -15,7 +15,6 @@
     </picture>
 
     <div>
-        {% if client %}<span>{{ client }}</span>{% endif %}
         <a class="listing-image__link listing__link" href="{{ link }}">
             <h2 class="listing-image__title listing__title">
                 {# The title and icon need to be on the same line with no whitespace to prevent the arrow being orphaned on a new line #}
@@ -26,10 +25,19 @@
             <div>
                 <p class="listing__details-group">
                     <span class="listing__name mr-1.5">{{ name }}</span>
-                    {% if job_title %}<span class="listing__job-title">{{ job_title }}</span>{% endif %}
                 </p>
                 <p class="listing__meta">
-                    <span class="mr-1.5">{{ date }}{% if reading_time %},{% endif %}</span> {% if reading_time %}{{ reading_time }} min{{ reading_time|pluralize }} read{% endif %}
+                    {% if date %}
+                        <time datetime="{{ page.date|date:'Y-m-d' }}">{{ date }}</time>
+                    {% endif %}
+
+                    {% if reading_time and date %}
+                        <span aria-hidden="true" class="listing__divider">/</span>
+                    {% endif %}
+
+                    {% if reading_time %}
+                        {{ reading_time }} min{{ reading_time|pluralize }} read
+                    {% endif %}
                 </p>
             </div>
         </div>
