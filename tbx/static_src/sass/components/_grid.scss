@@ -81,9 +81,11 @@
     }
 
     &__image {
+        margin-bottom: $spacer-medium;
         grid-column: 1 / span 6;
 
         @include media-query(large) {
+            margin-bottom: $spacer-large;
             grid-column: 4 / span 11;
         }
     }
@@ -111,6 +113,16 @@
 
         @include media-query(large) {
             grid-column: 2 / span 3;
+        }
+    }
+
+    &__showcase {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 2 / span 11;
         }
     }
 
@@ -173,13 +185,38 @@
         }
     }
 
-    &__featured-case-study {
-        margin-bottom: $spacer-medium;
-        grid-column: 1 / span 6;
+    // Service page alignment
+    .template-service-page & {
+        &__heading,
+        &__intro,
+        &__title {
+            @include media-query(large) {
+                grid-column: 2 / span 12;
+            }
+        }
 
-        @include media-query(large) {
-            margin-bottom: $spacer;
-            grid-column: 1 / span 13;
+        &__raw-html,
+        &__markdown,
+        &__paragraph {
+            @include media-query(large) {
+                grid-column: 2 / span 7;
+            }
+        }
+
+        &__quote {
+            @include media-query(large) {
+                grid-column: 2 / span 9;
+            }
+        }
+
+        &__featured-case-study {
+            margin-bottom: $spacer-medium;
+            grid-column: 1 / span 6;
+
+            @include media-query(large) {
+                margin-bottom: $spacer;
+                grid-column: 1 / span 13;
+            }
         }
     }
 }
