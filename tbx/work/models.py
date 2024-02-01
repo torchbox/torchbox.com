@@ -350,8 +350,7 @@ class WorkIndexPage(SocialFields, Page):
                 "date": work.date,
                 "related_services": work.related_services.all(),
                 "read_time": work.read_time,
-                "listing_image": getattr(work, "header_image", None)
-                or getattr(work, "homepage_image", None),
+                "listing_image": work.listing_image,
             }
             for work in works
         ]
