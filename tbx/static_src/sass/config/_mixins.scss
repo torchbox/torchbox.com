@@ -112,7 +112,7 @@
 @mixin drop-cap($small-size, $large-size) {
     @include rem-font-size($small-size);
     line-height: 1; // Reset line height to 1 to avoid spacing issues
-    font-weight: $weight--semibold;
+    font-weight: $weight--medium;
 
     @include media-query(large) {
         @include rem-font-size($large-size);
