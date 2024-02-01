@@ -1,0 +1,59 @@
+context:
+  value:
+    featured_work_heading: Case studies
+    work_pages:
+      - title: Imagining and designing a future product for MQ in 5 days flat
+        specific:
+          client: 'MQ: Transforming Mental Health'
+          date: 26 Sep 2018
+          read_time: '3'
+          related_services:
+            all:
+              - name: Digital products
+                slug: digital-products
+              - name: Wagtail
+                slug: wagtail
+      - title: Multi-awarding winning site for one of the world's leading universities
+        specific:
+          client: University of Oxford
+          date: 19 Feb 2016
+          read_time: '4'
+          related_services:
+            all:
+              - name: Digital products
+                slug: digital-products
+      - title: A PWA in 4 weeks for Mozilla (oh yeah!)
+        specific:
+          client: Mozilla
+          date: 5 Dec 2018
+          read_time: '4'
+          related_services:
+            all:
+              - name: Digital products
+                slug: digital-products
+
+tags:
+  pageurl:
+    work_page.specific.work_index as work_index_url:
+      raw: '/'
+  image:
+    listing_image fill-370x370 format-webp as listing_desktop_image:
+      target_var: listing_desktop_image
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/370x370?trees'
+    listing_image fill-740x740 format-webp as listing_desktop_image_retina:
+      target_var: listing_desktop_image_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/740x740?trees'
+    listing_image fill-370x335 format-webp as listing_mobile_image:
+      target_var: listing_mobile_image
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/370x335?trees'
+    listing_image fill-740x670 format-webp as listing_mobile_image_retina:
+      target_var: listing_mobile_image_retina
+      raw:
+        alt: 'mobile image retina'
+        url: 'https://source.unsplash.com/740x670?trees'

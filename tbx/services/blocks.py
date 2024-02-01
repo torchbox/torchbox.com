@@ -2,7 +2,7 @@ from django.utils.functional import cached_property
 
 from tbx.core.blocks import StoryBlock
 from wagtail import blocks
-from wagtail.blocks import CharBlock, StructBlock
+from wagtail.blocks import CharBlock, PageChooserBlock, StructBlock
 from wagtail.images.blocks import ImageChooserBlock
 
 
@@ -97,18 +97,38 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
     class Meta:
         icon = "bars"
         value_class = CaseStudyStructValue
+        template = ("patterns/molecules/streamfield/blocks/featured_case_study.html",)
+
+
+class BlogChooserBlock(blocks.StructBlock):
+    featured_blog_heading = CharBlock(max_length=255)
+    blog_pages = blocks.ListBlock(
+        PageChooserBlock(page_type="blog.BlogPage"),
+        min_num=1,
+        max_num=3,
+    )
+
+    class Meta:
+        icon = "link"
+        template = "patterns/molecules/streamfield/blocks/blog_chooser_block.html"
+
+
+class WorkChooserBlock(blocks.StructBlock):
+    featured_work_heading = CharBlock(max_length=255)
+    work_pages = blocks.ListBlock(
+        PageChooserBlock(page_type=["work.WorkPage", "work.HistoricalWorkPage"]),
+        min_num=1,
+        max_num=3,
+    )
+
+    class Meta:
+        icon = "link"
+        template = "patterns/molecules/streamfield/blocks/work_chooser_block.html"
 
 
 class ServiceStoryBlock(StoryBlock):
-    partners_block = PartnersBlock(
-        icon="openquote",
-        label="Partners logos",
-        template="patterns/molecules/streamfield/blocks/partners_block.html",
-    )
-    showcase = ShowcaseBlock(
-        icon="tasks",
-        template="patterns/molecules/streamfield/blocks/showcase_block.html",
-    )
-    featured_case_study = FeaturedCaseStudyBlock(
-        template="patterns/molecules/streamfield/blocks/featured_case_study.html",
-    )
+    partners_block = PartnersBlock()
+    showcase = ShowcaseBlock()
+    featured_case_study = FeaturedCaseStudyBlock()
+    blog_chooser = BlogChooserBlock()
+    work_chooser = WorkChooserBlock()

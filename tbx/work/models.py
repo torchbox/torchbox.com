@@ -95,7 +95,7 @@ class HistoricalWorkPage(SocialFields, Page):
         ).split()
         self.body_word_count = len(body_words)
 
-    @property
+    @cached_property
     def work_index(self):
         ancestor = WorkIndexPage.objects.ancestor_of(self).order_by("-depth").first()
 
@@ -133,6 +133,10 @@ class HistoricalWorkPage(SocialFields, Page):
             return math.ceil(self.body_word_count / 275)
         else:
             return "x"
+
+    @property
+    def listing_image(self):
+        return self.homepage_image
 
     @property
     def type(self):
@@ -268,6 +272,21 @@ class WorkPage(SocialFields, Page):
         else:
             return "x"
 
+    @property
+    def listing_image(self):
+        return self.header_image
+
+    @cached_property
+    def work_index(self):
+        ancestor = WorkIndexPage.objects.ancestor_of(self).order_by("-depth").first()
+
+        if ancestor:
+            return ancestor
+        else:
+            # No ancestors are work indexes,
+            # just return first work index in database
+            return WorkIndexPage.objects.live().public().first()
+
 
 # Work index page
 class WorkIndexPage(SocialFields, Page):
@@ -331,8 +350,7 @@ class WorkIndexPage(SocialFields, Page):
                 "date": work.date,
                 "related_services": work.related_services.all(),
                 "read_time": work.read_time,
-                "listing_image": getattr(work, "header_image", None)
-                or getattr(work, "homepage_image", None),
+                "listing_image": work.listing_image,
             }
             for work in works
         ]

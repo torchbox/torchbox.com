@@ -44,17 +44,7 @@
             </p>
 
             <p class="work-hero__meta">
-                {% if page.date %}
-                    <time datetime="{{ page.date|date:'Y-m-d' }}">{{ page.date }}</time>
-                {% endif %}
-
-                {% if page.read_time and page.date %}
-                    <span aria-hidden="true" class="work-hero__divider">/</span>
-                {% endif %}
-
-                {% if page.read_time %}
-                    {{ page.read_time }} min{{ page.read_time|pluralize }} read
-                {% endif %}
+                {% include "patterns/atoms/date_and_reading_time/date_and_reading_time.html" with date=page.date reading_time=page.read_time %}
             </p>
 
             <div class="tags">
@@ -92,7 +82,7 @@
         </div>
 
         {% if page.related_works %}
-            {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Related work pages" classes="section-title--related-posts" %}
+            {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Related work pages" classes="section-title--related-posts section-title--large-gap" %}
 
             <ul class="grid__related-posts streamfield__related-posts">
                 {% for work_page in page.related_works %}
