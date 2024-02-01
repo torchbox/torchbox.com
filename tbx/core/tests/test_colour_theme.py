@@ -29,15 +29,19 @@ class TestColourTheme(WagtailPageTestCase):
 
     def test_no_theme_applied(self):
         for page in [self.home, self.blogindex, self.workindex]:
+            self.assertEqual(page.theme, ColourTheme.NONE)
             self.assertEqual(page.theme_class, ColourTheme.NONE)
 
         blog = BlogPageFactory(parent=self.blogindex)
+        self.assertEqual(blog.theme, ColourTheme.NONE)
         self.assertEqual(blog.theme_class, ColourTheme.NONE)
 
         work = WorkPageFactory(parent=self.workindex)
+        self.assertEqual(work.theme, ColourTheme.NONE)
         self.assertEqual(work.theme_class, ColourTheme.NONE)
 
         std_page = StandardPageFactory(parent=work)
+        self.assertEqual(std_page.theme, ColourTheme.NONE)
         self.assertEqual(std_page.theme_class, ColourTheme.NONE)
 
         # -------------------------------------------
@@ -61,17 +65,25 @@ class TestColourTheme(WagtailPageTestCase):
         self.home.save()
         self.home.refresh_from_db()
 
+        self.assertEqual(self.home.theme, ColourTheme.CORAL)
         self.assertEqual(self.home.theme_class, ColourTheme.CORAL)
+
+        self.assertEqual(self.blogindex.theme, ColourTheme.NONE)
         self.assertEqual(self.blogindex.theme_class, ColourTheme.CORAL)
+
+        self.assertEqual(self.workindex.theme, ColourTheme.NONE)
         self.assertEqual(self.workindex.theme_class, ColourTheme.CORAL)
 
         blog = BlogPageFactory(parent=self.blogindex)
+        self.assertEqual(blog.theme, ColourTheme.NONE)
         self.assertEqual(blog.theme_class, ColourTheme.CORAL)
 
         work = WorkPageFactory(parent=self.workindex)
+        self.assertEqual(work.theme, ColourTheme.NONE)
         self.assertEqual(work.theme_class, ColourTheme.CORAL)
 
         std_page = StandardPageFactory(parent=work)
+        self.assertEqual(std_page.theme, ColourTheme.NONE)
         self.assertEqual(std_page.theme_class, ColourTheme.CORAL)
 
         # -------------------------------------------
@@ -96,15 +108,20 @@ class TestColourTheme(WagtailPageTestCase):
         self.blogindex.save()
         self.blogindex.refresh_from_db()
 
+        self.assertEqual(self.home.theme, ColourTheme.NONE)
         self.assertEqual(self.home.theme_class, ColourTheme.NONE)
+
+        self.assertEqual(self.blogindex.theme, ColourTheme.LAGOON)
         self.assertEqual(self.blogindex.theme_class, ColourTheme.LAGOON)
 
         # child of blogindex
         blog = BlogPageFactory(parent=self.blogindex)
+        self.assertEqual(blog.theme, ColourTheme.NONE)
         self.assertEqual(blog.theme_class, ColourTheme.LAGOON)
 
         # grandchild of blogindex
         std_page = StandardPageFactory(parent=blog)
+        self.assertEqual(std_page.theme, ColourTheme.NONE)
         self.assertEqual(std_page.theme_class, ColourTheme.LAGOON)
 
         # -------------------------------------------
@@ -141,29 +158,40 @@ class TestColourTheme(WagtailPageTestCase):
         self.workindex.save()
         self.workindex.refresh_from_db()
 
+        self.assertEqual(self.home.theme, ColourTheme.NONE)
         self.assertEqual(self.home.theme_class, ColourTheme.NONE)
+
+        self.assertEqual(self.blogindex.theme, ColourTheme.NONE)
         self.assertEqual(self.blogindex.theme_class, ColourTheme.NONE)
+
+        self.assertEqual(self.workindex.theme, ColourTheme.BANANA)
         self.assertEqual(self.workindex.theme_class, ColourTheme.BANANA)
 
         # child of workindex
         work = HistoricalWorkPageFactory(parent=self.workindex)
+        self.assertEqual(work.theme, ColourTheme.NONE)
         self.assertEqual(work.theme_class, ColourTheme.BANANA)
 
         # another child of workindex, this time we set the theme
-        morework = HistoricalWorkPageFactory(parent=self.workindex)
-        morework.theme = ColourTheme.CORAL
-        morework.save()
-        morework.refresh_from_db()
+        morework = HistoricalWorkPageFactory(
+            parent=self.workindex, theme=ColourTheme.CORAL
+        )
+
+        self.assertEqual(morework.theme, ColourTheme.CORAL)
         self.assertEqual(morework.theme_class, ColourTheme.CORAL)
         # sibling shouldn't be affected
+        self.assertEqual(work.theme, ColourTheme.NONE)
         self.assertEqual(work.theme_class, ColourTheme.BANANA)
         # parent shouldn't be affected
+        self.assertEqual(self.workindex.theme, ColourTheme.BANANA)
         self.assertEqual(self.workindex.theme_class, ColourTheme.BANANA)
 
         # child of morework
         std_page = StandardPageFactory(parent=morework)
-        # should inherit parent's theme
+        # `theme_class` should be inherited from parent
         self.assertEqual(std_page.theme_class, ColourTheme.CORAL)
+        # but `theme` should remain unset
+        self.assertEqual(std_page.theme, ColourTheme.NONE)
 
         # -------------------------------------------
         # Now we check the templates for css classes

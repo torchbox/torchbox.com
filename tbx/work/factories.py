@@ -1,6 +1,6 @@
 import factory
 import wagtail_factories
-from tbx.core.factories import RichTextBlockFactory, StoryBlockFactory
+from tbx.core.factories import StoryBlockFactory
 from tbx.images.factories import CustomImageFactory
 from tbx.taxonomy.factories import ServiceFactory
 from tbx.work.models import HistoricalWorkPage, WorkIndexPage, WorkPage
@@ -8,7 +8,6 @@ from tbx.work.models import HistoricalWorkPage, WorkIndexPage, WorkPage
 
 class WorkIndexPageFactory(wagtail_factories.PageFactory):
     title = factory.Faker("text", max_nb_chars=100)
-    intro = factory.SubFactory(RichTextBlockFactory)
 
     class Meta:
         model = WorkIndexPage
