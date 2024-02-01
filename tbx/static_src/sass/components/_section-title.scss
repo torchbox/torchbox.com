@@ -7,13 +7,19 @@
         grid-column: 2 / span 4;
 
         @include media-query(large) {
-            margin-top: $spacer-x-large;
+            margin-top: $spacer-medium;
             margin-bottom: $spacer-medium;
             grid-column: 2 / span 12;
         }
 
         &::first-letter {
             @include drop-cap(72px, 90px);
+        }
+    }
+
+    &--large-gap {
+        @include media-query(large) {
+            margin-top: $spacer-x-large;
         }
     }
 }
