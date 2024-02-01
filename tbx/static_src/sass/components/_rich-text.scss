@@ -18,7 +18,7 @@
     }
 
     h2 {
-        @include font-size(heading-two);
+        @include font-size(heading-two-b);
         @include rich-text-heading-spacing();
     }
 
