@@ -81,7 +81,7 @@ class ColourThemeMixin(models.Model):
         blank=True,
         choices=ColourTheme.choices,
         help_text=_(
-            "The theme will be applied to this page and all of it's "
+            "The theme will be applied to this page and all of its "
             "descendants. If no theme is selected, it will be derived from "
             "this page's ancestors."
         ),
