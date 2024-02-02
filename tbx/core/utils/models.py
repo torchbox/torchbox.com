@@ -91,11 +91,15 @@ class ColourThemeMixin(models.Model):
     def theme_class(self):
         if theme := self.theme:
             return theme
-        if parent := self.get_parent():
-            specific_parent = parent.get_specific(deferred=True)
-            if not parent.is_root() and hasattr(specific_parent, "theme"):
-                return specific_parent.theme_class
-        return ColourTheme.NONE
+
+        try:
+            return next(
+                p.theme
+                for p in self.get_ancestors().specific().order_by("-depth")
+                if getattr(p, "theme", ColourTheme.NONE) != ColourTheme.NONE
+            )
+        except StopIteration:
+            return ColourTheme.NONE
 
     content_panels = [FieldPanel("theme")]
 
