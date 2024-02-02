@@ -1,9 +1,8 @@
+from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 from wagtail.search import index
-
-from tbx.core.utils.models import ColourThemeMixin, SocialFields
 
 from .blocks import ServiceStoryBlock
 
