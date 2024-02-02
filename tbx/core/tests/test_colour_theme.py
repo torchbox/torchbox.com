@@ -27,7 +27,9 @@ class TestColourTheme(WagtailPageTestCase):
         self.blogindex = BlogIndexPageFactory(title="Blog", parent=self.home)
         self.workindex = WorkIndexPageFactory(title="Work", parent=self.home)
 
-        self.themes = [theme for theme, _ in ColourTheme.choices if theme != ""]
+        self.themes = [
+            theme for theme, _ in ColourTheme.choices if theme != ColourTheme.NONE
+        ]
 
     def test_no_theme_applied(self):
         for page in [self.home, self.blogindex, self.workindex]:
