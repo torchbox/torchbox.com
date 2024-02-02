@@ -100,10 +100,14 @@
     }
 
     &__work-image {
-        grid-column: 2 / span 4;
+        grid-column: 1 / span 5;
 
         @include media-query(large) {
             grid-column: 1 / span 13;
+        }
+
+        img {
+            width: 100%;
         }
     }
 
@@ -180,6 +184,12 @@
         &__image {
             @include media-query(large) {
                 grid-column: 5 / span 11;
+            }
+        }
+
+        &__stats {
+            @include media-query(large) {
+                grid-column: 5 / span 9;
             }
         }
     }

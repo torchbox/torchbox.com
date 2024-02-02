@@ -5,10 +5,6 @@
 .listing {
     list-style-type: none;
 
-    &__link {
-        @include link-styles(var(--color--heading), var(--color--heading));
-    }
-
     &__title {
         @include font-size('heading-four');
         margin-bottom: $spacer-mini;
@@ -16,6 +12,19 @@
         @include media-query(medium) {
             margin-bottom: $spacer-mini-plus;
         }
+
+        &:focus {
+            @include focus-style();
+        }
+    }
+
+    &__title-text {
+        @include link-styles(
+            var(--color--heading),
+            var(--color--heading),
+            false,
+            8px
+        );
     }
 
     &__details {

@@ -3,8 +3,22 @@
 .rich-text {
     @include font-size(body);
 
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: $weight--light;
+
+        b {
+            // <b> tags were used in the legacy CMS within headings
+            // so we're resetting the font-style here
+            font-weight: inherit;
+        }
+    }
+
     h2 {
-        @include font-size(heading-two);
+        @include font-size(heading-two-b);
         @include rich-text-heading-spacing();
     }
 
