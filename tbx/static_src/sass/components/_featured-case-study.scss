@@ -128,7 +128,7 @@
     }
 
     &__company-logo {
-        filter: grayscale(1);
+        filter: grayscale(1) invert(1) brightness(1.5);
         position: absolute;
         bottom: 30px;
         left: 30px;
@@ -139,6 +139,10 @@
             left: auto;
             top: 30px;
             right: 30px;
+        }
+
+        @include high-contrast-light-mode() {
+            filter: none;
         }
     }
 }
