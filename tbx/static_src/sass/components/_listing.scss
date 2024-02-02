@@ -19,7 +19,12 @@
     }
 
     &__title-text {
-        @include link-styles(var(--color--heading), var(--color--heading));
+        @include link-styles(
+            var(--color--heading),
+            var(--color--heading),
+            false,
+            8px
+        );
     }
 
     &__details {

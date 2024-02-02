@@ -135,12 +135,13 @@
 @mixin link-styles(
     $color: var(--color--text),
     $interaction-color: var(--color--text),
-    $shadow: false
+    $shadow: false,
+    $offset: 2px
 ) {
     color: $color;
     text-decoration: underline;
     text-decoration-thickness: $link-underline-thickness;
-    text-underline-offset: 2px;
+    text-underline-offset: $offset;
 
     &:hover {
         color: $interaction-color;
