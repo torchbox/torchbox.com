@@ -28,7 +28,7 @@
                 </p>
                 <p class="listing__meta">
                     {% if date %}
-                        <time datetime="{{ page.date|date:'Y-m-d' }}">{{ date }}</time>
+                        <time datetime="{{ page.date|date }}">{{ date }}</time>
                     {% endif %}
 
                     {% if reading_time and date %}
