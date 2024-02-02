@@ -60,6 +60,10 @@ jobs:
       - if: steps.node-cache.outputs.cache-hit != 'true'
         run: npm ci --no-audit
       - run: npm run build:prod
+      - uses: actions/upload-artifact@v4
+        with:
+          name: static
+          path: tbx/static_compiled/
   test_python:
     needs: lint
     runs-on: ubuntu-latest
@@ -90,6 +94,10 @@ jobs:
         with:
           python-version: 3.11
           cache: 'poetry'
+      - uses: actions/download-artifact@v4
+        with:
+          name: static
+          path: tbx/static_compiled/
       - name: Install Python dependencies
         run: poetry install
       - name: collectstatic

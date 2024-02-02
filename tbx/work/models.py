@@ -12,7 +12,7 @@ from django.utils.http import urlencode
 from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
-from tbx.core.utils.models import SocialFields
+from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.taxonomy.models import Service
 from tbx.work.blocks import WorkStoryBlock
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -36,7 +36,7 @@ class HistoricalWorkPageScreenshot(Orderable):
     ]
 
 
-class HistoricalWorkPage(SocialFields, Page):
+class HistoricalWorkPage(ColourThemeMixin, SocialFields, Page):
     """
     This represents Work Pages as they were prior to the 2024
     rebuild of the site. It is kept here to display the older
@@ -142,15 +142,19 @@ class HistoricalWorkPage(SocialFields, Page):
     def type(self):
         return "CASE STUDY"
 
-    content_panels = Page.content_panels + [
-        FieldPanel("client", classname="client"),
-        InlinePanel("authors", label="Author", min_num=1),
-        FieldPanel("date"),
-        FieldPanel("body"),
-        FieldPanel("homepage_image"),
-        InlinePanel("screenshots", label="Screenshots"),
-        FieldPanel("visit_the_site"),
-    ]
+    content_panels = (
+        Page.content_panels
+        + ColourThemeMixin.content_panels
+        + [
+            FieldPanel("client", classname="client"),
+            InlinePanel("authors", label="Author", min_num=1),
+            FieldPanel("date"),
+            FieldPanel("body"),
+            FieldPanel("homepage_image"),
+            InlinePanel("screenshots", label="Screenshots"),
+            FieldPanel("visit_the_site"),
+        ]
+    )
 
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
@@ -161,7 +165,7 @@ class HistoricalWorkPage(SocialFields, Page):
     ]
 
 
-class WorkPage(SocialFields, Page):
+class WorkPage(ColourThemeMixin, SocialFields, Page):
     template = "patterns/pages/work/work_page.html"
     parent_page_types = ["WorkIndexPage"]
 
@@ -194,22 +198,26 @@ class WorkPage(SocialFields, Page):
         "taxonomy.Service", related_name="case_studies"
     )
 
-    content_panels = Page.content_panels + [
-        FieldPanel("intro"),
-        InlinePanel("authors", label="Author", min_num=1),
-        FieldPanel("logo"),
-        FieldPanel("client", classname="client"),
-        FieldPanel("date"),
-        MultiFieldPanel(
-            [
-                FieldPanel("header_image"),
-                FieldPanel("header_caption"),
-                FieldPanel("header_attribution"),
-            ],
-            heading="Header image",
-        ),
-        FieldPanel("body"),
-    ]
+    content_panels = (
+        Page.content_panels
+        + ColourThemeMixin.content_panels
+        + [
+            FieldPanel("intro"),
+            InlinePanel("authors", label="Author", min_num=1),
+            FieldPanel("logo"),
+            FieldPanel("client", classname="client"),
+            FieldPanel("date"),
+            MultiFieldPanel(
+                [
+                    FieldPanel("header_image"),
+                    FieldPanel("header_caption"),
+                    FieldPanel("header_attribution"),
+                ],
+                heading="Header image",
+            ),
+            FieldPanel("body"),
+        ]
+    )
 
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
@@ -289,7 +297,7 @@ class WorkPage(SocialFields, Page):
 
 
 # Work index page
-class WorkIndexPage(SocialFields, Page):
+class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
     template = "patterns/pages/work/work_index_page.html"
 
     subpage_types = ["HistoricalWorkPage", "WorkPage"]
@@ -377,6 +385,8 @@ class WorkIndexPage(SocialFields, Page):
         )
 
         return context
+
+    content_panels = Page.content_panels + ColourThemeMixin.content_panels
 
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
