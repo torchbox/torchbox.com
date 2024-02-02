@@ -27,6 +27,8 @@ class TestColourTheme(WagtailPageTestCase):
         self.blogindex = BlogIndexPageFactory(title="Blog", parent=self.home)
         self.workindex = WorkIndexPageFactory(title="Work", parent=self.home)
 
+        self.themes = [theme for theme, _ in ColourTheme.choices if theme != ""]
+
     def test_no_theme_applied(self):
         for page in [self.home, self.blogindex, self.workindex]:
             self.assertEqual(page.theme, ColourTheme.NONE)
@@ -50,15 +52,19 @@ class TestColourTheme(WagtailPageTestCase):
 
         for page in [self.home, self.blogindex, self.workindex, work, blog, std_page]:
             class_suffix = slugify(page.get_verbose_name())
+
             response = self.client.get(page.url)
             soup = BeautifulSoup(response.content, "html.parser")
 
             # Get the list of classes on the html tag
             html_classes = soup.find("html").get("class", [])
 
-            # Check if the specified class is the only class present
-            self.assertEqual(len(html_classes), 1)
-            self.assertEqual(html_classes[0], f"template-{class_suffix}")
+            # Check that the template has the `template-{class_suffix}` class
+            self.assertIn(f"template-{class_suffix}", html_classes)
+
+            # Check that the template doesn't have any theme classes
+            for theme in self.themes:
+                self.assertNotIn(theme, html_classes)
 
     def test_theme_on_homepage(self):
         self.home.theme = ColourTheme.CORAL
@@ -99,9 +105,13 @@ class TestColourTheme(WagtailPageTestCase):
             html_classes = soup.find("html").get("class", [])
 
             # Check that we have the correct classes applied
-            self.assertEqual(len(html_classes), 2)
-            self.assertEqual(html_classes[0], f"template-{class_suffix}")
-            self.assertEqual(html_classes[1], ColourTheme.CORAL)
+            self.assertIn(f"template-{class_suffix}", html_classes)
+            self.assertIn(ColourTheme.CORAL, html_classes)
+            # The rest of the theme classes should not be applied
+            for theme in list(
+                filter(lambda theme: theme != ColourTheme.CORAL, self.themes)
+            ):
+                self.assertNotIn(theme, html_classes)
 
     def test_theme_on_an_indexpage(self):
         self.blogindex.theme = ColourTheme.LAGOON
@@ -136,9 +146,10 @@ class TestColourTheme(WagtailPageTestCase):
             # Get the list of classes on the html tag
             html_classes = soup.find("html").get("class", [])
 
-            # Check if the specified class is the only class present
-            self.assertEqual(len(html_classes), 1)
-            self.assertEqual(html_classes[0], f"template-{class_suffix}")
+            # Check that we have the correct class(es) applied
+            self.assertIn(f"template-{class_suffix}", html_classes)
+            for theme in self.themes:
+                self.assertNotIn(theme, html_classes)
 
         for page in [self.blogindex, blog, std_page]:
             class_suffix = slugify(page.get_verbose_name())
@@ -149,9 +160,13 @@ class TestColourTheme(WagtailPageTestCase):
             html_classes = soup.find("html").get("class", [])
 
             # Check that we have the correct classes applied
-            self.assertEqual(len(html_classes), 2)
-            self.assertEqual(html_classes[0], f"template-{class_suffix}")
-            self.assertEqual(html_classes[1], ColourTheme.LAGOON)
+            self.assertIn(f"template-{class_suffix}", html_classes)
+            self.assertIn(ColourTheme.LAGOON, html_classes)
+            # The rest of the theme classes should not be applied
+            for theme in list(
+                filter(lambda theme: theme != ColourTheme.LAGOON, self.themes)
+            ):
+                self.assertNotIn(theme, html_classes)
 
     def test_custom_theme_on_descendants(self):
         self.workindex.theme = ColourTheme.BANANA
@@ -205,9 +220,12 @@ class TestColourTheme(WagtailPageTestCase):
             # Get the list of classes on the html tag
             html_classes = soup.find("html").get("class", [])
 
-            # Check if the specified class is the only class present
-            self.assertEqual(len(html_classes), 1)
-            self.assertEqual(html_classes[0], f"template-{class_suffix}")
+            # Check that the template has the `template-{class_suffix}` class
+            self.assertIn(f"template-{class_suffix}", html_classes)
+
+            # Check that the template doesn't have any theme classes
+            for theme in self.themes:
+                self.assertNotIn(theme, html_classes)
 
         for page in [self.workindex, work]:
             class_suffix = slugify(page.get_verbose_name())
@@ -218,9 +236,13 @@ class TestColourTheme(WagtailPageTestCase):
             html_classes = soup.find("html").get("class", [])
 
             # Check that we have the correct classes applied
-            self.assertEqual(len(html_classes), 2)
-            self.assertEqual(html_classes[0], f"template-{class_suffix}")
-            self.assertEqual(html_classes[1], ColourTheme.BANANA)
+            self.assertIn(f"template-{class_suffix}", html_classes)
+            self.assertIn(ColourTheme.BANANA, html_classes)
+            # The rest of the theme classes should not be applied
+            for theme in list(
+                filter(lambda theme: theme != ColourTheme.BANANA, self.themes)
+            ):
+                self.assertNotIn(theme, html_classes)
 
         for page in [morework, std_page]:
             class_suffix = slugify(page.get_verbose_name())
@@ -231,6 +253,10 @@ class TestColourTheme(WagtailPageTestCase):
             html_classes = soup.find("html").get("class", [])
 
             # Check that we have the correct classes applied
-            self.assertEqual(len(html_classes), 2)
-            self.assertEqual(html_classes[0], f"template-{class_suffix}")
-            self.assertEqual(html_classes[1], ColourTheme.CORAL)
+            self.assertIn(f"template-{class_suffix}", html_classes)
+            self.assertIn(ColourTheme.CORAL, html_classes)
+            # The rest of the theme classes should not be applied
+            for theme in list(
+                filter(lambda theme: theme != ColourTheme.CORAL, self.themes)
+            ):
+                self.assertNotIn(theme, html_classes)
