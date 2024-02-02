@@ -2,8 +2,6 @@
 
 {% load static wagtailuserbar wagtailcore_tags wagtailimages_tags navigation_tags util_tags %}
 
-{% block body_class %}{{ block.super }}{% if page.theme_class %} {{ page.theme_class }}{% endif %}{% endblock %}
-
 {% block meta_tags %}
     {% if GOOGLE_TAG_MANAGER_ID and not request.in_preview_panel %}
         <!-- Google Tag Manager -->
