@@ -1,7 +1,6 @@
 import math
 import string
 
-from bs4 import BeautifulSoup
 from django import forms
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
@@ -9,16 +8,17 @@ from django.db.models import Case, DateField, F, Q, When
 from django.dispatch import receiver
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.fields import RichTextField, StreamField
-from wagtail.models import Orderable, Page
-from wagtail.signals import page_published
 
+from bs4 import BeautifulSoup
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.taxonomy.models import Service
 from tbx.work.blocks import WorkStoryBlock
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Orderable, Page
+from wagtail.signals import page_published
 
 
 class HistoricalWorkPageScreenshot(Orderable):
