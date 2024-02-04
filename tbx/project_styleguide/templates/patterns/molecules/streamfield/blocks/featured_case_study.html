@@ -6,6 +6,9 @@
 {% image value.featured_case_study_image fill-430x323 format-webp as featured_mobile_image %}
 
 <div class="featured-case-study grid__featured-case-study">
+    {# temporary output to illustrate the saturation filter #}
+    {% image value.featured_case_study_image fill-828x546 format-webp saturation-0.5 %}
+
     {# Image (with gradient if logo added) #}
     <div class="featured-case-study__image-wrap{% if value.featured_case_study_logo %} featured-case-study__image-wrap--with-logo{% endif %}">
         <picture>

@@ -4,10 +4,13 @@ from django.shortcuts import redirect
 from django.utils.cache import add_never_cache_headers
 from django.utils.safestring import mark_safe
 
+from PIL import Image as PillowImage
+from PIL import ImageEnhance
 from storages.backends.s3boto3 import S3Boto3Storage
 from wagtail import hooks
 from wagtail.documents import get_document_model
 from wagtail.documents.models import document_served
+from wagtail.images.image_operations import FilterOperation
 
 
 @hooks.register("before_serve_document", order=100)
@@ -61,3 +64,33 @@ def hotjar_admin_tracking():
     </script>
     """
     )
+
+
+class ReduceBitDepthOperation(FilterOperation):
+    def construct(self, bits):
+        self.bits = int(bits)
+
+    def run(self, willow, image, env):
+        willow.image = willow.image.convert(
+            "P", palette=PillowImage.ADAPTIVE, colors=self.bits
+        )
+        # willow.image = willow.image.quantize(colors=2**self.bits)
+        return willow
+
+
+class ReduceSaturationOperation(FilterOperation):
+    def construct(self, factor):
+        self.factor = float(factor)
+
+    def run(self, willow, image, env):
+        enhancer = ImageEnhance.Color(willow.image)
+        willow.image = enhancer.enhance(self.factor)
+        return willow
+
+
+@hooks.register("register_image_operations")
+def register_image_operations():
+    return [
+        ("depth", ReduceBitDepthOperation),
+        ("saturation", ReduceSaturationOperation),
+    ]
