@@ -19,6 +19,10 @@
         @include reduced-motion() {
             animation: none;
         }
+
+        #{$root}--static & {
+            animation: none;
+        }
     }
 
     @keyframes motifAnimation {
