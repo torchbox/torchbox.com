@@ -5,13 +5,13 @@
     <div class="grid">
         {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=related_services %}
 
-        <ul class="blog-listing">
+        <ul class="page-listing page-listing--blog">
             {% for post in blog_posts %}
                 {% include "patterns/molecules/blog-item/blog-item.html" with item=post %}
             {% endfor %}
         </ul>
 
-        <div class="blog-listing__pagination">
+        <div class="page-listing__pagination">
             {% include "patterns/molecules/pagination/pagination.html" with pages=blog_posts %}
         </div>
     </div>

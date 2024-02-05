@@ -1,0 +1,16 @@
+{% load wagtailimages_tags %}
+
+<div class="partners grid__partners">
+    {% if value.title %}
+        <h2 class="partners__title heading--two">{{ value.title }}</h2>
+    {% endif %}
+
+
+    <div class="partners__logos">
+        {% for partner_logo in value.partner_logos %}
+            <div class="partners__logo-wrapper">
+                {% image partner_logo max-100x90 format-webp class="partners__logo" %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

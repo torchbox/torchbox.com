@@ -1,5 +1,5 @@
 <div class="p-4 flex items-center justify-between">
-    <h1 class="heading--one">Styleguide</h1>
+    <h1 class="heading heading--one">Styleguide</h1>
     <div class="flex items-center gap-2">
         <label for="theme-chooser">Choose a theme:</label>
         <select name="theme-chooser" id="theme-chooser" class="p-2 text-black select" onchange="changeTheme(this.value)">
@@ -10,6 +10,11 @@
 </div>
 
 <div class="p-4 flex flex-col gap-y-16">
+    <div>
+        <h2 class="underline mb-2">Letter Motif</h2>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with classes="motif-heading--one" %}
+    </div>
+
     <div>
         <h2 class="underline mb-2">Avatar</h2>
         {% include "patterns/atoms/avatar/avatar.html" %}
@@ -31,22 +36,22 @@
     </div>
 
     <div>
-        <h2 class="underline mt-8  mb-2">Breadcrumb</h2>
+        <h2 class="underline mt-8 mb-2">Breadcrumb</h2>
         {% include "patterns/navigation/components/breadcrumbs.html" %}
     </div>
 
     <div>
-        <h2 class="underline mt-8  mb-2">Image</h2>
+        <h2 class="underline mt-8 mb-2">Image</h2>
         {% include "patterns/molecules/streamfield/blocks/image_block.html" %}
     </div>
 
     <div>
-        <h2 class="underline mt-8  mb-2">Listing item with image</h2>
+        <h2 class="underline mt-8 mb-2">Listing item with image</h2>
         {% include "patterns/molecules/listing/listing--image.html" %}
     </div>
 
     <div>
-        <h2 class="underline mt-8  mb-2">Listing item with avatar</h2>
+        <h2 class="underline mt-8 mb-2">Listing item with avatar</h2>
         {% include "patterns/molecules/listing/listing--avatar.html" %}
     </div>
 
@@ -54,11 +59,46 @@
         <h2 class="underline mt-8 mb-2">Simple CTA</h2>
         {% include "patterns/molecules/streamfield/blocks/call_to_action.html" %}
     </div>
-</div>
 
-<div class="p-4 flex flex-col gap-y-16">
-    <h2 class="underline mt-8  mb-2">Title with filters</h2>
-    {% include "patterns/molecules/title-filters/title-filters.html" %}
+    <div>
+        <h2 class="underline mt-8 mb-2">Title with filters</h2>
+        {% include "patterns/molecules/title-filters/title-filters.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Contact Call To Action</h2>
+        {% include "patterns/molecules/streamfield/blocks/contact_call_to_action.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Stats block numeric</h2>
+        {% include "patterns/molecules/streamfield/blocks/stats_numeric.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Stats block textual</h2>
+        {% include "patterns/molecules/streamfield/blocks/stats_textual.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Pagination</h2>
+        {% include "patterns/molecules/pagination/pagination.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Showcase Paragraph</h2>
+        {% include "patterns/molecules/streamfield/blocks/showcase_block.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Featured Case Study</h2>
+        {% include "patterns/molecules/streamfield/blocks/featured_case_study.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Partners block</h2>
+        {% include "patterns/molecules/streamfield/blocks/partners_block.html" with value=partners_data  %}
+    </div>
 </div>
 
 <script>

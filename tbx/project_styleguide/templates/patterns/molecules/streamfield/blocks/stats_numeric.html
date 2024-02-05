@@ -1,0 +1,19 @@
+
+<ul class="stats stats--numeric grid__stats">
+    {% for stat in value %}
+        <li class="stats__stat">
+            <span class="stats__number">
+                {{ stat.headline_number }}
+            </span>
+            <span class="stats__description">
+                {{ stat.description }}
+            </span>
+            {% if stat.further_details %}
+                <span class="stats__details">
+                    {{ stat.further_details }}
+                </span>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+

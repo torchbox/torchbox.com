@@ -1,9 +1,8 @@
 // styles specific to the avatar version of the listing
-
 @use "config" as *;
 
 .listing-avatar {
-    &__link {
+    &__inner {
         display: grid;
         grid-template-columns: auto 1fr;
         column-gap: $spacer-mini;
@@ -13,19 +12,21 @@
         }
     }
 
-    &__avatar {
-        @include media-query(medium) {
-            order: 1;
-            grid-row: 1 / 3;
-        }
-    }
-
-    &__title {
+    &__link {
+        grid-row: 1;
         grid-column: 1 / 3;
 
         @include media-query(medium) {
             order: 2;
             grid-column: auto;
+            grid-row: auto;
+        }
+    }
+
+    &__avatar {
+        @include media-query(medium) {
+            order: 1;
+            grid-row: 1 / 3;
         }
     }
 

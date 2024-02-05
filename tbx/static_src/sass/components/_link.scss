@@ -22,6 +22,10 @@
             @include high-contrast-mode() {
                 display: none;
             }
+
+            @include reduced-motion() {
+                transition: none;
+            }
         }
 
         &:focus {

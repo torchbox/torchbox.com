@@ -5,7 +5,7 @@ from tbx.blog.models import BlogPage
 from tbx.core.models import MainMenu
 from tbx.core.utils import roundrobin
 from tbx.people.models import PersonPage
-from tbx.work.models import WorkPage
+from tbx.work.models import HistoricalWorkPage
 
 register = template.Library()
 
@@ -97,7 +97,7 @@ def homepage_blog_listing(context, count=6):
 # Work feed for home page
 @register.inclusion_tag("torchbox/tags/homepage_work_listing.html", takes_context=True)
 def homepage_work_listing(context, count=3):
-    work = WorkPage.objects.filter(live=True)[:count]
+    work = HistoricalWorkPage.objects.filter(live=True)[:count]
     return {
         "work": work,
         # required by the pageurl tag that we want to use within this template
@@ -127,7 +127,7 @@ def work_and_blog_listing(context, count=10):
     An interleaved list of work and blog items.
     """
     blog_posts = BlogPage.objects.filter(live=True)
-    works = WorkPage.objects.filter(live=True)
+    works = HistoricalWorkPage.objects.filter(live=True)
 
     # If (remaining) count is odd, blog_count = work_count + 1
     blog_count = (count + 1) / 2

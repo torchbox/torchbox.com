@@ -1,0 +1,24 @@
+context:
+  value:
+    title: Our Services
+    showcase_paragraphs:
+      - page: '#'
+        heading: Sponsor a Wagtail feature or enhancement
+        summary: Join the likes of Mozilla, Google, Motley Fool and YouGov and sponsor enhancements to Wagtail.
+      - heading: Get expert developer support for your team
+        summary: Get the reassurance of having Wagtail developers on hand, just in case. Oh, and all profit supports the Wagtail project.
+      - page: '#'
+        heading: Supercharge your output with staff aug
+        summary: Our experienced Wagtail developers will join your team to add specialist capability and capacity
+      - heading: Outsourced Wagtail builds
+        summary: Everything from strategy, SEO, analytics, design, development, systems integration, devops and more.
+      - heading: Wagtail developer training
+        summary: Our training programme to build your understanding and skills in essential Django and Wagtail CMS practices.
+      - page: '#'
+        heading: 24/7 application support & hosting
+        summary: 24/7 application support and scalable, performant and resilient cloud hosting optimised for Wagtail.
+
+tags:
+  pageurl:
+    item.page:
+      raw: '#'

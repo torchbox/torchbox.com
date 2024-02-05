@@ -1,9 +1,23 @@
 from django.db import models
+from django.utils.translation import gettext as _
 
+from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.models import Orderable
 
 SEARCH_DESCRIPTION_LABEL = "Meta description"  # NOTE changing this requires migrations
+
+
+class PageAuthor(Orderable):
+    page = ParentalKey("wagtailcore.Page", related_name="authors")
+    author = models.ForeignKey(
+        "people.Author", on_delete=models.CASCADE, related_name="+"
+    )
+
+    panels = [
+        FieldPanel("author"),
+    ]
 
 
 # Generic social fields abstract class to add social image/text to any new content type easily.
@@ -48,3 +62,46 @@ class SocialMediaSettings(BaseSiteSetting):
         default="{{ cookiecutter.project_name }}",
         help_text="Site name, used by Open Graph.",
     )
+
+
+class ColourTheme(models.TextChoices):
+    NONE = "", "None"
+    CORAL = "theme-coral", "Coral"
+    LAGOON = "theme-lagoon", "Lagoon"
+    BANANA = "theme-banana", "Banana"
+
+
+class ColourThemeMixin(models.Model):
+    """
+    Provides a `theme` field to allow pages to be styled with a colour theme.
+    """
+
+    theme = models.CharField(
+        max_length=25,
+        blank=True,
+        choices=ColourTheme.choices,
+        help_text=_(
+            "The theme will be applied to this page and all of its "
+            "descendants. If no theme is selected, it will be derived from "
+            "this page's ancestors."
+        ),
+    )
+
+    @property
+    def theme_class(self):
+        if theme := self.theme:
+            return theme
+
+        try:
+            return next(
+                p.theme
+                for p in self.get_ancestors().specific().order_by("-depth")
+                if getattr(p, "theme", ColourTheme.NONE) != ColourTheme.NONE
+            )
+        except StopIteration:
+            return ColourTheme.NONE
+
+    content_panels = [FieldPanel("theme")]
+
+    class Meta:
+        abstract = True

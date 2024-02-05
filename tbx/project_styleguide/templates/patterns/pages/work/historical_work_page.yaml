@@ -1,0 +1,91 @@
+context:
+  page:
+    title: Turning five hospital websites into one
+    client: Children’s Health Ireland
+    get_verbose_name: work-page
+    date: 07 Aug 2023
+    read_time: '5'
+    first_author:
+      name: Nick Lee
+      role: Designer
+    authors:
+      all:
+        - item:
+          author:
+            name: Nick Lee
+            role: Designer
+        - item:
+          author:
+            name: Victor Miti
+            role: Developer
+    body:
+      - intro_block:
+        block_type: intro
+      - block:
+        block_type: paragraph
+      - block:
+        block_type: paragraph
+    related_services:
+      all:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
+    related_works:
+      - {
+          title: We’ve launched a supporter-centred Wagtail website for Oxfam GB,
+          client: Oxfam,
+          date: 24 Nov 2023,
+          read_time: 3,
+        }
+      - {
+          title: We’ve launched a supporter-centred Wagtail website for Oxfam GB,
+          client: Children's Health Ireland,
+          date: 05 Oct 2023,
+          read_time: 5,
+        }
+
+tags:
+  include_block:
+    intro_block:
+      template_name: 'patterns/molecules/streamfield/blocks/intro_block.html'
+    block:
+      template_name: 'patterns/molecules/streamfield/blocks/paragraph_block.html'
+  image:
+    # listing image for related pages
+    listing_image fill-370x370 format-webp as listing_desktop_image:
+      target_var: listing_desktop_image
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/370x370?trees'
+    listing_image fill-740x740 format-webp as listing_desktop_image_retina:
+      target_var: listing_desktop_image_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/740x740?trees'
+    listing_image fill-370x335 format-webp as listing_mobile_image:
+      target_var: listing_mobile_image
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/370x335?trees'
+    listing_image fill-740x670 format-webp as listing_mobile_image_retina:
+      target_var: listing_mobile_image_retina
+      raw:
+        alt: 'mobile image retina'
+        url: 'https://source.unsplash.com/740x670?trees'
+    # avatar image for authors
+    avatar fill-144x144 format-webp as avatar_desktop:
+      target_var: avatar_desktop
+      raw:
+        url: 'https://source.unsplash.com/144x144?face'
+    avatar fill-286x286 format-webp as avatar_desktop_retina:
+      target_var: avatar_desktop_retina
+      raw:
+        url: 'https://source.unsplash.com/286x286?face'
+    avatar fill-72x72 format-webp as avatar_mobile:
+      target_var: avatar_mobile
+      raw:
+        url: 'https://source.unsplash.com/72x72?face'
+  pageurl:
+    page.work_index as work_index_url:
+      raw: '#'

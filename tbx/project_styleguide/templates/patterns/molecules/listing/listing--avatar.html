@@ -1,11 +1,15 @@
 {# Designed to be included from another template and values passed in #}
 <li class="listing-avatar listing {{ base_class }}">
-    <a class="listing-avatar__link listing__link" href="{{ link }}" aria-label="{{ aria_text|default:title }} by {{ name }}">
-        <h2 class="listing-avatar__title listing__title">{{ title }}</h2>
+    <div class="listing-avatar__inner">
         <div class="listing-avatar__avatar">
             {% include "patterns/atoms/avatar/avatar.html" with lazy_load=True %}
         </div>
-
+        <a class="listing-avatar__link listing__link" href="{{ link }}" aria-label="{{ aria_text|default:title }} by {{ name }}">
+            <h2 class="listing-avatar__title listing__title">
+                {# The title and icon need to be on the same line with no whitespace to prevent the arrow being orphaned on a new line #}
+                <span class="listing__title-text">{{ title }}</span><span class="listing__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-avatar__arrow listing__arrow" %}</span>
+            </h2>
+        </a>
         <div class="listing-avatar__details listing__details">
             <div>
                 <p class="listing__details-group">
@@ -13,12 +17,12 @@
                     <span class="listing__job-title">{{ job_title }}</span>
                 </p>
                 <p class="listing__meta">
-                    <span class="mr-1.5">{{ date }}{% if reading_time %},{% endif %}</span> {% if reading_time %}{{ reading_time }} min{{ reading_time|pluralize }} read{% endif %}
+                    {% include "patterns/atoms/date_and_reading_time/date_and_reading_time.html" %}
                 </p>
             </div>
-            {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-avatar__arrow listing__arrow" %}
         </div>
-    </a>
+    </div>
+
     <div class="listing-avatar__tags listing__tags tags">
         <span class="sr-only">{{ tags_screenreader_text|default:"See more blog posts in this category" }}</span>
         {% for tag in tags %}

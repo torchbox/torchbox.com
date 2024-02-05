@@ -110,21 +110,20 @@
     Drop cap - used for heading one, heading one-b and heading two
 */
 @mixin drop-cap($small-size, $large-size) {
-    &::first-letter {
-        @include rem-font-size($small-size);
-        line-height: 1; // Reset line height to 1 to avoid spacing issues
-        font-weight: $weight--semibold;
+    @include rem-font-size($small-size);
+    line-height: 1; // Reset line height to 1 to avoid spacing issues
+    font-weight: $weight--medium;
 
-        @include media-query(large) {
-            @include rem-font-size($large-size);
-        }
+    @include media-query(large) {
+        @include rem-font-size($large-size);
     }
 }
 
-@mixin focus-style($color: var(--color--link)) {
-    &:focus {
-        outline: $focus-width solid var(--color--focus-ring);
-        text-decoration-thickness: $link-underline-thickness-interaction;
+@mixin focus-style($color: var(--color--link), $shadow: false) {
+    outline: $focus-width solid var(--color--focus-ring);
+    text-decoration-thickness: $link-underline-thickness-interaction;
+
+    @if $shadow {
         text-shadow: 0 0 0.4px $color, 0 0 0.4px $color;
     }
 }
@@ -136,12 +135,13 @@
 @mixin link-styles(
     $color: var(--color--text),
     $interaction-color: var(--color--text),
-    $shadow: false
+    $shadow: false,
+    $offset: 2px
 ) {
     color: $color;
     text-decoration: underline;
     text-decoration-thickness: $link-underline-thickness;
-    text-underline-offset: 2px;
+    text-underline-offset: $offset;
 
     &:hover {
         color: $interaction-color;
@@ -153,7 +153,40 @@
     }
 
     &:focus {
-        @include focus-style($color);
+        @include focus-style($color, $shadow: true);
+    }
+}
+
+/* ============================================
+    Arrow icon styles - Hidden below medium breakpoint, shown above
+    Translates on hover
+*/
+@mixin arrow-link-icon-styles() {
+    display: none;
+
+    @include media-query(medium) {
+        display: inline-block;
+        color: var(--color--decoration);
+        width: 72px;
+        height: 22px;
+        transition: transform, $transition-quick;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        a:hover & {
+            color: var(--color--link-interaction);
+            transform: translateX(8px);
+
+            @include reduced-motion() {
+                transform: none;
+            }
+
+            @include high-contrast-mode() {
+                color: var(--color--decoration);
+            }
+        }
     }
 }
 
@@ -163,6 +196,16 @@
 */
 @mixin high-contrast-dark-mode() {
     @media (prefers-color-scheme: dark) and (forced-colors: active) {
+        @content;
+    }
+}
+
+/* ============================================
+    High Contrast mode in light mode
+    prefers-color-scheme: light + forced-colors: active
+*/
+@mixin high-contrast-light-mode() {
+    @media (prefers-color-scheme: light) and (forced-colors: active) {
         @content;
     }
 }
@@ -183,5 +226,16 @@
 @mixin reduced-motion() {
     @media (prefers-reduced-motion) {
         @content;
+    }
+}
+
+/* ============================================
+    Spacing for h2, h3 and h4 inside rich text
+*/
+@mixin rich-text-heading-spacing() {
+    margin: $spacer-small 0 $spacer-mini;
+
+    @include media-query(large) {
+        margin: $spacer-medium 0 $spacer-mini;
     }
 }

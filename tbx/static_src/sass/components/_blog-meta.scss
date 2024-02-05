@@ -7,7 +7,7 @@
     grid-column: 2 / span 4;
 
     @include media-query(large) {
-        margin: $spacer-medium 0 $spacer-small;
+        margin: $spacer-small 0 $spacer-medium;
         padding-left: ($spacer-half + $spacer-mini);
         grid-column: 5 / span 7;
     }
@@ -26,9 +26,5 @@
         @include media-query(large) {
             width: $spacer-half;
         }
-    }
-
-    &__divider {
-        margin: 0 7px;
     }
 }

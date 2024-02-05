@@ -1,0 +1,18 @@
+{% extends "patterns/base_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block content %}
+    <div class="grid streamfield">
+        <div class="grid__title">
+            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.title classes="motif-heading--one" %}
+        </div>
+
+        {% if page.intro %}
+            <div class="grid__intro streamfield__intro">
+                <div class="heading heading--five">{{page.intro|richtext}}</div>
+            </div>
+        {% endif %}
+
+        {% include_block page.body %}
+    </div>
+{% endblock %}

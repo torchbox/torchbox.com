@@ -1,0 +1,31 @@
+@use 'config' as *;
+
+.partners {
+    &__logos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacer-mini;
+    }
+
+    &__logo-wrapper {
+        width: 120px;
+        height: 120px;
+        display: flex;
+        align-items: center;
+
+        @include media-query(medium) {
+            width: 160px;
+            height: 160px;
+        }
+    }
+
+    &__logo {
+        filter: grayscale(1) invert(1) brightness(1.5);
+        width: auto;
+        height: auto;
+
+        @include high-contrast-light-mode() {
+            filter: none;
+        }
+    }
+}

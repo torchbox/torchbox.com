@@ -1,15 +1,14 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-<div class="contact-call-to-action-block">
-
+<div class="contact-cta grid__contact-cta">
     {% for cta in value.call_to_action %}
         <p class="contact-cta__text heading heading--four">{{ cta.value.text }}</p>
-        {% if cta.value.button_text and cta.value.button_link %}
-            <a href="{{ cta.value.get_button_link }}" class="button">{{ cta.value.button_text }}</a>
-        {% endif %}
     {% endfor %}
 
     {% if value.person %}
-        {% include "patterns/atoms/avatar/avatar.html" with avatar=value.person.image classes="avatar--small" %}
+        {% include "patterns/atoms/avatar/avatar.html" with avatar=value.person.image classes="contact-cta__avatar avatar--small" %}
+    {% endif %}
+
+    {% if value.person %}
         <cite class="contact-cta__cite">
             {% if value.person.name %}
                 <span class="contact-cta__name">{{ value.person.name }}</span>
@@ -19,6 +18,11 @@
                 <span class="contact-cta__role">{{ value.person.role }}</span>
             {% endif %}
         </cite>
-
     {% endif %}
+
+    {% for cta in value.call_to_action %}
+        {% if cta.value.button_text and cta.value.button_link %}
+            <a href="{{ cta.value.get_button_link }}" class="contact-cta__button button">{{ cta.value.button_text }}</a>
+        {% endif %}
+    {% endfor %}
 </div>

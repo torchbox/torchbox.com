@@ -22,4 +22,210 @@
             margin: $spacer-large auto;
         }
     }
+
+    &__title {
+        margin-bottom: $spacer-small;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 4 / span 9;
+        }
+    }
+
+    &__heading {
+        margin-bottom: $spacer-mini;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 4 / span 7;
+        }
+    }
+
+    &__quote {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 4 / span 9;
+        }
+    }
+
+    &__call-to-action {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 5;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 4 / span 12;
+        }
+    }
+
+    &__contact-cta {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 5;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 5 / span 10;
+        }
+    }
+
+    &__related-posts {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 5 / span 9;
+        }
+    }
+
+    &__image {
+        margin-bottom: $spacer-medium;
+        grid-column: 1 / span 6;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 4 / span 11;
+        }
+    }
+
+    &__partners {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 2 / span 12;
+        }
+    }
+
+    &__work-image {
+        grid-column: 1 / span 5;
+
+        @include media-query(large) {
+            grid-column: 1 / span 13;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+
+    &__work-title {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 2 / span 3;
+        }
+    }
+
+    &__showcase {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 2 / span 11;
+        }
+    }
+
+    // The following components follow the same pattern of
+    // spanning 7 columns on desktop and 4 columns on mobile.
+    &__intro,
+    &__paragraph,
+    &__raw-html,
+    &__markdown,
+    &__embed,
+    &__stats {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 4 / span 7;
+        }
+    }
+
+    // Move everything over by 1 column on the blog page and work pages
+    .template-blog-page &,
+    .template-work-page &,
+    .template-historical-work-page & {
+        &__heading,
+        &__intro,
+        &__paragraph,
+        &__image,
+        &__raw-html,
+        &__markdown,
+        &__embed,
+        &__stats {
+            @include media-query(large) {
+                grid-column: 5 / span 7;
+            }
+        }
+
+        &__title {
+            @include media-query(large) {
+                grid-column: 5 / span 9;
+            }
+        }
+
+        &__call-to-action {
+            @include media-query(large) {
+                grid-column: 5 / span 10;
+            }
+        }
+
+        &__quote {
+            @include media-query(large) {
+                grid-column: 5 / span 9;
+            }
+        }
+
+        &__image {
+            @include media-query(large) {
+                grid-column: 5 / span 11;
+            }
+        }
+
+        &__stats {
+            @include media-query(large) {
+                grid-column: 5 / span 9;
+            }
+        }
+    }
+
+    // Service page alignment
+    .template-service-page & {
+        &__heading,
+        &__intro,
+        &__title {
+            @include media-query(large) {
+                grid-column: 2 / span 12;
+            }
+        }
+
+        &__raw-html,
+        &__markdown,
+        &__paragraph {
+            @include media-query(large) {
+                grid-column: 2 / span 7;
+            }
+        }
+
+        &__quote {
+            @include media-query(large) {
+                grid-column: 2 / span 9;
+            }
+        }
+
+        &__featured-case-study {
+            margin-bottom: $spacer-medium;
+            grid-column: 1 / span 6;
+
+            @include media-query(large) {
+                margin-bottom: $spacer;
+                grid-column: 1 / span 13;
+            }
+        }
+    }
 }

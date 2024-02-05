@@ -1,0 +1,98 @@
+{% extends "patterns/base_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block meta_tags %}
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'author-title' : '{{ page.first_author.role }}',
+            'author-name' : '{{ page.first_author.name }}',
+            'published' : '{{ page.first_published_at|date:"Ymd" }}',
+            'tags' : [{% for tag in page.related_services.all %}'{{tag.name}}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+            'read-time' : '{{ page.read_time }}',
+            'id': '{{ page.id }}',
+            'page-h1' : '{{ page.title }}',
+            'page-title' : '{{ page.title }} | Torchbox',
+            'page-path': '{{ page.slug }}',
+            'event': 'page-information'
+        });
+    </script>
+    <meta name="author" content="{{ page.first_author.name }}">
+    <meta property="og:article:published_time" content="{{ page.date|date:'Y-m-d' }}" />
+    {{ block.super }}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="work-hero grid grid--spacer-large">
+        <div class="work-hero__left">
+            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.title classes="motif-heading--one-b mb-spacerMini md:mb-spacerSmall" %}
+
+            {% block intro %}
+                {# intro content goes here - different for work page and historical work page #}
+            {% endblock %}
+        </div>
+
+        <div class="work-hero__right">
+            {% if page.logo %}
+                {% image page.logo width-175 format-webp class="work-hero__logo" %}
+            {% endif %}
+
+            <p class="work-hero__client">
+                {{ page.client }}
+            </p>
+
+            <p class="work-hero__meta">
+                {% include "patterns/atoms/date_and_reading_time/date_and_reading_time.html" with date=page.date reading_time=page.read_time %}
+            </p>
+
+            <div class="tags">
+                <span class="sr-only">Related work categories</span>
+                {% for tag in page.related_services.all %}
+                    {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name tag_link_base="../" %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% block main_image %}
+        {# The new work page has a dedicated image field but the historical work page does not #}
+    {% endblock %}
+
+    <div class="grid grid--spacer-large streamfield">
+
+        {% block body_streamfield %}
+
+            {% for block in page.body %}
+                {% if block.block_type != 'intro' %}
+                    {% include_block block %}
+                {% endif %}
+            {% endfor %}
+        {% endblock %}
+
+        <div class="work-page-authors">
+            {% for item in page.authors.all %}
+                {% if page.first_author == item.author %}
+                    {% include "patterns/molecules/author/author.html" with author=item.author author_attribution="by" %}
+                {% else %}
+                    {% include "patterns/molecules/author/author.html" with author=item.author author_attribution="and" %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {% if page.related_works %}
+            {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Related work pages" classes="section-title--related-posts section-title--large-gap" %}
+
+            <ul class="grid__related-posts streamfield__related-posts">
+                {% for work_page in page.related_works %}
+                    {% include "patterns/molecules/listing/listing--image.html" with listing_image=work_page.listing_image title=work_page.title name=work_page.client link=work_page.url date=work_page.date reading_time=work_page.read_time tags=work_page.related_services.all %}
+                {% endfor %}
+
+                <li class="mx-auto lg:mx-0 mt-spacerSmall">
+                    {% include "patterns/atoms/see-more/see-more.html" with link="../" text="See more work" %}
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

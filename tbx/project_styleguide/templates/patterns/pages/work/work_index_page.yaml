@@ -1,0 +1,107 @@
+context:
+  page:
+    title: Work
+    get_verbose_name: work-index
+
+  works:
+    - title: 'We’ve launched a supporter-centred Wagtail website for Oxfam GB'
+      client: Oxfam
+      date: 24 Feb 2024
+      read_time: '5'
+      listing_summary: 'Following the launch of a new public engagement strategy Oxfam needed a website to ‘make it happen’ by reshaping and tailoring the entire experience to the needs of Oxfam’s supporters.'
+      related_services:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
+
+    - title: 'We’ve launched a supporter-centred Wagtail website for Oxfam GB'
+      client: Oxfam
+      date: 24 Feb 2024
+      read_time: '5'
+      listing_summary: 'Following the launch of a new public engagement strategy Oxfam needed a website to ‘make it happen’ by reshaping and tailoring the entire experience to the needs of Oxfam’s supporters.'
+      related_services:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
+
+    - title: 'We’ve launched a supporter-centred Wagtail website for Oxfam GB'
+      client: Oxfam
+      date: 24 Feb 2024
+      read_time: '5'
+      listing_summary: 'Following the launch of a new public engagement strategy Oxfam needed a website to ‘make it happen’ by reshaping and tailoring the entire experience to the needs of Oxfam’s supporters.'
+      related_services:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
+
+    - title: 'We’ve launched a supporter-centred Wagtail website for Oxfam GB'
+      client: Oxfam
+      date: 24 Feb 2024
+      read_time: '5'
+      listing_summary: 'Following the launch of a new public engagement strategy Oxfam needed a website to ‘make it happen’ by reshaping and tailoring the entire experience to the needs of Oxfam’s supporters.'
+      related_services:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
+
+    - title: 'We’ve launched a supporter-centred Wagtail website for Oxfam GB'
+      client: Oxfam
+      date: 24 Feb 2024
+      read_time: '5'
+      listing_summary: 'Following the launch of a new public engagement strategy Oxfam needed a website to ‘make it happen’ by reshaping and tailoring the entire experience to the needs of Oxfam’s supporters.'
+      related_services:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
+
+    - title: 'We’ve launched a supporter-centred Wagtail website for Oxfam GB'
+      client: Oxfam
+      date: 24 Feb 2024
+      read_time: '5'
+      listing_summary: 'Following the launch of a new public engagement strategy Oxfam needed a website to ‘make it happen’ by reshaping and tailoring the entire experience to the needs of Oxfam’s supporters.'
+      related_services:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
+
+  related_services:
+    - { name: All, slug: '#' }
+    - { name: Digital products, slug: digital-products }
+    - { name: Digital products, slug: digital-products }
+    - { name: Digital products, slug: digital-products }
+    - { name: Digital products, slug: digital-products }
+    - { name: Digital products, slug: digital-products }
+
+tags:
+  image:
+    listing_image fill-370x370 format-webp as listing_desktop_image:
+      target_var: listing_desktop_image
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/370x370?trees'
+    listing_image fill-740x740 format-webp as listing_desktop_image_retina:
+      target_var: listing_desktop_image_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/740x740?trees'
+    listing_image fill-370x335 format-webp as listing_mobile_image:
+      target_var: listing_mobile_image
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/370x335?trees'
+    listing_image fill-740x670 format-webp as listing_mobile_image_retina:
+      target_var: listing_mobile_image_retina
+      raw:
+        alt: 'mobile image retina'
+        url: 'https://source.unsplash.com/740x670?trees'
+
+  pageurl:
+    item as index:
+      target_var: index
+      raw: '#'

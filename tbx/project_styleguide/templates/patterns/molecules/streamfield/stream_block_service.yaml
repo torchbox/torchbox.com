@@ -1,0 +1,8 @@
+context:
+  value:
+    - dummy
+
+tags:
+  include_block:
+    block with unique_id=block.id:
+      template_name: 'patterns/_pattern_library_only/streamfield/service_story_container.html'

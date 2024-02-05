@@ -1,0 +1,35 @@
+{% load wagtailcore_tags %}
+
+<div class="showcase grid__showcase">
+    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=value.title heading_level=2 classes="showcase__title motif-heading--two" %}
+    <ul class="showcase__list">
+        {% for item in value.showcase_paragraphs %}
+            <li {% if not item.page %}class="showcase__item"{% endif %}>
+
+                {% if item.page %}
+                    <a href="{% pageurl item.page %}" class="showcase__item showcase__item--link" aria-label="{{ item.heading }}">
+                {% endif %}
+
+                <div class="showcase__rings">
+                    {% include "patterns/atoms/icons/icon.html" with name="ring-one" classname="icon--stroke showcase__ring showcase__ring--one" %}
+                    {% include "patterns/atoms/icons/icon.html" with name="ring-two" classname="icon--stroke showcase__ring showcase__ring--two" %}
+                </div>
+
+                <div class="showcase__content">
+                    <h3 class="showcase__heading{% if item.page %} showcase__heading--with-icon{% endif %}">
+                        {{ item.heading }}
+                        {% if item.page %}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="showcase__icon" %}
+                        {% endif %}
+                    </h3>
+
+                    <p class="showcase__summary">{{ item.summary }}</p>
+                </div>
+
+                {% if item.page %}
+                    </a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>

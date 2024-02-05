@@ -1,0 +1,40 @@
+{% extends "patterns/pages/work/work_page_base.html" %}
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block intro %}
+    {% if page.intro %}
+        <div class="streamfield__intro heading heading--five">
+            {{ page.intro|richtext }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block main_image %}
+    <div class="grid">
+        <div class="grid__work-image">
+            {% image page.header_image max-1280x860 format-webp as desktop_header_image %}
+            {% image page.header_image max-2560x1720 format-webp as desktop_header_image_retina %}
+            {% image page.header_image max-800x538 format-webp as mobile_header_image %}
+            {% image page.header_image max-1600x1076 format-webp as mobile_header_image_retina %}
+
+            <picture>
+                <source media="(max-width: 598px)" srcset="{{ mobile_header_image.url }} 1x, {{ mobile_header_image_retina.url }} 2x" />
+                <source media="(min-width: 599px)" srcset="{{ desktop_header_image.url }} 1x, {{ desktop_header_image_retina.url }} 2x" />
+                <img src="{{ desktop_header_image.url }}" alt="{{ desktop_header_image.alt }}" loading="lazy" />
+            </picture>
+
+            {% if page.header_caption %}
+                <p class="image__caption supporting">{{ page.header_caption }}</p>
+            {% endif %}
+
+            {% if page.header_attribution %}
+                <p class="image__attribution supporting">{{ page.header_attribution }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_streamfield %}
+    {# see work_section_block.html #}
+    {% include_block page.body %}
+{% endblock %}

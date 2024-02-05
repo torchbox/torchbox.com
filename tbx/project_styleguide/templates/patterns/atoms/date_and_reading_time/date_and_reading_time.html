@@ -1,0 +1,9 @@
+{% if date %}
+    <time datetime="{{ date|date:'Y-m-d' }}">{{ date }}</time>
+{% endif %}
+{% if reading_time and date %}
+    <span aria-hidden="true" class="my0 mx-[7px] ">/</span>
+{% endif %}
+{% if reading_time %}
+    {{ reading_time }} min{{ reading_time|pluralize }} read
+{% endif %}

@@ -4,32 +4,41 @@
 @use 'base/fonts';
 
 // Components
+@use 'components/icon'; // Icon at the top to be able to override
 @use 'components/author';
 @use 'components/avatar';
-@use 'components/blog-listing';
 @use 'components/button';
 @use 'components/blog-meta';
 @use 'components/call-to-action';
+@use 'components/contact-cta';
+@use 'components/featured-case-study';
 @use 'components/grid';
-@use 'components/icon';
 @use 'components/image';
 @use 'components/link';
 @use 'components/listing';
 @use 'components/listing-avatar';
 @use 'components/listing-image';
+@use 'components/motif-heading';
 @use 'components/pagination';
+@use 'components/partners';
 @use 'components/pullquote';
 @use 'components/responsive-object';
 @use 'components/rich-text';
+@use 'components/page-listing';
 @use 'components/section-title';
+@use 'components/showcase';
 @use 'components/skip-link';
 @use 'components/sprites-preview-icons';
+@use 'components/stats';
 @use 'components/streamfield';
 @use 'components/tab-nav-item';
 @use 'components/tabs';
 @use 'components/tabs-nav';
 @use 'components/tag';
 @use 'components/title-filters';
+@use 'components/work-hero';
+@use 'components/work-page-author';
+@use 'components/work-sections';
 
 // Navigation
 @use 'components/navigation/breadcrumbs-nav';

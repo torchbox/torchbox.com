@@ -1,9 +1,11 @@
 context:
   item:
+    date: 21 jan 2024
+    read_time: '5'
     author:
       name: Paul Vetch
       role: Strategy Director
-    title: We already dropped Drupal - maybe it’s time for you to do the same.
+    title: We already dropped Drupal - maybe it's time for you to do the same.
     related_services:
       - name: Digital products
         slug: digital-products
@@ -15,17 +17,14 @@ tags:
     avatar fill-144x144 format-webp as avatar_desktop:
       target_var: avatar_desktop
       raw:
-        alt: 'desktop image'
         url: 'https://source.unsplash.com/144x144?face'
     avatar fill-286x286 format-webp as avatar_desktop_retina:
       target_var: avatar_desktop_retina
       raw:
-        alt: 'desktop image retina'
         url: 'https://source.unsplash.com/286x286?face'
     avatar fill-72x72 format-webp as avatar_mobile:
       target_var: avatar_mobile
       raw:
-        alt: 'mobile image'
         url: 'https://source.unsplash.com/72x72?face'
   pageurl:
     item:

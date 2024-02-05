@@ -55,5 +55,12 @@
 
     &__image {
         border-radius: 50%;
+        width: 100%;
+    }
+
+    // Make sure avatars don't get squashed on small screens
+    .work-page-authors &,
+    .author & {
+        flex-shrink: 0;
     }
 }
