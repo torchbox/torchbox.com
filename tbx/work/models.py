@@ -142,27 +142,28 @@ class HistoricalWorkPage(ColourThemeMixin, SocialFields, Page):
     def type(self):
         return "CASE STUDY"
 
-    content_panels = (
-        Page.content_panels
-        + ColourThemeMixin.content_panels
+    content_panels = Page.content_panels + [
+        FieldPanel("client", classname="client"),
+        InlinePanel("authors", label="Author", min_num=1),
+        FieldPanel("date"),
+        FieldPanel("body"),
+        FieldPanel("homepage_image"),
+        InlinePanel("screenshots", label="Screenshots"),
+        FieldPanel("visit_the_site"),
+    ]
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
         + [
-            FieldPanel("client", classname="client"),
-            InlinePanel("authors", label="Author", min_num=1),
-            FieldPanel("date"),
-            FieldPanel("body"),
-            FieldPanel("homepage_image"),
-            InlinePanel("screenshots", label="Screenshots"),
-            FieldPanel("visit_the_site"),
+            FieldPanel("feed_image"),
+            FieldPanel("listing_summary"),
+            FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
     )
-
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        FieldPanel("feed_image"),
-        FieldPanel("listing_summary"),
-        FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
 
 
 class WorkPage(ColourThemeMixin, SocialFields, Page):
@@ -198,33 +199,34 @@ class WorkPage(ColourThemeMixin, SocialFields, Page):
         "taxonomy.Service", related_name="case_studies"
     )
 
-    content_panels = (
-        Page.content_panels
-        + ColourThemeMixin.content_panels
+    content_panels = Page.content_panels + [
+        FieldPanel("intro"),
+        InlinePanel("authors", label="Author", min_num=1),
+        FieldPanel("logo"),
+        FieldPanel("client", classname="client"),
+        FieldPanel("date"),
+        MultiFieldPanel(
+            [
+                FieldPanel("header_image"),
+                FieldPanel("header_caption"),
+                FieldPanel("header_attribution"),
+            ],
+            heading="Header image",
+        ),
+        FieldPanel("body"),
+    ]
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
         + [
-            FieldPanel("intro"),
-            InlinePanel("authors", label="Author", min_num=1),
-            FieldPanel("logo"),
-            FieldPanel("client", classname="client"),
-            FieldPanel("date"),
-            MultiFieldPanel(
-                [
-                    FieldPanel("header_image"),
-                    FieldPanel("header_caption"),
-                    FieldPanel("header_attribution"),
-                ],
-                heading="Header image",
-            ),
-            FieldPanel("body"),
+            FieldPanel("listing_summary"),
+            FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
     )
-
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        FieldPanel("listing_summary"),
-        FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
 
     @property
     def type(self):
@@ -386,12 +388,15 @@ class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
 
         return context
 
-    content_panels = Page.content_panels + ColourThemeMixin.content_panels
-
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
+        + [
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+        ]
+    )
 
 
 @receiver(page_published, sender=WorkPage)

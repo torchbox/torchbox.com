@@ -41,22 +41,23 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
         index.SearchField("biography"),
     ]
 
-    content_panels = (
-        Page.content_panels
-        + ColourThemeMixin.content_panels
+    content_panels = Page.content_panels + [
+        FieldPanel("role"),
+        FieldPanel("is_senior"),
+        FieldPanel("intro"),
+        FieldPanel("biography"),
+        FieldPanel("image"),
+    ]
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
         + [
-            FieldPanel("role"),
-            FieldPanel("is_senior"),
-            FieldPanel("intro"),
-            FieldPanel("biography"),
-            FieldPanel("image"),
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
     )
-
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
 
     @cached_property
     def author_posts(self):
@@ -105,18 +106,19 @@ class PersonIndexPage(ColourThemeMixin, SocialFields, Page):
     def team(self):
         return PersonPage.objects.order_by("-is_senior", "title").live().public()
 
-    content_panels = (
-        Page.content_panels
-        + ColourThemeMixin.content_panels
+    content_panels = Page.content_panels + [
+        FieldPanel("strapline"),
+    ]
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
         + [
-            FieldPanel("strapline"),
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
     )
-
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
 
 
 # An author snippet which keeps a copy of a person's details in case they leave and their page is unpublished
