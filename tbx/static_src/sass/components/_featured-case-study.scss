@@ -17,6 +17,7 @@
         display: inline-block;
         margin-bottom: $spacer-small;
         width: 100%;
+        flex-basis: 66.66%;
 
         @include media-query(large) {
             margin-bottom: 0;
@@ -51,10 +52,6 @@
 
     &__image {
         width: 100%;
-
-        @include media-query(large) {
-            width: auto;
-        }
     }
 
     &__logo {
