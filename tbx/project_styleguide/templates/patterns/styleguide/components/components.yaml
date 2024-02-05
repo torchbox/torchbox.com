@@ -87,7 +87,7 @@ tags:
       raw:
         url: 'https://source.unsplash.com/72x72?face'
     # company logo for pull quote
-    value.logo fill-110x70 format-webp class="pullquote__company-logo":
+    value.logo max-110x70 format-webp class="pullquote__company-logo":
       raw: |
         <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="pullquote__company-logo">
     # image block variants
@@ -149,7 +149,7 @@ tags:
       target_var: featured_mobile_image_retina
       raw:
         url: 'https://source.unsplash.com/430x323?tech'
-    value.featured_case_study_logo fill-110x70 format-webp class="featured-case-study__company-logo":
+    value.featured_case_study_logo max-110x70 format-webp class="featured-case-study__company-logo":
       raw: |
         <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="featured-case-study__company-logo">
     # for partners
