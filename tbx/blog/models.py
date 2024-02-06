@@ -4,6 +4,7 @@ import string
 from django import forms
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
+from django.db.models import Q
 from django.dispatch import receiver
 from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
@@ -14,7 +15,7 @@ from modelcluster.fields import ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
 from tbx.core.utils.cache import get_default_cache_control_decorator
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
-from tbx.taxonomy.models import Service
+from tbx.taxonomy.models import Sector, Service
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Page
@@ -49,7 +50,10 @@ class BlogIndexPage(ColourThemeMixin, SocialFields, Page):
         extra_url_params = {}
 
         if slug_filter:
-            blog_posts = blog_posts.filter(related_services__slug=slug_filter)
+            blog_posts = blog_posts.filter(
+                Q(related_sectors__slug=slug_filter)
+                | Q(related_services__slug=slug_filter)
+            )
             extra_url_params["filter"] = slug_filter
 
         # format for template
@@ -61,7 +65,9 @@ class BlogIndexPage(ColourThemeMixin, SocialFields, Page):
                 "date": blog_post.date,
                 "read_time": blog_post.read_time,
                 "type": blog_post.type,
+                "related_sectors": blog_post.related_sectors.all(),
                 "related_services": blog_post.related_services.all(),
+                "related_taxonomies": blog_post.related_taxonomies.all(),
             }
             for blog_post in blog_posts
         ]
@@ -79,11 +85,13 @@ class BlogIndexPage(ColourThemeMixin, SocialFields, Page):
         except EmptyPage:
             blog_posts = paginator.page(paginator.num_pages)
 
+        related_sectors = Sector.objects.all()
         related_services = Service.objects.all()
+        related_taxonomies = related_sectors.union(related_services)
 
         context.update(
             blog_posts=blog_posts,
-            related_services=related_services,
+            related_taxonomies=related_taxonomies,
             extra_url_params=urlencode(extra_url_params),
         )
         return context
@@ -117,6 +125,9 @@ class BlogPage(ColourThemeMixin, SocialFields, Page):
     )
     listing_summary = models.TextField(blank=True)
     canonical_url = models.URLField(blank=True, max_length=255)
+    related_sectors = ParentalManyToManyField(
+        "taxonomy.Sector", related_name="blog_posts"
+    )
     related_services = ParentalManyToManyField(
         "taxonomy.Service", related_name="blog_posts"
     )
@@ -134,8 +145,16 @@ class BlogPage(ColourThemeMixin, SocialFields, Page):
         self.body_word_count = len(body_words)
 
     @cached_property
+    def sectors(self):
+        return self.related_sectors.all()
+
+    @cached_property
     def services(self):
         return self.related_services.all()
+
+    @cached_property
+    def related_taxonomies(self):
+        return self.services.union(self.sectors)
 
     @property
     def related_blog_posts(self):
@@ -148,11 +167,16 @@ class BlogPage(ColourThemeMixin, SocialFields, Page):
                 "date": blog_post.date,
                 "read_time": blog_post.read_time,
                 "type": blog_post.type,
+                "related_sectors": blog_post.related_sectors.all(),
+                "related_taxonomies": blog_post.related_taxonomies.all(),
                 "related_services": blog_post.related_services.all(),
             }
-            for blog_post in BlogPage.objects.filter(related_services__in=self.services)
+            for blog_post in BlogPage.objects.filter(
+                Q(related_sectors__in=self.sectors)
+                | Q(related_services__in=self.services)
+            )
             .live()
-            .prefetch_related("related_services")
+            .prefetch_related("related_sectors", "related_services")
             .defer_streamfields()
             .distinct()
             .order_by("-first_published_at")
@@ -204,6 +228,7 @@ class BlogPage(ColourThemeMixin, SocialFields, Page):
             FieldPanel("feed_image"),
             FieldPanel("listing_summary"),
             FieldPanel("canonical_url"),
+            FieldPanel("related_sectors", widget=forms.CheckboxSelectMultiple),
             FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
