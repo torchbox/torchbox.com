@@ -19,7 +19,8 @@
         display: block;
 
         @include media-query(large) {
-            @include font-size('heading-four');
+            font-size: nth(map-get($large-font-sizes, 'heading-four'), 1);
+            line-height: nth(map-get($large-font-sizes, 'heading-four'), 2);
         }
 
         &--current {
