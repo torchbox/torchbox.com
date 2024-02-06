@@ -5,6 +5,6 @@
 <ul class="grid__related-posts streamfield__related-posts">
     {% for work_page in value.work_pages %}
         {% pageurl work_page.specific.work_index as work_index_url %}
-        {% include "patterns/molecules/listing/listing--image.html" with title=work_page.title name=work_page.specific.client link=work_page.url date=work_page.specific.date reading_time=work_page.specific.read_time tags=work_page.specific.related_services.all listing_image=work_page.specific.listing_image tag_link_base=work_index_url tags_screenreader_text="See more work posts in this category" %}
+        {% include "patterns/molecules/listing/listing--image.html" with title=work_page.title name=work_page.specific.client link=work_page.url date=work_page.specific.date reading_time=work_page.specific.read_time tags=work_page.specific.related_taxonomies.all listing_image=work_page.specific.listing_image tag_link_base=work_index_url tags_screenreader_text="See more work posts in this category" %}
     {% endfor %}
 </ul>
