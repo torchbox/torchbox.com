@@ -2,11 +2,13 @@ import datetime
 
 from django import forms
 from django.db import models
+from django.db.models import Q
+from django.utils.functional import cached_property
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
-from tbx.taxonomy.models import Service
+from tbx.taxonomy.models import Sector, Service
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.models import Orderable, Page
 
@@ -32,18 +34,27 @@ class EventIndexPage(ColourThemeMixin, SocialFields, Page):
         ]
     )
 
-    def get_events(self, service_filter=None):
+    def get_events(self, taxonomy_filter=None):
         today = datetime.date.today()
         events = self.events.exclude(date__lt=today)
-        if service_filter:
-            events = events.filter(related_services__slug=service_filter)
+        if taxonomy_filter:
+            events = events.filter(
+                Q(related_services__slug=taxonomy_filter)
+                | Q(related_services__slug=taxonomy_filter)
+            )
         return events.order_by("date")
 
     def get_context(self, request):
         context = super().get_context(request)
+        related_sectors = Sector.objects.all()
+        related_services = Service.objects.all()
+
+        # Used for the purposes of defining the filterable tags
+        related_taxonomies = related_sectors.union(related_services)
+
         context.update(
             events=self.get_events(request.GET.get("filter")),
-            related_services=Service.objects.all(),
+            related_taxonomies=related_taxonomies,
         )
         return context
 
@@ -62,9 +73,23 @@ class Event(ClusterableModel, Orderable):
         related_name="authors",
         verbose_name="Host",
     )
+    related_sectors = ParentalManyToManyField("taxonomy.Sector", related_name="events")
+
     related_services = ParentalManyToManyField(
         "taxonomy.Service", related_name="events"
     )
+
+    @cached_property
+    def sectors(self):
+        return self.related_sectors.all()
+
+    @cached_property
+    def services(self):
+        return self.related_services.all()
+
+    @cached_property
+    def related_taxonomies(self):
+        return self.services.union(self.sectors)
 
     panels = [
         FieldPanel("title"),
@@ -73,5 +98,6 @@ class Event(ClusterableModel, Orderable):
         FieldPanel("author"),
         FieldPanel("date"),
         FieldPanel("event_type"),
+        FieldPanel("related_sectors", widget=forms.CheckboxSelectMultiple),
         FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
     ]
