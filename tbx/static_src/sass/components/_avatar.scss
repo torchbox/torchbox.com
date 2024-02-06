@@ -2,18 +2,25 @@
 
 .avatar {
     position: relative;
-    width: $avatar-size-small;
-    height: $avatar-size-small;
+    width: $avatar-size-72;
+    height: $avatar-size-72;
 
     @include media-query(medium) {
-        width: $avatar-size-large;
-        height: $avatar-size-large;
+        width: $avatar-size-145;
+        height: $avatar-size-145;
     }
 
     &--small {
         @include media-query(medium) {
-            width: $avatar-size-medium;
-            height: $avatar-size-medium;
+            width: $avatar-size-120;
+            height: $avatar-size-120;
+        }
+    }
+
+    &--smallest {
+        @include media-query(medium) {
+            width: $avatar-size-100;
+            height: $avatar-size-100;
         }
     }
 

@@ -1,70 +1,21 @@
 @use "config" as *;
-@use "sass:color";
 
 .footerlinks-nav {
-    $root: &;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    flex-wrap: wrap;
-    height: auto;
-
     @include media-query(medium) {
-        flex-direction: row;
+        columns: 2;
+        column-gap: $spacer-medium;
+        max-width: 400px;
     }
 
-    &__item {
-        width: 100%;
-        padding-bottom: 5px;
-        margin-bottom: 0;
-        border-bottom: 0;
-        text-align: center;
-
-        &:first-of-type {
-            #{$root}__link {
-                margin-left: 0;
-            }
-        }
-
-        @include media-query(medium) {
-            width: auto;
-            padding: 0;
-            margin: 0;
-            font-weight: $weight--light;
-            text-align: left;
-
-            &::after {
-                content: '|';
-            }
-
-            &:last-of-type {
-                &::after {
-                    content: '';
-                }
-            }
-        }
+    @include media-query(large) {
+        padding-top: $spacer-mini-plus;
     }
 
     &__link {
-        border-bottom: 1px solid transparent;
-        transition: color, border $transition;
-
-        &:hover {
-            cursor: pointer;
-            border-bottom: 1px solid;
-        }
-
-        @include media-query(medium) {
-            padding: 5px 0;
-            margin: 0 10px;
-        }
-    }
-
-    &__icon {
-        @include media-query(large) {
-            // @todo - desktop dropdown styles
-            display: none;
-        }
+        @include link-styles();
+        @include font-size('body-two');
+        font-weight: 500;
+        display: block;
+        margin-bottom: 10px;
     }
 }

@@ -1,0 +1,33 @@
+context:
+  contact_heading: Let's talk
+  contact_text: Got a brief? We’d love to see it. If not, we can help.
+  contact_name: Will Heinemann
+  contact_role: New Business Director
+  contact_link: '#'
+  global_settings:
+    footer_logos:
+      - footer_logo:
+      - footer_logo:
+      - footer_logo:
+      - footer_logo:
+
+tags:
+  image:
+    avatar fill-144x144 format-webp as avatar_desktop:
+      target_var: avatar_desktop
+      raw:
+        url: 'https://source.unsplash.com/144x144?face'
+    avatar fill-286x286 format-webp as avatar_desktop_retina:
+      target_var: avatar_desktop_retina
+      raw:
+        url: 'https://source.unsplash.com/286x286?face'
+    avatar fill-72x72 format-webp as avatar_mobile:
+      target_var: avatar_mobile
+      raw:
+        url: 'https://source.unsplash.com/72x72?face'
+    footer_logo max-100x100 format-webp loading="lazy" class="footer__logo":
+      raw: |
+        <img src="https://source.unsplash.com/100x100?logo" width="100" height="100" alt="test alt" class="footer__logo">
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'

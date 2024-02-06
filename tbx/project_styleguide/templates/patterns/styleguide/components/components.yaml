@@ -153,6 +153,6 @@ tags:
       raw: |
         <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="featured-case-study__company-logo">
     # for partners
-    partner_logo max-100x90 format-webp class="partners__logo":
+    partner_logo max-100x90 format-webp loading="lazy" class="partners__logo":
       raw: |
         <img src="https://source.unsplash.com/100x90?logo" width="100" height="90" alt="" class="partners__logo">

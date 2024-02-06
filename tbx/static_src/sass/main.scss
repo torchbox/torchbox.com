@@ -12,6 +12,8 @@
 @use 'components/call-to-action';
 @use 'components/contact-cta';
 @use 'components/featured-case-study';
+@use 'components/footer';
+@use 'components/footer-cta';
 @use 'components/grid';
 @use 'components/image';
 @use 'components/link';
@@ -43,7 +45,6 @@
 // Navigation
 @use 'components/navigation/breadcrumbs-nav';
 @use 'components/navigation/footerlinks-nav';
-@use 'components/navigation/footercolumn-nav';
 @use 'components/navigation/primary-nav';
 @use 'components/navigation/secondary-nav';
 @use 'components/navigation/sub-nav';
