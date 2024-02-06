@@ -4,16 +4,14 @@ from django.db import models
 from django.dispatch import receiver
 from django.utils.functional import cached_property
 
-from modelcluster.fields import ParentalKey
-from modelcluster.models import ClusterableModel
 from phonenumber_field.modelfields import PhoneNumberField
 from tbx.blog.models import BlogPage
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.people.forms import ContactForm
 from tbx.work.models import HistoricalWorkPage, WorkIndexPage
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
-from wagtail.models import Orderable, Page
+from wagtail.models import Page
 from wagtail.search import index
 from wagtail.signals import page_published
 from wagtail.snippets.models import register_snippet
@@ -213,36 +211,3 @@ class Contact(index.Indexed, models.Model):
         FieldPanel("email_address"),
         FieldPanel("phone_number"),
     ]
-
-
-class ContactReason(Orderable):
-    page = ParentalKey("people.ContactReasonsList", related_name="reasons")
-    title = models.CharField(max_length=255, blank=False)
-    description = models.TextField(blank=False)
-
-
-@register_snippet
-class ContactReasonsList(ClusterableModel):
-    name = models.CharField(max_length=255, blank=True)
-    heading = models.TextField(blank=False)
-    is_default = models.BooleanField(default=False, blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    panels = [
-        FieldPanel("name"),
-        FieldPanel("heading"),
-        FieldPanel("is_default", widget=forms.CheckboxInput),
-        InlinePanel("reasons", label="Reasons", max_num=3),
-    ]
-
-    def clean(self):
-        if self.is_default:
-            qs = ContactReasonsList.objects.filter(is_default=True)
-            if self.pk:
-                qs = qs.exclude(pk=self.pk)
-            if qs.exists():
-                raise ValidationError(
-                    {"is_default": ["There already is another default snippet."]}
-                )
