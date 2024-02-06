@@ -6,11 +6,11 @@
     list-style-type: none;
 
     &__title {
-        @include font-size('heading-four');
+        @include font-size('heading-three');
         margin-bottom: $spacer-mini;
 
         @include media-query(medium) {
-            margin-bottom: $spacer-mini-plus;
+            margin-bottom: $spacer-small;
         }
 
         &:focus {

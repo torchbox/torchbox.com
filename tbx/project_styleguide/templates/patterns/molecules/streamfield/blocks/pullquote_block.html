@@ -4,14 +4,14 @@
     {# This needs to be inline as masks or clipPaths are not supported in <use> elements #}
     {% include "patterns/atoms/icons/quote-icon.html" with classes="pullquote__icon" unique_id=unique_id %}
 
-    <p class="pullquote__text heading heading--four">{{ value.quote }}</p>
+    <p class="pullquote__text heading heading--three">{{ value.quote }}</p>
 
     <div class="pullquote__reference">
         <div class="pullquote__meta">
             {% if value.author_image %}
                 {% include "patterns/atoms/avatar/avatar.html" with avatar=value.author_image classes="avatar--small" %}
             {% elif value.logo %}
-                {% image value.logo fill-110x70 format-webp class="pullquote__company-logo" %}
+                {% image value.logo max-110x70 format-webp class="pullquote__company-logo" %}
             {% endif %}
 
             <cite class="pullquote__cite">

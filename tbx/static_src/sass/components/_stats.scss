@@ -47,7 +47,7 @@
     }
 
     &__description {
-        @include font-size('heading-six');
+        @include font-size('heading-five');
         color: var(--color--heading);
         display: block;
         margin-bottom: $spacer-small;

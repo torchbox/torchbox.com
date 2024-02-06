@@ -50,7 +50,7 @@
         {% include_block page.body %}
 
         {% if page.related_blog_posts %}
-            {% include "patterns/atoms/section-title/section-title.html" with title="More" aria_label="Related blog posts" classes="section-title--related-posts section-title--large-gap" %}
+            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading="More" aria_label="Related blog posts" classes="motif-heading--two motif-heading--static section-title--related-posts section-title--large-gap" %}
 
             <ul class="grid__related-posts streamfield__related-posts">
                 {% for post in page.related_blog_posts %}
