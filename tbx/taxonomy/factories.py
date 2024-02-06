@@ -2,7 +2,6 @@ from django.utils.text import slugify
 
 import factory
 from factory.django import DjangoModelFactory
-from tbx.people.factories import ContactFactory, ContactReasonsListFactory
 from tbx.taxonomy.models import Service
 
 
@@ -28,25 +27,25 @@ class ServiceFactory(DjangoModelFactory):
     slug = factory.LazyAttribute(lambda o: slugify(o.name))
     description = factory.Faker("paragraph")
     sort_order = factory.Sequence(lambda n: n)
-    preferred_contact = factory.SubFactory(ContactFactory)
+    # preferred_contact = factory.SubFactory(ContactFactory)
 
     class Meta:
         model = Service
 
-    @factory.post_generation
-    def contact_reasons(self, create, extracted, **kwargs):
-        if not create:
-            return
+    # @factory.post_generation
+    # def contact_reasons(self, create, extracted, **kwargs):
+    #     if not create:
+    #         return
 
-        if extracted:
-            if isinstance(extracted, int):
-                # Create a ContactReasonsList instance with the specified number of reasons
-                contact_reasons_list = ContactReasonsListFactory(reasons=extracted)
+    #     if extracted:
+    #         if isinstance(extracted, int):
+    #             # Create a ContactReasonsList instance with the specified number of reasons
+    #             contact_reasons_list = ContactReasonsListFactory(reasons=extracted)
 
-                # Associate the newly created ContactReasonsList instance with the Service
-                self.contact_reasons = contact_reasons_list
+    #             # Associate the newly created ContactReasonsList instance with the Service
+    #             self.contact_reasons = contact_reasons_list
 
-            else:
-                raise ValueError(
-                    "The 'contact_reasons' field expects an integer value."
-                )
+    #         else:
+    #             raise ValueError(
+    #                 "The 'contact_reasons' field expects an integer value."
+    #             )
