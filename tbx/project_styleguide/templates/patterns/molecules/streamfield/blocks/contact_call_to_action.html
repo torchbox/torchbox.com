@@ -9,7 +9,7 @@
     {% endif %}
 
     {% if value.person %}
-        <cite class="contact-cta__cite">
+        <p class="contact-cta__cite">
             {% if value.person.name %}
                 <span class="contact-cta__name">{{ value.person.name }}</span>
             {% endif %}
@@ -17,7 +17,7 @@
             {% if value.person.role %}
                 <span class="contact-cta__role">{{ value.person.role }}</span>
             {% endif %}
-        </cite>
+        </p>
     {% endif %}
 
     {% for cta in value.call_to_action %}
