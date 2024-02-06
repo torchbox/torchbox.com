@@ -286,7 +286,7 @@ class WorkPage(ColourThemeMixin, SocialFields, Page):
                 "read_time": work_page.read_time,
                 "related_sectors": work_page.related_sectors.all(),
                 "related_services": work_page.related_services.all(),
-                "related_taxonomies": work_page.related_services.all(),
+                "related_taxonomies": work_page.related_taxonomies.all(),
                 "listing_image": work_page.header_image,
             }
             # get 3 pages with same services and exclude self page
