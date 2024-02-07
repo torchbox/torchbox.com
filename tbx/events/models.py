@@ -1,4 +1,5 @@
 import datetime
+from itertools import chain
 
 from django import forms
 from django.db import models
@@ -21,7 +22,6 @@ class EventIndexPage(ColourThemeMixin, SocialFields, Page):
 
     content_panels = Page.content_panels + [
         InlinePanel("events", label="events"),
-        FieldPanel("call_to_action"),
     ]
 
     promote_panels = (
@@ -50,11 +50,11 @@ class EventIndexPage(ColourThemeMixin, SocialFields, Page):
         related_services = Service.objects.all()
 
         # Used for the purposes of defining the filterable tags
-        related_taxonomies = related_sectors.union(related_services)
+        tags = related_sectors.union(related_services)
 
         context.update(
             events=self.get_events(request.GET.get("filter")),
-            related_taxonomies=related_taxonomies,
+            tags=tags,
         )
         return context
 
@@ -87,9 +87,9 @@ class Event(ClusterableModel, Orderable):
     def services(self):
         return self.related_services.all()
 
-    @cached_property
-    def related_taxonomies(self):
-        return self.services.union(self.sectors)
+    @property
+    def tags(self):
+        return chain(self.services, self.sectors)
 
     panels = [
         FieldPanel("title"),
