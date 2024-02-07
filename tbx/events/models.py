@@ -17,19 +17,20 @@ class EventIndexPage(ColourThemeMixin, SocialFields, Page):
     parent_page_types = ["torchbox.HomePage"]
     subpage_types = []
 
-    content_panels = (
-        Page.content_panels
-        + ColourThemeMixin.content_panels
+    content_panels = Page.content_panels + [
+        InlinePanel("events", label="events"),
+        FieldPanel("call_to_action"),
+    ]
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
         + [
-            InlinePanel("events", label="events"),
-            FieldPanel("call_to_action"),
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
     )
-
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
 
     def get_events(self, service_filter=None):
         today = datetime.date.today()

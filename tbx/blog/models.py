@@ -88,12 +88,15 @@ class BlogIndexPage(ColourThemeMixin, SocialFields, Page):
         )
         return context
 
-    content_panels = Page.content_panels + ColourThemeMixin.content_panels
-
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
+        + [
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+        ]
+    )
 
 
 class BlogPage(ColourThemeMixin, SocialFields, Page):
@@ -186,24 +189,25 @@ class BlogPage(ColourThemeMixin, SocialFields, Page):
     def type(self):
         return "BLOG POST"
 
-    content_panels = (
-        Page.content_panels
-        + ColourThemeMixin.content_panels
+    content_panels = Page.content_panels + [
+        InlinePanel("authors", label="Author", min_num=1),
+        FieldPanel("date"),
+        FieldPanel("body"),
+    ]
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
         + [
-            InlinePanel("authors", label="Author", min_num=1),
-            FieldPanel("date"),
-            FieldPanel("body"),
+            FieldPanel("feed_image"),
+            FieldPanel("listing_summary"),
+            FieldPanel("canonical_url"),
+            FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
     )
-
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        FieldPanel("feed_image"),
-        FieldPanel("listing_summary"),
-        FieldPanel("canonical_url"),
-        FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
 
 
 @receiver(page_published, sender=BlogPage)
