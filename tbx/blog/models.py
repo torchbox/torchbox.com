@@ -1,5 +1,6 @@
 import math
 import string
+from itertools import chain
 
 from django import forms
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -65,9 +66,7 @@ class BlogIndexPage(ColourThemeMixin, SocialFields, Page):
                 "date": blog_post.date,
                 "read_time": blog_post.read_time,
                 "type": blog_post.type,
-                "related_sectors": blog_post.related_sectors.all(),
-                "related_services": blog_post.related_services.all(),
-                "related_taxonomies": blog_post.related_taxonomies.all(),
+                "tags": blog_post.tags,
             }
             for blog_post in blog_posts
         ]
@@ -87,11 +86,11 @@ class BlogIndexPage(ColourThemeMixin, SocialFields, Page):
 
         related_sectors = Sector.objects.all()
         related_services = Service.objects.all()
-        related_taxonomies = related_sectors.union(related_services)
+        tags = related_sectors.union(related_services)
 
         context.update(
             blog_posts=blog_posts,
-            related_taxonomies=related_taxonomies,
+            tags=tags,
             extra_url_params=urlencode(extra_url_params),
         )
         return context
@@ -152,9 +151,9 @@ class BlogPage(ColourThemeMixin, SocialFields, Page):
     def services(self):
         return self.related_services.all()
 
-    @cached_property
-    def related_taxonomies(self):
-        return self.services.union(self.sectors)
+    @property
+    def tags(self):
+        return chain(self.services, self.sectors)
 
     @property
     def related_blog_posts(self):
@@ -167,9 +166,7 @@ class BlogPage(ColourThemeMixin, SocialFields, Page):
                 "date": blog_post.date,
                 "read_time": blog_post.read_time,
                 "type": blog_post.type,
-                "related_sectors": blog_post.related_sectors.all(),
-                "related_taxonomies": blog_post.related_taxonomies.all(),
-                "related_services": blog_post.related_services.all(),
+                "tags": self.tags,
             }
             for blog_post in BlogPage.objects.filter(
                 Q(related_sectors__in=self.sectors)
@@ -228,8 +225,13 @@ class BlogPage(ColourThemeMixin, SocialFields, Page):
             FieldPanel("feed_image"),
             FieldPanel("listing_summary"),
             FieldPanel("canonical_url"),
-            FieldPanel("related_sectors", widget=forms.CheckboxSelectMultiple),
-            FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
+            MultiFieldPanel(
+                [
+                    FieldPanel("related_sectors", widget=forms.CheckboxSelectMultiple),
+                    FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
+                ],
+                heading="Taxonomies",
+            ),
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
     )

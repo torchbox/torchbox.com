@@ -2,4 +2,4 @@
 
 {% firstof item.url item.link_external as link %}
 
-{% include "patterns/molecules/listing/listing--avatar.html" with link=link avatar=item.author.image title=item.title name=item.author.name job_title=item.author.role date=item.date reading_time=item.read_time tags=item.related_taxonomies tag_link_base=blog_index_url base_class="page-listing__item" %}
+{% include "patterns/molecules/listing/listing--avatar.html" with link=link avatar=item.author.image title=item.title name=item.author.name job_title=item.author.role date=item.date reading_time=item.read_time tags=item.tags tag_link_base=blog_index_url base_class="page-listing__item" %}
