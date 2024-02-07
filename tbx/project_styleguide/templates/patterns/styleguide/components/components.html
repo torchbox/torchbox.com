@@ -3,8 +3,9 @@
     <div class="flex items-center gap-2">
         <label for="theme-chooser">Choose a theme:</label>
         <select name="theme-chooser" id="theme-chooser" class="p-2 text-black select" onchange="changeTheme(this.value)">
-            <option value="theme-coral-dark">Coral Dark</option>
-            <option value="theme-lagoon-dark">Lagoon Dark</option>
+            <option value="theme-coral">Coral</option>
+            <option value="theme-lagoon">Lagoon</option>
+            <option value="theme-banana">Banana</option>
         </select>
     </div>
 </div>
@@ -104,7 +105,7 @@
 <script>
     // JS to change the theme of the styleguide
     function changeTheme(theme) {
-        document.body.className = '';
-        document.body.classList.add(theme);
+        document.documentElement.className = 'mode-dark';
+        document.documentElement.classList.add(theme);
     }
 </script>
