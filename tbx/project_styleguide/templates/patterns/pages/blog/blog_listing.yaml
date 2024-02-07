@@ -110,3 +110,6 @@ tags:
     item as index:
       target_var: index
       raw: '#'
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'

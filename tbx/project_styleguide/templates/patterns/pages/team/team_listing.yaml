@@ -22,3 +22,6 @@ tags:
       target_var: image
       raw:
         url: 'https://source.unsplash.com/550x550/?trees'
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'

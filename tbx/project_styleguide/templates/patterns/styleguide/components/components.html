@@ -1,3 +1,4 @@
+{% load navigation_tags %}
 <div class="p-4 flex items-center justify-between">
     <h1 class="heading heading--one">Styleguide</h1>
     <div class="flex items-center gap-2">
@@ -103,6 +104,11 @@
     <div>
         <h2 class="underline mt-8 mb-2">Footer CTA</h2>
         {% include "patterns/molecules/footer-cta/footer-cta.html" with value=partners_data  %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Footer links</h2>
+        {% footerlinks  %}
     </div>
 </div>
 

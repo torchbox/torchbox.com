@@ -1,2 +1,7 @@
 context:
   foo: bar
+
+tags:
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'
