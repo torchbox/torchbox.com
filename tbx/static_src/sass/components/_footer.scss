@@ -1,6 +1,7 @@
 @use "config" as *;
 
 .footer {
+    $root: &;
     display: flex;
     flex-direction: column;
     gap: $spacer-small;
@@ -41,8 +42,25 @@
         margin: $spacer-mini * 2 $spacer-mini 0 0;
     }
 
-    &__social-icon {
-        fill: var(--color--text);
+    &__social-link {
+        transition: color $transition-quick;
+        color: var(--color--text);
+
+        &:hover,
+        &:focus {
+            color: var(--color--heading);
+        }
+
+        @include high-contrast-mode() {
+            display: block;
+            padding-bottom: 2px;
+            border-bottom: 1px solid var(--color--text);
+
+            &:hover,
+            &:focus {
+                border-bottom-width: 2px;
+            }
+        }
     }
 
     &__logos {
