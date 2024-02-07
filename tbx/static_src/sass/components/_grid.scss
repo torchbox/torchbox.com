@@ -148,16 +148,14 @@
 
     // Move everything over by 1 column on the blog page and work pages
     .template-blog-page &,
-    .template-work-page &,
-    .template-historical-work-page & {
+    .template-work-page & {
         &__heading,
         &__intro,
         &__paragraph,
         &__image,
         &__raw-html,
         &__markdown,
-        &__embed,
-        &__stats {
+        &__embed {
             @include media-query(large) {
                 grid-column: 5 / span 7;
             }
@@ -225,6 +223,50 @@
             @include media-query(large) {
                 margin-bottom: $spacer;
                 grid-column: 1 / span 13;
+            }
+        }
+    }
+
+    .template-historical-work-page & {
+        &__heading,
+        &__intro,
+        &__paragraph,
+        &__image,
+        &__raw-html,
+        &__markdown,
+        &__embed {
+            @include media-query(large) {
+                grid-column: 2 / span 7;
+            }
+        }
+
+        &__title {
+            @include media-query(large) {
+                grid-column: 2 / span 9;
+            }
+        }
+
+        &__call-to-action {
+            @include media-query(large) {
+                grid-column: 2 / span 10;
+            }
+        }
+
+        &__quote {
+            @include media-query(large) {
+                grid-column: 2 / span 9;
+            }
+        }
+
+        &__image {
+            @include media-query(large) {
+                grid-column: 2 / span 11;
+            }
+        }
+
+        &__stats {
+            @include media-query(large) {
+                grid-column: 2 / span 9;
             }
         }
     }
