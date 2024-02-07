@@ -82,3 +82,6 @@ tags:
   pageurl:
     page.blog_index as blog_index_url:
       raw: '#'
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'

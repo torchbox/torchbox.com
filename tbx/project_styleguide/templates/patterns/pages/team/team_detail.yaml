@@ -10,3 +10,6 @@ tags:
   image:
     page.image format-webp width-1280:
       raw: '<img src="https://source.unsplash.com/1280x800/?person">'
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'

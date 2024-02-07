@@ -104,3 +104,6 @@ tags:
       raw:
         alt: 'mobile image retina'
         url: 'https://source.unsplash.com/1600x1076?face'
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'

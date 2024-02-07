@@ -1,13 +1,9 @@
 {% load wagtailcore_tags %}
-<nav aria-label="Footer navigation">
+<nav aria-label="Footer navigation" class="footerlinks-nav">
     {% for item in footerlinks %}
         {% with link=item.value %}
-            <a href="{{ link.url }}" {% if not link.is_page %}target="_blank" rel="nofollow noreferrer"{% endif %}>
+            <a href="{{ link.url }}" class="footerlinks-nav__link">
                 {{ link.text }}
-                {# external link #}
-                {% if not link.is_page %}
-                    {% include "patterns/atoms/icons/icon.html" with name="external" classname="footer__external-link-icon" %}
-                {% endif %}
             </a>
         {% endwith %}
     {% endfor %}

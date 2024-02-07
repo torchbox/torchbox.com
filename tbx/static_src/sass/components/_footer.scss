@@ -1,0 +1,79 @@
+@use "config" as *;
+
+.footer {
+    $root: &;
+    display: flex;
+    flex-direction: column;
+    gap: $spacer-small;
+    margin-top: $spacer-medium;
+
+    @include media-query(large) {
+        margin-top: $spacer-half * 2;
+        gap: $spacer-medium;
+    }
+
+    &__top {
+        width: 100%;
+    }
+
+    &__bottom {
+        width: 100%;
+        background-color: var(--color--footer-background);
+        padding: $spacer-small 0;
+    }
+
+    &__line {
+        height: 1px;
+        background-color: var(--color--decoration);
+        margin-bottom: $spacer-half;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-medium;
+        }
+    }
+
+    &__copyright {
+        margin: $spacer-mini 0 0;
+    }
+
+    &__socials {
+        display: flex;
+        gap: $spacer-mini * 2;
+        margin: $spacer-mini * 2 $spacer-mini 0 0;
+    }
+
+    &__social-link {
+        display: block;
+        transition: color $transition-quick;
+        color: var(--color--text);
+
+        &:hover,
+        &:focus {
+            @include focus-style();
+            color: var(--color--heading);
+        }
+
+        @include high-contrast-mode() {
+            padding-bottom: 2px;
+            border-bottom: 1px solid var(--color--text);
+
+            &:hover,
+            &:focus {
+                border-bottom-width: 2px;
+            }
+        }
+    }
+
+    &__logos {
+        display: flex;
+        gap: $spacer-medium;
+    }
+
+    &__logo {
+        filter: grayscale(1) invert(1) brightness(1.5);
+
+        @include high-contrast-light-mode() {
+            filter: none;
+        }
+    }
+}

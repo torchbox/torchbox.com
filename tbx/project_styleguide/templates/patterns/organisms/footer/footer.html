@@ -1,53 +1,58 @@
 {% load navigation_tags wagtailcore_tags wagtailimages_tags %}
 
-<footer>
-    {% with global_settings=settings.navigation.NavigationSettings %}
-        {% if global_settings.footer_logos %}
-            <ul>
-                {% for item in global_settings.footer_logos %}
-                    {% with logo=item.value %}
-                        <li>
-                            {% with link=logo.link.0.value %}
-                                {% if link %}
-                                    <a href="{{ link.url }}" title="{{ link.link_text }}">
-                                        {% image logo.image height-90 format-webp loading="lazy" alt=link.link_text %}
-                                    </a>
-                                {% else %}
-                                    {% image logo.image height-90 format-webp loading="lazy" %}
-                                {% endif %}
-                            {% endwith %}
-                        </li>
-                    {% endwith %}
-                {% endfor %}
+<footer class="footer">
+
+    <div class="grid footer__top ">
+        <span class="grid__footer-line footer__line"></span>
+        {% include "patterns/molecules/footer-cta/footer-cta.html"%}
+
+        <div class="grid__footer-links">
+            {% footerlinks %}
+            <p class="footer__copyright">© Torchbox {% now "Y" %}</p>
+
+            <ul class="footer__socials">
+                <li>
+                    <a aria-label="Follow us on Twitter" href="https://twitter.com/torchbox" class="footer__social-link">
+                        <svg width="24" height="24" aria-hidden="true" class="footer__social-icon">
+                            <use xlink:href="#twitter" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a aria-label="Connect with us on LinkedIn" href="https://www.linkedin.com/company/torchbox" class="footer__social-link">
+                        <svg width="24" height="24" aria-hidden="true" class="footer__social-icon">
+                            <use xlink:href="#linkedin" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a aria-label="Follow us on Instagram" href="https://www.instagram.com/torchboxltd/" class="footer__social-link">
+                        <svg width="24" height="24" aria-hidden="true" class="footer__social-icon">
+                            <use xlink:href="#instagram" />
+                        </svg>
+                    </a>
+                </li>
             </ul>
-        {% endif %}
-    {% endwith %}
+        </div>
+    </div>
 
-    {% footerlinks %}
-
-    <ul>
-        <li>
-            <a aria-label="Follow us on Twitter" href="https://twitter.com/torchbox">
-                <svg width="24" height="24" aria-hidden="true">
-                    <use xlink:href="#twitter" />
-                </svg>
-            </a>
-        </li>
-        <li>
-            <a aria-label="Connect with us on LinkedIn" href="https://www.linkedin.com/company/torchbox">
-                <svg width="24" height="24" aria-hidden="true">
-                    <use xlink:href="#linkedin" />
-                </svg>
-            </a>
-        </li>
-        <li>
-            <a aria-label="Follow us on Instagram" href="https://www.instagram.com/torchboxltd/">
-                <svg width="24" height="24" aria-hidden="true">
-                    <use xlink:href="#instagram" />
-                </svg>
-            </a>
-        </li>
-    </ul>
+    <div class="grid footer__bottom">
+        <div class="grid__footer-logos">
+            {% with global_settings=settings.navigation.NavigationSettings %}
+                {% if global_settings.footer_logos %}
+                    <ul class="footer__logos">
+                        {% for item in global_settings.footer_logos %}
+                            {% with footer_logo=item.value.image %}
+                                <li>
+                                    {% image footer_logo max-100x100 format-webp loading="lazy" class="footer__logo" %}
+                                </li>
+                            {% endwith %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
 
     {% include "patterns/molecules/cookie-message/cookie-message.html" %}
 

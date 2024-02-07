@@ -1,15 +1,23 @@
 context:
   footerlinks:
     - value:
-        text: Blog
+        text: Jobs
     - value:
-        text: Work
+        text: Torchbox academy
     - value:
         text: Team
     - value:
+        text: Events
+    - value:
+        text: Impact report
+    - value:
         text: Privacy
     - value:
-        text: Privacy & Cookies
+        text: Cookies
+    - value:
+        text: Anti-slavery policy
+    - value:
+        text: Sustainability policy
 
 tags:
   pageurl:
