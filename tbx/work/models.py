@@ -1,5 +1,6 @@
 import math
 import string
+from itertools import chain
 
 from django import forms
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -141,9 +142,9 @@ class HistoricalWorkPage(ColourThemeMixin, SocialFields, Page):
     def services(self):
         return self.related_services.all()
 
-    @cached_property
-    def related_taxonomies(self):
-        return self.services.union(self.sectors)
+    @property
+    def tags(self):
+        return chain(self.services, self.sectors)
 
     @property
     def read_time(self):
@@ -263,9 +264,9 @@ class WorkPage(ColourThemeMixin, SocialFields, Page):
     def services(self):
         return self.related_services.all()
 
-    @cached_property
-    def related_taxonomies(self):
-        return self.services.union(self.sectors)
+    @property
+    def tags(self):
+        return chain(self.services, self.sectors)
 
     @cached_property
     def first_author(self):
@@ -286,7 +287,7 @@ class WorkPage(ColourThemeMixin, SocialFields, Page):
                 "read_time": work_page.read_time,
                 "related_sectors": work_page.related_sectors.all(),
                 "related_services": work_page.related_services.all(),
-                "related_taxonomies": work_page.related_taxonomies.all(),
+                "tags": self.tags,
                 "listing_image": work_page.header_image,
             }
             # get 3 pages with same services and exclude self page
@@ -399,9 +400,9 @@ class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
                 "url": work.url,
                 "author": work.first_author,
                 "date": work.date,
-                "related_sectors": work.related_sectors.all(),
-                "related_services": work.related_services.all(),
-                "related_taxonomies": work.related_taxonomies.all(),
+                # "related_sectors": work.related_sectors.all(),
+                # "related_services": work.related_services.all(),
+                "tags": work.tags,
                 "read_time": work.read_time,
                 "listing_image": work.listing_image,
             }
@@ -425,11 +426,11 @@ class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
         related_services = Service.objects.all()
 
         # Used for the purposes of defining the filterable tags
-        related_taxonomies = related_sectors.union(related_services)
+        tags = related_sectors.union(related_services)
 
         context.update(
             works=works,
-            related_taxonomies=related_taxonomies,
+            tags=tags,
             extra_url_params=urlencode(extra_url_params),
         )
 
