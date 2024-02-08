@@ -4,11 +4,12 @@ from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 
 from modelcluster.models import ClusterableModel
-from tbx.core.blocks import ImageWithLinkBlock
 from tbx.navigation.blocks import LinkBlock, PrimaryNavLinkBlock
+from wagtail import blocks
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import StreamField
+from wagtail.images.blocks import ImageChooserBlock
 
 
 @register_setting(icon="list-ul")
@@ -26,7 +27,7 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
         use_json_field=True,
     )
     footer_logos = StreamField(
-        [("logos", ImageWithLinkBlock())],
+        [("logos", blocks.ListBlock(ImageChooserBlock()))],
         blank=True,
         help_text="Single list of logos that appear before the footer box",
         use_json_field=True,
