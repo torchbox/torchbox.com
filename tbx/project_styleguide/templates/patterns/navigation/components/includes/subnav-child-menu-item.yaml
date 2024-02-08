@@ -1,0 +1,11 @@
+context:
+  pages:
+    - title: One
+    - title: Two
+    - title: Three
+
+tags:
+  pageurl:
+    'page as item_url':
+      target_var: item_url
+      raw: '#'
