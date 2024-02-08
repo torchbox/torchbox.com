@@ -2,7 +2,7 @@ import factory
 import wagtail_factories
 from tbx.blog.models import BlogIndexPage, BlogPage
 from tbx.core.factories import StoryBlockFactory
-from tbx.taxonomy.factories import ServiceFactory
+from tbx.taxonomy.factories import SectorFactory, ServiceFactory
 
 
 class BlogIndexPageFactory(wagtail_factories.PageFactory):
@@ -29,3 +29,13 @@ class BlogPageFactory(wagtail_factories.PageFactory):
         if extracted:
             # Add the iterable of related_services using bulk addition
             self.related_services.add(*extracted)
+
+    @factory.post_generation
+    def related_sectors(self, create, extracted, **kwargs):
+        if not create or not extracted:
+            sector = SectorFactory()
+            self.related_sectors.add(sector)
+
+        if extracted:
+            # Add the iterable of related_services using bulk addition
+            self.related_sectors.add(*extracted)
