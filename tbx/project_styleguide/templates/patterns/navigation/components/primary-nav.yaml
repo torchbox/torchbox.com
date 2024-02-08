@@ -1,6 +1,5 @@
 context:
   children: True
-  is_pattern_library: True
   primarynav:
     - item:
       value:
