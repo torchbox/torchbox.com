@@ -1,3 +1,6 @@
+from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
+
 from modelcluster.models import ClusterableModel
 from tbx.core.blocks import ImageWithLinkBlock
 from tbx.navigation.blocks import LinkBlock, PrimaryNavLinkBlock
@@ -33,3 +36,17 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
         FieldPanel("footer_links"),
         FieldPanel("footer_logos"),
     ]
+
+    def save(self, **kwargs):
+        super().save(**kwargs)
+
+        fragment_keys = ["primarynav"]
+        keys = [
+            # The fragment cache varies on:
+            # the current site pk, whether used in preview, or in the pattern library
+            # NOTE: `is_pattern_library` returns True if pattern is being rendered in the pattern library,
+            # but it doesn't return False if otherwise, hence the empty string instead of False
+            make_template_fragment_key(key, vary_on=[self.site.pk, False, ""])
+            for key in fragment_keys
+        ]
+        cache.delete_many(keys)
