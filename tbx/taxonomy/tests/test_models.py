@@ -19,12 +19,12 @@ class TestTaxonomies(WagtailPageTestCase):
         cls.homepage = HomePageFactory(parent=root)
 
         # Create services
-        service_names = ["Service1", "Service2"]
-        services = [ServiceFactory(name=name) for name in service_names]
+        cls.service_names = ["Service1", "Service2"]
+        services = [ServiceFactory(name=name) for name in cls.service_names]
 
         # Create sectors
-        sector_names = ["Sector1", "Sector2"]
-        sectors = [SectorFactory(name=name) for name in sector_names]
+        cls.sector_names = ["Sector1", "Sector2"]
+        sectors = [SectorFactory(name=name) for name in cls.sector_names]
 
         cls.blog_index_page = BlogIndexPageFactory(
             title="Blog Index Page",
@@ -73,21 +73,10 @@ class TestTaxonomies(WagtailPageTestCase):
         self.assertListEqual(list(self.blog_page_service.tags), [services[1]])
         self.assertListEqual(list(self.blog_page_sector.tags), [sectors[1]])
 
-
-class TestBlogPage(WagtailPageTestCase):
     def test_related_blog_posts_services(self):
         """
         Tests the `related_blog_posts` property on the `BlogPage` model using the Service taxonomy
         """
-        service_names = [
-            "Culture",
-            "Digital products",
-            "Email marketing",
-            "Social media",
-        ]
-        for name in service_names:
-            service = ServiceFactory(name=name)
-            BlogPageFactory(related_services=[service])
 
         blog_post1 = BlogPageFactory(
             related_services=[ServiceFactory(name="Lorem Ipsum")]
@@ -97,14 +86,14 @@ class TestBlogPage(WagtailPageTestCase):
         self.assertEqual(len(blog_post1.related_blog_posts), 0)
 
         blog_post2 = BlogPageFactory(
-            related_services=[Service.objects.get(name="Culture")]
+            related_services=[Service.objects.get(name="Service1")]
         )
         # There's only 1 blog post with the 'Culture' related service,
         # so there should only be 1 related blog post
         self.assertEqual(len(blog_post2.related_blog_posts), 1)
 
         blog_post3 = BlogPageFactory(
-            related_services=list(Service.objects.filter(name__in=service_names)),
+            related_services=list(Service.objects.filter(name__in=self.service_names)),
         )
         # There are 4 blog posts which share the 4 related services,
         # so there should be 3 related blog posts
@@ -114,14 +103,6 @@ class TestBlogPage(WagtailPageTestCase):
         """
         Tests the `related_blog_posts` property on the `BlogPage` model using the Sectors taxonomy
         """
-        sector_names = [
-            "Higher Education",
-            "Not-for-profit",
-            "Public Sector",
-        ]
-        for name in sector_names:
-            sectors = SectorFactory(name=name)
-            BlogPageFactory(related_sectors=[sectors])
 
         blog_post1 = BlogPageFactory(
             related_sectors=[SectorFactory(name="Lorem Ipsum")]
@@ -131,14 +112,14 @@ class TestBlogPage(WagtailPageTestCase):
         self.assertEqual(len(blog_post1.related_blog_posts), 0)
 
         blog_post2 = BlogPageFactory(
-            related_sectors=[Sector.objects.get(name="Higher Education")]
+            related_sectors=[Sector.objects.get(name="Sector1")]
         )
         # There's only 1 blog post with the 'Higher Education' related sectors,
         # so there should only be 1 related blog post
         self.assertEqual(len(blog_post2.related_blog_posts), 1)
 
         blog_post3 = BlogPageFactory(
-            related_sectors=list(Sector.objects.filter(name__in=sector_names)),
+            related_sectors=list(Sector.objects.filter(name__in=self.sector_names)),
         )
         # There are 4 blog posts which share the 3 related sectors,
         # so there should be 3 related blog posts
