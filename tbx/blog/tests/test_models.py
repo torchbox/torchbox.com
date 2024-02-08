@@ -1,3 +1,5 @@
+from django.test import Client
+
 from faker import Faker
 from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
 from tbx.taxonomy.factories import SectorFactory, ServiceFactory
@@ -10,6 +12,61 @@ fake = Faker(["en_GB"])
 class TestBlogIndexPageFactory(WagtailPageTestCase):
     def test_create(self):
         BlogIndexPageFactory()
+
+
+class TestBlogIndexPage(WagtailPageTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+
+        cls.blog_index_page = BlogIndexPageFactory(
+            # parent=cls.homepage,
+            title="Blog Index Page",
+        )
+
+        # Create services
+        service_names = ["Service1", "Service2", "Service3"]
+        services = [ServiceFactory(name=name) for name in service_names]
+
+        # Create sectors
+        sector_names = ["Sector1", "Sector2", "Sector3"]
+        sectors = [SectorFactory(name=name) for name in sector_names]
+
+        # Create BlogPage instances with various combinations of related services and sectors
+        BlogPageFactory(
+            parent=cls.blog_index_page,
+            related_services=[services[0]],
+            related_sectors=[sectors[0]],
+        )
+        BlogPageFactory(parent=cls.blog_index_page, related_services=[services[1]])
+        BlogPageFactory(parent=cls.blog_index_page, related_sectors=[sectors[2]])
+
+    def test_blog_index_page_tags_property(self):
+        # Get the context from the BlogIndexPage's get_context method
+        client = Client()
+        # response = client.get(reverse(self.blog_index_page.url))
+        response = client.get(self.blog_index_page.url)
+
+        # Check that the response status is 200 (OK)
+        self.assertEqual(response.status_code, 200)
+
+        # Get the context from the response
+        context = response.context
+
+        # Check that the 'tags' variable is present in the context
+        self.assertIn("tags", context)
+
+        # Check that the 'tags' variable corresponds to all services and sectors used in child BlogPages
+        expected_tags = [
+            "Service1",
+            "Service2",
+            "Service3",
+            "Sector1",
+            "Sector2",
+            "Sector3",
+        ]
+        actual_tags = [tag.name for tag in context["tags"]]
+        self.assertCountEqual(expected_tags, actual_tags)
 
 
 class TestBlogPageFactory(WagtailPageTestCase):
