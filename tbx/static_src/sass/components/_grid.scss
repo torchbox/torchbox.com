@@ -146,6 +146,15 @@
         }
     }
 
+    // if paragraph is followed by a heading or another paragraph, reduce the bottom margin
+    &__paragraph:has(+ .grid__heading),
+    &__paragraph:has(+ .grid__paragraph) {
+        margin-bottom: $spacer-small;
+        @include media-query(large) {
+            margin-bottom: $spacer-medium;
+        }
+    }
+
     // Footer grid elements
     &__footer-line {
         grid-column: 1 / span 4;
