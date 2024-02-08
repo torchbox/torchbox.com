@@ -147,6 +147,7 @@
     }
 
     // if paragraph is followed by a heading or another paragraph, reduce the bottom margin
+    // so that it matches headings and paragraphs within a rich-text block
     &__paragraph:has(+ .grid__heading),
     &__paragraph:has(+ .grid__paragraph) {
         margin-bottom: $spacer-small;
