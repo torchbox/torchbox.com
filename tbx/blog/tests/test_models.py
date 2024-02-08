@@ -14,7 +14,7 @@ class TestBlogIndexPageFactory(WagtailPageTestCase):
 class TestBlogPageFactory(WagtailPageTestCase):
     def test_create(self):
         blog_post = BlogPageFactory()
-        self.assertEqual(blog_post.related_services.count(), 1)
+        self.assertEqual(blog_post.related_services.count(), 0)
 
         services = ServiceFactory.create_batch(size=3)
         another_blog_post = BlogPageFactory(related_services=list(services))

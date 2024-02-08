@@ -43,14 +43,6 @@ class TestTaxonomies(WagtailPageTestCase):
             parent=cls.blog_index_page, related_sectors=[sectors[1]]
         )
 
-        # BlogPageFactory(
-        #     parent=cls.blog_index_page,
-        #     related_services=[services[0]],
-        #     related_sectors=[sectors[0]],
-        # )
-        # BlogPageFactory(parent=cls.blog_index_page, related_services=[services[1]])
-        # BlogPageFactory(parent=cls.blog_index_page, related_sectors=[sectors[1]])
-
     def test_taxonomies_in_context(self):
         response = self.client.get(self.blog_index_page.url)
 
@@ -74,13 +66,12 @@ class TestTaxonomies(WagtailPageTestCase):
 
     def test_blog_post_taxonomies_tags(self):
         """Tests that each blog_post only features the taxonomies associated with that page"""
-        # service1 = Service.objects.get(name="Service1")
-        # sector1 = Sector.objects.get(name="Sector1")
-
         services = Service.objects.all()
         sectors = Sector.objects.all()
 
         self.assertListEqual(list(self.blog_page_both.tags), [services[0], sectors[0]])
+        self.assertListEqual(list(self.blog_page_service.tags), [services[1]])
+        self.assertListEqual(list(self.blog_page_sector.tags), [sectors[1]])
 
 
 class TestBlogPage(WagtailPageTestCase):
