@@ -4,7 +4,11 @@ from django.test import TestCase
 import wagtail_factories
 from tbx.core.models import HomePage
 from tbx.images.models import CustomImage
-from tbx.navigation.models import LinkBlock, LinkBlockStructValue
+from tbx.navigation.blocks import (
+    LinkBlock,
+    LinkBlockStructValue,
+    PrimaryNavLinkBlock,
+)
 
 
 class CustomImageFactory(wagtail_factories.ImageFactory):
@@ -108,3 +112,18 @@ class TestLinkBlockValidation(TestCase):
 
         with self.assertRaises(ValidationError):
             link_block.clean(invalid_data)
+
+
+class TestPrimaryNavLinkBlock(TestCase):
+    def setUp(self):
+        root_page = wagtail_factories.PageFactory(parent=None)
+        self.home_page = HomePageFactory(parent=root_page)
+
+    def test_link_block_definition(self):
+        link_block = PrimaryNavLinkBlock()
+        self.assertEqual(
+            list(link_block.child_blocks.keys()),
+            ["page", "external_link", "title", "hide_children"],
+        )
+        default_value = link_block.get_default()
+        self.assertIsInstance(default_value, LinkBlockStructValue)
