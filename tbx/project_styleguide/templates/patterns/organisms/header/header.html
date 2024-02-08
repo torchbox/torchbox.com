@@ -1,12 +1,15 @@
-{% load navigation_tags %}
+{% load wagtailcore_tags cache navigation_tags %}
+{% wagtail_site as current_site %}
 <header>
     <div>
         {# commented out for now to stop it looking huge while it is unstyled #}
         {% comment %} {% include "patterns/atoms/logo/logo.html" %} {% endcomment %}
         <nav role="navigation" aria-label="Main navigation">
-            <ul>
-                {% primarynav is_home=False is_desktop=True %}
-            </ul>
+            {% cache 600 primarynav current_site.pk request.is_preview is_pattern_library %}
+                <ul>
+                    {% primarynav %}
+                </ul>
+            {% endcache %}
         </nav>
     </div>
 </header>

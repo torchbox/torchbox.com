@@ -1,82 +1,20 @@
-from django.core.exceptions import ValidationError
-from django.forms.utils import ErrorList
+from itertools import product
+
+from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
 
 from modelcluster.models import ClusterableModel
 from tbx.core.blocks import ImageWithLinkBlock
-from wagtail import blocks
+from tbx.navigation.blocks import LinkBlock, PrimaryNavLinkBlock
 from wagtail.admin.panels import FieldPanel
-from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import StreamField
-
-
-class LinkBlockStructValue(blocks.StructValue):
-    def url(self):
-        if page := self.get("page"):
-            return page.url
-
-        if external_link := self.get("external_link"):
-            return external_link
-
-        return ""
-
-    def text(self):
-        if self.get("page") and not self.get("title"):
-            return self.get("page").title
-        return self.get("title")
-
-    def is_page(self):
-        return bool(self.get("page"))
-
-
-class LinkBlock(blocks.StructBlock):
-    page = blocks.PageChooserBlock(required=False)
-    external_link = blocks.URLBlock(required=False)
-    title = blocks.CharBlock(
-        help_text="Leave blank to use the page's own title", required=False
-    )
-
-    class Meta:
-        value_class = LinkBlockStructValue
-
-    def clean(self, value):
-        struct_value = super().clean(value)
-
-        errors = {}
-        page = value.get("page")
-        external_link = value.get("external_link")
-
-        if not page and not external_link:
-            error = ErrorList(
-                [ValidationError("You must specify either a page or an external link")]
-            )
-            errors["page"] = errors["external_link"] = error
-
-        if page and external_link:
-            error = ErrorList(
-                [
-                    ValidationError(
-                        "You must specify either a page or an external link, not both"
-                    )
-                ]
-            )
-            errors["external_link"] = errors["page"] = error
-
-        if not value.get("title") and external_link:
-            error = ErrorList(
-                [ValidationError("You must specify the link title for external links")]
-            )
-            errors["title"] = error
-
-        if errors:
-            raise StructBlockValidationError(errors)
-        return struct_value
 
 
 @register_setting(icon="list-ul")
 class NavigationSettings(BaseSiteSetting, ClusterableModel):
     primary_navigation = StreamField(
-        [("link", LinkBlock())],
+        [("link", PrimaryNavLinkBlock())],
         blank=True,
         help_text="Main site navigation",
         use_json_field=True,
@@ -100,3 +38,26 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
         FieldPanel("footer_links"),
         FieldPanel("footer_logos"),
     ]
+
+    def save(self, **kwargs):
+        super().save(**kwargs)
+
+        fragment_keys = ["primarynav"]
+
+        # The fragment cache varies on:
+        # the current site pk, whether used in preview, or in the pattern library
+
+        request_is_preview_options = [True, False]
+        # NOTE: `is_pattern_library` returns True if pattern is being rendered in the pattern library,
+        # but it doesn't return False if otherwise, hence the empty string instead of False
+        is_pattern_library_options = [True, ""]
+
+        # Generate all combinations of `request_is_preview` and `is_pattern_library`
+        combinations = product(request_is_preview_options, is_pattern_library_options)
+
+        keys = [
+            make_template_fragment_key(key, vary_on=(self.site.pk,) + combination)
+            for key in fragment_keys
+            for combination in combinations
+        ]
+        cache.delete_many(keys)
