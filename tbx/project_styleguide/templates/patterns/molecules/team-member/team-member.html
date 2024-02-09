@@ -1,8 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% image item.image fill-550x550 format-webp as image %}
-<a href="{% pageurl item %}">
-    <img src="{{ image.url }}" aria-hidden="true" width="{{ image.width }}" height="{{ image.height }}" loading="lazy" alt="">
-    <h2>{{ item.title }}</h2>
-    <h3>{{ item.role }}</h3>
-</a>
+
+{% firstof item.url item.link_external as link %}
+{% include "patterns/molecules/listing/listing--avatar.html" with link=link avatar=item.author.image title=item.title job_title=item.author.role date=item.date tags=item.tags.all tag_link_base=blog_index_url base_class="page-listing__item" %}

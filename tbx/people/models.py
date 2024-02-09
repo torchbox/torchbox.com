@@ -1,16 +1,20 @@
+from itertools import chain
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.dispatch import receiver
 from django.utils.functional import cached_property
+from django.utils.http import urlencode
 
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from phonenumber_field.modelfields import PhoneNumberField
 from tbx.blog.models import BlogPage
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.people.forms import ContactForm
-from tbx.work.models import HistoricalWorkPage, WorkIndexPage
+from tbx.taxonomy.models import Team
+from tbx.work.models import HistoricalWorkPage, WorkIndexPage, WorkPage
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page
@@ -25,7 +29,6 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
     parent_page_types = ["PersonIndexPage"]
 
     role = models.CharField(max_length=255, blank=True)
-    is_senior = models.BooleanField(default=False)
     intro = RichTextField(blank=True)
     biography = RichTextField(blank=True)
     image = models.ForeignKey(
@@ -35,6 +38,13 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
+    related_teams = ParentalManyToManyField(
+        "taxonomy.Team", related_name="people_pages"
+    )
+
+    @cached_property
+    def teams(self):
+        return self.related_teams.all()
 
     search_fields = Page.search_fields + [
         index.SearchField("intro"),
@@ -43,7 +53,6 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("role"),
-        FieldPanel("is_senior"),
         FieldPanel("intro"),
         FieldPanel("biography"),
         FieldPanel("image"),
@@ -56,37 +65,55 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
         + ColourThemeMixin.promote_panels
         + [
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+            FieldPanel("related_teams", widget=forms.CheckboxSelectMultiple),
         ]
     )
 
     @cached_property
     def author_posts(self):
-        # return the blogs writen by this member
-        author_snippet = Author.objects.get(person_page__pk=self.pk)
+        # Get the BlogPages associated with this page's authors
+        blog_pages = (
+            BlogPage.objects.live().filter(authors__page=self).order_by("-date")
+        )
 
-        # format for template
+        # Format for template
         return [
             {
                 "title": blog_post.title,
                 "url": blog_post.url,
                 "author": blog_post.first_author,
                 "date": blog_post.date,
+                "tags": blog_post.related_teams,  # Maybe get rid of!
             }
-            for blog_post in BlogPage.objects.live()
-            .filter(authors__author=author_snippet)
-            .order_by("-date")
+            for blog_post in blog_pages
         ]
 
     @cached_property
     def related_works(self):
-        # Get the latest 2 work pages by this author
-        works = (
-            HistoricalWorkPage.objects.filter(authors__author__person_page=self.pk)
+        """Returns work pages authored by the person, giving preference to Work rather than Historical work pages"""
+        # Get the latest 3 work pages by this author
+        recent_works = (
+            WorkPage.objects.filter(authors__author__person_page=self.pk)
             .live()
             .public()
             .distinct()
-            .order_by("-date")[:2]
+            .order_by("-date")[:3]
         )
+
+        remaining_slots = 3 - len(recent_works)
+
+        if remaining_slots > 0:
+            # Get the latest 3 historical work pages by this author iff necessary
+            historical_works = (
+                HistoricalWorkPage.objects.filter(authors__author__person_page=self.pk)
+                .live()
+                .public()
+                .distinct()
+                .order_by("-date")[:remaining_slots]
+            )
+
+        # Combine the two querysets and get the first three results
+        works = list(chain(historical_works, recent_works))[:3]
         return works
 
     @cached_property
@@ -103,8 +130,42 @@ class PersonIndexPage(ColourThemeMixin, SocialFields, Page):
     subpage_types = ["PersonPage"]
 
     @cached_property
-    def team(self):
-        return PersonPage.objects.order_by("-is_senior", "title").live().public()
+    def people(self):
+        return PersonPage.objects.order_by("title").live().public()
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        # Get people_pages
+        people_pages = self.people
+
+        # Filter by related_team slug
+        slug_filter = request.GET.get("filter")
+        extra_url_params = {}
+
+        if slug_filter:
+            people_pages = people_pages.filter(related_teams__slug=slug_filter)
+            extra_url_params["filter"] = slug_filter
+
+        # format for template
+        people_pages = [
+            {
+                "title": people_page.title,
+                "url": people_page.url,
+                "type": people_page.role,
+                "tags": people_page.related_teams,
+            }
+            for people_page in people_pages
+        ]
+
+        tags = Team.objects.all()
+
+        context.update(
+            people_pages=people_pages,
+            tags=tags,
+            extra_url_params=urlencode(extra_url_params),
+        )
+        return context
 
     content_panels = Page.content_panels + [
         FieldPanel("strapline"),
