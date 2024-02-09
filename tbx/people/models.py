@@ -83,7 +83,7 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
                 "url": blog_post.url,
                 "author": blog_post.first_author,
                 "date": blog_post.date,
-                "tags": blog_post.related_teams,  # Maybe get rid of!
+                "tags": blog_post.related_teams,
             }
             for blog_post in blog_pages
         ]

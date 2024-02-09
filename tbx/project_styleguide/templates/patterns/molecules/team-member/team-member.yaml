@@ -4,6 +4,11 @@ context:
     link: '#'
     role: 'Technical Director'
     profile_image: true
+    tags:
+      - name: Digital products
+        slug: digital-products
+      - name: Wagtail
+        slug: wagtail
 
 tags:
   image:
