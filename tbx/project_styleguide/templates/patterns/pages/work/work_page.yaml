@@ -22,7 +22,7 @@ context:
           author:
             name: Victor Miti
             role: Developer
-    related_services:
+    tags:
       all:
         - name: Digital products
           slug: digital-products

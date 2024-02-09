@@ -40,7 +40,7 @@ context:
         name: Lisa Ballam
         role: Marketing Manager
 
-  related_services:
+  tags:
     - name: Culture
       slug: culture
     - name: Digital products

@@ -14,7 +14,7 @@ context:
     date: 07 Aug 2024
     get_verbose_name: Blog page
     read_time: 5
-    services:
+    tags:
       - name: Digital products
         slug: digital-products
       - name: Wagtail

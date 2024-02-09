@@ -25,7 +25,7 @@ context:
         block_type: paragraph
       - block:
         block_type: paragraph
-    related_services:
+    tags:
       all:
         - name: Digital products
           slug: digital-products
