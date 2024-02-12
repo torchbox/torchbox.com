@@ -4,7 +4,11 @@
 
     <div class="grid footer__top ">
         <span class="grid__footer-line footer__line"></span>
-        {% include "patterns/molecules/footer-cta/footer-cta.html"%}
+        {% with contact=page.footer_contact %}
+            {% if contact %}
+                {% include "patterns/molecules/footer-cta/footer-cta.html" with contact_heading=contact.title contact_text=contact.text contact_link=contact.link contact_name=contact.name contact_role=contact.role contact_image=contact.image contact_action=contact.button_text %}
+            {% endif %}
+        {% endwith %}
 
         <div class="grid__footer-links">
             {% footerlinks %}
@@ -42,7 +46,7 @@
                 {% if global_settings.footer_logos %}
                     <ul class="footer__logos">
                         {% for item in global_settings.footer_logos %}
-                            {% with footer_logo=item.value.image %}
+                            {% with footer_logo=item.value %}
                                 <li>
                                     {% image footer_logo max-100x100 format-webp loading="lazy" class="footer__logo" %}
                                 </li>
