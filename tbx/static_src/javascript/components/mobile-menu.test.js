@@ -1,12 +1,10 @@
 import MobileMenu from './mobile-menu';
 
-// todo: update markup when navigation is implemented
-
 describe('MobileMenu', () => {
     beforeEach(() => {
         document.body.innerHTML = `
-            <button class="button button-menu-toggle" data-mobile-menu-toggle />
-            <div class="header__menus header__menus--mobile" data-mobile-menu />
+            <button class="button-menu-toggle" data-mobile-menu-toggle />
+            <nav aria-label="Main navigation" class="primary-nav primary-nav--mobile" data-mobile-menu />
         `;
     });
 
@@ -15,7 +13,7 @@ describe('MobileMenu', () => {
         new MobileMenu(document.querySelector(MobileMenu.selector()));
 
         expect(document.querySelector('[data-mobile-menu]').className).toBe(
-            'header__menus header__menus--mobile',
+            'primary-nav primary-nav--mobile',
         );
     });
 
@@ -26,7 +24,10 @@ describe('MobileMenu', () => {
         const button = document.querySelector('[data-mobile-menu-toggle]');
         button.dispatchEvent(new Event('click'));
 
-        expect(button.className).toBe('button button-menu-toggle is-open');
+        expect(button.className).toBe('button-menu-toggle is-open');
+        expect(document.querySelector('[data-mobile-menu]').className).toBe(
+            'primary-nav primary-nav--mobile is-visible',
+        );
     });
 
     it('hides then menu when clicked once open', () => {
@@ -37,6 +38,6 @@ describe('MobileMenu', () => {
         button.dispatchEvent(new Event('click'));
         button.dispatchEvent(new Event('click'));
 
-        expect(button.className).toBe('button button-menu-toggle');
+        expect(button.className).toBe('button-menu-toggle');
     });
 });
