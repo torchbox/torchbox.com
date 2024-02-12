@@ -10,7 +10,6 @@ from django.utils.safestring import mark_safe
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
-from tbx.blog.models import BlogPage
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.people.forms import ContactAdminForm
 from tbx.taxonomy.models import Team
@@ -214,6 +213,8 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     @cached_property
     def author_posts(self):
         author_snippet = Author.objects.get(person_page__pk=self.pk)
+        # this import is added here in order to avoid circular imports
+        from tbx.blog.models import BlogPage
 
         # Format for template
         return [
