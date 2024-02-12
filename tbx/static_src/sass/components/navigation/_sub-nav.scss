@@ -46,7 +46,6 @@ Styles for the lower levels of the navitation
             left: auto;
             height: auto;
             width: auto;
-            visibility: visible;
             opacity: 1;
             transition: none;
             overflow: visible;
@@ -57,7 +56,6 @@ Styles for the lower levels of the navitation
     &__list {
         display: flex;
         flex-direction: column;
-        overflow: scroll;
 
         @include media-query(medium) {
             flex-direction: row;
@@ -132,6 +130,10 @@ Styles for the lower levels of the navitation
             // reset link styles for desktop
             padding: 0;
             border-bottom: none;
+        }
+
+        &:focus {
+            @include focus-style();
         }
 
         #{$root}__item:last-child & {

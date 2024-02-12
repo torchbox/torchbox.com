@@ -42,6 +42,10 @@
     transform: rotate(0deg);
     transition: $transition;
 
+    &:focus {
+        @include focus-style();
+    }
+
     &__line {
         position: absolute;
         left: 0;

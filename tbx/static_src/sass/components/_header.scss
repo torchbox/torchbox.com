@@ -9,6 +9,12 @@
         padding: 35px 0 $spacer-small-plus;
     }
 
+    &__logo-link {
+        &:focus {
+            @include focus-style();
+        }
+    }
+
     &__menu-toggle {
         @include z-index(header);
         display: flex;
