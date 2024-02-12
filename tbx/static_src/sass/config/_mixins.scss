@@ -239,3 +239,32 @@
         margin: $spacer-medium 0 $spacer-mini;
     }
 }
+
+/* =============================================
+    Navigaiton mixins
+*/
+
+@mixin nav-fixed-position($header-height: $header-height-mobile) {
+    width: 100%;
+    height: calc(100vh - #{$header-height});
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    overflow: hidden;
+    overflow-y: visible; // allow scrolling within the nav
+    transition: visibility 0ms ease-out 50ms, opacity 250ms ease-out 50ms;
+}
+
+@mixin reset-nav-fixed-position() {
+    position: static;
+    top: auto;
+    left: auto;
+    height: auto;
+    width: auto;
+    opacity: 1;
+    transition: none;
+    overflow: visible;
+    visibility: visible;
+}

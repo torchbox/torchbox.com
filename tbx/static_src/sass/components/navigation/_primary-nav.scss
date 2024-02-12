@@ -21,18 +21,9 @@ Styles for the top level of the navitation
 
     &--mobile {
         @include z-index(base);
+        @include nav-fixed-position($header-height-mobile);
         display: block;
-        width: 100%;
-        height: calc(100vh - #{$header-height-mobile});
-        visibility: hidden;
-        opacity: 0;
-        position: absolute;
-        top: $header-height-mobile;
-        left: 0;
         background-color: var(--color--nav-background);
-        overflow: hidden;
-        overflow-y: visible; // allow scrolling within the nav
-        transition: visibility 0ms ease-out 50ms, opacity 250ms ease-out 50ms;
 
         @include media-query(medium) {
             display: none;

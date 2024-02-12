@@ -14,17 +14,8 @@ Styles for the lower levels of the navitation
 .sub-nav {
     $root: &;
     @include z-index(base);
+    @include nav-fixed-position($header-height-mobile);
     background-color: var(--color--nav-background);
-    width: 100%;
-    height: calc(100vh - #{$header-height-mobile});
-    position: fixed;
-    top: $header-height-mobile;
-    left: 0;
-    opacity: 0;
-    visibility: hidden;
-    overflow: hidden;
-    overflow-y: visible; // allow scrolling within the nav
-    transition: visibility 0ms ease-out 50ms, opacity 250ms ease-out 50ms;
 
     // desktop styles
     @include media-query(medium) {
@@ -46,14 +37,7 @@ Styles for the lower levels of the navitation
     // so reset the fixed positioning
     &--child {
         @include media-query(medium) {
-            position: static;
-            top: auto;
-            left: auto;
-            height: auto;
-            width: auto;
-            opacity: 1;
-            transition: none;
-            overflow: visible;
+            @include reset-nav-fixed-position();
             padding: 0;
         }
     }
