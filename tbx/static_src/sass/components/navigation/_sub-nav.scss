@@ -9,6 +9,8 @@ Styles for the lower levels of the navitation
 // The second and third levels are shown in one view
 
 // At mobile, the sub-navigation appears when a top level item is clicked, and also when a second level item is clicked. The second and third levels are shown in separate views
+
+// div element at levels 2 and 3 of the menu
 .sub-nav {
     $root: &;
     @include z-index(base);
@@ -31,6 +33,7 @@ Styles for the lower levels of the navitation
         padding: $spacer-half $grid-gutters;
     }
 
+    // padding matches grid spacers but we don't want a grid layout for the sub-nav
     @include media-query(large) {
         padding: $spacer-half $grid-gutters-large;
     }
@@ -39,6 +42,8 @@ Styles for the lower levels of the navitation
         padding: $spacer-half $grid-gutters-x-large;
     }
 
+    // at desktop, the lowest level of menu is visible in the same screen as the second level
+    // so reset the fixed positioning
     &--child {
         @include media-query(medium) {
             position: static;
@@ -53,6 +58,8 @@ Styles for the lower levels of the navitation
         }
     }
 
+    // the unordered list containting the level 2 menu items
+    // also used for the level 3 menu items
     &__list {
         display: flex;
         flex-direction: column;
@@ -64,6 +71,8 @@ Styles for the lower levels of the navitation
             column-gap: $spacer-small;
         }
 
+        // at desktop the third level is always visible once the subnav is expanded
+        // it sits inside each column
         &--child {
             @include media-query(medium) {
                 display: block;
@@ -71,11 +80,14 @@ Styles for the lower levels of the navitation
         }
     }
 
+    // the list item for each menu item in the 2nd and 3rd levels
     &__item {
         font-weight: $weight--semibold;
         position: relative;
         width: 100%;
 
+        // at desktop level 2 these are arranged in columns
+        // which are based on the number of items at that level
         @include media-query(medium) {
             width: auto;
             font-weight: $weight--medium;
@@ -99,6 +111,7 @@ Styles for the lower levels of the navitation
             }
         }
 
+        // hide the back links and parent links at desktop
         &--back,
         &--parent {
             @include media-query(medium) {
@@ -107,6 +120,7 @@ Styles for the lower levels of the navitation
         }
     }
 
+    // The link for each menu item in the 2nd and 3rd level
     &__link {
         display: flex;
         padding: 35px $spacer-small;
@@ -124,10 +138,10 @@ Styles for the lower levels of the navitation
             font-weight: $weight--semibold;
             font-size: nth(map-get($large-font-sizes, 'heading-four'), 1);
             line-height: nth(map-get($large-font-sizes, 'heading-four'), 2);
-            display: block;
             margin-bottom: $spacer-mini-plus;
 
-            // reset link styles for desktop
+            // resets from mobile styles
+            display: block;
             padding: 0;
             border-bottom: none;
         }
@@ -157,14 +171,14 @@ Styles for the lower levels of the navitation
             line-height: nth(map-get($large-font-sizes, 'heading-six'), 2);
         }
 
-        // back link
+        // back link which goes one level up in the mobile menu
         &--back {
             color: var(--color--heading);
             font-size: nth(map-get($large-font-sizes, 'heading-six'), 1);
             line-height: nth(map-get($large-font-sizes, 'heading-six'), 2);
         }
 
-        // parent link
+        // parent link which takes you to the parent page for the section being viewed in the mobile menu
         &--parent {
             @include link-styles(
                 $color: var(--color--heading),
@@ -172,7 +186,7 @@ Styles for the lower levels of the navitation
             );
         }
 
-        // link at the lowest level
+        // a link item at the lowest level
         &--child {
             @include media-query(medium) {
                 @include link-styles(
@@ -188,7 +202,7 @@ Styles for the lower levels of the navitation
         }
     }
 
-    // back icon
+    // back icon which sits inside the back link
     &__icon-back {
         transform: rotate(180deg);
         width: 18px;
@@ -203,7 +217,7 @@ Styles for the lower levels of the navitation
         }
     }
 
-    // arrow icon
+    // arrow icon which indicates the mobile menu has another level
     &__icon-mobile {
         width: 18px;
         height: 21px;
