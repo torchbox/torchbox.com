@@ -28,7 +28,7 @@
                             {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav__icon-mobile" %}
                         {% endif %}
                     </a>
-                    {% include "patterns/navigation/components/includes/subnav-child-menu-item.html" with pages=children parent=link grandparent=parent %}
+                    {% include "patterns/navigation/components/includes/subnav-child-menu.html" with pages=children parent=link grandparent=parent %}
                 {% endwith %}
             </li>
         {% endfor %}

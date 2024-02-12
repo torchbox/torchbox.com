@@ -28,7 +28,7 @@
                 </a>
 
                 {% if children and not hide_children %}
-                    {% include "patterns/navigation/components/includes/subnav-menu-item.html" with links=children number=children|length parent=link %}
+                    {% include "patterns/navigation/components/includes/subnav-menu.html" with links=children number=children|length parent=link %}
                 {% endif %}
             {% endwith %}
         </li>
