@@ -14,6 +14,7 @@ from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
+from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import StreamField
@@ -22,7 +23,7 @@ from wagtail.search import index
 from wagtail.signals import page_published
 
 
-class BlogIndexPage(ColourThemeMixin, SocialFields, Page):
+class BlogIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/blog/blog_listing.html"
 
     subpage_types = ["BlogPage"]
@@ -97,13 +98,14 @@ class BlogIndexPage(ColourThemeMixin, SocialFields, Page):
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
         + [
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
     )
 
 
-class BlogPage(ColourThemeMixin, SocialFields, Page):
+class BlogPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/blog/blog_detail.html"
 
     parent_page_types = ["BlogIndexPage"]
@@ -218,6 +220,7 @@ class BlogPage(ColourThemeMixin, SocialFields, Page):
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
         + [
             FieldPanel("feed_image"),
             FieldPanel("listing_summary"),
