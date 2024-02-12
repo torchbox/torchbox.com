@@ -1,6 +1,7 @@
 {% load wagtailcore_tags cache navigation_tags %}
 {% wagtail_site as current_site %}
 <header class="header grid">
+    {% include "patterns/atoms/skip-link/skip-link.html" %}
     <a href="/" aria-label="Homepage link" class="grid__header-logo header__logo-link">
         {% include "patterns/atoms/icons/icon.html" with name="logo" classname="logo" %}
     </a>

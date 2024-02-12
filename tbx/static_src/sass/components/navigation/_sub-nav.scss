@@ -38,6 +38,8 @@ Styles for the lower levels of the navitation
     &--child {
         @include media-query(medium) {
             @include reset-nav-fixed-position();
+            // links hidden until opened
+            visibility: hidden;
             padding: 0;
         }
     }

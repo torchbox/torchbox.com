@@ -31,6 +31,16 @@ class MobileMenu {
                 }
             }
         });
+
+        // Close mobile dropdown with escape key for improved accessibility
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                if (this.state.open) {
+                    this.close();
+                    this.state.open = false;
+                }
+            }
+        });
     }
 
     toggle() {
