@@ -3,23 +3,167 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.dispatch import receiver
 from django.utils.functional import cached_property
+from django.utils.safestring import mark_safe
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from phonenumber_field.modelfields import PhoneNumberField
 from tbx.blog.models import BlogPage
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
-from tbx.people.forms import ContactForm
-from tbx.work.models import HistoricalWorkPage, WorkIndexPage
+from tbx.people.blocks import ContactCTABlock
+from tbx.people.forms import ContactAdminForm
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.fields import RichTextField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, Page
 from wagtail.search import index
 from wagtail.signals import page_published
 from wagtail.snippets.models import register_snippet
 
 
-class PersonPage(ColourThemeMixin, SocialFields, Page):
+@register_snippet
+class Contact(index.Indexed, models.Model):
+    """
+    This is used in the site-wide footer, and can be configured
+    on a per-page basis via the `ContactMixin`
+    """
+
+    base_form_class = ContactAdminForm
+
+    title = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text=mark_safe("For example, <strong>Let’s talk</strong>"),
+    )
+    text = models.TextField(
+        blank=True,
+        help_text=mark_safe(
+            "For example, <strong>Got a brief? We’d love to see it. If not, we can help.</strong>"
+        ),
+    )
+    cta = StreamField(
+        [("call_to_action", ContactCTABlock(label="CTA"))],
+        blank=True,
+        use_json_field=True,
+        max_num=1,
+    )
+
+    name = models.CharField(max_length=255, blank=True)
+    role = models.CharField(max_length=255, blank=True)
+    image = models.ForeignKey(
+        "images.CustomImage",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    default_contact = models.BooleanField(
+        default=False,
+        blank=True,
+        null=True,
+        help_text="Make this the default contact for the site",
+    )
+
+    def __str__(self):
+        default = " (default)" if self.default_contact else ""
+        if self.title:
+            return "{} – “{}”{}".format(self.name, self.title, default)
+        return self.name + default
+
+    def save(self, *args, **kwargs):
+        # If user wants to enable the default contact option
+        if self.default_contact:
+            # Make sure only one default contact exists
+            self.__class__.objects.filter(default_contact=True).update(
+                default_contact=False
+            )
+        super().save(*args, **kwargs)
+
+    @property
+    def link(self):
+        if cta := self.cta:
+            block = cta[0]
+            return block.value.url
+
+        return ""
+
+    @property
+    def button_text(self):
+        if cta := self.cta:
+            block = cta[0]
+            return block.value.get("button_text", "Get in touch")
+
+        return ""
+
+    search_fields = [
+        index.AutocompleteField("name"),
+        index.SearchField("name"),
+    ]
+
+    panels = [
+        FieldPanel("title"),
+        FieldPanel("text"),
+        FieldPanel("cta", heading="Call to action"),
+        MultiFieldPanel(
+            [
+                FieldPanel("name"),
+                FieldPanel("role"),
+                FieldPanel("image"),
+                FieldPanel("default_contact", widget=forms.CheckboxInput),
+            ],
+            "Contact person",
+        ),
+    ]
+
+
+class ContactMixin(models.Model):
+    """
+    Provides a `contact` field so that a page can have its own contact
+    in the site-wide footer, instead of the default contact.
+    """
+
+    contact = models.ForeignKey(
+        "people.Contact",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text="The contact will be applied to this page's footer and all of its "
+        "descendants.\nIf no contact is selected, it will be derived from "
+        "this page's ancestors, eventually falling back to the default contact.",
+    )
+
+    promote_panels = [FieldPanel("contact")]
+
+    @cached_property
+    def footer_contact(self):
+        """
+        Use the page's own contact if set, otherwise, derive the contact from
+        its ancestors, and finally fall back to the default contact.
+
+        NOTE: if, for some reason, a default contact doesn't exist, this will
+        return None, in which case, we'll not display the block in the footer template.
+        """
+        if contact := self.contact:
+            return contact
+
+        # _in theory_, there should only be one Contact object with default_contact=True.
+        # (see `tbx.people.models.Contact.save()`)
+        default_contact = Contact.objects.filter(default_contact=True).first()
+
+        try:
+            return next(
+                p.contact
+                for p in self.get_ancestors().specific().order_by("-depth")
+                if getattr(p, "contact", default_contact) != default_contact
+                and getattr(p, "contact", None) is not None
+            )
+        except StopIteration:
+            return default_contact
+
+    class Meta:
+        abstract = True
+
+
+class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/team/team_detail.html"
 
     parent_page_types = ["PersonIndexPage"]
@@ -54,6 +198,7 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
         + [
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
@@ -79,6 +224,9 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
 
     @cached_property
     def related_works(self):
+        # this import is added here in order to avoid circular imports
+        from tbx.work.models import HistoricalWorkPage
+
         # Get the latest 2 work pages by this author
         works = (
             HistoricalWorkPage.objects.filter(authors__author__person_page=self.pk)
@@ -91,11 +239,14 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
 
     @cached_property
     def work_index(self):
+        # this import is added here in order to avoid circular imports
+        from tbx.work.models import WorkIndexPage
+
         return WorkIndexPage.objects.live().public().first()
 
 
 # Person index
-class PersonIndexPage(ColourThemeMixin, SocialFields, Page):
+class PersonIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     strapline = models.CharField(max_length=255)
 
     template = "patterns/pages/team/team_listing.html"
@@ -115,6 +266,7 @@ class PersonIndexPage(ColourThemeMixin, SocialFields, Page):
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
         + [
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
@@ -179,40 +331,6 @@ def update_author_on_page_publish(instance, **kwargs):
     author, created = Author.objects.get_or_create(person_page=instance)
     author.update_manual_fields(instance)
     author.save()
-
-
-@register_snippet
-class Contact(index.Indexed, models.Model):
-    name = models.CharField(max_length=255, blank=True)
-    role = models.CharField(max_length=255, blank=True)
-    image = models.ForeignKey(
-        "images.CustomImage",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    email_address = models.EmailField()
-    phone_number = PhoneNumberField(blank=True, null=True)
-    default_contact = models.BooleanField(default=False, blank=True, null=True)
-    base_form_class = ContactForm
-
-    def __str__(self):
-        return self.name
-
-    search_fields = [
-        index.AutocompleteField("name"),
-        index.SearchField("name"),
-    ]
-
-    panels = [
-        FieldPanel("name"),
-        FieldPanel("role"),
-        FieldPanel("default_contact", widget=forms.CheckboxInput),
-        FieldPanel("image"),
-        FieldPanel("email_address"),
-        FieldPanel("phone_number"),
-    ]
 
 
 class ContactReason(Orderable):
