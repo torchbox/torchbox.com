@@ -19,6 +19,18 @@ class MobileMenu {
         this.node.addEventListener('click', () => {
             this.toggle();
         });
+
+        // Close navigation if we focus anywhere outside the menu
+        document.addEventListener('focusin', (e) => {
+            const inMenu = !!e.target.closest('[data-mobile-menu]');
+
+            if (!inMenu) {
+                if (this.state.open) {
+                    this.close();
+                    this.state.open = false;
+                }
+            }
+        });
     }
 
     toggle() {
