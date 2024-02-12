@@ -7,7 +7,6 @@ from django.utils.safestring import mark_safe
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from tbx.blog.models import BlogPage
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.people.blocks import ContactCTABlock
 from tbx.people.forms import ContactAdminForm
@@ -208,6 +207,8 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     def author_posts(self):
         # return the blogs writen by this member
         author_snippet = Author.objects.get(person_page__pk=self.pk)
+        # this import is added here in order to avoid circular imports
+        from tbx.blog.models import BlogPage
 
         # format for template
         return [
