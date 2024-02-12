@@ -7,7 +7,7 @@
     </a>
     <div class="grid__header-nav">
         {# Desktop navigation #}
-        <nav role="navigation" aria-label="Main navigation" class="primary-nav primary-nav--desktop" data-desktop-menu>
+        <nav aria-label="Main navigation" class="primary-nav primary-nav--desktop" data-desktop-menu>
             {% cache 600 primarynav current_site.pk request.is_preview is_pattern_library %}
                 <ul data-primary-nav class="primary-nav__list">
                     {% primarynav %}
@@ -27,7 +27,7 @@
     </div>
 
     {# Mobile navigation #}
-    <nav role="navigation" aria-label="Main navigation"  class="primary-nav primary-nav--mobile" data-mobile-menu>
+    <nav aria-label="Main navigation"  class="primary-nav primary-nav--mobile" data-mobile-menu>
         {% cache 600 primarynav current_site.pk request.is_preview is_pattern_library %}
             <ul data-primary-nav class="primary-nav__list">
                 {% primarynav %}
