@@ -1,11 +1,25 @@
 {% load wagtailcore_tags %}
 
-<ul class="">
-    {% for page in pages %}
-        <li>
-            <a href="{% pageurl page %}">&emsp;» {{ page.title }}</a>
+<div class="sub-nav sub-nav--child" data-subnav>
+    <ul class="sub-nav__list sub-nav__list--child">
+        <li class="sub-nav__item sub-nav__item--back">
+            <a data-subnav-back href="#" class="sub-nav__link sub-nav__link--back">
+                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav__icon-back" %}
+                Back to {{ grandparent.text }}
+            </a>
         </li>
-    {% endfor %}
-</ul>
-
+        <li class="sub-nav__item sub-nav__item--parent">
+            <a class="sub-nav__link sub-nav__link--parent" href="{% pageurl parent %}">
+                {{ parent.title }}
+            </a>
+        </li>
+        {% for page in pages %}
+            <li class="sub-nav__item">
+                <a class="sub-nav__link sub-nav__link--child sub-nav__link--no-children" href="{% pageurl page %}">
+                    {{ page.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
 

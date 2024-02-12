@@ -9,6 +9,7 @@ class DesktopSubMenu {
 
     constructor(node) {
         this.node = node;
+        this.body = document.querySelector('body');
         this.toggleNode = this.node.closest('[data-has-subnav]');
         this.allToggleNodes = document.querySelectorAll(
             '[data-desktop-menu] [data-has-subnav]',
@@ -35,6 +36,7 @@ class DesktopSubMenu {
             if (this.toggleNode.classList.contains('active')) {
                 this.toggleNode.classList.remove('active');
                 this.node.setAttribute('aria-expanded', 'false');
+                this.body.classList.remove('no-scroll');
             } else {
                 // Fire a custom event which is useful if we need any other items such as
                 // a search box to close when the desktop menu opens
@@ -46,6 +48,7 @@ class DesktopSubMenu {
                 document.dispatchEvent(menuOpenEvent);
                 this.toggleNode.classList.add('active');
                 this.node.setAttribute('aria-expanded', 'true');
+                this.body.classList.add('no-scroll');
             }
         });
     }

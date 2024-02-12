@@ -24,9 +24,3 @@ context:
               - title: 3 A
               - title: 3 B
               - title: 3 C
-
-tags:
-  pageurl:
-    'page as item_url':
-      target_var: item_url
-      raw: '#'

@@ -19,6 +19,7 @@ $color--dark-grey: #1d2325;
 $color--grey-50: #808080;
 $color--grey-60: #4e5152;
 $color--mid-grey: #282e30;
+$color--grey-20: #efefef;
 $color--banana: #e9be00;
 $color--banana-light: #ece3aa;
 $color--yellow: #fde05f;
@@ -28,6 +29,9 @@ $color--green: #6abe59;
 :root,
 .mode-dark {
     --color--background: #{$color--dark-grey};
+    --color--nav-background: #{$color--purple-light};
+    --color--nav-text: #{$color--grey-20};
+    --color--nav-border: #{color.adjust($color--dark-grey, $alpha: -0.5)};
     --color--heading: #{$color--white};
     --color--text: #{$color--grey};
     --color--link: #{$color--white};
@@ -233,6 +237,7 @@ $grid-gutters-x-large: 120px;
 $spacer-mini: 15px;
 $spacer-mini-plus: 20px;
 $spacer-small: ($spacer-mini * 2); // 30px
+$spacer-small-plus: 40px;
 $spacer-medium: ($spacer-mini * 4); // 60px
 $spacer-large: ($spacer-mini * 8); // 120px
 $spacer: 160px;
@@ -270,3 +275,6 @@ $avatar-size-145: 145px;
 $avatar-size-120: 120px;
 $avatar-size-100: 100px;
 $avatar-size-72: 72px;
+
+$header-height-desktop: 106px;
+$header-height-mobile: 81px;

@@ -1,0 +1,22 @@
+@use "config" as *;
+
+.header {
+    background-color: var(--color--background);
+    padding: 25px 0;
+    align-items: end;
+
+    @include media-query(medium) {
+        padding: 35px 0 $spacer-small-plus;
+    }
+
+    &__menu-toggle {
+        @include z-index(header);
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+
+        @include media-query(medium) {
+            display: none;
+        }
+    }
+}

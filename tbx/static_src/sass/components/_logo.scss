@@ -1,0 +1,12 @@
+.logo {
+    width: 105px;
+    height: 31px;
+
+    &__text {
+        fill: var(--color--heading);
+    }
+
+    &__flame {
+        fill: var(--color--accent-three);
+    }
+}
