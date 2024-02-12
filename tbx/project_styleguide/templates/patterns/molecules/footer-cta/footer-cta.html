@@ -4,7 +4,7 @@
     <p class="footer-cta__text">{{ contact_text }} </p>
 
     <div class="footer-cta__grid">
-        {% include "patterns/atoms/avatar/avatar.html" with classes="footer-cta__avatar avatar--smallest" %}
+        {% include "patterns/atoms/avatar/avatar.html" with avatar=contact_image classes="footer-cta__avatar avatar--smallest" %}
 
         <p class="footer-cta__cite">
             <span class="footer-cta__name mr-2">{{ contact_name }}</span>
@@ -12,7 +12,7 @@
         </p>
 
         <div class="footer-cta__button-wrapper">
-            <a href="{{ contact_link }}" class="button footer-cta__button">Get in touch</a>
+            <a href="{{ contact_link }}" class="button footer-cta__button">{{ contact_action }}</a>
         </div>
     </div>
 </div>

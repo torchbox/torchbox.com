@@ -1,9 +1,12 @@
 context:
-  contact_heading: Let's talk
-  contact_text: Got a brief? We’d love to see it. If not, we can help.
-  contact_name: Will Heinemann
-  contact_role: New Business Director
-  contact_link: '#'
+  page:
+    footer_contact:
+      title: Let's talk
+      text: Got a brief? We’d love to see it. If not, we can help.
+      name: Will Heinemann
+      role: New Business Director
+      link: '#'
+      button_text: Get in touch
   global_settings:
     footer_logos:
       - footer_logo:
