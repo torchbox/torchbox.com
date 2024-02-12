@@ -6,12 +6,13 @@ from django.db import models
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
+from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Service
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.models import Orderable, Page
 
 
-class EventIndexPage(ColourThemeMixin, SocialFields, Page):
+class EventIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/events/events_listing.html"
 
     parent_page_types = ["torchbox.HomePage"]
@@ -27,6 +28,7 @@ class EventIndexPage(ColourThemeMixin, SocialFields, Page):
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
         + [
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]

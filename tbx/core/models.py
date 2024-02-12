@@ -2,6 +2,7 @@ from django.db import models
 
 from modelcluster.fields import ParentalKey
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
+from tbx.people.models import ContactMixin
 from wagtail import blocks
 from wagtail.admin.panels import (
     FieldPanel,
@@ -134,7 +135,7 @@ class HomePageHeroImage(Orderable):
     )
 
 
-class HomePage(ColourThemeMixin, SocialFields, Page):
+class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/home/home_page.html"
     hero_intro_primary = models.TextField(blank=True)
     hero_intro_secondary = models.TextField(blank=True)
@@ -163,6 +164,7 @@ class HomePage(ColourThemeMixin, SocialFields, Page):
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
         + [
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
@@ -191,7 +193,7 @@ class HomePage(ColourThemeMixin, SocialFields, Page):
 # Standard page
 
 
-class StandardPage(ColourThemeMixin, SocialFields, Page):
+class StandardPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/standard/standard_page.html"
 
     body = StreamField(StoryBlock(), use_json_field=True)
@@ -205,6 +207,7 @@ class StandardPage(ColourThemeMixin, SocialFields, Page):
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
         + [
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
