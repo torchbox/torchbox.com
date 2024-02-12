@@ -144,6 +144,10 @@ Styles for the top level of the navitation
         @include media-query(medium) {
             display: none;
         }
+
+        @include reduced-motion() {
+            transition: none;
+        }
     }
 
     // desktop arrows
@@ -167,6 +171,10 @@ Styles for the top level of the navitation
             width: 10px;
             height: 6px;
             color: var(--color--text);
+
+            @include high-contrast-light-mode() {
+                color: var(--color--decoration);
+            }
         }
 
         .active &,
@@ -186,6 +194,10 @@ Styles for the top level of the navitation
             position: absolute;
             top: -8px;
             color: var(--color--heading);
+
+            @include high-contrast-light-mode() {
+                color: var(--color--decoration);
+            }
         }
 
         .active & {
@@ -204,6 +216,10 @@ Styles for the top level of the navitation
             position: absolute;
             top: -8px;
             color: var(--color--heading);
+
+            @include high-contrast-light-mode() {
+                color: var(--color--decoration);
+            }
         }
 
         #{$root}__link:hover & {

@@ -58,6 +58,10 @@
                 border-bottom: 1px solid;
             }
         }
+
+        @include reduced-motion() {
+            transition: none;
+        }
     }
 
     &__icon {

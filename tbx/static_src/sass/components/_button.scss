@@ -57,6 +57,10 @@
         transition: top, width, transform, left, $transition;
         border-radius: 2px;
 
+        @include high-contrast-mode() {
+            border: 1px solid var(--color--heading);
+        }
+
         &:nth-child(1) {
             top: 0;
 

@@ -1,9 +1,15 @@
+@use "config" as *;
+
 .logo {
     width: 105px;
     height: 31px;
 
     &__text {
         fill: var(--color--heading);
+
+        @include high-contrast-light-mode() {
+            fill: var(--color--decoration);
+        }
     }
 
     &__flame {

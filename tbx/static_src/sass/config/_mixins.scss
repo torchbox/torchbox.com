@@ -255,6 +255,10 @@
     overflow: hidden;
     overflow-y: visible; // allow scrolling within the nav
     transition: visibility 0ms ease-out 50ms, opacity 250ms ease-out 50ms;
+
+    @include reduced-motion() {
+        transition: none;
+    }
 }
 
 @mixin reset-nav-fixed-position() {
