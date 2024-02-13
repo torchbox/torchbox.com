@@ -50,7 +50,7 @@ class EventIndexPage(ColourThemeMixin, SocialFields, Page):
         related_services = Service.objects.all()
 
         # Used for the purposes of defining the filterable tags
-        tags = related_sectors.union(related_services)
+        tags = chain(related_services, related_sectors)
 
         context.update(
             events=self.get_events(request.GET.get("filter")),
