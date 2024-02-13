@@ -1,7 +1,7 @@
 @use "config" as *;
 
 /*
-Styles for the top level of the navitation
+Styles for the top level of the navigation
 */
 
 // the nav element surrounding the whole navigation
@@ -9,7 +9,7 @@ Styles for the top level of the navitation
 .primary-nav {
     $root: &;
 
-    // At mobile the navition is only revealed when the menu icon is clicked
+    // At mobile the navigation is only revealed when the menu icon is clicked
     // At desktop the top level is always visible
     &--desktop {
         display: none;
