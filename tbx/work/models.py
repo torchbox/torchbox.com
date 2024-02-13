@@ -246,8 +246,13 @@ class WorkPage(ColourThemeMixin, SocialFields, Page):
         + ColourThemeMixin.promote_panels
         + [
             FieldPanel("listing_summary"),
-            FieldPanel("related_sectors", widget=forms.CheckboxSelectMultiple),
-            FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
+            MultiFieldPanel(
+                [
+                    FieldPanel("related_sectors", widget=forms.CheckboxSelectMultiple),
+                    FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
+                ],
+                heading="Taxonomies",
+            ),
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
     )

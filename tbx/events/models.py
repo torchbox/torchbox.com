@@ -98,6 +98,11 @@ class Event(ClusterableModel, Orderable):
         FieldPanel("author"),
         FieldPanel("date"),
         FieldPanel("event_type"),
-        FieldPanel("related_sectors", widget=forms.CheckboxSelectMultiple),
-        FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
+        MultiFieldPanel(
+            [
+                FieldPanel("related_sectors", widget=forms.CheckboxSelectMultiple),
+                FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
+            ],
+            heading="Taxonomies",
+        ),
     ]
