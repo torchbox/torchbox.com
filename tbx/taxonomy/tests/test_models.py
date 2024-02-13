@@ -46,7 +46,7 @@ class TestTaxonomies(WagtailPageTestCase):
             parent=cls.blog_index_page, related_sectors=[sectors[1]]
         )
 
-    def test_taxonomies_in_context(self):
+    def test_taxonomies_in_template(self):
         response = self.client.get(self.blog_index_page.url)
 
         self.assertEqual(response.status_code, 200)
