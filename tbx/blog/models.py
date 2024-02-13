@@ -7,14 +7,12 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.db.models import Q
 from django.dispatch import receiver
-from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 
 from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
-from tbx.core.utils.cache import get_default_cache_control_decorator
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.taxonomy.models import Sector, Service
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -24,7 +22,6 @@ from wagtail.search import index
 from wagtail.signals import page_published
 
 
-@method_decorator(get_default_cache_control_decorator(), name="serve")
 class BlogIndexPage(ColourThemeMixin, SocialFields, Page):
     template = "patterns/pages/blog/blog_listing.html"
 
@@ -86,8 +83,7 @@ class BlogIndexPage(ColourThemeMixin, SocialFields, Page):
 
         related_sectors = Sector.objects.all()
         related_services = Service.objects.all()
-        # tags = chain(related_services, related_sectors)
-        tags = related_sectors.union(related_services)
+        tags = chain(related_services, related_sectors)
 
         context.update(
             blog_posts=blog_posts,
