@@ -290,6 +290,8 @@ class WorkPage(ColourThemeMixin, SocialFields, Page):
                 "author": work_page.first_author,
                 "date": work_page.date,
                 "read_time": work_page.read_time,
+                "related_sectors": self.sectors,
+                "related_services": self.services,
                 "tags": self.tags,
                 "listing_image": work_page.header_image,
             }
