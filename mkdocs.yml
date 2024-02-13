@@ -68,6 +68,7 @@ nav:
       - front-end/themes_and_modes.md
       - front-end/tooling.md
       - front-end/placeholder-images.md
+  - 'Navigation': 'navigation.md'
   - 'Continuous integration': 'continuous-integration.md'
   - 'Anonymised data': 'anonymised-data.md'
   - 'Upgrading guidelines': 'upgrading.md'

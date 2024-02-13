@@ -1,15 +1,106 @@
 context:
+  children: True
   primarynav:
-    - value:
-        text: Design + build products
-    - value:
-        text: Wagtail CMS services
-    - value:
-        text: Digital marketing
-    - value:
-        text: Careers
-
+    - item:
+      value:
+        text: Services
+        url: '#'
+        page:
+          get_children:
+            live:
+              public:
+                in_menu:
+                  - title: Strategy and consultancy
+                    get_children:
+                      live:
+                        public:
+                          in_menu:
+                            - title: AI strategy
+                            - title: Content strategy and IA
+                            - title: Digital transformation
+                            - title: Innovation strategy
+                            - title: Product strategy
+                            - title: Service design
+                            - title: Technical architecture design
+                            - title: User research
+                  - title: Digital marketing
+                    get_children:
+                      live:
+                        public:
+                          in_menu:
+                            - title: Asset and campaign creative
+                            - title: Digital marketing training
+                            - title: Data and measurement
+                            - title: Digital marketing training
+                            - title: Email marketing
+                            - title: Google Ad Grants Management
+                            - title: Pay-per-click management
+                            - title: Search Engine Optimisation (SEO)
+                            - title: Social media management
+                  - title: Wagtail CMS services
+                    get_children:
+                      live:
+                        public:
+                          in_menu:
+                            - title: Developer support
+                            - title: Staff augmentation
+                            - title: Training and consultancy
+                  - title: Digital product development
+    - item:
+      value:
+        text: Sectors
+        url: '#'
+        page:
+          get_children:
+            live:
+              public:
+                in_menu:
+                  - title: Charities
+                    get_children:
+                      live:
+                        public:
+                          in_menu:
+                            - title: Charity sub 1
+                            - title: Charity sub 2
+                            - title: Charity sub 2
+                  - title: Higher Education
+                  - title: Government
+    - item:
+      value:
+        text: About
+        url: '#'
+        page:
+          get_children:
+            live:
+              public:
+                in_menu:
+                  - title: Culture
+                    get_children:
+                      live:
+                        public:
+                          in_menu:
+                            - title: Culture child one
+                            - title: Culture child two
+                            - title: Culture child three
+                  - title: Jobs
+                    get_children:
+                      live:
+                        public:
+                          in_menu:
+                            - title: Jobs child one
+                            - title: Jobs child two
+                            - title: Jobs child three
+    - item:
+      value:
+        hide_children: True
+        text: Thinking
+        url: '#'
+    - item:
+      value:
+        hide_children: True
+        text: Work
+        url: '#'
 tags:
   pageurl:
-    link.page:
+    'link.url':
       raw: '#'

@@ -1,106 +1,238 @@
 @use "config" as *;
 @use "sass:color";
 
+/*
+Styles for the lower levels of the navigation
+*/
+
+// At desktop, the sub-navigation appears when a top level item is clicked
+// The second and third levels are shown in one view
+
+// At mobile, the sub-navigation appears when a top level item is clicked, and also when a second level item is clicked. The second and third levels are shown in separate views
+
+// div element at levels 2 and 3 of the menu
 .sub-nav {
+    $root: &;
     @include z-index(base);
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding-top: 20px;
-    // Extra border for high-contrast mode users.
-    border: 1px solid transparent;
-    opacity: 0;
-    visibility: hidden;
-    // visible to invisible
-    transition: visibility 0ms ease-out 250ms, opacity 250ms ease-out 0ms;
+    @include nav-fixed-position($header-height-mobile);
+    background-color: var(--color--nav-background);
 
-    // mobile active state
-    &.is-visible {
-        opacity: 1;
-        visibility: visible;
-        // invisible to visible
-        transition: opacity 200ms ease-out 200ms, visibility 200ms ease-out 0ms;
-    }
-
+    // desktop styles
     @include media-query(medium) {
-        display: none;
-        align-items: flex-start;
-        width: max-content;
-        height: auto;
-        top: 45px;
-        padding: 10px 20px;
-        opacity: 1;
-        visibility: visible;
+        top: $header-height-desktop;
+        // use dvh if supported
+        height: calc(100vh - #{$header-height-desktop});
+        height: calc(100dvh - #{$header-height-desktop});
+        padding: $spacer-half $grid-gutters;
     }
 
-    // last dropdown aligns right
-    .primary-nav__item:last-child & {
+    // padding matches grid spacers but we don't want a grid layout for the sub-nav
+    @include media-query(large) {
+        padding: $spacer-half $grid-gutters-large;
+    }
+
+    @include media-query(x-large) {
+        padding: $spacer-half $grid-gutters-x-large;
+    }
+
+    // at desktop, the lowest level of menu is visible in the same screen as the second level
+    // so reset the fixed positioning
+    &--child {
         @include media-query(medium) {
-            right: 0;
-            left: auto;
+            @include reset-nav-fixed-position();
+            // links hidden until opened
+            visibility: hidden;
+            padding: 0;
+        }
+    }
+
+    // the unordered list containting the level 2 menu items
+    // also used for the level 3 menu items
+    &__list {
+        display: flex;
+        flex-direction: column;
+
+        @include media-query(medium) {
+            flex-direction: row;
+            flex-wrap: wrap;
+            row-gap: $spacer-half;
+            column-gap: $spacer-small;
+        }
+
+        // at desktop the third level is always visible once the subnav is expanded
+        // it sits inside each column
+        &--child {
+            @include media-query(medium) {
+                display: block;
+            }
+        }
+    }
+
+    // the list item for each menu item in the 2nd and 3rd levels
+    &__item {
+        font-weight: $weight--semibold;
+        position: relative;
+        width: 100%;
+
+        // at desktop level 2 these are arranged in columns
+        // which are based on the number of items at that level
+        @include media-query(medium) {
+            width: auto;
+            font-weight: $weight--medium;
+            flex-basis: calc(100% - #{$spacer-small});
+        }
+
+        #{$root}--2 &,
+        #{$root}--3 & {
+            @include media-query(medium) {
+                flex-basis: calc(33.33% - #{$spacer-small});
+            }
+        }
+
+        #{$root}--4 & {
+            @include media-query(medium) {
+                flex-basis: calc(50% - #{$spacer-small});
+            }
+
+            @include media-query(large) {
+                flex-basis: calc(25% - #{$spacer-small});
+            }
+        }
+
+        // hide the back links and parent links at desktop
+        &--back,
+        &--parent {
+            @include media-query(medium) {
+                display: none;
+            }
+        }
+    }
+
+    // The link for each menu item in the 2nd and 3rd level
+    &__link {
+        display: flex;
+        padding: 35px $spacer-small;
+        border-bottom: 1px solid var(--color--nav-border);
+        gap: 18px;
+        align-items: center;
+        font-size: nth(map-get($large-font-sizes, 'heading-four'), 1);
+        line-height: nth(map-get($large-font-sizes, 'heading-four'), 2);
+
+        @include media-query(medium) {
+            @include link-styles(
+                $color: var(--color--heading),
+                $interaction-color: var(--color--heading)
+            );
+            font-weight: $weight--semibold;
+            font-size: nth(map-get($large-font-sizes, 'heading-four'), 1);
+            line-height: nth(map-get($large-font-sizes, 'heading-four'), 2);
+            margin-bottom: $spacer-mini-plus;
+
+            // resets from mobile styles
+            display: block;
+            padding: 0;
+            border-bottom: none;
+        }
+
+        &:focus {
+            @include focus-style();
+        }
+
+        #{$root}__item:last-child & {
+            border-bottom: none;
+        }
+
+        // mobile styles for links with children
+        &--has-children {
+            color: var(--color--heading);
+            font-size: nth(map-get($large-font-sizes, 'heading-six'), 1);
+            line-height: nth(map-get($large-font-sizes, 'heading-six'), 2);
+        }
+
+        // mobile styles for links without children
+        &--no-children {
+            @include link-styles(
+                $color: var(--color--heading),
+                $interaction-color: var(--color--heading)
+            );
+            font-size: nth(map-get($large-font-sizes, 'heading-six'), 1);
+            line-height: nth(map-get($large-font-sizes, 'heading-six'), 2);
+        }
+
+        // back link which goes one level up in the mobile menu
+        &--back {
+            color: var(--color--heading);
+            font-size: nth(map-get($large-font-sizes, 'heading-six'), 1);
+            line-height: nth(map-get($large-font-sizes, 'heading-six'), 2);
+            width: 100%;
+        }
+
+        // parent link which takes you to the parent page for the section being viewed in the mobile menu
+        &--parent {
+            @include link-styles(
+                $color: var(--color--heading),
+                $interaction-color: var(--color--heading)
+            );
+        }
+
+        // a link item at the lowest level
+        &--child {
+            @include media-query(medium) {
+                @include link-styles(
+                    $color: var(--color--nav-text),
+                    $interaction-color: var(--color--heading)
+                );
+                font-size: nth(map-get($large-font-sizes, 'body-two'), 1);
+                font-weight: $weight--light;
+                line-height: 1.2;
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    // back icon which sits inside the back link
+    &__icon-back {
+        transform: rotate(180deg);
+        width: 18px;
+        height: 21px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        fill: $color--white;
+        transition: transform $transition-quick;
+
+        #{$root}__link:hover & {
+            transform: rotate(180deg) translateX(10px);
+        }
+    }
+
+    // arrow icon which indicates the mobile menu has another level
+    &__icon-mobile {
+        width: 18px;
+        height: 21px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        fill: $color--white;
+        transition: transform $transition-quick;
+
+        #{$root}__link:hover & {
+            transform: translateX(10px);
+        }
+
+        @include media-query(medium) {
+            display: none;
         }
     }
 
     // desktop active state
     .active & {
-        display: flex;
+        opacity: 1;
+        visibility: visible;
     }
 
-    &__item {
-        width: 60%;
-        padding-bottom: 10px;
-        margin-bottom: 10px;
-        font-weight: $weight--normal;
-        text-align: center;
-        border-bottom: 1px solid color.adjust($color--off-black, $alpha: -0.8);
-
-        // back button for mobile
-        &--back {
-            @include font-size(supporting);
-            text-transform: uppercase;
-
-            @include media-query(medium) {
-                display: none;
-            }
-        }
-
-        &--secondary {
-            font-weight: $weight--light;
-        }
-
-        &:last-child {
-            border-bottom: 0;
-        }
-
-        @include media-query(medium) {
-            width: auto;
-            font-weight: $weight--light;
-            text-align: left;
-            border-bottom: 0;
-        }
-    }
-
-    &__link {
-        color: color.adjust($color--off-black, $alpha: -0.3);
-        border-bottom: 1px solid transparent;
-        transition: color, border $transition;
-
-        &:hover {
-            cursor: pointer;
-        }
-
-        @include media-query(medium) {
-            padding: 5px 0;
-            margin: 0 10px;
-
-            &:hover {
-                border-bottom: 1px solid;
-            }
-        }
+    // mobile active state
+    &.is-visible {
+        opacity: 1;
+        visibility: visible;
     }
 }
