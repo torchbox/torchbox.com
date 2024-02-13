@@ -36,5 +36,5 @@ class BlogPageFactory(wagtail_factories.PageFactory):
             return
 
         if extracted:
-            # Add the iterable of related_services using bulk addition
+            # Add the iterable of related_sectors using bulk addition
             self.related_sectors.add(*extracted)
