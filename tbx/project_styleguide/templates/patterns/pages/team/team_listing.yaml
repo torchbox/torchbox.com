@@ -2,7 +2,7 @@ context:
   page:
     title: This is us, <span>the people that make Torchbox</span>.
     get_verbose_name: team-listing
-  people_pages:
+  people:
     - { title: Tom Dyson, role: Techical Director }
     - { title: James Leavesley, role: Managing Director }
     - { title: Paul Vetch, role: Strategy Director }

@@ -4,7 +4,7 @@
 {% block content %}
     {% include "patterns/molecules/title-filters/title-filters.html" with title=page.strapline tags=tags item=page %}
 
-    {% for member in people_pages %}
+    {% for member in people %}
         {% include "patterns/molecules/team-member/team-member.html" with item=member %}
     {% endfor %}
 

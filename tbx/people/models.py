@@ -38,9 +38,7 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    related_teams = ParentalManyToManyField(
-        "taxonomy.Team", related_name="people_pages"
-    )
+    related_teams = ParentalManyToManyField("taxonomy.Team", related_name="people")
 
     @cached_property
     def teams(self):
@@ -102,7 +100,11 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
 
         remaining_slots = 3 - len(recent_works)
 
-        if remaining_slots > 0:
+        if remaining_slots == 0:
+            # No historical works needed, just return recent works
+            works = recent_works
+
+        else:
             # Get the latest 3 historical work pages by this author iff necessary
             historical_works = (
                 HistoricalWorkPage.objects.filter(authors__author__person_page=self.pk)
@@ -112,8 +114,9 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
                 .order_by("-date")[:remaining_slots]
             )
 
-        # Combine the two querysets and get the first three results
-        works = list(chain(historical_works, recent_works))[:3]
+            # Combine the two querysets and get the first three results
+            works = list(chain(historical_works, recent_works))
+
         return works
 
     @cached_property
@@ -136,32 +139,32 @@ class PersonIndexPage(ColourThemeMixin, SocialFields, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        # Get people_pages
-        people_pages = self.people
+        # Get people
+        people = self.people
 
         # Filter by related_team slug
         slug_filter = request.GET.get("filter")
         extra_url_params = {}
 
         if slug_filter:
-            people_pages = people_pages.filter(related_teams__slug=slug_filter)
+            people = people.filter(related_teams__slug=slug_filter)
             extra_url_params["filter"] = slug_filter
 
         # format for template
-        people_pages = [
+        people = [
             {
                 "title": people_page.title,
                 "url": people_page.url,
-                "type": people_page.role,
+                "role": people_page.role,
                 "tags": people_page.related_teams,
             }
-            for people_page in people_pages
+            for people_page in people
         ]
 
         tags = Team.objects.all()
 
         context.update(
-            people_pages=people_pages,
+            people=people,
             tags=tags,
             extra_url_params=urlencode(extra_url_params),
         )

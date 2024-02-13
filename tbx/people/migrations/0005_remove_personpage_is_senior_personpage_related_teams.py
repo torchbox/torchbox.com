@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             model_name="personpage",
             name="related_teams",
             field=modelcluster.fields.ParentalManyToManyField(
-                related_name="people_pages", to="taxonomy.team"
+                related_name="people", to="taxonomy.team"
             ),
         ),
     ]
