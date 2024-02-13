@@ -86,7 +86,8 @@ class BlogIndexPage(ColourThemeMixin, SocialFields, Page):
 
         related_sectors = Sector.objects.all()
         related_services = Service.objects.all()
-        tags = chain(related_services, related_sectors)
+        # tags = chain(related_services, related_sectors)
+        tags = related_sectors.union(related_services)
 
         context.update(
             blog_posts=blog_posts,

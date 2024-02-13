@@ -429,7 +429,8 @@ class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
         related_services = Service.objects.all()
 
         # Used for the purposes of defining the filterable tags
-        tags = chain(related_services, related_sectors)
+        # tags = chain(related_services, related_sectors)
+        tags = related_sectors.union(related_services)
 
         context.update(
             works=works,
