@@ -400,8 +400,6 @@ class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
                 "url": work.url,
                 "author": work.first_author,
                 "date": work.date,
-                # "related_sectors": work.related_sectors.all(),
-                # "related_services": work.related_services.all(),
                 "tags": work.tags,
                 "read_time": work.read_time,
                 "listing_image": work.listing_image,
@@ -426,7 +424,7 @@ class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
         related_services = Service.objects.all()
 
         # Used for the purposes of defining the filterable tags
-        tags = related_sectors.union(related_services)
+        tags = chain(related_services, related_sectors)
 
         context.update(
             works=works,
