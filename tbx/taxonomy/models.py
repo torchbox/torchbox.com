@@ -26,12 +26,24 @@ class BaseTaxonomy(models.Model):
 
 
 class Service(BaseTaxonomy):
+    """Represents a service that Torchbox offers to clients
+
+    This will be assigned to blog posts and work articles, and users will be able to filter by service"""
+
     pass
 
 
 class Sector(BaseTaxonomy):
+    """Represents a sector that Torchbox works in
+
+    This will be assigned to blog posts and work articles, and users will be able to filter by sector"""
+
     pass
 
 
 class Team(BaseTaxonomy):
+    """Represents each team that makes up Torchbox
+
+    A person may be assigned to one or more teams. Teams are used to filter the team listing page"""
+
     pass
