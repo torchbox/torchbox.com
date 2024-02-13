@@ -18,7 +18,7 @@ class BaseTaxonomy(models.Model):
         abstract = True
 
     panels = [
-        TitleFieldPanel("name", heading="Title", classname="title_field"),
+        TitleFieldPanel("name"),
         FieldPanel("slug", widget=SlugInput),
         FieldPanel("description"),
         FieldPanel("sort_order"),
