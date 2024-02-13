@@ -3,10 +3,10 @@
 <div class="sub-nav sub-nav--{{ number }}" data-subnav>
     <ul class="sub-nav__list">
         <li class="sub-nav__item sub-nav__item--back">
-            <a data-subnav-back href="#" class="sub-nav__link sub-nav__link--back">
+            <button data-subnav-back class="sub-nav__link sub-nav__link--back">
                 {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav__icon-back" %}
                 Back to main menu
-            </a>
+            </button>
         </li>
         <li class="sub-nav__item sub-nav__item--parent">
             <a class="sub-nav__link sub-nav__link--parent" href="{{ parent.url }}">

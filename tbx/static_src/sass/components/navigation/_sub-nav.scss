@@ -162,6 +162,7 @@ Styles for the lower levels of the navitation
             color: var(--color--heading);
             font-size: nth(map-get($large-font-sizes, 'heading-six'), 1);
             line-height: nth(map-get($large-font-sizes, 'heading-six'), 2);
+            width: 100%;
         }
 
         // parent link which takes you to the parent page for the section being viewed in the mobile menu
