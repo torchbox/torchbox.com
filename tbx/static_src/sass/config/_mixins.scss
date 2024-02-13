@@ -247,6 +247,8 @@
 @mixin nav-fixed-position($header-height: $header-height-mobile) {
     width: 100%;
     height: calc(100vh - #{$header-height});
+    // use dvh if supported
+    height: calc(100dvh - #{$header-height});
     visibility: hidden;
     opacity: 0;
     position: fixed;

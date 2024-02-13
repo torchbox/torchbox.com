@@ -20,7 +20,9 @@ Styles for the lower levels of the navigation
     // desktop styles
     @include media-query(medium) {
         top: $header-height-desktop;
+        // use dvh if supported
         height: calc(100vh - #{$header-height-desktop});
+        height: calc(100dvh - #{$header-height-desktop});
         padding: $spacer-half $grid-gutters;
     }
 
