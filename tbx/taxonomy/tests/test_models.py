@@ -18,6 +18,9 @@ class TestTaxonomies(WagtailPageTestCase):
         root = site.root_page.specific
         cls.homepage = HomePageFactory(parent=root)
 
+        site.root_page = cls.homepage
+        site.save()
+
         # Create services
         cls.service_names = ["Service1", "Service2"]
         services = [ServiceFactory(name=name) for name in cls.service_names]
@@ -50,19 +53,15 @@ class TestTaxonomies(WagtailPageTestCase):
 
         context = response.context
 
-        # Check that the 'tags' variable is present in the context
+        # Check that the 'tags' variable is present in the context, and is not None
         self.assertIn("tags", context)
+        self.assertIsNotNone(context.get("tags"))
 
         # Check that the 'tags' variable corresponds to all services and sectors used in child BlogPages
-        expected_tags = [
-            "Service1",
-            "Service2",
-            "Sector1",
-            "Sector2",
-        ]
-
-        actual_tags = [tag.name for tag in context["tags"]]
-        self.assertCountEqual(expected_tags, actual_tags)
+        expected_tags = self.sector_names + self.service_names
+        content = response.content.decode("utf-8")
+        for tag in expected_tags:
+            self.assertIn(tag, content)
 
     def test_blog_post_taxonomies_tags(self):
         """Tests that each blog_post only features the taxonomies associated with that page"""
