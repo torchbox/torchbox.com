@@ -69,10 +69,7 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
 
     @cached_property
     def author_posts(self):
-        # Get the BlogPages associated with this page's authors
-        blog_pages = (
-            BlogPage.objects.live().filter(authors__page=self).order_by("-date")
-        )
+        author_snippet = Author.objects.get(person_page__pk=self.pk)
 
         # Format for template
         return [
@@ -81,9 +78,11 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
                 "url": blog_post.url,
                 "author": blog_post.first_author,
                 "date": blog_post.date,
-                "tags": blog_post.related_teams,
+                "tags": blog_post.tags,
             }
-            for blog_post in blog_pages
+            for blog_post in BlogPage.objects.live()
+            .filter(authors__author=author_snippet)
+            .order_by("-date")
         ]
 
     @cached_property
