@@ -9,7 +9,7 @@ Styles for the top level of the navigation
 .primary-nav {
     $root: &;
 
-    // At mobile the navition is only revealed when the menu icon is clicked
+    // At mobile the navigation is only revealed when the menu icon is clicked
     // At desktop the top level is always visible
     &--desktop {
         display: none;
