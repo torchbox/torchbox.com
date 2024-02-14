@@ -79,6 +79,14 @@
         }
     }
 
+    &__related-posts-simple {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+    }
+
     &__image {
         margin-bottom: $spacer-medium;
         grid-column: 1 / span 6;
@@ -126,6 +134,16 @@
         @include media-query(large) {
             margin-bottom: $spacer-large;
             grid-column: 2 / span 11;
+        }
+    }
+
+    &__team-image {
+        margin-bottom: $spacer-small-plus;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-medium;
+            grid-column: 4 / span 7;
         }
     }
 

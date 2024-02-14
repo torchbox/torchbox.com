@@ -2,27 +2,54 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block content %}
-    {% include "patterns/molecules/title-filters/title-filters.html" with item=page meta=page.role %}
+    <div class="grid streamfield">
+        <div class="grid__title">
+            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.title classes="motif-heading--one" %}
 
-    {% image page.image format-webp width-1280 %}
+            <div class="team-page-meta">
+                <div class="tags">
+                    {% for tag in page.teams %}
+                        {% include "patterns/atoms/tag/tag.html" with tag_name=tag.name tag_slug=tag.slug tag_link_base="../" %}
+                    {% endfor %}
+                </div>
+                <span class="team-page-meta__role">{{ page.role }}</span>
+            </div>
+        </div>
 
-    {{ page.intro|richtext }}
-    {{ page.biography|richtext }}
+        <div class="image grid__team-image">
+            {% srcset_image page.image format-webp width-{400,650,950} sizes="(max-width: 598px) 400px, (max-width: 1022px) 950px, (min-width: 1023px) 650px" %}
+        </div>
 
-    {% if page.author_posts %}
-        {% include "patterns/atoms/section-title/section-title.html" with title="More of "|add:page.title.split.0|add:"'s thinking" %}
-        {% for post in page.author_posts %}
-            {% include "patterns/molecules/blog-item/blog-item.html" with item=post %}
-        {% endfor %}
-    {% endif %}
+        {% if page.intro %}
+            <div class="grid__intro streamfield__intro">
+                <div class="heading heading--four">{{page.intro|richtext}}</div>
+            </div>
+        {% endif %}
 
-    {% if page.related_works %}
-        {% include "patterns/atoms/section-title/section-title.html" with title="More of "|add:page.title.split.0|add:"'s work" %}
-        {% include "patterns/organisms/work-listing/work-listing.html" with works=page.related_works %}
-        {% pageurl page.work_index as work_index_url %}
-        {% include "patterns/atoms/see-more/see-more.html" with link=work_index_url text="See more case studies" %}
-    {% endif %}
+        <div class="grid__paragraph rich-text">
+            {{ page.biography|richtext }}
+        </div>
 
-    {% include_block page.call_to_action %}
+        {% if page.author_posts %}
+            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=page.title.split.0|add:"'s thinking" classes="motif-heading--two motif-heading--static section-title--related-posts" %}
+
+            <ul class="grid__related-posts-simple streamfield__related-posts-simple">
+                {% for post in page.author_posts %}
+                    {% include "patterns/molecules/listing/listing--simple.html" with link=post.url title=post.title name=post.author.name job_title=post.author.role date=post.date reading_time=post.read_time tags=post.tags tag_link_base=blog_index_url %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if page.related_works %}
+            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=page.title.split.0|add:"'s work" classes="motif-heading--two motif-heading--static section-title--related-posts" %}
+
+            <ul class="grid__related-posts streamfield__related-posts">
+                {% for work_page in page.related_works %}
+                    {% pageurl work_page.specific.work_index as work_index_url %}
+                    {% include "patterns/molecules/listing/listing--image.html" with title=work_page.title name=work_page.client link=work_page.url date=work_page.date reading_time=work_page.read_time tags=work_page.tags listing_image=work_page.listing_image tag_link_base=work_index_url tags_screenreader_text="See more work posts in this category" %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 
 {% endblock %}
