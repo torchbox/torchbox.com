@@ -152,8 +152,7 @@ class ContactMixin(models.Model):
             return next(
                 p.contact
                 for p in self.get_ancestors().specific().order_by("-depth")
-                if getattr(p, "contact", default_contact) != default_contact
-                and getattr(p, "contact", None) is not None
+                if getattr(p, "contact", None) is not None
             )
         except StopIteration:
             return default_contact
