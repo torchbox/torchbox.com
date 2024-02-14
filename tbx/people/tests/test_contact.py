@@ -1,5 +1,9 @@
+import time
+
+from django.db import connection
 from django.test import TestCase
 
+from tabulate import tabulate
 from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
 from tbx.core.factories import HomePageFactory, StandardPageFactory
 from tbx.people.factories import ContactFactory
@@ -10,6 +14,42 @@ from tbx.work.factories import (
     WorkPageFactory,
 )
 from wagtail.models import Site
+
+
+class QueryLogger:
+    def __init__(self):
+        self.queries = []
+
+    def __call__(self, execute, sql, params, many, context):
+        current_query = {"sql": sql, "params": params, "many": many}
+        start = time.monotonic()
+        try:
+            result = execute(sql, params, many, context)
+        except Exception as e:
+            current_query["status"] = "error"
+            current_query["exception"] = e
+            raise
+        else:
+            current_query["status"] = "ok"
+            return result
+        finally:
+            duration = time.monotonic() - start
+            current_query["duration"] = duration
+            self.queries.append(current_query)
+
+    def render(self):
+        if self.queries:
+            # Add a counter column
+            for i, d in enumerate(self.queries, start=1):
+                d["Query №"] = i
+
+            headers = self.queries[0].keys()
+            rows = [[row[header] for header in headers] for row in self.queries]
+
+            print(tabulate(rows, headers=headers, tablefmt="pipe"))
+
+        else:
+            print(f"{len(self.queries)} queries\n\n")
 
 
 class TestContact(TestCase):
@@ -183,3 +223,50 @@ class TestContact(TestCase):
             self.assertIsNone(page.contact)
             self.assertTrue(page.footer_contact)
             self.assertEqual(page.footer_contact, self.contact)
+
+    def test_queries(self):
+        self.home.contact = self.contact
+        self.home.save()
+        self.home.refresh_from_db()
+        jane_doe = ContactFactory(name="Jane Doe", cta={"link_type": "external_link"})
+        work = HistoricalWorkPageFactory(parent=self.workindex, contact=jane_doe)
+
+        # -------------------------------------------------
+        # with self.assertNumQueries(5):
+        #     self.workindex.footer_contact
+
+        ql = QueryLogger()
+        with connection.execute_wrapper(ql):
+            self.workindex.footer_contact
+        print("### 1. self.workindex.footer_contact\n\n")
+        ql.render()
+
+        # -------------------------------------------------
+        # with self.assertNumQueries(4):
+        #     self.workindex.footer_contact_improved
+
+        ql = QueryLogger()
+        with connection.execute_wrapper(ql):
+            self.workindex.footer_contact_improved
+        print("### 2. self.workindex.footer_contact_improved\n\n")
+        ql.render()
+
+        # -------------------------------------------------
+        # with self.assertNumQueries(0):
+        #     work.footer_contact
+
+        ql = QueryLogger()
+        with connection.execute_wrapper(ql):
+            work.footer_contact
+        print("### 3. work.footer_contact\n\n")
+        ql.render()
+
+        # -------------------------------------------------
+        # with self.assertNumQueries(0):
+        #     work.footer_contact_improved
+
+        ql = QueryLogger()
+        with connection.execute_wrapper(ql):
+            work.footer_contact_improved
+        print("### 4. work.footer_contact_improved\n\n")
+        ql.render()
