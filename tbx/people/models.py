@@ -144,18 +144,16 @@ class ContactMixin(models.Model):
         if contact := self.contact:
             return contact
 
+        ancestors = (
+            self.get_ancestors().defer_streamfields().specific().order_by("-depth")
+        )
+        for ancestor in ancestors:
+            if getattr(ancestor, "contact_id", None) is not None:
+                return ancestor.contact
+
         # _in theory_, there should only be one Contact object with default_contact=True.
         # (see `tbx.people.models.Contact.save()`)
-        default_contact = Contact.objects.filter(default_contact=True).first()
-
-        try:
-            return next(
-                p.contact
-                for p in self.get_ancestors().specific().order_by("-depth")
-                if getattr(p, "contact", None) is not None
-            )
-        except StopIteration:
-            return default_contact
+        return Contact.objects.filter(default_contact=True).first()
 
     class Meta:
         abstract = True
