@@ -6,14 +6,13 @@ from django.db import models
 from django.dispatch import receiver
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
-from django.utils.safestring import mark_safe
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
+from tbx.people.blocks import ContactCTABlock
 from tbx.people.forms import ContactAdminForm
 from tbx.taxonomy.models import Team
-from tbx.people.blocks import ContactCTABlock
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, Page
@@ -34,13 +33,9 @@ class Contact(index.Indexed, models.Model):
     title = models.CharField(
         max_length=255,
         blank=True,
-        help_text=mark_safe("For example, <strong>Let’s talk</strong>"),
     )
     text = models.TextField(
         blank=True,
-        help_text=mark_safe(
-            "For example, <strong>Got a brief? We’d love to see it. If not, we can help.</strong>"
-        ),
     )
     cta = StreamField(
         [("call_to_action", ContactCTABlock(label="CTA"))],
@@ -62,7 +57,8 @@ class Contact(index.Indexed, models.Model):
         default=False,
         blank=True,
         null=True,
-        help_text="Make this the default contact for the site",
+        help_text="Make this the default contact for the site. "
+        "Setting this will override any existing default.",
     )
 
     def __str__(self):
