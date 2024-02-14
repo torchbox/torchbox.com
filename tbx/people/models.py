@@ -28,13 +28,12 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
 
     parent_page_types = ["PersonIndexPage"]
 
-    role = models.CharField(max_length=255, blank=True)
+    role = models.CharField(max_length=255)
     intro = RichTextField(blank=True)
-    biography = RichTextField(blank=True)
+    biography = RichTextField()
     image = models.ForeignKey(
         "images.CustomImage",
         null=True,
-        blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
     )
