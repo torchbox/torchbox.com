@@ -75,13 +75,13 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
             {
                 "title": blog_post.title,
                 "url": blog_post.url,
-                "author": blog_post.first_author,
+                "read_time": blog_post.read_time,
                 "date": blog_post.date,
                 "tags": blog_post.tags,
             }
             for blog_post in BlogPage.objects.live()
             .filter(authors__author=author_snippet)
-            .order_by("-date")
+            .order_by("-date")[:3]
         ]
 
     @cached_property
