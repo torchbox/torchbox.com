@@ -1,0 +1,9 @@
+context:
+  link: '#'
+  title: Abigail Hampson
+  job_title: Senior Delivery Manager
+
+tags:
+  srcset_image:
+    'listing_image format-webp width-{150,300} sizes="(max-width: 598px) 150px, (min-width: 599px) 300px"':
+      raw: '<img alt="" height="150" sizes="(max-width: 598px) 150px, (min-width: 599px) 300px" src="https://source.unsplash.com/150x150/?person" srcset="https://source.unsplash.com/300x300/?person 150w, https://source.unsplash.com/300x300/?person 300w" width="300">'

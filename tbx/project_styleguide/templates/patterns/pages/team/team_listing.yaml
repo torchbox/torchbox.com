@@ -1,27 +1,37 @@
 context:
   page:
-    title: This is us, <span>the people that make Torchbox</span>.
+    title: Team
+    strapline: This is us, <span>the people that make Torchbox</span>.
     get_verbose_name: team-listing
   people:
-    - { title: Tom Dyson, role: Techical Director }
-    - { title: James Leavesley, role: Managing Director }
-    - { title: Paul Vetch, role: Strategy Director }
-    - { title: Olly Willans, role: Creative Director }
-    - { title: Tom Dyson, role: Techical Director }
-    - { title: James Leavesley, role: Managing Director }
-    - { title: Paul Vetch, role: Strategy Director }
-    - { title: Olly Willans, role: Creative Director }
-    - { title: Tom Dyson, role: Techical Director }
-    - { title: James Leavesley, role: Managing Director }
-    - { title: Paul Vetch, role: Strategy Director }
-    - { title: Olly Willans, role: Creative Director }
+    - { title: Tom Dyson, role: Techical Director, url: '#', image: fake }
+    - { title: James Leavesley, role: Managing Director, url: '#', image: fake }
+    - { title: Paul Vetch, role: Strategy Director, url: '#', image: fake }
+    - { title: Olly Willans, role: Creative Director, url: '#', image: fake }
+    - { title: Tom Dyson, role: Techical Director, url: '#', image: fake }
+    - { title: James Leavesley, role: Managing Director, url: '#', image: fake }
+    - { title: Paul Vetch, role: Strategy Director, url: '#', image: fake }
+    - { title: Olly Willans, role: Creative Director, url: '#', image: fake }
+    - { title: Tom Dyson, role: Techical Director, url: '#', image: fake }
+    - { title: James Leavesley, role: Managing Director, url: '#', image: fake }
+    - { title: Paul Vetch, role: Strategy Director, url: '#', image: fake }
+    - { title: Olly Willans, role: Creative Director, url: '#', image: fake }
+  tags:
+    - name: Innovation
+      slug: innovation
+    - name: Operations, HR & Finance
+      slug: operations-hr-finance
+    - name: Tech
+      slug: tech
+    - name: Product Services
+      slug: product-services
+    - name: Digital Marketing
+      slug: digital-marketing
 
 tags:
-  image:
-    item.image fill-550x550 as image:
-      target_var: image
-      raw:
-        url: 'https://source.unsplash.com/550x550/?trees'
+  srcset_image:
+    'listing_image format-webp width-{150,300} sizes="(max-width: 598px) 150px, (min-width: 599px) 300px"':
+      raw: '<img alt="" height="150" sizes="(max-width: 598px) 150px, (min-width: 599px) 300px" src="https://source.unsplash.com/150x150/?person" srcset="https://source.unsplash.com/300x300/?person 150w, https://source.unsplash.com/300x300/?person 300w" width="300">'
   footerlinks:
     '':
       template_name: 'patterns/navigation/components/footer-links.html'

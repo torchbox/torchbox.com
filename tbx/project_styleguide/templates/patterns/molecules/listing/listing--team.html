@@ -1,0 +1,25 @@
+{# Designed to be included from another template and values passed in #}
+{% load wagtailimages_tags %}
+
+<li class="listing-image listing {{ base_class }}">
+
+    <div>
+        {% srcset_image listing_image format-webp width-{150,300} sizes="(max-width: 598px) 150px, (min-width: 599px) 300px" %}
+    </div>
+
+    <div>
+        <a class="listing-image__link listing__link" href="{{ link }}">
+            <h2 class="listing-image__title listing__title">
+                {# The title and icon need to be on the same line with no whitespace to prevent the arrow being orphaned on a new line #}
+                <span class="listing__title-text">{{ title }}</span><span class="listing__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-image__arrow listing__arrow" %}</span>
+            </h2>
+        </a>
+        <div class="listing-image__details listing__details">
+            <div>
+                <p class="listing__details-group">
+                    <span class="listing__name mr-1.5">{{ job_title }}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</li>
