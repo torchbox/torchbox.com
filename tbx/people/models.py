@@ -121,21 +121,6 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
     def work_index(self):
         return WorkIndexPage.objects.live().public().first()
 
-    # @cached_property
-    # def team_index(self):
-    #     if ancestor := (
-    #         PersonIndexPage.objects.live()
-    #         .public()
-    #         .ancestor_of(self)
-    #         .order_by("-depth")
-    #         .first()
-    #     ):
-    #         return ancestor
-    #     else:
-    #         # No ancestors are team indexes,
-    #         # just return first team index in database
-    #         return PersonIndexPage.objects.live().public().first()
-
 
 # Person index
 class PersonIndexPage(ColourThemeMixin, SocialFields, Page):
