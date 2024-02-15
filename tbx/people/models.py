@@ -121,6 +121,21 @@ class PersonPage(ColourThemeMixin, SocialFields, Page):
     def work_index(self):
         return WorkIndexPage.objects.live().public().first()
 
+    # @cached_property
+    # def team_index(self):
+    #     if ancestor := (
+    #         PersonIndexPage.objects.live()
+    #         .public()
+    #         .ancestor_of(self)
+    #         .order_by("-depth")
+    #         .first()
+    #     ):
+    #         return ancestor
+    #     else:
+    #         # No ancestors are team indexes,
+    #         # just return first team index in database
+    #         return PersonIndexPage.objects.live().public().first()
+
 
 # Person index
 class PersonIndexPage(ColourThemeMixin, SocialFields, Page):
@@ -132,7 +147,13 @@ class PersonIndexPage(ColourThemeMixin, SocialFields, Page):
 
     @cached_property
     def people(self):
-        return PersonPage.objects.order_by("title").live().public()
+        return (
+            PersonPage.objects.child_of(self)
+            .order_by("title")
+            .live()
+            .public()
+            .prefetch_related("image")
+        )
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
@@ -151,12 +172,12 @@ class PersonIndexPage(ColourThemeMixin, SocialFields, Page):
         # format for template
         people = [
             {
-                "title": people_page.title,
-                "url": people_page.url,
-                "role": people_page.role,
-                "tags": people_page.related_teams,
+                "title": person.title,
+                "url": person.url,
+                "role": person.role,
+                "image": person.image,
             }
-            for people_page in people
+            for person in people
         ]
 
         tags = Team.objects.all()
