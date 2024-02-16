@@ -7,12 +7,30 @@ context:
       role: New Business Director
       link: '#'
       button_text: Get in touch
-  global_settings:
-    footer_logos:
-      - footer_logo:
-      - footer_logo:
-      - footer_logo:
-      - footer_logo:
+  settings:
+    navigation:
+      NavigationSettings:
+        footer_logos:
+          - value:
+              link:
+                url: '#'
+                text: 'Certififed B-Corp Company'
+              image: fake
+          - value:
+              link:
+                url: '#'
+                text: 'We are an employee owned digital agency'
+              image: fake
+          - value:
+              link:
+                url: '#'
+                text: 'Officially a World Class Company to Work For'
+              image: fake
+          - value:
+              link:
+                url: '#'
+                text: 'We are carbon neutral'
+              image: fake
 
 tags:
   image:
@@ -28,7 +46,7 @@ tags:
       target_var: avatar_mobile
       raw:
         url: 'https://source.unsplash.com/72x72?face'
-    footer_logo max-100x100 format-webp loading="lazy" class="footer__logo":
+    logo.image max-100x100 format-webp loading="lazy" class="footer__logo" alt=link.text:
       raw: |
         <img src="https://source.unsplash.com/100x100?logo" width="100" height="100" alt="test alt" class="footer__logo">
   footerlinks:
