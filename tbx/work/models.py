@@ -14,6 +14,7 @@ from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
+from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 from tbx.work.blocks import WorkStoryBlock
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -37,7 +38,7 @@ class HistoricalWorkPageScreenshot(Orderable):
     ]
 
 
-class HistoricalWorkPage(ColourThemeMixin, SocialFields, Page):
+class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     """
     This represents Work Pages as they were prior to the 2024
     rebuild of the site. It is kept here to display the older
@@ -176,6 +177,7 @@ class HistoricalWorkPage(ColourThemeMixin, SocialFields, Page):
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
         + [
             FieldPanel("feed_image"),
             FieldPanel("listing_summary"),
@@ -186,7 +188,7 @@ class HistoricalWorkPage(ColourThemeMixin, SocialFields, Page):
     )
 
 
-class WorkPage(ColourThemeMixin, SocialFields, Page):
+class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/work/work_page.html"
     parent_page_types = ["WorkIndexPage"]
 
@@ -244,6 +246,7 @@ class WorkPage(ColourThemeMixin, SocialFields, Page):
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
         + [
             FieldPanel("listing_summary"),
             MultiFieldPanel(
@@ -343,7 +346,7 @@ class WorkPage(ColourThemeMixin, SocialFields, Page):
 
 
 # Work index page
-class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
+class WorkIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/work/work_index_page.html"
 
     subpage_types = ["HistoricalWorkPage", "WorkPage"]
@@ -444,6 +447,7 @@ class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
         + [
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
