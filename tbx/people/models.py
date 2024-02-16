@@ -132,7 +132,13 @@ class PersonIndexPage(ColourThemeMixin, SocialFields, Page):
 
     @cached_property
     def people(self):
-        return PersonPage.objects.order_by("title").live().public()
+        return (
+            PersonPage.objects.child_of(self)
+            .order_by("title")
+            .live()
+            .public()
+            .prefetch_related("image")
+        )
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
@@ -151,12 +157,12 @@ class PersonIndexPage(ColourThemeMixin, SocialFields, Page):
         # format for template
         people = [
             {
-                "title": people_page.title,
-                "url": people_page.url,
-                "role": people_page.role,
-                "tags": people_page.related_teams,
+                "title": person.title,
+                "url": person.url,
+                "role": person.role,
+                "image": person.image,
             }
-            for people_page in people
+            for person in people
         ]
 
         tags = Team.objects.all()

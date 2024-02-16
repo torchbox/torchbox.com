@@ -2,12 +2,13 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block content %}
-    {% include "patterns/molecules/title-filters/title-filters.html" with title=page.strapline tags=tags item=page %}
+
+    {% include "patterns/molecules/title-filters/title-filters.html" with tags=tags item=page %}
+
+    {{ page.strapline }}
 
     {% for member in people %}
         {% include "patterns/molecules/team-member/team-member.html" with item=member %}
     {% endfor %}
-
-    {% include_block page.call_to_action %}
 
 {% endblock %}

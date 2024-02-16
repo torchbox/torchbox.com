@@ -1,5 +1,3 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% image item.image fill-550x550 format-webp as image %}
-{% firstof item.url item.link_external as link %}
-{% include "patterns/molecules/listing/listing--avatar.html" with link=link avatar=item.author.image title=item.title job_title=item.author.role date=item.date tags=item.tags.all tag_link_base=blog_index_url base_class="page-listing__item" %}
+{% include "patterns/molecules/listing/listing--team.html" with link=item.url listing_image=item.image title=item.title job_title=item.role base_class="page-listing__item" %}
