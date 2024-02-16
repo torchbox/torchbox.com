@@ -8,24 +8,12 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("people", "0006_add_contact_mixin_to_all_page_models"),
-        ("torchbox", "0017_homepage_theme_standardpage_theme"),
+        ("events", "0002_remove_eventindexpage_call_to_action_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name="homepage",
-            name="contact",
-            field=models.ForeignKey(
-                blank=True,
-                help_text="The contact will be applied to this page's footer and all of its descendants.\nIf no contact is selected, it will be derived from this page's ancestors, eventually falling back to the default contact.",
-                null=True,
-                on_delete=django.db.models.deletion.SET_NULL,
-                related_name="+",
-                to="people.contact",
-            ),
-        ),
-        migrations.AddField(
-            model_name="standardpage",
+            model_name="eventindexpage",
             name="contact",
             field=models.ForeignKey(
                 blank=True,
