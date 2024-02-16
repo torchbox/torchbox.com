@@ -79,7 +79,8 @@
         }
     }
 
-    &__related-posts-simple {
+    &__related-posts-simple,
+    &__team-listing {
         grid-column: 2 / span 4;
 
         @include media-query(large) {

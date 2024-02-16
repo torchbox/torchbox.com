@@ -1,0 +1,61 @@
+@use 'config' as *;
+
+.team-listing {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: $spacer-small;
+    row-gap: $spacer-small-plus;
+
+    @include media-query(large) {
+        max-width: 1270px;
+    }
+
+    &__item {
+        width: 370px;
+
+        @include media-query(medium) {
+            width: calc(33% - #{$spacer-small});
+        }
+
+        @include media-query(large) {
+            width: 230px;
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 374px;
+        object-fit: cover;
+        margin-bottom: $spacer-mini;
+
+        @include media-query(medium) {
+            height: auto;
+        }
+
+        @include media-query(large) {
+            height: 230px;
+        }
+    }
+
+    &__link {
+        @include link-styles(
+            $color: var(--color--heading),
+            $interaction-color: var(--color--heading)
+        );
+        @include font-size('heading-four');
+        font-weight: $weight--semibold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    &__role {
+        @include font-size('heading-four');
+        font-size: nth(map-get($small-font-sizes, 'heading-four'), 1);
+        line-height: nth(map-get($small-font-sizes, 'heading-four'), 2);
+
+        @include media-query(medium) {
+            font-size: nth(map-get($large-font-sizes, 'supporting'), 1);
+            line-height: nth(map-get($large-font-sizes, 'supporting'), 2);
+        }
+    }
+}

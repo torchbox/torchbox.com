@@ -1,7 +1,7 @@
 context:
   page:
     title: Team
-    strapline: This is us, <span>the people that make Torchbox</span>.
+    strapline: This is us, the people that make Torchbox.
     get_verbose_name: team-listing
   people:
     - { title: Tom Dyson, role: Techical Director, url: '#', image: fake }
@@ -30,8 +30,12 @@ context:
 
 tags:
   srcset_image:
-    'listing_image format-webp width-{150,300} sizes="(max-width: 598px) 150px, (min-width: 599px) 300px"':
-      raw: '<img alt="" height="150" sizes="(max-width: 598px) 150px, (min-width: 599px) 300px" src="https://source.unsplash.com/150x150/?person" srcset="https://source.unsplash.com/300x300/?person 150w, https://source.unsplash.com/300x300/?person 300w" width="300">'
+    'member.image format-webp fill-{230x230,370x374} sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="team-listing__image" alt=""':
+      raw: '<img alt="Abigail" class="team-listing__image" height="230" sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" src="https://source.unsplash.com/230x230/?person" srcset="https://source.unsplash.com/230x230/?person 230w, https://source.unsplash.com/370x374/?person 370w" width="230">'
   footerlinks:
     '':
       template_name: 'patterns/navigation/components/footer-links.html'
+  pageurl:
+    item as index:
+      target_var: index
+      raw: '#'

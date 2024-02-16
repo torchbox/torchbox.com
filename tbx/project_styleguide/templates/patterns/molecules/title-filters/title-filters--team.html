@@ -1,8 +1,10 @@
 {% load wagtailcore_tags %}
 
-<div class="title-filters">
+<div class="title-filters title-filters--team">
     <div class="title-filters__title">
         {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=item.title classes="motif-heading--one" %}
+
+        <p class="title-filters__strapline">{{ strapline }}</p>
     </div>
 
     {% if tags %}
