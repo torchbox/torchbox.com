@@ -28,9 +28,9 @@
 
     {# Mobile navigation #}
     <nav aria-label="Main navigation"  class="primary-nav primary-nav--mobile" data-mobile-menu>
-        {% cache 600 primarynav current_site.pk request.is_preview is_pattern_library %}
+        {% cache 600 primarynavmobile current_site.pk request.is_preview is_pattern_library %}
             <ul data-primary-nav class="primary-nav__list">
-                {% primarynav %}
+                {% primarynavmobile %}
             </ul>
         {% endcache %}
     </nav>

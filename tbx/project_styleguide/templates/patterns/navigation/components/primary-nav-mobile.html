@@ -2,9 +2,7 @@
 
 {% for item in primarynav %}
     {% with children=item.value.page.get_children.live.public.in_menu hide_children=item.value.hide_children %}
-        <li class="primary-nav__item {% if children and not hide_children %}primary-nav__item--is-parent{% endif %}"
-            {% if children and not hide_children %}data-has-subnav{% endif %}
-        >
+        <li class="primary-nav__item {% if children and not hide_children %}primary-nav__item--is-parent{% endif %}">
             {% with link=item.value %}
                 <a
                     class="primary-nav__link {% if children and not hide_children %}primary-nav__link--has-children{% else %}primary-nav__link--no-children{% endif %}"
@@ -15,17 +13,13 @@
                 >
                     <span class="primary-nav__text">{{ link.text }}</span>
                     {% if children and not hide_children %}
-                        {# desktop arrows #}
-                        <div class="primary-nav__icon-wrapper">
-                            {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="primary-nav__icon-closed" %}
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="primary-nav__icon-hover" %}
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow-tall" classname="primary-nav__icon-open" %}
-                        </div>
+                        {# mobile arrow #}
+                        {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav__icon-mobile" %}
                     {% endif %}
                 </a>
 
                 {% if children and not hide_children %}
-                    {% include "patterns/navigation/components/includes/subnav-menu.html" with links=children number=children|length %}
+                    {% include "patterns/navigation/components/includes/subnav-menu-mobile.html" with links=children parent=link %}
                 {% endif %}
             {% endwith %}
         </li>
