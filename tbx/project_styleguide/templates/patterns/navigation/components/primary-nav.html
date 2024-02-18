@@ -2,24 +2,24 @@
 
 {% for item in primarynav %}
     {% with children=item.value.page.get_children.live.public.in_menu hide_children=item.value.hide_children %}
-        <li class="primary-nav__item {% if children and not hide_children %}primary-nav__item--is-parent{% endif %}"
+        <li class="primary-nav-desktop__item {% if children and not hide_children %}primary-nav-desktop__item--is-parent{% endif %}"
             {% if children and not hide_children %}data-has-subnav{% endif %}
         >
             {% with link=item.value %}
                 <a
-                    class="primary-nav__link {% if children and not hide_children %}primary-nav__link--has-children{% else %}primary-nav__link--no-children{% endif %}"
+                    class="primary-nav-desktop__link {% if children and not hide_children %}primary-nav-desktop__link--has-children{% else %}primary-nav-desktop__link--no-children{% endif %}"
                     {% if children and not hide_children %}
                         data-open-subnav aria-haspopup="true" aria-expanded="false"
                     {% endif %}
                     href="{{ link.url }}"
                 >
-                    <span class="primary-nav__text">{{ link.text }}</span>
+                    <span class="primary-nav-desktop__text">{{ link.text }}</span>
                     {% if children and not hide_children %}
                         {# desktop arrows #}
-                        <div class="primary-nav__icon-wrapper">
-                            {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="primary-nav__icon-closed" %}
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="primary-nav__icon-hover" %}
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow-tall" classname="primary-nav__icon-open" %}
+                        <div class="primary-nav-desktop__icon-wrapper">
+                            {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="primary-nav-desktop__icon-closed" %}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="primary-nav-desktop__icon-hover" %}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow-tall" classname="primary-nav-desktop__icon-open" %}
                         </div>
                     {% endif %}
                 </a>

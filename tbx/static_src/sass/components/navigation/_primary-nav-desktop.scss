@@ -1,0 +1,118 @@
+@use "config" as *;
+
+/*
+Styles for the top level of the navigation at desktop
+*/
+
+// the nav element surrounding the whole navigation
+// There are separate nav elements for desktop and mobile
+.primary-nav-desktop {
+    $root: &;
+
+    // At desktop the top level of the menu is always visible in the header
+    display: none;
+
+    @include media-query(medium) {
+        display: block;
+    }
+
+    // Top level menu unordered list
+    &__list {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 3vw;
+        overflow: visible;
+
+        @include media-query(large) {
+            gap: $spacer-small-plus;
+        }
+    }
+
+    // top level menu list items
+    &__item {
+        position: relative;
+        width: auto;
+        font-weight: $weight--medium;
+    }
+
+    // top level menu links
+    &__link {
+        &:focus {
+            @include focus-style();
+        }
+    }
+
+    // top level menu link text
+    &__text {
+        @include link-styles($interaction-color: var(--color--heading));
+    }
+
+    // desktop arrows
+    // wrapper ensures the text doesn't move when the icon changes
+    &__icon-wrapper {
+        @include z-index(overlap);
+        width: 13px;
+        position: relative;
+        display: inline-block;
+        margin-left: 8px;
+    }
+
+    // chevron when menu is closed
+    &__icon-closed {
+        display: block;
+        width: 10px;
+        height: 6px;
+        color: var(--color--text);
+
+        @include high-contrast-light-mode() {
+            color: var(--color--decoration);
+        }
+
+        .active &,
+        #{$root}__link:hover & {
+            display: none;
+        }
+    }
+
+    // tall arrow when menu is open
+    &__icon-open {
+        display: none;
+        width: 13px;
+        height: 85px;
+        position: absolute;
+        top: -8px;
+        color: var(--color--heading);
+
+        @include high-contrast-light-mode() {
+            color: var(--color--decoration);
+        }
+
+        .active & {
+            display: block;
+        }
+    }
+
+    // short icon when hovering
+    &__icon-hover {
+        display: none;
+        width: 11px;
+        height: 16px;
+        position: absolute;
+        top: -8px;
+        color: var(--color--heading);
+
+        @include high-contrast-light-mode() {
+            color: var(--color--decoration);
+        }
+
+        #{$root}__link:hover & {
+            display: block;
+        }
+
+        // don't show as well as the active icon
+        .active #{$root}__link:hover & {
+            display: none;
+        }
+    }
+}
