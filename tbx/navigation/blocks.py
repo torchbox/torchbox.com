@@ -4,6 +4,7 @@ from django.utils.safestring import mark_safe
 
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
+from wagtail.images.blocks import ImageChooserBlock
 
 
 class LinkBlockStructValue(blocks.StructValue):
@@ -80,3 +81,15 @@ class PrimaryNavLinkBlock(LinkBlock):
             "their <strong>Show in menus</strong> settings."
         ),
     )
+
+
+class FooterLogoBlock(blocks.StructBlock):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        # Modify the help_text for the title field in the LinkBlock
+        self.child_blocks["link"].child_blocks[
+            "title"
+        ].field.help_text = "This is used as the basis for alt text."
+
+    image = ImageChooserBlock()
+    link = LinkBlock()

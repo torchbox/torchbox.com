@@ -42,13 +42,17 @@
 
     <div class="grid footer__bottom">
         <div class="grid__footer-logos">
-            {% with global_settings=settings.navigation.NavigationSettings %}
+            {% with settings.navigation.NavigationSettings as global_settings %}
                 {% if global_settings.footer_logos %}
                     <ul class="footer__logos">
                         {% for item in global_settings.footer_logos %}
-                            {% with footer_logo=item.value %}
+                            {% with item.value as logo %}
                                 <li>
-                                    {% image footer_logo max-100x100 format-webp loading="lazy" class="footer__logo" %}
+                                    {% with logo.link as link %}
+                                        <a href="{{ link.url }}" title="{{ link.text }}">
+                                            {% image logo.image max-100x100 format-webp loading="lazy" class="footer__logo" alt=link.text %}
+                                        </a>
+                                    {% endwith %}
                                 </li>
                             {% endwith %}
                         {% endfor %}
