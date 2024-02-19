@@ -72,7 +72,10 @@ class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     )
     listing_summary = models.CharField(max_length=255, blank=True)
     related_sectors = ParentalManyToManyField(
-        "taxonomy.Sector", related_name="historical_case_studies"
+        "taxonomy.Sector",
+        related_name="historical_case_studies",
+        null=True,
+        blank=True,
     )
     related_services = ParentalManyToManyField(
         "taxonomy.Service", related_name="historical_case_studies"
@@ -221,7 +224,10 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         "taxonomy.Service", related_name="case_studies"
     )
     related_sectors = ParentalManyToManyField(
-        "taxonomy.Sector", related_name="case_studies"
+        "taxonomy.Sector",
+        related_name="case_studies",
+        null=True,
+        blank=True,
     )
 
     content_panels = Page.content_panels + [
@@ -374,6 +380,7 @@ class WorkIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
                     output_field=DateField(),
                 )
             )
+            .distinct()
             .order_by(
                 "-priority",
                 "-pk",

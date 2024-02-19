@@ -124,7 +124,10 @@ class BlogPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     listing_summary = models.TextField(blank=True)
     canonical_url = models.URLField(blank=True, max_length=255)
     related_sectors = ParentalManyToManyField(
-        "taxonomy.Sector", related_name="blog_posts"
+        "taxonomy.Sector",
+        related_name="blog_posts",
+        null=True,
+        blank=True,
     )
     related_services = ParentalManyToManyField(
         "taxonomy.Service", related_name="blog_posts"
