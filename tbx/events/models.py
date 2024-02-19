@@ -78,7 +78,6 @@ class Event(ClusterableModel, Orderable):
     related_sectors = ParentalManyToManyField(
         "taxonomy.Sector",
         related_name="events",
-        null=True,
         blank=True,
     )
 

@@ -126,7 +126,6 @@ class BlogPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     related_sectors = ParentalManyToManyField(
         "taxonomy.Sector",
         related_name="blog_posts",
-        null=True,
         blank=True,
     )
     related_services = ParentalManyToManyField(

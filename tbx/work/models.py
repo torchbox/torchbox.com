@@ -74,7 +74,6 @@ class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     related_sectors = ParentalManyToManyField(
         "taxonomy.Sector",
         related_name="historical_case_studies",
-        null=True,
         blank=True,
     )
     related_services = ParentalManyToManyField(
@@ -226,7 +225,6 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     related_sectors = ParentalManyToManyField(
         "taxonomy.Sector",
         related_name="case_studies",
-        null=True,
         blank=True,
     )
 
