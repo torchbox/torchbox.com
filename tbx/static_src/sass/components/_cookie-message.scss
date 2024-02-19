@@ -1,0 +1,56 @@
+@use 'config' as *;
+
+.cookie-message {
+    $root: &;
+    @include z-index(cookie-message);
+    position: fixed;
+    bottom: 0;
+    display: none; // Doesn't display unless there isn't a cookie
+    width: 100%;
+    transition: transform $transition 0s;
+    background-color: var(--color--streamfield-background);
+    border-top: 1px solid var(--color--border);
+
+    @include reduced-motion() {
+        transition: none;
+    }
+
+    // Unfixed version just for the styleguide
+    &--unfixed {
+        position: static;
+        display: block;
+        bottom: auto;
+    }
+
+    // Applied if cookie just added
+    &.inactive {
+        display: block;
+        transform: translate3d(0, 100%, 0);
+    }
+
+    &.active {
+        display: block;
+        transform: translate3d(0, 0, 0);
+    }
+
+    &__container {
+        padding: $spacer-small 0;
+    }
+
+    &__message {
+        margin-bottom: $spacer-small;
+    }
+
+    &__link {
+        @include link-styles(
+            $color: var(--color--heading),
+            $interaction-color: var(--color--heading),
+            $shadow: true
+        );
+    }
+
+    &__action {
+        display: flex;
+        gap: $spacer-small;
+    }
+}
