@@ -75,7 +75,11 @@ class Event(ClusterableModel, Orderable):
         related_name="authors",
         verbose_name="Host",
     )
-    related_sectors = ParentalManyToManyField("taxonomy.Sector", related_name="events")
+    related_sectors = ParentalManyToManyField(
+        "taxonomy.Sector",
+        related_name="events",
+        blank=True,
+    )
 
     related_services = ParentalManyToManyField(
         "taxonomy.Service", related_name="events"
