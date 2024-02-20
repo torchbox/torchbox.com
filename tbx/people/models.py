@@ -390,12 +390,10 @@ def update_author_on_page_publish(instance, **kwargs):
 def update_image_renditions_on_page_publish(instance, **kwargs):
     def image_renditions(person):
         if image := person.image:
-            image_path = image.file.path
-            if os.path.isfile(image_path):
-                person.image.get_renditions(
-                    "format-webp|fill-230x230",
-                    "format-webp|fill-370x370",
-                )
+            image.get_renditions(
+                "format-webp|fill-230x230",
+                "format-webp|fill-370x370",
+            )
 
     max_workers = int(os.environ.get("WEB_CONCURRENCY", "2"))
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
