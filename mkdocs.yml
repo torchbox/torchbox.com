@@ -66,6 +66,7 @@ nav:
       - front-end/grid.md
       - 'Streamfield blocks and re-usable components': front-end/streamfield-blocks.md
       - front-end/sustainability.md
+      - front-end/responsive-images.md
       - front-end/themes_and_modes.md
       - front-end/tooling.md
       - front-end/placeholder-images.md
