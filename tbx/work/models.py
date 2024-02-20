@@ -1,5 +1,6 @@
 import math
 import string
+from itertools import chain
 
 from django import forms
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -13,7 +14,8 @@ from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
-from tbx.taxonomy.models import Service
+from tbx.people.models import ContactMixin
+from tbx.taxonomy.models import Sector, Service
 from tbx.work.blocks import WorkStoryBlock
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
@@ -36,7 +38,7 @@ class HistoricalWorkPageScreenshot(Orderable):
     ]
 
 
-class HistoricalWorkPage(ColourThemeMixin, SocialFields, Page):
+class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     """
     This represents Work Pages as they were prior to the 2024
     rebuild of the site. It is kept here to display the older
@@ -69,6 +71,11 @@ class HistoricalWorkPage(ColourThemeMixin, SocialFields, Page):
         related_name="+",
     )
     listing_summary = models.CharField(max_length=255, blank=True)
+    related_sectors = ParentalManyToManyField(
+        "taxonomy.Sector",
+        related_name="historical_case_studies",
+        blank=True,
+    )
     related_services = ParentalManyToManyField(
         "taxonomy.Service", related_name="historical_case_studies"
     )
@@ -117,15 +124,30 @@ class HistoricalWorkPage(ColourThemeMixin, SocialFields, Page):
     @property
     def related_works(self):
         services = self.related_services.all()
+        sectors = self.related_sectors.all()
         # get 4 pages with same services and exclude self page
         works = (
-            HistoricalWorkPage.objects.filter(related_services__in=services)
+            HistoricalWorkPage.objects.filter(
+                Q(related_sectors__in=sectors) | Q(related_services__in=services)
+            )
             .live()
             .distinct()
             .order_by("-id")
             .exclude(pk=self.pk)[:4]
         )
         return works
+
+    @cached_property
+    def sectors(self):
+        return self.related_sectors.all()
+
+    @cached_property
+    def services(self):
+        return self.related_services.all()
+
+    @property
+    def tags(self):
+        return chain(self.services, self.sectors)
 
     @property
     def read_time(self):
@@ -142,30 +164,33 @@ class HistoricalWorkPage(ColourThemeMixin, SocialFields, Page):
     def type(self):
         return "CASE STUDY"
 
-    content_panels = (
-        Page.content_panels
-        + ColourThemeMixin.content_panels
+    content_panels = Page.content_panels + [
+        FieldPanel("client", classname="client"),
+        InlinePanel("authors", label="Author", min_num=1),
+        FieldPanel("date"),
+        FieldPanel("body"),
+        FieldPanel("homepage_image"),
+        InlinePanel("screenshots", label="Screenshots"),
+        FieldPanel("visit_the_site"),
+    ]
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
         + [
-            FieldPanel("client", classname="client"),
-            InlinePanel("authors", label="Author", min_num=1),
-            FieldPanel("date"),
-            FieldPanel("body"),
-            FieldPanel("homepage_image"),
-            InlinePanel("screenshots", label="Screenshots"),
-            FieldPanel("visit_the_site"),
+            FieldPanel("feed_image"),
+            FieldPanel("listing_summary"),
+            FieldPanel("related_sectors", widget=forms.CheckboxSelectMultiple),
+            FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
     )
 
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        FieldPanel("feed_image"),
-        FieldPanel("listing_summary"),
-        FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
 
-
-class WorkPage(ColourThemeMixin, SocialFields, Page):
+class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/work/work_page.html"
     parent_page_types = ["WorkIndexPage"]
 
@@ -197,42 +222,63 @@ class WorkPage(ColourThemeMixin, SocialFields, Page):
     related_services = ParentalManyToManyField(
         "taxonomy.Service", related_name="case_studies"
     )
-
-    content_panels = (
-        Page.content_panels
-        + ColourThemeMixin.content_panels
-        + [
-            FieldPanel("intro"),
-            InlinePanel("authors", label="Author", min_num=1),
-            FieldPanel("logo"),
-            FieldPanel("client", classname="client"),
-            FieldPanel("date"),
-            MultiFieldPanel(
-                [
-                    FieldPanel("header_image"),
-                    FieldPanel("header_caption"),
-                    FieldPanel("header_attribution"),
-                ],
-                heading="Header image",
-            ),
-            FieldPanel("body"),
-        ]
+    related_sectors = ParentalManyToManyField(
+        "taxonomy.Sector",
+        related_name="case_studies",
+        blank=True,
     )
 
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        FieldPanel("listing_summary"),
-        FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+    content_panels = Page.content_panels + [
+        FieldPanel("intro"),
+        InlinePanel("authors", label="Author", min_num=1),
+        FieldPanel("logo"),
+        FieldPanel("client", classname="client"),
+        FieldPanel("date"),
+        MultiFieldPanel(
+            [
+                FieldPanel("header_image"),
+                FieldPanel("header_caption"),
+                FieldPanel("header_attribution"),
+            ],
+            heading="Header image",
+        ),
+        FieldPanel("body"),
     ]
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
+        + [
+            FieldPanel("listing_summary"),
+            MultiFieldPanel(
+                [
+                    FieldPanel("related_sectors", widget=forms.CheckboxSelectMultiple),
+                    FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
+                ],
+                heading="Taxonomies",
+            ),
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+        ]
+    )
 
     @property
     def type(self):
         return "CASE STUDY"
 
     @cached_property
+    def sectors(self):
+        return self.related_sectors.all()
+
+    @cached_property
     def services(self):
         return self.related_services.all()
+
+    @property
+    def tags(self):
+        return chain(self.services, self.sectors)
 
     @cached_property
     def first_author(self):
@@ -251,13 +297,20 @@ class WorkPage(ColourThemeMixin, SocialFields, Page):
                 "author": work_page.first_author,
                 "date": work_page.date,
                 "read_time": work_page.read_time,
+                "related_sectors": work_page.related_sectors.all(),
                 "related_services": work_page.related_services.all(),
+                "tags": self.tags,
                 "listing_image": work_page.header_image,
             }
             # get 3 pages with same services and exclude self page
-            for work_page in WorkPage.objects.filter(related_services__in=self.services)
+            for work_page in WorkPage.objects.filter(
+                Q(related_sectors__in=self.sectors)
+                | Q(related_services__in=self.services)
+            )
             .live()
-            .prefetch_related("related_services", "authors", "authors__author")
+            .prefetch_related(
+                "related_sectors", "related_services", "authors", "authors__author"
+            )
             .defer_streamfields()
             .distinct()
             .order_by("-id")
@@ -297,7 +350,7 @@ class WorkPage(ColourThemeMixin, SocialFields, Page):
 
 
 # Work index page
-class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
+class WorkIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/work/work_index_page.html"
 
     subpage_types = ["HistoricalWorkPage", "WorkPage"]
@@ -312,6 +365,7 @@ class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
             .prefetch_related(
                 "workpage",
                 "historicalworkpage",
+                "workpage__related_sectors",
                 "workpage__related_services",
                 "historicalworkpage__related_services",
                 "authors",
@@ -324,6 +378,7 @@ class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
                     output_field=DateField(),
                 )
             )
+            .distinct()
             .order_by(
                 "-priority",
                 "-pk",
@@ -344,7 +399,9 @@ class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
         if slug_filter := request.GET.get("filter"):
             works = works.filter(
                 Q(workpage__related_services__slug=slug_filter)
-                | Q(historicalworkpage__related_services__slug=slug_filter),
+                | Q(historicalworkpage__related_services__slug=slug_filter)
+                | Q(workpage__related_sectors__slug=slug_filter)
+                | Q(historicalworkpage__related_sectors__slug=slug_filter),
             )
             extra_url_params["filter"] = slug_filter
 
@@ -356,7 +413,7 @@ class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
                 "url": work.url,
                 "author": work.first_author,
                 "date": work.date,
-                "related_services": work.related_services.all(),
+                "tags": work.tags,
                 "read_time": work.read_time,
                 "listing_image": work.listing_image,
             }
@@ -376,22 +433,30 @@ class WorkIndexPage(ColourThemeMixin, SocialFields, Page):
         except EmptyPage:
             works = paginator.page(paginator.num_pages)
 
+        related_sectors = Sector.objects.all()
         related_services = Service.objects.all()
+
+        # Used for the purposes of defining the filterable tags
+        tags = chain(related_services, related_sectors)
 
         context.update(
             works=works,
-            related_services=related_services,
+            tags=tags,
             extra_url_params=urlencode(extra_url_params),
         )
 
         return context
 
-    content_panels = Page.content_panels + ColourThemeMixin.content_panels
-
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
+        + [
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+        ]
+    )
 
 
 @receiver(page_published, sender=WorkPage)

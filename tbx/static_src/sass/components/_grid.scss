@@ -79,6 +79,15 @@
         }
     }
 
+    &__related-posts-simple,
+    &__team-listing {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+    }
+
     &__image {
         margin-bottom: $spacer-medium;
         grid-column: 1 / span 6;
@@ -129,6 +138,16 @@
         }
     }
 
+    &__team-image {
+        margin-bottom: $spacer-small-plus;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-medium;
+            grid-column: 4 / span 7;
+        }
+    }
+
     // The following components follow the same pattern of
     // spanning 7 columns on desktop and 4 columns on mobile.
     &__intro,
@@ -146,18 +165,85 @@
         }
     }
 
+    // if paragraph is followed by a heading or another paragraph, reduce the bottom margin
+    // so that it matches headings and paragraphs within a rich-text block
+    &__paragraph:has(+ .grid__heading),
+    &__paragraph:has(+ .grid__paragraph) {
+        margin-bottom: $spacer-small;
+        @include media-query(large) {
+            margin-bottom: $spacer-medium;
+        }
+    }
+
+    // Footer grid elements
+    &__footer-line {
+        grid-column: 1 / span 4;
+
+        @include media-query(large) {
+            grid-column: 1 / span 3;
+        }
+    }
+
+    &__footer-contact {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 2 / span 6;
+        }
+    }
+
+    &__footer-links {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 10 / span 4;
+        }
+    }
+
+    &__footer-logos {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+    }
+
+    // header and navigation grid elements
+    &__header-logo {
+        grid-column: 2 / span 2;
+
+        @include media-query(medium) {
+            grid-column: 2 / span 1;
+        }
+    }
+
+    &__header-nav {
+        display: none;
+
+        @include media-query(medium) {
+            display: block;
+            grid-column: 3 / span 3;
+        }
+
+        @include media-query(large) {
+            grid-column: 3 / span 11;
+        }
+    }
+
+    &__header-toggle {
+        grid-column: 5 / span 1;
+    }
+
     // Move everything over by 1 column on the blog page and work pages
     .template-blog-page &,
-    .template-work-page &,
-    .template-historical-work-page & {
+    .template-work-page & {
         &__heading,
         &__intro,
         &__paragraph,
         &__image,
         &__raw-html,
         &__markdown,
-        &__embed,
-        &__stats {
+        &__embed {
             @include media-query(large) {
                 grid-column: 5 / span 7;
             }
@@ -225,6 +311,50 @@
             @include media-query(large) {
                 margin-bottom: $spacer;
                 grid-column: 1 / span 13;
+            }
+        }
+    }
+
+    .template-historical-work-page & {
+        &__heading,
+        &__intro,
+        &__paragraph,
+        &__image,
+        &__raw-html,
+        &__markdown,
+        &__embed {
+            @include media-query(large) {
+                grid-column: 2 / span 7;
+            }
+        }
+
+        &__title {
+            @include media-query(large) {
+                grid-column: 2 / span 9;
+            }
+        }
+
+        &__call-to-action {
+            @include media-query(large) {
+                grid-column: 2 / span 10;
+            }
+        }
+
+        &__quote {
+            @include media-query(large) {
+                grid-column: 2 / span 9;
+            }
+        }
+
+        &__image {
+            @include media-query(large) {
+                grid-column: 2 / span 11;
+            }
+        }
+
+        &__stats {
+            @include media-query(large) {
+                grid-column: 2 / span 9;
             }
         }
     }

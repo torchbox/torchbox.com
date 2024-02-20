@@ -8,7 +8,7 @@
             'author-title' : '{{ page.first_author.role }}',
             'author-name' : '{{ page.first_author.name }}',
             'published' : '{{ page.first_published_at|date:"Ymd" }}',
-            'tags' : [{% for tag in page.related_services.all %}'{{tag.name}}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+            'tags' : [{% for tag in page.tags %}'{{tag.name}}'{% if not forloop.last %}, {% endif %}{% endfor %}],
             'read-time' : '{{ page.read_time }}',
             'id': '{{ page.id }}',
             'page-h1' : '{{ page.title }}',
@@ -49,7 +49,7 @@
 
             <div class="tags">
                 <span class="sr-only">Related work categories</span>
-                {% for tag in page.related_services.all %}
+                {% for tag in page.tags %}
                     {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name tag_link_base="../" %}
                 {% endfor %}
             </div>
@@ -86,7 +86,7 @@
 
             <ul class="grid__related-posts streamfield__related-posts">
                 {% for work_page in page.related_works %}
-                    {% include "patterns/molecules/listing/listing--image.html" with listing_image=work_page.listing_image title=work_page.title name=work_page.client link=work_page.url date=work_page.date reading_time=work_page.read_time tags=work_page.related_services.all %}
+                    {% include "patterns/molecules/listing/listing--image.html" with listing_image=work_page.listing_image title=work_page.title name=work_page.client link=work_page.url date=work_page.date reading_time=work_page.read_time tags=work_page.tags %}
                 {% endfor %}
 
                 <li class="mx-auto lg:mx-0 mt-spacerSmall">

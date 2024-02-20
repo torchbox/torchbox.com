@@ -1,0 +1,20 @@
+{% load wagtailcore_tags %}
+
+<div class="sub-nav-desktop sub-nav-desktop--{{ number }}">
+    <ul class="sub-nav-desktop__list">
+        {% for link in links %}
+            <li class="sub-nav-desktop__item">
+                {% with children=link.get_children.live.public.in_menu %}
+                    <a
+                        class="sub-nav-desktop__link {% if children and not hide_children %}sub-nav-desktop__link--has-children{% else %}sub-nav-desktop__link--no-children{% endif %}"
+                        href="{{ link.url }}"
+                    >
+                        {{ link.title }}
+                    </a>
+                    {% include "patterns/navigation/components/includes/subnav-child-menu.html" with pages=children %}
+                {% endwith %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+

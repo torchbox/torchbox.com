@@ -12,12 +12,16 @@
 @use 'components/call-to-action';
 @use 'components/contact-cta';
 @use 'components/featured-case-study';
+@use 'components/footer';
+@use 'components/footer-cta';
 @use 'components/grid';
+@use 'components/header';
 @use 'components/image';
 @use 'components/link';
 @use 'components/listing';
 @use 'components/listing-avatar';
 @use 'components/listing-image';
+@use 'components/logo';
 @use 'components/motif-heading';
 @use 'components/pagination';
 @use 'components/partners';
@@ -31,10 +35,12 @@
 @use 'components/sprites-preview-icons';
 @use 'components/stats';
 @use 'components/streamfield';
+@use 'components/team-page-meta';
 @use 'components/tab-nav-item';
 @use 'components/tabs';
 @use 'components/tabs-nav';
 @use 'components/tag';
+@use 'components/team-listing';
 @use 'components/title-filters';
 @use 'components/work-hero';
 @use 'components/work-page-author';
@@ -43,10 +49,10 @@
 // Navigation
 @use 'components/navigation/breadcrumbs-nav';
 @use 'components/navigation/footerlinks-nav';
-@use 'components/navigation/footercolumn-nav';
-@use 'components/navigation/primary-nav';
-@use 'components/navigation/secondary-nav';
-@use 'components/navigation/sub-nav';
+@use 'components/navigation/primary-nav-desktop';
+@use 'components/navigation/primary-nav-mobile';
+@use 'components/navigation/sub-nav-desktop';
+@use 'components/navigation/sub-nav-mobile';
 
 // Layout
 

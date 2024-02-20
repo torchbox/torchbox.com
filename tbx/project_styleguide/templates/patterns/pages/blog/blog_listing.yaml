@@ -3,7 +3,7 @@ context:
     title: Blog
     get_verbose_name: blog-listing
 
-  related_services:
+  tags:
     - name: Digital products
       slug: digital-products
 
@@ -23,7 +23,7 @@ context:
       author:
         name: Paul Vetch
         role: Strategy Director
-      related_services:
+      tags:
         - name: Digital products
           slug: digital-products
         - name: Wagtail
@@ -35,7 +35,7 @@ context:
       author:
         name: Paul Vetch
         role: Strategy Director
-      related_services:
+      tags:
         - name: Social Media
           slug: social-media
         - name: Culture
@@ -47,7 +47,7 @@ context:
       author:
         name: Paul Vetch
         role: Strategy Director
-      related_services:
+      tags:
         - name: Social Media
           slug: social-media
         - name: Culture
@@ -59,7 +59,7 @@ context:
       author:
         name: Will Heinemann
         role: New Business Director
-      related_services:
+      tags:
         - name: Digital products
           slug: digital-products
         - name: Wagtail
@@ -71,7 +71,7 @@ context:
       author:
         name: Will Heinemann
         role: New Business Director
-      related_services:
+      tags:
         - name: Digital products
           slug: digital-products
         - name: Wagtail
@@ -83,7 +83,7 @@ context:
       author:
         name: Will Heinemann
         role: New Business Director
-      related_services:
+      tags:
         - name: Digital products
           slug: digital-products
         - name: Wagtail
@@ -110,3 +110,6 @@ tags:
     item as index:
       target_var: index
       raw: '#'
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'

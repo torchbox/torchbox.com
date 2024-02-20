@@ -1,0 +1,11 @@
+context:
+  link: '/'
+  title: Reimagining our Agile training and ways of working
+  date: 19 Jan 2024
+  reading_time: 4
+  tags_screenreader_text: 'Filter blog posts by category'
+  tags:
+    - name: Innovation
+      slug: innovation
+    - name: Culture
+      slug: culture

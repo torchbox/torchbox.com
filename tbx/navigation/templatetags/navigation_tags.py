@@ -3,20 +3,31 @@ from django import template
 register = template.Library()
 
 
-# Primary nav snippets
+# Primary nav desktop snippet
 @register.inclusion_tag(
     "patterns/navigation/components/primary-nav.html", takes_context=True
 )
-def primarynav(context, is_home, is_desktop):
+def primarynav(context):
     request = context["request"]
     return {
         "primarynav": context["settings"]["navigation"][
             "NavigationSettings"
         ].primary_navigation,
-        "job_count": context.get("job_count", 0),
         "request": request,
-        "is_home": is_home,
-        "is_desktop": is_desktop,
+    }
+
+
+# Primary nav mobile snippet
+@register.inclusion_tag(
+    "patterns/navigation/components/primary-nav-mobile.html", takes_context=True
+)
+def primarynavmobile(context):
+    request = context["request"]
+    return {
+        "primarynav": context["settings"]["navigation"][
+            "NavigationSettings"
+        ].primary_navigation,
+        "request": request,
     }
 
 

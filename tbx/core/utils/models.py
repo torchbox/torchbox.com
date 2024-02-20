@@ -101,7 +101,7 @@ class ColourThemeMixin(models.Model):
         except StopIteration:
             return ColourTheme.NONE
 
-    content_panels = [FieldPanel("theme")]
+    promote_panels = [FieldPanel("theme")]
 
     class Meta:
         abstract = True

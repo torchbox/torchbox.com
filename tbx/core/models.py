@@ -2,6 +2,7 @@ from django.db import models
 
 from modelcluster.fields import ParentalKey
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
+from tbx.people.models import ContactMixin
 from wagtail import blocks
 from wagtail.admin.panels import (
     FieldPanel,
@@ -134,7 +135,7 @@ class HomePageHeroImage(Orderable):
     )
 
 
-class HomePage(ColourThemeMixin, SocialFields, Page):
+class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/home/home_page.html"
     hero_intro_primary = models.TextField(blank=True)
     hero_intro_secondary = models.TextField(blank=True)
@@ -146,28 +147,28 @@ class HomePage(ColourThemeMixin, SocialFields, Page):
     class Meta:
         verbose_name = "Homepage"
 
-    content_panels = (
-        Page.content_panels
-        + ColourThemeMixin.content_panels
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel("hero_intro_primary"),
+                FieldPanel("hero_intro_secondary"),
+                InlinePanel("hero_images", label="Hero Images", max_num=6, min_num=1),
+            ],
+            heading="Hero intro",
+        ),
+        InlinePanel("featured_posts", label="Featured Posts", max_num=3),
+    ]
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
         + [
-            MultiFieldPanel(
-                [
-                    FieldPanel("hero_intro_primary"),
-                    FieldPanel("hero_intro_secondary"),
-                    InlinePanel(
-                        "hero_images", label="Hero Images", max_num=6, min_num=1
-                    ),
-                ],
-                heading="Hero intro",
-            ),
-            InlinePanel("featured_posts", label="Featured Posts", max_num=3),
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
     )
-
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -192,23 +193,25 @@ class HomePage(ColourThemeMixin, SocialFields, Page):
 # Standard page
 
 
-class StandardPage(ColourThemeMixin, SocialFields, Page):
+class StandardPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/standard/standard_page.html"
 
     body = StreamField(StoryBlock(), use_json_field=True)
 
-    content_panels = (
-        Page.content_panels
-        + ColourThemeMixin.content_panels
+    content_panels = Page.content_panels + [
+        FieldPanel("body"),
+    ]
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
         + [
-            FieldPanel("body"),
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
     )
-
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-    ]
 
     search_fields = Page.search_fields + [
         index.SearchField("body"),

@@ -1,14 +1,33 @@
 {% load wagtailcore_tags %}
 
 {% for item in primarynav %}
-    {% with link=item.value %}
-        <li>
-            <a href="{{ link.url }}" {% if link.is_page %}data-menu-item{% else %}target="_blank" rel="nofollow noreferrer"{% endif %}>
-                <span>{{ link.text }}</span>
-                {% if not link.is_page %}
-                    {% include "patterns/atoms/icons/icon.html" with name="external" classname="nav-item__external-link-icon" %}
+    {% with children=item.value.page.get_children.live.public.in_menu hide_children=item.value.hide_children %}
+        <li class="primary-nav-desktop__item {% if children and not hide_children %}primary-nav-desktop__item--is-parent{% endif %}"
+            {% if children and not hide_children %}data-has-subnav{% endif %}
+        >
+            {% with link=item.value %}
+                <a
+                    class="primary-nav-desktop__link {% if children and not hide_children %}primary-nav-desktop__link--has-children{% else %}primary-nav-desktop__link--no-children{% endif %}"
+                    {% if children and not hide_children %}
+                        data-open-subnav aria-haspopup="true" aria-expanded="false"
+                    {% endif %}
+                    href="{{ link.url }}"
+                >
+                    <span class="primary-nav-desktop__text">{{ link.text }}</span>
+                    {% if children and not hide_children %}
+                        {# desktop arrows #}
+                        <div class="primary-nav-desktop__icon-wrapper">
+                            {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="primary-nav-desktop__icon-closed" %}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="primary-nav-desktop__icon-hover" %}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow-tall" classname="primary-nav-desktop__icon-open" %}
+                        </div>
+                    {% endif %}
+                </a>
+
+                {% if children and not hide_children %}
+                    {% include "patterns/navigation/components/includes/subnav-menu.html" with links=children number=children|length %}
                 {% endif %}
-            </a>
+            {% endwith %}
         </li>
     {% endwith %}
 {% endfor %}

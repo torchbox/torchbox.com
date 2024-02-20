@@ -1,0 +1,93 @@
+@use "config" as *;
+
+/*
+Styles for the top level of the navigation at mobile
+*/
+
+// the nav element surrounding the whole navigation
+// There are separate nav elements for desktop and mobile
+.primary-nav-mobile {
+    $root: &;
+
+    // At mobile the navigation is only revealed when the menu icon is clicked
+    @include z-index(base);
+    @include nav-fixed-position($header-height-mobile);
+    display: block;
+    background-color: var(--color--nav-background);
+
+    @include media-query(medium) {
+        display: none;
+    }
+
+    // active state
+    &.is-visible {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    // Top level menu unordered list
+    &__list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    // top level menu list items
+    &__item {
+        font-weight: $weight--semibold;
+        position: relative;
+        width: 100%;
+    }
+
+    // top level menu links
+    &__link {
+        display: flex;
+        padding: 35px $spacer-small;
+        border-bottom: 1px solid var(--color--nav-border);
+        justify-content: space-between;
+        font-size: nth(map-get($large-font-sizes, 'heading-four'), 1);
+        line-height: nth(map-get($large-font-sizes, 'heading-four'), 2);
+
+        &:focus {
+            @include focus-style();
+        }
+
+        #{$root}__item:last-child & {
+            border-bottom: none;
+        }
+
+        // styles for links with children
+        &--has-children {
+            color: var(--color--heading);
+        }
+
+        // styles for links without children
+        &--no-children {
+            @include link-styles(
+                $color: var(--color--heading),
+                $interaction-color: var(--color--heading)
+            );
+        }
+    }
+
+    // mobile arrow - appears if there are children
+    &__icon-mobile {
+        width: 18px;
+        height: 21px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        fill: $color--white;
+        transition: transform $transition-quick;
+
+        #{$root}__link:hover & {
+            transform: translateX(10px);
+        }
+
+        @include media-query(medium) {
+            display: none;
+        }
+
+        @include reduced-motion() {
+            transition: none;
+        }
+    }
+}

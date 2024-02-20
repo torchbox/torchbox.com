@@ -22,7 +22,7 @@ context:
           author:
             name: Victor Miti
             role: Developer
-    related_services:
+    tags:
       all:
         - name: Digital products
           slug: digital-products
@@ -83,24 +83,10 @@ tags:
       raw:
         url: 'https://source.unsplash.com/72x72?face'
 
-    # header image
-    page.header_image max-1280x860 format-webp as desktop_header_image:
-      target_var: desktop_header_image
-      raw:
-        url: 'https://source.unsplash.com/1280x860/?trees'
-        alt: 'desktop image'
-    page.header_image max-2560x1720 format-webp as desktop_header_image_retina:
-      target_var: desktop_header_image_retina
-      raw:
-        alt: 'desktop image retina'
-        url: 'https://source.unsplash.com/2560x1720?trees'
-    page.header_image max-800x538 format-webp as mobile_header_image:
-      target_var: mobile_header_image
-      raw:
-        alt: 'mobile image'
-        url: 'https://source.unsplash.com/800x538?trees'
-    page.header_image max-1600x1076 format-webp as mobile_header_image_retina:
-      target_var: mobile_header_image_retina
-      raw:
-        alt: 'mobile image retina'
-        url: 'https://source.unsplash.com/1600x1076?face'
+  # header image
+  srcset_image:
+    'page.header_image format-webp fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" loading="lazy"':
+      raw: '<img alt="" height="225" loading="lazy" sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" src="https://source.unsplash.com/400x225?trees" srcset="https://source.unsplash.com/400x225?trees 400w, https://source.unsplash.com/800x450?trees 800w, https://source.unsplash.com/1600x900?trees 1254w, https://source.unsplash.com/1280x720?trees 1254w" width="400">'
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'

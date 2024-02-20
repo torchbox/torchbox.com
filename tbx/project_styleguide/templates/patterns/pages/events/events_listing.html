@@ -5,7 +5,7 @@
 {% block content %}
 
     {# Title and Filters #}
-    {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=related_services %}
+    {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=tags %}
 
     {# Events #}
     {% for event in events %}

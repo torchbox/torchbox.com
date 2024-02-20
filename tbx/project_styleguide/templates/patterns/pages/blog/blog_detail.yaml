@@ -14,7 +14,7 @@ context:
     date: 07 Aug 2024
     get_verbose_name: Blog page
     read_time: 5
-    services:
+    tags:
       - name: Digital products
         slug: digital-products
       - name: Wagtail
@@ -82,3 +82,6 @@ tags:
   pageurl:
     page.blog_index as blog_index_url:
       raw: '#'
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'

@@ -2,12 +2,19 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block content %}
-    {% include "patterns/molecules/title-filters/title-filters.html" with title=page.strapline %}
+    <div class="grid">
+        {% include "patterns/molecules/title-filters/title-filters--team.html" with tags=tags item=page strapline=page.strapline %}
 
-    {% for member in page.team %}
-        {% include "patterns/molecules/team-member/team-member.html" with item=member %}
-    {% endfor %}
-
-    {% include_block page.call_to_action %}
-
+        <ul class="team-listing grid__team-listing">
+            {% for member in people %}
+                <li class="team-listing__item">
+                    {% srcset_image member.image format-webp fill-{230x230,370x370} sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="team-listing__image" alt="" %}
+                    <a class="team-listing__link" href="{{ member.url }}">
+                        {{ member.title }}
+                    </a>
+                    <p class="team-listing__role">{{ member.role }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

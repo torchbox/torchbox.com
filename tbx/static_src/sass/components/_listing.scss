@@ -5,16 +5,20 @@
 .listing {
     list-style-type: none;
 
+    &__link {
+        display: block;
+
+        &:focus {
+            @include focus-style();
+        }
+    }
+
     &__title {
         @include font-size('heading-three');
         margin-bottom: $spacer-mini;
 
         @include media-query(medium) {
             margin-bottom: $spacer-small;
-        }
-
-        &:focus {
-            @include focus-style();
         }
     }
 
@@ -71,6 +75,13 @@
 
         @include media-query(medium) {
             display: inline;
+        }
+    }
+
+    // 3 across on team page
+    .streamfield__related-posts-simple & {
+        @include media-query(large) {
+            flex-basis: 33.33%;
         }
     }
 }

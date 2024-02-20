@@ -1,15 +1,12 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="image grid__image">
-    {% image value.image max-1280x860 format-webp as image_block_desktop_image %}
-    {% image value.image max-2560x1720 format-webp as image_block_desktop_image_retina %}
-    {% image value.image max-800x538 format-webp as image_block_mobile_image %}
-    {% image value.image max-1600x1076 format-webp as image_block_mobile_image_retina %}
-
-    <picture>
-        <source media="(max-width: 598px)" srcset="{{ image_block_mobile_image.url }} 1x, {{ image_block_mobile_image_retina.url }} 2x" />
-        <source media="(min-width: 599px)" srcset="{{ image_block_desktop_image.url }} 1x, {{ image_block_desktop_image_retina.url }} 2x" />
-        <img src="{{ image_block_desktop_image.url }}" {% if value.image_is_decorative %} alt="" {% else %} alt="{% firstof value.alt_text image_block_desktop_image.alt %}" {% endif %} loading="lazy" />
-    </picture>
+    {% if value.image_is_decorative %}
+        {% srcset_image value.image format-webp fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt="" %}
+    {% elif value.alt_text %}
+        {% srcset_image value.image format-webp fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt=value.alt_text %}
+    {% else %}
+        {% srcset_image value.image format-webp fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" %}
+    {% endif %}
 
     {% if value.caption %}
         <p class="image__caption supporting">{{ value.caption }}</p>

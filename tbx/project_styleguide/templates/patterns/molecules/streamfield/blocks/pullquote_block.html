@@ -14,7 +14,7 @@
                 {% image value.logo max-110x70 format-webp class="pullquote__company-logo" %}
             {% endif %}
 
-            <cite class="pullquote__cite">
+            <p class="pullquote__cite">
                 {% if value.attribution %}
                     <span class="pullquote__attribution">{{ value.attribution }}</span>
                 {% endif %}
@@ -22,7 +22,7 @@
                 {% if value.role %}
                     <span class="pullquote__role">{{ value.role }}</span>
                 {% endif %}
-            </cite>
+            </p>
         </div>
 
         {% with call_to_action=value.call_to_action.0.value %}

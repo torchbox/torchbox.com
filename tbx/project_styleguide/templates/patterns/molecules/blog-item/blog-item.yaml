@@ -6,7 +6,7 @@ context:
       name: Paul Vetch
       role: Strategy Director
     title: We already dropped Drupal - maybe it's time for you to do the same.
-    related_services:
+    tags:
       - name: Digital products
         slug: digital-products
       - name: Wagtail

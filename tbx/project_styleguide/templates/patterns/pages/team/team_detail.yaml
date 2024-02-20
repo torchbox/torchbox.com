@@ -1,12 +1,72 @@
 context:
   page:
-    biography: '<p>Colin has had an illustrious career in international logistics. His favourite colours are black and grey but, Colin is a colourful person and loves exploring culture, the wilderness and dark nightclubs.</p>'
     get_verbose_name: person-page
-    intro: '<p>Colin is a Red Hat Certified Engineer and uses his expert knowledge to implement and maintain technical infrastructure.</p>'
-    role: Head of Awesome
-    title: Colin Knowles
+    title: Gemma Margetts
+    teams:
+      - name: Operations
+        slug: 'operations'
+    role: Senior People Manager (Culture, EDI & Wellbeing)
+    intro: '<p>My role at Torchbox is varied, meaning I get to collaborate with most people at different stages of their time at Torchbox and throughout their roles.</p>'
+    biography: '<p>From support during onboarding to working with our line managers, as well as across various wellbeing and ED&I initiatives and policies. I work closely with our Diversity & Inclusion (D&I) and Wellbeing Voice Groups to ensure our initiatives are in harmony with our shared vision. I also work closely with our Talent Manager for recruitment and our People Manager (L&D) with development initiatives.</p><p>My achievements at Torchbox include the implementation of menopause support, our partnership with the <a href="#">Motherboard charter</a> to improve family-friendly policies and awareness, fostering remote culture engagement, and delivering internal training to bolster support for our line managers.</p>'
+    author_posts:
+      - title: A lovely blog post I wrote
+        url: '#'
+        date: 14 Feb 2024
+        tags:
+          - name: Digital products
+            slug: digital-products
+          - name: Wagtail
+            slug: wagtail
+        read_time: '4'
+      - title: Another lovely blog post I wrote
+        url: '#'
+        date: 15 Feb 2024
+        tags:
+          - name: Digital products
+            slug: digital-products
+          - name: Wagtail
+            slug: wagtail
+        read_time: '2'
+    related_works:
+      - title: A work case study I wrote
+        client: Mozilla
+        url: '#'
+        date: 15 Feb 2024
+        read_time: '6'
+        tags:
+          - name: Digital products
+            slug: digital-products
+          - name: Wagtail
+            slug: wagtail
 
 tags:
+  srcset_image:
+    'page.image format-webp width-{400,650,950} sizes="(max-width: 598px) 400px, (max-width: 1022px) 950px, (min-width: 1023px) 650px"':
+      raw: '<img alt="" height="400" sizes="(max-width: 598px) 400px, (max-width: 1022px) 950px, (min-width: 1023px) 650px" src="https://source.unsplash.com/400x250/?person" srcset="https://source.unsplash.com/400x250/?person 400w, https://source.unsplash.com/650x406/?person 650w, https://source.unsplash.com/950x594/?person 950w" width="400">'
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'
+  pageurl:
+    work_page.specific.work_index as work_index_url:
+      raw: '/'
   image:
-    page.image format-webp width-1280:
-      raw: '<img src="https://source.unsplash.com/1280x800/?person">'
+    listing_image fill-370x370 format-webp as listing_desktop_image:
+      target_var: listing_desktop_image
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/370x370?trees'
+    listing_image fill-740x740 format-webp as listing_desktop_image_retina:
+      target_var: listing_desktop_image_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/740x740?trees'
+    listing_image fill-370x335 format-webp as listing_mobile_image:
+      target_var: listing_mobile_image
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/370x335?trees'
+    listing_image fill-740x670 format-webp as listing_mobile_image_retina:
+      target_var: listing_mobile_image_retina
+      raw:
+        alt: 'mobile image retina'
+        url: 'https://source.unsplash.com/740x670?trees'

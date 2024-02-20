@@ -42,6 +42,18 @@ class DesktopCloseMenus {
             document.addEventListener('click', (e) => {
                 this.closeMenus(e);
             });
+
+            // Close desktop menu with escape key for improved accessibility
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    this.desktopSubMenus.forEach((item) => {
+                        item.closest('[data-has-subnav]').classList.remove(
+                            'active',
+                        );
+                        item.setAttribute('aria-expanded', 'false');
+                    });
+                }
+            });
         }
     }
 }

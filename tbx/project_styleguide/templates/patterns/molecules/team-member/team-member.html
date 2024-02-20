@@ -1,8 +1,0 @@
-{% load wagtailcore_tags wagtailimages_tags %}
-
-{% image item.image fill-550x550 format-webp as image %}
-<a href="{% pageurl item %}">
-    <img src="{{ image.url }}" aria-hidden="true" width="{{ image.width }}" height="{{ image.height }}" loading="lazy" alt="">
-    <h2>{{ item.title }}</h2>
-    <h3>{{ item.role }}</h3>
-</a>

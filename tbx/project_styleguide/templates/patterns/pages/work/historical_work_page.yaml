@@ -25,7 +25,7 @@ context:
         block_type: paragraph
       - block:
         block_type: paragraph
-    related_services:
+    tags:
       all:
         - name: Digital products
           slug: digital-products
@@ -89,3 +89,6 @@ tags:
   pageurl:
     page.work_index as work_index_url:
       raw: '#'
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'

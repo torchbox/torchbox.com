@@ -4,10 +4,7 @@
     <div class="title-filters__title">
         {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=item.title classes="motif-heading--one" %}
     </div>
-    {# todo: see if this is needed when implementing the team page #}
-    {% comment %} {% if meta %}
-        {{ meta }}
-    {% endif %} {% endcomment %}
+
     {% if tags %}
         <div class="title-filters__tags">
             <div class="tags">

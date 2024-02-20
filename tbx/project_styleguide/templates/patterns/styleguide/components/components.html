@@ -1,10 +1,12 @@
+{% load navigation_tags %}
 <div class="p-4 flex items-center justify-between">
     <h1 class="heading heading--one">Styleguide</h1>
     <div class="flex items-center gap-2">
         <label for="theme-chooser">Choose a theme:</label>
         <select name="theme-chooser" id="theme-chooser" class="p-2 text-black select" onchange="changeTheme(this.value)">
-            <option value="theme-coral-dark">Coral Dark</option>
-            <option value="theme-lagoon-dark">Lagoon Dark</option>
+            <option value="theme-coral">Coral</option>
+            <option value="theme-lagoon">Lagoon</option>
+            <option value="theme-banana">Banana</option>
         </select>
     </div>
 </div>
@@ -13,6 +15,11 @@
     <div>
         <h2 class="underline mb-2">Letter Motif</h2>
         {% include "patterns/atoms/motif-heading/motif-heading.html" with classes="motif-heading--one" %}
+    </div>
+
+    <div>
+        <h2 class="underline mb-2">Letter Motif without animation</h2>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two motif-heading--static" %}
     </div>
 
     <div>
@@ -56,6 +63,11 @@
     </div>
 
     <div>
+        <h2 class="underline mt-8 mb-2">Simple listing item</h2>
+        {% include "patterns/molecules/listing/listing--simple.html" %}
+    </div>
+
+    <div>
         <h2 class="underline mt-8 mb-2">Simple CTA</h2>
         {% include "patterns/molecules/streamfield/blocks/call_to_action.html" %}
     </div>
@@ -63,6 +75,11 @@
     <div>
         <h2 class="underline mt-8 mb-2">Title with filters</h2>
         {% include "patterns/molecules/title-filters/title-filters.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Team title with filters</h2>
+        {% include "patterns/molecules/title-filters/title-filters--team.html" %}
     </div>
 
     <div>
@@ -99,12 +116,22 @@
         <h2 class="underline mt-8 mb-2">Partners block</h2>
         {% include "patterns/molecules/streamfield/blocks/partners_block.html" with value=partners_data  %}
     </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Footer CTA</h2>
+        {% include "patterns/molecules/footer-cta/footer-cta.html" with value=partners_data  %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Footer links</h2>
+        {% footerlinks  %}
+    </div>
 </div>
 
 <script>
     // JS to change the theme of the styleguide
     function changeTheme(theme) {
-        document.body.className = '';
-        document.body.classList.add(theme);
+        document.documentElement.className = 'mode-dark';
+        document.documentElement.classList.add(theme);
     }
 </script>

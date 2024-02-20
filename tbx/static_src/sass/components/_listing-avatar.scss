@@ -38,7 +38,7 @@
 
     &__tags {
         @include media-query(medium) {
-            margin-left: calc(#{$avatar-size-large} + #{$spacer-half});
+            margin-left: calc(#{$avatar-size-145} + #{$spacer-half});
         }
     }
 }

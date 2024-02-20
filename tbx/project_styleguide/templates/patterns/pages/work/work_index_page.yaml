@@ -9,7 +9,7 @@ context:
       date: 24 Feb 2024
       read_time: '5'
       listing_summary: 'Following the launch of a new public engagement strategy Oxfam needed a website to ‘make it happen’ by reshaping and tailoring the entire experience to the needs of Oxfam’s supporters.'
-      related_services:
+      tags:
         - name: Digital products
           slug: digital-products
         - name: Wagtail
@@ -20,7 +20,7 @@ context:
       date: 24 Feb 2024
       read_time: '5'
       listing_summary: 'Following the launch of a new public engagement strategy Oxfam needed a website to ‘make it happen’ by reshaping and tailoring the entire experience to the needs of Oxfam’s supporters.'
-      related_services:
+      tags:
         - name: Digital products
           slug: digital-products
         - name: Wagtail
@@ -31,7 +31,7 @@ context:
       date: 24 Feb 2024
       read_time: '5'
       listing_summary: 'Following the launch of a new public engagement strategy Oxfam needed a website to ‘make it happen’ by reshaping and tailoring the entire experience to the needs of Oxfam’s supporters.'
-      related_services:
+      tags:
         - name: Digital products
           slug: digital-products
         - name: Wagtail
@@ -42,7 +42,7 @@ context:
       date: 24 Feb 2024
       read_time: '5'
       listing_summary: 'Following the launch of a new public engagement strategy Oxfam needed a website to ‘make it happen’ by reshaping and tailoring the entire experience to the needs of Oxfam’s supporters.'
-      related_services:
+      tags:
         - name: Digital products
           slug: digital-products
         - name: Wagtail
@@ -53,7 +53,7 @@ context:
       date: 24 Feb 2024
       read_time: '5'
       listing_summary: 'Following the launch of a new public engagement strategy Oxfam needed a website to ‘make it happen’ by reshaping and tailoring the entire experience to the needs of Oxfam’s supporters.'
-      related_services:
+      tags:
         - name: Digital products
           slug: digital-products
         - name: Wagtail
@@ -64,13 +64,13 @@ context:
       date: 24 Feb 2024
       read_time: '5'
       listing_summary: 'Following the launch of a new public engagement strategy Oxfam needed a website to ‘make it happen’ by reshaping and tailoring the entire experience to the needs of Oxfam’s supporters.'
-      related_services:
+      tags:
         - name: Digital products
           slug: digital-products
         - name: Wagtail
           slug: wagtail
 
-  related_services:
+  tags:
     - { name: All, slug: '#' }
     - { name: Digital products, slug: digital-products }
     - { name: Digital products, slug: digital-products }
@@ -105,3 +105,6 @@ tags:
     item as index:
       target_var: index
       raw: '#'
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'

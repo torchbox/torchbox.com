@@ -7,7 +7,7 @@ context:
           client: 'MQ: Transforming Mental Health'
           date: 26 Sep 2018
           read_time: '3'
-          related_services:
+          tags:
             all:
               - name: Digital products
                 slug: digital-products
@@ -18,7 +18,7 @@ context:
           client: University of Oxford
           date: 19 Feb 2016
           read_time: '4'
-          related_services:
+          tags:
             all:
               - name: Digital products
                 slug: digital-products
@@ -27,7 +27,7 @@ context:
           client: Mozilla
           date: 5 Dec 2018
           read_time: '4'
-          related_services:
+          tags:
             all:
               - name: Digital products
                 slug: digital-products

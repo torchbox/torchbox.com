@@ -3,11 +3,11 @@
 
 {% block content %}
     <div class="grid">
-        {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=related_services %}
+        {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=tags %}
 
         <ul class="page-listing page-listing--work">
             {% for post in works %}
-                {% include "patterns/molecules/listing/listing--image.html" with title=post.title name=post.client link=post.url date=post.date reading_time=post.read_time tags=post.related_services listing_image=post.listing_image tag_link_base="." tags_screenreader_text="See more work posts in this category" base_class="page-listing__item" %}
+                {% include "patterns/molecules/listing/listing--image.html" with title=post.title name=post.client link=post.url date=post.date reading_time=post.read_time tags=post.tags listing_image=post.listing_image tag_link_base="." tags_screenreader_text="See more work posts in this category" base_class="page-listing__item" %}
             {% endfor %}
         </ul>
 

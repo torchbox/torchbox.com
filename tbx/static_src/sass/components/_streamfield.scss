@@ -26,6 +26,18 @@
         }
     }
 
+    &__related-posts-simple {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $spacer-small;
+
+        @include media-query(large) {
+            gap: $spacer-half;
+            flex-direction: row;
+        }
+    }
+
     .template-work-page &,
     .template-historical-work-page & {
         &__intro {
@@ -34,6 +46,12 @@
             @include media-query(large) {
                 margin-bottom: 0;
             }
+        }
+    }
+
+    .template-person-page & {
+        &__intro {
+            margin-bottom: $spacer-small-plus;
         }
     }
 }

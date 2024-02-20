@@ -1,0 +1,7 @@
+tags:
+  primarynav:
+    '':
+      template_name: 'patterns/navigation/components/primary-nav.html'
+  primarynavmobile:
+    '':
+      template_name: 'patterns/navigation/components/primary-nav-mobile.html'

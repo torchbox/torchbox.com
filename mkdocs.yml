@@ -56,6 +56,7 @@ nav:
   - 'External documentation': 'external-docs.md'
   - 'Infrastructure': 'infrastructure.md'
   - 'Project conventions': 'project-conventions.md'
+  - 'Page models': 'page-models.md'
   - 'Deployment': 'deployment.md'
   - 'VSCode Dev container': 'vscode-dev-container.md'
   - 'Front end':
@@ -65,8 +66,15 @@ nav:
       - front-end/grid.md
       - 'Streamfield blocks and re-usable components': front-end/streamfield-blocks.md
       - front-end/sustainability.md
+      - front-end/responsive-images.md
+      - front-end/themes_and_modes.md
       - front-end/tooling.md
       - front-end/placeholder-images.md
+  - 'Navigation': 'navigation.md'
+  - 'Custom features':
+      - 'Theme': 'custom-features/theme.md'
+      - 'Contact': 'custom-features/contact.md'
   - 'Continuous integration': 'continuous-integration.md'
   - 'Anonymised data': 'anonymised-data.md'
+  - 'Data import': 'data-import.md'
   - 'Upgrading guidelines': 'upgrading.md'

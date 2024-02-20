@@ -1,12 +1,37 @@
-{% load navigation_tags %}
-<header>
-    <div>
-        {# commented out for now to stop it looking huge while it is unstyled #}
-        {% comment %} {% include "patterns/atoms/logo/logo.html" %} {% endcomment %}
-        <nav role="navigation" aria-label="Main navigation">
-            <ul>
-                {% primarynav is_home=False is_desktop=True %}
-            </ul>
+{% load wagtailcore_tags cache navigation_tags %}
+{% wagtail_site as current_site %}
+<header class="header grid">
+    {% include "patterns/atoms/skip-link/skip-link.html" %}
+    <a href="/" aria-label="Homepage link" class="grid__header-logo header__logo-link">
+        {% include "patterns/atoms/icons/icon.html" with name="logo" classname="logo" %}
+    </a>
+    <div class="grid__header-nav">
+        {# Desktop navigation #}
+        <nav aria-label="Main navigation" class="primary-nav-desktop" data-desktop-menu>
+            {% cache 600 primarynav current_site.pk request.is_preview is_pattern_library %}
+                <ul data-primary-nav class="primary-nav-desktop__list">
+                    {% primarynav %}
+                </ul>
+            {% endcache %}
         </nav>
     </div>
+    {# Mobile menu toggle #}
+    <div class="header__menu-toggle grid__header-toggle">
+        <span class="sr-only">Menu</span>
+        <button class="button-menu-toggle" data-mobile-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="Mobile menu toggle">
+            <span class="button-menu-toggle__line"></span>
+            <span class="button-menu-toggle__line"></span>
+            <span class="button-menu-toggle__line"></span>
+            <span class="button-menu-toggle__line"></span>
+        </button>
+    </div>
+
+    {# Mobile navigation #}
+    <nav aria-label="Main navigation"  class="primary-nav-mobile" data-mobile-menu>
+        {% cache 600 primarynavmobile current_site.pk request.is_preview is_pattern_library %}
+            <ul data-primary-nav class="primary-nav-mobile__list">
+                {% primarynavmobile %}
+            </ul>
+        {% endcache %}
+    </nav>
 </header>

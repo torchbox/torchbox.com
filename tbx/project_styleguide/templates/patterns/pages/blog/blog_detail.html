@@ -37,7 +37,7 @@
 
             <div class="tags tags--with-title">
                 <span class="sr-only">Related post categories</span>
-                {% for tag in page.services %}
+                {% for tag in page.tags %}
                     {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name tag_link_base=blog_index_url %}
                 {% endfor %}
             </div>
@@ -54,7 +54,7 @@
 
             <ul class="grid__related-posts streamfield__related-posts">
                 {% for post in page.related_blog_posts %}
-                    {% include "patterns/molecules/listing/listing--avatar.html" with title=post.title name=post.author.name job_title=post.author.role link=post.url date=post.date reading_time=post.read_time tags=post.related_services avatar=post.author.image tag_link_base=blog_index_url %}
+                    {% include "patterns/molecules/listing/listing--avatar.html" with title=post.title name=post.author.name job_title=post.author.role link=post.url date=post.date reading_time=post.read_time tags=post.tags avatar=post.author.image tag_link_base=blog_index_url %}
                 {% endfor %}
 
                 <li class="mx-auto lg:mx-0 mt-spacerSmall">

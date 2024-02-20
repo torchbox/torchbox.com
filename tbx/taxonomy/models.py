@@ -1,31 +1,49 @@
 from django.db import models
 
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, TitleFieldPanel
+from wagtail.admin.widgets.slug import SlugInput
 
 
-class Service(models.Model):
+class BaseTaxonomy(models.Model):
     name = models.CharField(max_length=255)
     slug = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     sort_order = models.IntegerField()
-    preferred_contact = models.ForeignKey(
-        "people.Contact", null=True, blank=True, on_delete=models.SET_NULL
-    )
-    contact_reasons = models.ForeignKey(
-        "people.ContactReasonsList", null=True, blank=True, on_delete=models.SET_NULL
-    )
 
     def __str__(self):
         return self.name
 
     class Meta:
         ordering = ["sort_order"]
+        abstract = True
 
     panels = [
-        FieldPanel("name"),
-        FieldPanel("slug"),
+        TitleFieldPanel("name"),
+        FieldPanel("slug", widget=SlugInput),
         FieldPanel("description"),
         FieldPanel("sort_order"),
-        FieldPanel("preferred_contact"),
-        FieldPanel("contact_reasons"),
     ]
+
+
+class Service(BaseTaxonomy):
+    """Represents a service that Torchbox offers to clients
+
+    This will be assigned to blog posts and work articles, and users will be able to filter by service"""
+
+    pass
+
+
+class Sector(BaseTaxonomy):
+    """Represents a sector that Torchbox works in
+
+    This will be assigned to blog posts and work articles, and users will be able to filter by sector"""
+
+    pass
+
+
+class Team(BaseTaxonomy):
+    """Represents each team that makes up Torchbox
+
+    A person may be assigned to one or more teams. Teams are used to filter the team listing page"""
+
+    pass

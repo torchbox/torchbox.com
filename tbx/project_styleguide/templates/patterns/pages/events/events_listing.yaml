@@ -40,7 +40,7 @@ context:
         name: Lisa Ballam
         role: Marketing Manager
 
-  related_services:
+  tags:
     - name: Culture
       slug: culture
     - name: Digital products
@@ -59,3 +59,8 @@ context:
       slug: data
     - name: Google Ad Grants
       slug: google-ad-grants
+
+tags:
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'

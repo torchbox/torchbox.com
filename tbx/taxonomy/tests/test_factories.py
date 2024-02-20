@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.utils.text import slugify
 
-from tbx.taxonomy.factories import ServiceFactory
+from tbx.taxonomy.factories import SectorFactory, ServiceFactory, TeamFactory
 
 
 class ServiceFactoryTestCase(TestCase):
@@ -11,14 +11,21 @@ class ServiceFactoryTestCase(TestCase):
         self.assertEqual(service.slug, slugify(service.name))
         self.assertIsNotNone(service.description)
         self.assertIsNotNone(service.sort_order)
-        self.assertIsNotNone(service.preferred_contact)
-        self.assertIsNone(service.contact_reasons)
 
-    def test_service_factory_with_contact_reasons(self):
-        service = ServiceFactory(contact_reasons=6)
+
+class SectorFactoryTestCase(TestCase):
+    def test_service_factory(self):
+        service = SectorFactory()
         self.assertIsNotNone(service.name)
         self.assertEqual(service.slug, slugify(service.name))
         self.assertIsNotNone(service.description)
         self.assertIsNotNone(service.sort_order)
-        self.assertIsNotNone(service.preferred_contact)
-        self.assertEqual(service.contact_reasons.reasons.count(), 6)
+
+
+class TeamFactoryTestCase(TestCase):
+    def test_service_factory(self):
+        service = TeamFactory()
+        self.assertIsNotNone(service.name)
+        self.assertEqual(service.slug, slugify(service.name))
+        self.assertIsNotNone(service.description)
+        self.assertIsNotNone(service.sort_order)
