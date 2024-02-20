@@ -1,3 +1,5 @@
+import os
+from concurrent.futures import ThreadPoolExecutor
 from itertools import chain
 
 from django import forms
@@ -299,17 +301,6 @@ class PersonIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
             people = people.filter(related_teams__slug=slug_filter)
             extra_url_params["filter"] = slug_filter
 
-        # format for template
-        people = [
-            {
-                "title": person.title,
-                "url": person.url,
-                "role": person.role,
-                "image": person.image,
-            }
-            for person in people
-        ]
-
         tags = Team.objects.all()
 
         context.update(
@@ -393,6 +384,22 @@ def update_author_on_page_publish(instance, **kwargs):
     author, created = Author.objects.get_or_create(person_page=instance)
     author.update_manual_fields(instance)
     author.save()
+
+
+@receiver(page_published, sender=PersonIndexPage)
+def update_image_renditions_on_page_publish(instance, **kwargs):
+    def image_renditions(person):
+        if image := person.image:
+            image_path = image.file.path
+            if os.path.isfile(image_path):
+                person.image.get_renditions(
+                    "format-webp|fill-230x230",
+                    "format-webp|fill-370x370",
+                )
+
+    max_workers = int(os.environ.get("WEB_CONCURRENCY", "2"))
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        executor.map(image_renditions, instance.people)
 
 
 class ContactReason(Orderable):
