@@ -24,17 +24,9 @@
 
     &__image {
         width: 100%;
-        height: 374px;
+        height: auto;
         object-fit: cover;
         margin-bottom: $spacer-mini;
-
-        @include media-query(medium) {
-            height: auto;
-        }
-
-        @include media-query(large) {
-            height: 230px;
-        }
     }
 
     &__link {

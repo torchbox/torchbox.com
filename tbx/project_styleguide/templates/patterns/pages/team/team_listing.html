@@ -8,7 +8,7 @@
         <ul class="team-listing grid__team-listing">
             {% for member in people %}
                 <li class="team-listing__item">
-                    {% srcset_image member.image format-webp fill-{230x230,370x374} sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="team-listing__image" alt="" %}
+                    {% srcset_image member.image format-webp fill-{230x230,370x370} sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="team-listing__image" alt="" %}
                     <a class="team-listing__link" href="{{ member.url }}">
                         {{ member.title }}
                     </a>
