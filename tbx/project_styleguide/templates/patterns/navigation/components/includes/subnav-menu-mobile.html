@@ -1,0 +1,37 @@
+{% load wagtailcore_tags %}
+
+<div class="sub-nav-mobile" data-subnav>
+    <ul class="sub-nav-mobile__list">
+        <li class="sub-nav-mobile__item sub-nav-mobile__item--back">
+            <button data-subnav-back class="sub-nav-mobile__link sub-nav-mobile__link--back">
+                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-mobile__icon-back" %}
+                Back to main menu
+            </button>
+        </li>
+        <li class="sub-nav-mobile__item sub-nav-mobile__item--parent">
+            <a class="sub-nav-mobile__link sub-nav-mobile__link--parent" href="{{ parent.url }}">
+                {{ parent.text }}
+            </a>
+        </li>
+        {% for link in links %}
+            <li class="sub-nav-mobile__item">
+                {% with children=link.get_children.live.public.in_menu %}
+                    <a
+                        class="sub-nav-mobile__link {% if children and not hide_children %}sub-nav-mobile__link--has-children{% else %}sub-nav-mobile__link--no-children{% endif %}"
+                        {% if children and not hide_children %}
+                            data-open-subnav aria-haspopup="true" aria-expanded="false"
+                        {% endif %}
+                        href="{{ link.url }}"
+                    >
+                        {{ link.title }}
+                        {% if children and not hide_children %}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-mobile__icon-mobile" %}
+                        {% endif %}
+                    </a>
+                    {% include "patterns/navigation/components/includes/subnav-child-menu-mobile.html" with pages=children parent=link grandparent=parent %}
+                {% endwith %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+

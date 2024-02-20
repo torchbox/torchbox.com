@@ -48,9 +48,10 @@
 // Navigation
 @use 'components/navigation/breadcrumbs-nav';
 @use 'components/navigation/footerlinks-nav';
-@use 'components/navigation/primary-nav';
-@use 'components/navigation/secondary-nav';
-@use 'components/navigation/sub-nav';
+@use 'components/navigation/primary-nav-desktop';
+@use 'components/navigation/primary-nav-mobile';
+@use 'components/navigation/sub-nav-desktop';
+@use 'components/navigation/sub-nav-mobile';
 
 // Layout
 

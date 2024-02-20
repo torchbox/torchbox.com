@@ -4,7 +4,7 @@ At the top level, the main navigation links are determined by the primary naviga
 
 Lower level navigation links are determined by whether a given page has 'show in menu' selected. These show up to a maximum of 3 levels, and no lower.
 
-The desktop and mobile menus have two separate sets of markup in the html, but share the same classes, so the CSS must handle both the desktop and mobile styles.
+The desktop and mobile menus have two separate sets of markup in the html, and separate mobile and desktop CSS to make them easier to maintain.
 
 On the front-end, at desktop, the primary navigation links (the ones at the top level) display across the top of the page in the header. The second and third levels are revealed together when clicking on one of the primary links. This functionality is controlled by `desktop-sub-menu.js`.
 

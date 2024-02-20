@@ -1,0 +1,107 @@
+@use "config" as *;
+@use "sass:color";
+
+/*
+Styles for the lower levels of the navigation at desktop
+*/
+
+// At desktop, the sub-navigation appears when a top level item is clicked
+// The second and third levels are shown in one view
+
+// div element at levels 2 and 3 of the menu
+.sub-nav-desktop {
+    $root: &;
+    @include z-index(base);
+    @include nav-fixed-position($header-height-desktop);
+    background-color: var(--color--nav-background);
+    padding: $spacer-half $grid-gutters;
+
+    // padding matches grid spacers but we don't want a grid layout for the sub-nav
+    @include media-query(large) {
+        padding: $spacer-half $grid-gutters-large;
+    }
+
+    @include media-query(x-large) {
+        padding: $spacer-half $grid-gutters-x-large;
+    }
+
+    // at desktop, the lowest level of menu is visible in the same screen as the second level
+    // so reset the fixed positioning
+    &--child {
+        @include reset-nav-fixed-position();
+        // links remain hidden until opened
+        visibility: hidden;
+        padding: 0;
+    }
+
+    // the unordered list containing the level 2 menu items
+    // also used for the level 3 menu items
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: $spacer-half;
+        column-gap: $spacer-small;
+
+        // at desktop the third level is always visible once the subnav is expanded
+        // it sits inside each column
+        &--child {
+            display: block;
+        }
+    }
+
+    // the list item for each menu item in the 2nd and 3rd levels
+    &__item {
+        // at desktop level 2 these are arranged in columns
+        // which are based on the number of items at that level
+        font-weight: $weight--medium;
+        flex-basis: calc(100% - #{$spacer-small});
+
+        #{$root}--2 &,
+        #{$root}--3 & {
+            flex-basis: calc(33.33% - #{$spacer-small});
+        }
+
+        #{$root}--4 & {
+            flex-basis: calc(50% - #{$spacer-small});
+
+            @include media-query(large) {
+                flex-basis: calc(25% - #{$spacer-small});
+            }
+        }
+    }
+
+    // The link for each menu item in the 2nd and 3rd level
+    &__link {
+        @include link-styles(
+            $color: var(--color--heading),
+            $interaction-color: var(--color--heading)
+        );
+        @include font-size('heading-six');
+        font-weight: $weight--semibold;
+        display: block;
+        margin-bottom: $spacer-mini-plus;
+
+        &:focus {
+            @include focus-style();
+        }
+
+        // a link item at the lowest level
+        &--child {
+            @include link-styles(
+                $color: var(--color--nav-text),
+                $interaction-color: var(--color--heading)
+            );
+            @include font-size('body-two');
+            font-weight: $weight--light;
+            line-height: 1.2;
+            display: block;
+            margin-bottom: 10px;
+        }
+    }
+
+    // active state
+    .active & {
+        opacity: 1;
+        visibility: visible;
+    }
+}

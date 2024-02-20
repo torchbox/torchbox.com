@@ -1,21 +1,10 @@
 {% load wagtailcore_tags %}
 
-<div class="sub-nav sub-nav--child" data-subnav data-subnav-child>
-    <ul class="sub-nav__list sub-nav__list--child">
-        <li class="sub-nav__item sub-nav__item--back">
-            <button data-subnav-back class="sub-nav__link sub-nav__link--back">
-                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav__icon-back" %}
-                Back to {{ grandparent.text }}
-            </button>
-        </li>
-        <li class="sub-nav__item sub-nav__item--parent">
-            <a class="sub-nav__link sub-nav__link--parent" href="{% pageurl parent %}">
-                {{ parent.title }}
-            </a>
-        </li>
+<div class="sub-nav-desktop sub-nav-desktop--child">
+    <ul class="sub-nav-desktop__list sub-nav-desktop__list--child">
         {% for page in pages %}
-            <li class="sub-nav__item">
-                <a class="sub-nav__link sub-nav__link--child sub-nav__link--no-children" href="{% pageurl page %}">
+            <li class="sub-nav-desktop__item">
+                <a class="sub-nav-desktop__link sub-nav-desktop__link--child sub-nav-desktop__link--no-children" href="{% pageurl page %}">
                     {{ page.title }}
                 </a>
             </li>

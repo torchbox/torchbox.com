@@ -1,34 +1,17 @@
 {% load wagtailcore_tags %}
 
-<div class="sub-nav sub-nav--{{ number }}" data-subnav>
-    <ul class="sub-nav__list">
-        <li class="sub-nav__item sub-nav__item--back">
-            <button data-subnav-back class="sub-nav__link sub-nav__link--back">
-                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav__icon-back" %}
-                Back to main menu
-            </button>
-        </li>
-        <li class="sub-nav__item sub-nav__item--parent">
-            <a class="sub-nav__link sub-nav__link--parent" href="{{ parent.url }}">
-                {{ parent.text }}
-            </a>
-        </li>
+<div class="sub-nav-desktop sub-nav-desktop--{{ number }}">
+    <ul class="sub-nav-desktop__list">
         {% for link in links %}
-            <li class="sub-nav__item">
+            <li class="sub-nav-desktop__item">
                 {% with children=link.get_children.live.public.in_menu %}
                     <a
-                        class="sub-nav__link {% if children and not hide_children %}sub-nav__link--has-children{% else %}sub-nav__link--no-children{% endif %}"
-                        {% if children and not hide_children %}
-                            data-open-subnav aria-haspopup="true" aria-expanded="false"
-                        {% endif %}
+                        class="sub-nav-desktop__link {% if children and not hide_children %}sub-nav-desktop__link--has-children{% else %}sub-nav-desktop__link--no-children{% endif %}"
                         href="{{ link.url }}"
                     >
                         {{ link.title }}
-                        {% if children and not hide_children %}
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav__icon-mobile" %}
-                        {% endif %}
                     </a>
-                    {% include "patterns/navigation/components/includes/subnav-child-menu.html" with pages=children parent=link grandparent=parent %}
+                    {% include "patterns/navigation/components/includes/subnav-child-menu.html" with pages=children %}
                 {% endwith %}
             </li>
         {% endfor %}
