@@ -1,22 +1,17 @@
 from django.db import models
 
-from modelcluster.fields import ParentalKey
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.people.models import ContactMixin
 from wagtail import blocks
-from wagtail.admin.panels import (
-    FieldPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    PageChooserPanel,
-)
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.blocks import PageChooserBlock, StreamBlock, StructBlock
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField, StreamField
-from wagtail.models import Orderable, Page
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.models import Page
 from wagtail.search import index
 
-from .blocks import StoryBlock
+from .blocks import HomePageStoryBlock, StoryBlock
 
 
 # A couple of abstract classes that contain commonly used fields
@@ -104,45 +99,26 @@ class RelatedLink(LinkFields):
 
 
 # Home Page
-class HomePageFeaturedPost(Orderable):
-    page = ParentalKey(
-        "torchbox.HomePage", on_delete=models.CASCADE, related_name="featured_posts"
-    )
-    featured_post = models.ForeignKey(
-        "wagtailcore.Page",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
-    panels = [
-        PageChooserPanel("featured_post", ["blog.BlogPage", "work.HistoricalWorkPage"]),
-    ]
-
-
-class HomePageHeroImage(Orderable):
-    page = ParentalKey(
-        "torchbox.HomePage", on_delete=models.CASCADE, related_name="hero_images"
-    )
-    image = models.ForeignKey(
-        "images.CustomImage",
-        help_text="The hero images will be displayed in a random order.",
-        null=True,
-        blank=False,
-        on_delete=models.CASCADE,
-        related_name="+",
-    )
-
-
 class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/home/home_page.html"
-    hero_intro_primary = models.TextField(blank=True)
-    hero_intro_secondary = models.TextField(blank=True)
-    intro_body = RichTextField(blank=True)
-    work_title = models.TextField(blank=True)
-    blog_title = models.TextField(blank=True)
-    clients_title = models.TextField(blank=True)
+    statement = models.TextField(blank=True)
+    introduction = models.TextField(blank=True)
+    partners_block = StreamField(
+        [
+            (
+                "logos",
+                blocks.ListBlock(
+                    ImageChooserBlock(),
+                    label="Logos",
+                    template="patterns/molecules/streamfield/blocks/partners_block.html",
+                ),
+            )
+        ],
+        max_num=1,
+        block_counts={"logos": {"max_num": 7}},
+        use_json_field=True,
+    )
+    body = StreamField(HomePageStoryBlock(), use_json_field=True)
 
     class Meta:
         verbose_name = "Homepage"
@@ -150,13 +126,13 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel("hero_intro_primary"),
-                FieldPanel("hero_intro_secondary"),
-                InlinePanel("hero_images", label="Hero Images", max_num=6, min_num=1),
+                FieldPanel("statement"),
+                FieldPanel("introduction"),
             ],
-            heading="Hero intro",
+            heading="Introductory block",
         ),
-        InlinePanel("featured_posts", label="Featured Posts", max_num=3),
+        FieldPanel("partners_block"),
+        FieldPanel("body"),
     ]
 
     promote_panels = (
@@ -170,29 +146,8 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         ]
     )
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        context.update(
-            hero_images=self.hero_images.all(),
-        )
-        return context
-
-    @property
-    def blog_posts(self):
-        from tbx.blog.models import BlogPage
-
-        # Get list of blog pages.
-        blog_posts = BlogPage.objects.live().public()
-
-        # Order by most recent date first
-        blog_posts = blog_posts.order_by("-date")
-
-        return blog_posts
-
 
 # Standard page
-
-
 class StandardPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/standard/standard_page.html"
 

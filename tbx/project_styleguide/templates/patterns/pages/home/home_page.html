@@ -2,6 +2,17 @@
 {% load wagtailcore_tags wagtailimages_tags navigation_tags static %}
 
 {% block content %}
-    Likely to be all custom
+    <div class="grid streamfield">
+        <div class="grid__title">
+            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.statement classes="motif-heading--one" %}
+        </div>
+        <div class="grid__intro heading heading--six">
+            {{ page.introduction }}
+        </div>
+
+        {% include_block page.partners_block %}
+
+        {% include_block page.body %}
+    </div>
 {% endblock %}
 
