@@ -42,6 +42,15 @@
     &__scroller {
         width: 100%;
         overflow-x: scroll;
+
+        @include media-query(large) {
+            overflow-x: visible;
+            width: auto;
+        }
+
+        &:focus {
+            @include focus-style();
+        }
     }
 
     &__container {
@@ -57,6 +66,7 @@
 
         @include media-query(large) {
             display: grid;
+            height: auto;
             // based on the size we want the images to render
             grid-template-columns:
                 minmax(84px, 168px) minmax(50px, 100px) minmax(144px, 288px)
@@ -78,45 +88,65 @@
             height: auto;
         }
 
+        // Some browsers seem to need the aspect ratio set explicitly on each image wrapper at mobile
+        // but this needs unsetting at desltop
         &--1 {
+            aspect-ratio: 1 / 1;
+
             @include media-query(large) {
                 grid-column: 1 / span 2;
                 grid-row: 1 / span 2;
+                aspect-ratio: auto;
             }
         }
 
         &--2 {
+            aspect-ratio: 1 / 1;
+
             @include media-query(large) {
                 grid-column: 3 / span 1;
                 grid-row: 1 / span 2;
+                aspect-ratio: auto;
             }
         }
 
         &--3 {
+            aspect-ratio: 87 / 121;
+
             @include media-query(large) {
                 grid-column: 4 / span 2;
                 grid-row: 1 / span 3;
+                aspect-ratio: auto;
             }
         }
 
         &--4 {
+            aspect-ratio: 1 / 1;
+
             @include media-query(large) {
                 grid-column: 6 / span 1;
                 grid-row: 2 / span 2;
+                aspect-ratio: auto;
             }
         }
 
         &--5 {
+            aspect-ratio: 406 / 403;
+
             @include media-query(large) {
                 grid-column: 2 / span 2;
                 grid-row: 3 / span 2;
+                aspect-ratio: auto;
             }
         }
 
         &--6 {
+            aspect-ratio: 1 / 1;
+
             @include media-query(large) {
                 grid-column: 4 / span 1;
                 grid-row: 4 / span 2;
+                aspect-ratio: auto;
             }
         }
     }
