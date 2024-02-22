@@ -70,13 +70,36 @@ class ImageFormatChoiceBlock(blocks.FieldBlock):
     pass
 
 
-class ImageBlock(blocks.StructBlock):
+class BaseImageStructValue(blocks.StructValue):
+    def image_alt_text(self):
+        if custom_alt_text := self.get("alt_text"):
+            return custom_alt_text
+        return self.get("image").title
+
+
+class BaseImageBlock(blocks.StructBlock):
+    """
+    Allows for specifying optional alt text for an image.
+    """
+
     image = ImageChooserBlock()
     alt_text = blocks.CharBlock(
         required=False,
         help_text="By default the image title (shown above) is used as the alt text. "
         "Use this field to provide more specific alt text if required.",
     )
+
+    class Meta:
+        icon = "image"
+        value_class = BaseImageStructValue
+
+
+class ImageBlock(BaseImageBlock):
+    """
+    In addition to specifying optional alt text for an image, this block allows
+    for specifying a caption, attribution and whether the image is decorative.
+    """
+
     image_is_decorative = blocks.BooleanBlock(
         required=False,
         default=False,
@@ -84,9 +107,6 @@ class ImageBlock(blocks.StructBlock):
     )
     caption = blocks.CharBlock(required=False)
     attribution = blocks.CharBlock(required=False)
-
-    class Meta:
-        icon = "image"
 
 
 class ImageWithLinkBlock(blocks.StructBlock):
@@ -308,6 +328,38 @@ class WorkChooserBlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/work_chooser_block.html"
 
 
+class PhotoCollageStructValue(blocks.StructValue):
+    def url(self):
+        return self.get("page").url
+
+    def button_text(self):
+        if self.get("page") and not self.get("link_text"):
+            return self.get("page").title
+        return self.get("link_text")
+
+
+class PhotoCollageBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255)
+    intro = blocks.TextBlock(label="Introduction")
+    page = blocks.PageChooserBlock()
+    link_text = blocks.CharBlock(
+        required=False,
+        max_length=55,
+        help_text="Leave blank to use the page's own title",
+    )
+    images = blocks.ListBlock(
+        BaseImageBlock(label="Photo"),
+        min_num=6,
+        max_num=6,
+        label="Photos",
+    )
+
+    class Meta:
+        icon = "image"
+        value_class = PhotoCollageStructValue
+        template = "patterns/molecules/streamfield/blocks/photo_collage_block.html"
+
+
 class StoryBlock(blocks.StreamBlock):
     h2 = blocks.CharBlock(
         form_classname="title",
@@ -376,3 +428,4 @@ class HomePageStoryBlock(StoryBlock):
     featured_case_study = FeaturedCaseStudyBlock()
     blog_chooser = BlogChooserBlock()
     work_chooser = WorkChooserBlock()
+    photo_collage = PhotoCollageBlock()
