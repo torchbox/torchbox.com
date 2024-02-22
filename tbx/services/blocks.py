@@ -1,6 +1,7 @@
 from tbx.core.blocks import (
     BlogChooserBlock,
     FeaturedCaseStudyBlock,
+    PhotoCollageBlock,
     ShowcaseBlock,
     StoryBlock,
     WorkChooserBlock,
@@ -27,3 +28,4 @@ class ServiceStoryBlock(StoryBlock):
     featured_case_study = FeaturedCaseStudyBlock()
     blog_chooser = BlogChooserBlock()
     work_chooser = WorkChooserBlock()
+    photo_collage = PhotoCollageBlock()
