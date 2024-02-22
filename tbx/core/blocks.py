@@ -2,18 +2,6 @@ from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
 
 from wagtail import blocks
-from wagtail.blocks import (
-    BooleanBlock,
-    CharBlock,
-    FieldBlock,
-    PageChooserBlock,
-    RawHTMLBlock,
-    RichTextBlock,
-    StreamBlock,
-    StructBlock,
-    StructValue,
-    URLBlock,
-)
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
@@ -25,7 +13,7 @@ from wagtailmarkdown.blocks import MarkdownBlock
 from wagtailmedia.blocks import VideoChooserBlock
 
 
-class LinkStructValue(StructValue):
+class LinkStructValue(blocks.StructValue):
     @cached_property
     def url(self):
         if page := self.get("page"):
@@ -41,9 +29,9 @@ class LinkStructValue(StructValue):
             return page.title
 
 
-class InternalLinkBlock(StructBlock):
-    page = PageChooserBlock()
-    link_text = CharBlock(required=False)
+class InternalLinkBlock(blocks.StructBlock):
+    page = blocks.PageChooserBlock()
+    link_text = blocks.CharBlock(required=False)
 
     class Meta:
         label = "Internal link"
@@ -51,9 +39,9 @@ class InternalLinkBlock(StructBlock):
         value_class = LinkStructValue
 
 
-class ExternalLinkBlock(StructBlock):
-    link_url = URLBlock(label="URL")
-    link_text = CharBlock()
+class ExternalLinkBlock(blocks.StructBlock):
+    link_url = blocks.URLBlock(label="URL")
+    link_text = blocks.CharBlock()
 
     class Meta:
         label = "External link"
@@ -61,7 +49,7 @@ class ExternalLinkBlock(StructBlock):
         value_class = LinkStructValue
 
 
-class LinkBlock(StreamBlock):
+class LinkBlock(blocks.StreamBlock):
     internal_link = InternalLinkBlock()
     external_link = ExternalLinkBlock()
 
@@ -71,7 +59,7 @@ class LinkBlock(StreamBlock):
         max_num = 1
 
 
-class ImageFormatChoiceBlock(FieldBlock):
+class ImageFormatChoiceBlock(blocks.FieldBlock):
     """
     This block is no longer in use. However, because several migrations
     make explicit references to the block class, we cannot remove it
@@ -82,26 +70,26 @@ class ImageFormatChoiceBlock(FieldBlock):
     pass
 
 
-class ImageBlock(StructBlock):
+class ImageBlock(blocks.StructBlock):
     image = ImageChooserBlock()
-    alt_text = CharBlock(
+    alt_text = blocks.CharBlock(
         required=False,
         help_text="By default the image title (shown above) is used as the alt text. "
         "Use this field to provide more specific alt text if required.",
     )
-    image_is_decorative = BooleanBlock(
+    image_is_decorative = blocks.BooleanBlock(
         required=False,
         default=False,
         help_text="If checked, this will make the alt text empty.",
     )
-    caption = CharBlock(required=False)
-    attribution = CharBlock(required=False)
+    caption = blocks.CharBlock(required=False)
+    attribution = blocks.CharBlock(required=False)
 
     class Meta:
         icon = "image"
 
 
-class ImageWithLinkBlock(StructBlock):
+class ImageWithLinkBlock(blocks.StructBlock):
     image = ImageChooserBlock()
     link = LinkBlock(required=False)
 
@@ -109,10 +97,10 @@ class ImageWithLinkBlock(StructBlock):
         icon = "site"
 
 
-class PullQuoteBlock(StructBlock):
-    quote = CharBlock(form_classname="quote title")
-    attribution = CharBlock()
-    role = CharBlock()
+class PullQuoteBlock(blocks.StructBlock):
+    quote = blocks.CharBlock(form_classname="quote title")
+    attribution = blocks.CharBlock()
+    role = blocks.CharBlock()
     logo = ImageChooserBlock(
         required=False,
         help_text="You may optionally add either a company logo or author image",
@@ -142,15 +130,15 @@ class PullQuoteBlock(StructBlock):
         icon = "openquote"
 
 
-class VideoBlock(StructBlock):
+class VideoBlock(blocks.StructBlock):
     video = VideoChooserBlock()
     # setting autoplay to True adds 'autoplay', 'loop' & 'muted' attrs to video element
-    autoplay = BooleanBlock(
+    autoplay = blocks.BooleanBlock(
         required=False,
         default=False,
         help_text="Automatically start and loop the video. Please use sparingly.",
     )
-    use_original_width = BooleanBlock(
+    use_original_width = blocks.BooleanBlock(
         required=False,
         default=False,
         help_text="Use the original width of the video instead of the default content width. "
@@ -178,7 +166,7 @@ class CallToActionStructValue(blocks.StructValue):
         return ""
 
 
-class CallToActionBlock(StructBlock):
+class CallToActionBlock(blocks.StructBlock):
     text = blocks.CharBlock(required=True, max_length=255)
     button_text = blocks.CharBlock(max_length=55)
     button_link = blocks.StreamBlock(
@@ -196,7 +184,7 @@ class CallToActionBlock(StructBlock):
         value_class = CallToActionStructValue
 
 
-class ContactCTABlock(StructBlock):
+class ContactCTABlock(blocks.StructBlock):
     call_to_action = blocks.StreamBlock(
         [("call_to_action", CallToActionBlock())], max_num=1
     )
@@ -216,8 +204,8 @@ class ExternalStoryEmbedBlock(WebstoryExternalStoryEmbedBlock):
     pass
 
 
-class ShowcaseBlock(StructBlock):
-    title = CharBlock(max_length=255)
+class ShowcaseBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255)
     showcase_paragraphs = blocks.ListBlock(
         blocks.StructBlock(
             [
@@ -295,9 +283,9 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
 
 
 class BlogChooserBlock(blocks.StructBlock):
-    featured_blog_heading = CharBlock(max_length=255)
+    featured_blog_heading = blocks.CharBlock(max_length=255)
     blog_pages = blocks.ListBlock(
-        PageChooserBlock(page_type="blog.BlogPage"),
+        blocks.PageChooserBlock(page_type="blog.BlogPage"),
         min_num=1,
         max_num=3,
     )
@@ -308,9 +296,9 @@ class BlogChooserBlock(blocks.StructBlock):
 
 
 class WorkChooserBlock(blocks.StructBlock):
-    featured_work_heading = CharBlock(max_length=255)
+    featured_work_heading = blocks.CharBlock(max_length=255)
     work_pages = blocks.ListBlock(
-        PageChooserBlock(page_type=["work.WorkPage", "work.HistoricalWorkPage"]),
+        blocks.PageChooserBlock(page_type=["work.WorkPage", "work.HistoricalWorkPage"]),
         min_num=1,
         max_num=3,
     )
@@ -320,27 +308,27 @@ class WorkChooserBlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/work_chooser_block.html"
 
 
-class StoryBlock(StreamBlock):
-    h2 = CharBlock(
+class StoryBlock(blocks.StreamBlock):
+    h2 = blocks.CharBlock(
         form_classname="title",
         icon="title",
         template="patterns/molecules/streamfield/blocks/heading2_block.html",
     )
-    h3 = CharBlock(
+    h3 = blocks.CharBlock(
         form_classname="title",
         icon="title",
         template="patterns/molecules/streamfield/blocks/heading3_block.html",
     )
-    h4 = CharBlock(
+    h4 = blocks.CharBlock(
         form_classname="title",
         icon="title",
         template="patterns/molecules/streamfield/blocks/heading4_block.html",
     )
-    intro = RichTextBlock(
+    intro = blocks.RichTextBlock(
         icon="pilcrow",
         template="patterns/molecules/streamfield/blocks/intro_block.html",
     )
-    paragraph = RichTextBlock(
+    paragraph = blocks.RichTextBlock(
         icon="pilcrow",
         template="patterns/molecules/streamfield/blocks/paragraph_block.html",
     )
@@ -358,12 +346,12 @@ class StoryBlock(StreamBlock):
     pullquote = PullQuoteBlock(
         template="patterns/molecules/streamfield/blocks/pullquote_block.html"
     )
-    raw_html = RawHTMLBlock(
+    raw_html = blocks.RawHTMLBlock(
         label="Raw HTML",
         icon="code",
         template="patterns/molecules/streamfield/blocks/raw_html_block.html",
     )
-    mailchimp_form = RawHTMLBlock(
+    mailchimp_form = blocks.RawHTMLBlock(
         label="Mailchimp embedded form",
         icon="code",
         template="patterns/molecules/streamfield/blocks/mailchimp_form_block.html",
