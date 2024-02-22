@@ -1,15 +1,13 @@
 @use "sass:color";
 // --------------------------------- Colors ------------------------------------
 
-// need updating
 $color--black: #000;
-$color--off-black: #171c1d;
-
 $color--eclipse: #1d2325;
 
 $color--nebuline-30: #481cd9;
 $color--nebuline-20: #7045ff;
 $color--nebuline-10: #f1edff;
+
 $color--coral: #fd5765;
 $color--coral-20: #fc8698;
 $color--coral-10: #edd7e6;
@@ -53,6 +51,7 @@ $color--mid-grey: #282e30; // in figma this colour is created with a very transp
     --color--streamfield-background: #{$color--mid-grey};
     --color--decoration: #{$color--grey-50};
     --color--border: #{color.adjust($color--grey-50, $alpha: -0.5)};
+    --color--overlay: #{color.adjust($color--black, $alpha: -0.6)};
 }
 
 // Coral theme, dark mode - also by default
