@@ -1,14 +1,14 @@
 from django.db import models
 
+from modelcluster.fields import ParentalKey
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.people.models import ContactMixin
 from wagtail import blocks
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.blocks import PageChooserBlock, StreamBlock, StructBlock
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField, StreamField
-from wagtail.images.blocks import ImageChooserBlock
-from wagtail.models import Page
+from wagtail.models import Orderable, Page
 from wagtail.search import index
 
 from .blocks import HomePageStoryBlock, StoryBlock
@@ -98,26 +98,26 @@ class RelatedLink(LinkFields):
         abstract = True
 
 
+class HomePagePartnerLogo(Orderable):
+    page = ParentalKey("torchbox.HomePage", related_name="logos")
+    image = models.ForeignKey(
+        "images.CustomImage",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+    panels = [
+        FieldPanel("image"),
+    ]
+
+
 # Home Page
 class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/home/home_page.html"
     statement = models.TextField(blank=True)
     introduction = models.TextField(blank=True)
-    partners_block = StreamField(
-        [
-            (
-                "logos",
-                blocks.ListBlock(
-                    ImageChooserBlock(),
-                    label="Logos",
-                    template="patterns/molecules/streamfield/blocks/partners_block.html",
-                ),
-            )
-        ],
-        max_num=1,
-        block_counts={"logos": {"max_num": 7}},
-        use_json_field=True,
-    )
     body = StreamField(HomePageStoryBlock(), use_json_field=True)
 
     class Meta:
@@ -131,7 +131,7 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
             ],
             heading="Introductory block",
         ),
-        FieldPanel("partners_block"),
+        InlinePanel("logos", label="Partner Logos", max_num=7),
         FieldPanel("body"),
     ]
 
