@@ -10,13 +10,7 @@
             {{ page.introduction }}
         </div>
 
-        {% with partner_logos=page.logos.all %}
-            {% for partner_logo in partner_logos %}
-                <div class="partners__logo-wrapper">
-                    {% image partner_logo.image max-100x90 format-webp loading="lazy" class="partners__logo" %}
-                </div>
-            {% endfor %}
-        {% endwith %}
+        {% include "patterns/molecules/streamfield/blocks/partners_block.html" with partner_logos=page.logos.all %}
 
         {% include_block page.body %}
     </div>
