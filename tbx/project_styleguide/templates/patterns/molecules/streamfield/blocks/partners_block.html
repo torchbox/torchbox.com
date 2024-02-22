@@ -7,8 +7,6 @@
 
 
     <div class="partners__logos">
-        {% for partner_logo in partner_logos %}
-            {% include "patterns/molecules/partner_logo/partner_logo.html" with partner_logo=partner_logo.image %}
-        {% endfor %}
+        {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=value.partner_logos %}
     </div>
 </div>

@@ -10,7 +10,7 @@
             {{ page.introduction }}
         </div>
 
-        {% include "patterns/molecules/streamfield/blocks/partners_block.html" with partner_logos=page.logos.all %}
+        {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=page.logos.all %}
 
         {% include_block page.body %}
     </div>
