@@ -10,7 +10,13 @@
             {{ page.introduction }}
         </div>
 
-        {% include_block page.partners_block %}
+        {% with partner_logos=page.logos.all %}
+            {% for partner_logo in partner_logos %}
+                <div class="partners__logo-wrapper">
+                    {% image partner_logo.image max-100x90 format-webp loading="lazy" class="partners__logo" %}
+                </div>
+            {% endfor %}
+        {% endwith %}
 
         {% include_block page.body %}
     </div>
