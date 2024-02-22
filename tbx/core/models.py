@@ -123,6 +123,10 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     class Meta:
         verbose_name = "Homepage"
 
+    @property
+    def partner_logos(self):
+        return self.logos.all().select_related("image")
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
