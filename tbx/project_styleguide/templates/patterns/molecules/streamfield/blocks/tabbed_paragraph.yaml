@@ -1,0 +1,29 @@
+context:
+  value:
+    title: Putting people at the heart of our process
+    intro: Cover the full spectrum of SEO, so whether you need a quick site health check, some training and support or a full SEO strategy, we can help.
+    tabbed_paragraph_sections:
+      - button_link: '#'
+        name: Service name
+        summary: Gathering insights into people's needs and behaviours to inform and design solutions.
+        text: By empathising with users, designers can identify pain points and opportuntities, creating more effective and user-friendly products. This process is ongoing, adapting to evolving user needs, ensuring solutions remain relevant and efficient over time.
+        button_text: Find out more
+      - button_link: '#'
+        name: Spark Innovation with AI
+        summary: Unlock groundbreaking ideas with AI-powered insights and tools.
+        text: |
+          Fuel your innovation engine with the power of AI. Our platform equips you with:
+
+          * **AI-driven insights:** Uncover hidden patterns and trends in user data for data-backed innovation.
+          * **Predictive modeling:** Forecast future user needs and market shifts to stay ahead of the curve.
+          * **Automated ideation:** Generate creative concepts and solutions using AI-powered brainstorming tools.
+          * **Rapid prototyping:** Build interactive prototypes quickly and test them with real users.
+          * **Collaborative innovation:** Work seamlessly with your team and experts to refine your ideas.
+
+          Empower your innovation process and accelerate success with AI. Join the future of innovation today!
+        button_text: Start Innovating Now!
+
+tags:
+  pageurl:
+    item.button_link:
+      raw: '#'

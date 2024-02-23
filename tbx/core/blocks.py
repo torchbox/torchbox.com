@@ -351,6 +351,30 @@ class PromoBlock(blocks.StructBlock):
         value_class = ButtonLinkStructValue
 
 
+class TabbedParagraphBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255)
+    intro = blocks.TextBlock(label="Introduction")
+    tabbed_paragraph_sections = blocks.ListBlock(
+        blocks.StructBlock(
+            [
+                ("name", blocks.CharBlock()),
+                ("summary", blocks.TextBlock()),
+                ("text", blocks.RichTextBlock()),
+                ("button_text", blocks.CharBlock(required=False)),
+                ("button_link", blocks.PageChooserBlock(required=False)),
+            ],
+            help_text="Add a tabbed paragraph, with a name, summary, text and an optional page link & button text",
+            icon="breadcrumb-expand",
+        ),
+        min_num=2,
+        help_text="Add at least two tabbed paragraph sections",
+    )
+
+    class Meta:
+        icon = "list-ul"
+        template = "patterns/molecules/streamfield/blocks/tabbed_paragraph_block.html"
+
+
 class PhotoCollageBlock(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255)
     intro = blocks.TextBlock(label="Introduction")
@@ -476,3 +500,4 @@ class HomePageStoryBlock(StoryBlock):
     work_chooser = WorkChooserBlock()
     photo_collage = PhotoCollageBlock()
     promo = PromoBlock()
+    tabbed_paragraph = TabbedParagraphBlock()
