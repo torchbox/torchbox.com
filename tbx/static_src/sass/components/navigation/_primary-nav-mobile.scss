@@ -75,7 +75,7 @@ Styles for the top level of the navigation at mobile
         height: 21px;
         flex-grow: 0;
         flex-shrink: 0;
-        fill: $color--white;
+        fill: var(--color--heading);
         transition: transform $transition-quick;
 
         #{$root}__link:hover & {
