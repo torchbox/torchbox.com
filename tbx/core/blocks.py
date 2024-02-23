@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
 
 from wagtail import blocks
@@ -70,14 +71,14 @@ class ImageFormatChoiceBlock(blocks.FieldBlock):
     pass
 
 
-class BaseImageStructValue(blocks.StructValue):
+class AltTextStructValue(blocks.StructValue):
     def image_alt_text(self):
         if custom_alt_text := self.get("alt_text"):
             return custom_alt_text
         return self.get("image").title
 
 
-class BaseImageBlock(blocks.StructBlock):
+class ImageWithAltTextBlock(blocks.StructBlock):
     """
     Allows for specifying optional alt text for an image.
     """
@@ -91,10 +92,10 @@ class BaseImageBlock(blocks.StructBlock):
 
     class Meta:
         icon = "image"
-        value_class = BaseImageStructValue
+        value_class = AltTextStructValue
 
 
-class ImageBlock(BaseImageBlock):
+class ImageBlock(ImageWithAltTextBlock):
     """
     In addition to specifying optional alt text for an image, this block allows
     for specifying a caption, attribution and whether the image is decorative.
@@ -328,35 +329,52 @@ class WorkChooserBlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/work_chooser_block.html"
 
 
-class PhotoCollageStructValue(blocks.StructValue):
-    def url(self):
-        return self.get("page").url
-
-    def button_text(self):
-        if self.get("page") and not self.get("link_text"):
-            return self.get("page").title
-        return self.get("link_text")
-
-
 class PhotoCollageBlock(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255)
     intro = blocks.TextBlock(label="Introduction")
-    page = blocks.PageChooserBlock()
+    page = blocks.PageChooserBlock(required=False)
     link_text = blocks.CharBlock(
         required=False,
         max_length=55,
-        help_text="Leave blank to use the page's own title",
     )
     images = blocks.ListBlock(
-        BaseImageBlock(label="Photo"),
+        ImageWithAltTextBlock(label="Photo"),
         min_num=6,
         max_num=6,
         label="Photos",
+        help_text="Exactly six required.",
+        default=[{"image": None, "alt_text": ""}] * 6,
     )
+
+    def clean(self, value):
+        struct_value = super().clean(value)
+
+        errors = {}
+        page = value.get("page")
+        link_text = value.get("link_text")
+
+        if page and not link_text:
+            error = ErrorList(
+                [ValidationError("You must add link text for the specified page.")]
+            )
+            errors["link_text"] = error
+
+        if link_text and not page:
+            error = ErrorList(
+                [
+                    ValidationError(
+                        "You must specify a page for the link text you have provided."
+                    )
+                ]
+            )
+            errors["page"] = error
+
+        if errors:
+            raise StructBlockValidationError(errors)
+        return struct_value
 
     class Meta:
         icon = "image"
-        value_class = PhotoCollageStructValue
         template = "patterns/molecules/streamfield/blocks/photo_collage_block.html"
 
 
