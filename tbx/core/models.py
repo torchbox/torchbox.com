@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 
 from modelcluster.fields import ParentalKey
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
@@ -123,9 +124,11 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     class Meta:
         verbose_name = "Homepage"
 
-    @property
+    @cached_property
     def partner_logos(self):
-        return self.logos.all().select_related("image")
+        if logos := self.logos.all().select_related("image"):
+            return [logo.image for logo in logos]
+        return []
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
