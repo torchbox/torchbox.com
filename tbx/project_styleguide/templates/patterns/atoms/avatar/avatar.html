@@ -4,9 +4,9 @@
 {% image avatar fill-72x72 format-webp saturation-0.6 as avatar_mobile %}
 
 <div class="avatar{% if classes %} {{ classes }}{% endif %}">
-    <picture>
-        <source media="(max-width: 598px)" srcset="{{  avatar_mobile.url }} 1x, {{ avatar_desktop.url }} 2x" />
-        <source media="(min-width: 599px)" srcset="{{ avatar_desktop.url }} 1x, {{ avatar_desktop_retina.url }} 2x" />
-        <img src="{{ avatar_desktop.url }}" alt="" {% if lazy_load %}loading="lazy"{% endif %} class="avatar__image" />
-    </picture>
+    {% if lazy_load %}
+        {% srcset_image avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image" %}
+    {% else %}
+        {% srcset_image avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image" %}
+    {% endif %}
 </div>

@@ -79,20 +79,14 @@ tags:
     # Featured case study
     'value.featured_case_study_image format-webp saturation-0.6 fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1022px) 90vw, (max-width: 1789px) 50vw, (min-width: 1800px) 1120px" class="featured-case-study__image"':
       raw: '<img alt="Jeth-JulyImage_from_iOS" class="featured-case-study__image" height="225" sizes="(max-width: 1022px) 90vw, (max-width: 1789px) 50vw, (min-width: 1800px) 1120px" src="https://source.unsplash.com/400x225?tech" srcset="https://source.unsplash.com/400x225?tech 400w, https://source.unsplash.com/800x450?tech 800w, https://source.unsplash.com/1600x900?tech 1280w, https://source.unsplash.com/1280x720?tech 1280w" width="400">'
-  image:
     # avatar image variants
-    avatar fill-144x144 format-webp saturation-0.6 as avatar_desktop:
-      target_var: avatar_desktop
-      raw:
-        url: 'https://source.unsplash.com/144x144?face'
-    avatar fill-286x286 format-webp saturation-0.6 as avatar_desktop_retina:
-      target_var: avatar_desktop_retina
-      raw:
-        url: 'https://source.unsplash.com/286x286?face'
-    avatar fill-72x72 format-webp saturation-0.6 as avatar_mobile:
-      target_var: avatar_mobile
-      raw:
-        url: 'https://source.unsplash.com/72x72?face'
+    'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
+      raw: |
+        <img alt="" class="avatar__image" height="72" loading="lazy" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
+    'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
+      raw: |
+        <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
+  image:
     # company logo for pull quote
     value.logo max-110x70 format-webp class="pullquote__company-logo":
       raw: |
