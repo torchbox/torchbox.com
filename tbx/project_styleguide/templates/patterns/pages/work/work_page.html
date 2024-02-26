@@ -13,7 +13,7 @@
     <div class="grid">
         <div class="grid__work-image">
 
-            {% srcset_image page.header_image format-webp fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" loading="lazy" %}
+            {% srcset_image page.header_image format-webp saturation-0.6 fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" loading="lazy" %}
 
             {% if page.header_caption %}
                 <p class="image__caption supporting">{{ page.header_caption }}</p>
