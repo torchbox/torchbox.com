@@ -29,6 +29,10 @@
         // works on opening, and does not reliably apply on openeing more than once
         transition: margin $transition;
 
+        @include reduced-motion() {
+            transition: none;
+        }
+
         #{$root}[open] & {
             margin-bottom: 20px;
         }
