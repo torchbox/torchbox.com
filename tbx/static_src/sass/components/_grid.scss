@@ -157,6 +157,15 @@
         }
     }
 
+    &__promo {
+        // right to the right-hand edge at mobile and tablet
+        grid-column: 1 / span 6;
+
+        @include media-query(large) {
+            grid-column: 2 / span 13;
+        }
+    }
+
     // The following components follow the same pattern of
     // spanning 7 columns on desktop and 4 columns on mobile.
     &__intro,
@@ -164,7 +173,6 @@
     &__raw-html,
     &__markdown,
     &__embed,
-    &__promo,
     &__stats {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
