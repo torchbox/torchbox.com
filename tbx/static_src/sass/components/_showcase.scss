@@ -43,44 +43,29 @@
                 }
 
                 #{$root}__ring--one {
-                    color: var(--color--accent-two);
-                    opacity: 1;
+                    @include ring-one-hover();
                 }
 
                 #{$root}__ring--two {
-                    color: var(--color--accent-three);
-                    opacity: 1;
+                    @include ring-two-hover();
                 }
             }
         }
     }
 
     &__rings {
-        position: relative;
-        width: 40px;
-        flex-shrink: 0;
+        @include rings();
     }
 
     &__ring {
-        position: absolute;
-        inset: 0;
-        width: 32px;
-        height: 32px;
-        opacity: 0.5;
-        transition: color $transition-quick, opacity $transition-quick;
-
-        @include reduced-motion() {
-            transition: none;
-        }
+        @include ring();
 
         &--one {
-            top: 8px;
-            color: var(--color--accent-three);
+            @include ring-one();
         }
 
         &--two {
-            left: 8px;
-            color: var(--color--accent-two);
+            @include ring-two();
         }
     }
 

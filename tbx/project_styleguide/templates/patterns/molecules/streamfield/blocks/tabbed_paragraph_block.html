@@ -1,31 +1,76 @@
 {% load wagtailcore_tags %}
 
 <div class="tabbed-paragraph grid__tabbed-paragraph">
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=value.title heading_level=2 classes="tabbed-paragraph__title motif-heading--two motif-heading--static" %}
-    <ul class="tabbed-paragraph__list">
-        {% for item in value.tabbed_paragraph_sections %}
-            <li>
 
-                {% if item.button_link %}
-                    <a href="{% pageurl item.button_link %}" class="tabbed-paragraph__item tabbed-paragraph__item--link" aria-label="{{ item.heading }}">
-                {% endif %}
+    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.title classes="motif-heading--two motif-heading--static tabbed-paragraph__heading" %}
 
-                <div>
-                    <h3>
-                        {{ item.button_text }}
-                        {% if item.button_link %}
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="tabbed-paragraph__icon" %}
-                        {% endif %}
-                    </h3>
+    <p class="tabbed-paragraph__intro">{{ value.intro }}</p>
 
-                    <p>{{ item.summary }}</p>
-                    <p>{{ item.text }}</p>
+    {# desktop - tabs #}
+    <div class="tabs tabbed-paragraph__tab-set" data-tab-set>
+        <div class="tabs__nav-container" role="tablist" aria-label="Tabs">
+            {% for tab in value.tabs %}
+                <a
+                    id="{{ tab.name|slugify }}"
+                    class="tabs__nav-item {% if forloop.counter == 1 %}tabs__nav-item--active{% endif %}"
+                    href="#tab-{{ tab.title|slugify }}"
+                    role="tab"
+                    aria-controls="{{ tab.name|slugify }}"
+                    data-tab="tab-{{ tab.name|slugify }}"
+                    aria-selected="{% if forloop.counter == 1 %}true{% else %}false{% endif %}"
+                >
+                    <div class="tabs__rings">
+                        {% include "patterns/atoms/icons/icon.html" with name="ring-one" classname="icon--stroke tabs__ring tabs__ring--one" %}
+                        {% include "patterns/atoms/icons/icon.html" with name="ring-two" classname="icon--stroke tabs__ring tabs__ring--two" %}
+                    </div>
+                    <p class="tabs__nav-text">{{ tab.name }}</p>
+                    {% include "patterns/atoms/icons/icon.html" with name="arrow-extra-wide" classname="tabs__nav-arrow" %}
+                </a>
+            {% endfor %}
+        </div>
+
+        {% for item in value.tabs %}
+            <div class="tabs__panel {% if not forloop.counter == 1 %}tabs__panel--hidden{% endif %}" id="tab-{{ item.name|slugify }}" role="tabpanel" aria-labelledby="{{ item.name|slugify }}" data-tab-panel>
+                <div class="tabs__panel-summary">
+                    {{ item.summary }}
                 </div>
-
-                {% if item.button_link %}
-                    </a>
+                <div class="tabs__panel-text">
+                    {{ item.text|richtext }}
+                </div>
+                {% if item.button_text and item.button_link %}
+                    <a href="{{ item.button_link }}" class="button tabs__panel-button">{{ item.button_text }}</a>
                 {% endif %}
-            </li>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
+
+    {# mobile - uses details and summary to create an accordion #}
+    {% for tab in value.tabs %}
+        <details class="tabs-mobile">
+            <summary class="tabs-mobile__summary">
+                {% comment %} {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="tabs__" %} {% endcomment %}
+
+                <div class="tabs-mobile__header">
+                    <div class="tabs-mobile__rings">
+                        {% include "patterns/atoms/icons/icon.html" with name="ring-one" classname="icon--stroke tabs-mobile__ring tabs-mobile__ring--one" %}
+                        {% include "patterns/atoms/icons/icon.html" with name="ring-two" classname="icon--stroke tabs-mobile__ring tabs-mobile__ring--two" %}
+                    </div>
+                    <div class="tabs-mobile__header-text">{{ tab.name }}</div>
+                    {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="tabs-mobile__chevron" %}
+                </div>
+            </summary>
+            <div class="tabs-mobile__info">
+                <div class="tabs-mobile__summary-text">
+                    {{ tab.summary }}
+                </div>
+                <div class="tabs-mobile__text">
+                    {{ tab.text|richtext }}
+                </div>
+                {% if tab.button_text and tab.button_link %}
+                    <a href="{{ tab.button_link }}" class="button tabs-mobile__button">{{ tab.button_text }}</a>
+                {% endif %}
+            </div>
+        </details>
+    {% endfor %}
+
 </div>
