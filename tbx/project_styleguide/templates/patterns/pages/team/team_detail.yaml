@@ -41,7 +41,7 @@ context:
 
 tags:
   srcset_image:
-    'page.image format-webp width-{400,650,950} sizes="(max-width: 598px) 400px, (max-width: 1022px) 950px, (min-width: 1023px) 650px"':
+    'page.image format-webp saturation-0.6 width-{400,650,950} sizes="(max-width: 598px) 400px, (max-width: 1022px) 950px, (min-width: 1023px) 650px"':
       raw: '<img alt="" height="400" sizes="(max-width: 598px) 400px, (max-width: 1022px) 950px, (min-width: 1023px) 650px" src="https://source.unsplash.com/400x250/?person" srcset="https://source.unsplash.com/400x250/?person 400w, https://source.unsplash.com/650x406/?person 650w, https://source.unsplash.com/950x594/?person 950w" width="400">'
   footerlinks:
     '':
