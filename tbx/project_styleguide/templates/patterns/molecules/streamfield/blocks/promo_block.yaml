@@ -1,0 +1,22 @@
+context:
+  value:
+    title: This is the title of this generic promo teaser
+    description: Donec tortor mi, pulvinar non enim et, hendrerit efficitur nisi. Etiam egestas imperdiet purus, faucibus convallis leo pharetra sit amet.
+    button_text: Call to action
+    get_button_link: '/#'
+    secondary_link:
+      0:
+        value:
+          url: '/#'
+          text: 'View all events'
+
+tags:
+  image:
+    value.image fill-520x630 as desktop_image:
+      target_var: desktop_image
+      raw:
+        url: 'https://source.unsplash.com/520x630/?nature'
+    value.image fill-430x320 as mobile_image:
+      target_var: mobile_image
+      raw:
+        url: 'https://source.unsplash.com/430x320/?nature'
