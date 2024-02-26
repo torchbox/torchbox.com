@@ -9,11 +9,10 @@ context:
           name: Will Heinemann
           role: New Business Director
         tags:
-          all:
-            - name: Digital products
-              slug: digital-products
-            - name: Wagtail
-              slug: wagtail
+          - name: Digital products
+            slug: digital-products
+          - name: Wagtail
+            slug: wagtail
       - title: Explore the potential of AI in content management
         date: 20 Oct 2023
         read_time: '5'
@@ -21,11 +20,10 @@ context:
           name: Will Heinemann
           role: New Business Director
         tags:
-          all:
-            - name: Digital products
-              slug: digital-products
-            - name: Wagtail
-              slug: wagtail
+          - name: Digital products
+            slug: digital-products
+          - name: Wagtail
+            slug: wagtail
       - title: Explore the potential of AI in content management
         date: 20 Oct 2023
         read_time: '5'
@@ -33,11 +31,10 @@ context:
           name: Will Heinemann
           role: New Business Director
         tags:
-          all:
-            - name: Digital products
-              slug: digital-products
-            - name: Wagtail
-              slug: wagtail
+          - name: Digital products
+            slug: digital-products
+          - name: Wagtail
+            slug: wagtail
 
 tags:
   pageurl:
