@@ -138,7 +138,7 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
             ],
             heading="Introductory block",
         ),
-        InlinePanel("logos", label="Partner Logos", max_num=7),
+        InlinePanel("logos", heading="Partner logos", label="logo", max_num=7),
         FieldPanel("body"),
     ]
 
