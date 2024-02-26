@@ -23,11 +23,10 @@ context:
             name: Victor Miti
             role: Developer
     tags:
-      all:
-        - name: Digital products
-          slug: digital-products
-        - name: Wagtail
-          slug: wagtail
+      - name: Digital products
+        slug: digital-products
+      - name: Wagtail
+        slug: wagtail
     related_works:
       - {
           title: We’ve launched a supporter-centred Wagtail website for Oxfam GB,
