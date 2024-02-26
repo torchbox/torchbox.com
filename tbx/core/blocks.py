@@ -112,7 +112,7 @@ class ImageWithLinkBlock(StructBlock):
 class PullQuoteBlock(StructBlock):
     quote = CharBlock(form_classname="quote title")
     attribution = CharBlock()
-    role = CharBlock()
+    role = CharBlock(required=False)
     logo = ImageChooserBlock(
         required=False,
         help_text="You may optionally add either a company logo or author image",
