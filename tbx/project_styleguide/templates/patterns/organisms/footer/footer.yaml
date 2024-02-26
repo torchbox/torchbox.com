@@ -34,19 +34,19 @@ context:
 
 tags:
   image:
-    avatar fill-144x144 format-webp as avatar_desktop:
+    avatar fill-144x144 format-webp saturation-0.6 as avatar_desktop:
       target_var: avatar_desktop
       raw:
         url: 'https://source.unsplash.com/144x144?face'
-    avatar fill-286x286 format-webp as avatar_desktop_retina:
+    avatar fill-286x286 format-webp saturation-0.6 as avatar_desktop_retina:
       target_var: avatar_desktop_retina
       raw:
         url: 'https://source.unsplash.com/286x286?face'
-    avatar fill-72x72 format-webp as avatar_mobile:
+    avatar fill-72x72 format-webp saturation-0.6 as avatar_mobile:
       target_var: avatar_mobile
       raw:
         url: 'https://source.unsplash.com/72x72?face'
-    logo.image max-100x100 format-webp loading="lazy" class="footer__logo" alt=link.text:
+    logo.image max-100x100 format-webp saturation-0.6 loading="lazy" class="footer__logo" alt=link.text:
       raw: |
         <img src="https://source.unsplash.com/100x100?logo" width="100" height="100" alt="test alt" class="footer__logo">
   footerlinks:
