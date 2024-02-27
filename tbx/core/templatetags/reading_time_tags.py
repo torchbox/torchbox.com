@@ -3,8 +3,7 @@ from datetime import timedelta
 from django import template
 
 from bs4 import BeautifulSoup
-from tbx.core.blocks import ImageBlock
-from tbx.core.blocks import WideImageBlock
+from tbx.core.blocks import ImageBlock, WideImageBlock
 
 register = template.Library()
 
