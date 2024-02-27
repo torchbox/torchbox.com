@@ -11,6 +11,8 @@ Streamfield data that did not match with our new definitions had data migrations
 - Wide image was mapped to the Image streamfield
 - Aligned image was mapped to the new Image streamfield
 
+Note: we subsequently re-added a wide image block, but this is for new images only, not imported ones.
+
 ## Work pages and historical work pages
 
 The new work page template has a nested structure with top level headings and child streamfields. The old data could not be mapped across, so we have 2 page types: `HistoricalWorkPage` and `WorkPage`. Editors are prevented in the admin interface from creating new historical work pages, but can edit them.
