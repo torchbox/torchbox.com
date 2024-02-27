@@ -94,6 +94,10 @@
 
         &--hidden {
             display: none;
+
+            @media (scripting: none) {
+                display: block;
+            }
         }
     }
 
