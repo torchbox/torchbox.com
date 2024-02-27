@@ -52,32 +52,30 @@
         border-color: var(--color--light-background-text);
     }
 
+    &__divider {
+        margin: $spacer-medium 0 $spacer-small;
+        color: rgba($color--grey-70, 0.2);
+    }
+
     &__link {
-        text-decoration: underline;
-        margin-top: $spacer-medium;
-        padding-top: $spacer-small;
-        border-top: 1px solid rgba(76, 76, 76, 0.2);
+        @include link-styles(
+            var(--color--light-background-text),
+            var(--color--light-background-text)
+        );
+        width: fit-content;
+    }
+
+    &__picture {
+        height: 320px;
+
+        @include media-query(large) {
+            height: 100%;
+        }
     }
 
     &__image {
         width: 100%;
-        min-height: 320px;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-
-        &--mobile {
-            display: block;
-            @include media-query(large) {
-                display: none;
-            }
-        }
-
-        &--desktop {
-            display: none;
-            @include media-query(large) {
-                display: block;
-            }
-        }
+        height: 100%;
+        object-fit: cover;
     }
 }
