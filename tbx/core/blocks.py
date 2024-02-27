@@ -332,10 +332,11 @@ class WorkChooserBlock(blocks.StructBlock):
 class PhotoCollageBlock(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255)
     intro = blocks.TextBlock(label="Introduction")
-    page = blocks.PageChooserBlock(required=False)
+    page = blocks.PageChooserBlock(required=False, label="Button link")
     link_text = blocks.CharBlock(
         required=False,
         max_length=55,
+        label="Button text",
     )
     images = blocks.ListBlock(
         ImageWithAltTextBlock(label="Photo"),
