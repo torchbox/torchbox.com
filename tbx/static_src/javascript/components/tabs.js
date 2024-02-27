@@ -9,7 +9,8 @@ class Tabs {
         this.allTabPanels = this.tabset.querySelectorAll('[data-tab-panel]');
         this.activeTabClass = 'tabs__nav-item--active';
         this.inactiveTabPaneClass = 'tabs__panel--hidden';
-        this.updateHistory = false; // change to true if you would like a tab change to update the url and page history
+        this.updateHistory = true; // change to true if you would like a tab change to update the url and page history
+
         this.setActiveHashTab();
 
         this.bindEvents();
@@ -29,9 +30,9 @@ class Tabs {
     setActiveHashTab() {
         let path = window.location.href.split('#')[1];
         // If the user goes back to the first tab with the back button,
-        // path will be undefined, so manually set it to tab-tab-1
+        // path will be undefined
         if (!path) {
-            path = 'tab-tab-1';
+            path = '';
         }
 
         this.allTabPanels.forEach((tabPanel) => {

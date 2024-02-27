@@ -2,7 +2,7 @@ context:
   value:
     title: Putting people at the heart of our process
     intro: Cover the full spectrum of SEO, so whether you need a quick site health check, some training and support or a full SEO strategy, we can help.
-    tabs:
+    tabbed_paragraph_sections:
       - name: Strategy and consultancy
         summary: Gathering insights into people’s needs and behaviours to inform and guide design solutions.
         text: <p>By empathizing with users, designers can identify pain points and opportunities, creating more effective and user-friendly products. This process is ongoing, adapting to evolving user needs, ensuring solutions remain relevant and effective over time.</p>

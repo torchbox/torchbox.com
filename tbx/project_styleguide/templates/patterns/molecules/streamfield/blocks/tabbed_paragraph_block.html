@@ -17,11 +17,11 @@
     {# desktop - tabs #}
     <div class="tabs tabbed-paragraph__tab-set" data-tab-set>
         <div class="tabs__nav-container" role="tablist" aria-label="Tabs">
-            {% for tab in value.tabs %}
+            {% for tab in value.tabbed_paragraph_sections %}
                 <a
                     id="{{ tab.name|slugify }}"
                     class="tabs__nav-item {% if forloop.counter == 1 %}tabs__nav-item--active{% endif %}"
-                    href="#tab-{{ tab.title|slugify }}"
+                    href="#tab-{{ tab.name|slugify }}"
                     role="tab"
                     aria-controls="{{ tab.name|slugify }}"
                     data-tab="tab-{{ tab.name|slugify }}"
@@ -37,7 +37,7 @@
             {% endfor %}
         </div>
 
-        {% for item in value.tabs %}
+        {% for item in value.tabbed_paragraph_sections %}
             <div class="tabs__panel {% if not forloop.counter == 1 %}tabs__panel--hidden{% endif %}" id="tab-{{ item.name|slugify }}" role="tabpanel" aria-labelledby="{{ item.name|slugify }}" data-tab-panel>
                 <div class="tabs__panel-summary">
                     {{ item.summary }}
@@ -65,7 +65,7 @@
     </div>
 
     {# mobile - uses details and summary to create an accordion #}
-    {% for tab in value.tabs %}
+    {% for tab in value.tabbed_paragraph_sections %}
         <details class="tabs-mobile">
             <summary class="tabs-mobile__summary">
                 {% comment %} {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="tabs__" %} {% endcomment %}
