@@ -8,15 +8,15 @@ tags:
       raw: '<img alt="Jeth-JulyImage_from_iOS" class="featured-case-study__image" height="225" sizes="(max-width: 1022px) 90vw, (max-width: 1789px) 50vw, (min-width: 1800px) 1120px" src="https://source.unsplash.com/400x225?tech" srcset="https://source.unsplash.com/400x225?tech 400w, https://source.unsplash.com/800x450?tech 800w, https://source.unsplash.com/1600x900?tech 1280w, https://source.unsplash.com/1280x720?tech 1280w" width="400">'
 
     # photo collage
-    'image format-webp loading="lazy" fill-{408x405,816x810} sizes="(max-width: 598px) 816px, (min-width: 599px) 408px" class="photo-collage__image"':
+    'item.image format-webp saturation-0.6 loading="lazy" fill-{348x484,696x968} sizes="(max-width: 598px) 696px, (min-width: 599px) 348px" class="photo-collage__image" alt=item.image_alt_text':
       raw: |
-        <img src="https://source.unsplash.com/408x405?people" class="photo-collage__image">
-    'image format-webp loading="lazy" fill-{348x484,696x968} sizes="(max-width: 598px) 696px, (min-width: 599px) 348px" class="photo-collage__image"':
+        <img alt="alt text" class="photo-collage__image" height="484" loading="lazy" sizes="(max-width: 598px) 696px, (min-width: 599px) 348px" src="https://source.unsplash.com/348x484?people" srcset="https://source.unsplash.com/408x405?people 348w, https://source.unsplash.com/696x968?people 470w" width="348">
+    'item.image format-webp saturation-0.6 loading="lazy" fill-{408x405,816x810} sizes="(max-width: 598px) 816px, (min-width: 599px) 408px" class="photo-collage__image" alt=item.image_alt_text':
       raw: |
-        <img src="https://source.unsplash.com/348x484?people" class="photo-collage__image">
-    'image format-webp loading="lazy" fill-{288x288,576x576} sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" class="photo-collage__image"':
+        <img alt="alt text" class="photo-collage__image" height="405" loading="lazy" sizes="(max-width: 598px) 816px, (min-width: 599px) 408px" src="https://source.unsplash.com/408x405?people" srcset="https://source.unsplash.com/408x405?people 408w, https://source.unsplash.com/816x810?people 816w" width="408">
+    'item.image format-webp saturation-0.6 loading="lazy" fill-{288x288,576x576} sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" class="photo-collage__image" alt=item.image_alt_text':
       raw: |
-        <img src="https://source.unsplash.com/288x288?people" class="photo-collage__image">
+        <img alt="alt text" class="photo-collage__image" height="288" loading="lazy" sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" src="https://source.unsplash.com/288x288?people" srcset="https://source.unsplash.com/288x288?people 288w, https://source.unsplash.com/576x576?people 576w" width="288">
   image:
     # Featured case study logo
     value.featured_case_study_logo max-110x70 format-webp class="featured-case-study__company-logo":
