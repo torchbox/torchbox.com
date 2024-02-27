@@ -88,7 +88,7 @@
         }
     }
 
-    &__image {
+    &__wide-image {
         margin-bottom: $spacer-medium;
         grid-column: 1 / span 6;
 
@@ -173,7 +173,8 @@
     &__raw-html,
     &__markdown,
     &__embed,
-    &__stats {
+    &__stats,
+    &__image {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
 
@@ -293,7 +294,7 @@
             }
         }
 
-        &__image {
+        &__wide-image {
             @include media-query(large) {
                 grid-column: 5 / span 11;
             }
@@ -372,7 +373,7 @@
             }
         }
 
-        &__image {
+        &__wide-image {
             @include media-query(large) {
                 grid-column: 2 / span 11;
             }

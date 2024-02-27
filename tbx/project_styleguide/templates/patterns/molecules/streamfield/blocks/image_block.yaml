@@ -7,5 +7,5 @@ context:
 
 tags:
   srcset_image:
-    'value.image format-webp saturation-0.6 fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt=value.alt_text':
-      raw: '<img alt="Screenshot of workshop to establish tone" height="225" sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" src="https://source.unsplash.com/400x225?trees" srcset="https://source.unsplash.com/400x225?trees 400w, https://source.unsplash.com/800x450?trees 800w, https://source.unsplash.com/1600x900?trees 1153w, https://source.unsplash.com/1280x720?trees 1153w" width="400">'
+    'value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" alt=value.alt_text':
+      raw: '<img alt="Screenshot of workshop to establish tone" height="225" loading="lazy" sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" src="https://source.unsplash.com/400x225?trees" srcset="https://source.unsplash.com/400x225?trees 400w, https://source.unsplash.com/900x506?trees 900w, https://source.unsplash.com/1600x900?trees 900w, https://source.unsplash.com/1800x1013?trees 1600w" width="400">'

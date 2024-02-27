@@ -1,6 +1,7 @@
 @use "config" as *;
 
-.image {
+.image,
+.wide-image {
     $root: &;
 
     img {
