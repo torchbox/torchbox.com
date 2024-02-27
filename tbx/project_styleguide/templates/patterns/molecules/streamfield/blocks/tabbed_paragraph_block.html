@@ -48,16 +48,14 @@
     {% for tab in value.tabbed_paragraph_sections %}
         <details class="tabs-mobile">
             <summary class="tabs-mobile__summary">
-                {% comment %} {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="tabs__" %} {% endcomment %}
-
-                <div class="tabs-mobile__header">
-                    <div class="tabs-mobile__rings">
+                <span class="tabs-mobile__header">
+                    <span class="tabs-mobile__rings">
                         {% include "patterns/atoms/icons/icon.html" with name="ring-one" classname="icon--stroke tabs-mobile__ring tabs-mobile__ring--one" %}
                         {% include "patterns/atoms/icons/icon.html" with name="ring-two" classname="icon--stroke tabs-mobile__ring tabs-mobile__ring--two" %}
-                    </div>
-                    <div class="tabs-mobile__header-text">{{ tab.name }}</div>
+                    </span>
+                    <span class="tabs-mobile__header-text">{{ tab.name }}</span>
                     {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="tabs-mobile__chevron" %}
-                </div>
+                </span>
             </summary>
             <div class="tabs-mobile__info">
                 <div class="tabs-mobile__summary-text">
