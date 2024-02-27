@@ -4,27 +4,22 @@
     {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=value.title heading_level=2 classes="tabbed-paragraph__title motif-heading--two motif-heading--static" %}
     <ul class="tabbed-paragraph__list">
         {% for item in value.tabbed_paragraph_sections %}
-            <li {% if not item.button_link %}class="tabbed-paragraph__item"{% endif %}>
+            <li>
 
                 {% if item.button_link %}
                     <a href="{% pageurl item.button_link %}" class="tabbed-paragraph__item tabbed-paragraph__item--link" aria-label="{{ item.heading }}">
                 {% endif %}
 
-                <div class="tabbed-paragraph__rings">
-                    {% include "patterns/atoms/icons/icon.html" with name="ring-one" classname="icon--stroke tabbed-paragraph__ring tabbed-paragraph__ring--one" %}
-                    {% include "patterns/atoms/icons/icon.html" with name="ring-two" classname="icon--stroke tabbed-paragraph__ring tabbed-paragraph__ring--two" %}
-                </div>
-
-                <div class="tabbed-paragraph__content">
-                    <h3 class="tabbed-paragraph__heading{% if item.page %} tabbed-paragraph__heading--with-icon{% endif %}">
+                <div>
+                    <h3>
                         {{ item.button_text }}
                         {% if item.button_link %}
                             {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="tabbed-paragraph__icon" %}
                         {% endif %}
                     </h3>
 
-                    <p class="tabbed-paragraph__summary">{{ item.summary }}</p>
-                    <p class="tabbed-paragraph__summary">{{ item.text }}</p>
+                    <p>{{ item.summary }}</p>
+                    <p>{{ item.text }}</p>
                 </div>
 
                 {% if item.button_link %}
