@@ -44,6 +44,7 @@ $color--mid-grey: #282e30; // in figma this colour is created with a very transp
     --color--background: #{$color--eclipse};
     --color--nav-text: #{$color--grey-5};
     --color--nav-border: #{color.adjust($color--eclipse, $alpha: -0.5)};
+    --color--light-background-text: #{$color--eclipse};
     --color--heading: #{$color--white};
     --color--text: #{$color--grey-20};
     --color--link: #{$color--white};
@@ -261,6 +262,7 @@ $spacer-mini-plus: 20px;
 $spacer-small: ($spacer-mini * 2); // 30px
 $spacer-small-plus: 40px;
 $spacer-medium: ($spacer-mini * 4); // 60px
+$spacer-medium-plus: 100px;
 $spacer-large: ($spacer-mini * 8); // 120px
 $spacer: 160px;
 $spacer-half: ($spacer * 0.5); // 80px

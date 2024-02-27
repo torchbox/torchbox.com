@@ -171,7 +171,7 @@ class VideoBlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/video_block.html"
 
 
-class CallToActionStructValue(blocks.StructValue):
+class ButtonLinkStructValue(blocks.StructValue):
     # return an href-ready value for button_link
     def get_button_link(self):
         block = self.get("button_link")[0]
@@ -202,7 +202,7 @@ class CallToActionBlock(blocks.StructBlock):
 
     class Meta:
         template = "patterns/molecules/streamfield/blocks/call_to_action.html"
-        value_class = CallToActionStructValue
+        value_class = ButtonLinkStructValue
 
 
 class ContactCTABlock(blocks.StructBlock):
@@ -329,6 +329,28 @@ class WorkChooserBlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/work_chooser_block.html"
 
 
+class PromoBlock(blocks.StructBlock):
+    title = blocks.TextBlock()
+    description = blocks.TextBlock()
+    image = ImageChooserBlock()
+    button_text = blocks.CharBlock(max_length=55)
+    button_link = blocks.StreamBlock(
+        [
+            ("internal_link", blocks.PageChooserBlock()),
+            ("external_link", blocks.URLBlock()),
+            ("email", blocks.EmailBlock()),
+        ],
+        required=True,
+        max_num=1,
+    )
+    secondary_link = LinkBlock(required=False, label="Secondary link")
+
+    class Meta:
+        icon = "link"
+        template = "patterns/molecules/streamfield/blocks/promo_block.html"
+        value_class = ButtonLinkStructValue
+
+
 class PhotoCollageBlock(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255)
     intro = blocks.TextBlock(label="Introduction")
@@ -448,3 +470,4 @@ class HomePageStoryBlock(StoryBlock):
     blog_chooser = BlogChooserBlock()
     work_chooser = WorkChooserBlock()
     photo_collage = PhotoCollageBlock()
+    promo = PromoBlock()

@@ -1,0 +1,24 @@
+{% load wagtailimages_tags %}
+
+<div class="grid__promo promo-block">
+    <div class="promo-block__content">
+        {% include "patterns/atoms/section-title/section-title.html" with title=value.title classes="promo-block__title" %}
+        <p class="promo-block__description">{{ value.description }}</p>
+        <a href="{{ value.get_button_link }}" class="button promo-block__button">{{ value.button_text }}</a>
+        {% if value.secondary_link %}
+            <hr class="promo-block__divider" />
+            {% with secondary_link=value.secondary_link.0.value %}
+                <a href="{{ secondary_link.url }}" class="promo-block__link">{{ secondary_link.text }}</a>
+            {% endwith %}
+        {% endif %}
+    </div>
+    {% image value.image fill-430x320 format-webp saturation-0.6 as mobile_image %}
+    {% image value.image fill-860x640 format-webp saturation-0.6 as mobile_image_retina %}
+    {% image value.image fill-520x630 format-webp saturation-0.6 as desktop_image %}
+    {% image value.image fill-1040x1260 format-webp saturation-0.6 as desktop_image_retina %}
+    <picture class="promo-block__picture">
+        <source media="(max-width: 598px)" srcset="{{ mobile_image.url }} 1x, {{ mobile_image_retina.url }} 2x" />
+        <source media="(min-width: 599px)" srcset="{{ desktop_image.url }} 1x, {{ desktop_image_retina.url }} 2x" />
+        <img src="{{ desktop_image.url }}" alt="" loading="lazy" class="promo-block__image" />
+    </picture>
+</div>
