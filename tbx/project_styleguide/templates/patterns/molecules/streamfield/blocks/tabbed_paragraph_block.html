@@ -1,17 +1,9 @@
 {% load wagtailcore_tags %}
 
 <div class="tabbed-paragraph grid__tabbed-paragraph">
-<<<<<<< HEAD
-=======
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=value.title heading_level=2 classes="tabbed-paragraph__title motif-heading--two motif-heading--static" %}
-    <ul class="tabbed-paragraph__list">
-        {% for item in value.tabbed_paragraph_sections %}
-            <li>
->>>>>>> 2f8caf9 (Simplify FE code for easier merge)
 
     {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.title classes="motif-heading--two motif-heading--static tabbed-paragraph__heading" %}
 
-<<<<<<< HEAD
     <p class="tabbed-paragraph__intro">{{ value.intro }}</p>
 
     {# desktop - tabs #}
@@ -44,18 +36,6 @@
                 </div>
                 <div class="tabs__panel-text">
                     {{ item.text|richtext }}
-=======
-                <div>
-                    <h3>
-                        {{ item.button_text }}
-                        {% if item.button_link %}
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="tabbed-paragraph__icon" %}
-                        {% endif %}
-                    </h3>
-
-                    <p>{{ item.summary }}</p>
-                    <p>{{ item.text }}</p>
->>>>>>> 2f8caf9 (Simplify FE code for easier merge)
                 </div>
                 {% if item.button_text and item.button_link %}
                     <a href="{{ item.button_link }}" class="button tabs__panel-button">{{ item.button_text }}</a>
