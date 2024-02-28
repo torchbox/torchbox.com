@@ -427,6 +427,11 @@ class StoryBlock(blocks.StreamBlock):
     )
     image = ImageBlock(
         template="patterns/molecules/streamfield/blocks/image_block.html",
+        group="Images",
+    )
+    wide_image = ImageBlock(
+        template="patterns/molecules/streamfield/blocks/wide_image_block.html",
+        group="Images",
     )
     call_to_action = CallToActionBlock(
         label="Call to Action",

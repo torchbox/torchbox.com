@@ -46,8 +46,8 @@ tags:
       template_name: 'patterns/molecules/streamfield/blocks/work_section_block.html'
   srcset_image:
     # header image
-    'page.header_image format-webp  saturation-0.6 fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" loading="lazy"':
-      raw: '<img alt="" height="225" loading="lazy" sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" src="https://source.unsplash.com/400x225?trees" srcset="https://source.unsplash.com/400x225?trees 400w, https://source.unsplash.com/800x450?trees 800w, https://source.unsplash.com/1600x900?trees 1254w, https://source.unsplash.com/1280x720?trees 1254w" width="400">'
+    'page.header_image format-webp saturation-0.6 fill-{400x175,800x350,1600x700,1280x560} sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" loading="lazy"':
+      raw: '<img alt="" height="225" loading="lazy" sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" src="https://source.unsplash.com/400x175?trees" srcset="https://source.unsplash.com/400x175?trees 400w, https://source.unsplash.com/800x350?trees 800w, https://source.unsplash.com/1600x700?trees 1254w, https://source.unsplash.com/1280x560?trees 1254w" width="400">'
     # avatar image for authors
     'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
       raw: |
