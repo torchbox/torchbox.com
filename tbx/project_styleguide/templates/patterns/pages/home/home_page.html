@@ -17,11 +17,9 @@
             {{ page.introduction }}
         </div>
 
-        <div class="grid__partners">
-            {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=page.partner_logos %}
-        </div>
+        {% comment %} {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=page.partner_logos %} {% endcomment %}
 
-        {% include_block page.body %}
+        {% comment %} {% include_block page.body %} {% endcomment %}
     </div>
 {% endblock %}
 
