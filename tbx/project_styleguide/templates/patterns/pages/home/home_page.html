@@ -3,16 +3,23 @@
 
 {% block content %}
     <div class="grid streamfield">
-        <div class="grid__title">
-            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.statement classes="motif-heading--one" %}
+        <div class="grid__title home-page-hero">
+            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.title classes="motif-heading--two home-page-hero__title" %}
+
+            <div class="employee-owned-icon home-page-hero__icon">
+                {% include "patterns/atoms/icons/icon.html" with name="employee-owned-text" classname="employee-owned-icon__text-icon" %}
+                {% include "patterns/atoms/icons/icon.html" with name="heart-outline" classname="employee-owned-icon__heart-outline-icon" %}
+                {% include "patterns/atoms/icons/icon.html" with name="heart-fill" classname="employee-owned-icon__heart-fill-icon" %}
+            </div>
         </div>
+
         <div class="grid__intro heading heading--six">
             {{ page.introduction }}
         </div>
 
-        {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=page.partner_logos %}
+        {% comment %} {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=page.partner_logos %} {% endcomment %}
 
-        {% include_block page.body %}
+        {% comment %} {% include_block page.body %} {% endcomment %}
     </div>
 {% endblock %}
 
