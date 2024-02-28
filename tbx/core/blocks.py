@@ -110,22 +110,6 @@ class ImageBlock(ImageWithAltTextBlock):
     attribution = blocks.CharBlock(required=False)
 
 
-class WideImageBlock(ImageWithAltTextBlock):
-    """
-    An image that is rendered wider in the template than an ImageBlock.
-    In addition to specifying optional alt text for an image, this block allows
-    for specifying a caption, attribution and whether the image is decorative.
-    """
-
-    image_is_decorative = blocks.BooleanBlock(
-        required=False,
-        default=False,
-        help_text="If checked, this will make the alt text empty.",
-    )
-    caption = blocks.CharBlock(required=False)
-    attribution = blocks.CharBlock(required=False)
-
-
 class ImageWithLinkBlock(blocks.StructBlock):
     image = ImageChooserBlock()
     link = LinkBlock(required=False)
@@ -443,9 +427,11 @@ class StoryBlock(blocks.StreamBlock):
     )
     image = ImageBlock(
         template="patterns/molecules/streamfield/blocks/image_block.html",
+        group="Images"
     )
-    wide_image = WideImageBlock(
+    wide_image = ImageBlock(
         template="patterns/molecules/streamfield/blocks/wide_image_block.html",
+        group="Images"
     )
     call_to_action = CallToActionBlock(
         label="Call to Action",

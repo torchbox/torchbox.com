@@ -3,7 +3,7 @@ from datetime import timedelta
 from django import template
 
 from bs4 import BeautifulSoup
-from tbx.core.blocks import ImageBlock, WideImageBlock
+from tbx.core.blocks import ImageBlock
 
 register = template.Library()
 
@@ -46,8 +46,6 @@ def get_reading_time_minutes(context, page, streamfield_name):
         for block in content_stream_value:
             # Images
             if isinstance(block.block, ImageBlock):
-                total_seconds += SECONDS_PER_IMAGE
-            if isinstance(block.block, WideImageBlock):
                 total_seconds += SECONDS_PER_IMAGE
 
         reading_time = timedelta(seconds=total_seconds)
