@@ -1,5 +1,6 @@
 from tbx.core.blocks import (
     BlogChooserBlock,
+    EventBlock,
     FeaturedCaseStudyBlock,
     PhotoCollageBlock,
     PromoBlock,
@@ -33,3 +34,4 @@ class ServiceStoryBlock(StoryBlock):
     photo_collage = PhotoCollageBlock()
     promo = PromoBlock()
     tabbed_paragraph = TabbedParagraphBlock()
+    event = EventBlock()

@@ -158,7 +158,8 @@
         }
     }
 
-    &__promo {
+    &__promo,
+    &__event {
         // right to the right-hand edge at mobile and tablet
         grid-column: 1 / span 6;
 

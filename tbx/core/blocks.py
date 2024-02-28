@@ -174,9 +174,12 @@ class VideoBlock(blocks.StructBlock):
 
 
 class ButtonLinkStructValue(blocks.StructValue):
+    def get_button_link_block(self):
+        return self.get("button_link")[0]
+
     # return an href-ready value for button_link
     def get_button_link(self):
-        block = self.get("button_link")[0]
+        block = self.get_button_link_block()
         if (block_type := block.block_type) == "internal_link":
             # Ensure page exists and is live.
             if block.value and block.value.live:
@@ -329,6 +332,65 @@ class WorkChooserBlock(blocks.StructBlock):
     class Meta:
         icon = "link"
         template = "patterns/molecules/streamfield/blocks/work_chooser_block.html"
+
+
+class EventLinkStructValue(ButtonLinkStructValue):
+    def get_button_link_block(self):
+        return self.get("url")[0]
+
+
+class EventBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255)
+    url = blocks.StreamBlock(
+        [
+            ("internal_link", blocks.PageChooserBlock()),
+            ("external_link", blocks.URLBlock()),
+            ("email", blocks.EmailBlock()),
+        ],
+        required=True,
+        max_num=1,
+    )
+    type = blocks.ListBlock(
+        SnippetChooserBlock("torchbox.EventType"),
+        min_num=1,
+    )
+    start_date = blocks.DateBlock()
+    start_time = blocks.TimeBlock(required=False)
+    end_date = blocks.DateBlock(required=False)
+    end_time = blocks.TimeBlock(required=False)
+    location = blocks.TextBlock(required=False)
+    image = ImageChooserBlock()
+    secondary_link = LinkBlock(required=False, label="Secondary link")
+
+    class Meta:
+        icon = "date"
+        template = "patterns/molecules/streamfield/blocks/event_block.html"
+        value_class = EventLinkStructValue
+
+    def clean(self, value):
+        struct_value = super().clean(value)
+
+        errors = {}
+        start_date = value.get("start_date")
+        start_time = value.get("start_time")
+        end_date = value.get("end_date")
+        end_time = value.get("end_time")
+
+        if end_date and end_date < start_date:
+            errors["end_date"] = ErrorList(
+                [ValidationError("End date cannot be earlier than start date.")]
+            )
+        if end_date and end_date == start_date and end_time and end_time < start_time:
+            errors["end_time"] = ErrorList(
+                [
+                    ValidationError(
+                        "End time cannot be earlier than start time on the same day."
+                    )
+                ]
+            )
+        if errors:
+            raise StructBlockValidationError(errors)
+        return struct_value
 
 
 class PromoBlock(blocks.StructBlock):
@@ -529,3 +591,4 @@ class HomePageStoryBlock(StoryBlock):
     photo_collage = PhotoCollageBlock()
     promo = PromoBlock()
     tabbed_paragraph = TabbedParagraphBlock()
+    event = EventBlock()

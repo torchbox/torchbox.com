@@ -11,8 +11,17 @@ from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, Page
 from wagtail.search import index
+from wagtail.snippets.models import register_snippet
 
 from .blocks import HomePageStoryBlock, StoryBlock
+
+
+@register_snippet
+class EventType(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 # A couple of abstract classes that contain commonly used fields

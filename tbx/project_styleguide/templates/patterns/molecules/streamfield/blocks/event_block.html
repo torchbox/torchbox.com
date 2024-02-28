@@ -1,8 +1,8 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags util_tags %}
 
 <div class="grid__event event-block">
     <div class="event-block__content">
-        <a class="event-block__title" href="#" aria-label="{{ value.title }}">
+        <a class="event-block__title" href="{{ value.get_button_link }}" aria-label="{{ value.title }}">
             <h2>
                 {{ value.title }}
                 {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-avatar__arrow listing__arrow" %}
@@ -13,19 +13,25 @@
                 {% include "patterns/atoms/icons/icon.html" with name="calendar" classname="event-block__meta-item-icon" %}
                 <div class="event-block__meta-item-content">
                     <span class="event-block__meta-item-title">Event type</span>
-                    <span class="event-block__meta-item-value">{{ value.event_type }}</span>
+                    <span class="event-block__meta-item-value">
+                        {% for event_type in value.type %}
+                            {{ event_type }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </span>
                 </div>
             </div>
             <div class="event-block__meta-item">
                 <div class="event-block__meta-item-content">
                     <span class="event-block__meta-item-title">When</span>
-                    <span class="event-block__meta-item-value">12 Mar 2024, 2-4pm</span>
+                    <span class="event-block__meta-item-value">
+                        {% format_date_for_event value.start_date value.start_time value.end_date value.end_time %}
+                    </span>
                 </div>
             </div>
             <div class="event-block__meta-item">
                 <div class="event-block__meta-item-content">
                     <span class="event-block__meta-item-title">Where</span>
-                    <span class="event-block__meta-item-value">Zoom, Bristol</span>
+                    <span class="event-block__meta-item-value">{{ value.location }}</span>
                 </div>
             </div>
         </div>
@@ -36,10 +42,10 @@
             {% endwith %}
         {% endif %}
     </div>
-    {% image value.image fill-430x320 as mobile_image %}
-    {% image value.image fill-860x640 as mobile_image_retina %}
-    {% image value.image fill-525x510 as desktop_image %}
-    {% image value.image fill-1050x1020 as desktop_image_retina %}
+    {% image value.image fill-430x320 format-webp saturation-0.6 as mobile_image %}
+    {% image value.image fill-860x640 format-webp saturation-0.6 as mobile_image_retina %}
+    {% image value.image fill-525x510 format-webp saturation-0.6 as desktop_image %}
+    {% image value.image fill-1050x1020 format-webp saturation-0.6 as desktop_image_retina %}
     <picture class="event-block__picture">
         <source media="(max-width: 598px)" srcset="{{ mobile_image.url }} 1x, {{ mobile_image_retina.url }} 2x" />
         <source media="(min-width: 599px)" srcset="{{ desktop_image.url }} 1x, {{ desktop_image_retina.url }} 2x" />
