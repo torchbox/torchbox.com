@@ -12,31 +12,19 @@
     }
 
     &__rings {
+        @include rings($width: 33px);
         display: block;
-        position: relative;
-        width: 33px;
-        flex-shrink: 0;
     }
 
     &__ring {
-        position: absolute;
-        inset: 0;
-        width: 30px;
-        height: 30px;
-        opacity: 0.75;
-
-        @include reduced-motion() {
-            transition: none;
-        }
+        @include ring($diameter: 30px, $opacity: 0.75);
 
         &--one {
-            top: 3px;
-            color: var(--color--accent-two);
+            @include ring-one($top: 3px, $color: var(--color--accent-two));
         }
 
         &--two {
-            left: 3px;
-            color: var(--color--accent-three);
+            @include ring-two($top: 3px, $color: var(--color--accent-three));
         }
     }
 }

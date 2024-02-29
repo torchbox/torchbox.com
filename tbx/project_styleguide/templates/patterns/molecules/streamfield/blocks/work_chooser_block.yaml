@@ -8,29 +8,26 @@ context:
           date: 26 Sep 2018
           read_time: '3'
           tags:
-            all:
-              - name: Digital products
-                slug: digital-products
-              - name: Wagtail
-                slug: wagtail
+            - name: Digital products
+              slug: digital-products
+            - name: Wagtail
+              slug: wagtail
       - title: Multi-awarding winning site for one of the world's leading universities
         specific:
           client: University of Oxford
           date: 19 Feb 2016
           read_time: '4'
           tags:
-            all:
-              - name: Digital products
-                slug: digital-products
+            - name: Digital products
+              slug: digital-products
       - title: A PWA in 4 weeks for Mozilla (oh yeah!)
         specific:
           client: Mozilla
           date: 5 Dec 2018
           read_time: '4'
           tags:
-            all:
-              - name: Digital products
-                slug: digital-products
+            - name: Digital products
+              slug: digital-products
 
 tags:
   pageurl:

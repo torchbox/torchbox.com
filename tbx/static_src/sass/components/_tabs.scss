@@ -1,12 +1,119 @@
 @use "config" as *;
 
+// used for the tabs in the tabbed paragraph block - at desktop only
 .tabs {
+    $root: &;
+    display: none;
+    gap: $spacer-half;
+
+    @include media-query('large') {
+        display: flex;
+    }
+
+    &__nav-container {
+        flex-basis: 50%;
+        color: var(--color--heading);
+    }
+
+    &__nav-item {
+        @include font-size('heading-four');
+        @include link-styles(
+            $color: var(--color--heading),
+            $interaction-color: var(--color--heading)
+        );
+        font-weight: $weight--semibold;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        margin-bottom: $spacer-small;
+
+        &:focus {
+            @include focus-style();
+        }
+
+        &--active {
+            // for high contrast mode
+            outline: 1px solid transparent;
+        }
+    }
+
+    &__rings {
+        @include rings();
+        top: -20px;
+        margin-right: $spacer-small;
+    }
+
+    &__ring {
+        @include ring();
+
+        &--one {
+            @include ring-one();
+
+            #{$root}__nav-item:focus &,
+            #{$root}__nav-item:hover & {
+                @include ring-one-hover();
+            }
+        }
+
+        &--two {
+            @include ring-two();
+
+            #{$root}__nav-item:focus &,
+            #{$root}__nav-item:hover & {
+                @include ring-two-hover();
+            }
+        }
+    }
+
+    &__nav-text {
+        flex-basis: calc(100% - 182px);
+    }
+
+    &__nav-arrow {
+        flex-basis: 182px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        width: 182px;
+        height: 22px;
+        opacity: 0;
+        transition: opacity $transition-quick;
+        color: var(--color--text);
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        #{$root}__nav-item--active & {
+            opacity: 1;
+        }
+    }
+
     &__panel {
-        padding: 20px;
+        // for high contrast mode
         outline: 1px solid transparent;
+        flex-basis: 50%;
 
         &--hidden {
             display: none;
+
+            @media (scripting: none) {
+                display: block;
+            }
         }
+    }
+
+    &__panel-summary {
+        @include font-size('heading-four');
+        font-weight: $weight--light;
+        color: var(--color--heading);
+        margin-bottom: $spacer-small;
+    }
+
+    &__panel-text {
+        @include font-size('body-one');
+    }
+
+    &__panel-button {
+        margin-top: $spacer-medium;
     }
 }

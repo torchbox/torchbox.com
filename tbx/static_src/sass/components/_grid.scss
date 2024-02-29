@@ -128,7 +128,8 @@
         }
     }
 
-    &__showcase {
+    &__showcase,
+    &__tabbed-paragraph {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
 
