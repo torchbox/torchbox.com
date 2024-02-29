@@ -11,7 +11,7 @@ from django.utils.functional import cached_property
 from django.utils.http import urlencode
 
 from bs4 import BeautifulSoup
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.fields import ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.people.models import ContactMixin
