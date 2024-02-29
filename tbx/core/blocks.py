@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
@@ -351,6 +353,56 @@ class PromoBlock(blocks.StructBlock):
         value_class = ButtonLinkStructValue
 
 
+class TabbedParagraphBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255)
+    intro = blocks.TextBlock(label="Introduction")
+    tabbed_paragraph_sections = blocks.ListBlock(
+        blocks.StructBlock(
+            [
+                ("name", blocks.CharBlock()),
+                ("summary", blocks.TextBlock()),
+                ("text", blocks.RichTextBlock()),
+                ("button_text", blocks.CharBlock(required=False)),
+                ("button_link", blocks.PageChooserBlock(required=False)),
+            ],
+            help_text="Add a tabbed paragraph, with a name, summary, text and an optional page link & button text",
+            icon="breadcrumb-expand",
+        ),
+        min_num=2,
+        help_text="Add at least two tabbed paragraph sections",
+    )
+
+    def clean(self, value):
+        value = super().clean(value)
+        errors = defaultdict(ErrorList)
+        non_block_errors = ErrorList()
+
+        for tabbed_paragraph_section in value["tabbed_paragraph_sections"]:
+            button_values = {
+                "button_link": tabbed_paragraph_section["button_link"],
+                "button_text": tabbed_paragraph_section["button_text"],
+            }
+
+            if any(button_values.values()) and not all(button_values.values()):
+                message = "There must be a value for both button link and text, if one has a value."
+
+                for key, value in button_values.items():
+                    if not value:
+                        errors[key].append(message)
+                        non_block_errors.append(ValidationError(message))
+
+        if errors:
+            raise blocks.StructBlockValidationError(
+                block_errors=errors, non_block_errors=non_block_errors
+            )
+
+        return value
+
+    class Meta:
+        icon = "list-ul"
+        template = "patterns/molecules/streamfield/blocks/tabbed_paragraph_block.html"
+
+
 class PhotoCollageBlock(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255)
     intro = blocks.TextBlock(label="Introduction")
@@ -476,3 +528,4 @@ class HomePageStoryBlock(StoryBlock):
     work_chooser = WorkChooserBlock()
     photo_collage = PhotoCollageBlock()
     promo = PromoBlock()
+    tabbed_paragraph = TabbedParagraphBlock()

@@ -5,6 +5,7 @@ from tbx.core.blocks import (
     PromoBlock,
     ShowcaseBlock,
     StoryBlock,
+    TabbedParagraphBlock,
     WorkChooserBlock,
 )
 from wagtail import blocks
@@ -31,3 +32,4 @@ class ServiceStoryBlock(StoryBlock):
     work_chooser = WorkChooserBlock()
     photo_collage = PhotoCollageBlock()
     promo = PromoBlock()
+    tabbed_paragraph = TabbedParagraphBlock()
