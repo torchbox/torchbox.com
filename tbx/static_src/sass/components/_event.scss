@@ -9,7 +9,7 @@
     @include media-query(large) {
         grid-template-columns: 3fr 2fr;
         column-gap: $spacer-half;
-        height: 500px;
+        min-height: 500px;
     }
 
     &__content {
