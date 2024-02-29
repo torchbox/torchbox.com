@@ -1,7 +1,9 @@
 {% load wagtailimages_tags %}
 
-{% for partner_logo in partner_logos %}
-    <div class="partners__logo-wrapper">
-        {% image partner_logo max-100x90 format-webp loading="lazy" class="partners__logo" %}
-    </div>
-{% endfor %}
+<div class="partners__logos">
+    {% for partner_logo in partner_logos %}
+        <div class="partners__logo-wrapper">
+            {% image partner_logo max-100x90 format-webp loading="lazy" class="partners__logo" %}
+        </div>
+    {% endfor %}
+</div>
