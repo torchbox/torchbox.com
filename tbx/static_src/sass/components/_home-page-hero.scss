@@ -10,6 +10,10 @@
 
     &__title {
         @include media-query('large') {
+            width: 80%;
+        }
+
+        @include media-query('x-large') {
             width: 85%;
         }
     }

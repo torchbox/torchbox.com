@@ -10,12 +10,11 @@ context:
       role: Chief People and Planet Officer
 
 tags:
-  image:
-    avatar fill-144x144 format-webp saturation-0.6 as avatar_desktop:
-      target_var: avatar_desktop
-      raw:
-        url: 'https://source.unsplash.com/144x144?face'
-    avatar fill-72x72 format-webp saturation-0.6 as avatar_mobile:
-      target_var: avatar_mobile
-      raw:
-        url: 'https://source.unsplash.com/72x72?face'
+  srcset_image:
+    # avatar image
+    'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
+      raw: |
+        <img alt="" class="avatar__image" height="72" loading="lazy" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
+    'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
+      raw: |
+        <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">

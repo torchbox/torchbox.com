@@ -5,6 +5,12 @@
         display: flex;
         flex-wrap: wrap;
         gap: $spacer-mini;
+
+        .template-homepage & {
+            @include media-query('x-large') {
+                justify-content: space-between;
+            }
+        }
     }
 
     &__logo-wrapper {
@@ -16,6 +22,13 @@
         @include media-query(medium) {
             width: 160px;
             height: 160px;
+        }
+
+        .template-homepage & {
+            @include media-query('x-large') {
+                width: auto;
+                height: auto;
+            }
         }
     }
 
