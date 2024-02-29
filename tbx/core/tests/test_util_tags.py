@@ -9,13 +9,13 @@ class TestFormatDateForEvent(SimpleTestCase):
     def test_with_start_date_only(self):
         self.assertEqual(
             format_date_for_event(datetime(2021, 1, 1).date(), None, None, None),
-            "01 Jan 2021",
+            "1 Jan 2021",
         )
 
     def test_with_start_date_and_start_time(self):
         self.assertEqual(
             format_date_for_event(datetime(2021, 1, 1).date(), time(13, 0), None, None),
-            "01 Jan 2021, 1pm",
+            "1 Jan 2021, 1pm",
         )
 
     def test_with_start_date_and_end_date(self):
@@ -23,7 +23,7 @@ class TestFormatDateForEvent(SimpleTestCase):
             format_date_for_event(
                 datetime(2021, 1, 1).date(), None, datetime(2021, 1, 2).date(), None
             ),
-            "01 Jan 2021 - 02 Jan 2021",
+            "1 Jan 2021 - 2 Jan 2021",
         )
 
     def test_with_start_date_and_start_time_and_end_date_and_end_time_on_same_day(self):
@@ -34,7 +34,7 @@ class TestFormatDateForEvent(SimpleTestCase):
                 datetime(2021, 1, 1).date(),
                 time(14, 0),
             ),
-            "01 Jan 2021, 1-2pm",
+            "1 Jan 2021, 1-2pm",
         )
 
     def test_with_start_date_and_start_time_and_end_date_on_same_day_with_different_time_suffix(
@@ -47,7 +47,7 @@ class TestFormatDateForEvent(SimpleTestCase):
                 datetime(2021, 1, 1).date(),
                 time(14, 0),
             ),
-            "01 Jan 2021, 11am-2pm",
+            "1 Jan 2021, 11am-2pm",
         )
 
     def test_with_start_date_and_start_time_and_end_date_and_end_time_on_different_day(
@@ -60,7 +60,7 @@ class TestFormatDateForEvent(SimpleTestCase):
                 datetime(2021, 1, 2).date(),
                 time(14, 0),
             ),
-            "01 Jan 2021, 1pm - 02 Jan 2021, 2pm",
+            "1 Jan 2021, 1pm - 2 Jan 2021, 2pm",
         )
 
     def test_with_start_date_and_start_time_and_end_date_on_different_day_with_different_time_suffix(
@@ -73,5 +73,29 @@ class TestFormatDateForEvent(SimpleTestCase):
                 datetime(2021, 1, 2).date(),
                 time(14, 0),
             ),
-            "01 Jan 2021, 11am - 02 Jan 2021, 2pm",
+            "1 Jan 2021, 11am - 2 Jan 2021, 2pm",
+        )
+
+    def test_with_start_date_and_end_date_and_end_time_on_same_day(
+        self,
+    ):
+        self.assertEqual(
+            format_date_for_event(
+                datetime(2021, 1, 1).date(),
+                None,
+                datetime(2021, 1, 1).date(),
+                time(14, 0),
+            ),
+            "1 Jan 2021, 2pm",
+        )
+
+    def test_with_start_date_and_end_date_and_end_time_on_different_day(self):
+        self.assertEqual(
+            format_date_for_event(
+                datetime(2021, 1, 1).date(),
+                None,
+                datetime(2021, 1, 2).date(),
+                time(14, 0),
+            ),
+            "1 Jan 2021 - 2 Jan 2021, 2pm",
         )

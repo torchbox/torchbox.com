@@ -380,7 +380,21 @@ class EventBlock(blocks.StructBlock):
             errors["end_date"] = ErrorList(
                 [ValidationError("End date cannot be earlier than start date.")]
             )
-        if end_date and end_date == start_date and end_time and end_time < start_time:
+        if start_time and end_date and not end_time:
+            errors["end_time"] = ErrorList(
+                [
+                    ValidationError(
+                        "End time is required if start time and end date are set."
+                    )
+                ]
+            )
+        if (
+            end_date
+            and end_date == start_date
+            and end_time
+            and start_time
+            and end_time < start_time
+        ):
             errors["end_time"] = ErrorList(
                 [
                     ValidationError(

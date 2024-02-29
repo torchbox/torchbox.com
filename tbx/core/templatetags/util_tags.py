@@ -34,7 +34,10 @@ def format_date_for_event(start_date, start_time=None, end_date=None, end_time=N
         else:
             return time.strftime("%I:%M").lstrip("0")
 
-    formatted_start_date = start_date.strftime("%d %b %Y")
+    def format_date(date):
+        return date.strftime("%d %b %Y").lstrip("0")
+
+    formatted_start_date = format_date(start_date)
 
     if start_time:
         formatted_start_date += f", {format_time(start_time)}"
@@ -52,13 +55,26 @@ def format_date_for_event(start_date, start_time=None, end_date=None, end_time=N
                 else:
                     formatted_start_date += start_time.strftime("%p").lower()
             else:
-                formatted_start_date += start_time.strftime("%p").lower()
+                formatted_start_date += (
+                    f"{start_time.strftime('%p').lower()} - {format_date(end_date)}"
+                )
                 if end_time:
-                    formatted_start_date += f" - {end_date.strftime('%d %b %Y')}, {format_time(end_time)}{end_time.strftime('%p').lower()}"
-                else:
-                    formatted_start_date += f" - {end_date.strftime('%d %b %Y')}"
+                    formatted_start_date += (
+                        f", {format_time(end_time)}{end_time.strftime('%p').lower()}"
+                    )
         else:
             formatted_start_date += start_time.strftime("%p").lower()
     elif end_date:
-        formatted_start_date += f" - {end_date.strftime('%d %b %Y')}"
+        if start_date == end_date:
+            if end_time:
+                formatted_start_date += (
+                    f", {format_time(end_time)}{end_time.strftime('%p').lower()}"
+                )
+        else:
+            formatted_start_date += f" - {format_date(end_date)}"
+
+            if end_time:
+                formatted_start_date += (
+                    f", {format_time(end_time)}{end_time.strftime('%p').lower()}"
+                )
     return formatted_start_date
