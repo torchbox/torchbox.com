@@ -1,3 +1,5 @@
 <h{{ heading_level|default:1 }} class="motif-heading {% if classes %}{{ classes }}{% endif %}" aria-label="{% firstof aria_label heading %}">
-    <span class="motif-heading__drop-cap">{{ heading|slice:":1" }}</span>{{ heading|slice:"1:" }}
+    {% with first_letter=heading|slice:":1" %}
+        <span class="motif-heading__drop-cap {% if first_letter|lower == "i" %}motif-heading__drop-cap--i{% endif %}">{{ first_letter }}</span>{{ heading|slice:"1:" }}
+    {% endwith %}
 </h{{ heading_level|default:1 }}>

@@ -23,6 +23,16 @@
         #{$root}--static & {
             animation: none;
         }
+
+        &--i {
+            background-size: 200%;
+            animation: motifAnimationForLeterI 1.7s cubic-bezier(0.3, 0, 0.6, 1)
+                forwards;
+
+            @include reduced-motion() {
+                animation: none;
+            }
+        }
     }
 
     @keyframes motifAnimation {
@@ -31,6 +41,15 @@
         }
         100% {
             background-position: 0 0, 0 0;
+        }
+    }
+
+    @keyframes motifAnimationForLeterI {
+        0% {
+            background-position: 120px -40px, -120px -90px;
+        }
+        100% {
+            background-position: 0 5px, 0 10px;
         }
     }
 
