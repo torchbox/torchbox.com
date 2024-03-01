@@ -18,3 +18,11 @@ context:
         text: <p>Aliquam nisi orci, facilisis porttitor bibendum sit amet, finibus tempus nulla. Quisque commodo eleifend urna, pellentesque scelerisque dui rutrum a. Nunc interdum erat sed felis tincidunt vulputate. Nunc mattis lacinia arcu, non volutpat tellus vehicula ut. Pellentesque tempus sed justo quis tristique. Sed blandit nisl eget tellus consequat, id congue dui tincidunt. Duis dictum, sapien non euismod facilisis, odio metus pharetra nisi, cursus tincidunt ante arcu id nunc.</p>
         button_text: Find out more
         button_link: '#'
+
+tags:
+  # page url
+  pageurl:
+    tab.button_link:
+      raw: '/'
+    item.button_link:
+      raw: '/'

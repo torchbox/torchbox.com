@@ -38,7 +38,7 @@
                     {{ item.text|richtext }}
                 </div>
                 {% if item.button_text and item.button_link %}
-                    <a href="{{ item.button_link }}" class="button tabs__panel-button">{{ item.button_text }}</a>
+                    <a href="{% pageurl item.button_link %}" class="button tabs__panel-button">{{ item.button_text }}</a>
                 {% endif %}
             </div>
         {% endfor %}
@@ -65,7 +65,7 @@
                     {{ tab.text|richtext }}
                 </div>
                 {% if tab.button_text and tab.button_link %}
-                    <a href="{{ tab.button_link }}" class="button tabs-mobile__button">{{ tab.button_text }}</a>
+                    <a href="{% pageurl tab.button_link %}" class="button tabs-mobile__button">{{ tab.button_text }}</a>
                 {% endif %}
             </div>
         </details>

@@ -72,6 +72,11 @@ tags:
     # for featured_case_study.html
     link:
       raw: '#'
+    # for tabbed_paragraph_block.html
+    tab.button_link:
+      raw: '/#'
+    item.button_link:
+      raw: '/#'
   srcset_image:
     # Image block
     'value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" alt=value.alt_text':
