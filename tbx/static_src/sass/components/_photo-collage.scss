@@ -1,0 +1,159 @@
+@use 'config' as *;
+
+.photo-collage {
+    &__intro-wrapper {
+        margin: $spacer-mini 0 $spacer-small;
+
+        @include media-query(large) {
+            display: grid;
+            // matches the photo grid below so the text can line up with the first two photos
+            grid-template-columns:
+                minmax(84px, 168px) minmax(50px, 100px) minmax(144px, 288px)
+                minmax(144px, 288px) minmax(30px, 60px) minmax(144px, 288px);
+            gap: $spacer-mini-plus;
+            margin: $spacer-small 0 $spacer-medium;
+            grid-auto-rows: min-content;
+        }
+    }
+
+    &__cta {
+        @include media-query(large) {
+            grid-column: 4 / 5;
+            align-self: end;
+        }
+    }
+
+    &__button {
+        @include media-query(large) {
+            margin-left: $spacer-medium;
+        }
+    }
+
+    &__intro {
+        @include font-size('body');
+        margin-bottom: $spacer-small;
+
+        @include media-query(large) {
+            margin-bottom: 0;
+            grid-column: 1 / 4;
+        }
+    }
+
+    &__scroller {
+        width: 100%;
+        overflow-x: scroll;
+
+        @include media-query(large) {
+            overflow-x: visible;
+            width: auto;
+        }
+
+        &:focus {
+            @include focus-style();
+        }
+    }
+
+    &__container {
+        display: flex;
+        column-gap: 10px;
+        height: 370px;
+        // calculated based on the total width of the images rendered at the correct aspect ratio plus the 10px gap
+        aspect-ratio: 2358 / 403;
+
+        @include media-query(medium) {
+            height: 403px;
+        }
+
+        @include media-query(large) {
+            display: grid;
+            height: auto;
+            // based on the size we want the images to render
+            grid-template-columns:
+                minmax(84px, 168px) minmax(50px, 100px) minmax(144px, 288px)
+                minmax(144px, 288px) minmax(30px, 60px) minmax(144px, 288px);
+            grid-template-rows:
+                minmax(88px, 176px) minmax(46px, 92px) minmax(88px, 176px)
+                minmax(104px, 208px) minmax(30px, 60px);
+            gap: $spacer-mini-plus;
+            // ensures the individual images remain at the correct aspect ratio
+            aspect-ratio: 53 / 33;
+        }
+    }
+
+    // These styles could just be applied direct to the images without a wrapper,
+    // but we do it on the wrapper to save having to mock loads of images with different
+    // classes in the pattern library
+    &__image-wrapper {
+        @include media-query(large) {
+            height: auto;
+        }
+
+        // Some browsers seem to need the aspect ratio set explicitly on each image wrapper at mobile
+        // but this needs unsetting at desltop
+        &--1 {
+            aspect-ratio: 1 / 1;
+
+            @include media-query(large) {
+                grid-column: 1 / span 2;
+                grid-row: 1 / span 2;
+                aspect-ratio: auto;
+            }
+        }
+
+        &--2 {
+            aspect-ratio: 1 / 1;
+
+            @include media-query(large) {
+                grid-column: 3 / span 1;
+                grid-row: 1 / span 2;
+                aspect-ratio: auto;
+            }
+        }
+
+        &--3 {
+            aspect-ratio: 87 / 121;
+
+            @include media-query(large) {
+                grid-column: 4 / span 2;
+                grid-row: 1 / span 3;
+                aspect-ratio: auto;
+            }
+        }
+
+        &--4 {
+            aspect-ratio: 1 / 1;
+
+            @include media-query(large) {
+                grid-column: 6 / span 1;
+                grid-row: 2 / span 2;
+                aspect-ratio: auto;
+            }
+        }
+
+        &--5 {
+            aspect-ratio: 406 / 403;
+
+            @include media-query(large) {
+                grid-column: 2 / span 2;
+                grid-row: 3 / span 2;
+                aspect-ratio: auto;
+            }
+        }
+
+        &--6 {
+            aspect-ratio: 1 / 1;
+
+            @include media-query(large) {
+                grid-column: 4 / span 1;
+                grid-row: 4 / span 2;
+                aspect-ratio: auto;
+            }
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}

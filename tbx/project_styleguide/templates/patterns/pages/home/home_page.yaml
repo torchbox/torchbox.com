@@ -1,7 +1,14 @@
 context:
-  foo: bar
+  page:
+    statement: We amplify the impact of organisations improve people's lives and our planet.
+    introduction: At Torchbox, we partner with organisations dedicated to bettering lives and the environment, using digital innovation to maximise their positive impact.
 
 tags:
+  include_block:
+    page.body:
+      template_name: 'patterns/molecules/streamfield/stream_block.html'
+    page.logos.all:
+      template_name: 'patterns/molecules/streamfield/blocks/partners_block.html'
   footerlinks:
     '':
       template_name: 'patterns/navigation/components/footer-links.html'

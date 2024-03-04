@@ -4,7 +4,7 @@ import DesktopSubMenu from './components/desktop-sub-menu';
 import DesktopCloseMenus from './components/desktop-close-menus';
 import SkipLink from './components/skip-link';
 import CookieWarning from './components/cookie-message';
-import Tabs from './tabs';
+import Tabs from './components/tabs';
 
 // IE11 polyfills
 import foreachPolyfill from './polyfills/foreach-polyfill';

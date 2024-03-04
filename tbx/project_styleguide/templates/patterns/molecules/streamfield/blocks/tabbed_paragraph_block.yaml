@@ -1,0 +1,28 @@
+context:
+  value:
+    title: Putting people at the heart of our process
+    intro: Cover the full spectrum of SEO, so whether you need a quick site health check, some training and support or a full SEO strategy, we can help.
+    tabbed_paragraph_sections:
+      - name: Strategy and consultancy
+        summary: Gathering insights into people’s needs and behaviours to inform and guide design solutions.
+        text: <p>By empathizing with users, designers can identify pain points and opportunities, creating more effective and user-friendly products. This process is ongoing, adapting to evolving user needs, ensuring solutions remain relevant and effective over time.</p>
+        button_text: Find out more
+        button_link: '#'
+      - name: Digital Marketing
+        summary: Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
+        text: <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at convallis tellus. Suspendisse fringilla iaculis libero nec tincidunt. Proin et pharetra sapien. Sed bibendum libero quis lacus eleifend commodo. Suspendisse fringilla libero non ligula egestas, ac porta enim rutrum. Duis in placerat magna. Morbi scelerisque velit non lorem gravida, ut ullamcorper nunc vehicula. Vivamus id scelerisque lacus. Proin vel odio at nisi vulputate mattis quis non massa.</p>
+        button_text: Find out more
+        button_link: '#'
+      - name: Product design and build
+        summary: Donec tortor ex, convallis non nunc sit amet, tempus dignissim nunc.
+        text: <p>Aliquam nisi orci, facilisis porttitor bibendum sit amet, finibus tempus nulla. Quisque commodo eleifend urna, pellentesque scelerisque dui rutrum a. Nunc interdum erat sed felis tincidunt vulputate. Nunc mattis lacinia arcu, non volutpat tellus vehicula ut. Pellentesque tempus sed justo quis tristique. Sed blandit nisl eget tellus consequat, id congue dui tincidunt. Duis dictum, sapien non euismod facilisis, odio metus pharetra nisi, cursus tincidunt ante arcu id nunc.</p>
+        button_text: Find out more
+        button_link: '#'
+
+tags:
+  # page url
+  pageurl:
+    tab.button_link:
+      raw: '/'
+    item.button_link:
+      raw: '/'

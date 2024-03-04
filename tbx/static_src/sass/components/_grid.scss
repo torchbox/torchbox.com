@@ -88,7 +88,7 @@
         }
     }
 
-    &__image {
+    &__wide-image {
         margin-bottom: $spacer-medium;
         grid-column: 1 / span 6;
 
@@ -128,7 +128,8 @@
         }
     }
 
-    &__showcase {
+    &__showcase,
+    &__tabbed-paragraph {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
 
@@ -148,6 +149,25 @@
         }
     }
 
+    &__photo-collage {
+        // right to the right-hand edge at mobile and tablet
+        grid-column: 2 / span 5;
+
+        @include media-query(large) {
+            grid-column: 4 / span 11;
+        }
+    }
+
+    &__promo,
+    &__event {
+        // right to the right-hand edge at mobile and tablet
+        grid-column: 1 / span 6;
+
+        @include media-query(large) {
+            grid-column: 2 / span 13;
+        }
+    }
+
     // The following components follow the same pattern of
     // spanning 7 columns on desktop and 4 columns on mobile.
     &__intro,
@@ -155,7 +175,8 @@
     &__raw-html,
     &__markdown,
     &__embed,
-    &__stats {
+    &__stats,
+    &__image {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
 
@@ -201,6 +222,14 @@
     }
 
     &__footer-logos {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+    }
+
+    &__cookie-message {
         grid-column: 2 / span 4;
 
         @include media-query(large) {
@@ -267,7 +296,7 @@
             }
         }
 
-        &__image {
+        &__wide-image {
             @include media-query(large) {
                 grid-column: 5 / span 11;
             }
@@ -346,7 +375,7 @@
             }
         }
 
-        &__image {
+        &__wide-image {
             @include media-query(large) {
                 grid-column: 2 / span 11;
             }

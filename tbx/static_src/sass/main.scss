@@ -11,6 +11,8 @@
 @use 'components/blog-meta';
 @use 'components/call-to-action';
 @use 'components/contact-cta';
+@use 'components/cookie-message';
+@use 'components/event';
 @use 'components/featured-case-study';
 @use 'components/footer';
 @use 'components/footer-cta';
@@ -25,10 +27,12 @@
 @use 'components/motif-heading';
 @use 'components/pagination';
 @use 'components/partners';
+@use 'components/photo-collage';
 @use 'components/pullquote';
 @use 'components/responsive-object';
 @use 'components/rich-text';
 @use 'components/page-listing';
+@use 'components/promo';
 @use 'components/section-title';
 @use 'components/showcase';
 @use 'components/skip-link';
@@ -36,9 +40,9 @@
 @use 'components/stats';
 @use 'components/streamfield';
 @use 'components/team-page-meta';
-@use 'components/tab-nav-item';
+@use 'components/tabbed-paragraph';
 @use 'components/tabs';
-@use 'components/tabs-nav';
+@use 'components/tabs-mobile';
 @use 'components/tag';
 @use 'components/team-listing';
 @use 'components/title-filters';

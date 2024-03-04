@@ -1,11 +1,12 @@
 {% load wagtailcore_tags wagtailimages_tags %}
+
 <div class="image grid__image">
     {% if value.image_is_decorative %}
-        {% srcset_image value.image format-webp fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt="" %}
+        {% srcset_image value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" alt="" %}
     {% elif value.alt_text %}
-        {% srcset_image value.image format-webp fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt=value.alt_text %}
+        {% srcset_image value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" alt=value.alt_text %}
     {% else %}
-        {% srcset_image value.image format-webp fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" %}
+        {% srcset_image value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" %}
     {% endif %}
 
     {% if value.caption %}

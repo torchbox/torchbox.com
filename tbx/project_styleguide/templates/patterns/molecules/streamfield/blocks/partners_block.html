@@ -7,10 +7,6 @@
 
 
     <div class="partners__logos">
-        {% for partner_logo in value.partner_logos %}
-            <div class="partners__logo-wrapper">
-                {% image partner_logo max-100x90 format-webp loading="lazy" class="partners__logo" %}
-            </div>
-        {% endfor %}
+        {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=value.partner_logos %}
     </div>
 </div>

@@ -1,0 +1,116 @@
+// at mobile the tabbed paragraph block uses different markup as it becomes an accordion
+// using the details and summary elements
+
+@use 'config' as *;
+
+.tabs-mobile {
+    $root: &;
+    border-top: 1px solid var(--color--decoration);
+
+    &:last-child {
+        border-bottom: 1px solid var(--color--decoration);
+    }
+
+    @include media-query('large') {
+        display: none;
+    }
+
+    &__summary {
+        display: block; // needed to hide the disclosure triangle
+        cursor: pointer;
+        // hides the further details as they transition in
+        background-color: var(--color--background);
+        position: relative;
+        z-index: 1;
+        padding: $spacer-small 0;
+        // This creates the illusion of an animation on the details
+        // content below the summary, and is the only reliable way to
+        // apply it. A transition on the content below the summary only
+        // works on opening, and does not reliably apply on openeing more than once
+        transition: margin $transition;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        #{$root}[open] & {
+            margin-bottom: 20px;
+        }
+
+        // Remove the disclosure triangle in webkit browsers:
+        // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary#default_style
+        &::-webkit-details-marker,
+        &::marker {
+            display: none;
+        }
+
+        &:focus {
+            @include focus-style();
+        }
+    }
+
+    &__header {
+        @include font-size('heading-five');
+        color: var(--color--heading);
+        font-weight: $weight--semibold;
+        display: flex;
+    }
+
+    &__rings {
+        @include rings();
+        display: block;
+        margin-right: $spacer-mini;
+    }
+
+    &__ring {
+        @include ring($opacity: 1);
+
+        &--one {
+            @include ring-one($color: var(--color--accent-two));
+        }
+
+        &--two {
+            @include ring-two($color: var(--color--accent-three));
+        }
+    }
+
+    &__header-text {
+        margin-right: $spacer-mini;
+    }
+
+    &__chevron {
+        color: var(--color--decoration);
+        width: 21px;
+        height: 11px;
+        margin-left: auto;
+        flex-grow: 0;
+        flex-shrink: 0;
+        align-self: center;
+        transition: transform $transition;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        #{$root}[open] & {
+            transform: rotate(180deg);
+        }
+    }
+
+    // appears when details tab is open
+    &__info {
+        padding-bottom: $spacer-small;
+    }
+
+    &__summary-text {
+        @include font-size('heading-four');
+        font-weight: $weight--light;
+        color: var(--color--heading);
+        margin-bottom: $spacer-mini;
+    }
+
+    &__text {
+        @include font-size('heading-six');
+        margin-bottom: $spacer-small;
+    }
+}

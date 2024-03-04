@@ -1,0 +1,81 @@
+@use "config" as *;
+
+.promo-block {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @include media-query(large) {
+        grid-template-columns: 3fr 2fr;
+        min-height: 630px;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: var(--color--light-background);
+        color: var(--color--light-background-text);
+        padding: $spacer-medium $spacer-small;
+
+        @include media-query(large) {
+            padding: $spacer-medium-plus $spacer-half $spacer-half
+                $spacer-medium-plus;
+        }
+    }
+
+    &__title {
+        color: var(--color--light-background-text);
+        margin-bottom: $spacer-mini;
+
+        .motif-heading__drop-cap {
+            background-color: var(--color--light-background-text);
+        }
+
+        @include media-query(large) {
+            margin-bottom: $spacer-small;
+        }
+    }
+
+    &__description {
+        @include font-size(heading-five);
+        margin-bottom: $spacer-medium;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-small-plus;
+        }
+    }
+
+    &__button {
+        width: fit-content;
+        color: var(--color--light-background-text);
+        background-color: transparent;
+        border-color: var(--color--light-background-text);
+    }
+
+    &__divider {
+        margin: $spacer-medium 0 $spacer-small;
+        color: rgba($color--grey-70, 0.2);
+    }
+
+    &__link {
+        @include link-styles(
+            var(--color--light-background-text),
+            var(--color--light-background-text)
+        );
+        width: fit-content;
+    }
+
+    &__picture {
+        height: 320px;
+
+        @include media-query(large) {
+            height: 100%;
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}

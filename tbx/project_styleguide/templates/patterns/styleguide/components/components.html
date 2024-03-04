@@ -48,8 +48,13 @@
     </div>
 
     <div>
-        <h2 class="underline mt-8 mb-2">Image</h2>
+        <h2 class="underline mt-8 mb-2">Image (renders smaller in a page)</h2>
         {% include "patterns/molecules/streamfield/blocks/image_block.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Wide image</h2>
+        {% include "patterns/molecules/streamfield/blocks/wide_image_block.html" %}
     </div>
 
     <div>
@@ -98,6 +103,16 @@
     </div>
 
     <div>
+        <h2 class="underline mt-8 mb-2">Event block</h2>
+        {% include "patterns/molecules/streamfield/blocks/event_block.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Promo block</h2>
+        {% include "patterns/molecules/streamfield/blocks/promo_block.html" %}
+    </div>
+
+    <div>
         <h2 class="underline mt-8 mb-2">Pagination</h2>
         {% include "patterns/molecules/pagination/pagination.html" %}
     </div>
@@ -118,6 +133,16 @@
     </div>
 
     <div>
+        <h2 class="underline mt-8 mb-2">Photo collage block</h2>
+        {% include "patterns/molecules/streamfield/blocks/photo_collage_block.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Tabbed paragraph block</h2>
+        {% include "patterns/molecules/streamfield/blocks/tabbed_paragraph_block.html" %}
+    </div>
+
+    <div>
         <h2 class="underline mt-8 mb-2">Footer CTA</h2>
         {% include "patterns/molecules/footer-cta/footer-cta.html" with value=partners_data  %}
     </div>
@@ -125,6 +150,11 @@
     <div>
         <h2 class="underline mt-8 mb-2">Footer links</h2>
         {% footerlinks  %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Cookie banner</h2>
+        {% include "patterns/molecules/cookie-message/cookie-message.html" with classes="cookie-message--unfixed" %}
     </div>
 </div>
 

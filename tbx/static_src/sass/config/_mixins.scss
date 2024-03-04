@@ -274,3 +274,46 @@
     overflow: visible;
     visibility: visible;
 }
+
+/* =============================================
+    Ring styles re-used across a few components
+*/
+
+@mixin rings($width: 40px) {
+    position: relative;
+    width: $width;
+    flex-shrink: 0;
+}
+
+@mixin ring($diameter: 32px, $opacity: 0.5) {
+    position: absolute;
+    inset: 0;
+    width: $diameter;
+    height: $diameter;
+    opacity: $opacity;
+    transition: color $transition-quick, opacity $transition-quick;
+
+    @include reduced-motion() {
+        transition: none;
+    }
+}
+
+@mixin ring-one($top: 8px, $color: var(--color--accent-three)) {
+    top: $top;
+    color: $color;
+}
+
+@mixin ring-two($top: 8px, $color: var(--color--accent-two)) {
+    left: $top;
+    color: $color;
+}
+
+@mixin ring-one-hover() {
+    color: var(--color--accent-two);
+    opacity: 1;
+}
+
+@mixin ring-two-hover() {
+    color: var(--color--accent-three);
+    opacity: 1;
+}

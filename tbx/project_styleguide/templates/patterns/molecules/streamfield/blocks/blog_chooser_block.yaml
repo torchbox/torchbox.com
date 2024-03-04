@@ -9,11 +9,10 @@ context:
           name: Will Heinemann
           role: New Business Director
         tags:
-          all:
-            - name: Digital products
-              slug: digital-products
-            - name: Wagtail
-              slug: wagtail
+          - name: Digital products
+            slug: digital-products
+          - name: Wagtail
+            slug: wagtail
       - title: Explore the potential of AI in content management
         date: 20 Oct 2023
         read_time: '5'
@@ -21,11 +20,10 @@ context:
           name: Will Heinemann
           role: New Business Director
         tags:
-          all:
-            - name: Digital products
-              slug: digital-products
-            - name: Wagtail
-              slug: wagtail
+          - name: Digital products
+            slug: digital-products
+          - name: Wagtail
+            slug: wagtail
       - title: Explore the potential of AI in content management
         date: 20 Oct 2023
         read_time: '5'
@@ -33,28 +31,27 @@ context:
           name: Will Heinemann
           role: New Business Director
         tags:
-          all:
-            - name: Digital products
-              slug: digital-products
-            - name: Wagtail
-              slug: wagtail
+          - name: Digital products
+            slug: digital-products
+          - name: Wagtail
+            slug: wagtail
 
 tags:
   pageurl:
     blog_page.blog_index as blog_index_url:
       raw: '/'
   image:
-    avatar fill-144x144 format-webp as avatar_desktop:
+    avatar fill-144x144 format-webp saturation-0.6 as avatar_desktop:
       target_var: avatar_desktop
       raw:
         alt: 'desktop image'
         url: 'https://source.unsplash.com/144x144?face'
-    avatar fill-286x286 format-webp as avatar_desktop_retina:
+    avatar fill-286x286 format-webp saturation-0.6 as avatar_desktop_retina:
       target_var: avatar_desktop_retina
       raw:
         alt: 'desktop image retina'
         url: 'https://source.unsplash.com/286x286?face'
-    avatar fill-72x72 format-webp as avatar_mobile:
+    avatar fill-72x72 format-webp saturation-0.6 as avatar_mobile:
       target_var: avatar_mobile
       raw:
         alt: 'mobile image'

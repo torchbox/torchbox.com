@@ -1,0 +1,22 @@
+@use 'config' as *;
+
+.tabbed-paragraph {
+    &__heading {
+        margin-bottom: $spacer-mini;
+
+        @include media-query('large') {
+            margin-bottom: $spacer-small;
+            max-width: 50%;
+        }
+    }
+
+    &__intro {
+        @include font-size('heading-five');
+        margin-bottom: $spacer-medium;
+
+        @include media-query('large') {
+            margin-bottom: $spacer-half;
+            max-width: 60%;
+        }
+    }
+}
