@@ -2,7 +2,7 @@
 
 .footer-cta {
     &__heading {
-        margin-bottom: $spacer-small;
+        margin-bottom: $spacer-mini;
     }
 
     // layout for avatar, name, role and button
@@ -15,7 +15,8 @@
 
         @include media-query(medium) {
             grid-template-columns: 100px 1fr;
-            row-gap: $spacer-mini;
+            row-gap: 10px;
+            column-gap: $spacer-small;
         }
 
         @include media-query(large) {

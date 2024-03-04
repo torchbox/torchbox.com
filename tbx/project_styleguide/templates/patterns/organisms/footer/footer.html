@@ -40,25 +40,27 @@
         </div>
     </div>
 
-    <div class="grid footer__bottom">
-        <div class="grid__footer-logos">
-            {% with settings.navigation.NavigationSettings as global_settings %}
-                {% if global_settings.footer_logos %}
-                    <ul class="footer__logos">
-                        {% for item in global_settings.footer_logos %}
-                            {% with item.value as logo %}
-                                <li>
-                                    {% with logo.link as link %}
-                                        <a href="{{ link.url }}" title="{{ link.text }}">
-                                            {% image logo.image max-100x100 format-webp loading="lazy" class="footer__logo" alt=link.text %}
-                                        </a>
-                                    {% endwith %}
-                                </li>
-                            {% endwith %}
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endwith %}
+    <div class="footer__bottom-container">
+        <div class="grid footer__bottom">
+            <div class="grid__footer-logos">
+                {% with settings.navigation.NavigationSettings as global_settings %}
+                    {% if global_settings.footer_logos %}
+                        <ul class="footer__logos">
+                            {% for item in global_settings.footer_logos %}
+                                {% with item.value as logo %}
+                                    <li>
+                                        {% with logo.link as link %}
+                                            <a class="footer__logo-link" href="{{ link.url }}" title="{{ link.text }}">
+                                                {% image logo.image max-100x100 format-webp loading="lazy" class="footer__logo" alt=link.text %}
+                                            </a>
+                                        {% endwith %}
+                                    </li>
+                                {% endwith %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            </div>
         </div>
     </div>
 
