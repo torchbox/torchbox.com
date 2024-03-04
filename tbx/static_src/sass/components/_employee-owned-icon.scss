@@ -50,5 +50,9 @@
         @include reduced-motion() {
             transition: none;
         }
+
+        @include high-contrast-light-mode() {
+            color: var(--color--background);
+        }
     }
 }
