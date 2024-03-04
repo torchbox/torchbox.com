@@ -8,7 +8,7 @@
     }
 
     @include media-query(large) {
-        padding-top: $spacer-mini-plus;
+        padding-top: $spacer-small-plus;
     }
 
     &__link {
