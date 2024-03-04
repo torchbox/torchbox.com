@@ -1,12 +1,14 @@
 @use 'config' as *;
 
 .partners {
+    $root: &;
+
     &__logos {
         display: flex;
         flex-wrap: wrap;
         gap: $spacer-mini;
 
-        .template-homepage & {
+        &--wide {
             @include media-query('x-large') {
                 justify-content: space-between;
             }
@@ -24,7 +26,7 @@
             height: 160px;
         }
 
-        .template-homepage & {
+        #{$root}__logos--wide & {
             @include media-query('x-large') {
                 width: auto;
                 height: auto;

@@ -18,7 +18,11 @@
         </div>
 
         <div class="grid__partners">
-            {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=page.partner_logos %}
+            {% if page.partner_logos|length > 5 %}
+                {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=page.partner_logos classes="partners__logos--wide" %}
+            {% else %}
+                {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=page.partner_logos %}
+            {% endif %}
         </div>
 
         {% include_block page.body %}
