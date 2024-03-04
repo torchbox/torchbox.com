@@ -1,0 +1,112 @@
+@use "config" as *;
+
+.event-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: rgba($color--white, 0.04);
+    color: $color--white;
+
+    @include media-query(large) {
+        grid-template-columns: 3fr 2fr;
+        column-gap: $spacer-half;
+        min-height: 500px;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: $spacer-medium $spacer-small;
+
+        @include media-query(large) {
+            padding: $spacer-medium-plus $spacer-half $spacer-half
+                $spacer-medium-plus;
+            max-width: 600px;
+            box-sizing: content-box;
+            margin: auto;
+        }
+    }
+
+    &__title {
+        @include font-size(heading-two-b);
+        @include link-styles($color--white, $color--white);
+        margin-bottom: $spacer-mini;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-small;
+        }
+    }
+
+    &__meta {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: $spacer-small;
+        max-width: 600px;
+
+        @include media-query(large) {
+            grid-template-columns: repeat(3, 1fr);
+            max-width: none;
+        }
+    }
+
+    &__meta-item {
+        display: flex;
+        column-gap: $spacer-mini;
+        grid-column: span 2;
+
+        &:first-child {
+            grid-column: 1 / span 4;
+        }
+
+        @include media-query(large) {
+            grid-column: span 1;
+
+            &:first-child {
+                grid-column: span 1;
+            }
+        }
+    }
+
+    &__meta-item-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    &__meta-item-icon {
+        height: 50px;
+        width: 50px;
+    }
+
+    &__meta-item-title {
+        color: var(--color--text);
+    }
+
+    &__divider {
+        margin: $spacer-medium 0 $spacer-small;
+        color: rgba($color--white, 0.2);
+    }
+
+    &__link {
+        @include link-styles($color--white, $color--white);
+        width: fit-content;
+    }
+
+    &__picture {
+        height: 430px;
+        @include media-query(large) {
+            height: 500px;
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        max-height: 640px;
+
+        @include media-query(large) {
+            max-height: none;
+        }
+    }
+}
