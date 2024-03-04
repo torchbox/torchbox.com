@@ -74,9 +74,9 @@ tags:
       raw: '#'
     # for tabbed_paragraph_block.html
     tab.button_link:
-      raw: '/#'
+      raw: '#'
     item.button_link:
-      raw: '/#'
+      raw: '#'
   srcset_image:
     # Image block
     'value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" alt=value.alt_text':
