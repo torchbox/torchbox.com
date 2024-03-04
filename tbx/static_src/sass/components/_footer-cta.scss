@@ -15,7 +15,7 @@
 
         @include media-query(medium) {
             grid-template-columns: 100px 1fr;
-            row-gap: $spacer-mini-minus;
+            row-gap: 10px;
             column-gap: $spacer-small;
         }
 
