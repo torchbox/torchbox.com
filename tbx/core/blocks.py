@@ -217,16 +217,6 @@ class ContactCTABlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/contact_call_to_action.html"
 
 
-class ExternalStoryEmbedBlock(blocks.StructBlock):
-    """
-    This code is no longer in use, unfortunately tbx/core/0001 migration (L407)
-    depends explicitly on it & migrations cannot be simply squashed to get around this
-    See https://github.com/wagtail/wagtail/issues/3710 for a discussion of a similar issue
-    """
-
-    pass
-
-
 class ShowcaseBlock(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255)
     showcase_paragraphs = blocks.ListBlock(
