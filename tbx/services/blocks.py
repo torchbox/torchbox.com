@@ -34,8 +34,8 @@ class ValuesBlock(blocks.StructBlock):
             [
                 ("strapline", blocks.CharBlock(required=False)),
                 ("title", blocks.CharBlock()),
-                ("text", blocks.RichTextBlock(features=['bold', 'italic', 'ul'])),
-                ("image", ImageWithAltTextBlock())
+                ("text", blocks.RichTextBlock(features=["bold", "italic", "ul"])),
+                ("image", ImageWithAltTextBlock()),
             ],
             icon="pick",
         ),
