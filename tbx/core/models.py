@@ -126,7 +126,6 @@ class HomePagePartnerLogo(Orderable):
 # Home Page
 class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/home/home_page.html"
-    statement = models.TextField(blank=True)
     introduction = models.TextField(blank=True)
     body = StreamField(HomePageStoryBlock(), use_json_field=True)
 
@@ -140,13 +139,7 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         return []
 
     content_panels = Page.content_panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel("statement"),
-                FieldPanel("introduction"),
-            ],
-            heading="Introductory block",
-        ),
+        FieldPanel("introduction"),
         InlinePanel("logos", heading="Partner logos", label="logo", max_num=7),
         FieldPanel("body"),
     ]

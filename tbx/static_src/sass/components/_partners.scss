@@ -1,10 +1,18 @@
 @use 'config' as *;
 
 .partners {
+    $root: &;
+
     &__logos {
         display: flex;
         flex-wrap: wrap;
         gap: $spacer-mini;
+
+        &--wide {
+            @include media-query('x-large') {
+                justify-content: space-between;
+            }
+        }
     }
 
     &__logo-wrapper {
@@ -16,6 +24,13 @@
         @include media-query(medium) {
             width: 160px;
             height: 160px;
+        }
+
+        #{$root}__logos--wide & {
+            @include media-query('x-large') {
+                width: auto;
+                height: auto;
+            }
         }
     }
 

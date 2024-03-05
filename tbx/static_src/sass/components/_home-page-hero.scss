@@ -1,0 +1,32 @@
+@use 'config' as *;
+
+.home-page-hero {
+    position: relative;
+    margin-top: 160px;
+
+    @include media-query('large') {
+        margin-top: 200px;
+    }
+
+    &__title {
+        @include media-query('large') {
+            width: 80%;
+        }
+
+        @include media-query('x-large') {
+            width: 85%;
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        width: 144px;
+        height: 144px;
+        right: 0;
+        top: -130px;
+
+        @include media-query('large') {
+            top: -72px;
+        }
+    }
+}

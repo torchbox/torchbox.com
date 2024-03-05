@@ -1,0 +1,62 @@
+@use 'config' as *;
+
+.employee-owned-icon {
+    $root: &;
+
+    &__heart-outline-icon {
+        width: 39px;
+        height: 33px;
+        position: absolute;
+        top: calc(50% - 16px);
+        left: calc(50% - 18px);
+        color: var(--color--accent-three);
+        opacity: 0.5;
+
+        #{$root}:hover & {
+            opacity: 1;
+            color: var(--color--accent-two);
+        }
+    }
+
+    &__heart-fill-icon {
+        width: 39px;
+        height: 33px;
+        position: absolute;
+        top: calc(50% - 16px);
+        left: calc(50% - 22px);
+        color: var(--color--accent-two);
+        opacity: 0.5;
+
+        #{$root}:hover & {
+            color: var(--color--accent-three);
+            opacity: 1;
+        }
+    }
+
+    &__text-icon {
+        width: 144px;
+        height: 144px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: rotate(0deg);
+        transition: transform 3s ease;
+        color: var(--color--heading);
+
+        #{$root}:hover & {
+            transform: rotate(90deg);
+
+            @include reduced-motion() {
+                transform: rotate(0deg);
+            }
+        }
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        @include high-contrast-light-mode() {
+            color: var(--color--background);
+        }
+    }
+}
