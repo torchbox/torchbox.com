@@ -28,6 +28,9 @@ tags:
     'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
       raw: |
         <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
+    # values block
+    'value_item.image.image format-webp width-{482,964} sizes="(max-width: 598px) 100vw, (min-width: 599px) 30vw" loading="lazy" class="values__image"':
+      raw: '<img alt="test alt" class="values__image" height="590" loading="lazy" sizes="(max-width: 598px) 100vw, (min-width: 599px) 30vw" src="https://picsum.photos/482/589.webp" srcset="https://picsum.photos/482/589.webp 482w, https://picsum.photos/964/1178.webp 964w" width="482">'
   image:
     # Featured case study logo
     value.featured_case_study_logo max-110x70 format-webp class="featured-case-study__company-logo":
