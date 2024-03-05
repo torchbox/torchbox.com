@@ -6,7 +6,7 @@
         <p class="promo-block__description">{{ value.description }}</p>
         <a href="{{ value.get_button_link }}" class="button promo-block__button">{{ value.button_text }}</a>
         {% if value.secondary_link %}
-            <hr class="promo-block__divider" />
+            <hr class="promo-block__divider" aria-hidden="true" />
             {% with secondary_link=value.secondary_link.0.value %}
                 <a href="{{ secondary_link.url }}" class="promo-block__link">{{ secondary_link.text }}</a>
             {% endwith %}
