@@ -1,6 +1,6 @@
 {% load wagtailimages_tags %}
 
-<div class="partners__logos {{ classes }}">
+<div class="partners__logos {% if classes %}{{ classes }}{% endif %}">
     {% for partner_logo in partner_logos %}
         <div class="partners__logo-wrapper">
             {% image partner_logo max-100x90 format-webp loading="lazy" class="partners__logo" %}
