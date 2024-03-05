@@ -214,6 +214,7 @@ if "AWS_STORAGE_BUCKET_NAME" in env:
     AWS_STORAGE_BUCKET_NAME = env["AWS_STORAGE_BUCKET_NAME"]
     AWS_QUERYSTRING_AUTH = False
     AWS_S3_FILE_OVERWRITE = False
+    AWS_S3_MAX_MEMORY_SIZE = 2 * 1024 * 1024  # 2MB
 
     # You need this to enable signing files. Some old regions may have use a
     # different version than v4.
