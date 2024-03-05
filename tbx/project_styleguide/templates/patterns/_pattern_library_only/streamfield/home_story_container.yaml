@@ -1,11 +1,5 @@
 tags:
   srcset_image:
-    # Image block
-    'value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" alt=value.alt_text':
-      raw: '<img alt="Screenshot of workshop to establish tone" height="225" loading="lazy" sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" src="https://source.unsplash.com/400x225?trees" srcset="https://source.unsplash.com/400x225?trees 400w, https://source.unsplash.com/900x506?trees 900w, https://source.unsplash.com/1600x900?trees 900w, https://source.unsplash.com/1800x1013?trees 1600w" width="400">'
-    # Wide image block
-    'wide_image format-webp saturation-0.6 width-{400,800,1600,1280} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt=value.alt_text':
-      raw: '<img alt="Screenshot of workshop to establish tone" height="225" sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" src="https://source.unsplash.com/400x225?trees" srcset="https://source.unsplash.com/400x225?trees 400w, https://source.unsplash.com/800x450?trees 800w, https://source.unsplash.com/1600x900?trees 1153w, https://source.unsplash.com/1280x720?trees 1153w" width="400">'
     # Featured case study
     'value.featured_case_study_image format-webp saturation-0.6 fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1022px) 90vw, (max-width: 1789px) 50vw, (min-width: 1800px) 1120px" class="featured-case-study__image"':
       raw: '<img alt="Jeth-JulyImage_from_iOS" class="featured-case-study__image" height="225" sizes="(max-width: 1022px) 90vw, (max-width: 1789px) 50vw, (min-width: 1800px) 1120px" src="https://source.unsplash.com/400x225?tech" srcset="https://source.unsplash.com/400x225?tech 400w, https://source.unsplash.com/800x450?tech 800w, https://source.unsplash.com/1600x900?tech 1280w, https://source.unsplash.com/1280x720?tech 1280w" width="400">'
@@ -20,7 +14,6 @@ tags:
     'item.image format-webp saturation-0.6 loading="lazy" fill-{288x288,576x576} sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" class="photo-collage__image" alt=item.image_alt_text':
       raw: |
         <img alt="alt text" class="photo-collage__image" height="288" loading="lazy" sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" src="https://source.unsplash.com/288x288?people" srcset="https://source.unsplash.com/288x288?people 288w, https://source.unsplash.com/576x576?people 576w" width="288">
-
     # avatar image for blog chooser
     'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
       raw: |
@@ -33,6 +26,31 @@ tags:
     value.featured_case_study_logo max-110x70 format-webp class="featured-case-study__company-logo":
       raw: |
         <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="featured-case-study__company-logo">
+    # promo block
+    value.image fill-520x630 format-webp saturation-0.6 as desktop_image:
+      target_var: desktop_image
+      raw:
+        url: 'https://source.unsplash.com/520x630/?nature'
+    value.image fill-1040x1260 format-webp saturation-0.6 as desktop_image_retina:
+      target_var: desktop_image_retina
+      raw:
+        url: 'https://source.unsplash.com/1040x1260/?nature'
+    value.image fill-430x320 format-webp saturation-0.6 as mobile_image:
+      target_var: mobile_image
+      raw:
+        url: 'https://source.unsplash.com/430x320/?nature'
+    value.image fill-860x640 format-webp saturation-0.6 as mobile_image_retina:
+      target_var: mobile_image_retina
+      raw:
+        url: 'https://source.unsplash.com/860x640/?nature'
+    # # event block image
+    value.image fill-525x510 format-webp saturation-0.6 as desktop_image:
+      target_var: desktop_image
+      raw:
+        url: 'https://source.unsplash.com/525x510/?nature'
+    value.image fill-1050x1020 format-webp saturation-0.6 as desktop_image_retina:
+      target_var: desktop_image_retina
+      raw:
     # listing image for work chooser
     listing_image fill-370x370 format-webp saturation-0.6 as listing_desktop_image:
       target_var: listing_desktop_image

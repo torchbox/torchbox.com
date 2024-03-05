@@ -214,6 +214,7 @@ if "AWS_STORAGE_BUCKET_NAME" in env:
     AWS_STORAGE_BUCKET_NAME = env["AWS_STORAGE_BUCKET_NAME"]
     AWS_QUERYSTRING_AUTH = False
     AWS_S3_FILE_OVERWRITE = False
+    AWS_S3_MAX_MEMORY_SIZE = 2 * 1024 * 1024  # 2MB
 
     # You need this to enable signing files. Some old regions may have use a
     # different version than v4.
@@ -445,6 +446,14 @@ if "PRIMARY_HOST" in env:
 
 # Override the Image class used by wagtailimages with a custom one
 WAGTAILIMAGES_IMAGE_MODEL = "images.CustomImage"
+
+pixel_limit = env.get("WAGTAILIMAGES_MAX_IMAGE_PIXELS")
+WAGTAILIMAGES_MAX_IMAGE_PIXELS = int(pixel_limit) if pixel_limit else 10_000_000
+
+max_upload_size = env.get("WAGTAILIMAGES_MAX_UPLOAD_SIZE")
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = (
+    int(max_upload_size) if max_upload_size else 2 * 1024 * 1024
+)  # 2MB
 
 # Facebook JSSDK app Id
 FB_APP_ID = ""

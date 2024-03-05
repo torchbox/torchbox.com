@@ -162,9 +162,11 @@
     &__event {
         // right to the right-hand edge at mobile and tablet
         grid-column: 1 / span 6;
+        margin-bottom: $spacer-medium;
 
         @include media-query(large) {
             grid-column: 2 / span 13;
+            margin-bottom: $spacer;
         }
     }
 
@@ -309,6 +311,16 @@
         }
     }
 
+    &__featured-case-study {
+        margin-bottom: $spacer-medium;
+        grid-column: 1 / span 6;
+
+        @include media-query(large) {
+            margin-bottom: $spacer;
+            grid-column: 1 / span 13;
+        }
+    }
+
     // Service page alignment
     .template-service-page & {
         &__heading,
@@ -330,16 +342,6 @@
         &__quote {
             @include media-query(large) {
                 grid-column: 2 / span 9;
-            }
-        }
-
-        &__featured-case-study {
-            margin-bottom: $spacer-medium;
-            grid-column: 1 / span 6;
-
-            @include media-query(large) {
-                margin-bottom: $spacer;
-                grid-column: 1 / span 13;
             }
         }
     }

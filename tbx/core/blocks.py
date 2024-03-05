@@ -597,7 +597,7 @@ class StoryBlock(blocks.StreamBlock):
         template = "patterns/molecules/streamfield/stream_block.html"
 
 
-class HomePageStoryBlock(StoryBlock):
+class HomePageStoryBlock(blocks.StreamBlock):
     showcase = ShowcaseBlock()
     featured_case_study = FeaturedCaseStudyBlock()
     blog_chooser = BlogChooserBlock()
