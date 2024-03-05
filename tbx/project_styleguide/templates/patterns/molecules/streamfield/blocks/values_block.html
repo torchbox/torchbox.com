@@ -1,0 +1,28 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="values-header grid__values-header">
+    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.title classes="motif-heading--two motif-heading--static values-header__title" %}
+    <p class="values-header__intro">{{ value.intro }}</p>
+</div>
+<div class="values grid__values">
+    {% for value_item in value.values %}
+        <div class="values__value {% if forloop.counter0|divisibleby:2 %}values__value--left{% else %}values__value--right{% endif %}">
+            {% if value_item.image.alt_text %}
+                {% srcset_image value_item.image.image format-webp width-{482,964} sizes="(max-width: 598px) 100vw, (min-width: 599px) 30vw" alt=value_item.image.alt_text loading="lazy" class="values__image" %}
+            {% else %}
+                {% srcset_image value_item.image.image format-webp width-{482,964} sizes="(max-width: 598px) 100vw, (min-width: 599px) 30vw" loading="lazy" class="values__image" %}
+            {% endif %}
+
+            <div class="values__text-wrapper">
+                <p class="values__strapline">
+                    {% if value_item.strapline %}
+                        {{ value_item.strapline }}
+                    {% endif %}
+                </p>
+                <h3 class="heading heading--two-b values__title">{{ value_item.title }}</h3>
+                <div class="rich-text values__text">
+                    {{ value_item.text|richtext }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

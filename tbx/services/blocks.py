@@ -2,6 +2,7 @@ from tbx.core.blocks import (
     BlogChooserBlock,
     EventBlock,
     FeaturedCaseStudyBlock,
+    ImageWithAltTextBlock,
     PhotoCollageBlock,
     PromoBlock,
     ShowcaseBlock,
@@ -25,6 +26,29 @@ class PartnersBlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/partners_block.html"
 
 
+class ValuesBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255)
+    intro = blocks.TextBlock(label="Introduction")
+    values = blocks.ListBlock(
+        blocks.StructBlock(
+            [
+                ("strapline", blocks.CharBlock(required=False)),
+                ("title", blocks.CharBlock()),
+                ("text", blocks.RichTextBlock(features=['bold', 'italic', 'ul'])),
+                ("image", ImageWithAltTextBlock())
+            ],
+            icon="pick",
+        ),
+        min_num=1,
+        help_text="Add at least one value",
+    )
+
+    class Meta:
+        icon = "pick"
+        label = "Values"
+        template = "patterns/molecules/streamfield/blocks/values_block.html"
+
+
 class ServiceStoryBlock(StoryBlock):
     partners_block = PartnersBlock()
     showcase = ShowcaseBlock()
@@ -35,3 +59,4 @@ class ServiceStoryBlock(StoryBlock):
     promo = PromoBlock()
     tabbed_paragraph = TabbedParagraphBlock()
     event = EventBlock()
+    values = ValuesBlock()
