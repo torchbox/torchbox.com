@@ -11,7 +11,7 @@ from django.utils.functional import cached_property
 from django.utils.http import urlencode
 
 from bs4 import BeautifulSoup
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.fields import ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.people.models import ContactMixin
@@ -19,23 +19,8 @@ from tbx.taxonomy.models import Sector, Service
 from tbx.work.blocks import WorkStoryBlock
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
-from wagtail.models import Orderable, Page
+from wagtail.models import Page
 from wagtail.signals import page_published
-
-
-class HistoricalWorkPageScreenshot(Orderable):
-    page = ParentalKey("work.HistoricalWorkPage", related_name="screenshots")
-    image = models.ForeignKey(
-        "images.CustomImage",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
-    panels = [
-        FieldPanel("image"),
-    ]
 
 
 class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
@@ -53,13 +38,6 @@ class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     date = models.DateField("Post date", blank=True, null=True)
     body = StreamField(StoryBlock(), use_json_field=True)
     body_word_count = models.PositiveIntegerField(null=True, editable=False)
-    homepage_image = models.ForeignKey(
-        "images.CustomImage",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
     visit_the_site = models.URLField(blank=True)
 
     feed_image = models.ForeignKey(
@@ -158,7 +136,7 @@ class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
 
     @property
     def listing_image(self):
-        return self.homepage_image
+        return self.feed_image
 
     @property
     def type(self):
@@ -169,8 +147,6 @@ class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         InlinePanel("authors", label="Author", min_num=1),
         FieldPanel("date"),
         FieldPanel("body"),
-        FieldPanel("homepage_image"),
-        InlinePanel("screenshots", label="Screenshots"),
         FieldPanel("visit_the_site"),
     ]
 
