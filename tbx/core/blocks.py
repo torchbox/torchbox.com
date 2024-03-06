@@ -593,3 +593,6 @@ class HomePageStoryBlock(blocks.StreamBlock):
     promo = PromoBlock()
     tabbed_paragraph = TabbedParagraphBlock()
     event = EventBlock()
+
+    class Meta:
+        template = "patterns/molecules/streamfield/stream_block.html"
