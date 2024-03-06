@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
+from django.db import models
 from django.forms.utils import ErrorList
-from django.utils.safestring import mark_safe
 
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
@@ -71,15 +71,23 @@ class LinkBlock(blocks.StructBlock):
 
 
 class PrimaryNavLinkBlock(LinkBlock):
-    hide_children = blocks.BooleanBlock(
-        required=False,
-        label="Do not show child pages",
-        help_text=mark_safe(
-            "By default, the navigation menu displays the children and grandchildren of the "
-            "selected page if their <strong>Show in menus</strong> checkbox is checked.<br />"
-            "If you tick this checkbox, the navigation will exclude them, regardless of "
-            "their <strong>Show in menus</strong> settings."
-        ),
+    class ChildDisplay(models.TextChoices):
+        HIDE = "hide_children", "Do not show child pages"
+        SHOW_UP_TO_LEVEL1 = (
+            "show_up_to_level1",
+            "Show child pages up to level 1 (children)",
+        )
+        SHOW_UP_TO_LEVEL2 = (
+            "show_up_to_level2",
+            "Show child pages up to level 2 (grandchildren)",
+        )
+
+    child_display_behaviour = blocks.ChoiceBlock(
+        choices=ChildDisplay.choices,
+        default=ChildDisplay.SHOW_UP_TO_LEVEL2,
+        icon="collapse-down",
+        help_text="By default, the navigation menu displays the children and grandchildren of the "
+        "selected page. You can alter this behaviour here.",
     )
 
 
