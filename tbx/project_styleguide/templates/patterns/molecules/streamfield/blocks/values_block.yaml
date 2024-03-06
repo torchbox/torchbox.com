@@ -1,0 +1,37 @@
+context:
+  value:
+    title: Values we believe in
+    intro: In the office. On Slack. Often remote, always together
+    values:
+      - strapline: The learning value
+        title: Explore the unknown
+        text:
+          '<p>We’re eager to push ourselves and embrace new opportunities, we share what we learn and welcome change</p>
+          <ul>
+          <li>Look up and out to find fresh, new thinking</li>
+          <li>Intentionally create space to experiment, fail and elevate our work together</li>
+          <li>Seek out feedback and act on it</li>
+          </ul>'
+      - strapline: The learning value
+        title: Explore the unknown
+        text:
+          '<p>We’re eager to push ourselves and embrace new opportunities, we share what we learn and welcome change</p>
+          <ul>
+          <li>Look up and out to find fresh, new thinking</li>
+          <li>Intentionally create space to experiment, fail and elevate our work together</li>
+          <li>Seek out feedback and act on it</li>
+          </ul>'
+      - strapline: The learning value
+        title: Explore the unknown
+        text:
+          '<p>We’re eager to push ourselves and embrace new opportunities, we share what we learn and welcome change</p>
+          <ul>
+          <li>Look up and out to find fresh, new thinking</li>
+          <li>Intentionally create space to experiment, fail and elevate our work together</li>
+          <li>Seek out feedback and act on it</li>
+          </ul>'
+
+tags:
+  srcset_image:
+    'value_item.image.image format-webp width-{482,964} sizes="(max-width: 598px) 100vw, (min-width: 599px) 30vw" loading="lazy" class="values__image"':
+      raw: '<img alt="test alt" class="values__image" height="590" loading="lazy" sizes="(max-width: 598px) 100vw, (min-width: 599px) 30vw" src="https://picsum.photos/482/589.webp" srcset="https://picsum.photos/482/589.webp 482w, https://picsum.photos/964/1178.webp 964w" width="482">'
