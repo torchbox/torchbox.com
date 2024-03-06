@@ -402,13 +402,6 @@ class Migration(migrations.Migration):
                                     group="Media",
                                 ),
                             ),
-                            (
-                                "story_embed",
-                                tbx.core.blocks.ExternalStoryEmbedBlock(
-                                    icon="code",
-                                    template="patterns/molecules/streamfield/blocks/external_story_block.html",
-                                ),
-                            ),
                         ],
                         use_json_field=True,
                     ),

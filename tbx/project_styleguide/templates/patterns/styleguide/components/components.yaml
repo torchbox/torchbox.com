@@ -104,6 +104,9 @@ tags:
     'item.image format-webp saturation-0.6 loading="lazy" fill-{288x288,576x576} sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" class="photo-collage__image" alt=item.image_alt_text':
       raw: |
         <img alt="alt text" class="photo-collage__image" height="288" loading="lazy" sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" src="https://source.unsplash.com/288x288?people" srcset="https://source.unsplash.com/288x288?people 288w, https://source.unsplash.com/576x576?people 576w" width="288">
+    # values block
+    'value_item.image.image format-webp width-{482,964} sizes="(max-width: 598px) 100vw, (min-width: 599px) 30vw" loading="lazy" class="values__image"':
+      raw: '<img alt="test alt" class="values__image" height="590" loading="lazy" sizes="(max-width: 598px) 100vw, (min-width: 599px) 30vw" src="https://picsum.photos/482/589.webp" srcset="https://picsum.photos/482/589.webp 482w, https://picsum.photos/964/1178.webp 964w" width="482">'
   image:
     # company logo for pull quote
     value.logo max-110x70 format-webp class="pullquote__company-logo":

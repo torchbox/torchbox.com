@@ -9,9 +9,6 @@ from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
-from wagtail_webstories.blocks import (
-    ExternalStoryEmbedBlock as WebstoryExternalStoryEmbedBlock,
-)
 from wagtailmarkdown.blocks import MarkdownBlock
 from wagtailmedia.blocks import VideoChooserBlock
 
@@ -218,16 +215,6 @@ class ContactCTABlock(blocks.StructBlock):
 
     class Meta:
         template = "patterns/molecules/streamfield/blocks/contact_call_to_action.html"
-
-
-class ExternalStoryEmbedBlock(WebstoryExternalStoryEmbedBlock):
-    """
-    This code is no longer in use, unfortunately tbx/core/0001 migration (L407)
-    depends explicitly on it & migrations cannot be simply squashed to get around this
-    See https://github.com/wagtail/wagtail/issues/3710 for a discussion of a similar issue
-    """
-
-    pass
 
 
 class ShowcaseBlock(blocks.StructBlock):
