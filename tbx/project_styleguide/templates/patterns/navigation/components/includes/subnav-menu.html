@@ -6,7 +6,7 @@
             <li class="sub-nav-desktop__item">
                 {% with children=link.get_children.live.public.in_menu %}
                     <a
-                        class="sub-nav-desktop__link {% if children and not hide_children %}sub-nav-desktop__link--has-children{% else %}sub-nav-desktop__link--no-children{% endif %}"
+                        class="sub-nav-desktop__link {% if children and child_display != 'hide_children' %}sub-nav-desktop__link--has-children{% else %}sub-nav-desktop__link--no-children{% endif %}"
                         href="{{ link.url }}"
                     >
                         {{ link.title }}
