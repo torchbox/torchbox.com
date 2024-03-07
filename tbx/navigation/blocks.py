@@ -86,8 +86,9 @@ class PrimaryNavLinkBlock(LinkBlock):
         choices=ChildDisplay.choices,
         default=ChildDisplay.SHOW_UP_TO_LEVEL2,
         icon="collapse-down",
-        help_text="By default, the navigation menu displays the children and grandchildren of the "
-        "selected page. You can alter this behaviour here.",
+        help_text="By default, the navigation menu displays the children and "
+        "grandchildren of the selected page if their “Show in menus” checkbox "
+        " is checked.<br/>You can alter this behaviour here.",
     )
 
 
