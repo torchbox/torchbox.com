@@ -4,7 +4,7 @@ from tbx.core.factories import HomePageFactory
 from tbx.images.factories import CustomImageFactory
 from tbx.people.models import Author, PersonIndexPage, PersonPage
 from tbx.taxonomy.factories import TeamFactory
-from wagtail.models import Site
+from wagtail.models import Page, Site
 
 
 class TestAuthor(TestCase):
@@ -12,8 +12,8 @@ class TestAuthor(TestCase):
         super().setUp()
 
         site = Site.objects.get(is_default_site=True)
-        root = site.root_page.specific
-        home = HomePageFactory(parent=root)
+        root = Page.objects.get(depth=1)
+        home = HomePageFactory(title="Torchbox", parent=root)
 
         site.root_page = home
         site.save()
