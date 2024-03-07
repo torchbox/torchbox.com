@@ -244,11 +244,21 @@
     Navigaiton mixins
 */
 
-@mixin nav-fixed-position($header-height: $header-height-mobile) {
+@mixin nav-fixed-position(
+    $header-height: $header-height-mobile,
+    $full-height: true
+) {
     width: 100%;
-    height: calc(100vh - #{$header-height});
-    // use dvh if supported
-    height: calc(100dvh - #{$header-height});
+    @if $full-height {
+        height: calc(100vh - #{$header-height});
+        // use dvh if supported
+        height: calc(100dvh - #{$header-height});
+    } @else {
+        // using max-height to allow for scrolling
+        max-height: calc(100vh - #{$header-height});
+        // use dvh if supported
+        max-height: calc(100dvh - #{$header-height});
+    }
     visibility: hidden;
     opacity: 0;
     position: fixed;

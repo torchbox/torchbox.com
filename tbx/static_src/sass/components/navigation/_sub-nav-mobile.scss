@@ -30,13 +30,12 @@ Styles for the lower levels of the navigation at mobile
 
     // The link for each menu item in the 2nd and 3rd level
     &__link {
+        @include font-size('heading-five');
         display: flex;
         padding: 35px $spacer-small;
         border-bottom: 1px solid var(--color--nav-border);
         gap: 18px;
         align-items: center;
-        font-size: nth(map-get($large-font-sizes, 'heading-four'), 1);
-        line-height: nth(map-get($large-font-sizes, 'heading-four'), 2);
 
         &:focus {
             @include focus-style();
@@ -48,9 +47,9 @@ Styles for the lower levels of the navigation at mobile
 
         // styles for links with children
         &--has-children {
+            @include font-size('body-two');
             color: var(--color--heading);
-            font-size: nth(map-get($large-font-sizes, 'heading-six'), 1);
-            line-height: nth(map-get($large-font-sizes, 'heading-six'), 2);
+            padding: $spacer-mini-plus $spacer-small;
         }
 
         // styles for links without children
@@ -59,16 +58,16 @@ Styles for the lower levels of the navigation at mobile
                 $color: var(--color--heading),
                 $interaction-color: var(--color--heading)
             );
-            font-size: nth(map-get($large-font-sizes, 'heading-six'), 1);
-            line-height: nth(map-get($large-font-sizes, 'heading-six'), 2);
+            @include font-size('body-two');
+            padding: $spacer-mini-plus $spacer-small;
         }
 
         // back link which goes one level up in the mobile menu
         &--back {
+            @include font-size('body-two');
             color: var(--color--heading);
-            font-size: nth(map-get($large-font-sizes, 'heading-six'), 1);
-            line-height: nth(map-get($large-font-sizes, 'heading-six'), 2);
             width: 100%;
+            padding: $spacer-mini-plus $spacer-small;
         }
 
         // parent link which takes you to the parent page for the section being viewed in the mobile menu
