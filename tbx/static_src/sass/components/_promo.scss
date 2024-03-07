@@ -50,6 +50,12 @@
         color: var(--color--light-background-text);
         background-color: transparent;
         border-color: var(--color--light-background-text);
+
+        &:hover,
+        &:focus {
+            color: var(--color--heading);
+            background-color: var(--color--background);
+        }
     }
 
     &__divider {
