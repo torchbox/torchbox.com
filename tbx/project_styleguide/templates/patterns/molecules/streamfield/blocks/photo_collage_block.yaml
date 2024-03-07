@@ -3,7 +3,8 @@ context:
     title: We are 100% employee owned
     intro: Our team's passion and expertise converge to deliver innovative solutions that empower your digital journey.
     button_text: About us
-    url: '#'
+    button_link: '#'
+    get_button_link: '#'
     images:
       -
       -
