@@ -23,3 +23,12 @@ SECRET_KEY = 'enter-a-long-unguessable-string-here'
 
 # Show Django Debug Toolbar
 SHOW_TOOLBAR = True
+
+# Dummy caching for development
+# This is particularly useful when working on the navigation templates
+# https://docs.djangoproject.com/en/4.2/topics/cache/#dummy-caching-for-development
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+#     }
+# }

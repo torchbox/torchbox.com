@@ -1,24 +1,24 @@
 {% load wagtailcore_tags %}
 
 {% for item in primarynav %}
-    {% with children=item.value.page.get_children.live.public.in_menu hide_children=item.value.hide_children %}
-        <li class="primary-nav-mobile__item {% if children and not hide_children %}primary-nav-mobile__item--is-parent{% endif %}">
+    {% with children=item.value.page.get_children.live.public.in_menu child_display=item.value.child_display_behaviour %}
+        <li class="primary-nav-mobile__item {% if children and child_display != 'hide_children' %}primary-nav-mobile__item--is-parent{% endif %}">
             {% with link=item.value %}
                 <a
-                    class="primary-nav-mobile__link {% if children and not hide_children %}primary-nav-mobile__link--has-children{% else %}primary-nav-mobile__link--no-children{% endif %}"
-                    {% if children and not hide_children %}
+                    class="primary-nav-mobile__link {% if children and child_display != 'hide_children' %}primary-nav-mobile__link--has-children{% else %}primary-nav-mobile__link--no-children{% endif %}"
+                    {% if children and child_display != 'hide_children' %}
                         data-open-subnav aria-haspopup="true" aria-expanded="false"
                     {% endif %}
                     href="{{ link.url }}"
                 >
                     <span class="primary-nav-mobile__text">{{ link.text }}</span>
-                    {% if children and not hide_children %}
+                    {% if children and child_display != 'hide_children' %}
                         {# mobile arrow #}
                         {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-mobile__icon-mobile" %}
                     {% endif %}
                 </a>
 
-                {% if children and not hide_children %}
+                {% if children and child_display != 'hide_children' %}
                     {% include "patterns/navigation/components/includes/subnav-menu-mobile.html" with links=children parent=link %}
                 {% endif %}
             {% endwith %}

@@ -92,12 +92,12 @@ context:
                             - title: Jobs child three
     - item:
       value:
-        hide_children: True
+        child_display_behaviour: 'hide-children'
         text: Thinking
         url: '#'
     - item:
       value:
-        hide_children: True
+        child_display_behaviour: 'hide-children'
         text: Work
         url: '#'
 tags:
