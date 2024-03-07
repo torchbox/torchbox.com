@@ -50,6 +50,7 @@ Styles for the lower levels of the navigation at mobile
             @include font-size('body-two');
             color: var(--color--heading);
             padding: $spacer-mini-plus $spacer-small;
+            font-weight: $weight--medium;
         }
 
         // styles for links without children
@@ -60,6 +61,7 @@ Styles for the lower levels of the navigation at mobile
             );
             @include font-size('body-two');
             padding: $spacer-mini-plus $spacer-small;
+            font-weight: $weight--medium;
         }
 
         // back link which goes one level up in the mobile menu
@@ -68,6 +70,7 @@ Styles for the lower levels of the navigation at mobile
             color: var(--color--heading);
             width: 100%;
             padding: $spacer-mini-plus $spacer-small;
+            font-weight: $weight--medium;
         }
 
         // parent link which takes you to the parent page for the section being viewed in the mobile menu
