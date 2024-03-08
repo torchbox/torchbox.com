@@ -1,5 +1,12 @@
 {% load wagtailcore_tags %}
 
+{% comment %}
+The `child_display` has 3 possible values:
+- hide_children - do not show a subnavigation
+- show_up_to_level1 - show level one child pages
+- show_up_to_level2 - show level one and level two child pages
+{% endcomment %}
+
 {% for item in primarynav %}
     {% with children=item.value.page.get_children.live.public.in_menu child_display=item.value.child_display_behaviour %}
         <li class="primary-nav-mobile__item {% if children and child_display != 'hide_children' %}primary-nav-mobile__item--is-parent{% endif %}">
