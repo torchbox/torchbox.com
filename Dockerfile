@@ -63,10 +63,6 @@ ENV BUILD_ENV=${BUILD_ENV}
 # server (Gunicorn). This is read by Dokku only. Heroku will ignore this.
 EXPOSE 8000
 
-RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
-    libmagickwand-dev \
-    && apt-get autoremove && rm -rf /var/lib/apt/lists/*
-
 # Install poetry at the system level
 RUN pip install --no-cache poetry==${POETRY_VERSION}
 
