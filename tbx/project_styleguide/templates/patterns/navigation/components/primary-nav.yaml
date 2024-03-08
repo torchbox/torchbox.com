@@ -49,7 +49,7 @@ context:
                   - title: Digital product development
     - item:
       value:
-        child_display_behaviour: 'show_up_to_level2'
+        child_display_behaviour: 'show_up_to_level1'
         text: Sectors
         url: '#'
         page:
