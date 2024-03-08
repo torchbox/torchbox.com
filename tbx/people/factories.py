@@ -150,12 +150,21 @@ class ContactReasonsListFactory(DjangoModelFactory):
     """
     Factory for generating ContactReasonsList instances along with
     related ContactReason instances.
+
     *Usage*:
-    Create a ContactReasonsList instance without related reasons:
-    `contact_reasons_list = ContactReasonsListFactory()`
-    Create a ContactReasonsList instance with a specific number of
+
+    1. Create a ContactReasonsList instance without related reasons:
+
+    ```
+    contact_reasons_list = ContactReasonsListFactory()
+    ```
+
+    2. Create a ContactReasonsList instance with a specific number of
     related ContactReason instances:
-    `contact_reasons_list_with_reasons = ContactReasonsListFactory(reasons=3)`
+
+    ```
+    contact_reasons_list_with_reasons = ContactReasonsListFactory(reasons=3)
+    ```
     """
 
     name = factory.Faker("text", max_nb_chars=20)
