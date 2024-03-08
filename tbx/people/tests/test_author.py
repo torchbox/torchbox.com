@@ -1,9 +1,8 @@
 from django.test import TestCase
 
 from tbx.core.factories import HomePageFactory
-from tbx.images.factories import CustomImageFactory
-from tbx.people.models import Author, PersonIndexPage, PersonPage
-from tbx.taxonomy.factories import TeamFactory
+from tbx.people.factories import PersonIndexPageFactory, PersonPageFactory
+from tbx.people.models import Author
 from wagtail.models import Page, Site
 
 
@@ -18,25 +17,14 @@ class TestAuthor(TestCase):
         site.root_page = home
         site.save()
 
-        self.personindex = PersonIndexPage(
-            title="Team",
-            strapline="This is us, the people that make Torchbox",
+        self.personindex = PersonIndexPageFactory(
+            parent=home,
         )
-        home.add_child(instance=self.personindex)
-        self.personindex.save()
 
     def test_author_created_when_personpage_published(self):
         self.assertEqual(Author.objects.count(), 0)
 
-        person = PersonPage(
-            title="Juliet Jacques",
-            role="Tinkerer",
-            biography="<p>Meet JJ, the tinkerer extraordinaire, turning junk into genius with a wink and a wrench!</p>",
-            image=CustomImageFactory(),
-        )
-        self.personindex.add_child(instance=person)
-        person.save()
-        person.related_teams.add(TeamFactory(name="Engineering"))
+        person = PersonPageFactory(parent=self.personindex)
         revision = person.save_revision()
         # Publish the page to trigger the page_published signal
         revision.publish()
@@ -49,15 +37,10 @@ class TestAuthor(TestCase):
         self.assertEqual(author.image, person.image)
 
     def test_author_updated_when_personpage_updated(self):
-        person = PersonPage(
+        person = PersonPageFactory(
+            parent=self.personindex,
             title="Koldo Knightley",
-            role="Culinary Connoisseur",
-            biography="<p>With a spatula in hand and a sprinkle of spice, KK orchestrates culinary masterpieces that tantalize taste buds and delight diners.</p>",
-            image=CustomImageFactory(),
         )
-        self.personindex.add_child(instance=person)
-        person.save()
-        person.related_teams.add(TeamFactory(name="Food and Beverage"))
         person.save_revision().publish()
 
         author = Author.objects.get(person_page=person)
@@ -74,15 +57,7 @@ class TestAuthor(TestCase):
         self.assertEqual(author.name, "Koldo “KK” Knightley")
 
     def test_author_remains_when_personpage_unpublished(self):
-        person = PersonPage(
-            title="Greta Goodman",
-            role="Gadget Guru",
-            biography="<p>Greta transforms futuristic ideas into reality with flair and finesse.</p>",
-            image=CustomImageFactory(),
-        )
-        self.personindex.add_child(instance=person)
-        person.save()
-        person.related_teams.add(TeamFactory(name="Gadgetry"))
+        person = PersonPageFactory(parent=self.personindex)
         person.save_revision().publish()
 
         self.assertEqual(Author.objects.count(), 1)
@@ -98,15 +73,7 @@ class TestAuthor(TestCase):
         self.assertEqual(author.image, person.image)
 
     def test_author_remains_when_personpage_deleted(self):
-        person = PersonPage(
-            title="Giovanni Grant",
-            role="Fitness Trainer",
-            biography="<p>Giovanni empowers the team to achieve peak performance and unlock their full potential.</p>",
-            image=CustomImageFactory(),
-        )
-        self.personindex.add_child(instance=person)
-        person.save()
-        person.related_teams.add(TeamFactory(name="Fitness"))
+        person = PersonPageFactory(parent=self.personindex)
         person.save_revision().publish()
 
         self.assertEqual(Author.objects.count(), 1)
