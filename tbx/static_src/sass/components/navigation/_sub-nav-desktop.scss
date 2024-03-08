@@ -12,7 +12,10 @@ Styles for the lower levels of the navigation at desktop
 .sub-nav-desktop {
     $root: &;
     @include z-index(base);
-    @include nav-fixed-position($header-height-desktop, $full-height: false);
+    @include nav-fixed-position(
+        $header-height: $header-height-desktop,
+        $full-height: false
+    );
     background-color: var(--color--nav-background);
     padding: $spacer-half $grid-gutters;
 

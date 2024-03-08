@@ -3,6 +3,7 @@ context:
   primarynav:
     - item:
       value:
+        child_display_behaviour: 'show_up_to_level2'
         text: Services
         url: '#'
         page:
@@ -48,6 +49,7 @@ context:
                   - title: Digital product development
     - item:
       value:
+        child_display_behaviour: 'show_up_to_level2'
         text: Sectors
         url: '#'
         page:
@@ -67,6 +69,7 @@ context:
                   - title: Government
     - item:
       value:
+        child_display_behaviour: 'show_up_to_level1'
         text: About
         url: '#'
         page:

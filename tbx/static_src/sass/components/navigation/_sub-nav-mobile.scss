@@ -11,7 +11,7 @@ Styles for the lower levels of the navigation at mobile
 .sub-nav-mobile {
     $root: &;
     @include z-index(base);
-    @include nav-fixed-position($header-height-mobile);
+    @include nav-fixed-position($header-height: $header-height-mobile);
     background-color: var(--color--nav-background);
 
     // the unordered list containing the level 2 menu items
@@ -32,7 +32,7 @@ Styles for the lower levels of the navigation at mobile
     &__link {
         @include font-size('heading-five');
         display: flex;
-        padding: 35px $spacer-small;
+        padding: $spacer-small;
         border-bottom: 1px solid var(--color--nav-border);
         gap: 18px;
         align-items: center;
