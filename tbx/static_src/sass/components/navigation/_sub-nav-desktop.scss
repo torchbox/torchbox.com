@@ -12,7 +12,7 @@ Styles for the lower levels of the navigation at desktop
 .sub-nav-desktop {
     $root: &;
     @include z-index(base);
-    @include nav-fixed-position($header-height-desktop);
+    @include nav-fixed-position($header-height-desktop, $full-height: false);
     background-color: var(--color--nav-background);
     padding: $spacer-half $grid-gutters;
 
@@ -76,7 +76,7 @@ Styles for the lower levels of the navigation at desktop
             $color: var(--color--heading),
             $interaction-color: var(--color--heading)
         );
-        @include font-size('heading-six');
+        @include font-size('heading-five');
         font-weight: $weight--semibold;
         display: block;
         margin-bottom: $spacer-mini-plus;
@@ -95,7 +95,7 @@ Styles for the lower levels of the navigation at desktop
             font-weight: $weight--light;
             line-height: 1.2;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: $spacer-mini;
         }
     }
 
