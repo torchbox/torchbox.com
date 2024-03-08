@@ -30,11 +30,11 @@ The `child_display` has 3 possible values:
                         </div>
                     {% endif %}
                 </a>
-                {# if we are only showing up to level 1, show a small dropdown #}
                 {% if children and child_display == 'show_up_to_level1' %}
+                    {# if we are only showing up to level 1, show a small dropdown #}
                     {% include "patterns/navigation/components/includes/subnav-menu-mini.html" with links=children last=forloop.last revcounter=forloop.revcounter %}
-                {# if we are showing level 1 and level 2 children, show a wide dropdown #}
                 {% elif children and child_display == 'show_up_to_level2' %}
+                    {# if we are showing level 1 and level 2 children, show a wide dropdown #}
                     {% include "patterns/navigation/components/includes/subnav-menu.html" with links=children number=children|length %}
                 {% endif %}
             {% endwith %}
