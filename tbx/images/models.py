@@ -12,6 +12,10 @@ class CustomImage(AbstractImage):
     def credit_text(self):
         return self.credit
 
+    @property
+    def is_gif(self):
+        return self.filename.lower().endswith(".gif")
+
 
 class Rendition(AbstractRendition):
     image = models.ForeignKey(
