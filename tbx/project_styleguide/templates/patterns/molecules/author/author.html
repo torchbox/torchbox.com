@@ -8,7 +8,7 @@
         {% if author_attribution %}
             <p class="author__attribution">{{ author_attribution }}</p>
         {% endif %}
-        {% if author.person_page %}
+        {% if author.person_page.live %}
             <p class="author__name">
                 <a class="author__link" href="{% pageurl author.person_page %}" aria-label="By {{ author.name }}. View {{ author.name }}'s team profile page">
                     {{ author.name }}
