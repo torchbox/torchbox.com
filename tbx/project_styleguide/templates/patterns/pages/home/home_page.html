@@ -3,14 +3,19 @@
 
 {% block content %}
     <div class="grid streamfield">
-        <div class="grid__title">
-            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.statement classes="motif-heading--one" %}
-        </div>
+        {% include "patterns/molecules/home-page-hero/home-page-hero.html" %}
+
         <div class="grid__intro heading heading--six">
             {{ page.introduction }}
         </div>
 
-        {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=page.partner_logos %}
+        <div class="grid__partners">
+            {% if page.partner_logos|length > 5 %}
+                {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=page.partner_logos classes="partners__logos--wide" %}
+            {% else %}
+                {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=page.partner_logos %}
+            {% endif %}
+        </div>
 
         {% include_block page.body %}
     </div>

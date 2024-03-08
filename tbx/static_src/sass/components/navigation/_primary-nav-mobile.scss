@@ -40,12 +40,11 @@ Styles for the top level of the navigation at mobile
 
     // top level menu links
     &__link {
+        @include font-size('heading-five');
         display: flex;
-        padding: 35px $spacer-small;
+        padding: $spacer-small;
         border-bottom: 1px solid var(--color--nav-border);
         justify-content: space-between;
-        font-size: nth(map-get($large-font-sizes, 'heading-four'), 1);
-        line-height: nth(map-get($large-font-sizes, 'heading-four'), 2);
 
         &:focus {
             @include focus-style();

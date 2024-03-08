@@ -9,9 +9,6 @@ from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
-from wagtail_webstories.blocks import (
-    ExternalStoryEmbedBlock as WebstoryExternalStoryEmbedBlock,
-)
 from wagtailmarkdown.blocks import MarkdownBlock
 from wagtailmedia.blocks import VideoChooserBlock
 
@@ -218,16 +215,6 @@ class ContactCTABlock(blocks.StructBlock):
 
     class Meta:
         template = "patterns/molecules/streamfield/blocks/contact_call_to_action.html"
-
-
-class ExternalStoryEmbedBlock(WebstoryExternalStoryEmbedBlock):
-    """
-    This code is no longer in use, unfortunately tbx/core/0001 migration (L407)
-    depends explicitly on it & migrations cannot be simply squashed to get around this
-    See https://github.com/wagtail/wagtail/issues/3710 for a discussion of a similar issue
-    """
-
-    pass
 
 
 class ShowcaseBlock(blocks.StructBlock):
@@ -482,11 +469,17 @@ class TabbedParagraphBlock(blocks.StructBlock):
 class PhotoCollageBlock(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255)
     intro = blocks.TextBlock(label="Introduction")
-    page = blocks.PageChooserBlock(required=False, label="Button link")
-    link_text = blocks.CharBlock(
+    button_link = blocks.StreamBlock(
+        [
+            ("internal_link", blocks.PageChooserBlock()),
+            ("external_link", blocks.URLBlock()),
+        ],
+        required=False,
+        max_num=1,
+    )
+    button_text = blocks.CharBlock(
         required=False,
         max_length=55,
-        label="Button text",
     )
     images = blocks.ListBlock(
         ImageWithAltTextBlock(label="Photo"),
@@ -501,24 +494,24 @@ class PhotoCollageBlock(blocks.StructBlock):
         struct_value = super().clean(value)
 
         errors = {}
-        page = value.get("page")
-        link_text = value.get("link_text")
+        button_link = value.get("button_link")
+        button_text = value.get("button_text")
 
-        if page and not link_text:
+        if button_link and not button_text:
             error = ErrorList(
-                [ValidationError("You must add link text for the specified page.")]
+                [ValidationError("You must add button text for the button link.")]
             )
-            errors["link_text"] = error
+            errors["button_text"] = error
 
-        if link_text and not page:
+        if button_text and not button_link:
             error = ErrorList(
                 [
                     ValidationError(
-                        "You must specify a page for the link text you have provided."
+                        "You must specify a button link above, for the button text you have provided."
                     )
                 ]
             )
-            errors["page"] = error
+            errors["button_text"] = error
 
         if errors:
             raise StructBlockValidationError(errors)
@@ -527,6 +520,7 @@ class PhotoCollageBlock(blocks.StructBlock):
     class Meta:
         icon = "image"
         template = "patterns/molecules/streamfield/blocks/photo_collage_block.html"
+        value_class = ButtonLinkStructValue
 
 
 class StoryBlock(blocks.StreamBlock):
@@ -597,7 +591,7 @@ class StoryBlock(blocks.StreamBlock):
         template = "patterns/molecules/streamfield/stream_block.html"
 
 
-class HomePageStoryBlock(StoryBlock):
+class HomePageStoryBlock(blocks.StreamBlock):
     showcase = ShowcaseBlock()
     featured_case_study = FeaturedCaseStudyBlock()
     blog_chooser = BlogChooserBlock()
@@ -606,3 +600,6 @@ class HomePageStoryBlock(StoryBlock):
     promo = PromoBlock()
     tabbed_paragraph = TabbedParagraphBlock()
     event = EventBlock()
+
+    class Meta:
+        template = "patterns/molecules/streamfield/stream_block.html"

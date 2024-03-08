@@ -31,7 +31,7 @@ class BlogIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     @property
     def blog_posts(self):
         # Get list of blog pages that are descendants of this page
-        blog_posts = BlogPage.objects.live().descendant_of(self)
+        blog_posts = BlogPage.objects.live().descendant_of(self).distinct()
 
         # Order by most recent date first
         blog_posts = blog_posts.order_by("-date", "pk")

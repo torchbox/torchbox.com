@@ -20,27 +20,22 @@ tags:
     'item.image format-webp saturation-0.6 loading="lazy" fill-{288x288,576x576} sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" class="photo-collage__image" alt=item.image_alt_text':
       raw: |
         <img alt="alt text" class="photo-collage__image" height="288" loading="lazy" sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" src="https://source.unsplash.com/288x288?people" srcset="https://source.unsplash.com/288x288?people 288w, https://source.unsplash.com/576x576?people 576w" width="288">
+
+    # avatar image for blog chooser
+    'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
+      raw: |
+        <img alt="" class="avatar__image" height="72" loading="lazy" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
+    'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
+      raw: |
+        <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
+    # values block
+    'value_item.image.image format-webp width-{482,964} sizes="(max-width: 598px) 100vw, (min-width: 599px) 30vw" loading="lazy" class="values__image"':
+      raw: '<img alt="test alt" class="values__image" height="590" loading="lazy" sizes="(max-width: 598px) 100vw, (min-width: 599px) 30vw" src="https://picsum.photos/482/589.webp" srcset="https://picsum.photos/482/589.webp 482w, https://picsum.photos/964/1178.webp 964w" width="482">'
   image:
     # Featured case study logo
     value.featured_case_study_logo max-110x70 format-webp class="featured-case-study__company-logo":
       raw: |
         <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="featured-case-study__company-logo">
-    # avatar image for blog chooser
-    avatar fill-144x144 format-webp saturation-0.6 as avatar_desktop:
-      target_var: avatar_desktop
-      raw:
-        alt: 'desktop image'
-        url: 'https://source.unsplash.com/144x144?face'
-    avatar fill-286x286 format-webp saturation-0.6 as avatar_desktop_retina:
-      target_var: avatar_desktop_retina
-      raw:
-        alt: 'desktop image retina'
-        url: 'https://source.unsplash.com/286x286?face'
-    avatar fill-72x72 format-webp saturation-0.6 as avatar_mobile:
-      target_var: avatar_mobile
-      raw:
-        alt: 'mobile image'
-        url: 'https://source.unsplash.com/72x72?face'
     # listing image for work chooser
     listing_image fill-370x370 format-webp saturation-0.6 as listing_desktop_image:
       target_var: listing_desktop_image

@@ -3,6 +3,7 @@
 
 $color--black: #000;
 $color--eclipse: #1d2325;
+$color--dark-background: #171c1d;
 
 $color--nebuline-30: #481cd9;
 $color--nebuline-20: #7045ff;
@@ -42,6 +43,7 @@ $color--mid-grey: #282e30; // in figma this colour is created with a very transp
 :root,
 .mode-dark {
     --color--background: #{$color--eclipse};
+    --color--footer-background: #{$color--dark-background};
     --color--nav-text: #{$color--grey-5};
     --color--nav-border: #{color.adjust($color--eclipse, $alpha: -0.5)};
     --color--light-background-text: #{$color--eclipse};

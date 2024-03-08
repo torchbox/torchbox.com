@@ -12,12 +12,14 @@
 @use 'components/call-to-action';
 @use 'components/contact-cta';
 @use 'components/cookie-message';
+@use 'components/employee-owned-icon';
 @use 'components/event';
 @use 'components/featured-case-study';
 @use 'components/footer';
 @use 'components/footer-cta';
 @use 'components/grid';
 @use 'components/header';
+@use 'components/home-page-hero';
 @use 'components/image';
 @use 'components/link';
 @use 'components/listing';
@@ -46,6 +48,7 @@
 @use 'components/tag';
 @use 'components/team-listing';
 @use 'components/title-filters';
+@use 'components/values';
 @use 'components/work-hero';
 @use 'components/work-page-author';
 @use 'components/work-sections';
