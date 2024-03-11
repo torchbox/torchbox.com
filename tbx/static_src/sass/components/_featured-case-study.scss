@@ -71,6 +71,7 @@
     }
 
     &__title {
+        @include font-size('heading-two-b');
         margin-bottom: $spacer-small;
 
         @include media-query(large) {

@@ -284,7 +284,6 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
     link = blocks.PageChooserBlock(
         page_type=["work.WorkPage", "work.HistoricalWorkPage"]
     )
-    tagline = blocks.CharBlock(max_length=255)
     text = blocks.RichTextBlock(required=False)
     image = ImageChooserBlock(required=False)
     logo = ImageChooserBlock(required=False)
