@@ -4,6 +4,7 @@ from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 
 from modelcluster.models import ClusterableModel
+from tbx.core.utils.fields import StreamField
 from tbx.navigation.blocks import (
     FooterLogoBlock,
     LinkBlock,
@@ -11,7 +12,6 @@ from tbx.navigation.blocks import (
 )
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
-from wagtail.fields import StreamField
 
 
 @register_setting(icon="list-ul")
