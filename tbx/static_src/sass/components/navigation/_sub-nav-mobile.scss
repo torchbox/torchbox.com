@@ -3,6 +3,8 @@
 
 /*
 Styles for the lower levels of the navigation at mobile
+Note that in the navigation settings we refer to 'level 1 and 2 children'.
+Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'level 3'.
 */
 
 // At mobile, the sub-navigation appears when a top level item is clicked, and also when a second level item is clicked. The second and third levels are shown in separate views
@@ -11,7 +13,7 @@ Styles for the lower levels of the navigation at mobile
 .sub-nav-mobile {
     $root: &;
     @include z-index(base);
-    @include nav-fixed-position($header-height-mobile);
+    @include nav-fixed-position($header-height: $header-height-mobile);
     background-color: var(--color--nav-background);
 
     // the unordered list containing the level 2 menu items
@@ -32,7 +34,7 @@ Styles for the lower levels of the navigation at mobile
     &__link {
         @include font-size('heading-five');
         display: flex;
-        padding: 35px $spacer-small;
+        padding: $spacer-small;
         border-bottom: 1px solid var(--color--nav-border);
         gap: 18px;
         align-items: center;

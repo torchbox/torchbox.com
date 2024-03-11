@@ -3,6 +3,8 @@
 
 /*
 Styles for the lower levels of the navigation at desktop
+Note that in the navigation settings we refer to 'level 1 and 2 children'.
+Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'level 3'.
 */
 
 // At desktop, the sub-navigation appears when a top level item is clicked
@@ -12,7 +14,10 @@ Styles for the lower levels of the navigation at desktop
 .sub-nav-desktop {
     $root: &;
     @include z-index(base);
-    @include nav-fixed-position($header-height-desktop, $full-height: false);
+    @include nav-fixed-position(
+        $header-height: $header-height-desktop,
+        $full-height: false
+    );
     background-color: var(--color--nav-background);
     padding: $spacer-half $grid-gutters;
 
