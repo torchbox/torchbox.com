@@ -82,8 +82,14 @@ class BlogIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         except EmptyPage:
             blog_posts = paginator.page(paginator.num_pages)
 
-        related_sectors = Sector.objects.all()
-        related_services = Service.objects.all()
+        # Only show Sectors and Services that have been used
+        related_sectors = Sector.objects.filter(
+            pk__in=models.Subquery(self.blog_posts.values("related_sectors"))
+        )
+
+        related_services = Service.objects.filter(
+            pk__in=models.Subquery(self.blog_posts.values("related_services"))
+        )
         tags = chain(related_services, related_sectors)
 
         context.update(
