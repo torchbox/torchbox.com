@@ -14,7 +14,7 @@
 
     <div class="featured-case-study__content">
         {# Title #}
-        <h2 class="featured-case-study__title heading heading--three">{{ value.tagline }}</h2>
+        <h2 class="featured-case-study__title heading heading--three">{{ value.link.title }}</h2>
 
         {# Rich text #}
         {% if value.text %}
@@ -26,22 +26,22 @@
         {% endif %}
 
         {# Meta link #}
-        {% if value.link %}
-            {% with value.link.specific as link %}
-                <a href="{% pageurl link %}" class="featured-case-study__link link link--arrow">
-                    <span class="featured-case-study__link-inner">
-                        <span>
-                            {{ link.title }}
-                        </span>
-                        <span class="featured-case-study__link-meta">
-                            {{ link.date }} <span aria-hidden="true" class="featured-case-study__divider">/</span>
-                            {{ link.read_time }} min{{ link.read_time|pluralize }} read
-                        </span>
-                    </span>
 
-                    {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="featured-case-study__icon" %}
-                </a>
-            {% endwith %}
-        {% endif %}
+        {% with value.link.specific as link %}
+            <a href="{% pageurl link %}" class="featured-case-study__link link link--arrow">
+                <span class="featured-case-study__link-inner">
+                    <span>
+                        {{ link.specific.client }}
+                    </span>
+                    <span class="featured-case-study__link-meta">
+                        {{ link.date }} <span aria-hidden="true" class="featured-case-study__divider">/</span>
+                        {{ link.read_time }} min{{ link.read_time|pluralize }} read
+                    </span>
+                </span>
+
+                {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="featured-case-study__icon" %}
+            </a>
+        {% endwith %}
+
     </div>
 </div>
