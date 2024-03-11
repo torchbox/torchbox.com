@@ -20,11 +20,21 @@
     h2 {
         @include font-size(heading-two-b);
         @include rich-text-heading-spacing();
+
+        // if the h2 comes after a work section heading, remove top margin
+        .work-sections__title + &:first-child {
+            margin-top: 0;
+        }
     }
 
     h3 {
         @include font-size(heading-three);
         @include rich-text-heading-spacing();
+
+        // if the h3 comes after a work section heading, remove top margin
+        .work-sections__title + &:first-child {
+            margin-top: 0;
+        }
     }
 
     h4 {
