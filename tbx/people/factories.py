@@ -2,13 +2,24 @@ import json
 import logging
 
 import factory
+import wagtail_factories
 from factory.django import DjangoModelFactory
 from faker import Faker
 from tbx.core.factories import StandardPageFactory
 from tbx.core.models import HomePage
 from tbx.images.factories import CustomImageFactory
-from tbx.people.models import Contact, ContactReason, ContactReasonsList
+from tbx.people.models import (
+    Author,
+    Contact,
+    ContactReason,
+    ContactReasonsList,
+    PersonIndexPage,
+    PersonPage,
+)
+from tbx.taxonomy.factories import TeamFactory
+from tbx.taxonomy.models import Team
 
+faker = Faker(["en_GB"])
 logger = logging.getLogger(__name__)
 
 
@@ -99,8 +110,6 @@ class ContactFactory(DjangoModelFactory):
                     "Page argument ignored because link type is not 'internal_link'"
                 )
 
-            faker = Faker(["en_GB"])
-
             cta_value = {
                 "type": "call_to_action",
                 "value": {
@@ -141,12 +150,21 @@ class ContactReasonsListFactory(DjangoModelFactory):
     """
     Factory for generating ContactReasonsList instances along with
     related ContactReason instances.
+
     *Usage*:
-    Create a ContactReasonsList instance without related reasons:
-    `contact_reasons_list = ContactReasonsListFactory()`
-    Create a ContactReasonsList instance with a specific number of
+
+    1. Create a ContactReasonsList instance without related reasons:
+
+    ```
+    contact_reasons_list = ContactReasonsListFactory()
+    ```
+
+    2. Create a ContactReasonsList instance with a specific number of
     related ContactReason instances:
-    `contact_reasons_list_with_reasons = ContactReasonsListFactory(reasons=3)`
+
+    ```
+    contact_reasons_list_with_reasons = ContactReasonsListFactory(reasons=3)
+    ```
     """
 
     name = factory.Faker("text", max_nb_chars=20)
@@ -165,3 +183,82 @@ class ContactReasonsListFactory(DjangoModelFactory):
                 ContactReasonFactory.create_batch(extracted, page=self)
             else:
                 raise ValueError("The 'reasons' field expects an integer value.")
+
+
+class AuthorFactory(DjangoModelFactory):
+    name = factory.Faker("name")
+    role = factory.Faker("job")
+    image = factory.SubFactory(CustomImageFactory)
+
+    class Meta:
+        model = Author
+
+
+class PersonIndexPageFactory(wagtail_factories.PageFactory):
+    title = factory.Faker("text", max_nb_chars=12)
+    strapline = factory.Faker("text", max_nb_chars=100)
+
+    class Meta:
+        model = PersonIndexPage
+
+
+class PersonPageFactory(wagtail_factories.PageFactory):
+    """
+    Factory for generating `PersonPage` instances.
+    By default, this factory will create a PersonPage instance with a related team.
+
+    You can optionally either specify the name of the related team or a
+    `tbx.taxonomy.models.Team` instance. Please see below for some examples.
+
+
+    **Usage examples**
+
+    1. Create a PersonPage instance with a random related team:
+
+    ```
+    >>> person = PersonPageFactory()
+    >>> person.related_teams.all()
+    <QuerySet [<Team: Spend can white.>]>
+    ```
+
+    2. Create a PersonPage instance with a specific related team:
+
+    ```
+    >>> team = TeamFactory(name="Foo")
+    >>> person = PersonPageFactory(related_teams=team)
+    >>> person.related_teams.all()
+    <QuerySet [<Team: Foo>]>
+    ```
+
+    3. Create a PersonPage instance specifying the name of the related team:
+
+    ```
+    >>> person = PersonPageFactory(related_teams="Foo Bar")
+    >>> person.related_teams.all()
+    <QuerySet [<Team: Foo Bar>]>
+    ```
+    """
+
+    title = factory.Faker("name")
+    role = factory.Faker("job")
+    biography = f"<p>{faker.paragraph()}</p>"
+    image = factory.SubFactory(CustomImageFactory)
+
+    @factory.post_generation
+    def related_teams(self, create, extracted, **kwargs):
+        if not create:
+            return
+        if not extracted:
+            self.related_teams.add(TeamFactory())
+        if extracted:
+            if isinstance(extracted, str):
+                self.related_teams.add(TeamFactory(name=extracted))
+            elif isinstance(extracted, Team):
+                self.related_teams.add(extracted)
+            else:
+                raise ValueError(
+                    "`related_teams` value must either be a string or a `Team` instance."
+                )
+
+    class Meta:
+        model = PersonPage

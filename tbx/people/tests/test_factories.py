@@ -2,7 +2,15 @@ from django.test import TestCase
 
 from tbx.core.factories import HomePageFactory, StandardPageFactory
 from tbx.core.models import StandardPage
-from tbx.people.factories import ContactFactory, ContactReasonsListFactory
+from tbx.people.factories import (
+    AuthorFactory,
+    ContactFactory,
+    ContactReasonsListFactory,
+    PersonIndexPageFactory,
+    PersonPageFactory,
+)
+from tbx.taxonomy.factories import TeamFactory
+from tbx.taxonomy.models import Team
 
 
 class ContactFactoryTestCase(TestCase):
@@ -117,3 +125,44 @@ class ContactReasonsListFactoryTestCase(TestCase):
         self.assertIsNotNone(contact_reasons_list.name)
         self.assertIsNotNone(contact_reasons_list.heading)
         self.assertEqual(contact_reasons_list.reasons.count(), 4)
+
+
+class AuthorFactoryTestCase(TestCase):
+    def test_author_factory(self):
+        author = AuthorFactory()
+        self.assertIsNotNone(author.name)
+        self.assertIsNotNone(author.role)
+        self.assertIsNotNone(author.image)
+
+
+class PersonIndexPageFactoryTestCase(TestCase):
+    def test_person_index_page_factory(self):
+        person_index_page = PersonIndexPageFactory()
+        self.assertIsNotNone(person_index_page.title)
+        self.assertIsNotNone(person_index_page.strapline)
+
+
+class PersonPageFactoryTestCase(TestCase):
+    def test_person_page_factory(self):
+        person_page = PersonPageFactory()
+        self.assertIsNotNone(person_page.title)
+        self.assertIsNotNone(person_page.role)
+        self.assertIsNotNone(person_page.biography)
+        self.assertIsNotNone(person_page.image)
+        self.assertEqual(person_page.related_teams.count(), 1)
+
+    def test_person_page_factory_with_related_team(self):
+        self.assertEqual(Team.objects.count(), 0)
+
+        # related_teams as a string
+        jane = PersonPageFactory(title="Jane Doe", related_teams="Engineering")
+        self.assertEqual(jane.related_teams.count(), 1)
+        self.assertEqual(jane.related_teams.first().name, "Engineering")
+
+        # related_teams as a `Team` instance
+        team = TeamFactory(name="Digital Marketing")
+        john = PersonPageFactory(title="John Doe", related_teams=team)
+        self.assertEqual(john.related_teams.count(), 1)
+        self.assertEqual(john.related_teams.first().name, "Digital Marketing")
+
+        self.assertEqual(Team.objects.count(), 2)

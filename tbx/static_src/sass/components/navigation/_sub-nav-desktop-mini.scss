@@ -1,0 +1,68 @@
+@use "config" as *;
+@use "sass:color";
+
+/*
+Styles for the second level of navigation at desktop, in the case when a third
+level is not shown
+Note that in the navigation settings we refer to 'level 1 and 2 children'.
+Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'level 3'.
+*/
+
+// div element at level 2 of the menu
+.sub-nav-desktop-mini {
+    $root: &;
+    @include z-index(base);
+    @include nav-fixed-position(
+        $header-height: $header-height-desktop,
+        $full-height: false
+    );
+    background-color: var(--color--nav-background);
+    padding: 25px 0 $spacer-mini;
+    position: absolute;
+    top: $spacer-medium;
+    width: 235px;
+    left: -20px;
+    // for high contrast mode
+    border: 1px solid transparent;
+
+    // just in case we have a menu drop down at the end of the menu
+    &--right {
+        position: absolute;
+        top: $spacer-medium;
+        left: auto;
+        right: -50px;
+        margin-right: $spacer-small-plus;
+    }
+
+    // the list item for each menu item at the 2nd level
+    &__item {
+        font-weight: $weight--medium;
+    }
+
+    // The link for each menu item in the 2nd and 3rd level
+    &__link {
+        @include link-styles(
+            $color: var(--color--heading),
+            $interaction-color: var(--color--heading)
+        );
+        @include font-size('body-two');
+        font-weight: $weight--normal;
+        display: block;
+        padding: $spacer-mini $spacer-mini-plus;
+        border-bottom: 1px solid var(--color--nav-border);
+
+        &:focus {
+            @include focus-style();
+        }
+
+        #{$root}__item:last-child & {
+            border-bottom: none;
+        }
+    }
+
+    // active state
+    .active & {
+        opacity: 1;
+        visibility: visible;
+    }
+}

@@ -42,12 +42,9 @@
 
     &__role {
         @include font-size('heading-four');
-        font-size: nth(map-get($small-font-sizes, 'heading-four'), 1);
-        line-height: nth(map-get($small-font-sizes, 'heading-four'), 2);
 
         @include media-query(medium) {
-            font-size: nth(map-get($large-font-sizes, 'supporting'), 1);
-            line-height: nth(map-get($large-font-sizes, 'supporting'), 2);
+            @include font-size('supporting');
         }
     }
 }
