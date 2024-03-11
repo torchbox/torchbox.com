@@ -1,12 +1,16 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <div class="image grid__image">
-    {% if value.image_is_decorative %}
-        {% srcset_image value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" alt="" %}
-    {% elif value.alt_text %}
-        {% srcset_image value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" alt=value.alt_text %}
+    {% if value.image.is_gif %}
+        {% image value.image width-800 %}
     {% else %}
-        {% srcset_image value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" %}
+        {% if value.image_is_decorative %}
+            {% srcset_image value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" alt="" %}
+        {% elif value.alt_text %}
+            {% srcset_image value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" alt=value.alt_text %}
+        {% else %}
+            {% srcset_image value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" %}
+        {% endif %}
     {% endif %}
 
     {% if value.caption %}
