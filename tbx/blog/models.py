@@ -13,11 +13,11 @@ from django.utils.http import urlencode
 from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
+from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail.search import index
 from wagtail.signals import page_published
