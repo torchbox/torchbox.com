@@ -9,6 +9,10 @@
         align-items: flex-start;
         gap: 10px;
         margin-bottom: $spacer-medium;
+
+        @include media-query(large) {
+            margin-bottom: 0;
+        }
     }
 
     &__rings {
