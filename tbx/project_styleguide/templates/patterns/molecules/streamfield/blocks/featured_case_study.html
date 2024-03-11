@@ -12,36 +12,33 @@
         {% endif %}
     </div>
 
-    <div class="featured-case-study__content">
-        {# Title #}
-        <h2 class="featured-case-study__title heading heading--three">{{ value.link.title }}</h2>
-
-        {# Rich text #}
-        {% if value.text %}
-            <div class="featured-case-study__text">
-                {{ value.text|richtext }}
-                {# Results SVG #}
-                {% include "patterns/atoms/icons/results-ring.html" with classes="featured-case-study__results-icon" %}
-            </div>
-        {% endif %}
-
-        {# Meta link #}
-
-        {% with value.link.specific as link %}
+    {% with value.link.specific as link %}
+        <div class="featured-case-study__content">
+            {# Title #}
             <a href="{% pageurl link %}" class="featured-case-study__link link link--arrow">
-                <span class="featured-case-study__link-inner">
-                    <span>
-                        {{ link.specific.client }}
-                    </span>
-                    <span class="featured-case-study__link-meta">
-                        {{ link.date }} <span aria-hidden="true" class="featured-case-study__divider">/</span>
-                        {{ link.read_time }} min{{ link.read_time|pluralize }} read
-                    </span>
-                </span>
-
+                <h2 class="featured-case-study__title heading heading--three">{{ link.title }}</h2>
                 {% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="featured-case-study__icon" %}
             </a>
-        {% endwith %}
 
-    </div>
+            {# Rich text #}
+            {% if value.text %}
+                <div class="featured-case-study__text">
+                    {{ value.text|richtext }}
+                    {# Results SVG #}
+                    {% include "patterns/atoms/icons/results-ring.html" with classes="featured-case-study__results-icon" %}
+                </div>
+            {% endif %}
+
+            {# Meta info #}
+            <span class="featured-case-study__client-info">
+                <span>
+                    {{ link.client }}
+                </span>
+                <span class="featured-case-study__meta">
+                    {{ link.date }} <span aria-hidden="true" class="featured-case-study__divider">/</span>
+                    {{ link.read_time }} min{{ link.read_time|pluralize }} read
+                </span>
+            </span>
+        </div>
+    {% endwith %}
 </div>
