@@ -40,6 +40,7 @@
     h4 {
         @include font-size(heading-four);
         @include rich-text-heading-spacing();
+        font-weight: $weight--semibold;
     }
 
     ul {
