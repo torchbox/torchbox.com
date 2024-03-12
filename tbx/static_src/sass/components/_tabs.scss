@@ -67,6 +67,12 @@
 
     &__nav-text {
         flex-basis: calc(100% - 182px);
+        opacity: 0.8;
+
+        #{$root}__nav-item:focus &,
+        #{$root}__nav-item:hover & {
+            opacity: 1;
+        }
     }
 
     &__nav-arrow {
