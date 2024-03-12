@@ -6,7 +6,7 @@
 
     @include media-query(large) {
         grid-template-columns: 3fr 2fr;
-        min-height: 630px;
+        min-height: 250px;
     }
 
     &__content {
