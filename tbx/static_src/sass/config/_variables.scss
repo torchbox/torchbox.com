@@ -66,6 +66,9 @@ $color--mid-grey: #282e30; // in figma this colour is created with a very transp
     --color--accent-three: #{$color--coral-20}; // 'secondary-darkmode' in figma
     --color--accent-four: #{$color--purple}; // 'highlight dark' in figma. Note that these colours were primarily intended for a mix-blend in the letter caps, which we're no longer using.
     --color--accent-five: #{$color--white};
+    // inverse using the light mode colour accent - used for 'results icon' in the featured case study
+    --color--accent-two-inverse: #{$color--nebuline-30};
+    --color--accent-three-inverse: #{$color--coral};
     --color--nav-background: #{$color--nebuline-30};
     --color--light-background: #{$color--coral-10};
     --color--secondary-light-background: #{$color--nebuline-10};
@@ -84,6 +87,9 @@ $color--mid-grey: #282e30; // in figma this colour is created with a very transp
     --color--accent-three: #{$color--lagoon-20}; // 'secondary-darkmode' in figma
     --color--accent-four: #{$color--blue}; // 'highlight dark' in figma. Note that these colours were primarily intended for a mix-blend in the letter caps, which we're no longer using.
     --color--accent-five: #{$color--white};
+    // inverse using the light mode colour accent - used for 'results icon' in the featured case study
+    --color--accent-two-inverse: #{$color--nebuline-30};
+    --color--accent-three-inverse: #{$color--lagoon-30};
     --color--nav-background: #{$color--nebuline-30};
     --color--light-background: #{$color--lagoon-10};
     --color--secondary-light-background: #{$color--nebuline-10};
@@ -99,6 +105,9 @@ $color--mid-grey: #282e30; // in figma this colour is created with a very transp
     --color--accent-three: #{$color--banana-20}; // 'secondary-darkmode' in figma
     --color--accent-four: #{$color--banana-30}; // 'highlight dark' in figma. Note that these colours were primarily intended for a mix-blend in the letter caps, which we're no longer using.
     --color--accent-five: #{$color--white};
+    // inverse using the light mode colour accent - used for 'results icon' in the featured case study
+    --color--accent-two-inverse: #{$color--lagoon-30};
+    --color--accent-three-inverse: #{$color--banana-30};
     --color--nav-background: #{$color--lagoon-30};
     --color--light-background: #{$color--banana-10};
     --color--secondary-light-background: #{$color--lagoon-10};
@@ -301,6 +310,7 @@ $avatar-size-145: 145px;
 $avatar-size-120: 120px;
 $avatar-size-100: 100px;
 $avatar-size-72: 72px;
+$avatar-size-80: 80px;
 
 $header-height-desktop: 106px;
 $header-height-mobile: 81px;

@@ -24,8 +24,8 @@
         object-fit: cover;
 
         @include media-query(medium) {
-            max-width: 370px;
-            max-height: auto;
+            width: 370px;
+            max-height: none;
         }
     }
 }
