@@ -41,9 +41,7 @@ class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     body_word_count = models.PositiveIntegerField(null=True, editable=False)
     visit_the_site = models.URLField(blank=True)
 
-    # Renamed from feed_image to allow prefetch of field common to WorkPage and
-    # HistoricalWorkPage
-    header_image = models.ForeignKey(
+    feed_image = models.ForeignKey(
         "images.CustomImage",
         help_text="Image used on listings and social media.",
         null=True,
@@ -139,7 +137,7 @@ class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
 
     @property
     def listing_image(self):
-        return self.header_image
+        return self.feed_image
 
     @property
     def type(self):
@@ -160,7 +158,7 @@ class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         + ColourThemeMixin.promote_panels
         + ContactMixin.promote_panels
         + [
-            FieldPanel("header_image"),
+            FieldPanel("feed_image"),
             FieldPanel("listing_summary"),
             FieldPanel("related_sectors", widget=forms.CheckboxSelectMultiple),
             FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
@@ -349,7 +347,6 @@ class WorkIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
                 "historicalworkpage__related_services",
                 "authors",
                 "authors__author",
-                "header_image",
             )
             .annotate(
                 priority=Case(
