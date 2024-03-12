@@ -29,6 +29,7 @@
     .work-page-authors & {
         @include media-query(large) {
             display: flex;
+            margin-bottom: $spacer-small;
         }
     }
 
@@ -49,6 +50,11 @@
     &__avatar {
         @include media-query(large) {
             margin-bottom: $spacer-small;
+        }
+        .work-page-authors & {
+            @include media-query(large) {
+                margin-bottom: 0;
+            }
         }
     }
 

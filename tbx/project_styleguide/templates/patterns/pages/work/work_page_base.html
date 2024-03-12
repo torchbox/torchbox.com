@@ -74,9 +74,9 @@
         <div class="work-page-authors">
             {% for item in page.authors.all %}
                 {% if page.first_author == item.author %}
-                    {% include "patterns/molecules/author/author.html" with author=item.author author_attribution="by" %}
+                    {% include "patterns/molecules/author/author.html" with author=item.author author_attribution="by" avatar_size="tiny" %}
                 {% else %}
-                    {% include "patterns/molecules/author/author.html" with author=item.author author_attribution="and" %}
+                    {% include "patterns/molecules/author/author.html" with author=item.author author_attribution="and" avatar_size="tiny" %}
                 {% endif %}
             {% endfor %}
         </div>
