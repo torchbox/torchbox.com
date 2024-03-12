@@ -297,7 +297,8 @@
         &__image,
         &__raw-html,
         &__markdown,
-        &__embed {
+        &__embed,
+        &__video {
             @include media-query(large) {
                 grid-column: 5 / span 7;
             }
