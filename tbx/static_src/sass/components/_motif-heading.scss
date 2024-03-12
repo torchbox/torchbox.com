@@ -69,6 +69,14 @@
         }
     }
 
+    &--one-c {
+        @include font-size(heading-one-c);
+
+        #{$root}__drop-cap {
+            @include drop-cap(72px, 120px);
+        }
+    }
+
     &--two {
         @include font-size(heading-two);
 

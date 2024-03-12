@@ -413,4 +413,23 @@
             }
         }
     }
+
+    // home page adjustments
+    .template-homepage & {
+        &__title {
+            @include media-query(large) {
+                grid-column: 3 / span 9;
+            }
+        }
+
+        &__intro {
+            @include media-query(large) {
+                grid-column: 3 / span 7;
+            }
+        }
+
+        &__partners {
+            margin-bottom: $spacer;
+        }
+    }
 }
