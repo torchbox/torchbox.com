@@ -76,4 +76,10 @@
             @include drop-cap(72px, 90px);
         }
     }
+
+    &--half-width {
+        @include media-query('large') {
+            max-width: 50%;
+        }
+    }
 }

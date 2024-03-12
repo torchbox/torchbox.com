@@ -33,6 +33,16 @@
     </div>
 
     <div>
+        <h2 class="underline mt-8 mb-2">Avatar (smallest)</h2>
+        {% include "patterns/atoms/avatar/avatar.html" with classes="avatar--smallest" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Avatar (tiny)</h2>
+        {% include "patterns/atoms/avatar/avatar.html" with classes="avatar--tiny" %}
+    </div>
+
+    <div>
         <h2 class="underline mt-8 mb-2">Pullquote (person)</h2>
         {% include "patterns/molecules/streamfield/blocks/pullquote_block.html" with value=blockquote_person_data %}
     </div>

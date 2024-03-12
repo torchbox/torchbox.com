@@ -2,7 +2,7 @@
 
 <div class="author{% if classes %} {{ classes }}{% endif %}">
 
-    {% include "patterns/atoms/avatar/avatar.html" with avatar=author.image classes="avatar--small author__avatar" %}
+    {% include "patterns/atoms/avatar/avatar.html" with avatar=author.image classes="avatar--"|add:avatar_size|add:" author__avatar" %}
 
     <div>
         {% if author_attribution %}

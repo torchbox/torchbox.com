@@ -38,6 +38,23 @@
         }
     }
 
+    &__video {
+        @include z-index(zero);
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        video {
+            width: 100%;
+            height: auto;
+        }
+
+        &--original video {
+            width: initial;
+            max-width: 100%;
+        }
+    }
+
     .template-work-page &,
     .template-historical-work-page & {
         &__intro {

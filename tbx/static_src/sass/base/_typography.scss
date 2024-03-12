@@ -77,6 +77,10 @@ h6 {
         @include font-size(heading-four);
     }
 
+    &--semibold {
+        font-weight: $weight--semibold;
+    }
+
     &--five {
         @include font-size(heading-five);
     }

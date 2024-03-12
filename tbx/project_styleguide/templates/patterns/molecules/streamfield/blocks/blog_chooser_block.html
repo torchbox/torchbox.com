@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
 
-{% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.featured_blog_heading classes="motif-heading--two motif-heading--static section-title--related-posts" %}
+{% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.featured_blog_heading classes="motif-heading--two motif-heading--static  motif-heading--half-width   section-title--related-posts" %}
 
 <ul class="grid__related-posts streamfield__related-posts mb-spacerMedium lg:mb-spacerLarge">
     {% for blog_page in value.blog_pages %}

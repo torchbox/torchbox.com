@@ -1,4 +1,5 @@
 context:
+  avatar_size: 'small'
   author:
     name: Nick Lee
     role: Designer

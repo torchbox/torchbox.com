@@ -1,7 +1,7 @@
 {% load wagtailcore_tags %}
 
 <div class="showcase grid__showcase">
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=value.title heading_level=2 classes="showcase__title motif-heading--two motif-heading--static" %}
+    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=value.title heading_level=2 classes="showcase__title motif-heading--two motif-heading--static motif-heading--half-width" %}
     <ul class="showcase__list">
         {% for item in value.showcase_paragraphs %}
             <li {% if not item.page %}class="showcase__item"{% endif %}>
