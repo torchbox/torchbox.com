@@ -24,6 +24,13 @@
         }
     }
 
+    &--tiny {
+        @include media-query(medium) {
+            width: $avatar-size-80;
+            height: $avatar-size-80;
+        }
+    }
+
     &::after,
     &::before {
         content: '';
