@@ -200,7 +200,8 @@
     &__markdown,
     &__embed,
     &__stats,
-    &__image {
+    &__image,
+    &__video {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
 
