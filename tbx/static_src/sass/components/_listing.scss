@@ -4,17 +4,27 @@
 
 .listing {
     list-style-type: none;
+    margin-bottom: $spacer-small;
+
+    @include media-query(medium) {
+        margin-bottom: 0;
+    }
 
     &__link {
         display: block;
+        margin-bottom: $spacer-mini;
 
         &:focus {
             @include focus-style();
         }
+
+        @include media-query(medium) {
+            margin-bottom: 0;
+        }
     }
 
     &__title {
-        @include font-size('heading-three');
+        @include font-size('heading-three-b');
         margin-bottom: $spacer-mini;
 
         @include media-query(medium) {
@@ -33,7 +43,7 @@
 
     &__details {
         display: flex;
-        align-items: flex-end;
+        align-items: center;
         gap: $spacer-mini-plus;
 
         @include media-query(medium) {
