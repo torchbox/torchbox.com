@@ -90,7 +90,7 @@
 
     &__wide-image {
         margin-bottom: $spacer-medium;
-        grid-column: 1 / span 6;
+        grid-column: 2 / span 4;
 
         @include media-query(large) {
             margin-bottom: $spacer-large;
@@ -109,7 +109,7 @@
     }
 
     &__work-image {
-        grid-column: 1 / span 5;
+        grid-column: 2 / span 4;
 
         @include media-query(large) {
             grid-column: 1 / span 13;
@@ -187,7 +187,7 @@
     }
 
     &__values {
-        grid-column: 1 / span 6;
+        grid-column: 2 / span 4;
         margin-bottom: $spacer-medium;
 
         @include media-query(medium) {
@@ -345,7 +345,7 @@
 
     &__featured-case-study {
         margin-bottom: $spacer-medium;
-        grid-column: 1 / span 6;
+        grid-column: 2 / span 4;
 
         @include media-query(large) {
             margin-bottom: $spacer;
