@@ -190,6 +190,12 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
+    desaturate_header_image = models.BooleanField(
+        default=True,
+        help_text="Apply a desaturation filter to the image. This reduces color intensity, "
+        "creating a more subdued look that can help reduce distractions.",
+    )
+
     header_caption = models.CharField("caption", max_length=255, blank=True)
     header_attribution = models.CharField("attribution", max_length=255, blank=True)
 
@@ -214,6 +220,7 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         MultiFieldPanel(
             [
                 FieldPanel("header_image"),
+                FieldPanel("desaturate_header_image"),
                 FieldPanel("header_caption"),
                 FieldPanel("header_attribution"),
             ],
