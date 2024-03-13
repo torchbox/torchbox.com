@@ -83,6 +83,10 @@
         color: var(--color--text);
     }
 
+    &__meta-item-value {
+        font-weight: $weight--semibold;
+    }
+
     &__divider {
         margin: $spacer-small 0;
         color: rgba($color--white, 0.2);
