@@ -160,8 +160,7 @@
 
     &__promo,
     &__event {
-        // right to the right-hand edge at mobile and tablet
-        grid-column: 1 / span 6;
+        grid-column: 2 / span 4;
         margin-bottom: $spacer-medium;
 
         @include media-query(large) {
