@@ -128,14 +128,23 @@
         }
     }
 
-    &__showcase,
-    &__tabbed-paragraph {
+    &__showcase {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
 
         @include media-query(large) {
             margin-bottom: $spacer-large;
             grid-column: 2 / span 11;
+        }
+    }
+
+    &__tabbed-paragraph {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 2 / span 12;
         }
     }
 
@@ -423,7 +432,7 @@
 
         &__intro {
             @include media-query(large) {
-                grid-column: 3 / span 7;
+                grid-column: 3 / span 6;
             }
         }
 
