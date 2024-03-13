@@ -33,12 +33,11 @@
 
             {# Meta info #}
             <span class="featured-case-study__client-info">
-                <span>
+                <span class="featured-case-study__client">
                     {{ link.client }}
                 </span>
                 <span class="featured-case-study__meta">
-                    {{ link.date }} <span aria-hidden="true" class="featured-case-study__divider">/</span>
-                    {{ link.read_time }} min{{ link.read_time|pluralize }} read
+                    {% include "patterns/atoms/date_and_reading_time/date_and_reading_time.html" with date=link.date reading_time=link.read_time %}
                 </span>
             </span>
         </div>

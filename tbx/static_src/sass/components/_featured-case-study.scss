@@ -125,6 +125,11 @@
         flex-direction: column;
     }
 
+    &__client {
+        color: var(--color--heading);
+        font-weight: $weight--semibold;
+    }
+
     &__meta {
         @include font-size(supporting);
         color: var(--color--text);
