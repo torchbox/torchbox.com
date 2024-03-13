@@ -11,7 +11,7 @@
     }
 
     &__nav-container {
-        flex-basis: 50%;
+        flex-basis: 40%;
         color: var(--color--heading);
     }
 
@@ -19,16 +19,18 @@
         @include font-size('heading-four');
         @include link-styles(
             $color: var(--color--heading),
-            $interaction-color: var(--color--heading)
+            $interaction-color: var(--color--heading),
+            $shadow: false
         );
         font-weight: $weight--semibold;
         display: flex;
         align-items: center;
-        padding: 10px;
+        outline-offset: 10px;
         margin-bottom: $spacer-small;
 
         &:focus {
             @include focus-style();
+            outline: $focus-width solid var(--color--focus-ring-muted);
         }
 
         &--active {
@@ -76,10 +78,10 @@
     }
 
     &__nav-arrow {
-        flex-basis: 182px;
+        flex-basis: 130px;
         flex-grow: 0;
         flex-shrink: 0;
-        width: 182px;
+        width: 130px;
         height: 22px;
         opacity: 0;
         transition: opacity $transition-quick;
@@ -97,7 +99,7 @@
     &__panel {
         // for high contrast mode
         outline: 1px solid transparent;
-        flex-basis: 50%;
+        flex-basis: 60%;
 
         &--hidden {
             display: none;

@@ -59,7 +59,6 @@ class Tabs {
                     window.history.pushState({}, '', `#${panelID}`);
                 }
                 this.setSelected(tab, targetPanel);
-                targetPanel.scrollIntoView();
             });
         });
 
