@@ -15,9 +15,11 @@
         justify-content: center;
         background-color: var(--color--light-background);
         color: var(--color--light-background-text);
-        padding: $spacer-medium $spacer-small;
+        padding: $spacer-small;
+        order: 2;
 
         @include media-query(large) {
+            order: 1;
             padding: $spacer-medium-plus $spacer-half $spacer-half
                 $spacer-medium-plus;
         }
@@ -38,7 +40,7 @@
 
     &__description {
         @include font-size(heading-five);
-        margin-bottom: $spacer-medium;
+        margin-bottom: $spacer-small;
 
         @include media-query(large) {
             margin-bottom: $spacer-small-plus;
@@ -59,8 +61,12 @@
     }
 
     &__divider {
-        margin: $spacer-medium 0 $spacer-small;
+        margin: $spacer-small 0;
         color: rgba($color--grey-70, 0.2);
+
+        @include media-query(large) {
+            margin: $spacer-medium 0 $spacer-small;
+        }
     }
 
     &__link {
@@ -71,11 +77,24 @@
         width: fit-content;
     }
 
-    &__picture {
+    &__picture-wrapper {
+        order: 1;
         height: 320px;
+        position: relative;
 
         @include media-query(large) {
+            order: 2;
             height: 100%;
+        }
+    }
+
+    &__picture {
+        @include media-query(large) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
         }
     }
 
