@@ -5,10 +5,10 @@
 
 .tabs-mobile {
     $root: &;
-    border-top: 1px solid var(--color--decoration);
+    border-top: 1px solid var(--color--border);
 
     &:last-child {
-        border-bottom: 1px solid var(--color--decoration);
+        border-bottom: 1px solid var(--color--border);
     }
 
     @include media-query('large') {

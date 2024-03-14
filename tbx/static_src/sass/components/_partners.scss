@@ -7,6 +7,11 @@
         display: flex;
         flex-wrap: wrap;
         gap: $spacer-mini;
+        justify-content: center;
+
+        @include media-query(large) {
+            justify-content: flex-start;
+        }
 
         &--wide {
             @include media-query('x-large') {
@@ -20,10 +25,15 @@
         height: 120px;
         display: flex;
         align-items: center;
+        justify-content: center;
 
         @include media-query(medium) {
             width: 160px;
             height: 160px;
+        }
+
+        @include media-query(large) {
+            justify-content: flex-start;
         }
 
         #{$root}__logos--wide & {

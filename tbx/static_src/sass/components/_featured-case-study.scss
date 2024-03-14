@@ -62,19 +62,24 @@
         max-width: 480px;
         margin: 0 $grid-gutters;
 
-        @include media-query(large) {
+        @include media-query(x-large) {
             margin: 0;
-            padding-top: $spacer-large;
+            padding-top: $spacer-medium;
             display: flex;
             flex-direction: column;
+        }
+
+        @include media-query(xx-large) {
+            padding-top: $spacer-large;
         }
     }
 
     &__title {
-        @include font-size('heading-two-b');
+        @include font-size('heading-three');
+        font-weight: $weight--light;
 
-        @include media-query(large) {
-            margin-top: auto;
+        @include media-query(x-large) {
+            @include font-size('heading-two-b');
         }
     }
 
@@ -92,15 +97,37 @@
     }
 
     &__link {
-        display: flex;
-        gap: $spacer-mini-plus;
-        align-items: flex-end;
+        display: block;
         margin-bottom: $spacer-small;
+    }
+
+    &__link-text {
+        @include link-styles(
+            var(--color--heading),
+            var(--color--heading),
+            false,
+            8px
+        );
+    }
+
+    &__tail {
+        // Keep the arrow attached to the last word so it's not orphaned on a new line
+        white-space: nowrap;
+        display: none;
+
+        @include media-query(medium) {
+            display: inline;
+        }
     }
 
     &__client-info {
         display: flex;
         flex-direction: column;
+    }
+
+    &__client {
+        color: var(--color--heading);
+        font-weight: $weight--semibold;
     }
 
     &__meta {
@@ -110,19 +137,19 @@
 
     &__icon {
         @include arrow-link-icon-styles();
-        flex-grow: 0;
-        flex-shrink: 0;
+        margin-left: $spacer-mini-plus;
     }
 
     &__results-icon {
-        position: absolute;
-        top: -80px;
-        right: 10%;
-        z-index: ($gradient-z-index + 1);
+        display: none;
 
         @include media-query(large) {
+            display: block;
             top: 0;
             left: -140px;
+            position: absolute;
+            right: 10%;
+            z-index: ($gradient-z-index + 1);
         }
     }
 

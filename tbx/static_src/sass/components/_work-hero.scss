@@ -38,6 +38,7 @@
 
     &__client {
         @include font-size('body-two');
+        color: var(--color--heading);
         font-weight: $weight--semibold;
     }
 
