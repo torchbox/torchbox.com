@@ -76,7 +76,7 @@
 
     &__title {
         @include font-size('heading-three');
-        font-weight: 300;
+        font-weight: $weight--light;
 
         @include media-query(x-large) {
             @include font-size('heading-two-b');
