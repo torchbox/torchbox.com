@@ -26,7 +26,13 @@ The following areas of functionality are critical paths for the site which don't
 
 As well as testing the critical paths, these areas of functionality should be checked:
 
+### General
+
 - Other places where you know extra maintenance or checks may be necessary
 - This could be code which you know should be checked and possibly removed - e.g. because you've patched something until a fix is merged in a subsequent release.
 - Any previous fixes which may need to be updated/reapplied on subsequent upgrades
 - Technical debt which could be affected by an upgrade.
+
+### Custom StreamField
+
+As indicated [here](./custom-features/migration-friendly-streamfields.md), this project uses a custom field class (`tbx.core.utils.fields.StreamField`) instead of the usual `wagtail.fields.StreamField` field for streamfield content.

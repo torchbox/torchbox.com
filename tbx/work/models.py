@@ -13,12 +13,13 @@ from django.utils.http import urlencode
 from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
+from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 from tbx.work.blocks import WorkStoryBlock
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.fields import RichTextField, StreamField
+from wagtail.fields import RichTextField
 from wagtail.models import Page
 from wagtail.signals import page_published
 
@@ -409,8 +410,18 @@ class WorkIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         except EmptyPage:
             works = paginator.page(paginator.num_pages)
 
-        related_sectors = Sector.objects.all()
-        related_services = Service.objects.all()
+        # Only show Sectors and Services that have been used
+        related_sectors = Sector.objects.filter(
+            pk__in=models.Subquery(self.works.values("workpage__related_sectors"))
+        )
+        related_services = Service.objects.filter(
+            Q(pk__in=models.Subquery(self.works.values("workpage__related_services")))
+            | Q(
+                pk__in=models.Subquery(
+                    self.works.values("historicalworkpage__related_services")
+                )
+            )
+        )
 
         # Used for the purposes of defining the filterable tags
         tags = chain(related_services, related_sectors)

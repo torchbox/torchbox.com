@@ -13,11 +13,11 @@ from django.utils.http import urlencode
 from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
+from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail.search import index
 from wagtail.signals import page_published
@@ -27,6 +27,12 @@ class BlogIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/blog/blog_listing.html"
 
     subpage_types = ["BlogPage"]
+
+    @cached_property
+    def taxonomy_slugs(self):
+        services = Service.objects.values_list("slug", flat=True)
+        sectors = Sector.objects.values_list("slug", flat=True)
+        return services.union(sectors)
 
     @property
     def blog_posts(self):
@@ -48,7 +54,7 @@ class BlogIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         slug_filter = request.GET.get("filter")
         extra_url_params = {}
 
-        if slug_filter:
+        if slug_filter and slug_filter in self.taxonomy_slugs:
             blog_posts = blog_posts.filter(
                 Q(related_sectors__slug=slug_filter)
                 | Q(related_services__slug=slug_filter)
@@ -82,8 +88,14 @@ class BlogIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         except EmptyPage:
             blog_posts = paginator.page(paginator.num_pages)
 
-        related_sectors = Sector.objects.all()
-        related_services = Service.objects.all()
+        # Only show Sectors and Services that have been used
+        related_sectors = Sector.objects.filter(
+            pk__in=models.Subquery(self.blog_posts.values("related_sectors"))
+        )
+
+        related_services = Service.objects.filter(
+            pk__in=models.Subquery(self.blog_posts.values("related_services"))
+        )
         tags = chain(related_services, related_sectors)
 
         context.update(
