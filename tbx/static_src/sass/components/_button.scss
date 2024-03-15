@@ -1,34 +1,7 @@
 @use "config" as *;
 
 .button {
-    display: inline-block;
-    text-align: center;
-    border: 1px solid var(--color--link);
-    color: var(--color--link);
-    background-color: var(--color--background);
-    padding: 12px $spacer-mini-plus;
-    transition: color $transition-quick, background-color $transition-quick;
-    font-weight: $weight--semibold;
-
-    &:focus,
-    &:hover {
-        color: var(--color--background);
-        background-color: var(--color--link);
-    }
-
-    &:focus {
-        @include focus-style();
-    }
-
-    @include high-contrast-mode() {
-        text-decoration: underline;
-        text-decoration-thickness: $link-underline-thickness;
-
-        &:focus,
-        &:hover {
-            text-decoration-thickness: $link-underline-thickness-interaction;
-        }
-    }
+    @include button-styles();
 }
 
 .button-menu-toggle {
