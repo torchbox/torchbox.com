@@ -1,0 +1,122 @@
+@use 'config' as *;
+
+/* Overriding styles for embedded mailchimp form */
+
+/* stylelint-disable selector-max-id */
+/* stylelint-disable selector-max-specificity */
+/* stylelint-disable max-nesting-depth */
+/* stylelint-disable selector-class-pattern */
+.mailchimp {
+    #mc_embed_signup {
+        @include font-size('heading-four');
+        font-family: $font--primary;
+        font-weight: $weight--light;
+        background-color: var(--color--background);
+        color: var(--color--heading);
+        width: auto;
+
+        form {
+            margin: 0;
+        }
+
+        #mc_embed_signup_scroll {
+            p {
+                margin-bottom: $spacer-small;
+            }
+
+            ul {
+                margin: $spacer-mini 0 $spacer-small;
+            }
+
+            strong {
+                font-weight: $weight--semibold;
+            }
+
+            .mc-field-group {
+                width: auto;
+                padding-bottom: 0;
+
+                label {
+                    @include font-size('body');
+                    font-weight: $weight--semibold;
+                    margin: $spacer-small 0 10px;
+                }
+
+                input {
+                    border-color: var(--color--border);
+                    color: var(--color--background);
+                    font-weight: $weight--normal;
+                    padding: 10px $spacer-mini;
+                    text-indent: 0;
+                }
+
+                .helper_text {
+                    display: none;
+                }
+            }
+
+            .input-group {
+                margin-top: $spacer-medium;
+
+                input[type='checkbox'] {
+                    width: 20px;
+                    height: 20px;
+                }
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: $spacer-mini;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                label {
+                    margin: 0 0 0 $spacer-mini;
+                    font-weight: $weight--normal;
+                }
+            }
+
+            div.mce_inline_error {
+                @include font-size('body-two');
+                font-weight: $weight--semibold;
+                color: var(--color--accent-two-inverse);
+                background-color: var(--color--light-grey-background);
+                margin-top: 10px;
+                padding: 5px 10px;
+            }
+
+            #mce-responses {
+                padding: 0;
+                margin: 0;
+
+                .response {
+                    width: auto;
+                }
+
+                #mce-error-response {
+                    color: var(--color--accent-two);
+                    font-weight: $weight--semibold;
+                    padding: 0;
+                    margin: $spacer-mini 0 $spacer-medium;
+                }
+
+                #mce-success-response {
+                    color: var(--color--heading);
+                    font-weight: $weight--semibold;
+                    padding: 0;
+                    margin: $spacer-mini 0 $spacer-medium;
+                }
+            }
+
+            .button {
+                @include button-styles();
+                height: auto;
+                border-radius: 0;
+            }
+        }
+    }
+}
+/* stylelint-enable */
