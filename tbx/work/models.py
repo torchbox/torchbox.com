@@ -50,6 +50,7 @@ class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
+        verbose_name="Feed image",
     )
     listing_summary = models.CharField(max_length=255, blank=True)
     related_sectors = ParentalManyToManyField(
