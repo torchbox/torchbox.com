@@ -28,6 +28,12 @@ class BlogIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
 
     subpage_types = ["BlogPage"]
 
+    @cached_property
+    def taxonomy_slugs(self):
+        services = Service.objects.values_list("slug", flat=True)
+        sectors = Sector.objects.values_list("slug", flat=True)
+        return services.union(sectors)
+
     @property
     def blog_posts(self):
         # Get list of blog pages that are descendants of this page
@@ -48,7 +54,7 @@ class BlogIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         slug_filter = request.GET.get("filter")
         extra_url_params = {}
 
-        if slug_filter:
+        if slug_filter and slug_filter in self.taxonomy_slugs:
             blog_posts = blog_posts.filter(
                 Q(related_sectors__slug=slug_filter)
                 | Q(related_services__slug=slug_filter)
