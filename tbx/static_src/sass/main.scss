@@ -27,6 +27,7 @@
 @use 'components/listing-image';
 @use 'components/logo';
 @use 'components/mailchimp';
+@use 'components/markdown-block';
 @use 'components/motif-heading';
 @use 'components/pagination';
 @use 'components/partners';
@@ -68,3 +69,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+// CSS from external vendors (not available as npm)
+@import 'vendor/codehilite';

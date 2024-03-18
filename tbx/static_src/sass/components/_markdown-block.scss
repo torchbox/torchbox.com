@@ -1,0 +1,10 @@
+@use 'config' as *;
+.markdown-block {
+    &__scroller {
+        overflow: scroll;
+        color: var(--color--light-background-text);
+        padding: $spacer-mini-plus;
+        // this needs to match the vendor codehilite styles
+        background: #f8f8f8;
+    }
+}

@@ -1,4 +1,6 @@
 {% load wagtailmarkdown %}
 <div class="grid__markdown markdown-block">
-    {{ value|markdown }}
+    <div class="markdown-block__scroller" tabindex="0">
+        {{ value|markdown }}
+    </div>
 </div>
