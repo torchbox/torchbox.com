@@ -547,29 +547,29 @@ class StoryBlock(blocks.StreamBlock):
         form_classname="title",
         icon="title",
         template="patterns/molecules/streamfield/blocks/heading2_block.html",
-        group="Basics"
+        group="Basics",
     )
     h3 = blocks.CharBlock(
         form_classname="title",
         icon="title",
         template="patterns/molecules/streamfield/blocks/heading3_block.html",
-        group="Basics"
+        group="Basics",
     )
     h4 = blocks.CharBlock(
         form_classname="title",
         icon="title",
         template="patterns/molecules/streamfield/blocks/heading4_block.html",
-        group="Basics"
+        group="Basics",
     )
     intro = blocks.RichTextBlock(
         icon="pilcrow",
         template="patterns/molecules/streamfield/blocks/intro_block.html",
-        group="Basics"
+        group="Basics",
     )
     paragraph = blocks.RichTextBlock(
         icon="pilcrow",
         template="patterns/molecules/streamfield/blocks/paragraph_block.html",
-        group="Basics"
+        group="Basics",
     )
     image = ImageBlock(
         template="patterns/molecules/streamfield/blocks/image_block.html",
@@ -582,28 +582,28 @@ class StoryBlock(blocks.StreamBlock):
     call_to_action = CallToActionBlock(
         label="Call to Action",
         template="patterns/molecules/streamfield/blocks/call_to_action.html",
-        group="Calls to action"
+        group="Calls to action",
     )
     contact_call_to_action = ContactCTABlock(
         label="Contact Call to Action",
         template="patterns/molecules/streamfield/blocks/contact_call_to_action.html",
-        group="Calls to action"
+        group="Calls to action",
     )
     pullquote = PullQuoteBlock(
         template="patterns/molecules/streamfield/blocks/pullquote_block.html",
-        group="Basics"
+        group="Basics",
     )
     raw_html = blocks.RawHTMLBlock(
         label="Raw HTML",
         icon="code",
         template="patterns/molecules/streamfield/blocks/raw_html_block.html",
-        group="Special"
+        group="Special",
     )
     mailchimp_form = blocks.RawHTMLBlock(
         label="Mailchimp embedded form",
         icon="code",
         template="patterns/molecules/streamfield/blocks/mailchimp_form_block.html",
-        group="Special"
+        group="Special",
     )
     markdown = MarkdownBlock(
         label="Code block",
