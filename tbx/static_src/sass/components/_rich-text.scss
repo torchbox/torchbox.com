@@ -43,6 +43,11 @@
         font-weight: $weight--semibold;
     }
 
+    // overide top heading margins for the first child
+    > *:first-child {
+        margin-top: 0;
+    }
+
     ul {
         list-style: inside disc;
         margin-bottom: $spacer-small;
