@@ -14,6 +14,7 @@ const options = {
         // 'main' is ignored from prettier because if vue (or anything else) isn't added
         // here, it will deem the quotes uneccessary.
         'main': `./${projectRoot}/static_src/javascript/main.js`, // prettier-ignore
+        'admin': `./${projectRoot}/static_src/javascript/admin.js`, // prettier-ignore
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],
