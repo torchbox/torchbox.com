@@ -47,6 +47,7 @@
 #### Accessibility
 
 - [ ] Automated WCAG 2.1 tests pass
+- [ ] HTML validation passes
 - [ ] Manual WCAG 2.1 tests completed
 - [ ] I have tested in a screen reader
 - [ ] I have tested in high-contrast mode
