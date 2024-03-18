@@ -13,10 +13,10 @@
     <div class="grid">
         <div class="grid__work-image">
 
-            {% if page.desaturate_header_image %}
-                {% srcset_image page.header_image format-webp saturation-0.6 fill-{400x175,800x350,1600x700,1280x560} sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" loading="lazy" %}
-            {% else %}
+            {% if page.remove_desaturation_on_header_image %}
                 {% srcset_image page.header_image format-webp fill-{400x175,800x350,1600x700,1280x560} sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" loading="lazy" %}
+            {% else %}
+                {% srcset_image page.header_image format-webp saturation-0.6 fill-{400x175,800x350,1600x700,1280x560} sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" loading="lazy" %}
             {% endif %}
 
             {% if page.header_caption %}

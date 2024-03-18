@@ -98,14 +98,13 @@ class ImageBlock(ImageWithAltTextBlock):
     """
     In addition to specifying optional alt text for an image, this block allows
     for specifying a caption, attribution, whether the image is decorative, and
-    whether to apply a desaturation filter.
+    whether to remove the desaturation filter.
     """
 
-    desaturate_image = blocks.BooleanBlock(
+    remove_desaturation_filter = blocks.BooleanBlock(
         required=False,
-        default=True,
-        help_text="Apply a desaturation filter to the image. This reduces color intensity, "
-        "creating a more subdued look that can help reduce distractions.",
+        default=False,
+        help_text="Do not apply a desaturation filter to the image.",
     )
     image_is_decorative = blocks.BooleanBlock(
         required=False,
@@ -293,11 +292,10 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
     )
     text = blocks.RichTextBlock(required=False)
     image = ImageChooserBlock(required=False)
-    desaturate_image = blocks.BooleanBlock(
+    remove_desaturation_filter = blocks.BooleanBlock(
         required=False,
-        default=True,
-        help_text="Apply a desaturation filter to the image. This reduces color intensity, "
-        "creating a more subdued look that can help reduce distractions.",
+        default=False,
+        help_text="Do not apply a desaturation filter to the image.",
     )
     logo = ImageChooserBlock(required=False)
 
