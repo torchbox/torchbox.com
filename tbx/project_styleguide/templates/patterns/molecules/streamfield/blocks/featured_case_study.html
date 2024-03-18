@@ -4,7 +4,11 @@
     {# Image (with gradient if logo added) #}
     <div class="featured-case-study__image-wrap{% if value.featured_case_study_logo %} featured-case-study__image-wrap--with-logo{% endif %}">
 
-        {% srcset_image value.featured_case_study_image format-webp saturation-0.6 fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1022px) 90vw, (max-width: 1789px) 50vw, (min-width: 1800px) 1120px" class="featured-case-study__image" %}
+        {% if value.remove_desaturation_filter %}
+            {% srcset_image value.featured_case_study_image format-webp fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1022px) 90vw, (max-width: 1789px) 50vw, (min-width: 1800px) 1120px" class="featured-case-study__image" %}
+        {% else %}
+            {% srcset_image value.featured_case_study_image format-webp saturation-0.6 fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1022px) 90vw, (max-width: 1789px) 50vw, (min-width: 1800px) 1120px" class="featured-case-study__image" %}
+        {% endif %}
 
         {# Optional logo #}
         {% if value.featured_case_study_logo %}
