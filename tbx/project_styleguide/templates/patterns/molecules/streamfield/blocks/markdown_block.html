@@ -1,4 +1,7 @@
 {% load wagtailmarkdown %}
 <div class="grid__markdown markdown-block">
-    {{ value|markdown }}
+    {# tabindex needed because in order to scroll using the keyboard #}
+    <div class="markdown-block__scroller" tabindex="0">
+        {{ value|markdown }}
+    </div>
 </div>

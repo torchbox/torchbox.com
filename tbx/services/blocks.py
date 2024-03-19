@@ -24,6 +24,7 @@ class PartnersBlock(blocks.StructBlock):
         icon = "openquote"
         label = "Partner logos"
         template = "patterns/molecules/streamfield/blocks/partners_block.html"
+        group = "Custom"
 
 
 class ValuesBlock(blocks.StructBlock):
@@ -47,6 +48,7 @@ class ValuesBlock(blocks.StructBlock):
         icon = "pick"
         label = "Values"
         template = "patterns/molecules/streamfield/blocks/values_block.html"
+        group = "Custom"
 
 
 class ServiceStoryBlock(StoryBlock):

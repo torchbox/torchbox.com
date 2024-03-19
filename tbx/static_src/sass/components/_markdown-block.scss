@@ -1,0 +1,21 @@
+@use 'config' as *;
+.markdown-block {
+    // This needs to be focusable for keyboard users to be able to scroll
+    &__scroller {
+        overflow: scroll;
+        color: var(--color--heading);
+        padding: $spacer-mini-plus;
+        // this needs to match the vendor codehilite styles
+        background: #0d1117;
+
+        .mode-light & {
+            background: #f8f8f8;
+            color: var(--color--light-background-text);
+        }
+
+        &:focus,
+        &:active {
+            @include focus-style();
+        }
+    }
+}
