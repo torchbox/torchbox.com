@@ -20,7 +20,7 @@ class HistoricalWorkPageFactory(wagtail_factories.PageFactory):
     title = factory.Faker("text", max_nb_chars=100)
     date = factory.Faker("date_this_year")
     body = StoryBlockFactory()
-    feed_image = factory.SubFactory(CustomImageFactory)
+    header_image = factory.SubFactory(CustomImageFactory)
 
     @factory.post_generation
     def related_services(self, create, extracted, **kwargs):

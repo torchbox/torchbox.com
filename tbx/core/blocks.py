@@ -253,21 +253,15 @@ class CaseStudyStructValue(blocks.StructValue):
         """
         Retrieve the main image for a featured case study.
         This property attempts to fetch the main image associated with the current object.
-        If the object has a direct 'image' attribute, it returns that image.
-        If the object has a 'link' attribute, it checks the linked page's content type
-        and returns the corresponding image:
-            - If the linked page is a 'WorkPage', it returns the `header_image`.
-            - If the linked page is a 'HistoricalWorkPage', it returns the `feed_image`.
-        If no suitable image is found, it returns None.
+        - If the object has a direct 'image' attribute, it returns that image.
+        - If the object has a 'link' attribute, it returns the specific pages
+          ('WorkPage' or 'HistoricalWorkPage') corresponding `header_image`.
+        - If no suitable image is found, it returns None.
         """
         if image := self.get("image"):
             return image
         elif page := self.get("link"):
-            model = page.content_type.model_class().__name__
-            if model == "WorkPage":
-                return page.specific.header_image
-            elif model == "HistoricalWorkPage":
-                return page.specific.feed_image
+            return page.specific.header_image
         return None
 
     @cached_property
