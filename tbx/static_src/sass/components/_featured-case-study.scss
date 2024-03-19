@@ -62,15 +62,14 @@
         max-width: 480px;
         margin: 0 $grid-gutters;
 
-        @include media-query(x-large) {
+        @include media-query(large) {
             margin: 0;
-            padding-top: $spacer-medium;
-            display: flex;
-            flex-direction: column;
         }
 
-        @include media-query(xx-large) {
-            padding-top: $spacer-large;
+        @include media-query(x-large) {
+            margin: auto 0 0;
+            display: flex;
+            flex-direction: column;
         }
     }
 
@@ -88,11 +87,6 @@
 
         @include media-query(large) {
             position: relative;
-        }
-
-        @include media-query(large) {
-            // Keep link at the bottom of the container
-            margin-bottom: auto;
         }
     }
 
