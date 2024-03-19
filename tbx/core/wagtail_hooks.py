@@ -1,7 +1,9 @@
 from django.conf import settings
 from django.core.files.storage import get_storage_class
 from django.shortcuts import redirect
+from django.templatetags.static import static
 from django.utils.cache import add_never_cache_headers
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
 from PIL import ImageEnhance
@@ -63,6 +65,12 @@ def hotjar_admin_tracking():
     </script>
     """
     )
+
+
+@hooks.register("insert_global_admin_js", order=100)
+def admin_config():
+    """Add /static/js/admin.js to the admin."""
+    return format_html('<script src="{}"></script>', static("js/admin.js"))
 
 
 class ReduceSaturationOperation(FilterOperation):

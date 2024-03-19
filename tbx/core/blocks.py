@@ -174,6 +174,7 @@ class VideoBlock(blocks.StructBlock):
     class Meta:
         icon = "media"
         template = "patterns/molecules/streamfield/blocks/video_block.html"
+        group = "Media and images"
 
 
 class ButtonLinkStructValue(blocks.StructValue):
@@ -243,6 +244,7 @@ class ShowcaseBlock(blocks.StructBlock):
     class Meta:
         icon = "tasks"
         template = "patterns/molecules/streamfield/blocks/showcase_block.html"
+        group = "Custom"
 
 
 class CaseStudyStructValue(blocks.StructValue):
@@ -303,6 +305,7 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
         icon = "bars"
         value_class = CaseStudyStructValue
         template = ("patterns/molecules/streamfield/blocks/featured_case_study.html",)
+        group = "Custom"
 
 
 class BlogChooserBlock(blocks.StructBlock):
@@ -316,6 +319,7 @@ class BlogChooserBlock(blocks.StructBlock):
     class Meta:
         icon = "link"
         template = "patterns/molecules/streamfield/blocks/blog_chooser_block.html"
+        group = "Custom"
 
 
 class WorkChooserBlock(blocks.StructBlock):
@@ -329,6 +333,7 @@ class WorkChooserBlock(blocks.StructBlock):
     class Meta:
         icon = "link"
         template = "patterns/molecules/streamfield/blocks/work_chooser_block.html"
+        group = "Custom"
 
 
 class EventLinkStructValue(ButtonLinkStructValue):
@@ -363,6 +368,7 @@ class EventBlock(blocks.StructBlock):
         icon = "date"
         template = "patterns/molecules/streamfield/blocks/event_block.html"
         value_class = EventLinkStructValue
+        group = "Calls to action"
 
     def clean(self, value):
         struct_value = super().clean(value)
@@ -424,6 +430,7 @@ class PromoBlock(blocks.StructBlock):
         icon = "link"
         template = "patterns/molecules/streamfield/blocks/promo_block.html"
         value_class = ButtonLinkStructValue
+        group = "Calls to action"
 
 
 class TabbedParagraphBlock(blocks.StructBlock):
@@ -474,6 +481,7 @@ class TabbedParagraphBlock(blocks.StructBlock):
     class Meta:
         icon = "list-ul"
         template = "patterns/molecules/streamfield/blocks/tabbed_paragraph_block.html"
+        group = "Custom"
 
 
 class PhotoCollageBlock(blocks.StructBlock):
@@ -531,6 +539,7 @@ class PhotoCollageBlock(blocks.StructBlock):
         icon = "image"
         template = "patterns/molecules/streamfield/blocks/photo_collage_block.html"
         value_class = ButtonLinkStructValue
+        group = "Custom"
 
 
 class StoryBlock(blocks.StreamBlock):
@@ -538,64 +547,83 @@ class StoryBlock(blocks.StreamBlock):
         form_classname="title",
         icon="title",
         template="patterns/molecules/streamfield/blocks/heading2_block.html",
+        group="Basics",
     )
     h3 = blocks.CharBlock(
         form_classname="title",
         icon="title",
         template="patterns/molecules/streamfield/blocks/heading3_block.html",
+        group="Basics",
     )
     h4 = blocks.CharBlock(
         form_classname="title",
         icon="title",
         template="patterns/molecules/streamfield/blocks/heading4_block.html",
+        group="Basics",
     )
     intro = blocks.RichTextBlock(
         icon="pilcrow",
         template="patterns/molecules/streamfield/blocks/intro_block.html",
+        group="Basics",
     )
     paragraph = blocks.RichTextBlock(
         icon="pilcrow",
         template="patterns/molecules/streamfield/blocks/paragraph_block.html",
+        group="Basics",
     )
     image = ImageBlock(
         template="patterns/molecules/streamfield/blocks/image_block.html",
-        group="Images",
+        group="Media and images",
     )
     wide_image = ImageBlock(
         template="patterns/molecules/streamfield/blocks/wide_image_block.html",
-        group="Images",
+        group="Media and images",
     )
     call_to_action = CallToActionBlock(
         label="Call to Action",
         template="patterns/molecules/streamfield/blocks/call_to_action.html",
+        group="Calls to action",
     )
     contact_call_to_action = ContactCTABlock(
         label="Contact Call to Action",
         template="patterns/molecules/streamfield/blocks/contact_call_to_action.html",
+        group="Calls to action",
     )
     pullquote = PullQuoteBlock(
-        template="patterns/molecules/streamfield/blocks/pullquote_block.html"
+        template="patterns/molecules/streamfield/blocks/pullquote_block.html",
+        group="Basics",
     )
     raw_html = blocks.RawHTMLBlock(
         label="Raw HTML",
         icon="code",
         template="patterns/molecules/streamfield/blocks/raw_html_block.html",
+        group="Special",
     )
     mailchimp_form = blocks.RawHTMLBlock(
         label="Mailchimp embedded form",
         icon="code",
         template="patterns/molecules/streamfield/blocks/mailchimp_form_block.html",
+        group="Special",
     )
     markdown = MarkdownBlock(
+        label="Code block",
         icon="code",
         template="patterns/molecules/streamfield/blocks/markdown_block.html",
+        group="Special",
+        help_text="""
+            Use this block to add code snippets.
+            Don't use it for headings or other markdown content,
+            as they will not be styled correctly.
+            To use syntax highlighting, specify the language after the triple backticks, e.g.:
+            ```python
+            """,
     )
     embed = EmbedBlock(
         icon="code",
         template="patterns/molecules/streamfield/blocks/embed_block.html",
-        group="Media",
+        group="Media and images",
     )
-    video_block = VideoBlock(group="Media")
+    video_block = VideoBlock()
 
     class Meta:
         template = "patterns/molecules/streamfield/stream_block.html"

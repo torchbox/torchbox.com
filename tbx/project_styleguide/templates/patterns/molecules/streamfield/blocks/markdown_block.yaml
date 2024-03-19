@@ -1,4 +1,2 @@
 context:
-  value: '# Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    ## Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?'
+  value: '<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"something"</span><span class="p">&gt;</span>test<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><span class="p">&lt;/</span><span</code></pre></div>'

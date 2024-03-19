@@ -63,6 +63,9 @@ context:
       - partner_logo:
       - partner_logo:
 
+  # Markdown block
+  markdown: '<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"something"</span><span class="p">&gt;</span>test<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><span class="p">&lt;/</span><span</code></pre></div>'
+
 tags:
   pageurl:
     # for title-filters.html
