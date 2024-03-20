@@ -573,20 +573,22 @@ GOOGLE_TAG_MANAGER_ID = env.get("GOOGLE_TAG_MANAGER_ID")
 # Trial Hotjar tracking for the CMS admin.
 ADMIN_HOTJAR_SITE_ID = env.get("ADMIN_HOTJAR_SITE_ID")
 
+
 # Birdbath - Database anonymisation
-BIRDBATH_REQUIRED = os.environ.get("BIRDBATH_REQUIRED", "true").lower() == "true"
-BIRDBATH_SKIP_CHECKS = os.environ.get("BIRDBATH_SKIP_CHECKS", "false").lower() == "true"
-BIRDBATH_USER_ANONYMISER_EXCLUDE_EMAIL_RE = r"@(?:torchbox\.com)$"
+# -----------------------------------------------------------------------------
+# Configure django-birdbath to anonymise data when syncing database
 BIRDBATH_USER_ANONYMISER_EXCLUDE_SUPERUSERS = True
-# Only allow birdbath to run on heroku app specified in `ALLOWS_ANONYMISATION` env var
-# to prevent accidentally running it on production
-BIRDBATH_CHECKS = ["birdbath.checks.contrib.heroku.HerokuAnonymisationAllowedCheck"]
+BIRDBATH_USER_ANONYMISER_EXCLUDE_EMAIL_RE = r"(torchbox\.com)$"
+# Do not anonymise data on any heroku app containing 'production' in app name
+BIRDBATH_CHECKS = ["birdbath.checks.contrib.heroku.HerokuNotProductionCheck"]
+BIRDBATH_REQUIRED = env.get("BIRDBATH_REQUIRED", "true").lower() == "true"
 # Add project specific processors here to anonymise or delete sensitive data.
 # See https://git.torchbox.com/internal/django-birdbath/#processors
 BIRDBATH_PROCESSORS = [
     "birdbath.processors.users.UserEmailAnonymiser",
     "birdbath.processors.users.UserPasswordAnonymiser",
 ]
+
 WILLOW_OPTIMIZERS = True
 
 
