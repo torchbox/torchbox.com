@@ -29,7 +29,6 @@
         margin-bottom: $spacer-small;
 
         &:focus {
-            @include focus-style();
             outline: $focus-width solid var(--color--focus-ring-muted);
         }
 
