@@ -1,15 +1,11 @@
 @use 'config' as *;
 
 .work-page-authors {
-    grid-column: 2 / span 5;
-    border-top: 1px solid var(--color--decoration);
-    padding-top: $spacer-small;
-    padding-right: $spacer-mini;
+    grid-column: 2 / span 4;
     margin-bottom: $spacer-medium;
 
     @include media-query(large) {
         grid-column: 5 / span 7;
-        padding-right: 0;
 
         .template-historical-work-page & {
             grid-column: 2 / span 8;
