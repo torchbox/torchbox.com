@@ -373,6 +373,15 @@
             }
         }
 
+        // more spacing below intro on the service page
+        &__intro {
+            margin-bottom: $spacer-medium;
+
+            @include media-query(large) {
+                margin-bottom: $spacer-large;
+            }
+        }
+
         &__raw-html,
         &__markdown,
         &__paragraph {
