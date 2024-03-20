@@ -59,7 +59,7 @@ class SocialMediaSettings(BaseSiteSetting):
     site_name = models.CharField(
         max_length=255,
         blank=True,
-        default="{{ cookiecutter.project_name }}",
+        default="Torchbox",
         help_text="Site name, used by Open Graph.",
     )
 
