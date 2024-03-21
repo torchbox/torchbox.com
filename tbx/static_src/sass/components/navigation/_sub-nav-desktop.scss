@@ -96,8 +96,8 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
                 $color: var(--color--nav-text),
                 $interaction-color: var(--color--heading)
             );
-            @include font-size('body-two');
-            font-weight: $weight--light;
+            @include font-size('body-three');
+            font-weight: $weight--normal;
             line-height: 1.2;
             display: block;
             margin-bottom: $spacer-mini;
