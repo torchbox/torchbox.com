@@ -5,6 +5,14 @@
         a {
             @include link-styles(var(--color--heading), var(--color--heading));
         }
+
+        p {
+            margin-bottom: $spacer-small;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
     }
 
     &__embed {
