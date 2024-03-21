@@ -520,8 +520,10 @@ CACHE_CONTROL_STALE_WHILE_REVALIDATE = int(
 
 # Embeds
 WAGTAILEMBEDS_FINDERS = [
+    # https://github.com/RealOrangeOne/wagtail-lite-youtube-embed
+    {"class": "lite_youtube_embed.LiteYouTubeEmbedFinder"},
     # Handles all other oEmbed providers the default way
-    {"class": "wagtail.embeds.finders.oembed"}
+    {"class": "wagtail.embeds.finders.oembed"},
 ]
 INSTAGRAM_OEMBED_APP_ID = env.get("INSTAGRAM_OEMBED_APP_ID")
 INSTAGRAM_OEMBED_APP_SECRET = env.get("INSTAGRAM_OEMBED_APP_SECRET")
