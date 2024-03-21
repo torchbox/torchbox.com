@@ -1,11 +1,24 @@
 {% extends "patterns/base_page.html" %}
 
 {% block title %}Page not found{% endblock %}
+
+{% block body_class %}template-404-page mode-dark{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
 {% block content %}
-    <h1>
-        Err...
-    </h1>
-    <a href="/">
-        Take me home
-    </a>
+    <div class="grid mb-spacerLarge mt-spacerSmall streamfield text-center md:mt-spacerMedium xlg:mt-spacerHalf xxlg:mb-spacer lg:relative">
+        <div class="grid__wide-image">
+            {% include "patterns/atoms/icons/broken-matchstick-icon.html" %}
+        </div>
+        <div class="grid__title">
+            <h1 class="heading heading--one">Oops...</h1>
+        </div>
+        <div class="grid__paragraph">
+            <p>It looks like this page doesn't exist.</p>
+        </div>
+        <div class="grid__button">
+            <a class="button" href="/">Go to homepage</a>
+        </div>
+    </div>
 {% endblock %}
