@@ -415,7 +415,7 @@ if "CSP_DEFAULT_SRC" in env:
 PERMISSIONS_POLICY = {
     "accelerometer": [],
     "ambient-light-sensor": [],
-    "autoplay": ["self"],
+    "autoplay": ["self", "https://www.youtube-nocookie.com"],
     "camera": [],
     "display-capture": [],
     "document-domain": [],
