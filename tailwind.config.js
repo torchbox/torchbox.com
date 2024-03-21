@@ -25,6 +25,7 @@ module.exports = {
             md: '599px',
             lg: '1023px',
             xlg: '1280px',
+            xxlg: '1800px',
         },
         // Properties inside of extend will keep tailwinds existing properties for the attribute and add to them
         // https://tailwindcss.com/docs/theme
