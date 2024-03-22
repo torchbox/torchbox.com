@@ -19,6 +19,9 @@ class YouTubeConsentManager {
         this.dontAskAgainCheckbox = this.youtubeEmbedNode.querySelector(
             '[data-youtube-save-prefs]',
         );
+        this.embedContainer = this.youtubeEmbedNode.querySelector(
+            '[data-youtube-embed-container]',
+        );
         this.bindEvents();
     }
 
@@ -34,6 +37,8 @@ class YouTubeConsentManager {
     loadYouTubeEmbed() {
         // Hide the video placeholder and show the YouTube embed container
         this.youtubeEmbedNode.classList.add('loaded');
+        this.embedContainer.setAttribute('tabindex', '1');
+        this.embedContainer.focus();
     }
 
     handleconsentClick() {
