@@ -3,9 +3,6 @@ from django.conf import settings
 
 from tbx.blog.models import BlogPage
 from tbx.core.models import MainMenu
-from tbx.core.utils import roundrobin
-from tbx.people.models import PersonPage
-from tbx.work.models import HistoricalWorkPage
 
 register = template.Library()
 
@@ -68,79 +65,6 @@ def content_type(value):
 @register.simple_tag
 def main_menu():
     return MainMenu.objects.first()
-
-
-# Person feed for home page
-@register.inclusion_tag(
-    "torchbox/tags/homepage_people_listing.html", takes_context=True
-)
-def homepage_people_listing(context, count=3):
-    people = PersonPage.objects.filter(live=True).order_by("?")[:count]
-    return {
-        "people": people,
-        # required by the pageurl tag that we want to use within this template
-        "request": context["request"],
-    }
-
-
-# Blog feed for home page
-@register.inclusion_tag("torchbox/tags/homepage_blog_listing.html", takes_context=True)
-def homepage_blog_listing(context, count=6):
-    blog_posts = BlogPage.objects.live().in_menu().order_by("-date")[:count]
-    return {
-        "blog_posts": blog_posts,
-        # required by the pageurl tag that we want to use within this template
-        "request": context["request"],
-    }
-
-
-# Work feed for home page
-@register.inclusion_tag("torchbox/tags/homepage_work_listing.html", takes_context=True)
-def homepage_work_listing(context, count=3):
-    work = HistoricalWorkPage.objects.filter(live=True)[:count]
-    return {
-        "work": work,
-        # required by the pageurl tag that we want to use within this template
-        "request": context["request"],
-    }
-
-
-# blog posts by team member
-@register.inclusion_tag("torchbox/tags/person_blog_listing.html", takes_context=True)
-def person_blog_post_listing(context, calling_page=None):
-    posts = (
-        BlogPage.objects.filter(authors__author__person_page_id=calling_page.id)
-        .live()
-        .order_by("-date")
-    )
-    return {
-        "posts": posts,
-        "calling_page": calling_page,
-        # required by the pageurl tag that we want to use within this template
-        "request": context["request"],
-    }
-
-
-@register.inclusion_tag("torchbox/tags/work_and_blog_listing.html", takes_context=True)
-def work_and_blog_listing(context, count=10):
-    """
-    An interleaved list of work and blog items.
-    """
-    blog_posts = BlogPage.objects.filter(live=True)
-    works = HistoricalWorkPage.objects.filter(live=True)
-
-    # If (remaining) count is odd, blog_count = work_count + 1
-    blog_count = (count + 1) / 2
-    work_count = count / 2
-
-    blog_posts = blog_posts.order_by("-date")[:blog_count]
-    works = works.order_by("-pk")[:work_count]
-
-    return {
-        "items": list(roundrobin(blog_posts, works)),
-        # required by the pageurl tag that we want to use within this template
-        "request": context["request"],
-    }
 
 
 # Format times e.g. on event page
