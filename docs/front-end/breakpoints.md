@@ -10,8 +10,11 @@ The breakpoints we use are:
 $breakpoints: (
   'medium' '(min-width: 599px)',
   'large' '(min-width: 1023px)',
-  'x-large' '(min-width: 1280px)'
+  'x-large' '(min-width: 1280px)',
+  'xx-large' '(min-width: 1800px)'
 );
 ```
 
 Other breakpoints can be added to this map as required, however the breakpoints should be used sparingly and only when the design requires it.
+
+These breakpoints should match the screen sizes set up in `tailwind.config.js`.
