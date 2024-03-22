@@ -558,6 +558,7 @@ class EmbedBlock(WagtailEmbedBlock):
         return context
 
     class Meta:
+        icon = "code"
         template = "patterns/molecules/streamfield/blocks/embed_block.html"
 
 
@@ -638,7 +639,6 @@ class StoryBlock(blocks.StreamBlock):
             """,
     )
     embed = EmbedBlock(
-        icon="code",
         group="Media and images",
     )
     video_block = VideoBlock()
