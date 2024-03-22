@@ -194,7 +194,7 @@ class BlogPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
             .prefetch_related("related_sectors", "related_services")
             .defer_streamfields()
             .distinct()
-            .order_by("-first_published_at")
+            .order_by("-date")
             .exclude(pk=self.pk)[:3]
         ]
 
