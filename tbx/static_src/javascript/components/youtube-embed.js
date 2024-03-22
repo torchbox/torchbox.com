@@ -37,8 +37,6 @@ class YouTubeConsentManager {
     loadYouTubeEmbed() {
         // Hide the video placeholder and show the YouTube embed container
         this.youtubeEmbedNode.classList.add('loaded');
-        this.embedContainer.setAttribute('tabindex', '1');
-        this.embedContainer.focus();
     }
 
     handleconsentClick() {
@@ -46,13 +44,13 @@ class YouTubeConsentManager {
             this.handleDontAskAgainClick();
         }
         this.loadYouTubeEmbed();
+        this.embedContainer.querySelector('button').focus();
     }
 
     handleDontAskAgainClick() {
         // Set a cookie to remember the user's choice not to ask again
         Cookies.set('youtube_consent', 'true', {
-            expires: 7,
-            secure: true,
+            expires: 365,
             sameSite: 'Lax',
         });
 
