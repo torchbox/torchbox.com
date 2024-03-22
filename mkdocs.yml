@@ -70,6 +70,8 @@ nav:
       - front-end/themes_and_modes.md
       - front-end/tooling.md
       - front-end/placeholder-images.md
+      - front-end/utility-classes.md
+      - 'Markdown block and codehilite': 'front-end/markdown-codehilite.md'
   - 'Navigation': 'navigation.md'
   - 'Custom features':
       - 'Migration-friendly StreamFields': 'custom-features/migration-friendly-streamfields.md'
@@ -79,3 +81,4 @@ nav:
   - 'Anonymised data': 'anonymised-data.md'
   - 'Data import': 'data-import.md'
   - 'Upgrading guidelines': 'upgrading.md'
+  - 'Hotjar tracking in wagtail admin': 'hotjar-tracking.md'
