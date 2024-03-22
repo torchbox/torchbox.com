@@ -19,3 +19,5 @@ As and when models/fields are added that may be populated with sensitive data (s
 For full documentation see https://git.torchbox.com/internal/django-birdbath/-/blob/master/README.md.
 
 If data directly from **production** is required, then `run_birdbath` command should be run immediately after download.
+
+The `flightpath` tool can be used to copy production data (and media) from the production environment to staging. It will automatically `run_birdbath` immediately following this sync operation. See [Resetting the staging site](http://0.0.0.0:8001/infrastructure/#resetting-the-staging-site) for more details.
