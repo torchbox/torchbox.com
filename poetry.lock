@@ -2507,18 +2507,22 @@ wagtail = ">=5.2"
 
 [[package]]
 name = "wagtailmedia"
-version = "0.14.5"
+version = "0.15.1"
 description = "A Wagtail module for audio and video files."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "wagtailmedia-0.14.5-py3-none-any.whl", hash = "sha256:591f38f72980f8494c41e7df70c583ba8b40f284ec109f178ef73876747a139b"},
-    {file = "wagtailmedia-0.14.5.tar.gz", hash = "sha256:f3300f57d326c571420af4bc9381b3bb508dab402fb0f4b7957991a41fe91ef3"},
+    {file = "wagtailmedia-0.15.1-py3-none-any.whl", hash = "sha256:4aff072de282ea3c0e5df8525e620e27752f8e0a0a223b48f89d89a5c0f6b335"},
+    {file = "wagtailmedia-0.15.1.tar.gz", hash = "sha256:1d16610f3b0f4b31012135ed4069c16da23fe9d69420969a5030d61e559b2144"},
 ]
 
 [package.dependencies]
 Django = ">=3.2"
 Wagtail = ">=4.1"
+
+[package.extras]
+linting = ["pre-commit (>=3.6.0)"]
+testing = ["coverage (>=7.4.0)"]
 
 [[package]]
 name = "wand"
@@ -2725,4 +2729,4 @@ gunicorn = ["gunicorn"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "be84fef7fe34f1b860704ea2cb9e6153648fe98735fa9fe23a8f29683ff221dd"
+content-hash = "d54049a9176463f0e1152083f2178761c316a0a08e7b783f8d578295fe3379e9"
