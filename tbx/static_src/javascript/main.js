@@ -4,6 +4,7 @@ import DesktopSubMenu from './components/desktop-sub-menu';
 import DesktopCloseMenus from './components/desktop-close-menus';
 import SkipLink from './components/skip-link';
 import CookieWarning from './components/cookie-message';
+import YouTubeConsentManager from './components/youtube-embed';
 import Tabs from './components/tabs';
 
 // IE11 polyfills
@@ -11,6 +12,8 @@ import foreachPolyfill from './polyfills/foreach-polyfill';
 import closestPolyfill from './polyfills/closest-polyfill';
 
 import '../sass/main.scss';
+import 'lite-youtube-embed/src/lite-yt-embed.css';
+import 'lite-youtube-embed/src/lite-yt-embed';
 
 foreachPolyfill();
 closestPolyfill();
@@ -27,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initComponent(DesktopSubMenu);
     initComponent(SkipLink);
     initComponent(CookieWarning);
+    initComponent(YouTubeConsentManager);
     initComponent(Tabs);
     new DesktopCloseMenus();
 });
