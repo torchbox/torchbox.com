@@ -128,7 +128,7 @@ class HomePagePartnerLogo(Orderable):
 class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/home/home_page.html"
     introduction = models.TextField(blank=True)
-    body = StreamField(HomePageStoryBlock(), use_json_field=True)
+    body = StreamField(HomePageStoryBlock())
 
     class Meta:
         verbose_name = "Homepage"
@@ -161,7 +161,7 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
 class StandardPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/standard/standard_page.html"
 
-    body = StreamField(StoryBlock(), use_json_field=True)
+    body = StreamField(StoryBlock())
 
     content_panels = Page.content_panels + [
         FieldPanel("body"),
@@ -200,9 +200,7 @@ class BaseAddress(blocks.StructBlock):
 
 @register_setting
 class GlobalSettings(BaseSiteSetting):
-    addresses = StreamField(
-        [("address", BaseAddress())], blank=True, use_json_field=True
-    )
+    addresses = StreamField([("address", BaseAddress())], blank=True)
 
     panels = [
         FieldPanel("addresses"),
@@ -231,7 +229,7 @@ class MenuBlock(StreamBlock):
 
 @register_setting
 class MainMenu(BaseSiteSetting):
-    menu = StreamField(MenuBlock(), blank=True, use_json_field=True)
+    menu = StreamField(MenuBlock(), blank=True)
 
     panels = [
         FieldPanel("menu"),

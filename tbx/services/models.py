@@ -13,7 +13,7 @@ class ServicePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/service/service_page.html"
 
     intro = RichTextField(blank=True)
-    body = StreamField(ServiceStoryBlock(), use_json_field=True)
+    body = StreamField(ServiceStoryBlock())
 
     content_panels = Page.content_panels + [
         FieldPanel("intro"),
