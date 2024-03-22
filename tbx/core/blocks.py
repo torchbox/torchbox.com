@@ -1,3 +1,4 @@
+import logging
 from collections import defaultdict
 
 from django.core.exceptions import ValidationError
@@ -6,11 +7,15 @@ from django.utils.functional import cached_property
 
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
-from wagtail.embeds.blocks import EmbedBlock
+from wagtail.embeds.blocks import EmbedBlock as WagtailEmbedBlock
+from wagtail.embeds.embeds import get_embed
+from wagtail.embeds.exceptions import EmbedException
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtailmarkdown.blocks import MarkdownBlock
 from wagtailmedia.blocks import VideoChooserBlock
+
+logger = logging.getLogger(__name__)
 
 
 class LinkStructValue(blocks.StructValue):
@@ -536,6 +541,27 @@ class PhotoCollageBlock(blocks.StructBlock):
         group = "Custom"
 
 
+class EmbedBlock(WagtailEmbedBlock):
+    def get_embed_instance(self, value):
+        try:
+            return get_embed(value.url)
+        except EmbedException as e:
+            logger.exception("Embed exception: %s", e)
+            return None
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+
+        if embed := self.get_embed_instance(value):
+            context["thumbnail_url"] = embed.thumbnail_url
+            context["is_youtube"] = embed.provider_name.lower() == "youtube"
+        return context
+
+    class Meta:
+        icon = "code"
+        template = "patterns/molecules/streamfield/blocks/embed_block.html"
+
+
 class StoryBlock(blocks.StreamBlock):
     h2 = blocks.CharBlock(
         form_classname="title",
@@ -613,8 +639,6 @@ class StoryBlock(blocks.StreamBlock):
             """,
     )
     embed = EmbedBlock(
-        icon="code",
-        template="patterns/molecules/streamfield/blocks/embed_block.html",
         group="Media and images",
     )
     video_block = VideoBlock()

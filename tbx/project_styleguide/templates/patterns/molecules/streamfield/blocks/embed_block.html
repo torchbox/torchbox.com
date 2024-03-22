@@ -1,1 +1,35 @@
-<div class="grid__embed streamfield__embed">{{ value }}</div>
+{% load static %}
+
+<div class="grid__embed streamfield__embed youtube-video-container">
+    {% if is_youtube %}
+        <div class="youtube-video-placeholder">
+            {% if thumbnail_url %}
+                <img src="{{ thumbnail_url }}" alt="Video Thumbnail">
+            {% else %}
+                {% comment %}
+                    We need a placeholder here just in case we fail to get the thumbnail_url for some reason
+                {% endcomment %}
+            {% endif %}
+            <div class="youtube-overlay">
+                <div class="consent-banner">This content is hosted by a third party. By showing the external content you accept the <a href="https://www.youtube.com/t/terms" target="_blank">terms and conditions</a> of YouTube.</div>
+                <div class="button-container">
+                    <button class="consent-button">
+                        Proceed
+                        {# https://tabler.io/icons/icon/player-play #}
+                        <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-player-play"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 4v16l13 -8z" /></svg>
+                    </button>
+                    <button class="dont-ask-again-button">
+                        Don't Ask Again
+                        {# https://tabler.io/icons/icon/device-floppy #}
+                        <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" /><path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M14 4l0 4l-6 0l0 -4" /></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="youtube-embed" style="display: none;">
+            {{ value }}
+        </div>
+    {% else %}
+        {{ value }}
+    {% endif %}
+</div>
