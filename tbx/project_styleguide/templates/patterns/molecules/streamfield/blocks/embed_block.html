@@ -6,7 +6,9 @@
             {% if thumbnail_url %}
                 <img src="{{ thumbnail_url }}" alt="Video Thumbnail">
             {% else %}
-                <img src="{% static 'images/thumbnail-placeholder.svg' %}" alt="Video Thumbnail">
+                {% comment %}
+                    We need a placeholder here just in case we fail to get the thumbnail_url for some reason
+                {% endcomment %}
             {% endif %}
             <div class="youtube-overlay">
                 <div class="consent-banner">This content is hosted by a third party. By showing the external content you accept the <a href="https://www.youtube.com/t/terms" target="_blank">terms and conditions</a> of YouTube.</div>
