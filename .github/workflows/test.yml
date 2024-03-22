@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python 3.11
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: 3.11
       - uses: actions/setup-node@v3
@@ -90,7 +90,7 @@ jobs:
       - name: Install Poetry
         run: pipx install poetry==1.5.1 # Make sure this matches POETRY_VERSION in the Dockerfile
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.11
           cache: 'poetry'
