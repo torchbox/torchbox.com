@@ -1,0 +1,67 @@
+{% comment %}
+Designed to be included from another template and values passed in.
+
+This component is heavily based on listing--image.html.
+{% endcomment %}
+{% load wagtailimages_tags util_tags %}
+
+{% if listing_image %}
+    {# When updating the image sizes, also update the placeholder-image aspect-ratio & width. #}
+    {% image listing_image fill-485x300 format-webp saturation-0.6 as listing_desktop_image %}
+    {% image listing_image fill-970x600 format-webp saturation-0.6 as listing_desktop_image_retina %}
+    {% image listing_image fill-370x300 format-webp saturation-0.6 as listing_mobile_image %}
+    {% image listing_image fill-740x600 format-webp saturation-0.6 as listing_mobile_image_retina %}
+{% endif %}
+
+<li class="listing-event listing-image listing {{ base_class }}">
+    {% if listing_image %}
+        {# alt text is empty for consistency with listing--avatar.html that includes avatar.html which has empty alt text #}
+        <picture class="listing-image__picture">
+            <source media="(max-width: 598px)" srcset="{{  listing_mobile_image.url }} 1x, {{ listing_mobile_image_retina.url }} 2x" />
+            <source media="(min-width: 599px)" srcset="{{ listing_desktop_image.url }} 1x, {{ listing_desktop_image_retina.url }} 2x" />
+            <img src="{{ listing_desktop_image.url }}" alt="" loading="lazy" class="listing-image__image" />
+        </picture>
+    {% else %}
+        <div class="listing-event__placeholder-image">
+            {% include "patterns/atoms/icons/icon.html" with name="logo" classname="listing-event__placeholder-image-icon" %}
+        </div>
+    {% endif %}
+
+    <div>
+        <a class="listing-image__link listing__link" href="{{ link }}">
+            <h2 class="listing-image__title listing__title">
+                {# The title and icon need to be on the same line with no whitespace to prevent the icon being orphaned on a new line #}
+                <span class="listing__title-text">{{ title }}</span><span class="listing__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-image__arrow listing__arrow" %}</span>
+            </h2>
+        </a>
+        <div class="listing-event__details listing__details">
+            <div>
+                {% include "patterns/atoms/icons/icon.html" with name="calendar" classname="listing-event__calendar" %}
+            </div>
+            <div>
+                {# Date #}
+                <p class="listing-event__details-group listing__details-group">
+                    <span class="listing-event__date mr-1.5">
+                        {% format_date_for_event start_date start_time end_date end_time %}
+                    </span>
+                </p>
+                {# Event type/s & Location #}
+                {% if type or location %}
+                    <p class="listing-event__meta listing__meta">
+                        {% if type %}
+                            {% for event_type in type %}
+                                {{ event_type }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        {% if type and location %}
+                            <span aria-hidden="true" class="my0 mx-[7px]">/</span>
+                        {% endif %}
+                        {% if location %}
+                            {{ location }}
+                        {% endif %}
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</li>
