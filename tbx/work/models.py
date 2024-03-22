@@ -37,7 +37,7 @@ class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     parent_page_types = []
 
     date = models.DateField("Post date", blank=True, null=True)
-    body = StreamField(StoryBlock(), use_json_field=True)
+    body = StreamField(StoryBlock())
     body_word_count = models.PositiveIntegerField(null=True, editable=False)
     visit_the_site = models.URLField(blank=True)
 
@@ -202,7 +202,7 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     header_caption = models.CharField("caption", max_length=255, blank=True)
     header_attribution = models.CharField("attribution", max_length=255, blank=True)
 
-    body = StreamField(WorkStoryBlock(), use_json_field=True)
+    body = StreamField(WorkStoryBlock())
 
     listing_summary = models.CharField(max_length=255, blank=True)
     related_services = ParentalManyToManyField(

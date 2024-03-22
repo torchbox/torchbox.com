@@ -128,7 +128,7 @@ class BlogPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     parent_page_types = ["BlogIndexPage"]
 
     date = models.DateField("Post date")
-    body = StreamField(StoryBlock(), use_json_field=True)
+    body = StreamField(StoryBlock())
     body_word_count = models.PositiveIntegerField(null=True, editable=False)
 
     feed_image = models.ForeignKey(
