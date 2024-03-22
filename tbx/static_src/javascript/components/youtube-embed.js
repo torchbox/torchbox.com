@@ -5,54 +5,41 @@ import Cookies from 'js-cookie';
  */
 class YouTubeConsentManager {
     static selector() {
-        return '.grid__embed.streamfield__embed.youtube-video-container';
+        return '[data-youtube-embed]';
     }
 
     /**
      * Create a new YouTubeConsentManager.
      */
     constructor(node) {
-        this.consentButtonClass = 'consent-button';
-        this.dontAskAgainButtonClass = 'dont-ask-again-button';
-        this.videoPlaceholderClass = 'youtube-video-placeholder';
-        this.youtubeEmbedClass = 'youtube-embed';
+        this.youtubeEmbedNode = node;
+        this.consentButton = this.youtubeEmbedNode.querySelector(
+            '[data-youtube-consent-button]',
+        );
+        this.dontAskAgainCheckbox = this.youtubeEmbedNode.querySelector(
+            '[data-youtube-save-prefs]',
+        );
+        this.bindEvents();
+    }
 
-        this.youtubeEmbedContainer = node;
-        this.consentButton = this.youtubeEmbedContainer.querySelector(
-            `.${this.consentButtonClass}`,
-        );
-        this.dontAskAgainButton = this.youtubeEmbedContainer.querySelector(
-            `.${this.dontAskAgainButtonClass}`,
-        );
-        this.videoPlaceholder = this.youtubeEmbedContainer.querySelector(
-            `.${this.videoPlaceholderClass}`,
-        );
-        this.youtubeEmbed = this.youtubeEmbedContainer.querySelector(
-            `.${this.youtubeEmbedClass}`,
-        );
-
-        // Bind event handlers
-        this.consentButton.addEventListener(
-            'click',
-            this.handleconsentClick.bind(this),
-        );
-        this.dontAskAgainButton.addEventListener(
-            'click',
-            this.handleDontAskAgainClick.bind(this),
-        );
+    bindEvents() {
+        this.consentButton.addEventListener('click', () => {
+            this.handleconsentClick();
+        });
 
         // Check if consent has been given previously
         this.checkConsent();
     }
 
     loadYouTubeEmbed() {
-        // Hide the video placeholder
-        this.videoPlaceholder.style.display = 'none';
-        // Show the YouTube embed container
-        this.youtubeEmbed.style.display = 'block';
+        // Hide the video placeholder and show the YouTube embed container
+        this.youtubeEmbedNode.classList.add('loaded');
     }
 
     handleconsentClick() {
+        if (this.dontAskAgainCheckbox.checked) {
+            this.handleDontAskAgainClick();
+        }
         this.loadYouTubeEmbed();
     }
 
@@ -63,7 +50,7 @@ class YouTubeConsentManager {
             secure: true,
             sameSite: 'Lax',
         });
-        this.dontAskAgainButton.style.display = 'none';
+
         this.loadYouTubeEmbed();
     }
 
