@@ -1,0 +1,152 @@
+@use 'config' as *;
+
+.youtube-embed {
+    $root: &;
+    position: relative;
+    // allow room for overlay to be positioned absolutely
+    padding-bottom: $spacer-large;
+    // for high contrast mode
+    border: 1px solid transparent;
+
+    @include media-query(medium) {
+        padding-bottom: 0;
+    }
+
+    &__placeholder {
+        position: relative;
+        width: 100%;
+
+        #{$root}.loaded & {
+            display: none;
+        }
+
+        @media (scripting: none) {
+            display: none;
+        }
+    }
+
+    // fallback if there is no thumbnail
+    &__fallback {
+        // same as youtube placeholder image
+        aspect-ratio: 16 / 12;
+        width: 100%;
+        background-color: var(--color--white);
+        display: flex;
+        justify-content: center;
+        padding-top: $spacer-mini;
+
+        @include media-query(medium) {
+            padding-top: $spacer-medium;
+        }
+    }
+
+    // only shows in the fallback div
+    &__logo {
+        width: 100px;
+        height: 23px;
+        // for high contrast mode
+        background-color: var(--color--white);
+
+        @include media-query(medium) {
+            width: 200px;
+            height: 45px;
+        }
+    }
+
+    &__thumbnail-image {
+        width: 100%;
+    }
+
+    &__overlay {
+        position: absolute;
+        // at mobile the overlay would cover the whole placeholder
+        // image so shift it down
+        bottom: -$spacer-large;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+
+        @include media-query(medium) {
+            inset: 0;
+        }
+    }
+
+    &__consent-banner {
+        @include font-size(body);
+        color: var(--color--heading);
+        width: 100%;
+        background-color: rgba($color--mid-grey, 0.5);
+        background-color: var(--color--streamfield-background);
+        padding: $spacer-mini;
+        text-align: center;
+        // for high contrast mode
+        border: 1px solid transparent;
+
+        @include media-query(large) {
+            padding: $spacer-small-plus;
+        }
+    }
+
+    &__link {
+        @include link-styles(
+            $color: var(--color--heading),
+            $interaction-color: var(--color--heading)
+        );
+    }
+
+    &__button-container {
+        @include font-size(supporting);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: $spacer-mini;
+        gap: $spacer-mini-plus;
+
+        @include media-query(medium) {
+            flex-direction: row;
+        }
+    }
+
+    &__button {
+        margin: 0 auto;
+
+        @include media-query(medium) {
+            margin: 0;
+        }
+    }
+
+    &__checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin: 0 auto;
+
+        @include media-query(medium) {
+            margin: 0;
+        }
+    }
+
+    &__checkbox {
+        width: 20px;
+        height: 20px;
+    }
+
+    &__label {
+        @include font-size(supporting);
+    }
+
+    &__container {
+        display: none;
+
+        #{$root}.loaded & {
+            display: block;
+        }
+
+        @media (scripting: none) {
+            display: block;
+        }
+    }
+}

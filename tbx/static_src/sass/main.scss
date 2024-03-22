@@ -1,3 +1,6 @@
+// CSS from external vendors (available as npm)
+@use '../../../node_modules/lite-youtube-embed/src/lite-yt-embed.css';
+
 // Base
 @use 'base/base';
 @use 'base/typography';
@@ -55,7 +58,7 @@
 @use 'components/work-hero';
 @use 'components/work-page-author';
 @use 'components/work-sections';
-@use 'components/youtube_embed';
+@use 'components/youtube-embed';
 
 // Navigation
 @use 'components/navigation/breadcrumbs-nav';
