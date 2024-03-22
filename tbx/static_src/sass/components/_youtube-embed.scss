@@ -148,5 +148,10 @@
         @media (scripting: none) {
             display: block;
         }
+
+        button:focus {
+            @include focus-style();
+            outline-offset: -2px;
+        }
     }
 }
