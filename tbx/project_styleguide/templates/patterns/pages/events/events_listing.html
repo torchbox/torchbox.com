@@ -3,16 +3,32 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
+    <div class="grid grid--spacer-large">
+        {# Title and Filters #}
+        {% include "patterns/molecules/title-filters/title-filters--event.html" with item=page tags=tags %}
 
-    {# Title and Filters #}
-    {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=tags %}
+        {# Events #}
+        {% for event in events %}
+            <ul class="page-listing page-listing--events">
+                {% include "patterns/molecules/listing/listing--event.html" with base_class="page-listing__item" end_date=event.end_date end_time=event.end_time link=event.get_url listing_image=event.image location=event.location start_date=event.start_date start_time=event.start_time title=event.title type=event.type %}
+            </ul>
+        {% empty %}
+            <div class="grid__paragraph">
+                {% if request.GET.filter == "past" %}
+                    <p>There are no past events.</p>
+                {% else %}
+                    <p class="mb-spacerMini">There are no upcoming events.</p>
+                    <p>Check back soon as we add them regularly!</p>
+                {% endif %}
+            </div>
+        {% endfor %}
 
-    {# Events #}
-    {% for event in events %}
-        {% include "patterns/molecules/event-item/event-item.html" with item=event %}
-    {% empty %}
-        <p>There are no upcoming events. <br>Check back soon as we add them regularly!</p>
-    {% endfor %}
+        {% if events.paginator %}
+            <div class="page-listing__pagination">
+                {% include "patterns/molecules/pagination/pagination.html" with extra_url_params=extra_url_params pages=events %}
+            </div>
+        {% endif %}
 
-    {% include_block page.call_to_action %}
+        {% include_block page.call_to_action %}
+    </div>
 {% endblock %}
