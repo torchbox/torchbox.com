@@ -459,4 +459,28 @@
             margin-bottom: $spacer;
         }
     }
+
+    // 404 page adjustments
+    .template-404-page & {
+        &__paragraph {
+            margin-bottom: $spacer-small;
+        }
+
+        &__wide-image {
+            @include media-query(large) {
+                margin-bottom: $spacer-medium;
+            }
+        }
+
+        &__button,
+        &__paragraph,
+        &__title,
+        &__wide-image {
+            grid-column: 2 / span 4;
+
+            @include media-query(large) {
+                grid-column: 4 / span 8;
+            }
+        }
+    }
 }

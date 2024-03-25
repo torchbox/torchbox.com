@@ -2,10 +2,8 @@
 <!doctype html>
 <html
     class="
-    {% block body_class %}
-        template-{{ page.get_verbose_name|slugify }}
-        {% if page.theme_class %}{{ page.theme_class }}{% endif %} mode-dark
-    {% endblock %}"
+    {% block html_class %}template-{{ page.get_verbose_name|slugify }}{% endblock %}
+    {% if page.theme_class %}{{ page.theme_class }}{% endif %} mode-dark"
     lang="en-GB"
 >
     <head>
