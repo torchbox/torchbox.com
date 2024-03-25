@@ -1,9 +1,0 @@
-{% load wagtailcore_tags %}
-<h1>{{ title|richtext }}</h1>
-{% if desc %}
-    {{ desc|richtext }}
-{% endif %}
-
-{% if in_page_nav %}
-    {% include "patterns/molecules/in-page-nav/in-page-nav.html" with section_titles=page.section_titles title=page.service %}
-{% endif %}
