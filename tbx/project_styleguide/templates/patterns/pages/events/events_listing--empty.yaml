@@ -1,0 +1,17 @@
+context:
+  page:
+    strapline: Events
+    title: Events
+    get_verbose_name: events-listing
+  events: null
+
+  tags:
+    - name: Upcoming events
+      slug: upcoming
+    - name: Past events
+      slug: past
+
+tags:
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'
