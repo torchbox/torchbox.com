@@ -5,9 +5,11 @@
     flex-wrap: wrap;
     column-gap: $spacer-small;
     row-gap: $spacer-small-plus;
+    margin-bottom: $spacer-medium;
 
     @include media-query(large) {
         max-width: 1270px;
+        margin-bottom: $spacer-large;
     }
 
     &__item {
