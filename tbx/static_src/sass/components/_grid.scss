@@ -81,14 +81,6 @@
         }
     }
 
-    &__button {
-        grid-column: 2 / span 4;
-
-        @include media-query(large) {
-            grid-column: 2 / span 12;
-        }
-    }
-
     &__related-posts {
         grid-column: 2 / span 4;
 
@@ -475,6 +467,8 @@
         &__paragraph,
         &__title,
         &__wide-image {
+            grid-column: 2 / span 4;
+
             @include media-query(large) {
                 grid-column: 4 / span 8;
             }
