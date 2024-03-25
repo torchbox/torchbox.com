@@ -1,0 +1,37 @@
+@use 'config' as *;
+
+// Very basic form styling used for the 'password required' form but this could be adapted for other forms in the future
+
+.form {
+    @include font-size('heading-four');
+    font-family: $font--primary;
+    font-weight: $weight--light;
+
+    label {
+        @include font-size('body');
+        font-weight: $weight--semibold;
+        margin: $spacer-small 0 10px;
+        display: block;
+        color: var(--color--heading);
+    }
+
+    input[type='text'],
+    input[type='password'] {
+        border: 1px solid var(--color--border);
+        color: var(--color--background);
+        font-weight: $weight--normal;
+        padding: 10px $spacer-mini;
+        text-indent: 0;
+        display: block;
+    }
+
+    input[type='submit'] {
+        display: block;
+        margin-top: $spacer-small;
+    }
+}
+
+.errorlist {
+    color: var(--color--light-background);
+    font-weight: $weight--semibold;
+}

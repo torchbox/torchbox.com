@@ -219,7 +219,8 @@
     &__stats,
     &__image,
     &__video,
-    &__mailchimp {
+    &__mailchimp,
+    &__form {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
 
