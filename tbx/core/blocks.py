@@ -270,11 +270,14 @@ class HomepageShowcaseBlock(blocks.StructBlock):
                 ("heading", blocks.CharBlock()),
                 ("summary", blocks.RichTextBlock()),
                 ("page", blocks.PageChooserBlock()),
-                ("icon", blocks.ChoiceBlock(
-                    max_length=9,
-                    choices=IconChoice.choices,
-                    default=IconChoice.LIGHTBULB,
-                )),
+                (
+                    "icon",
+                    blocks.ChoiceBlock(
+                        max_length=9,
+                        choices=IconChoice.choices,
+                        default=IconChoice.LIGHTBULB,
+                    ),
+                ),
             ],
             help_text="Add a showcase paragraph, with icon, heading, summary text and a page link",
             icon="breadcrumb-expand",
