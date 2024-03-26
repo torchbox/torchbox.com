@@ -114,7 +114,7 @@ class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
             )
             .live()
             .distinct()
-            .order_by("-id")
+            .order_by(F("date").desc(nulls_last=True))
             .exclude(pk=self.pk)[:4]
         )
         return works
@@ -300,7 +300,7 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
             )
             .defer_streamfields()
             .distinct()
-            .order_by("-id")
+            .order_by(F("date").desc(nulls_last=True))
             .exclude(pk=self.pk)[:3]
         ]
 
