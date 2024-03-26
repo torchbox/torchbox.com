@@ -1,18 +1,13 @@
-import datetime
-from itertools import chain
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.utils import timezone
+from django.utils.http import urlencode
 
-from django import forms
-from django.db import models
-from django.db.models import Q
-from django.utils.functional import cached_property
-
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from modelcluster.models import ClusterableModel
+from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
+from tbx.events.blocks import EventItemBlock
 from tbx.people.models import ContactMixin
-from tbx.taxonomy.models import Sector, Service
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.models import Orderable, Page
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.models import Page
 
 
 class EventIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
@@ -21,8 +16,10 @@ class EventIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     parent_page_types = ["torchbox.HomePage"]
     subpage_types = []
 
+    events = StreamField([("event", EventItemBlock())], blank=True, use_json_field=True)
+
     content_panels = Page.content_panels + [
-        InlinePanel("events", label="events"),
+        FieldPanel("events"),
     ]
 
     promote_panels = (
@@ -36,79 +33,62 @@ class EventIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         ]
     )
 
-    def get_events(self, taxonomy_filter=None):
-        today = datetime.date.today()
-        events = self.events.exclude(date__lt=today)
-        if taxonomy_filter:
-            events = events.filter(
-                Q(related_services__slug=taxonomy_filter)
-                | Q(related_services__slug=taxonomy_filter)
-            )
-        return events.order_by("date")
+    def get_events(self, time_filter=None):
+        today = timezone.localdate()
+        if time_filter == "past":
+            events = [
+                event.value
+                for event in self.events
+                if event.value.get("start_date") < today
+            ]
+            events.sort(key=lambda x: x.get_start_date_time(), reverse=True)
+        else:
+            events = [
+                event.value
+                for event in self.events
+                if today < event.value.get("start_date")
+            ]
+            events.sort(key=lambda x: x.get_start_date_time())
+        return events
 
     def get_context(self, request):
         context = super().get_context(request)
-        related_sectors = Sector.objects.all()
-        related_services = Service.objects.all()
 
         # Used for the purposes of defining the filterable tags
-        tags = chain(related_services, related_sectors)
+        tags = [
+            {
+                "name": "Upcoming events",
+                "slug": "upcoming",
+            },
+            {
+                "name": "Past events",
+                "slug": "past",
+            },
+        ]
+
+        slug_filter = request.GET.get("filter")
+        events = self.get_events(slug_filter)
+
+        # Use `page` to filter.
+        page = request.GET.get("page", 1)
+
+        # Pagination
+        paginator = Paginator(events, 10)  # Show 10 events per page
+
+        try:
+            paged_events = paginator.page(page)
+        except PageNotAnInteger:
+            paged_events = paginator.page(1)
+        except EmptyPage:
+            paged_events = paginator.page(paginator.num_pages)
+
+        extra_url_params = {}
+        if slug_filter:
+            extra_url_params["filter"] = slug_filter
 
         context.update(
-            events=self.get_events(request.GET.get("filter")),
+            events=paged_events,
+            extra_url_params=urlencode(extra_url_params),
             tags=tags,
         )
         return context
-
-
-class Event(ClusterableModel, Orderable):
-    page = ParentalKey(EventIndexPage, related_name="events")
-    title = models.CharField(max_length=255)
-    intro = models.TextField(verbose_name="Description")
-    link_external = models.URLField("External link")
-    date = models.DateField("Event date")
-    event_type = models.CharField(max_length=30)
-    author = models.ForeignKey(
-        "people.Author",
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name="authors",
-        verbose_name="Host",
-    )
-    related_sectors = ParentalManyToManyField(
-        "taxonomy.Sector",
-        related_name="events",
-        blank=True,
-    )
-
-    related_services = ParentalManyToManyField(
-        "taxonomy.Service", related_name="events"
-    )
-
-    @cached_property
-    def sectors(self):
-        return self.related_sectors.all()
-
-    @cached_property
-    def services(self):
-        return self.related_services.all()
-
-    @property
-    def tags(self):
-        return chain(self.services, self.sectors)
-
-    panels = [
-        FieldPanel("title"),
-        FieldPanel("intro"),
-        FieldPanel("link_external"),
-        FieldPanel("author"),
-        FieldPanel("date"),
-        FieldPanel("event_type"),
-        MultiFieldPanel(
-            [
-                FieldPanel("related_sectors", widget=forms.CheckboxSelectMultiple),
-                FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
-            ],
-            heading="Taxonomies",
-        ),
-    ]
