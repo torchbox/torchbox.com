@@ -119,7 +119,7 @@
     }
 
     &__work-image {
-        grid-column: 2 / span 4;
+        grid-column: 1 / span 5;
 
         @include media-query(large) {
             grid-column: 1 / span 13;
