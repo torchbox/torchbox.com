@@ -1,9 +1,12 @@
 import logging
 from collections import defaultdict
+from datetime import datetime
+from typing import Optional
 
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.forms.utils import ErrorList
+from django.utils import timezone
 from django.utils.functional import cached_property
 
 from wagtail import blocks
@@ -401,8 +404,22 @@ class EventLinkStructValue(ButtonLinkStructValue):
     def get_button_link_block(self):
         return self.get("url")[0]
 
+    def get_start_date_time(self) -> datetime:
+        start_date = self.get("start_date")
+        start_time = self.get("start_time")
+        if start_time:
+            return timezone.make_aware(datetime.combine(start_date, start_time))
+        return timezone.make_aware(datetime.combine(start_date, datetime.min.time()))
 
-class EventBlock(blocks.StructBlock):
+    def get_end_date_time(self) -> Optional[datetime]:
+        end_date = self.get("end_date")
+        end_time = self.get("end_time")
+        if end_date and end_time:
+            return timezone.make_aware(datetime.combine(end_date, end_time))
+        return None
+
+
+class BaseEventBlock(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255)
     url = blocks.StreamBlock(
         [
@@ -417,19 +434,15 @@ class EventBlock(blocks.StructBlock):
         SnippetChooserBlock("torchbox.EventType"),
         min_num=1,
     )
+    location = blocks.TextBlock(required=False)
     start_date = blocks.DateBlock()
     start_time = blocks.TimeBlock(required=False)
     end_date = blocks.DateBlock(required=False)
     end_time = blocks.TimeBlock(required=False)
-    location = blocks.TextBlock(required=False)
-    image = ImageChooserBlock()
-    secondary_link = LinkBlock(required=False, label="Secondary link")
 
     class Meta:
         icon = "date"
-        template = "patterns/molecules/streamfield/blocks/event_block.html"
         value_class = EventLinkStructValue
-        group = "Calls to action"
 
     def clean(self, value):
         struct_value = super().clean(value)
@@ -469,6 +482,15 @@ class EventBlock(blocks.StructBlock):
         if errors:
             raise StructBlockValidationError(errors)
         return struct_value
+
+
+class EventBlock(BaseEventBlock):
+    image = ImageChooserBlock()
+    secondary_link = LinkBlock(required=False, label="Secondary link")
+
+    class Meta:
+        template = "patterns/molecules/streamfield/blocks/event_block.html"
+        group = "Calls to action"
 
 
 class PromoBlock(blocks.StructBlock):
