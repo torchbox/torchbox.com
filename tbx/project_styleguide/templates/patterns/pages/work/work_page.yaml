@@ -44,9 +44,6 @@ tags:
     page.body:
       template_name: 'patterns/molecules/streamfield/blocks/work_section_block.html'
   srcset_image:
-    # header image
-    'page.header_image format-webp saturation-0.6 fill-{400x175,800x350,1600x700,1280x560} sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" loading="lazy"':
-      raw: '<img alt="" height="225" loading="lazy" sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" src="https://source.unsplash.com/400x175?trees" srcset="https://source.unsplash.com/400x175?trees 400w, https://source.unsplash.com/800x350?trees 800w, https://source.unsplash.com/1600x700?trees 1254w, https://source.unsplash.com/1280x560?trees 1254w" width="400">'
     # avatar image for authors
     'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
       raw: |
@@ -58,6 +55,27 @@ tags:
     # client logo
     page.logo width-175 format-webp class="work-hero__logo":
       raw: '<img src="https://source.unsplash.com/175x100/?logo" class="work-hero__logo">'
+    # header image
+    page.header_image fill-1600x700 format-webp saturation-0.6 as desktop_image:
+      target_var: desktop_image
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/1600x700?trees'
+    page.header_image fill-1280x560 format-webp saturation-0.6 as desktop_image_retina:
+      target_var: desktop_image_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/1280x560?trees'
+    page.header_image fill-400x225 format-webp saturation-0.6 as mobile_image:
+      target_var: mobile_image
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/400x225?trees'
+    page.header_image fill-800x450 format-webp saturation-0.6 as mobile_image_retina:
+      target_var: mobile_image_retina
+      raw:
+        alt: 'mobile image retina'
+        url: 'https://source.unsplash.com/800x450?trees'
     # listing image for related pages
     listing_image fill-370x370 format-webp saturation-0.6 as listing_desktop_image:
       target_var: listing_desktop_image
