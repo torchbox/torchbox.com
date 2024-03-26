@@ -22,6 +22,10 @@
         @include media-query(large) {
             margin-right: 0;
         }
+
+        .grid__work-image & {
+            margin-right: 0;
+        }
     }
 
     &__caption {
