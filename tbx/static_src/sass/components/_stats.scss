@@ -14,7 +14,11 @@
 
     &__stat {
         #{$root}--numeric & {
-            flex-basis: calc(50% - #{$spacer-small} * 0.5);
+            flex-basis: 100%;
+
+            @include media-query(small) {
+                flex-basis: calc(50% - #{$spacer-small} * 0.5);
+            }
 
             @include media-query(medium) {
                 flex-basis: calc(33.33% - #{$spacer-medium} * 0.5);
