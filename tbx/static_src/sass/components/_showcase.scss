@@ -40,7 +40,11 @@
     &__item {
         display: flex;
         align-items: flex-start;
-        gap: $spacer-small;
+        gap: $spacer-mini;
+
+        @include media-query(large) {
+            gap: $spacer-small;
+        }
 
         &--link {
             &:focus {
@@ -86,10 +90,20 @@
 
     // home page showcase block only
     &__icon {
-        width: 80px;
-        height: 80px;
+        width: 50px;
+        height: 50px;
         flex-shrink: 0;
         flex-grow: 0;
+
+        @include media-query(large) {
+            width: 80px;
+            height: 80px;
+        }
+
+        @include high-contrast-light-mode() {
+            // hide the icons in light high contrast mode as most of the colours don't display properly
+            display: none;
+        }
     }
 
     &__heading {
@@ -97,7 +111,7 @@
         font-weight: $weight--semibold;
         margin-bottom: $spacer-mini;
 
-        &--with-icon {
+        &--with-arrow {
             display: flex;
             align-items: flex-start;
             text-decoration: underline;
@@ -140,9 +154,15 @@
         }
 
         &--tail {
-            width: 72px;
+            width: 50px;
+            height: 14px;
             margin-left: $spacer-mini;
             display: inline-block;
+
+            @include media-query(large) {
+                width: 72px;
+                height: 20px;
+            }
         }
     }
 
