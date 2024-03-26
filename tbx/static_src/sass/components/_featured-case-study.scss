@@ -141,15 +141,14 @@
     }
 
     &__results-icon {
-        display: block;
-        position: absolute;
-        right: 0;
-        top: -75px;
-        z-index: ($gradient-z-index + 1);
+        display: none;
 
         @include media-query(large) {
-            top: -5px;
+            display: block;
             left: -140px;
+            position: absolute;
+            top: -5px;
+            z-index: ($gradient-z-index + 1);
         }
     }
 
