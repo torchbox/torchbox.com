@@ -2,7 +2,7 @@ from itertools import chain
 
 from django import forms
 from django.core.exceptions import ValidationError
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import Paginator
 from django.db import models
 from django.dispatch import receiver
 from django.utils.functional import cached_property
@@ -318,12 +318,7 @@ class PersonIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         # Pagination
         paginator = Paginator(people, 20)  # Show 20 people per page
 
-        try:
-            people = paginator.page(page)
-        except PageNotAnInteger:
-            people = paginator.page(1)
-        except EmptyPage:
-            people = paginator.page(paginator.num_pages)
+        people = paginator.get_page(page)
 
         tags = Team.objects.all()
 
