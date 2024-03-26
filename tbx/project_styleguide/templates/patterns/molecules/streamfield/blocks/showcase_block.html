@@ -38,7 +38,7 @@
                             <span class="showcase__title-text">{{ item.heading }}</span><span class="showcase__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="showcase__arrow showcase__arrow--tail" %}</span>
                         </h3>
                     {% else %}
-                         <h3 class="showcase__heading{% if item.page %} showcase__heading--with-arrow{% endif %}">
+                        <h3 class="showcase__heading{% if item.page %} showcase__heading--with-arrow{% endif %}">
                             {{ item.heading }}
                             {% if item.page %}
                                 {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="showcase__arrow" %}
