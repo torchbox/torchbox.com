@@ -78,6 +78,16 @@
     </div>
 
     <div>
+        <h2 class="underline mt-8 mb-2">Listing item for event</h2>
+        {% include "patterns/molecules/listing/listing--event.html" %}
+    </div>
+
+    <div>
+        <h2 class="underline mt-8 mb-2">Listing item for event, with no image</h2>
+        {% include "patterns/molecules/listing/listing--event.html" with listing_image=None %}
+    </div>
+
+    <div>
         <h2 class="underline mt-8 mb-2">Simple listing item</h2>
         {% include "patterns/molecules/listing/listing--simple.html" %}
     </div>
