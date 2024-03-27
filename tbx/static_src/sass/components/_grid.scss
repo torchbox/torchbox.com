@@ -481,4 +481,27 @@
             }
         }
     }
+
+    // impact report page adjustments
+    .template-impact-report-page & {
+        &__impact-report-heading {
+            grid-column: 2 / span 4;
+
+            @include media-query(large) {
+                grid-column: 2 / span 12;
+            }
+        }
+
+        &__heading,
+        &__intro,
+        &__paragraph,
+        &__image,
+        &__raw-html,
+        &__markdown,
+        &__embed {
+            @include media-query(large) {
+                grid-column: 6 / span 6;
+            }
+        }
+    }
 }
