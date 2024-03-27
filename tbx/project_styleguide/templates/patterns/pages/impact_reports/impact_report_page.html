@@ -1,0 +1,10 @@
+{% extends "patterns/base_page.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+
+    <div class="grid grid--spacer-large streamfield lg:relative">
+        {% include_block page.body %}
+    </div>
+
+{% endblock %}
