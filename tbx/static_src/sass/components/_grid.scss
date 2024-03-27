@@ -100,7 +100,7 @@
 
     &__wide-image {
         margin-bottom: $spacer-medium;
-        grid-column: 2 / span 4;
+        grid-column: 2 / span 5;
 
         @include media-query(large) {
             margin-bottom: $spacer-large;
@@ -119,7 +119,7 @@
     }
 
     &__work-image {
-        grid-column: 2 / span 4;
+        grid-column: 1 / span 5;
 
         @include media-query(large) {
             grid-column: 1 / span 13;
@@ -171,6 +171,7 @@
     &__photo-collage {
         // right to the right-hand edge at mobile and tablet
         grid-column: 2 / span 5;
+        margin-bottom: $spacer-medium;
 
         @include media-query(large) {
             grid-column: 2 / span 11;
@@ -179,7 +180,7 @@
 
     &__promo,
     &__event {
-        grid-column: 2 / span 4;
+        grid-column: 2 / span 5;
         margin-bottom: $spacer-medium;
 
         @include media-query(large) {
@@ -454,10 +455,6 @@
             @include media-query(large) {
                 grid-column: 3 / span 6;
             }
-        }
-
-        &__partners {
-            margin-bottom: $spacer;
         }
     }
 

@@ -73,6 +73,10 @@ h6 {
         @include font-size(heading-three);
     }
 
+    &--three-b {
+        @include font-size(heading-three-b);
+    }
+
     &--four {
         @include font-size(heading-four);
     }
