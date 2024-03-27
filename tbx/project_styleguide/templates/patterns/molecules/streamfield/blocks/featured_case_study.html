@@ -26,8 +26,21 @@
                 </h2>
             </a>
 
-            {# Rich text #}
-            {% if value.text %}
+            {# Numeric results or rich text #}
+            {% if value.numeric_results %}
+                <div class="featured-case-study__results-container">
+                    <ul class="featured-case-study__results">
+                        {% for result in value.numeric_results %}
+                            <li class="featured-case-study__result">
+                                <span class="featured-case-study__result-label">{{ result.label }}</span>
+                                <span class="featured-case-study__result-number">{{ result.headline_number }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    {# Results SVG #}
+                    {% include "patterns/atoms/icons/results-ring.html" with classes="featured-case-study__results-icon" %}
+                </div>
+            {% elif value.text %}
                 <div class="featured-case-study__text">
                     {{ value.text|richtext }}
                     {# Results SVG #}
