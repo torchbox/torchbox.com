@@ -1,0 +1,9 @@
+context:
+  item:
+    title: Events
+
+  tags:
+    - name: Upcoming events
+      slug: upcoming
+    - name: Past events
+      slug: past

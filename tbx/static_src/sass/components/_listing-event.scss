@@ -1,0 +1,45 @@
+// styles specific to listings with event details
+
+@use "config" as *;
+
+.listing-event {
+    &__calendar {
+        height: 3.125rem;
+        width: 3.375rem;
+    }
+
+    &__date {
+        @include font-size('body-one');
+        color: var(--color--heading);
+        font-weight: $weight--semibold;
+    }
+
+    &__details {
+        gap: $spacer-mini;
+    }
+
+    &__placeholder-image {
+        // Keep aspect-ratio up-to-date with the image sizes in the template.
+        aspect-ratio: 370 / 300;
+        background-color: var(--color--streamfield-background);
+        display: flex;
+        flex-shrink: 0;
+        justify-content: center;
+        width: 100%;
+
+        @include media-query(medium) {
+            // Keep aspect-ratio & width up-to-date with the image sizes in the template.
+            aspect-ratio: 485 / 300;
+            width: 370px;
+        }
+    }
+
+    &__placeholder-image-icon {
+        height: auto;
+        width: 8rem;
+
+        @include media-query(medium) {
+            width: 10rem;
+        }
+    }
+}

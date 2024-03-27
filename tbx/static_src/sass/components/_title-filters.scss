@@ -45,6 +45,7 @@
         margin-bottom: $spacer-small;
 
         @include media-query(large) {
+            flex-grow: 0;
             margin-bottom: 0;
             margin-right: $spacer-half;
 
@@ -64,6 +65,7 @@
 
     &__tags {
         @include media-query(large) {
+            flex-grow: 1;
             align-self: flex-end;
         }
 
