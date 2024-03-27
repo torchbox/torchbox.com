@@ -231,6 +231,11 @@ class ContactCTABlock(blocks.StructBlock):
 
 
 class ShowcaseBlock(blocks.StructBlock):
+    """
+    This block is a standard ShowcaseBlock, available on the home page and
+    service page templates. See also the HomepageShowcaseBlock.
+    """
+
     title = blocks.CharBlock(max_length=255)
     showcase_paragraphs = blocks.ListBlock(
         blocks.StructBlock(
@@ -262,6 +267,14 @@ class IconChoice(models.TextChoices):
 
 
 class HomepageShowcaseBlock(blocks.StructBlock):
+    """
+    This block is similar to the ShowcaseBlock, but is rendered larger
+    and with icons. It is only available on the home page template.
+    Unlike the standard showcase block, this includes and intro,
+    and page links are required. It shares a template and styling with the standard
+    showcase, but with some variations.
+    """
+
     title = blocks.CharBlock(max_length=255)
     intro = blocks.TextBlock(required=False)
     showcase_paragraphs = blocks.ListBlock(
@@ -697,8 +710,8 @@ class StoryBlock(blocks.StreamBlock):
 
 
 class HomePageStoryBlock(blocks.StreamBlock):
-    showcase = ShowcaseBlock()
-    homepage_showcase = HomepageShowcaseBlock()
+    showcase = ShowcaseBlock(label="Standard showcase")
+    homepage_showcase = HomepageShowcaseBlock(label="Large showcase with icons")
     featured_case_study = FeaturedCaseStudyBlock()
     blog_chooser = BlogChooserBlock()
     work_chooser = WorkChooserBlock()
