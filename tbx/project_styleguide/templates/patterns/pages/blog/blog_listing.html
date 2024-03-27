@@ -7,7 +7,9 @@
 
         <ul class="page-listing page-listing--blog">
             {% for post in blog_posts %}
-                {% include "patterns/molecules/blog-item/blog-item.html" with item=post %}
+                {% firstof post.url post.link_external as link %}
+
+                {% include "patterns/molecules/listing/listing--avatar.html" with link=link avatar=post.author.image title=post.title name=post.author.name job_title=post.author.role date=post.date reading_time=post.read_time tags=post.tags tag_link_base=blog_index_url base_class="page-listing__item" %}
             {% endfor %}
         </ul>
 
