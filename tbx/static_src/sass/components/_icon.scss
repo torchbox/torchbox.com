@@ -17,4 +17,16 @@
             margin-right: 10px;
         }
     }
+
+    &--broken-matchstick {
+        height: 100%;
+        max-width: 277px;
+        width: 100%;
+    }
+
+    .template-404-page & {
+        &--broken-matchstick {
+            margin: 0 auto;
+        }
+    }
 }

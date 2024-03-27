@@ -105,6 +105,14 @@ def sh(c, service="web"):
 
 
 @task
+def sh_root(c, service="web"):
+    """
+    Run bash as root in the local web container.
+    """
+    subprocess.run(["docker-compose", "exec", "--user=root", "web", "bash"])
+
+
+@task
 def psql(c, command=None):
     """
     Connect to the local postgres DB using psql

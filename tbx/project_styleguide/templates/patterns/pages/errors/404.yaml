@@ -1,6 +1,4 @@
-context:
-  settings:
-    utils:
-      SystemMessagesSettings:
-        title_404: Err...
-        body_404: Take me home
+tags:
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'
