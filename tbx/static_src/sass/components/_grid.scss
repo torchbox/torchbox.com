@@ -100,7 +100,7 @@
 
     &__wide-image {
         margin-bottom: $spacer-medium;
-        grid-column: 2 / span 4;
+        grid-column: 2 / span 5;
 
         @include media-query(large) {
             margin-bottom: $spacer-large;
