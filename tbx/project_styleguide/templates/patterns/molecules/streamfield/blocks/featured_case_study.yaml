@@ -4,11 +4,19 @@ context:
       <p>By empathizing with users, designers can identify pain points and opportunities, creating more effective and user-friendly products. This process is ongoing, adapting to evolving user needs, ensuring solutions remain relevant and effective over time.</p>
     link:
       specific:
-        title: MQ - Transforming Mental Health
+        client: 'MQ: Transforming Mental Health'
+        title: Imagining and designing a future product in 5 days flat
         url: '#'
         date: 19 Jan 2024
         read_time: 5
     featured_case_study_logo: True
+    numeric_results:
+      - label: Raised over
+        headline_number: £600k
+      - label: Increase in visits
+        headline_number: 105%
+      - label: Bounce rate reduced by
+        headline_number: 20%
 
 tags:
   srcset_image:
