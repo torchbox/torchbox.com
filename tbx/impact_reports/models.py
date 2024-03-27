@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
 
-from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
@@ -9,23 +8,10 @@ from wagtail.admin.panels import (
     TitleFieldPanel,
 )
 from wagtail.fields import RichTextField, StreamField
-from wagtail.models import Orderable, Page
+from wagtail.models import Page
 from wagtail.search import index
 
 from .blocks import ImpactReportStoryBlock
-
-
-class ImpactReportAuthor(Orderable):
-    page = ParentalKey("impact_reports.ImpactReportPage", related_name="authors")
-    author = models.ForeignKey(
-        "people.Author",
-        on_delete=models.CASCADE,
-        related_name="+",
-    )
-
-    panels = [
-        FieldPanel("author"),
-    ]
 
 
 class ImpactReportPage(Page):
