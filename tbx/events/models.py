@@ -1,4 +1,4 @@
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import Paginator
 from django.utils import timezone
 from django.utils.http import urlencode
 
@@ -74,13 +74,7 @@ class EventIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
 
         # Pagination
         paginator = Paginator(events, 10)  # Show 10 events per page
-
-        try:
-            paged_events = paginator.page(page)
-        except PageNotAnInteger:
-            paged_events = paginator.page(1)
-        except EmptyPage:
-            paged_events = paginator.page(paginator.num_pages)
+        paged_events = paginator.get_page(page)
 
         extra_url_params = {}
         if slug_filter:
