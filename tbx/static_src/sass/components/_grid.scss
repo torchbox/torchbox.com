@@ -171,6 +171,7 @@
     &__photo-collage {
         // right to the right-hand edge at mobile and tablet
         grid-column: 2 / span 5;
+        margin-bottom: $spacer-medium;
 
         @include media-query(large) {
             grid-column: 2 / span 11;
