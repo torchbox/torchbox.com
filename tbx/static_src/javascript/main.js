@@ -12,7 +12,8 @@ import foreachPolyfill from './polyfills/foreach-polyfill';
 import closestPolyfill from './polyfills/closest-polyfill';
 
 import '../sass/main.scss';
-import 'lite-youtube-embed/src/lite-yt-embed.css';
+
+// Third party imports
 import 'lite-youtube-embed/src/lite-yt-embed';
 
 foreachPolyfill();
