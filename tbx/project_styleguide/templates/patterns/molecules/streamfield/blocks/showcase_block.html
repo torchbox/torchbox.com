@@ -1,27 +1,50 @@
 {% load wagtailcore_tags %}
 
-<div class="showcase grid__showcase">
+<div class="showcase grid__showcase {% if is_homepage_showcase %}showcase--home{% endif %}">
     {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=value.title heading_level=2 classes="showcase__title motif-heading--two motif-heading--static motif-heading--half-width" %}
+
+    {# homepage version only #}
+    {% if is_homepage_showcase %}
+        {% if value.intro %}
+            <p class="showcase__intro">{{ value.intro }}</p>
+        {% endif %}
+    {% endif %}
+
     <ul class="showcase__list">
         {% for item in value.showcase_paragraphs %}
             <li {% if not item.page %}class="showcase__item"{% endif %}>
 
+                {# Link is required on the homepage showcase block, but optional in the showcase block #}
                 {% if item.page %}
                     <a href="{% pageurl item.page %}" class="showcase__item showcase__item--link" aria-label="{{ item.heading }}">
                 {% endif %}
 
-                <div class="showcase__rings">
-                    {% include "patterns/atoms/icons/icon.html" with name="ring-one" classname="icon--stroke showcase__ring showcase__ring--one" %}
-                    {% include "patterns/atoms/icons/icon.html" with name="ring-two" classname="icon--stroke showcase__ring showcase__ring--two" %}
-                </div>
+                {# Showcase block uses the rings icons, homepage block uses an icon selected by the editor #}
+                {% if is_homepage_showcase %}
+                    {# Note that a future enhancement will be to animated these icons, in which case they will need to be split out into separate svgs and a custom css animation applied to each one - similar to the 'employee owned trust' icon on the home page #}
+                    {% include "patterns/atoms/icons/icon.html" with name=item.icon classname="showcase__icon" %}
+                {% else %}
+                    <div class="showcase__rings">
+                        {% include "patterns/atoms/icons/icon.html" with name="ring-one" classname="icon--stroke showcase__ring showcase__ring--one" %}
+                        {% include "patterns/atoms/icons/icon.html" with name="ring-two" classname="icon--stroke showcase__ring showcase__ring--two" %}
+                    </div>
+                {% endif %}
+
 
                 <div class="showcase__content">
-                    <h3 class="showcase__heading{% if item.page %} showcase__heading--with-icon{% endif %}">
-                        {{ item.heading }}
-                        {% if item.page %}
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="showcase__icon" %}
-                        {% endif %}
-                    </h3>
+                    {% if is_homepage_showcase %}
+                        <h3 class="showcase__heading showcase__heading--with-tail">
+                            {# The heading and arrow need to be on the same line with no whitespace to prevent the arrow being orphaned on a new line #}
+                            <span class="showcase__title-text">{{ item.heading }}</span><span class="showcase__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="showcase__arrow showcase__arrow--tail" %}</span>
+                        </h3>
+                    {% else %}
+                        <h3 class="showcase__heading{% if item.page %} showcase__heading--with-arrow{% endif %}">
+                            {{ item.heading }}
+                            {% if item.page %}
+                                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="showcase__arrow" %}
+                            {% endif %}
+                        </h3>
+                    {% endif %}
 
                     <div class="showcase__summary">{{ item.summary }}</div>
                 </div>

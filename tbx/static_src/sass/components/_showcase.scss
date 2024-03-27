@@ -1,9 +1,24 @@
 @use "config" as *;
 
+// used for both the showcase block and the homepage showcase block
 .showcase {
     $root: &;
 
     &__title {
+        margin-bottom: $spacer-medium;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+        }
+
+        #{$root}--home & {
+            margin-bottom: $spacer-mini;
+        }
+    }
+
+    // home page showcase block only
+    &__intro {
+        @include font-size('heading-five');
         margin-bottom: $spacer-medium;
 
         @include media-query(large) {
@@ -25,7 +40,11 @@
     &__item {
         display: flex;
         align-items: flex-start;
-        gap: $spacer-small;
+        gap: $spacer-mini;
+
+        @include media-query(large) {
+            gap: $spacer-small;
+        }
 
         &--link {
             &:focus {
@@ -34,7 +53,7 @@
 
             &:focus,
             &:hover {
-                #{$root}__icon {
+                #{$root}__arrow {
                     transform: translate3d($link-transition-gap, 0, 0);
                 }
 
@@ -69,12 +88,30 @@
         }
     }
 
+    // home page showcase block only
+    &__icon {
+        width: 50px;
+        height: 50px;
+        flex-shrink: 0;
+        flex-grow: 0;
+
+        @include media-query(large) {
+            width: 80px;
+            height: 80px;
+        }
+
+        @include high-contrast-light-mode() {
+            // hide the icons in light high contrast mode as most of the colours don't display properly
+            display: none;
+        }
+    }
+
     &__heading {
         @include font-size(heading-four);
         font-weight: $weight--semibold;
         margin-bottom: $spacer-mini;
 
-        &--with-icon {
+        &--with-arrow {
             display: flex;
             align-items: flex-start;
             text-decoration: underline;
@@ -82,9 +119,31 @@
             text-underline-offset: 2px;
             gap: $spacer-mini;
         }
+
+        &--with-tail {
+            display: block;
+        }
+
+        #{$root}--home & {
+            @include font-size('heading-three');
+        }
     }
 
-    &__icon {
+    &__title-text {
+        @include link-styles(
+            var(--color--heading),
+            var(--color--heading),
+            false,
+            8px
+        );
+    }
+
+    &__tail {
+        display: inline;
+        white-space: nowrap;
+    }
+
+    &__arrow {
         transition: transform $transition-quick;
         transform: translate3d(0, 0, 0);
         flex-shrink: 0;
@@ -92,6 +151,18 @@
 
         @include reduced-motion() {
             transition: none;
+        }
+
+        &--tail {
+            width: 50px;
+            height: 14px;
+            margin-left: $spacer-mini;
+            display: inline-block;
+
+            @include media-query(large) {
+                width: 72px;
+                height: 20px;
+            }
         }
     }
 
