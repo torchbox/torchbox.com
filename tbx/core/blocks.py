@@ -2,6 +2,7 @@ import logging
 from collections import defaultdict
 
 from django.core.exceptions import ValidationError
+from django.db import models
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
 
@@ -230,6 +231,11 @@ class ContactCTABlock(blocks.StructBlock):
 
 
 class ShowcaseBlock(blocks.StructBlock):
+    """
+    This block is a standard ShowcaseBlock, available on the home page and
+    service page templates. See also the HomepageShowcaseBlock.
+    """
+
     title = blocks.CharBlock(max_length=255)
     showcase_paragraphs = blocks.ListBlock(
         blocks.StructBlock(
@@ -238,7 +244,7 @@ class ShowcaseBlock(blocks.StructBlock):
                 ("summary", blocks.RichTextBlock()),
                 ("page", blocks.PageChooserBlock(required=False)),
             ],
-            help_text="Add a showcase paragraph, with summary text and an optional page link",
+            help_text="Add a showcase paragraph, with heading, summary text and an optional page link",
             icon="breadcrumb-expand",
         ),
         min_num=2,
@@ -248,8 +254,64 @@ class ShowcaseBlock(blocks.StructBlock):
 
     class Meta:
         icon = "tasks"
+        # Same template as the homepage showcase block
         template = "patterns/molecules/streamfield/blocks/showcase_block.html"
         group = "Custom"
+
+
+class IconChoice(models.TextChoices):
+    LIGHTBULB = "lightbulb", "lightbulb icon"
+    TARGET = "target", "target icon"
+    MEGAPHONE = "megaphone", "megaphone icon"
+    WAGTAIL = "wagtail", "wagtail icon"
+
+
+class HomepageShowcaseBlock(blocks.StructBlock):
+    """
+    This block is similar to the ShowcaseBlock, but is rendered larger
+    and with icons. It is only available on the home page template.
+    Unlike the standard showcase block, this includes and intro,
+    and page links are required. It shares a template and styling with the standard
+    showcase, but with some variations.
+    """
+
+    title = blocks.CharBlock(max_length=255)
+    intro = blocks.TextBlock(required=False)
+    showcase_paragraphs = blocks.ListBlock(
+        blocks.StructBlock(
+            [
+                ("heading", blocks.CharBlock()),
+                ("summary", blocks.RichTextBlock()),
+                ("page", blocks.PageChooserBlock()),
+                (
+                    "icon",
+                    blocks.ChoiceBlock(
+                        max_length=9,
+                        choices=IconChoice.choices,
+                        default=IconChoice.LIGHTBULB,
+                    ),
+                ),
+            ],
+            help_text="Add a showcase paragraph, with icon, heading, summary text and a page link",
+            icon="breadcrumb-expand",
+        ),
+        min_num=2,
+        max_num=6,
+        help_text="Add at least two showcase paragraphs",
+    )
+
+    class Meta:
+        icon = "tasks"
+        # Same template as the showcase block
+        template = "patterns/molecules/streamfield/blocks/showcase_block.html"
+        group = "Custom"
+
+    def get_context(self, value, parent_context=None):
+        ctx = super().get_context(value, parent_context=parent_context)
+        # Allows us to add some logic in the template to generate different markup
+        # for the homepage showcase block and the showcase block
+        ctx["is_homepage_showcase"] = True
+        return ctx
 
 
 class CaseStudyStructValue(blocks.StructValue):
@@ -648,7 +710,8 @@ class StoryBlock(blocks.StreamBlock):
 
 
 class HomePageStoryBlock(blocks.StreamBlock):
-    showcase = ShowcaseBlock()
+    showcase = ShowcaseBlock(label="Standard showcase")
+    homepage_showcase = HomepageShowcaseBlock(label="Large showcase with icons")
     featured_case_study = FeaturedCaseStudyBlock()
     blog_chooser = BlogChooserBlock()
     work_chooser = WorkChooserBlock()
