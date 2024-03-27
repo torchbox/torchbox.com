@@ -7,29 +7,35 @@ authors = ["Torchbox Ltd"]
 [tool.poetry.dependencies]
 python = "^3.11"
 Django = "~4.2"
-wagtail = "~5.2"
+wagtail = "~6.0"
 psycopg2 = "^2.9.9"
 gunicorn = { version = "^20.1.0", optional = true }
-django-pattern-library = "^1.1.0"
 whitenoise = "^6.1.0"
-dj-database-url = "^0.5.0"
-django-redis = "^5.2.0"
-django-storages = { extras = ["boto3"], version = "^1.13.2" }
-django-permissions-policy = "^4.15.0"
-django-referrer-policy = "~1.0"
-django-csp = "^3.7"
-scout-apm = "^2.25.1"
-django-basic-auth-ip-whitelist = "^0.5"
-wagtail-accessibility = "^2.0.0"
-django-phonenumber-field = "^7.0.2"
 phonenumbers = "^8.12.48"
-wagtail-purge = "^0.3.0"
-wagtail-markdown = "^0.11.1"
-django-birdbath = "^1.1.0"
-sentry-sdk = "^1.12.1"
 Wand = "^0.6.10"
+
+# Django packages
+django-basic-auth-ip-whitelist = "^0.5"
+django-birdbath = "^1.1.0"
+django-csp = "^3.7"
+django-pattern-library = "^1.1.0"
+django-permissions-policy = "^4.15.0"
+django-phonenumber-field = "^7.0.2"
+django-redis = "^5.2.0"
+django-referrer-policy = "~1.0"
+django-storages = { extras = ["boto3"], version = "^1.13.2" }
+dj-database-url = "^0.5.0"
+
+# Wagtail packages
+wagtail-accessibility = "^2.0.0"
 wagtail-lite-youtube-embed = "^0.1.0"
-wagtailmedia = "^0.14.5"
+wagtail-markdown = "^0.11.1"
+wagtailmedia = "^0.15"
+wagtail-purge = "^0.4.0"
+
+# Production
+scout-apm = "^2.25.1"
+sentry-sdk = "^1.12.1"
 
 [tool.poetry.extras]
 gunicorn = ["gunicorn"]

@@ -42,7 +42,6 @@ class Contact(index.Indexed, models.Model):
     cta = StreamField(
         [("call_to_action", ContactCTABlock(label="CTA"))],
         blank=True,
-        use_json_field=True,
         max_num=1,
     )
 
