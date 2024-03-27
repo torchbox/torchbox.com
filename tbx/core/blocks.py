@@ -307,6 +307,7 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
     )
     numeric_results = blocks.ListBlock(
         NumericResultBlock,
+        default=[],  # Do not show pre-populated with 1 item by default.
         group="Results",
         max_num=3,
         required=False,
