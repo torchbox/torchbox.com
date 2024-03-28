@@ -8,6 +8,7 @@ from django.db import models
 from django.forms.utils import ErrorList
 from django.utils import timezone
 from django.utils.functional import cached_property
+from django.utils.safestring import mark_safe
 
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
@@ -352,11 +353,32 @@ class CaseStudyStructValue(blocks.StructValue):
         return None
 
 
+class NumericResultBlock(blocks.StructBlock):
+    label = blocks.CharBlock(
+        max_length=255,
+        help_text=mark_safe(
+            "Short text to describe the change e.g. <strong>Raised over</strong>"
+        ),
+    )
+    headline_number = blocks.CharBlock(
+        max_length=255,
+        help_text=mark_safe("A numerical value e.g. <strong>£600k</strong>"),
+    )
+
+
 class FeaturedCaseStudyBlock(blocks.StructBlock):
     link = blocks.PageChooserBlock(
         page_type=["work.WorkPage", "work.HistoricalWorkPage"]
     )
-    text = blocks.RichTextBlock(required=False)
+    numeric_results = blocks.ListBlock(
+        NumericResultBlock,
+        default=[],  # Do not show pre-populated with 1 item by default.
+        group="Results",
+        max_num=3,
+        required=False,
+        template="patterns/molecules/streamfield/blocks/result_numeric.html",
+    )
+    text = blocks.RichTextBlock(required=False, label="Textual results")
     image = ImageChooserBlock(required=False)
     remove_desaturation_filter = blocks.BooleanBlock(
         required=False,
@@ -370,6 +392,22 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
         value_class = CaseStudyStructValue
         template = ("patterns/molecules/streamfield/blocks/featured_case_study.html",)
         group = "Custom"
+
+    def clean(self, value):
+        struct_value = super().clean(value)
+        errors = {}
+
+        numeric_results = value.get("numeric_results")
+        text = value.get("text")
+
+        if numeric_results and text:
+            error_message = "Add either numeric results or text but not both."
+            errors["numeric_results"] = ErrorList([ValidationError(error_message)])
+            errors["text"] = ErrorList([ValidationError(error_message)])
+
+        if errors:
+            raise StructBlockValidationError(errors)
+        return struct_value
 
 
 class BlogChooserBlock(blocks.StructBlock):
