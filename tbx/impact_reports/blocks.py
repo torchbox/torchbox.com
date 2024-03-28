@@ -42,24 +42,6 @@ class ParagraphWithImageBlock(StructBlock):
         )
 
 
-class ThreeColumnImageGridItemBlock(StructBlock):
-    image = ImageChooserBlock()
-    text = CharBlock()
-
-    class Meta:
-        icon = "image"
-
-
-class ThreeColumnImageGridBlock(StructBlock):
-    items = ListBlock(ThreeColumnImageGridItemBlock(), min_num=3, max_num=3)
-
-    class Meta:
-        icon = "image"
-        template = (
-            "patterns/molecules/streamfield/blocks/three_column_image_grid_block.html"
-        )
-
-
 class SmallImageWithTextBlock(StructBlock):
     image = ImageChooserBlock()
     title = CharBlock()
@@ -93,6 +75,5 @@ class InstagramGalleryGridBlock(StructBlock):
 class ImpactReportStoryBlock(StoryBlock):
     impact_report_heading = ImpactReportHeadingBlock(group="Impact Report")
     paragraph_with_image = ParagraphWithImageBlock(group="Impact Report")
-    three_column_image_grid = ThreeColumnImageGridBlock(group="Impact Report")
     small_image_with_text = SmallImageWithTextBlock(group="Impact Report")
     instagram_gallery = InstagramGalleryGridBlock(group="Impact Report")
