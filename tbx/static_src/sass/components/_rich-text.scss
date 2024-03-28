@@ -49,13 +49,17 @@
     }
 
     ul {
-        list-style: inside disc;
+        list-style: outside disc;
         margin-bottom: $spacer-small;
+        // compensate for 'outside' which we add for the text wrap behaviour
+        margin-left: 20px;
     }
 
     ol {
-        list-style: inside decimal;
+        list-style: outside decimal;
         margin-bottom: $spacer-small;
+        // compensate for 'outside' which we add for the text wrap behaviour
+        margin-left: 20px;
     }
 
     li {
