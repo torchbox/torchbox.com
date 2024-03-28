@@ -3,7 +3,7 @@
 .featured-case-study {
     $gradient-z-index: 1;
     position: relative;
-    margin-top: $spacer-large;
+    margin-top: $spacer-medium;
 
     @include media-query(large) {
         display: flex;

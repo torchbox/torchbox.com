@@ -22,6 +22,7 @@ module.exports = {
             transparent: 'transparent',
         },
         screens: {
+            sm: '410px',
             md: '599px',
             lg: '1023px',
             xlg: '1280px',

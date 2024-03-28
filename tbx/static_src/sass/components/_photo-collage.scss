@@ -1,8 +1,16 @@
 @use 'config' as *;
 
 .photo-collage {
+    &__heading {
+        margin-right: $grid-gutters;
+
+        @include media-query(large) {
+            margin-right: 0;
+        }
+    }
+
     &__intro-wrapper {
-        margin: $spacer-mini 0 $spacer-small;
+        margin: $spacer-mini $grid-gutters $spacer-small 0;
 
         @include media-query(large) {
             display: grid;
