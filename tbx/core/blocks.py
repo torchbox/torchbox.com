@@ -313,7 +313,7 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
         required=False,
         template="patterns/molecules/streamfield/blocks/result_numeric.html",
     )
-    text = blocks.RichTextBlock(required=False)
+    text = blocks.RichTextBlock(required=False, label="Textual results")
     image = ImageChooserBlock(required=False)
     remove_desaturation_filter = blocks.BooleanBlock(
         required=False,
