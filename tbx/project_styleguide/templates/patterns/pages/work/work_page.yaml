@@ -61,7 +61,7 @@ tags:
       raw:
         alt: 'desktop image'
         url: 'https://source.unsplash.com/1600x700?trees'
-    page.header_image fill-1280x560 format-webp saturation-0.6 as desktop_image_retina:
+    page.header_image fill-2000x875 format-webp saturation-0.6 as desktop_image_retina:
       target_var: desktop_image_retina
       raw:
         alt: 'desktop image retina'
