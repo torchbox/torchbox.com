@@ -60,22 +60,6 @@ class ThreeColumnImageGridBlock(StructBlock):
         )
 
 
-class TwoColumnTextGridItemBlock(StructBlock):
-    image = ImageChooserBlock()
-    heading = CharBlock()
-    text = CharBlock()
-
-
-class TwoColumnTextGridBlock(StructBlock):
-    items = ListBlock(TwoColumnTextGridItemBlock())
-
-    class Meta:
-        icon = "grip"
-        template = (
-            "patterns/molecules/streamfield/blocks/two_column_text_grid_block.html"
-        )
-
-
 class SmallImageWithTextBlock(StructBlock):
     image = ImageChooserBlock()
     title = CharBlock()
@@ -110,6 +94,5 @@ class ImpactReportStoryBlock(StoryBlock):
     impact_report_heading = ImpactReportHeadingBlock(group="Impact Report")
     paragraph_with_image = ParagraphWithImageBlock(group="Impact Report")
     three_column_image_grid = ThreeColumnImageGridBlock(group="Impact Report")
-    two_column_text_grid = TwoColumnTextGridBlock(group="Impact Report")
     small_image_with_text = SmallImageWithTextBlock(group="Impact Report")
     instagram_gallery = InstagramGalleryGridBlock(group="Impact Report")
