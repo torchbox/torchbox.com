@@ -1,17 +1,17 @@
 from django.db import models
 from django.utils.text import slugify
 
+from tbx.core.utils.fields import StreamField
+from tbx.impact_reports.blocks import ImpactReportStoryBlock
 from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     TitleFieldPanel,
 )
-from wagtail.fields import RichTextField, StreamField
+from wagtail.fields import RichTextField
 from wagtail.models import Page
 from wagtail.search import index
-
-from .blocks import ImpactReportStoryBlock
 
 
 class ImpactReportPage(Page):
