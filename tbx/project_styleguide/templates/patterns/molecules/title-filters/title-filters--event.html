@@ -1,0 +1,24 @@
+{% load wagtailcore_tags %}
+
+<div class="title-filters">
+    <div class="title-filters__title">
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=item.title classes="motif-heading--one" %}
+    </div>
+
+    {% if tags %}
+        <div class="title-filters__tags">
+            <div class="tags">
+                <p class="sr-only">Filter by date</p>
+                {% for tag in tags %}
+                    {% if request.GET.filter == tag.slug %}
+                        {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name is_active=True %}
+                    {% elif forloop.first and not request.GET.filter %}
+                        {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name is_active=True %}
+                    {% else %}
+                        {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</div>
