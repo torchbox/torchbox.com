@@ -24,25 +24,6 @@ class ImpactReportHeadingBlock(StructBlock):
         )
 
 
-class ParagraphWithQuoteBlock(StructBlock):
-    text = RichTextBlock()
-    quote = RichTextBlock(features=["bold", "italic", "link", "document-link"])
-    attribution = CharBlock(required=False)
-    quote_alignment = ChoiceBlock(
-        choices=[
-            ("left", "Left"),
-            ("right", "Right"),
-        ],
-        default="right",
-    )
-
-    class Meta:
-        icon = "pilcrow"
-        template = (
-            "patterns/molecules/streamfield/blocks/paragraph_with_quote_block.html"
-        )
-
-
 class ParagraphWithImageBlock(StructBlock):
     text = RichTextBlock()
     image = ImageChooserBlock(required=False)
@@ -127,7 +108,6 @@ class InstagramGalleryGridBlock(StructBlock):
 
 class ImpactReportStoryBlock(StoryBlock):
     impact_report_heading = ImpactReportHeadingBlock(group="Impact Report")
-    paragraph_with_quote = ParagraphWithQuoteBlock(group="Impact Report")
     paragraph_with_image = ParagraphWithImageBlock(group="Impact Report")
     three_column_image_grid = ThreeColumnImageGridBlock(group="Impact Report")
     two_column_text_grid = TwoColumnTextGridBlock(group="Impact Report")
