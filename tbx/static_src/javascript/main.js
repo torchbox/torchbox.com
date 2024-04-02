@@ -4,6 +4,7 @@ import DesktopSubMenu from './components/desktop-sub-menu';
 import DesktopCloseMenus from './components/desktop-close-menus';
 import SkipLink from './components/skip-link';
 import CookieWarning from './components/cookie-message';
+import CarbonImpact from './components/carbon-impact';
 import YouTubeConsentManager from './components/youtube-embed';
 import Tabs from './components/tabs';
 
@@ -33,5 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initComponent(CookieWarning);
     initComponent(YouTubeConsentManager);
     initComponent(Tabs);
+    initComponent(CarbonImpact);
     new DesktopCloseMenus();
 });

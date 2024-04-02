@@ -275,6 +275,14 @@
         }
     }
 
+    &__carbon-impact {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+    }
+
     &__cookie-message {
         grid-column: 2 / span 4;
 

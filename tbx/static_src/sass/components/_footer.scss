@@ -91,4 +91,50 @@
             filter: none;
         }
     }
+
+    &__carbon-impact-container {
+        background-color: var(--color--footer-background);
+        border-top: 1px solid $color--grey-80;
+    }
+
+    &__carbon-impact {
+        display: flex;
+        padding: $spacer-mini-plus 0;
+        gap: $spacer-mini-plus;
+        width: 100%;
+
+        &--mobile {
+            display: block;
+
+            @include media-query(large) {
+                display: none;
+            }
+        }
+
+        &--desktop {
+            display: none;
+
+            @include media-query(large) {
+                display: block;
+            }
+        }
+    }
+
+    &__carbon-impact-text {
+        display: inline-block;
+
+        span {
+            color: var(--color--accent-three);
+            font-weight: $weight--semibold;
+        }
+        
+        @include media-query(large) {
+            &:first-child::after {
+                content: '';
+                // border colour doesn't vary between 
+                border-right: 1px solid $color--grey-80;
+                margin: 0 $spacer-mini-plus;
+            }
+        }
+    }
 }
