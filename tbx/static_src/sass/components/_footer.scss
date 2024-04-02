@@ -120,6 +120,11 @@
         }
     }
 
+    &__carbon-impact-link {
+        text-decoration: underline;
+        text-underline-offset: 1px;
+    }
+
     &__carbon-impact-text {
         display: inline-block;
 
@@ -127,11 +132,11 @@
             color: var(--color--accent-three);
             font-weight: $weight--semibold;
         }
-        
+
         @include media-query(large) {
             &:first-child::after {
                 content: '';
-                // border colour doesn't vary between 
+                // border colour doesn't vary between
                 border-right: 1px solid $color--grey-80;
                 margin: 0 $spacer-mini-plus;
             }

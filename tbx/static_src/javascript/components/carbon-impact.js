@@ -5,18 +5,22 @@ class CarbonImpact {
 
     constructor(node) {
         this.pageCarbon = node;
-        this.pageLoadSpeed = this.pageCarbon.querySelector('[data-page-load-speed]');
-        
+        this.pageLoadSpeed = this.pageCarbon.querySelector(
+            '[data-page-load-speed]',
+        );
+
         this.bindEvents();
     }
 
     bindEvents() {
-        window.addEventListener("load", () => {
+        window.addEventListener('load', () => {
             // if we're keeping load speed, this will need updating to use non-deprecated JS
-            const loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
+            const loadTime =
+                window.performance.timing.domContentLoadedEventEnd -
+                window.performance.timing.navigationStart;
             const loadTimeInSeconds = loadTime / 1000;
-            this.pageLoadSpeed.innerHTML = `${loadTimeInSeconds  }s`;
-        });  
+            this.pageLoadSpeed.innerHTML = `${loadTimeInSeconds}s`;
+        });
     }
 }
 
