@@ -5,13 +5,15 @@
     $root: &;
 
     &__title {
+        @include font-size(heading-three);
         margin-bottom: $spacer-medium;
 
         @include media-query(large) {
+            @include font-size(heading-two);
             margin-bottom: $spacer-large;
         }
 
-        #{$root}--home & {
+        #{$root}--with-intro & {
             margin-bottom: $spacer-mini;
         }
     }
@@ -29,11 +31,10 @@
     &__list {
         display: grid;
         grid-template-columns: 1fr;
-        gap: $spacer-small;
+        gap: $spacer-half;
 
         @include media-query(large) {
             grid-template-columns: 1fr 1fr;
-            gap: $spacer-half;
         }
     }
 
@@ -123,10 +124,6 @@
         &--with-tail {
             display: block;
         }
-
-        #{$root}--home & {
-            @include font-size('heading-three');
-        }
     }
 
     &__title-text {
@@ -134,7 +131,7 @@
             var(--color--heading),
             var(--color--heading),
             false,
-            8px
+            4px
         );
     }
 
