@@ -17,7 +17,7 @@
         display: inline-block;
         margin-bottom: $spacer-small;
         width: 100%;
-        flex-basis: 66.66%;
+        flex-basis: 60%;
 
         @include media-query(large) {
             margin-bottom: 0;
@@ -59,11 +59,12 @@
     }
 
     &__content {
-        max-width: 480px;
+        max-width: 640px;
         margin: 0 $grid-gutters;
 
         @include media-query(large) {
             margin: 0;
+            flex-basis: 40%;
         }
 
         @include media-query(x-large) {
