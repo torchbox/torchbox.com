@@ -94,35 +94,28 @@
 
     &__carbon-impact-container {
         background-color: var(--color--footer-background);
-        border-top: 1px solid $color--grey-80;
+        border-top: 1px solid var(--color--border);
     }
 
     &__carbon-impact {
         display: flex;
+        flex-direction: column;
         padding: $spacer-mini-plus 0;
-        gap: $spacer-mini-plus;
+        gap: $spacer-mini;
         width: 100%;
 
-        &--mobile {
-            display: block;
-
-            @include media-query(large) {
-                display: none;
-            }
-        }
-
-        &--desktop {
-            display: none;
-
-            @include media-query(large) {
-                display: block;
-            }
+        @include media-query(medium) {
+            flex-direction: row;
+            // for larger screens, the margin on separator pseudo element is used for spacing instead
+            gap: 0;
         }
     }
 
     &__carbon-impact-link {
-        text-decoration: underline;
-        text-underline-offset: 1px;
+        @include link-styles(
+            $color: var(--color--text),
+            $interaction-color: var(--color--heading)
+        );
     }
 
     &__carbon-impact-text {
@@ -133,11 +126,10 @@
             font-weight: $weight--semibold;
         }
 
-        @include media-query(large) {
+        @include media-query(medium) {
             &:first-child::after {
                 content: '';
-                // border colour doesn't vary between
-                border-right: 1px solid $color--grey-80;
+                border-right: 1px solid var(--color--border);
                 margin: 0 $spacer-mini-plus;
             }
         }
