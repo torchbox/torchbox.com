@@ -84,7 +84,7 @@
             @include drop-cap(72px, 90px);
         }
     }
-    
+
     // kept the same name as the heading variable for consistency
     &--two-c {
         @include font-size(heading-two-c);
