@@ -50,7 +50,7 @@ class InstagramGalleryGridBlock(StructBlock):
 
     class Meta:
         icon = "group"
-        template = "patterns/molecules/streamfield/blocks/instagram-gallery.html"
+        template = "patterns/molecules/streamfield/blocks/instagram_gallery_block.html"
 
 
 class ImpactReportStoryBlock(StoryBlock):
