@@ -5,11 +5,10 @@
     $root: &;
 
     &__title {
-        @include font-size(heading-three);
+        @include font-size(heading-two-c);
         margin-bottom: $spacer-medium;
 
         @include media-query(large) {
-            @include font-size(heading-two);
             margin-bottom: $spacer-large;
         }
 
@@ -108,7 +107,7 @@
     }
 
     &__heading {
-        @include font-size(heading-four);
+        @include font-size(heading-three-b);
         font-weight: $weight--semibold;
         margin-bottom: $spacer-mini;
 
@@ -151,15 +150,9 @@
         }
 
         &--tail {
-            width: 50px;
-            height: 14px;
-            margin-left: $spacer-mini;
-            display: inline-block;
-
-            @include media-query(large) {
-                width: 72px;
-                height: 20px;
-            }
+            @include arrow-link-icon-styles();
+            margin-left: $spacer-mini-plus;
+            margin-top: 0;
         }
     }
 
