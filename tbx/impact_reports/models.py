@@ -17,19 +17,16 @@ from wagtail.search import index
 class ImpactReportPage(Page):
     template = "patterns/pages/impact_reports/impact_report_page.html"
 
-    strapline = models.CharField(max_length=255)
-
     hero_image = models.ForeignKey(
         "images.CustomImage",
         null=True,
-        blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
         help_text="This is for the illustration only. Use an image with dimensions of 571x700",
     )
 
-    introduction_title = models.CharField(max_length=255, default="Introduction")
-    introduction = RichTextField(blank=True)
+    hero_caption = models.CharField("caption", max_length=255, blank=True)
+    hero_attribution = models.CharField("attribution", max_length=255, blank=True)
 
     body = StreamField(ImpactReportStoryBlock(), use_json_field=True)
 
@@ -37,15 +34,14 @@ class ImpactReportPage(Page):
         MultiFieldPanel(
             [
                 TitleFieldPanel("title"),
-                FieldPanel("strapline"),
                 FieldPanel("hero_image"),
+                FieldPanel("hero_caption"),
+                FieldPanel("hero_attribution"),
             ],
             heading="Hero",
         ),
         MultiFieldPanel(
             [
-                FieldPanel("introduction_title"),
-                FieldPanel("introduction"),
                 InlinePanel("authors", label="Author", min_num=1),
             ],
             heading="Introduction",
