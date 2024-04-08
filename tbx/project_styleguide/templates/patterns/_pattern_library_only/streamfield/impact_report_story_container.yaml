@@ -30,3 +30,7 @@ tags:
     # Wide image block
     'wide_image format-webp saturation-0.6 width-{400,800,1600,1280} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt=value.alt_text':
       raw: '<img alt="Screenshot of workshop to establish tone" height="225" sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" src="https://source.unsplash.com/400x225?trees" srcset="https://source.unsplash.com/400x225?trees 400w, https://source.unsplash.com/800x450?trees 800w, https://source.unsplash.com/1600x900?trees 1153w, https://source.unsplash.com/1280x720?trees 1153w" width="400">'
+
+    # Instagram block image
+    'post.image format-webp fill-{250x250,500x500} sizes="(max-width: 598px) 50vw, (max-width: 1021px) 25vw, (min-width: 1022px) 250px" class="instagram-post__image" loading="lazy"':
+      raw: '<img alt="advent-9" class="instagram-post__image" height="250" loading="lazy" sizes="(max-width: 598px) 50vw, (max-width: 1021px) 25vw, (min-width: 1022px) 250px" src="https://picsum.photos/250/250.webp" srcset="https://picsum.photos/250/250.webp 250w, https://picsum.photos/500/500.webp 500w" width="250">'

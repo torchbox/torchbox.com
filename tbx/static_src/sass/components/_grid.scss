@@ -503,5 +503,14 @@
                 grid-column: 6 / span 6;
             }
         }
+
+        &__instagram-gallery {
+            margin-bottom: $spacer-medium;
+            grid-column: 2 / span 4;
+
+            @include media-query(large) {
+                grid-column: 6 / span 8;
+            }
+        }
     }
 }
