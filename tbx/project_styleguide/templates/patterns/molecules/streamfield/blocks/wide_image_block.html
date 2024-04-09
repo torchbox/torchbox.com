@@ -1,22 +1,12 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="wide-image grid__wide-image">
     {% with wide_image=value.image %}
-        {% if value.remove_desaturation_filter %}
-            {% if value.image_is_decorative %}
-                {% srcset_image wide_image format-webp width-{400,800,1600,1280} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt="" %}
-            {% elif value.alt_text %}
-                {% srcset_image wide_image format-webp width-{400,800,1600,1280} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt=value.alt_text %}
-            {% else %}
-                {% srcset_image wide_image format-webp width-{400,800,1600,1280} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" %}
-            {% endif %}
+        {% if value.image_is_decorative %}
+            {% srcset_image wide_image format-webp width-{400,800,1600,1280} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt="" %}
+        {% elif value.alt_text %}
+            {% srcset_image wide_image format-webp width-{400,800,1600,1280} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt=value.alt_text %}
         {% else %}
-            {% if value.image_is_decorative %}
-                {% srcset_image wide_image format-webp saturation-0.6 width-{400,800,1600,1280} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt="" %}
-            {% elif value.alt_text %}
-                {% srcset_image wide_image format-webp saturation-0.6 width-{400,800,1600,1280} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt=value.alt_text %}
-            {% else %}
-                {% srcset_image wide_image format-webp saturation-0.6 width-{400,800,1600,1280} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" %}
-            {% endif %}
+            {% srcset_image wide_image format-webp width-{400,800,1600,1280} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" %}
         {% endif %}
 
         {% if value.caption %}

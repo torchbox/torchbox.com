@@ -10,17 +10,10 @@
 {% endblock %}
 
 {% block main_image %}
-    {% if page.remove_desaturation_on_header_image %}
-        {% image page.header_image fill-1600x700 format-webp as desktop_image %}
-        {% image page.header_image fill-2000x875 format-webp as desktop_image_retina %}
-        {% image page.header_image fill-400x225 format-webp as mobile_image %}
-        {% image page.header_image fill-800x450 format-webp as mobile_image_retina %}
-    {% else %}
-        {% image page.header_image fill-1600x700 format-webp saturation-0.6 as desktop_image %}
-        {% image page.header_image fill-2000x875 format-webp saturation-0.6 as desktop_image_retina %}
-        {% image page.header_image fill-400x225 format-webp saturation-0.6 as mobile_image %}
-        {% image page.header_image fill-800x450 format-webp saturation-0.6 as mobile_image_retina %}
-    {% endif %}
+    {% image page.header_image fill-1600x700 format-webp as desktop_image %}
+    {% image page.header_image fill-2000x875 format-webp as desktop_image_retina %}
+    {% image page.header_image fill-400x225 format-webp as mobile_image %}
+    {% image page.header_image fill-800x450 format-webp as mobile_image_retina %}
 
     <div class="grid">
         <div class="grid__work-image">
