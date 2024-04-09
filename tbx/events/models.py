@@ -16,7 +16,7 @@ class EventIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     parent_page_types = ["torchbox.HomePage"]
     subpage_types = []
 
-    events = StreamField([("event", EventItemBlock())], blank=True, use_json_field=True)
+    events = StreamField([("event", EventItemBlock())], blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel("events"),
