@@ -1,7 +1,7 @@
 {% load wagtailcore_tags %}
 
 <div class="showcase grid__showcase {% if is_homepage_showcase %}showcase--home{% endif %} {% if value.intro %}showcase--with-intro{% endif %}">
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=value.title heading_level=2 classes="showcase__title motif-heading--two-b motif-heading--static motif-heading--half-width" %}
+    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=value.title heading_level=2 classes="showcase__title motif-heading--two-c motif-heading--static motif-heading--half-width" %}
 
     {# homepage version only #}
     {% if is_homepage_showcase %}
