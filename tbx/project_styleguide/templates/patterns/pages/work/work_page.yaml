@@ -45,10 +45,10 @@ tags:
       template_name: 'patterns/molecules/streamfield/blocks/work_section_block.html'
   srcset_image:
     # avatar image for authors
-    'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
+    'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
       raw: |
         <img alt="" class="avatar__image" height="72" loading="lazy" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
-    'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
+    'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
       raw: |
         <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
   image:
@@ -56,43 +56,43 @@ tags:
     page.logo width-175 format-webp class="work-hero__logo":
       raw: '<img src="https://source.unsplash.com/175x100/?logo" class="work-hero__logo">'
     # header image
-    page.header_image fill-1600x700 format-webp saturation-0.6 as desktop_image:
+    page.header_image fill-1600x700 format-webp as desktop_image:
       target_var: desktop_image
       raw:
         alt: 'desktop image'
         url: 'https://source.unsplash.com/1600x700?trees'
-    page.header_image fill-2000x875 format-webp saturation-0.6 as desktop_image_retina:
+    page.header_image fill-2000x875 format-webp as desktop_image_retina:
       target_var: desktop_image_retina
       raw:
         alt: 'desktop image retina'
         url: 'https://source.unsplash.com/1280x560?trees'
-    page.header_image fill-400x225 format-webp saturation-0.6 as mobile_image:
+    page.header_image fill-400x225 format-webp as mobile_image:
       target_var: mobile_image
       raw:
         alt: 'mobile image'
         url: 'https://source.unsplash.com/400x225?trees'
-    page.header_image fill-800x450 format-webp saturation-0.6 as mobile_image_retina:
+    page.header_image fill-800x450 format-webp as mobile_image_retina:
       target_var: mobile_image_retina
       raw:
         alt: 'mobile image retina'
         url: 'https://source.unsplash.com/800x450?trees'
     # listing image for related pages
-    listing_image fill-370x370 format-webp saturation-0.6 as listing_desktop_image:
+    listing_image fill-370x370 format-webp as listing_desktop_image:
       target_var: listing_desktop_image
       raw:
         alt: 'desktop image'
         url: 'https://source.unsplash.com/370x370?trees'
-    listing_image fill-740x740 format-webp saturation-0.6 as listing_desktop_image_retina:
+    listing_image fill-740x740 format-webp as listing_desktop_image_retina:
       target_var: listing_desktop_image_retina
       raw:
         alt: 'desktop image retina'
         url: 'https://source.unsplash.com/740x740?trees'
-    listing_image fill-370x335 format-webp saturation-0.6 as listing_mobile_image:
+    listing_image fill-370x335 format-webp as listing_mobile_image:
       target_var: listing_mobile_image
       raw:
         alt: 'mobile image'
         url: 'https://source.unsplash.com/370x335?trees'
-    listing_image fill-740x670 format-webp saturation-0.6 as listing_mobile_image_retina:
+    listing_image fill-740x670 format-webp as listing_mobile_image_retina:
       target_var: listing_mobile_image_retina
       raw:
         alt: 'mobile image retina'

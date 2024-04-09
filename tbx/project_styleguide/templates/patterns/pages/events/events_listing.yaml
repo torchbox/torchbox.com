@@ -64,22 +64,22 @@ tags:
     '':
       template_name: 'patterns/navigation/components/footer-links.html'
   image:
-    listing_image fill-485x300 format-webp saturation-0.6 as listing_desktop_image:
+    listing_image fill-485x300 format-webp as listing_desktop_image:
       target_var: listing_desktop_image
       raw:
         alt: 'desktop image'
         url: 'https://source.unsplash.com/485x300?trees'
-    listing_image fill-970x600 format-webp saturation-0.6 as listing_desktop_image_retina:
+    listing_image fill-970x600 format-webp as listing_desktop_image_retina:
       target_var: listing_desktop_image_retina
       raw:
         alt: 'desktop image retina'
         url: 'https://source.unsplash.com/970x600?trees'
-    listing_image fill-370x300 format-webp saturation-0.6 as listing_mobile_image:
+    listing_image fill-370x300 format-webp as listing_mobile_image:
       target_var: listing_mobile_image
       raw:
         alt: 'mobile image'
         url: 'https://source.unsplash.com/370x300?trees'
-    listing_image fill-740x600 format-webp saturation-0.6 as listing_mobile_image_retina:
+    listing_image fill-740x600 format-webp as listing_mobile_image_retina:
       target_var: listing_mobile_image_retina
       raw:
         alt: 'mobile image retina'
