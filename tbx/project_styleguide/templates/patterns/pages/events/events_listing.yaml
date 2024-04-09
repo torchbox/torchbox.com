@@ -7,7 +7,7 @@ context:
     - title: The Challenge of Website Proliferation in Higher Education
       end_date: null
       end_time: null
-      get_url: '#'
+      get_button_link: '#'
       image: True
       location: Zoom, Bristol
       start_date: !!timestamp '2025-01-19 00:00:00'
@@ -20,7 +20,7 @@ context:
       end_date: null
       end_time: null
       image: False
-      get_url: '#'
+      get_button_link: '#'
       location: Zoom
       start_date: !!timestamp '2025-01-20 00:00:00'
       start_time: !!timestamp '2025-01-20 12:00:00'
@@ -31,7 +31,7 @@ context:
     - title: Facebook Ads - 10 Top Tips for Nonprofits
       end_date: null
       end_time: null
-      get_url: '#'
+      get_button_link: '#'
       image: True
       location: Zoom
       start_date: !!timestamp '2025-01-21 00:00:00'
@@ -43,7 +43,7 @@ context:
     - title: How Nonprofits Can Take Analytics to the Next Level
       end_date: null
       end_time: null
-      get_url: '#'
+      get_button_link: '#'
       image: False
       location: Zoom
       start_date: !!timestamp '2025-01-22 00:00:00'
