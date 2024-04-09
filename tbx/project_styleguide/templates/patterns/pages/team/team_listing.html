@@ -10,9 +10,9 @@
                 <li class="team-listing__item">
                     {# lazy load after the first five #}
                     {% if forloop.counter > 5 %}
-                        {% srcset_image member.image format-webp saturation-0.6 fill-{230x230,370x370} sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="team-listing__image" alt="" loading="lazy" %}
+                        {% srcset_image member.image format-webp fill-{230x230,370x370} sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="team-listing__image" alt="" loading="lazy" %}
                     {% else %}
-                        {% srcset_image member.image format-webp saturation-0.6 fill-{230x230,370x370} sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="team-listing__image" alt="" %}
+                        {% srcset_image member.image format-webp fill-{230x230,370x370} sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="team-listing__image" alt="" %}
                     {% endif %}
                     <a class="team-listing__link" href="{{ member.url }}">
                         {{ member.title }}

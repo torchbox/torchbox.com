@@ -1,10 +1,10 @@
 {# Designed to be included from another template and values passed in #}
 {% load wagtailimages_tags %}
 
-{% image listing_image fill-370x370 format-webp saturation-0.6 as listing_desktop_image %}
-{% image listing_image fill-740x740 format-webp saturation-0.6 as listing_desktop_image_retina %}
-{% image listing_image fill-370x335 format-webp saturation-0.6 as listing_mobile_image %}
-{% image listing_image fill-740x670 format-webp saturation-0.6 as listing_mobile_image_retina %}
+{% image listing_image fill-370x370 format-webp as listing_desktop_image %}
+{% image listing_image fill-740x740 format-webp as listing_desktop_image_retina %}
+{% image listing_image fill-370x335 format-webp as listing_mobile_image %}
+{% image listing_image fill-740x670 format-webp as listing_mobile_image_retina %}
 
 <li class="listing-image listing {{ base_class }}">
     {# alt text is empty for consistency with listing--avatar.html that includes avatar.html which has empty alt text #}
