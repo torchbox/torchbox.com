@@ -29,6 +29,7 @@ class DesktopCloseMenus {
             this.desktopSubMenus.forEach((item) => {
                 item.closest('[data-has-subnav]').classList.remove('active');
                 item.setAttribute('aria-expanded', 'false');
+                this.body.classList.remove('no-scroll');
             });
         }
     }
