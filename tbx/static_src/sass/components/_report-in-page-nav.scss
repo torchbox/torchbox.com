@@ -2,47 +2,41 @@
 
 .report-in-page-nav {
     $root: &;
+    @include z-index(in-page-nav);
     margin: 0 auto $spacer-small;
     background-color: var(--color--background);
-    // padding left matches the grid gutters as this element sits outside the grid positioning
-    padding-left: $grid-gutters;
+    // padding left and right matches the grid gutters as this element sits outside the grid positioning
+    padding: $spacer-mini-plus $grid-gutters 25px;
     max-width: $site-width;
+    position: sticky;
+    top: 0;
 
     @include media-query(large) {
         padding-left: $grid-gutters-large;
-    }
-
-    @include media-query(large) {
-        @include z-index(in-page-nav);
-        position: sticky;
-        padding: $spacer-mini-plus 0 25px $grid-gutters-large;
-        top: 0;
+        padding-right: $grid-gutters-large;
     }
 
     @include media-query(x-large) {
         padding-left: $grid-gutters-x-large;
+        padding-right: $grid-gutters-x-large;
     }
 
     &__container {
         width: 100%;
         list-style: none;
-        display: block;
         padding-left: 0;
         margin: 0;
-
-        @include media-query(large) {
-            display: flex;
-            flex-wrap: wrap;
-        }
+        display: flex;
+        flex-wrap: wrap;
     }
 
     &__item {
         display: flex;
         align-items: center;
         position: relative;
-        padding-bottom: 0;
+        padding-right: $spacer-mini;
 
-        @include media-query(large) {
+        @include media-query(medium) {
             padding-right: $spacer-small;
         }
 
@@ -59,8 +53,12 @@
             $underline-color: var(--color--decoration),
             $underline-hover-color: var(--color--heading)
         );
-        @include font-size('heading-six');
+        @include font-size('supporting');
         padding-top: 20px;
+
+        @include media-query(medium) {
+            @include font-size('heading-six');
+        }
 
         @include media-query(large) {
             padding-top: 0;
@@ -72,9 +70,13 @@
         height: 16px;
         display: inline-block;
         color: var(--color--accent-three);
-        transform: translateY(-3px);
+        transform: translateY(-2px);
         margin-left: 7px;
         transition: transform $transition-quick;
+
+        @include media-query(large) {
+            transform: translateY(-3px);
+        }
 
         #{$root}__link:hover & {
             transform: translateY(0);
