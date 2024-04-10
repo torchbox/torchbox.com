@@ -61,16 +61,10 @@ class ImpactReportPage(Page):
         including the Introduction.
 
         This is used to create a table-of-contents like section at the top of
-        the page where viewers can jump to the top of each impact report heading
-        and Introduction.
+        the page where viewers can jump to the top of each impact report heading.
         """
 
-        headings = [
-            {
-                "short_heading": self.introduction_title,
-                "slug": slugify(self.introduction_title),
-            },
-        ]
+        headings = []
 
         for block in self.body:
             if block.block_type == "impact_report_heading":
@@ -80,5 +74,4 @@ class ImpactReportPage(Page):
                         "slug": slugify(block.value["short_heading"]),
                     }
                 )
-
         return headings

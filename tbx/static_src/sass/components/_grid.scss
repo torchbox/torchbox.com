@@ -485,6 +485,21 @@
 
     // impact report page adjustments
     .template-impact-report-page & {
+        &__title {
+            @include media-query(large) {
+                grid-column: 2 / span 9;
+            }
+        }
+
+        &__inner-nav {
+            margin-bottom: $spacer-small;
+            grid-column: 2 / span 4;
+
+            @include media-query(large) {
+                grid-column: 2 / span 12;
+            }
+        }
+
         &__impact-report-heading {
             grid-column: 2 / span 4;
 

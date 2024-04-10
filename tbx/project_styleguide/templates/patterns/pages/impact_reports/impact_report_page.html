@@ -2,8 +2,24 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
-
     <div class="grid">
+        <div class="grid__title">
+            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.title classes="motif-heading--one" %}
+        </div>
+
+        <nav class="grid__inner-nav report-in-page-nav" aria-label="In page navigation">
+            <ul class="report-in-page-nav__container">
+                {% for heading in page.headings %}
+                    <li class="report-in-page-nav__item">
+                        <a class="report-in-page-nav__link" href="#{{ heading.slug }}">
+                            {{ heading.short_heading }}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="report-in-page-nav__icon" %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+
         <div class="grid__impact-report-image">
             {% srcset_image page.hero_image format-webp fill-{400x175,800x350,1600x700,1280x560} sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" %}
 
@@ -17,7 +33,7 @@
         </div>
     </div>
 
-    <div class="grid grid--spacer-large streamfield lg:relative">
+    <div class="grid grid--spacer-large streamfield">
         {% include_block page.body %}
     </div>
 
