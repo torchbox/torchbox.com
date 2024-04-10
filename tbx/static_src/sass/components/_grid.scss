@@ -118,8 +118,9 @@
         }
     }
 
-    &__work-image {
-        grid-column: 1 / span 5;
+    &__work-image,
+    &__impact-report-image {
+        grid-column: 2 / span 5;
 
         @include media-query(large) {
             grid-column: 1 / span 13;
