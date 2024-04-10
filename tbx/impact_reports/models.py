@@ -3,8 +3,8 @@ from django.utils.text import slugify
 
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import ColourThemeMixin, SocialFields
-from tbx.people.models import ContactMixin
 from tbx.impact_reports.blocks import ImpactReportStoryBlock
+from tbx.people.models import ContactMixin
 from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
