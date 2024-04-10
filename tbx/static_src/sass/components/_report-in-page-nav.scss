@@ -2,9 +2,25 @@
 
 .report-in-page-nav {
     $root: &;
+    margin: 0 auto $spacer-small;
+    background-color: var(--color--background);
+    // padding left matches the grid gutters as this element sits outside the grid positioning
+    padding-left: $grid-gutters;
+    max-width: $site-width;
 
     @include media-query(large) {
-        padding: $spacer-mini-plus 0 25px;
+        padding-left: $grid-gutters-large;
+    }
+
+    @include media-query(large) {
+        @include z-index(in-page-nav);
+        position: sticky;
+        padding: $spacer-mini-plus 0 25px $grid-gutters-large;
+        top: 0;
+    }
+
+    @include media-query(x-large) {
+        padding-left: $grid-gutters-x-large;
     }
 
     &__container {

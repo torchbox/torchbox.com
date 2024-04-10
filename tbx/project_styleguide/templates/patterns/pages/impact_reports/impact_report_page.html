@@ -6,19 +6,23 @@
         <div class="grid__title">
             {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.title classes="motif-heading--one" %}
         </div>
+    </div>
 
-        <nav class="grid__inner-nav report-in-page-nav" aria-label="In page navigation">
-            <ul class="report-in-page-nav__container">
-                {% for heading in page.headings %}
-                    <li class="report-in-page-nav__item">
-                        <a class="report-in-page-nav__link" href="#{{ heading.slug }}">
-                            {{ heading.short_heading }}
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="report-in-page-nav__icon" %}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </nav>
+    {# This nav element must be an immediate child of the main element in order for its sticky positioning to work #}
+    <nav class="grid__inner-nav report-in-page-nav" aria-label="In page navigation">
+        <ul class="report-in-page-nav__container">
+            {% for heading in page.headings %}
+                <li class="report-in-page-nav__item">
+                    <a class="report-in-page-nav__link" href="#{{ heading.slug }}">
+                        {{ heading.short_heading }}
+                        {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="report-in-page-nav__icon" %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <div class="grid">
 
         <div class="grid__impact-report-image">
 
