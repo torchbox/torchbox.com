@@ -11,6 +11,7 @@ class DesktopCloseMenus {
         this.allPrimaryNavs = document.querySelectorAll(
             '[data-desktop-menu] [data-primary-nav]',
         );
+        this.body = document.querySelector('body');
         this.bindEvents();
     }
 
