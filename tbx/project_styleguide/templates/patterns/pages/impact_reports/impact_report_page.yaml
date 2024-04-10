@@ -26,6 +26,25 @@ tags:
   include_block:
     page.body:
       template_name: 'patterns/molecules/streamfield/stream_block_impact_report.html'
-  srcset_image:
-    'page.hero_image format-webp fill-{400x175,800x350,1600x700,1280x560} sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px"':
-      raw: '<img alt="test alt" height="175" sizes="(max-width: 1799px) 90vw, (min-width: 1800px) 1680px" src="https://picsum.photos/400/175.webp" srcset="https://picsum.photos/400/175.webp 400w, https://picsum.photos/800/350.webp 800w, https://picsum.photos/1600/700.webp 1024w, https://picsum.photos/1280/560.webp 1024w" width="400">'
+  # hero image
+  image:
+    page.hero_image fill-1600x700 format-webp as desktop_image:
+      target_var: desktop_image
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/1600x700?trees'
+    page.hero_image fill-2000x875 format-webp as desktop_image_retina:
+      target_var: desktop_image_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/1280x560?trees'
+    page.hero_image fill-400x225 format-webp as mobile_image:
+      target_var: mobile_image
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/400x225?trees'
+    page.hero_image fill-800x450 format-webp as mobile_image_retina:
+      target_var: mobile_image_retina
+      raw:
+        alt: 'mobile image retina'
+        url: 'https://source.unsplash.com/800x450?trees'
