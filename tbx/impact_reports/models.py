@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.text import slugify
 
 from tbx.core.utils.fields import StreamField
+from tbx.core.utils.models import ColourThemeMixin, SocialFields
+from tbx.people.models import ContactMixin
 from tbx.impact_reports.blocks import ImpactReportStoryBlock
 from wagtail.admin.panels import (
     FieldPanel,
@@ -9,12 +11,11 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
     TitleFieldPanel,
 )
-from wagtail.fields import RichTextField
 from wagtail.models import Page
 from wagtail.search import index
 
 
-class ImpactReportPage(Page):
+class ImpactReportPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/impact_reports/impact_report_page.html"
 
     hero_image = models.ForeignKey(
@@ -49,8 +50,18 @@ class ImpactReportPage(Page):
         FieldPanel("body"),
     ]
 
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
+        + [
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+        ]
+    )
+
     search_fields = Page.search_fields + [
-        index.SearchField("introduction"),
         index.SearchField("body"),
     ]
 
