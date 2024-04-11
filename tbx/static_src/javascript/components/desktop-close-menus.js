@@ -11,6 +11,7 @@ class DesktopCloseMenus {
         this.allPrimaryNavs = document.querySelectorAll(
             '[data-desktop-menu] [data-primary-nav]',
         );
+        this.body = document.querySelector('body');
         this.bindEvents();
     }
 
@@ -29,6 +30,7 @@ class DesktopCloseMenus {
             this.desktopSubMenus.forEach((item) => {
                 item.closest('[data-has-subnav]').classList.remove('active');
                 item.setAttribute('aria-expanded', 'false');
+                this.body.classList.remove('no-scroll');
             });
         }
     }
