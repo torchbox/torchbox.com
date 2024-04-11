@@ -85,6 +85,15 @@
         }
     }
 
+    // kept the same name as the heading variable for consistency
+    &--two-c {
+        @include font-size(heading-two-c);
+
+        #{$root}__drop-cap {
+            @include drop-cap(46px, 90px);
+        }
+    }
+
     &--half-width {
         @include media-query('large') {
             max-width: 50%;
