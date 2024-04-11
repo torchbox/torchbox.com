@@ -1,0 +1,78 @@
+@use "config" as *;
+
+// These are used in the body streamfield for the impact report page
+.report-section {
+    margin-bottom: $spacer-mini;
+    margin-top: $spacer-medium;
+
+    &__container {
+        position: relative;
+
+        @include media-query(large) {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+        }
+    }
+
+    &__heading {
+        margin-bottom: $spacer-mini;
+
+        @include media-query(large) {
+            grid-column: 5 / span 6;
+        }
+    }
+
+    &__image {
+        width: 100%;
+    }
+
+    &__picture {
+        display: block;
+        margin-bottom: $spacer-medium;
+        width: 100%;
+    }
+
+    &__rings {
+        @include rings($width: 33px);
+        display: block;
+    }
+
+    &__ring {
+        @include ring($diameter: 30px, $opacity: 0.75);
+
+        &--one {
+            @include ring-one($top: 3px, $color: var(--color--accent-two));
+        }
+
+        &--two {
+            @include ring-two($top: 3px, $color: var(--color--accent-three));
+        }
+    }
+
+    &__short-heading {
+        @include font-size('heading-five');
+        align-items: flex-start;
+        display: flex;
+        font-weight: $weight--semibold;
+        gap: 10px;
+        margin-bottom: $spacer-small;
+
+        @include media-query(large) {
+            margin-bottom: 0;
+            grid-column: 1 / span 3;
+        }
+    }
+
+    &__anchor {
+        position: relative;
+        top: -200px;
+        padding-top: 125px; // compensate for nav height
+        margin-bottom: -125px;
+        width: 100%;
+        height: 0;
+
+        @include media-query(large) {
+            top: -300px;
+        }
+    }
+}

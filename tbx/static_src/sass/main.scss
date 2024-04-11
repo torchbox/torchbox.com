@@ -25,6 +25,7 @@
 @use 'components/header';
 @use 'components/home-page-hero';
 @use 'components/image';
+@use 'components/instagram-gallery';
 @use 'components/link';
 @use 'components/listing';
 @use 'components/listing-avatar';
@@ -39,12 +40,15 @@
 @use 'components/photo-collage';
 @use 'components/pullquote';
 @use 'components/responsive-object';
+@use 'components/report-in-page-nav';
+@use 'components/report-section';
 @use 'components/rich-text';
 @use 'components/page-listing';
 @use 'components/promo';
 @use 'components/section-title';
 @use 'components/showcase';
 @use 'components/skip-link';
+@use 'components/small-image-with-text';
 @use 'components/sprites-preview-icons';
 @use 'components/stats';
 @use 'components/streamfield';

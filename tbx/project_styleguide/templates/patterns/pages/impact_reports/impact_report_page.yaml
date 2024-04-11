@@ -1,5 +1,7 @@
 context:
   page:
+    get_verbose_name: impact-report-page
+    # Headings match those used in impact_report_story_container.yaml
     headings:
       - short_heading: Introduction
         slug: introduction
@@ -12,17 +14,38 @@ context:
       - short_heading: Looking ahead
         slug: looking-ahead
     title: Impact Report for 2020/2021
-    strapline: Impact Report <span>2020/2021</span>
     hero_image: true
-    introduction_title: Introduction
+    hero_caption: Caption for image
+    hero_attribution: By David Bloggs
     authors:
       all:
         - author:
             name: Juan dela Cruz
             role: Director
-    introduction: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 tags:
+  include_block:
+    page.body:
+      template_name: 'patterns/molecules/streamfield/stream_block_impact_report.html'
+  # hero image
   image:
-    page.hero_image fill-500x500:
-      raw: '<img src="https://placekitten.com/500/500">'
+    page.hero_image fill-1600x700 format-webp as desktop_image:
+      target_var: desktop_image
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/1600x700?trees'
+    page.hero_image fill-2000x875 format-webp as desktop_image_retina:
+      target_var: desktop_image_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/1280x560?trees'
+    page.hero_image fill-400x225 format-webp as mobile_image:
+      target_var: mobile_image
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/400x225?trees'
+    page.hero_image fill-800x450 format-webp as mobile_image_retina:
+      target_var: mobile_image_retina
+      raw:
+        alt: 'mobile image retina'
+        url: 'https://source.unsplash.com/800x450?trees'

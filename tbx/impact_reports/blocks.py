@@ -10,7 +10,7 @@ from wagtail.images.blocks import ImageChooserBlock
 
 
 class ImpactReportHeadingBlock(StructBlock):
-    image = ImageChooserBlock(required=False)
+    image = ImageChooserBlock()
     short_heading = CharBlock(
         required=False, help_text="Used for the Table of Contents"
     )
@@ -50,7 +50,7 @@ class InstagramGalleryGridBlock(StructBlock):
 
     class Meta:
         icon = "group"
-        template = "patterns/molecules/streamfield/blocks/instagram-gallery.html"
+        template = "patterns/molecules/streamfield/blocks/instagram_gallery_block.html"
 
 
 class ImpactReportStoryBlock(StoryBlock):
