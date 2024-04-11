@@ -1,8 +1,25 @@
 context:
-  no_image_heading_block:
-    image: null
-    heading: World Changing Impact
-    short_heading: Empowering change
+  # Headings match those used in impact_report_page.yaml
+  image_heading_block_1:
+    image: True
+    heading: Introduction
+    short_heading: Introduction
+  image_heading_block_2:
+    image: True
+    heading: The impact
+    short_heading: The impact
+  image_heading_block_3:
+    image: True
+    heading: Doing business right
+    short_heading: The business
+  image_heading_block_4:
+    image: True
+    heading: Empowering change
+    short_heading: Setting new standards
+  image_heading_block_5:
+    image: True
+    heading: What's next
+    short_heading: Looking ahead
 
 tags:
   image:
@@ -10,19 +27,22 @@ tags:
     value.image max-1270x450 format-webp as desktop_image:
       target_var: desktop_image
       raw:
-        url: 'https://source.unsplash.com/1270x450/?trees'
+        url: 'https://picsum.photos/1270/450.webp'
     value.image max-2540x900 format-webp as desktop_image_retina:
       target_var: desktop_image_retina
       raw:
-        url: 'https://source.unsplash.com/2540x900/?trees'
+        url: 'https://picsum.photos/2540/900.webp'
     value.image max-540x190 format-webp as mobile_image:
       target_var: mobile_image
       raw:
-        url: 'https://source.unsplash.com/540x190/?trees'
+        url: 'https://picsum.photos/540/190.webp'
     value.image max-1080x380 format-webp as mobile_image_retina:
       target_var: mobile_image_retina
       raw:
-        url: 'https://source.unsplash.com/1080x380/?trees'
+        url: 'https://picsum.photos/1080/380.webp'
+    # Small image with text
+    value.image fill-62x62 class="small-image-with-text__image" alt="":
+      raw: '<img src="https://picsum.photos/62/62.webp" class="small-image-with-text__image">'
   # Image block
   srcset_image:
     'value.image format-webp saturation-0.6 width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" alt=value.alt_text':

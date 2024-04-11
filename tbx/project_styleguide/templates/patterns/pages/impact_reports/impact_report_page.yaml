@@ -1,6 +1,7 @@
 context:
   page:
     get_verbose_name: impact-report-page
+    # Headings match those used in impact_report_story_container.yaml
     headings:
       - short_heading: Introduction
         slug: introduction
