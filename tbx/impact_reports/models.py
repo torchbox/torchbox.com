@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.text import slugify
 
 from tbx.core.utils.fields import StreamField
@@ -86,3 +87,10 @@ class ImpactReportPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
                     }
                 )
         return headings
+
+    @cached_property
+    def first_author(self):
+        """Safely return the first author if one exists."""
+        if author := self.authors.first():
+            return author.author
+        return None

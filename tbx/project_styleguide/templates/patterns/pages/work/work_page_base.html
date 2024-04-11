@@ -71,7 +71,7 @@
             {% endfor %}
         {% endblock %}
 
-        <div class="work-page-authors">
+        <div class="authors-wide">
             {% for item in page.authors.all %}
                 {% if page.first_author == item.author %}
                     {% include "patterns/molecules/author/author.html" with author=item.author author_attribution="by" avatar_size="tiny" %}

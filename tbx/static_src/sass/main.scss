@@ -9,6 +9,7 @@
 // Components
 @use 'components/icon'; // Icon at the top to be able to override
 @use 'components/author';
+@use 'components/authors-wide';
 @use 'components/avatar';
 @use 'components/button';
 @use 'components/blog-meta';
@@ -61,7 +62,6 @@
 @use 'components/title-filters';
 @use 'components/values';
 @use 'components/work-hero';
-@use 'components/work-page-author';
 @use 'components/work-sections';
 @use 'components/youtube-embed';
 

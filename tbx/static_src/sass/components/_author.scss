@@ -26,7 +26,7 @@
         display: block;
     }
 
-    .work-page-authors & {
+    .authors-wide & {
         @include media-query(large) {
             display: flex;
             margin-bottom: $spacer-small;
@@ -40,7 +40,7 @@
             margin-top: $spacer-medium;
         }
 
-        .work-page-authors & {
+        .authors-wide & {
             @include media-query(large) {
                 margin-top: 0;
             }
@@ -51,7 +51,7 @@
         @include media-query(large) {
             margin-bottom: $spacer-small;
         }
-        .work-page-authors & {
+        .authors-wide & {
             @include media-query(large) {
                 margin-bottom: 0;
             }
@@ -59,7 +59,7 @@
     }
 
     &__attribution {
-        .work-page-authors & {
+        .authors-wide & {
             @include media-query(large) {
                 display: inline;
             }
@@ -71,7 +71,7 @@
         font-weight: $weight--semibold;
         color: var(--color--heading);
 
-        .work-page-authors & {
+        .authors-wide & {
             @include media-query(large) {
                 display: inline;
                 margin-left: 5px;
@@ -87,7 +87,7 @@
         @include font-size(body-two);
         color: var(--color--heading);
 
-        .work-page-authors & {
+        .authors-wide & {
             color: var(--color--text);
 
             @include media-query(large) {
