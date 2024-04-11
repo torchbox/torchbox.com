@@ -517,6 +517,25 @@
 
             @include media-query(large) {
                 grid-column: 6 / span 8;
+                margin-bottom: $spacer-large;
+            }
+        }
+
+        &__small-image-with-text {
+            margin-bottom: $spacer-small;
+            grid-column: 2 / span 4;
+
+            &:last-child {
+                margin-bottom: $spacer-medium;
+            }
+
+            @include media-query(large) {
+                margin-bottom: $spacer-medium;
+                grid-column: 6 / span 8;
+
+                &:last-child {
+                    margin-bottom: $spacer-large;
+                }
             }
         }
     }
