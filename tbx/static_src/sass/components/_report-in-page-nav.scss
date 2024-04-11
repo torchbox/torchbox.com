@@ -81,5 +81,9 @@
         #{$root}__link:hover & {
             transform: translateY(0);
         }
+
+        @include high-contrast-light-mode() {
+            color: var(--color--background);
+        }
     }
 }
