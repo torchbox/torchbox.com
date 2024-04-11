@@ -8,7 +8,7 @@ Creates the heading blocks used down the page, and the anchor links in the in-pa
 
 ## Instagram blcok
 
-Currently this is just adapted from the old site, but there are some accessibility concerns with the images being links, as this isn't immediately clear from visually scanning the page. This could potentially be considered for a redesign further down the linke.
+Currently this is just adapted from the old site, but there are some accessibility concerns with the images being links, as this isn't immediately clear from visually scanning the page. This could potentially be considered for a redesign further down the line.
 
 ## Small image with text block
 
