@@ -73,7 +73,7 @@
     }
 
     // Make sure avatars don't get squashed on small screens
-    .work-page-authors &,
+    .authors-wide &,
     .author & {
         flex-shrink: 0;
     }
