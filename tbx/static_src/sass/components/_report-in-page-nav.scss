@@ -74,12 +74,24 @@
         margin-left: 7px;
         transition: transform $transition-quick;
 
+        @include reduced-motion() {
+            transition: none;
+        }
+
         @include media-query(large) {
             transform: translateY(-3px);
         }
 
         #{$root}__link:hover & {
             transform: translateY(0);
+
+            @include reduced-motion() {
+                transform: translateY(-2px);
+
+                @include media-query(large) {
+                    transform: translateY(-3px);
+                }
+            }
         }
 
         @include high-contrast-light-mode() {
