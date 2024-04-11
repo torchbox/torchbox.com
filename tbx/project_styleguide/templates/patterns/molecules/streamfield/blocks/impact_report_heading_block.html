@@ -1,18 +1,17 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 <div class="report-section grid__impact-report-heading">
-    {% if value.image %}
-        {% image value.image max-1270x450 format-webp as desktop_image %}
-        {% image value.image max-2540x900 format-webp as desktop_image_retina %}
-        {% image value.image max-540x190 format-webp as mobile_image %}
-        {% image value.image max-1080x380 format-webp as mobile_image_retina %}
 
-        <picture class="report-section__picture">
-            <source media="(max-width: 598px)" srcset="{{ mobile_image.url }} 1x, {{ mobile_image_retina.url }} 2x" />
-            <source media="(min-width: 599px)" srcset="{{ desktop_image.url }} 1x, {{ desktop_image_retina.url }} 2x" />
-            <img src="{{ desktop_image.url }}" alt="" loading="lazy" class="report-section__image" />
-        </picture>
-    {% endif %}
+    {% image value.image max-1270x450 format-webp as desktop_image %}
+    {% image value.image max-2540x900 format-webp as desktop_image_retina %}
+    {% image value.image max-540x190 format-webp as mobile_image %}
+    {% image value.image max-1080x380 format-webp as mobile_image_retina %}
+
+    <picture class="report-section__picture">
+        <source media="(max-width: 598px)" srcset="{{ mobile_image.url }} 1x, {{ mobile_image_retina.url }} 2x" />
+        <source media="(min-width: 599px)" srcset="{{ desktop_image.url }} 1x, {{ desktop_image_retina.url }} 2x" />
+        <img src="{{ desktop_image.url }}" alt="" loading="lazy" class="report-section__image" />
+    </picture>
 
     <div class="report-section__anchor" id="{{ value.short_heading|slugify }}" data-service-section></div>
 
