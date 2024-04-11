@@ -1,5 +1,6 @@
 context:
   page:
+    get_verbose_name: home-page
     partner_logos:
       - partner_logo:
       - partner_logo:

@@ -6,5 +6,5 @@ context:
 
 tags:
   image:
-    value.image fill-80x80 class="small-image-with-text__image":
-      raw: '<img src="https://placekitten.com/80" class="small-image-with-text__image">'
+    value.image fill-62x62 class="small-image-with-text__image" alt="":
+      raw: '<img src="https://picsum.photos/62/62.webp" class="small-image-with-text__image">'

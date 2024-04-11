@@ -1,0 +1,54 @@
+{% extends "patterns/base_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    <div class="grid">
+        <div class="grid__title">
+            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.title classes="motif-heading--one" %}
+        </div>
+    </div>
+
+    {# This nav element must be an immediate child of the main element in order for its sticky positioning to work #}
+    <nav class="grid__inner-nav report-in-page-nav" aria-label="In page navigation">
+        <ul class="report-in-page-nav__container">
+            {% for heading in page.headings %}
+                <li class="report-in-page-nav__item">
+                    <a class="report-in-page-nav__link" href="#{{ heading.slug }}">
+                        {{ heading.short_heading }}
+                        {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="report-in-page-nav__icon" %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <div class="grid">
+
+        <div class="grid__impact-report-image">
+
+            {% image page.hero_image fill-1600x700 format-webp as desktop_image %}
+            {% image page.hero_image fill-2000x875 format-webp as desktop_image_retina %}
+            {% image page.hero_image fill-400x225 format-webp as mobile_image %}
+            {% image page.hero_image fill-800x450 format-webp as mobile_image_retina %}
+
+            <picture>
+                <source media="(max-width: 598px)" srcset="{{ mobile_image.url }} 1x, {{ mobile_image_retina.url }} 2x" />
+                <source media="(min-width: 599px)" srcset="{{ desktop_image.url }} 1x, {{ desktop_image_retina.url }} 2x" />
+                <img src="{{ desktop_image.url }}" alt="{{ desktop_image.alt }}" />
+            </picture>
+
+            {% if page.hero_caption %}
+                <p class="image__caption supporting">{{ page.hero_caption }}</p>
+            {% endif %}
+
+            {% if page.hero_attribution %}
+                <p class="image__attribution supporting">{{ page.hero_attribution }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="grid grid--spacer-large streamfield">
+        {% include_block page.body %}
+    </div>
+
+{% endblock %}
