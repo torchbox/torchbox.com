@@ -7,11 +7,16 @@ from tbx.core.utils.models import ColourThemeMixin, SocialFields
 from tbx.events.blocks import EventItemBlock
 from tbx.people.models import ContactMixin
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.fields import RichTextField
 from wagtail.models import Page
 
 
 class EventIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     template = "patterns/pages/events/events_listing.html"
+    no_events_message = RichTextField(
+        features=["bold", "italic", "link", "superscript", "subscript"],
+        help_text="Message to display if there are no events",
+    )
 
     parent_page_types = ["torchbox.HomePage"]
     subpage_types = []
@@ -19,6 +24,7 @@ class EventIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     events = StreamField([("event", EventItemBlock())], blank=True)
 
     content_panels = Page.content_panels + [
+        FieldPanel("no_events_message"),
         FieldPanel("events"),
     ]
 

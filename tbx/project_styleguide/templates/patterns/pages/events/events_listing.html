@@ -16,9 +16,7 @@
                     {% if request.GET.filter == "past" %}
                         <p>There are no past events.</p>
                     {% else %}
-                        <p class="mb-spacerMini">We don't have any live events for you to register for at the moment but there will be more coming soon!</p>
-                        <p class="mb-spacerMini">If you'd like to be added to the invite list for future events, <a class="link" href="mailto:lisa.ballam@torchbox.com">let Lisa know</a>.</p>
-                        <p>Keep an eye on our social channels for all our news – Twitter, LinkedIn, Instagram</p>
+                        {{ page.no_events_message|richtext }}
                     {% endif %}
                 </li>
             {% endfor %}
