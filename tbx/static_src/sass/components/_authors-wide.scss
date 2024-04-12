@@ -1,0 +1,22 @@
+@use 'config' as *;
+
+// Authors component is wider than on the blog page and sits at the bottom
+// Used on the work page and impact report page
+// See also author.scss which includes variations when the authors-wide parent class is present
+
+.authors-wide {
+    grid-column: 2 / span 4;
+    margin-bottom: $spacer-medium;
+
+    @include media-query(large) {
+        grid-column: 5 / span 7;
+
+        .template-historical-work-page & {
+            grid-column: 2 / span 8;
+        }
+
+        .template-impact-report-page & {
+            grid-column: 6 / span 7;
+        }
+    }
+}

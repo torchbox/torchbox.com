@@ -49,6 +49,18 @@
 
     <div class="grid grid--spacer-large streamfield">
         {% include_block page.body %}
+
+        <div class="authors-wide">
+            {% for item in page.authors.all %}
+                {% if page.first_author == item.author %}
+                    {% include "patterns/molecules/author/author.html" with author=item.author author_attribution="by" avatar_size="tiny" %}
+                {% else %}
+                    {% include "patterns/molecules/author/author.html" with author=item.author author_attribution="and" avatar_size="tiny" %}
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
+
+
 
 {% endblock %}
