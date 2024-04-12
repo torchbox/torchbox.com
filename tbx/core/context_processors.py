@@ -10,4 +10,5 @@ def fb_app_id(request):
 def global_vars(request):
     return {
         "GOOGLE_TAG_MANAGER_ID": getattr(settings, "GOOGLE_TAG_MANAGER_ID", None),
+        "SEO_NOINDEX": settings.SEO_NOINDEX,
     }
