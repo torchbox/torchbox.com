@@ -12,7 +12,7 @@
             {% for event in events %}
                 {% include "patterns/molecules/listing/listing--event.html" with base_class="page-listing__item" end_date=event.end_date end_time=event.end_time link=event.get_button_link listing_image=event.image location=event.location start_date=event.start_date start_time=event.start_time title=event.title type=event.type %}
             {% empty %}
-                <li class="grid__paragraph">
+                <li class="grid__paragraph rich-text">
                     {% if request.GET.filter == "past" %}
                         <p>There are no past events.</p>
                     {% else %}
