@@ -1,7 +1,7 @@
 context:
   value:
     title: Our Services
-    intro: Our services are tailored to the needs of charities, nonprofits and the public sector and cover the full spectrum of digital. From human-centred design to marketing, strategy and our very own Wagtail CMS.
+    is_homepage_showcase: False
     showcase_paragraphs:
       - page: '#'
         heading: Sponsor a Wagtail feature or enhancement
