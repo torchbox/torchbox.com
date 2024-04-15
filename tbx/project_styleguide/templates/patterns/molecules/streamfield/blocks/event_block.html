@@ -42,10 +42,10 @@
             {% endwith %}
         {% endif %}
     </div>
-    {% image value.image fill-430x320 format-webp saturation-0.6 as mobile_image %}
-    {% image value.image fill-860x640 format-webp saturation-0.6 as mobile_image_retina %}
-    {% image value.image fill-525x510 format-webp saturation-0.6 as desktop_image %}
-    {% image value.image fill-1050x1020 format-webp saturation-0.6 as desktop_image_retina %}
+    {% image value.image fill-430x320 format-webp as mobile_image %}
+    {% image value.image fill-860x640 format-webp as mobile_image_retina %}
+    {% image value.image fill-525x510 format-webp as desktop_image %}
+    {% image value.image fill-1050x1020 format-webp as desktop_image_retina %}
 
     <div class="event-block__picture-wrapper">
         <picture class="event-block__picture">

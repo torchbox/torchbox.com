@@ -92,10 +92,10 @@ context:
 tags:
   srcset_image:
     # avatar image
-    'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
+    'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
       raw: |
         <img alt="" class="avatar__image" height="72" loading="lazy" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
-    'avatar format-webp saturation-0.6 fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
+    'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
       raw: |
         <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
   pageurl:
