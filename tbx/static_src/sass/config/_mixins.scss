@@ -119,9 +119,14 @@
     }
 }
 
-@mixin focus-style($color: var(--color--link), $shadow: false) {
+@mixin focus-style(
+    $color: var(--color--link),
+    $shadow: false,
+    $underline-hover-color: $color
+) {
     outline: $focus-width solid var(--color--focus-ring);
     text-decoration-thickness: $link-underline-thickness-interaction;
+    text-decoration-color: $underline-hover-color;
 
     @if $shadow {
         text-shadow: 0 0 0.4px $color, 0 0 0.4px $color;
@@ -136,16 +141,20 @@
     $color: var(--color--text),
     $interaction-color: var(--color--text),
     $shadow: false,
-    $offset: 2px
+    $offset: 2px,
+    $underline-color: $color,
+    $underline-hover-color: $interaction-color
 ) {
     color: $color;
     text-decoration: underline;
     text-decoration-thickness: $link-underline-thickness;
     text-underline-offset: $offset;
+    text-decoration-color: $underline-color;
 
     &:hover {
         color: $interaction-color;
         text-decoration-thickness: $link-underline-thickness-interaction;
+        text-decoration-color: $underline-hover-color;
 
         @if $shadow {
             text-shadow: 0 0 0.4px $color, 0 0 0.4px $color;
@@ -153,7 +162,11 @@
     }
 
     &:focus {
-        @include focus-style($color, $shadow: $shadow);
+        @include focus-style(
+            $color,
+            $shadow: $shadow,
+            $underline-hover-color: $underline-hover-color
+        );
     }
 }
 

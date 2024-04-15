@@ -1,0 +1,63 @@
+context:
+  page:
+    get_verbose_name: impact-report-page
+    # Headings match those used in impact_report_story_container.yaml
+    headings:
+      - short_heading: Introduction
+        slug: introduction
+      - short_heading: The impact
+        slug: the-impact
+      - short_heading: The business
+        slug: the-business
+      - short_heading: Setting new standards
+        slug: setting-new-standards
+      - short_heading: Looking ahead
+        slug: looking-ahead
+    title: Impact Report for 2020/2021
+    hero_image: true
+    hero_caption: Caption for image
+    hero_attribution: By David Bloggs
+    first_author:
+      name: Juan dela Cruz
+      role: Director
+    authors:
+      all:
+        - author:
+            name: Juan dela Cruz
+            role: Director
+
+tags:
+  include_block:
+    page.body:
+      template_name: 'patterns/molecules/streamfield/stream_block_impact_report.html'
+  # hero image
+  image:
+    page.hero_image fill-1600x700 format-webp as desktop_image:
+      target_var: desktop_image
+      raw:
+        alt: 'desktop image'
+        url: 'https://source.unsplash.com/1600x700?trees'
+    page.hero_image fill-2000x875 format-webp as desktop_image_retina:
+      target_var: desktop_image_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://source.unsplash.com/1280x560?trees'
+    page.hero_image fill-400x225 format-webp as mobile_image:
+      target_var: mobile_image
+      raw:
+        alt: 'mobile image'
+        url: 'https://source.unsplash.com/400x225?trees'
+    page.hero_image fill-800x450 format-webp as mobile_image_retina:
+      target_var: mobile_image_retina
+      raw:
+        alt: 'mobile image retina'
+        url: 'https://source.unsplash.com/800x450?trees'
+
+  srcset_image:
+    # avatar image for authors
+    'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
+      raw: |
+        <img alt="" class="avatar__image" height="72" loading="lazy" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
+    'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
+      raw: |
+        <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">

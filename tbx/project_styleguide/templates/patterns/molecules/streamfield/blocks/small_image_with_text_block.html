@@ -1,0 +1,13 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="grid__small-image-with-text small-image-with-text">
+    {% image value.image fill-62x62 class="small-image-with-text__image" alt="" %}
+
+    <div>
+        <h4 class="small-image-with-text__title heading--four">{{ value.title }}</h4>
+
+        <div class="streamfield__paragraph small-image-with-text__text">
+            {{ value.text|richtext }}
+        </div>
+    </div>
+</div>
