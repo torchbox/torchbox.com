@@ -575,6 +575,9 @@ GOOGLE_TAG_MANAGER_ID = env.get("GOOGLE_TAG_MANAGER_ID")
 # Trial Hotjar tracking for the CMS admin.
 ADMIN_HOTJAR_SITE_ID = env.get("ADMIN_HOTJAR_SITE_ID")
 
+# Allows us to toggle search indexing via an environment variable.
+SEO_NOINDEX = env.get("SEO_NOINDEX", "false").lower() == "true"
+
 
 # Birdbath - Database anonymisation
 # -----------------------------------------------------------------------------
