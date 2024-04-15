@@ -47,7 +47,7 @@
                             {% if item.page %}
                                 {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="showcase__arrow" %}
                             {% endif %}
-                        </h3>
+                        {% if value.title %}</h3>{% else %}</h2>{% endif %}
                     {% endif %}
 
                     <div class="showcase__summary">{{ item.summary }}</div>
