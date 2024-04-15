@@ -240,7 +240,7 @@ class ShowcaseBlock(blocks.StructBlock):
     service page templates. See also the HomepageShowcaseBlock.
     """
 
-    title = blocks.CharBlock(max_length=255)
+    title = blocks.CharBlock(max_length=255, required=False)
     showcase_paragraphs = blocks.ListBlock(
         blocks.StructBlock(
             [
