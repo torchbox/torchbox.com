@@ -1,6 +1,6 @@
-@use "sass:map";
+@use 'sass:map';
 @use 'sass:math';
-@use "variables" as *;
+@use 'variables' as *;
 
 // Strip the unit from the given value and return the value
 @function strip-unit($value) {
