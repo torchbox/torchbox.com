@@ -42,11 +42,11 @@
                         </h3>
                     {% else %}
                         {# 'normal' showcase title is optional, so heading here is may be h2 #}
-                        {% if value.title %}<h3{% else %}<h2{% endif %}  class="showcase__heading{% if item.page %} showcase__heading--with-arrow{% endif %}">
-                            {{ item.heading }}
-                            {% if item.page %}
-                                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="showcase__arrow" %}
-                            {% endif %}
+                        <{% if value.title %}h3{% else %}h2{% endif %} class="showcase__heading{% if item.page %} showcase__heading--with-arrow{% endif %}">
+                        {{ item.heading }}
+                        {% if item.page %}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="showcase__arrow" %}
+                        {% endif %}
                         {% if value.title %}</h3>{% else %}</h2>{% endif %}
                     {% endif %}
 
