@@ -25,10 +25,14 @@
                 height: auto;
             }
             .logo__text {
-                color: #fff;
+                fill: #fff;
+
+                @media (prefers-color-scheme: light) and (forced-colors: active) {
+                    fill: #000;
+                }
             }
             .logo__flame {
-                color: #fc8698;
+                fill: #fc8698;
             }
         </style>
     </head>
