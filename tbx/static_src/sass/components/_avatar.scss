@@ -4,6 +4,9 @@
     position: relative;
     width: $avatar-size-72;
     height: $avatar-size-72;
+    // Make sure avatars don't get squashed on small screens
+    flex-grow: 0;
+    flex-shrink: 0;
 
     @include media-query(medium) {
         width: $avatar-size-145;
@@ -70,11 +73,5 @@
     &__image {
         border-radius: 50%;
         width: 100%;
-    }
-
-    // Make sure avatars don't get squashed on small screens
-    .authors-wide &,
-    .author & {
-        flex-shrink: 0;
     }
 }
