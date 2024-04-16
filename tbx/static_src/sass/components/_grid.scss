@@ -507,7 +507,7 @@
         &__markdown,
         &__embed {
             @include media-query(large) {
-                grid-column: 6 / span 6;
+                grid-column: 5 / span 7;
             }
         }
 
@@ -516,7 +516,7 @@
             grid-column: 2 / span 4;
 
             @include media-query(large) {
-                grid-column: 6 / span 8;
+                grid-column: 5 / span 7;
                 margin-bottom: $spacer-large;
             }
         }
@@ -531,7 +531,7 @@
 
             @include media-query(large) {
                 margin-bottom: $spacer-medium;
-                grid-column: 6 / span 8;
+                grid-column: 5 / span 7;
 
                 &:last-child {
                     margin-bottom: $spacer-large;
