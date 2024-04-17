@@ -1,10 +1,22 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="photo-collage grid__photo-collage">
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=value.title heading_level=2 classes="motif-heading--two motif-heading--static photo-collage__heading" %}
+    {% if value.title %}
+        {% if value.intro or value.button_text %}
+            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=value.title heading_level=2 classes="motif-heading--two motif-heading--static photo-collage__heading" %}
+        {% else %}
+            {# extra space below title if no intro or button #}
+            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=value.title heading_level=2 classes="motif-heading--two motif-heading--static photo-collage__heading photo-collage__heading--no-intro" %}
+        {% endif %}
+    {% endif %}
+
     <div class="photo-collage__intro-wrapper">
-        <p class="photo-collage__intro">{{ value.intro }}</p>
+
+        {% if value.intro %}
+            <p class="photo-collage__intro">{{ value.intro }}</p>
+        {% endif %}
+
         {% if value.button_link and value.button_text %}
-            <div class="photo-collage__cta">
+            <div class="photo-collage__cta {% if not value.intro %}photo-collage__cta--left{% endif %}">
                 <a class="button photo-collage__button" href="{{ value.get_button_link }}">{{ value.button_text }}</a>
             </div>
         {% endif %}

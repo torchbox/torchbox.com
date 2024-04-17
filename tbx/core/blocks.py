@@ -568,7 +568,7 @@ class TabbedParagraphBlock(blocks.StructBlock):
         non_block_errors = ErrorList()
 
         if value["intro"] and not value["title"]:
-            message = "You cannot add an intro without also including a title"
+            message = "You cannot add an intro without also adding a title"
             non_block_errors.append(ValidationError(message))
 
         for tabbed_paragraph_section in value["tabbed_paragraph_sections"]:
@@ -599,8 +599,8 @@ class TabbedParagraphBlock(blocks.StructBlock):
 
 
 class PhotoCollageBlock(blocks.StructBlock):
-    title = blocks.CharBlock(max_length=255)
-    intro = blocks.TextBlock(label="Introduction")
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.TextBlock(label="Introduction", required=False)
     button_link = blocks.StreamBlock(
         [
             ("internal_link", blocks.PageChooserBlock()),
@@ -626,8 +626,17 @@ class PhotoCollageBlock(blocks.StructBlock):
         struct_value = super().clean(value)
 
         errors = {}
+        non_block_errors = ErrorList()
         button_link = value.get("button_link")
         button_text = value.get("button_text")
+
+        if value["intro"] and not value["title"]:
+            message = "You cannot add an intro without also adding a title"
+            non_block_errors.append(ValidationError(message))
+
+        if (button_link and button_text) and not value["title"]:
+            message = "You cannot add a button without also adding a title"
+            non_block_errors.append(ValidationError(message))
 
         if button_link and not button_text:
             error = ErrorList(
@@ -645,8 +654,10 @@ class PhotoCollageBlock(blocks.StructBlock):
             )
             errors["button_text"] = error
 
-        if errors:
-            raise StructBlockValidationError(errors)
+        if errors or non_block_errors:
+            raise blocks.StructBlockValidationError(
+                block_errors=errors, non_block_errors=non_block_errors
+            )
         return struct_value
 
     class Meta:

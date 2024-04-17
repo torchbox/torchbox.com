@@ -1,11 +1,21 @@
 @use 'config' as *;
 
 .photo-collage {
+    $root: &;
+
     &__heading {
         margin-right: $grid-gutters;
 
         @include media-query(large) {
             margin-right: 0;
+        }
+
+        &--no-intro {
+            margin-bottom: $spacer-small;
+
+            @include media-query(large) {
+                margin-bottom: $spacer-medium;
+            }
         }
     }
 
@@ -29,11 +39,22 @@
             grid-column: 4 / 5;
             align-self: end;
         }
+
+        // align to the left when there is no intro
+        &--left {
+            @include media-query(large) {
+                grid-column: 1 / 4;
+            }
+        }
     }
 
     &__button {
         @include media-query(large) {
             margin-left: $spacer-medium;
+
+            #{$root}__cta--left & {
+                margin-left: 0;
+            }
         }
     }
 
