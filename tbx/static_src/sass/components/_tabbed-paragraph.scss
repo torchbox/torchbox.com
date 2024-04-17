@@ -8,6 +8,15 @@
             margin-bottom: $spacer-small;
             max-width: 50%;
         }
+
+        // Exra bottom margin if the intro is omitted
+        &--no-intro {
+            margin-bottom: $spacer-medium;
+
+            @include media-query('large') {
+                margin-bottom: $spacer-half;
+            }
+        }
     }
 
     &__intro {
