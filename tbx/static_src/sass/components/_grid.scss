@@ -368,11 +368,23 @@
 
     // Service page alignment
     .template-service-page & {
+        // note that paragraph blocks are not overridden as they use the standard page position,
+        // further indented than the other page elements
         &__heading,
         &__intro,
         &__title {
             @include media-query(large) {
                 grid-column: 2 / span 9;
+            }
+        }
+
+        // heading 2s on the service page use the motif heading style which needs extra spacing
+        &__heading--motif {
+            margin-bottom: $spacer-small-plus;
+
+            @include media-query(large) {
+                grid-column: 2 / span 9;
+                margin-bottom: $spacer-medium;
             }
         }
 
@@ -386,8 +398,7 @@
         }
 
         &__raw-html,
-        &__markdown,
-        &__paragraph {
+        &__markdown {
             @include media-query(large) {
                 grid-column: 2 / span 7;
             }
