@@ -73,7 +73,6 @@ class ServiceStoryBlock(StoryBlock):
     paragraph = blocks.RichTextBlock(
         icon="pilcrow",
         template="patterns/molecules/streamfield/blocks/paragraph_block.html",
-        features=['h3', 'h4', 'bold', 'italic', 'ul', 'ol', 'link', 'document-link'],
+        features=["h3", "h4", "bold", "italic", "ul", "ol", "link", "document-link"],
         group="Basics",
     )
-
