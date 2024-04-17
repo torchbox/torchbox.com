@@ -368,13 +368,18 @@
 
     // Service page alignment
     .template-service-page & {
-        // note that paragraph blocks are not overridden as they use the standard page position,
-        // further indented than the other page elements
         &__heading,
         &__intro,
         &__title {
             @include media-query(large) {
                 grid-column: 2 / span 9;
+            }
+        }
+
+        // paragraph block is indented further than other page elements
+        &__paragraph {
+            @include media-query(large) {
+                grid-column: 5 / span 7;
             }
         }
 
