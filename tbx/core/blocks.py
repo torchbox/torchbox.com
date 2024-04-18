@@ -569,7 +569,7 @@ class TabbedParagraphBlock(blocks.StructBlock):
 
         if value["intro"] and not value["title"]:
             message = "You cannot add an intro without also adding a title"
-            non_block_errors.append(ValidationError(message))
+            errors["title"].append(ValidationError(message))
 
         for tabbed_paragraph_section in value["tabbed_paragraph_sections"]:
             button_values = {
@@ -626,17 +626,21 @@ class PhotoCollageBlock(blocks.StructBlock):
         struct_value = super().clean(value)
 
         errors = {}
-        non_block_errors = ErrorList()
         button_link = value.get("button_link")
         button_text = value.get("button_text")
 
-        if value["intro"] and not value["title"]:
-            message = "You cannot add an intro without also adding a title"
-            non_block_errors.append(ValidationError(message))
+        has_button = bool(button_link and button_text)
+        has_intro = bool(value.get("intro"))
 
-        if (button_link and button_text) and not value["title"]:
-            message = "You cannot add a button without also adding a title"
-            non_block_errors.append(ValidationError(message))
+        if (has_intro or has_button) and not value["title"]:
+            error = ErrorList(
+                [
+                    ValidationError(
+                        "You cannot add a button or intro without also adding a title"
+                    )
+                ]
+            )
+            errors["title"] = error
 
         if button_link and not button_text:
             error = ErrorList(
@@ -654,9 +658,9 @@ class PhotoCollageBlock(blocks.StructBlock):
             )
             errors["button_text"] = error
 
-        if errors or non_block_errors:
+        if errors:
             raise blocks.StructBlockValidationError(
-                block_errors=errors, non_block_errors=non_block_errors
+                block_errors=errors
             )
         return struct_value
 
