@@ -659,9 +659,7 @@ class PhotoCollageBlock(blocks.StructBlock):
             errors["button_text"] = error
 
         if errors:
-            raise blocks.StructBlockValidationError(
-                block_errors=errors
-            )
+            raise blocks.StructBlockValidationError(block_errors=errors)
         return struct_value
 
     class Meta:
