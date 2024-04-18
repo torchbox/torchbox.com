@@ -1,4 +1,4 @@
-@use "config" as *;
+@use 'config' as *;
 
 .work-hero {
     @include media-query(large) {
