@@ -206,9 +206,15 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
 
     @cached_property
     def author_posts(self):
-        author_snippet = Author.objects.get(person_page__pk=self.pk)
         # this import is added here in order to avoid circular imports
         from tbx.blog.models import BlogPage
+
+        try:
+            author_snippet = Author.objects.get(person_page__pk=self.pk)
+        except Author.DoesNotExist:
+            return []
+        except Author.MultipleObjectsReturned:
+            return []
 
         # Format for template
         return [
@@ -229,6 +235,12 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         """Returns work pages authored by the person, giving preference to Work rather than Historical work pages"""
         # this import is added here in order to avoid circular imports
         from tbx.work.models import HistoricalWorkPage, WorkPage
+
+        # only do this if page has been created
+        # otherwise you get misleading results during preview
+        # when creating a new page
+        if not self.pk:
+            return []
 
         # Get the latest 3 work pages by this author
         recent_works = (
