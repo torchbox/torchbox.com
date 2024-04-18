@@ -4,9 +4,5 @@
 # Requires Git > 2.23
 # See https://git-scm.com/docs/git-blame#Documentation/git-blame.txt---ignore-revs-fileltfilegt
 
-# Fix templates formatting with djhtml
-# pre-commit run djhtml --color=always --all-files
-b867caaabb109ca807559c73086f03fa2812fa31
-
 # npm run format after updating npm packages
 f410c3005af905ea791c21bd0558b11d2083ee1c
