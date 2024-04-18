@@ -376,6 +376,23 @@
             }
         }
 
+        // paragraph block is indented further than other page elements
+        &__paragraph {
+            @include media-query(large) {
+                grid-column: 5 / span 7;
+            }
+        }
+
+        // heading 2s on the service page use the motif heading style which needs extra spacing
+        &__heading--motif {
+            margin-bottom: $spacer-small-plus;
+
+            @include media-query(large) {
+                grid-column: 2 / span 9;
+                margin-bottom: $spacer-medium;
+            }
+        }
+
         // more spacing below intro on the service page
         &__intro {
             margin-bottom: $spacer-medium;
@@ -386,8 +403,7 @@
         }
 
         &__raw-html,
-        &__markdown,
-        &__paragraph {
+        &__markdown {
             @include media-query(large) {
                 grid-column: 2 / span 7;
             }
