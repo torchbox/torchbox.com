@@ -34,6 +34,7 @@ theme:
     - navigation.top
     - navigation.indexes
     - toc.follow
+    - navigation.expand
 
 markdown_extensions:
   - attr_list
