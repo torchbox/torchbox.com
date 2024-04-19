@@ -544,8 +544,8 @@ class PromoBlock(blocks.StructBlock):
 
 
 class TabbedParagraphBlock(blocks.StructBlock):
-    title = blocks.CharBlock(max_length=255)
-    intro = blocks.TextBlock(label="Introduction")
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.TextBlock(label="Introduction", required=False)
     tabbed_paragraph_sections = blocks.ListBlock(
         blocks.StructBlock(
             [
@@ -567,6 +567,10 @@ class TabbedParagraphBlock(blocks.StructBlock):
         errors = defaultdict(ErrorList)
         non_block_errors = ErrorList()
 
+        if value["intro"] and not value["title"]:
+            message = "You cannot add an intro without also adding a title"
+            errors["title"].append(ValidationError(message))
+
         for tabbed_paragraph_section in value["tabbed_paragraph_sections"]:
             button_values = {
                 "button_link": tabbed_paragraph_section["button_link"],
@@ -581,7 +585,7 @@ class TabbedParagraphBlock(blocks.StructBlock):
                         errors[key].append(message)
                         non_block_errors.append(ValidationError(message))
 
-        if errors:
+        if errors or non_block_errors:
             raise blocks.StructBlockValidationError(
                 block_errors=errors, non_block_errors=non_block_errors
             )
@@ -595,8 +599,8 @@ class TabbedParagraphBlock(blocks.StructBlock):
 
 
 class PhotoCollageBlock(blocks.StructBlock):
-    title = blocks.CharBlock(max_length=255)
-    intro = blocks.TextBlock(label="Introduction")
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.TextBlock(label="Introduction", required=False)
     button_link = blocks.StreamBlock(
         [
             ("internal_link", blocks.PageChooserBlock()),
@@ -625,6 +629,19 @@ class PhotoCollageBlock(blocks.StructBlock):
         button_link = value.get("button_link")
         button_text = value.get("button_text")
 
+        has_button = bool(button_link and button_text)
+        has_intro = bool(value.get("intro"))
+
+        if (has_intro or has_button) and not value["title"]:
+            error = ErrorList(
+                [
+                    ValidationError(
+                        "You cannot add a button or intro without also adding a title"
+                    )
+                ]
+            )
+            errors["title"] = error
+
         if button_link and not button_text:
             error = ErrorList(
                 [ValidationError("You must add button text for the button link.")]
@@ -642,7 +659,7 @@ class PhotoCollageBlock(blocks.StructBlock):
             errors["button_text"] = error
 
         if errors:
-            raise StructBlockValidationError(errors)
+            raise blocks.StructBlockValidationError(block_errors=errors)
         return struct_value
 
     class Meta:
