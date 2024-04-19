@@ -4,10 +4,6 @@ from .base import *  # noqa
 DEBUG = False
 
 
-# Facebook JSSDB app id
-FB_APP_ID = "323944607389"
-
-
 try:
     from .local import *  # noqa
 except ImportError:
