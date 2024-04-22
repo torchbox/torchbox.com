@@ -3,7 +3,11 @@ from django.utils.functional import cached_property
 
 from modelcluster.fields import ParentalKey
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import ColourThemeMixin, SocialFields, NavigationFields
+from tbx.core.utils.models import (
+    ColourThemeMixin,
+    NavigationFields,
+    SocialFields,
+)
 from tbx.people.models import ContactMixin
 from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel

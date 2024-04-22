@@ -14,7 +14,11 @@ from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import ColourThemeMixin, SocialFields, NavigationFields
+from tbx.core.utils.models import (
+    ColourThemeMixin,
+    NavigationFields,
+    SocialFields,
+)
 from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 from tbx.work.blocks import WorkStoryBlock

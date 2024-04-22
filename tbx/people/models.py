@@ -11,7 +11,11 @@ from django.utils.http import urlencode
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import ColourThemeMixin, SocialFields, NavigationFields
+from tbx.core.utils.models import (
+    ColourThemeMixin,
+    NavigationFields,
+    SocialFields,
+)
 from tbx.people.blocks import ContactCTABlock
 from tbx.people.forms import ContactAdminForm
 from tbx.taxonomy.models import Team

@@ -1,5 +1,9 @@
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import ColourThemeMixin, SocialFields, NavigationFields
+from tbx.core.utils.models import (
+    ColourThemeMixin,
+    NavigationFields,
+    SocialFields,
+)
 from tbx.people.models import ContactMixin
 
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel

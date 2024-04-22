@@ -3,7 +3,11 @@ from django.utils import timezone
 from django.utils.http import urlencode
 
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import ColourThemeMixin, SocialFields, NavigationFields
+from tbx.core.utils.models import (
+    ColourThemeMixin,
+    NavigationFields,
+    SocialFields,
+)
 from tbx.events.blocks import EventItemBlock
 from tbx.people.models import ContactMixin
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
