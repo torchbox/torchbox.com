@@ -1,14 +1,4 @@
-from django.utils.text import slugify
-
-from bs4 import BeautifulSoup
-from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
 from tbx.core.factories import HomePageFactory, StandardPageFactory
-from tbx.core.utils.models import ColourTheme
-from tbx.work.factories import (
-    HistoricalWorkPageFactory,
-    WorkIndexPageFactory,
-    WorkPageFactory,
-)
 from wagtail.models import Site
 from wagtail.test.utils import WagtailPageTestCase
 
