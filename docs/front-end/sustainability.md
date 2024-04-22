@@ -10,7 +10,7 @@ All images should be renedered in the template file as webp format using the `fo
 
 We have a [custom image filter](https://github.com/torchbox/torchbox.com/blob/97547c3fc1cefa844d133e3af026c4df0dbca313/tbx/core/wagtail_hooks.py#L76-L90)[^1] that allows us to apply a slight desaturation to all images using `saturation-xx` (where `xx` is a decimal ranging from `0.0` to `1.0`, e.g. `0.6`) - this makes the file size of images smaller overall, as well as creating a cohesive look for photographic images. However, it is not being used at the moment.
 
-Youtube videos are not loaded by default. Instead they show a placeholder image and a play button, and only load when the user clicks 'play'.
+Youtube videos are not loaded by default. Instead they show a placeholder image and a play button, and only load when the user clicks 'play'. [More details on lite-youtube](/front-end/lite-youtube)
 
 <!-- Footnotes -->
 

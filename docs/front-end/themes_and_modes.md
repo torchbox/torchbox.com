@@ -10,6 +10,12 @@ An editor has an option to select a theme on each page. Selecting a theme on a p
 
 There are currently 3 themes in use: coral, lagoon and banana. The CSS to set the theme is an html class of either `.theme-coral`, `.theme-lagoon` or `.theme-banana`.
 
+???+ note
+
+    If you are adding a new theme, check the colour contrast for all the new accent colours added, used in the drop-caps (remember to check both dark mode and light mode). They need to pass colour contrast as if the entire drop-cap was filled with that colour.
+
+    The drop-caps svgs use a semi-transparent version of the accent colours, and the contrast of the resulting colour also needs to be checked. The [colour contrast checker](https://chromewebstore.google.com/detail/colour-contrast-checker/nmmjeclfkgjdomacpcflgdkgpphpmnfe?hl=en-GB&utm_source=ext_sidebar) is a useful chrome extension to assist with this.
+
 ## CSS Variables
 
 All colours should be set using CSS variables, and these are updated according to the theme or mode in use on any given page.

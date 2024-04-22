@@ -8,10 +8,11 @@ The breakpoints we use are:
 
 ```scss
 $breakpoints: (
-  'small' '(min-width: 410px)',
   'medium' '(min-width: 599px)',
   'large' '(min-width: 1023px)',
   'x-large' '(min-width: 1280px)',
+  // secondary breakpoints - use sparingly
+  'small' '(min-width: 410px)',
   'xx-large' '(min-width: 1800px)'
 );
 ```

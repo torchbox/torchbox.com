@@ -74,7 +74,7 @@ Steps for resetting the `staging` git branch, and deploying it with a clone of t
 
 ### Git
 
-1. Use the [Heroku Repo plugin](https://elements.heroku.com/buildpacks/heroku/heroku-repo) to reset the repository on Heroku, otherwise CI will later fail (bear in mind that there may be incompatibilities between the old `staging` database and the new code from `main`; this will be resolved in the Database step below)
+1. Use the [Heroku Repo plugin](https://github.com/heroku/heroku-repo) to reset the repository on Heroku, otherwise CI will later fail (bear in mind that there may be incompatibilities between the old `staging` database and the new code from `main`; this will be resolved in the Database step below)
    ```
    $ heroku repo:reset -a project-name
    ```

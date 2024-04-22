@@ -58,8 +58,8 @@ pre-commit = "^2.19.0"
 seed-isort-config = "^2.2.0"
 
 # Documentation
-mkdocs = "^1.4.3"
-mkdocs-material = "^9.1.16"
+mkdocs = "^1.5.3"
+mkdocs-material = "^9.5.18"
 pymdown-extensions = "^10.0.1"
 
 # Testing
