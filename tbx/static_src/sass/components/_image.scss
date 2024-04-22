@@ -36,3 +36,16 @@
         font-weight: $weight--semibold;
     }
 }
+
+.wide-image {
+    &__caption,
+    &__attribution {
+        @include media-query(large) {
+            margin-right: $spacer-medium;
+        }
+
+        @include media-query(xx-large) {
+            margin-right: 0;
+        }
+    }
+}
