@@ -109,7 +109,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "tbx.core.context_processors.fb_app_id",
                 "tbx.core.context_processors.global_vars",
                 "wagtail.contrib.settings.context_processors.settings",
             ],
@@ -454,9 +453,6 @@ max_upload_size = env.get("WAGTAILIMAGES_MAX_UPLOAD_SIZE")
 WAGTAILIMAGES_MAX_UPLOAD_SIZE = (
     int(max_upload_size) if max_upload_size else 2 * 1024 * 1024
 )  # 2MB
-
-# Facebook JSSDK app Id
-FB_APP_ID = ""
 
 
 # Basic auth settings

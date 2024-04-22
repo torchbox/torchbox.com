@@ -27,8 +27,6 @@
     <meta name="msapplication-TileColor" content="#2b5797">
     <meta name="theme-color" content="#ffffff">
 
-
-
     {% comment %}
         Twitter summary card - see https://dev.twitter.com/cards/types/summary
         and https://dev.twitter.com/cards/getting-started
@@ -36,21 +34,26 @@
     {% wagtail_site as current_site %}
     {% social_media_settings as social_media_settings %}
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@{{ social_media_settings.twitter_handle }}" />
+    {% if social_media_settings.twitter_handle %}
+        <meta name="twitter:site" content="@{{ social_media_settings.twitter_handle }}" />
+    {% endif %}
     <meta name="twitter:title" content="{{ page.title }}" />
     <meta name="twitter:description" content="{% if page|social_text:current_site %}{{ page|social_text:current_site }}{% elif page.search_description %}{{ page.search_description }}{% elif page.listing_summary %}{{ page.listing_summary }}{% else %}{{ social_media_settings.default_sharing_text }}{% endif %}">
-    {% if page.social_image or page.feed_image or page.hero_image %}
+
+    {% if page.social_image or page.feed_image or page.header_image or page.hero_image %}
         {% if page.social_image %}
-            {% image page.social_image width-1000 as social_img %}
+            {% image page.social_image width-1000 as twitter_image %}
         {% elif page.feed_image %}
-            {% image page.feed_image width-1000 as social_img %}
+            {% image page.feed_image width-1000 as twitter_image %}
+        {% elif page.header_image %}
+            {% image page.header_image width-1000 as twitter_image %}
         {% elif page.hero_image %}
-            {% image page.hero_image width-1000 as social_img %}
+            {% image page.hero_image width-1000 as twitter_image %}
         {% endif %}
         {# This will give a full path to the image when on staging or production because S3 storage is used. If testing locally, make sure you use the default localhost:8000 url. Testing via :3000 will give peculiar results. #}
-        <meta name="twitter:image" content="{{ social_img.url }}">
-        {% if social_img.alt %}
-            <meta name="twitter:image:alt" content="{{ social_img.alt }}">
+        <meta name="twitter:image" content="{{ twitter_image.url }}">
+        {% if twitter_image.alt %}
+            <meta name="twitter:image:alt" content="{{ twitter_image.alt }}">
         {% endif %}
     {% endif %}
 
@@ -64,25 +67,23 @@
         <meta property="og:url" content="{{ site.root_url }}{% pageurl page %}" />
         <meta property="og:title" content="{{ page.title }}" />
     {% endif %}
-    {% if page.social_image or page.feed_image or page.hero_image %}
+
+    {% if page.social_image or page.feed_image or page.header_image or page.hero_image %}
         {% if page.social_image %}
-            {% image page.social_image fill-1200x630 as social_img %}
+            {% image page.social_image fill-1200x630 as og_image %}
         {% elif page.feed_image %}
-            {% image page.feed_image fill-1200x630 as social_img %}
+            {% image page.feed_image fill-1200x630 as og_image %}
+        {% elif page.header_image %}
+            {% image page.feed_image fill-1200x630 as og_image %}
         {% elif page.hero_image %}
-            {% image page.hero_image fill-1200x630 as social_img %}
+            {% image page.hero_image fill-1200x630 as og_image %}
         {% endif %}
         {# This will give a full path to the image when on staging or production because S3 storage is used. If testing locally, make sure you use the default localhost:8000 url. Testing via :3000 will give peculiar results. #}
-        <meta property="og:image" content="{{ social_img.url }}" />
-        <meta property="og:image:width" content="{{ social_img.width }}" />
-        <meta property="og:image:height" content="{{ social_img.height }}" />
-    {% else %}
-        {% comment %}
-        An example of how to add a default image to use for social sharing in case one is not provided on the page.
-        Note that you need to explicitly add the root url here as the static path will not include it
-        <meta name="twitter:image" content="{{ current_site.root_url }}{% static 'images/social-image.png' %}">
-        {% endcomment %}
+        <meta property="og:image" content="{{ og_image.url }}" />
+        <meta property="og:image:width" content="{{ og_image.width }}" />
+        <meta property="og:image:height" content="{{ og_image.height }}" />
     {% endif %}
+
     <meta property="og:description" content="{% if page|social_text:current_site %}{{ page|social_text:current_site }}{% elif page.search_description %}{{ page.search_description }}{% elif page.listing_summary %}{{ page.listing_summary }}{% else %}{{ social_media_settings.default_sharing_text }}{% endif %}" />
     <meta property="og:site_name" content="{{ social_media_settings.site_name }}" />
 {% endblock meta_tags %}
