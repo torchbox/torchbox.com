@@ -22,4 +22,12 @@
         color: var(--color--heading);
         max-width: $streamfield-content-width;
     }
+
+    &__button {
+        margin-top: $spacer-small;
+        
+        @include media-query(large) {
+            margin-top: 0;
+        }
+    }
 }
