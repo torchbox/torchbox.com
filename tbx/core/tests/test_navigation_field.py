@@ -24,7 +24,9 @@ class TestNavigationText(WagtailPageTestCase):
         site.root_page = self.home
         site.save()
 
-        self.standard_page = StandardPageFactory(title="Test standard page", parent=self.home)
+        self.standard_page = StandardPageFactory(
+            title="Test standard page", parent=self.home
+        )
 
     def test_override(self):
         self.standard_page.navigation_text = "Test navigation override text"
