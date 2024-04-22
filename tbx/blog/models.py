@@ -23,7 +23,9 @@ from wagtail.search import index
 from wagtail.signals import page_published
 
 
-class BlogIndexPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
+class BlogIndexPage(
+    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
+):
     template = "patterns/pages/blog/blog_listing.html"
 
     subpage_types = ["BlogPage"]

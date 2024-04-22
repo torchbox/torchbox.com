@@ -28,7 +28,7 @@ class NavigationFields(models.Model):
         help_text="""
             Text entered here will appear instead of the page title in the navigation menu.
             For top-level menu items do this in the navigaiton settings instead.
-            """
+            """,
     )
 
     class Meta:

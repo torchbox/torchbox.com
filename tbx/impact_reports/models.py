@@ -16,7 +16,9 @@ from wagtail.models import Page
 from wagtail.search import index
 
 
-class ImpactReportPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
+class ImpactReportPage(
+    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
+):
     template = "patterns/pages/impact_reports/impact_report_page.html"
 
     hero_image = models.ForeignKey(

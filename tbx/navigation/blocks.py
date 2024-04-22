@@ -28,9 +28,10 @@ class LinkBlockStructValue(blocks.StructValue):
 
 class LinkValidationMixin:
     """
-        Ensures that you cannot select both an external and an internal link.
-        Used by both LinkBlock FooterLinkBlock
-        """
+    Ensures that you cannot select both an external and an internal link.
+    Used by both LinkBlock FooterLinkBlock
+    """
+
     def clean(self, value):
         struct_value = super().clean(value)
 
@@ -61,14 +62,15 @@ class LinkValidationMixin:
 
 class LinkBlock(LinkValidationMixin, blocks.StructBlock):
     """
-        Used to select links for the primary navigation and for the footer links
-        """
+    Used to select links for the primary navigation and for the footer links
+    """
+
     page = blocks.PageChooserBlock(required=False)
     external_link = blocks.URLBlock(required=False)
     title = blocks.CharBlock(
         help_text="Leave blank to use the page's own title",
         required=False,
-        label="Navigation text"
+        label="Navigation text",
     )
 
     class Meta:
@@ -96,8 +98,9 @@ class LinkBlock(LinkValidationMixin, blocks.StructBlock):
 
 class FooterLinkBlock(LinkValidationMixin, blocks.StructBlock):
     """
-        Used to select links for the footer logos
-        """
+    Used to select links for the footer logos
+    """
+
     page = blocks.PageChooserBlock(required=False)
     external_link = blocks.URLBlock(required=False)
 
@@ -133,5 +136,5 @@ class FooterLogoBlock(blocks.StructBlock):
     alt_text = blocks.CharBlock(
         label="Alt text",
         help_text="The image title will be used if this is left blank.",
-        required=False
+        required=False,
     )

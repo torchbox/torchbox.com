@@ -11,7 +11,9 @@ from wagtail.fields import RichTextField
 from wagtail.models import Page
 
 
-class EventIndexPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
+class EventIndexPage(
+    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
+):
     template = "patterns/pages/events/events_listing.html"
     no_events_message = RichTextField(
         features=["bold", "italic", "link", "superscript", "subscript"],

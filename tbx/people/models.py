@@ -282,7 +282,9 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields,
 
 
 # Person index
-class PersonIndexPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
+class PersonIndexPage(
+    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
+):
     strapline = models.CharField(max_length=255)
 
     template = "patterns/pages/team/team_listing.html"

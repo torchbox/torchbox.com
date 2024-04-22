@@ -24,7 +24,9 @@ from wagtail.models import Page
 from wagtail.signals import page_published
 
 
-class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
+class HistoricalWorkPage(
+    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
+):
     """
     This represents Work Pages as they were prior to the 2024
     rebuild of the site. It is kept here to display the older
@@ -333,7 +335,9 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
 
 
 # Work index page
-class WorkIndexPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
+class WorkIndexPage(
+    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
+):
     template = "patterns/pages/work/work_index_page.html"
 
     subpage_types = ["HistoricalWorkPage", "WorkPage"]

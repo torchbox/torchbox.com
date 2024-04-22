@@ -159,7 +159,9 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
 
 
 # Standard page
-class StandardPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
+class StandardPage(
+    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
+):
     template = "patterns/pages/standard/standard_page.html"
 
     body = StreamField(StoryBlock())
