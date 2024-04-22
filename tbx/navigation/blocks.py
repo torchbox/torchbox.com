@@ -26,16 +26,11 @@ class LinkBlockStructValue(blocks.StructValue):
         return bool(self.get("page"))
 
 
-class LinkBlock(blocks.StructBlock):
-    page = blocks.PageChooserBlock(required=False)
-    external_link = blocks.URLBlock(required=False)
-    title = blocks.CharBlock(
-        help_text="Leave blank to use the page's own title", required=False
-    )
-
-    class Meta:
-        value_class = LinkBlockStructValue
-
+class LinkValidationMixin:
+    """
+        Ensures that you cannot select both an external and an internal link.
+        Used by both LinkBlock FooterLinkBlock
+        """
     def clean(self, value):
         struct_value = super().clean(value)
 
@@ -59,6 +54,33 @@ class LinkBlock(blocks.StructBlock):
             )
             errors["external_link"] = errors["page"] = error
 
+        if errors:
+            raise StructBlockValidationError(errors)
+        return struct_value
+
+
+class LinkBlock(LinkValidationMixin, blocks.StructBlock):
+    """
+        Used to select links for the primary navigation and for the footer links
+        """
+    page = blocks.PageChooserBlock(required=False)
+    external_link = blocks.URLBlock(required=False)
+    title = blocks.CharBlock(
+        help_text="Leave blank to use the page's own title", required=False
+    )
+
+    class Meta:
+        value_class = LinkBlockStructValue
+
+    def clean(self, value):
+        """
+        Additional validation to ensure that a link title is specified for external links
+        """
+        struct_value = super().clean(value)
+
+        errors = {}
+        external_link = value.get("external_link")
+
         if not value.get("title") and external_link:
             error = ErrorList(
                 [ValidationError("You must specify the link title for external links")]
@@ -68,6 +90,17 @@ class LinkBlock(blocks.StructBlock):
         if errors:
             raise StructBlockValidationError(errors)
         return struct_value
+
+
+class FooterLinkBlock(LinkValidationMixin, blocks.StructBlock):
+    """
+        Used to select links for the footer logos
+        """
+    page = blocks.PageChooserBlock(required=False)
+    external_link = blocks.URLBlock(required=False)
+
+    class Meta:
+        value_class = LinkBlockStructValue
 
 
 class PrimaryNavLinkBlock(LinkBlock):
@@ -93,12 +126,10 @@ class PrimaryNavLinkBlock(LinkBlock):
 
 
 class FooterLogoBlock(blocks.StructBlock):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        # Modify the help_text for the title field in the LinkBlock
-        self.child_blocks["link"].child_blocks[
-            "title"
-        ].field.help_text = "This is used as the basis for alt text."
-
     image = ImageChooserBlock()
-    link = LinkBlock()
+    link = FooterLinkBlock()
+    alt_text = blocks.CharBlock(
+        label="Alt text",
+        help_text="The image title will be used if this is left blank.",
+        required=False
+    )

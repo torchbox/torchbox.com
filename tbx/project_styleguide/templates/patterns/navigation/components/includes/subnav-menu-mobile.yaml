@@ -5,22 +5,25 @@ context:
         live:
           public:
             in_menu:
-              - title: 1 A
-              - title: 1 B
-              - title: 1 C
+              specific:
+                - nav_text: 1 A
+                - nav_text: 1 B
+                - nav_text: 1 C
     - title: Two
       get_children:
         live:
           public:
             in_menu:
-              - title: 2 A
-              - title: 2 B
-              - title: 2 C
+              specific:
+                - nav_text: 2 A
+                - nav_text: 2 B
+                - nav_text: 2 C
     - title: Three
       get_children:
         live:
           public:
             in_menu:
-              - title: 3 A
-              - title: 3 B
-              - title: 3 C
+              specific:
+                - nav_text: 3 A
+                - nav_text: 3 B
+                - nav_text: 3 C

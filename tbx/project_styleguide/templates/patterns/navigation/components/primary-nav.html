@@ -8,7 +8,7 @@ The `child_display` has 3 possible values:
 {% endcomment %}
 
 {% for item in primarynav %}
-    {% with children=item.value.page.get_children.live.public.in_menu child_display=item.value.child_display_behaviour %}
+    {% with children=item.value.page.get_children.live.public.in_menu.specific child_display=item.value.child_display_behaviour %}
         <li class="primary-nav-desktop__item {% if children and child_display != 'hide_children' %}primary-nav-desktop__item--is-parent{% endif %}"
             {% if children and child_display != 'hide_children' %}data-has-subnav{% endif %}
         >

@@ -1,5 +1,5 @@
 context:
   pages:
-    - title: One
-    - title: Two
-    - title: Three
+    - nav_text: One
+    - nav_text: Two
+    - nav_text: Three

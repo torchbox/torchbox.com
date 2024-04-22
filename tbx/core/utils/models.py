@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from modelcluster.fields import ParentalKey
@@ -18,6 +19,28 @@ class PageAuthor(Orderable):
     panels = [
         FieldPanel("author"),
     ]
+
+
+class NavigationFields(models.Model):
+    navigation_text = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="""
+            Text entered here will appear instead of the page title in the navigation menu.
+            For top-level menu items do this in the navigaiton settings instead.
+            """
+    )
+
+    class Meta:
+        abstract = True
+
+    promote_panels = [
+        FieldPanel("navigation_text"),
+    ]
+
+    @cached_property
+    def nav_text(self):
+        return self.navigation_text or self.title
 
 
 # Generic social fields abstract class to add social image/text to any new content type easily.

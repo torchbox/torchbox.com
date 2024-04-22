@@ -3,7 +3,7 @@ from django.utils.functional import cached_property
 from django.utils.text import slugify
 
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import ColourThemeMixin, SocialFields
+from tbx.core.utils.models import ColourThemeMixin, SocialFields, NavigationFields
 from tbx.impact_reports.blocks import ImpactReportStoryBlock
 from tbx.people.models import ContactMixin
 from wagtail.admin.panels import (
@@ -16,7 +16,7 @@ from wagtail.models import Page
 from wagtail.search import index
 
 
-class ImpactReportPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
+class ImpactReportPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
     template = "patterns/pages/impact_reports/impact_report_page.html"
 
     hero_image = models.ForeignKey(
@@ -55,6 +55,7 @@ class ImpactReportPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         [
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
+        + NavigationFields.promote_panels
         + ColourThemeMixin.promote_panels
         + ContactMixin.promote_panels
         + [
