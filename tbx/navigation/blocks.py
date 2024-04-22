@@ -66,7 +66,9 @@ class LinkBlock(LinkValidationMixin, blocks.StructBlock):
     page = blocks.PageChooserBlock(required=False)
     external_link = blocks.URLBlock(required=False)
     title = blocks.CharBlock(
-        help_text="Leave blank to use the page's own title", required=False
+        help_text="Leave blank to use the page's own title",
+        required=False,
+        label="Navigation text"
     )
 
     class Meta:
