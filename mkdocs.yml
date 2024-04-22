@@ -75,6 +75,7 @@ nav:
       - 'Markdown block and codehilite': 'front-end/markdown-codehilite.md'
       - front-end/impact-report.md
       - front-end/lite-youtube.md
+      - front-end/facebook-app-id.md
   - 'Navigation': 'navigation.md'
   - 'Custom features':
       - 'Migration-friendly StreamFields': 'custom-features/migration-friendly-streamfields.md'
