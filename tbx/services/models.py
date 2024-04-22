@@ -5,7 +5,6 @@ from tbx.core.utils.models import (
     SocialFields,
 )
 from tbx.people.models import ContactMixin
-
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
