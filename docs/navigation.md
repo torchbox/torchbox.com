@@ -29,3 +29,7 @@ By default the navigation will display the page title, but it is possible to ove
 In the primary navigation settings, where the top level nav items are set, there is a "navigation text" field.
 
 At lower levels of the navigation, there is a "navigation text" field under the "promote" tab.
+
+## Caching
+
+The navigation is cached for 10 minutes (see `header.html`), both for the mobile and desktop versions. The cache is invalidated for preview and when viewing in the pattern library.
