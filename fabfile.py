@@ -460,8 +460,6 @@ def run_test(c):
         [
             "docker-compose",
             "exec",
-            "--env",
-            "BIRDBATH_REQUIRED=false",
             "web",
             "python",
             "manage.py",
