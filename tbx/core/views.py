@@ -29,9 +29,8 @@ def robots(request):
     content = "\n".join(
         [
             "User-Agent: *",
-            "Disallow: /admin/",
-            "Disallow: /django-admin/",
-            "Disallow: /wagtail/",
+            "Disallow: /search/",
+            "Allow: /",
         ]
     )
     return HttpResponse(content, content_type="text/plain")
