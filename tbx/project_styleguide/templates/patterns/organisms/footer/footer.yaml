@@ -41,7 +41,7 @@ tags:
       raw: |
         <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
   image:
-    logo.image max-100x100 format-webp loading="lazy" class="footer__logo" alt=link.text:
+    logo.image max-100x100 format-webp loading="lazy" class="footer__logo" alt=logo.alt_text|default:logo.image.title:
       raw: |
         <img src="https://source.unsplash.com/100x100?logo" width="100" height="100" alt="test alt" class="footer__logo">
   footerlinks:

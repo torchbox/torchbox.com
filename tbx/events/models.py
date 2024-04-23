@@ -3,7 +3,11 @@ from django.utils import timezone
 from django.utils.http import urlencode
 
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import ColourThemeMixin, SocialFields
+from tbx.core.utils.models import (
+    ColourThemeMixin,
+    NavigationFields,
+    SocialFields,
+)
 from tbx.events.blocks import EventItemBlock
 from tbx.people.models import ContactMixin
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
@@ -11,7 +15,9 @@ from wagtail.fields import RichTextField
 from wagtail.models import Page
 
 
-class EventIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
+class EventIndexPage(
+    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
+):
     template = "patterns/pages/events/events_listing.html"
     no_events_message = RichTextField(
         features=["bold", "italic", "link", "superscript", "subscript"],
@@ -32,6 +38,7 @@ class EventIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         [
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
+        + NavigationFields.promote_panels
         + ColourThemeMixin.promote_panels
         + ContactMixin.promote_panels
         + [

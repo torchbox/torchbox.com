@@ -1,5 +1,9 @@
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import ColourThemeMixin, SocialFields
+from tbx.core.utils.models import (
+    ColourThemeMixin,
+    NavigationFields,
+    SocialFields,
+)
 from tbx.people.models import ContactMixin
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
@@ -9,7 +13,7 @@ from wagtail.search import index
 from .blocks import ServiceStoryBlock
 
 
-class ServicePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
+class ServicePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
     template = "patterns/pages/service/service_page.html"
 
     intro = RichTextField(blank=True)
@@ -24,6 +28,7 @@ class ServicePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         [
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
+        + NavigationFields.promote_panels
         + ColourThemeMixin.promote_panels
         + ContactMixin.promote_panels
         + [

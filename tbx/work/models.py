@@ -14,7 +14,11 @@ from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalManyToManyField
 from tbx.core.blocks import StoryBlock
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import ColourThemeMixin, SocialFields
+from tbx.core.utils.models import (
+    ColourThemeMixin,
+    NavigationFields,
+    SocialFields,
+)
 from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 from tbx.work.blocks import WorkStoryBlock
@@ -24,7 +28,9 @@ from wagtail.models import Page
 from wagtail.signals import page_published
 
 
-class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
+class HistoricalWorkPage(
+    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
+):
     """
     This represents Work Pages as they were prior to the 2024
     rebuild of the site. It is kept here to display the older
@@ -158,6 +164,7 @@ class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         [
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
+        + NavigationFields.promote_panels
         + ColourThemeMixin.promote_panels
         + ContactMixin.promote_panels
         + [
@@ -170,7 +177,7 @@ class HistoricalWorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
     )
 
 
-class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
+class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
     template = "patterns/pages/work/work_page.html"
     parent_page_types = ["WorkIndexPage"]
 
@@ -230,6 +237,7 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         [
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
+        + NavigationFields.promote_panels
         + ColourThemeMixin.promote_panels
         + ContactMixin.promote_panels
         + [
@@ -331,7 +339,9 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
 
 
 # Work index page
-class WorkIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
+class WorkIndexPage(
+    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
+):
     template = "patterns/pages/work/work_index_page.html"
 
     subpage_types = ["HistoricalWorkPage", "WorkPage"]
@@ -443,6 +453,7 @@ class WorkIndexPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         [
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
+        + NavigationFields.promote_panels
         + ColourThemeMixin.promote_panels
         + ContactMixin.promote_panels
         + [

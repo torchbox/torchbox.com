@@ -3,7 +3,11 @@ from django.utils.functional import cached_property
 
 from modelcluster.fields import ParentalKey
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import ColourThemeMixin, SocialFields
+from tbx.core.utils.models import (
+    ColourThemeMixin,
+    NavigationFields,
+    SocialFields,
+)
 from tbx.people.models import ContactMixin
 from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -125,7 +129,7 @@ class HomePagePartnerLogo(Orderable):
 
 
 # Home Page
-class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
+class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
     template = "patterns/pages/home/home_page.html"
     introduction = models.TextField(blank=True)
     body = StreamField(HomePageStoryBlock())
@@ -149,6 +153,7 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         [
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
+        + NavigationFields.promote_panels
         + ColourThemeMixin.promote_panels
         + ContactMixin.promote_panels
         + [
@@ -158,7 +163,9 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, Page):
 
 
 # Standard page
-class StandardPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
+class StandardPage(
+    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
+):
     template = "patterns/pages/standard/standard_page.html"
 
     body = StreamField(StoryBlock())
@@ -171,6 +178,7 @@ class StandardPage(ColourThemeMixin, ContactMixin, SocialFields, Page):
         [
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
+        + NavigationFields.promote_panels
         + ColourThemeMixin.promote_panels
         + ContactMixin.promote_panels
         + [
