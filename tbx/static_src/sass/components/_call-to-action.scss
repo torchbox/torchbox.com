@@ -25,5 +25,9 @@
 
     &__button {
         margin-top: $spacer-small;
+
+        @include media-query(large) {
+            margin-top: 0;
+        }
     }
 }
