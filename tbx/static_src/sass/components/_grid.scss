@@ -77,7 +77,7 @@
 
         @include media-query(large) {
             margin-bottom: $spacer-large;
-            grid-column: 5 / span 10;
+            grid-column: 4 / span 12;
         }
     }
 
@@ -339,7 +339,8 @@
             }
         }
 
-        &__call-to-action {
+        &__call-to-action,
+        &__contact-cta {
             @include media-query(large) {
                 grid-column: 5 / span 10;
             }
@@ -385,8 +386,6 @@
 
         // paragraph block is indented further than other page elements
         &__paragraph,
-        &__call-to-action,
-        &__contact-cta,
         &__image,
         &__raw-html,
         &__markdown,
@@ -395,6 +394,13 @@
         &__heading {
             @include media-query(large) {
                 grid-column: 5 / span 7;
+            }
+        }
+
+        &__call-to-action,
+        &__contact-cta {
+            @include media-query(large) {
+                grid-column: 5 / span 10;
             }
         }
 
