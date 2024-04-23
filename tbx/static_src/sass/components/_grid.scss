@@ -376,7 +376,6 @@
 
     // Service page alignment
     .template-service-page & {
-        &__heading,
         &__intro,
         &__title {
             @include media-query(large) {
@@ -385,9 +384,23 @@
         }
 
         // paragraph block is indented further than other page elements
-        &__paragraph {
+        &__paragraph,
+        &__call-to-action,
+        &__contact-cta,
+        &__image,
+        &__raw-html,
+        &__markdown,
+        &__embed,
+        &__video,
+        &__heading {
             @include media-query(large) {
                 grid-column: 5 / span 7;
+            }
+        }
+
+        &__wide-image {
+            @include media-query(large) {
+                grid-column: 5 / span 11;
             }
         }
 
@@ -407,13 +420,6 @@
 
             @include media-query(large) {
                 margin-bottom: $spacer-large;
-            }
-        }
-
-        &__raw-html,
-        &__markdown {
-            @include media-query(large) {
-                grid-column: 2 / span 7;
             }
         }
 
