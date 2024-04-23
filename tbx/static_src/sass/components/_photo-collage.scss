@@ -36,7 +36,7 @@
 
     &__cta {
         @include media-query(large) {
-            grid-column: 4 / 5;
+            grid-column: 4 / 7;
             align-self: end;
         }
 
@@ -85,9 +85,13 @@
     &__container {
         display: flex;
         column-gap: 10px;
-        height: 370px;
+        height: 270px;
         // calculated based on the total width of the images rendered at the correct aspect ratio plus the 10px gap
         aspect-ratio: 2358 / 403;
+
+        @include media-query(small) {
+            height: 370px;
+        }
 
         @include media-query(medium) {
             height: 403px;
