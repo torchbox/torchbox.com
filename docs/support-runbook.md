@@ -61,6 +61,10 @@ Visit https://dashboard.heroku.com/apps/torchbox-com-production, click on "More"
   **The issue can temporarily be averted by asking the editor to hide the preview panel while making their changes**
 - If the problem persists, investigate the size of the image they are using.
 
+### 3. If a listing page has crashed because the image renditions have been re-created
+
+**Leave it for a while. The server will continue to recreate the renditions in the background. In five minutes it will probably have recovered.**
+
 Note that as part of mitigating this issue, we have run a script and all images in the bucket have been automatically resized if:
 
 - they have more than 10,000,000px
