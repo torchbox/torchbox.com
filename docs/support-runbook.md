@@ -14,7 +14,7 @@ See also our [incident process](https://intranet.torchbox.com/propositions/desig
 - [Monday.com project](https://torchbox.monday.com/boards/1192293412/)
 - [Production site](https://torchbox-com-production.torchbox.dev/)
 - [Staging site](https://torchbox-com-staging.torchbox.dev/)
-- Developers slack: `#torchbox-webiste-dev`
+- Developers slack: `#torchbox-website-dev`
 - Editors ('client') slack: `#torchbox-website-editors`
 
 ###Monitoring
