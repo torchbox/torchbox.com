@@ -9,7 +9,7 @@ The following areas of functionality are critical paths for the site which don't
 ### 1. Content Management
 
 - **Creating, editing, and publishing pages**: Test the functionality of creating new pages, editing existing content, and publishing changes.
-- **Content organization and navigation**: Verify that the site's content hierarchy and navigation structure are maintained correctly after the upgrade.
+- **Content organization and navigation**: Verify that the site's content hierarchy and navigation structure are maintained correctly after the upgrade. See also the [docs on the navigation](navigation.md).
 - **Media management**: Check the uploading, storage, and retrieval of media files, such as images and documents.
 
 ### 2. Templates and Styling
@@ -36,3 +36,19 @@ As well as testing the critical paths, these areas of functionality should be ch
 ### Custom StreamField
 
 As indicated [here](./custom-features/migration-friendly-streamfields.md), this project uses a custom field class (`tbx.core.utils.fields.StreamField`) instead of the usual `wagtail.fields.StreamField` field for streamfield content.
+
+### Page themes
+
+- Ensure that the [page themes](custom-features/theme.md) are still working correctly
+
+### Lite youtube integration
+
+- Check that the [custom lite youtube](front-end/lite-youtube.md) feature is still working for all youtube embeds
+
+### Code blocks using wagtail-markdown
+
+- Check that [code blocks](front-end/markdown-codehilite.md) still display as expected
+
+### Responsive images
+
+- The [responsive images](front-end/responsive-images.md) (picture tags and srcset_image) can use a lot of memory if renditions need to be recreated. Consider any changes that force image renditions to be recreated out of UK working hours, and visit the work listing, blog listing and team pages to force the new renditions to be created.
