@@ -15,6 +15,7 @@
         -webkit-text-fill-color: transparent;
         animation: motifAnimation 1.7s cubic-bezier(0.3, 0, 0.6, 1);
         background-origin: border-box;
+        text-transform: uppercase;
 
         @include reduced-motion() {
             animation: none;
@@ -24,6 +25,8 @@
             animation: none;
         }
 
+        // The letter I gets a special version of the animation so that the flame
+        // is visible in its final resting place
         &--i {
             background-size: 200%;
             animation: motifAnimationForLeterI 1.7s cubic-bezier(0.3, 0, 0.6, 1)
@@ -32,6 +35,23 @@
             @include reduced-motion() {
                 animation: none;
             }
+        }
+
+        // Narrower letters look like they have too much space after them
+        // These classes add a small negative margin on the letters after - using ems to work for different font-sizes
+        // Affects T and Y
+        &--narrowest + span {
+            margin-left: -0.3em;
+        }
+
+        // Affects W
+        &--narrower + span {
+            margin-left: -0.15em;
+        }
+
+        // Affects F and P
+        &--narrow + span {
+            margin-left: -0.05em;
         }
     }
 
