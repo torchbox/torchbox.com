@@ -44,7 +44,12 @@
             margin-left: -0.3em;
         }
 
-        // Affects F,P and W
+        // Affects W
+        &--narrower + span {
+            margin-left: -0.15em;
+        }
+
+        // Affects F and P
         &--narrow + span {
             margin-left: -0.05em;
         }
