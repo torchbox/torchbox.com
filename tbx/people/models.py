@@ -222,18 +222,13 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields,
             return []
 
         # Format for template
-        return [
-            {
-                "title": blog_post.title,
-                "url": blog_post.url,
-                "read_time": blog_post.read_time,
-                "date": blog_post.date,
-                "tags": blog_post.tags,
-            }
-            for blog_post in BlogPage.objects.live()
-            .filter(authors__author=author_snippet)
+        return (
+            BlogPage.objects.filter(authors__author=author_snippet)
+            .live()
+            .public()
+            .prefetch_related("authors__author")
             .order_by("-date")[:3]
-        ]
+        )
 
     @cached_property
     def related_works(self):
@@ -252,6 +247,7 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields,
             WorkPage.objects.filter(authors__author__person_page=self.pk)
             .live()
             .public()
+            .defer_streamfields()
             .distinct()
             .order_by("-date")[:3]
         )
@@ -268,6 +264,7 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields,
                 HistoricalWorkPage.objects.filter(authors__author__person_page=self.pk)
                 .live()
                 .public()
+                .defer_streamfields()
                 .distinct()
                 .order_by("-date")[:remaining_slots]
             )
