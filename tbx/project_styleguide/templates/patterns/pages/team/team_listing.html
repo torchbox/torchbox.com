@@ -1,6 +1,13 @@
 {% extends "patterns/base_page.html" %}
 {% load wagtailcore_tags wagtailimages_tags static %}
 
+{% block meta_tags %}
+    {{ block.super }}
+    {% if 'filter' in request.GET or 'page' in request.GET %}
+        <link rel="canonical" href="{% fullpageurl self %}">
+    {% endif %}
+{% endblock %}
+
 {% block content %}
     <div class="grid">
         {% include "patterns/molecules/title-filters/title-filters--team.html" with tags=tags item=page strapline=page.strapline %}
