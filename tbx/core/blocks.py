@@ -16,6 +16,7 @@ from wagtail.embeds.blocks import EmbedBlock as WagtailEmbedBlock
 from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.exceptions import EmbedException
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtailmarkdown.blocks import MarkdownBlock
 from wagtailmedia.blocks import VideoChooserBlock
@@ -420,6 +421,18 @@ class WorkChooserBlock(blocks.StructBlock):
         min_num=1,
         max_num=3,
     )
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context)
+
+        context["work_pages"] = (
+            Page.objects.filter(pk__in=[page.pk for page in value["work_pages"]])
+            .live()
+            .public()
+            .defer_streamfields()
+            .specific()
+        )
+        return context
 
     class Meta:
         icon = "link"
