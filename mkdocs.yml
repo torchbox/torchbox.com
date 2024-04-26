@@ -87,3 +87,4 @@ nav:
   - 'Data import': 'data-import.md'
   - 'Upgrading guidelines': 'upgrading.md'
   - 'Hotjar tracking in wagtail admin': 'hotjar-tracking.md'
+  - 'Runbook': support-runbook.md
