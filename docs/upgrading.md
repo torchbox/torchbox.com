@@ -52,3 +52,7 @@ As indicated [here](./custom-features/migration-friendly-streamfields.md), this 
 ### Responsive images
 
 - The [responsive images](front-end/responsive-images.md) (`{% srcset_image %}` and `<picture>` tags) can use a lot of memory if renditions need to be recreated. Consider any changes that force image renditions to be recreated out of UK working hours, and visit the work listing, blog listing and team pages to force the new renditions to be created.
+
+### Contact snippets in footer
+
+- Ensure that these still display all the relevant content - title, text, photo, role contact link and button text
