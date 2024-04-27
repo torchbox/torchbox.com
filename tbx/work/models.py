@@ -19,6 +19,7 @@ from tbx.core.utils.models import (
     NavigationFields,
     SocialFields,
 )
+from tbx.images.models import CustomImage
 from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 from tbx.work.blocks import WorkStoryBlock
@@ -278,6 +279,16 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
 
     @property
     def related_works(self):
+        prefetch_listing_images = models.Prefetch(
+            "header_image",
+            queryset=CustomImage.objects.prefetch_renditions(
+                "fill-370x370|format-webp",
+                "fill-370x335|format-webp",
+                "fill-740x740|format-webp",
+                "fill-740x670|format-webp",
+            ),
+        )
+
         # get 3 pages with same services and exclude self page
         return (
             WorkPage.objects.filter(
@@ -287,7 +298,9 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
             .live()
             .public()
             .defer_streamfields()
-            .prefetch_related("related_sectors", "related_services")
+            .prefetch_related(
+                "related_sectors", "related_services", prefetch_listing_images
+            )
             .distinct()
             .order_by(F("date").desc(nulls_last=True))
             .exclude(pk=self.pk)[:3]
@@ -335,6 +348,16 @@ class WorkIndexPage(
 
     @cached_property
     def works(self):
+        prefetch_listing_images = models.Prefetch(
+            "header_image",
+            queryset=CustomImage.objects.prefetch_renditions(
+                "fill-370x370|format-webp",
+                "fill-370x335|format-webp",
+                "fill-740x740|format-webp",
+                "fill-740x670|format-webp",
+            ),
+        )
+
         pages = (
             self.get_children()
             .live()
@@ -348,7 +371,7 @@ class WorkIndexPage(
                 "historicalworkpage__related_services",
                 "authors",
                 "authors__author",
-                "header_image",
+                prefetch_listing_images,
             )
             .annotate(
                 priority=Case(

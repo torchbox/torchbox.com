@@ -15,11 +15,14 @@ from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.embeds.blocks import EmbedBlock as WagtailEmbedBlock
 from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.exceptions import EmbedException
+from wagtail.images import get_image_model
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtailmarkdown.blocks import MarkdownBlock
 from wagtailmedia.blocks import VideoChooserBlock
+
+Image = get_image_model()
 
 logger = logging.getLogger(__name__)
 
@@ -425,11 +428,21 @@ class WorkChooserBlock(blocks.StructBlock):
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context)
 
+        prefetch_listing_images = models.Prefetch(
+            "header_image",
+            queryset=Image.objects.prefetch_renditions(
+                "fill-370x370|format-webp",
+                "fill-370x335|format-webp",
+                "fill-740x740|format-webp",
+                "fill-740x670|format-webp",
+            ),
+        )
         context["work_pages"] = (
             Page.objects.filter(pk__in=[page.pk for page in value["work_pages"]])
             .live()
             .public()
             .defer_streamfields()
+            .prefetch_related(prefetch_listing_images)
             .specific()
         )
         return context
@@ -524,8 +537,38 @@ class BaseEventBlock(blocks.StructBlock):
         return struct_value
 
 
+class EventImageChooserBlock(ImageChooserBlock):
+    @property
+    def _renditions_to_prefetch(self) -> list[str]:
+        return [
+            "fill-430x320|format-webp",
+            "fill-525x510|format-webp",
+            "fill-860x640|format-webp",
+            "fill-1050x1020|format-webp",
+        ]
+
+    def to_python(self, value):
+        if value is None:
+            return value
+        else:
+            try:
+                return self.model_class.objects.prefetch_renditions(
+                    *self._renditions_to_prefetch
+                ).get(pk=value)
+            except self.model_class.DoesNotExist:
+                return None
+
+    def bulk_to_python(self, values):
+        objects = self.model_class.objects.prefetch_renditions(
+            *self._renditions_to_prefetch
+        ).in_bulk(values)
+        return [
+            objects.get(id) for id in values
+        ]  # Keeps the ordering the same as in values.
+
+
 class EventBlock(BaseEventBlock):
-    image = ImageChooserBlock()
+    image = EventImageChooserBlock()
     secondary_link = LinkBlock(required=False, label="Secondary link")
 
     class Meta:

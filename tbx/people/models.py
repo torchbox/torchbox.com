@@ -16,6 +16,7 @@ from tbx.core.utils.models import (
     NavigationFields,
     SocialFields,
 )
+from tbx.images.models import CustomImage
 from tbx.people.blocks import ContactCTABlock
 from tbx.people.forms import ContactAdminForm
 from tbx.taxonomy.models import Team
@@ -242,12 +243,23 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields,
         if not self.pk:
             return []
 
+        prefetch_listing_images = models.Prefetch(
+            "header_image",
+            queryset=CustomImage.objects.prefetch_renditions(
+                "fill-370x370|format-webp",
+                "fill-370x335|format-webp",
+                "fill-740x740|format-webp",
+                "fill-740x670|format-webp",
+            ),
+        )
+
         # Get the latest 3 work pages by this author
         recent_works = (
             WorkPage.objects.filter(authors__author__person_page=self.pk)
             .live()
             .public()
             .defer_streamfields()
+            .prefetch_related(prefetch_listing_images)
             .distinct()
             .order_by("-date")[:3]
         )
@@ -265,6 +277,7 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields,
                 .live()
                 .public()
                 .defer_streamfields()
+                .prefetch_related(prefetch_listing_images)
                 .distinct()
                 .order_by("-date")[:remaining_slots]
             )
@@ -294,12 +307,18 @@ class PersonIndexPage(
 
     @cached_property
     def people(self):
+        prefetch_images = models.Prefetch(
+            "image",
+            queryset=CustomImage.objects.prefetch_renditions(
+                "fill-230x230|format-webp", "fill-370x370|format-webp"
+            ),
+        )
         return (
             PersonPage.objects.child_of(self)
             .order_by("title")
             .live()
             .public()
-            .prefetch_related("image")
+            .prefetch_related(prefetch_images)
         )
 
     def get_context(self, request, *args, **kwargs):
@@ -315,17 +334,6 @@ class PersonIndexPage(
         if slug_filter:
             people = people.filter(related_teams__slug=slug_filter)
             extra_url_params["filter"] = slug_filter
-
-        # format for template
-        people = [
-            {
-                "title": person.title,
-                "url": person.url,
-                "role": person.role,
-                "image": person.image,
-            }
-            for person in people
-        ]
 
         # use page to filter
         page = request.GET.get("page", 1)
