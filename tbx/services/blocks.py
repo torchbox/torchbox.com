@@ -14,11 +14,38 @@ from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
 
+class PartnerLogoImageChooserBlock(ImageChooserBlock):
+    @property
+    def _renditions_to_prefetch(self) -> list[str]:
+        return [
+            "max-100x90|format-webp",
+        ]
+
+    def to_python(self, value):
+        if value is None:
+            return value
+        else:
+            try:
+                return self.model_class.objects.prefetch_renditions(
+                    *self._renditions_to_prefetch
+                ).get(pk=value)
+            except self.model_class.DoesNotExist:
+                return None
+
+    def bulk_to_python(self, values):
+        objects = self.model_class.objects.prefetch_renditions(
+            *self._renditions_to_prefetch
+        ).in_bulk(values)
+        return [
+            objects.get(_id) for _id in values
+        ]  # Keeps the ordering the same as in values.
+
+
 class PartnersBlock(blocks.StructBlock):
     title = blocks.CharBlock(
         max_length=255,
     )
-    partner_logos = blocks.ListBlock(ImageChooserBlock(), label="Logos")
+    partner_logos = blocks.ListBlock(PartnerLogoImageChooserBlock(), label="Logos")
 
     class Meta:
         icon = "openquote"
