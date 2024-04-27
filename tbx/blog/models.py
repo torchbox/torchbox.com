@@ -19,6 +19,7 @@ from tbx.core.utils.models import (
     NavigationFields,
     SocialFields,
 )
+from tbx.images.models import CustomImage
 from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -42,12 +43,25 @@ class BlogIndexPage(
 
     @property
     def blog_posts(self):
+        prefetch_author_images = models.Prefetch(
+            "authors__author__image",
+            queryset=CustomImage.objects.prefetch_renditions(
+                "format-webp|fill-72x72",
+                "format-webp|fill-144x144",
+                "format-webp|fill-286x286",
+            ),
+        )
         # Get list of blog pages that are descendants of this page
         blog_posts = (
             BlogPage.objects.live()
             .descendant_of(self)
             .distinct()
-            .prefetch_related("authors__author")
+            .prefetch_related(
+                "authors__author",
+                "related_sectors",
+                "related_services",
+                prefetch_author_images,
+            )
         )
 
         # Order by most recent date first
@@ -71,20 +85,6 @@ class BlogIndexPage(
                 | Q(related_services__slug=slug_filter)
             )
             extra_url_params["filter"] = slug_filter
-
-        # format for template
-        blog_posts = [
-            {
-                "title": blog_post.title,
-                "url": blog_post.url,
-                "author": blog_post.first_author,
-                "date": blog_post.date,
-                "read_time": blog_post.read_time,
-                "type": blog_post.type,
-                "tags": blog_post.tags,
-            }
-            for blog_post in blog_posts
-        ]
 
         # use page to filter
         page = request.GET.get("page", 1)

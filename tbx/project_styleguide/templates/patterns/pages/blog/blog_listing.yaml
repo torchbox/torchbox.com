@@ -20,7 +20,7 @@ context:
     - title: Explore the potential of AI in content management
       date: 20 Oct 2023
       read_time: '5'
-      author:
+      first_author:
         name: Paul Vetch
         role: Strategy Director
       tags:
@@ -32,7 +32,7 @@ context:
     - title: Wagtail for Public Sector
       date: 20 Oct 2023
       read_time: '5'
-      author:
+      first_author:
         name: Paul Vetch
         role: Strategy Director
       tags:
@@ -44,7 +44,7 @@ context:
     - title: Explore the potential of AI in content management
       date: 20 Oct 2023
       read_time: '5'
-      author:
+      first_author:
         name: Paul Vetch
         role: Strategy Director
       tags:
@@ -56,7 +56,7 @@ context:
     - title: Wagtail for Public Sector
       date: 20 Oct 2023
       read_time: '5'
-      author:
+      first_author:
         name: Will Heinemann
         role: New Business Director
       tags:
@@ -68,7 +68,7 @@ context:
     - title: Explore the potential of AI in content management
       date: 20 Oct 2023
       read_time: '5'
-      author:
+      first_author:
         name: Will Heinemann
         role: New Business Director
       tags:
@@ -80,7 +80,7 @@ context:
     - title: Wagtail for Public Sector
       date: 20 Oct 2023
       read_time: '5'
-      author:
+      first_author:
         name: Will Heinemann
         role: New Business Director
       tags:
@@ -102,6 +102,8 @@ tags:
     item as index:
       target_var: index
       raw: '#'
+    post as link:
+      raw: 'blog_detail.html'
   footerlinks:
     '':
       template_name: 'patterns/navigation/components/footer-links.html'
