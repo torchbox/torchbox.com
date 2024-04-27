@@ -1,5 +1,3 @@
-from itertools import product
-
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 
@@ -41,22 +39,18 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
     def save(self, **kwargs):
         super().save(**kwargs)
 
-        fragment_keys = ["primarynav"]
+        fragment_keys = ["primarynav", "primarynavmobile", "footerlinks"]
 
         # The fragment cache varies on:
-        # the current site pk, whether used in preview, or in the pattern library
+        # the current site pk, whether used in the pattern library
 
-        request_is_preview_options = [True, False]
         # NOTE: `is_pattern_library` returns True if pattern is being rendered in the pattern library,
         # but it doesn't return False if otherwise, hence the empty string instead of False
         is_pattern_library_options = [True, ""]
 
-        # Generate all combinations of `request_is_preview` and `is_pattern_library`
-        combinations = product(request_is_preview_options, is_pattern_library_options)
-
         keys = [
-            make_template_fragment_key(key, vary_on=(self.site.pk,) + combination)
+            make_template_fragment_key(key, vary_on=(self.site.pk, is_pattern_library))
+            for is_pattern_library in is_pattern_library_options
             for key in fragment_keys
-            for combination in combinations
         ]
         cache.delete_many(keys)
