@@ -7,7 +7,7 @@
                 {% with children=link.get_children.live.public.in_menu.specific %}
                     <a
                         class="sub-nav-desktop__link {% if children and child_display != 'hide_children' %}sub-nav-desktop__link--has-children{% else %}sub-nav-desktop__link--no-children{% endif %}"
-                        href="{{ link.url }}"
+                        href="{% pageurl link %}"
                     >
                         {{ link.nav_text }}
                     </a>

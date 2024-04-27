@@ -16,17 +16,17 @@ The `child_display` has 3 possible values:
                     {% if children and child_display != 'hide_children' %}
                         data-open-subnav aria-haspopup="true" aria-expanded="false"
                     {% endif %}
-                    href="{{ link.url }}"
+                    href="{% if link.page %}{% pageurl link.page %}{% elif link.external_link %}{{ link.external_link }}{% endif %}"
                 >
                     <span class="primary-nav-mobile__text">{{ link.text }}</span>
                     {% if children and child_display != 'hide_children' %}
                         {# mobile arrow #}
-                        {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-mobile__icon-mobile" %}
+                        {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-mobile__icon-mobile" only %}
                     {% endif %}
                 </a>
 
                 {% if children and child_display != 'hide_children' %}
-                    {% include "patterns/navigation/components/includes/subnav-menu-mobile.html" with links=children parent=link %}
+                    {% include "patterns/navigation/components/includes/subnav-menu-mobile.html" with links=children parent=link only %}
                 {% endif %}
             {% endwith %}
         </li>

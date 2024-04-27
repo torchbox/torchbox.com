@@ -5,7 +5,7 @@ context:
       value:
         child_display_behaviour: 'show_up_to_level2'
         text: Services
-        url: '#'
+        external_url: '#'
         page:
           get_children:
             live:
@@ -55,7 +55,7 @@ context:
       value:
         child_display_behaviour: 'show_up_to_level1'
         text: Sectors
-        url: '#'
+        external_url: '#'
         page:
           get_children:
             live:
@@ -77,7 +77,7 @@ context:
       value:
         child_display_behaviour: 'show_up_to_level1'
         text: About
-        url: '#'
+        external_url: '#'
         page:
           get_children:
             live:
@@ -106,13 +106,15 @@ context:
       value:
         child_display_behaviour: 'hide-children'
         text: Thinking
-        url: '#'
+        external_link: '#'
     - item:
       value:
         child_display_behaviour: 'hide-children'
         text: Work
-        url: '#'
+        external_link: '#'
 tags:
   pageurl:
     'link.url':
+      raw: '#'
+    link:
       raw: '#'
