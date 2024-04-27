@@ -24,7 +24,7 @@ context:
     related_blog_posts:
       - link: '/'
         title: Reimagining our Agile training and ways of working
-        author:
+        first_author:
           name: Suzanne Begley
           role: Product Director
         date: 05 Sep 23
@@ -37,7 +37,7 @@ context:
             slug: culture
       - link: '/'
         title: The future of AI in healthcare
-        author:
+        first_author:
           name: Emily Johnson
           role: Data Scientist
         date: 05 Sep 23
@@ -50,7 +50,7 @@ context:
             slug: healthcare
       - link: '/'
         title: The impact of machine learning in finance
-        author:
+        first_author:
           name: Sarah Thompson
           role: Financial Analyst
         date: 05 Sep 23

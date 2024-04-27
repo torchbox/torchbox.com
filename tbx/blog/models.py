@@ -180,30 +180,35 @@ class BlogPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
     def tags(self):
         return chain(self.services, self.sectors)
 
-    @property
+    @cached_property
     def related_blog_posts(self):
-        # format for template
-        return [
-            {
-                "title": blog_post.title,
-                "url": blog_post.url,
-                "author": blog_post.first_author,
-                "date": blog_post.date,
-                "read_time": blog_post.read_time,
-                "type": blog_post.type,
-                "tags": self.tags,
-            }
-            for blog_post in BlogPage.objects.filter(
+        prefetch_author_images = models.Prefetch(
+            "authors__author__image",
+            queryset=CustomImage.objects.prefetch_renditions(
+                "format-webp|fill-72x72",
+                "format-webp|fill-144x144",
+                "format-webp|fill-286x286",
+            ),
+        )
+
+        return (
+            BlogPage.objects.filter(
                 Q(related_sectors__in=self.sectors)
                 | Q(related_services__in=self.services)
             )
             .live()
-            .prefetch_related("related_sectors", "related_services")
+            .public()
             .defer_streamfields()
+            .prefetch_related(
+                "authors__author",
+                "related_sectors",
+                "related_services",
+                prefetch_author_images,
+            )
             .distinct()
             .order_by("-date")
             .exclude(pk=self.pk)[:3]
-        ]
+        )
 
     @cached_property
     def blog_index(self):
@@ -216,7 +221,7 @@ class BlogPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
             # just return first blog index in database
             return BlogIndexPage.objects.first()
 
-    @property
+    @cached_property
     def first_author(self):
         """Safely return the first author if one exists."""
         author = self.authors.first()
