@@ -42,13 +42,13 @@
 
     {% if page.social_image or page.feed_image or page.header_image or page.hero_image %}
         {% if page.social_image %}
-            {% image page.social_image width-1000 as twitter_image %}
+            {% image page.social_image format-webp width-1000 as twitter_image %}
         {% elif page.feed_image %}
-            {% image page.feed_image width-1000 as twitter_image %}
+            {% image page.feed_image format-webp width-1000 as twitter_image %}
         {% elif page.header_image %}
-            {% image page.header_image width-1000 as twitter_image %}
+            {% image page.header_image format-webp width-1000 as twitter_image %}
         {% elif page.hero_image %}
-            {% image page.hero_image width-1000 as twitter_image %}
+            {% image page.hero_image format-webp width-1000 as twitter_image %}
         {% endif %}
         {# This will give a full path to the image when on staging or production because S3 storage is used. If testing locally, make sure you use the default localhost:8000 url. Testing via :3000 will give peculiar results. #}
         <meta name="twitter:image" content="{{ twitter_image.url }}">
@@ -58,7 +58,7 @@
     {% else %}
         {# Use default social sharing image #}
         {% with page.theme_class|default:'theme-coral' as image_theme %}
-            {% with 'images/social/twitter-'|add:image_theme|add:'.png' as twitter_default_image %}
+            {% with 'images/social/twitter-'|add:image_theme|add:'.webp' as twitter_default_image %}
                 <meta name="twitter:image" content="{{ current_site.root_url }}{% static twitter_default_image %}">
             {% endwith %}
         {% endwith %}
@@ -77,13 +77,13 @@
 
     {% if page.social_image or page.feed_image or page.header_image or page.hero_image %}
         {% if page.social_image %}
-            {% image page.social_image fill-1200x630 as og_image %}
+            {% image page.social_image format-webp fill-1200x630 as og_image %}
         {% elif page.feed_image %}
-            {% image page.feed_image fill-1200x630 as og_image %}
+            {% image page.feed_image format-webp fill-1200x630 as og_image %}
         {% elif page.header_image %}
-            {% image page.header_image fill-1200x630 as og_image %}
+            {% image page.header_image format-webp fill-1200x630 as og_image %}
         {% elif page.hero_image %}
-            {% image page.hero_image fill-1200x630 as og_image %}
+            {% image page.hero_image format-webp fill-1200x630 as og_image %}
         {% endif %}
         {# This will give a full path to the image when on staging or production because S3 storage is used. If testing locally, make sure you use the default localhost:8000 url. Testing via :3000 will give peculiar results. #}
         <meta property="og:image" content="{{ og_image.url }}" />
@@ -92,7 +92,7 @@
     {% else %}
         {# Use default social sharing image #}
         {% with page.theme_class|default:'theme-coral' as image_theme %}
-            {% with 'images/social/og-'|add:image_theme|add:'.png' as og_default_image %}
+            {% with 'images/social/og-'|add:image_theme|add:'.webp' as og_default_image %}
                 <meta name="og:image" content="{{ current_site.root_url }}{% static og_default_image %}">
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />
