@@ -20,7 +20,9 @@ class LinkBlockStructValue(blocks.StructValue):
     def text(self):
         if self.get("page") and not self.get("title"):
             return self.get("page").title
-        return self.get("title")
+        if title := self.get("title"):
+            return title
+        return ""
 
     def is_page(self):
         return bool(self.get("page"))
