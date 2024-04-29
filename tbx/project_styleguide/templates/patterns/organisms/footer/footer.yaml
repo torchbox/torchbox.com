@@ -14,22 +14,22 @@ context:
           - value:
               link:
                 url: '#'
-                text: 'Certififed B-Corp Company'
+              alt_text: 'Certififed B-Corp Company'
               image: fake
           - value:
               link:
                 url: '#'
-                text: 'We are an employee owned digital agency'
+              alt_text: 'We are an employee owned digital agency'
               image: fake
           - value:
               link:
                 url: '#'
-                text: 'Officially a World Class Company to Work For'
+              alt_text: 'Officially a World Class Company to Work For'
               image: fake
           - value:
               link:
                 url: '#'
-                text: 'We are carbon neutral'
+              alt_text: 'We are carbon neutral'
               image: fake
 
 tags:
