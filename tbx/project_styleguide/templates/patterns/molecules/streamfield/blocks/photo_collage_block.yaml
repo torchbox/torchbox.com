@@ -17,10 +17,10 @@ tags:
   srcset_image:
     'item.image format-webp loading="lazy" fill-{348x484,696x968} sizes="(max-width: 598px) 696px, (min-width: 599px) 348px" class="photo-collage__image" alt=item.image_alt_text':
       raw: |
-        <img alt="alt text" class="photo-collage__image" height="484" loading="lazy" sizes="(max-width: 598px) 696px, (min-width: 599px) 348px" src="https://source.unsplash.com/348x484?people" srcset="https://source.unsplash.com/408x405?people 348w, https://source.unsplash.com/696x968?people 470w" width="348">
+        <img alt="alt text" class="photo-collage__image" height="484" loading="lazy" sizes="(max-width: 598px) 696px, (min-width: 599px) 348px" src="https://picsum.photos/348/484.webp" srcset="https://picsum.photos/408/405.webp 348w, https://picsum.photos/696/968.webp 470w" width="348">
     'item.image format-webp loading="lazy" fill-{408x405,816x810} sizes="(max-width: 598px) 816px, (min-width: 599px) 408px" class="photo-collage__image" alt=item.image_alt_text':
       raw: |
-        <img alt="alt text" class="photo-collage__image" height="405" loading="lazy" sizes="(max-width: 598px) 816px, (min-width: 599px) 408px" src="https://source.unsplash.com/408x405?people" srcset="https://source.unsplash.com/408x405?people 408w, https://source.unsplash.com/816x810?people 816w" width="408">
+        <img alt="alt text" class="photo-collage__image" height="405" loading="lazy" sizes="(max-width: 598px) 816px, (min-width: 599px) 408px" src="https://picsum.photos/408/405.webp" srcset="https://picsum.photos/408/405.webp 408w, https://picsum.photos/816/810.webp 816w" width="408">
     'item.image format-webp loading="lazy" fill-{288x288,576x576} sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" class="photo-collage__image" alt=item.image_alt_text':
       raw: |
-        <img alt="alt text" class="photo-collage__image" height="288" loading="lazy" sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" src="https://source.unsplash.com/288x288?people" srcset="https://source.unsplash.com/288x288?people 288w, https://source.unsplash.com/576x576?people 576w" width="288">
+        <img alt="alt text" class="photo-collage__image" height="288" loading="lazy" sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" src="https://picsum.photos/288/288.webp" srcset="https://picsum.photos/288/288.webp 288w, https://picsum.photos/576/576.webp 576w" width="288">
