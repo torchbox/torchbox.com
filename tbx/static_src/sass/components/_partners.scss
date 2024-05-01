@@ -3,11 +3,19 @@
 .partners {
     $root: &;
 
+    @mixin partner-logo-sizes() {
+        width: 100%;
+        height: 100%;
+        max-width: 100px;
+        max-height: 90px;
+    }
+
     &__logos {
         display: flex;
         flex-wrap: wrap;
         gap: $spacer-mini;
         justify-content: center;
+        align-items: center;
 
         @include media-query(large) {
             justify-content: flex-start;
@@ -38,19 +46,22 @@
 
         #{$root}__logos--wide & {
             @include media-query('x-large') {
-                width: auto;
-                height: auto;
+                @include partner-logo-sizes();
             }
         }
     }
 
     &__logo {
+        @include partner-logo-sizes();
         filter: grayscale(1) invert(1) brightness(1.5);
-        width: auto;
-        height: auto;
+        object-fit: contain;
 
         @include high-contrast-light-mode() {
             filter: none;
         }
+    }
+
+    &__logo-picture {
+        @include partner-logo-sizes();
     }
 }
