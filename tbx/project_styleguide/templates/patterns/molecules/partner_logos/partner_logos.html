@@ -8,7 +8,7 @@
 
             <picture class="partners__logo-picture">
                 <source srcset="{{ partner_logo_image.url }} 1x, {{ partner_logo_image_retina.url }} 2x" />
-                <img src="{{ partner_logo_image.url }}" alt="{{ partner_logo_image.alt }}" class="partners__logo" />
+                <img src="{{ partner_logo_image.url }}" alt="{{ partner_logo_image.alt }}" class="partners__logo" {% if not is_home_page %}loading="lazy"{% endif %} />
             </picture>
         </div>
     {% endfor %}
