@@ -163,7 +163,7 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['is_home_page'] = True
+        context["is_home_page"] = True
         return context
 
 
