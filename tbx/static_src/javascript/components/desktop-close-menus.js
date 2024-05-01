@@ -30,11 +30,7 @@ class DesktopCloseMenus {
             }
         });
 
-        if (
-            this.mobileNav.contains(e.target) ||
-            this.mobileNavToggle.contains(e.target) ||
-            this.mobileNav.classList.contains('is-visible')
-        ) {
+        if (this.mobileNav.classList.contains('is-visible')) {
             // don't close the menus (or allow the page to scroll) if we are opening the mobile menu or clicking on it
             close = false;
         }
