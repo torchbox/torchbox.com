@@ -54,32 +54,32 @@ tags:
   srcset_image:
     'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
       raw: |
-        <img alt="" class="avatar__image" height="72" loading="lazy" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
+        <img alt="" class="avatar__image" height="72" loading="lazy" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://picsum.photos/72/72.webp" srcset="https://picsum.photos/72/72.webp 72w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="72">
     'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
       raw: |
-        <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
+        <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://picsum.photos/72/72.webp" srcset="https://picsum.photos/72/72.webp 72w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="72">
   image:
     # listing image for related pages
     listing_image fill-370x370 format-webp as listing_desktop_image:
       target_var: listing_desktop_image
       raw:
         alt: 'desktop image'
-        url: 'https://source.unsplash.com/370x370?trees'
+        url: 'https://picsum.photos/370/370.webp'
     listing_image fill-740x740 format-webp as listing_desktop_image_retina:
       target_var: listing_desktop_image_retina
       raw:
         alt: 'desktop image retina'
-        url: 'https://source.unsplash.com/740x740?trees'
+        url: 'https://picsum.photos/740/740.webp'
     listing_image fill-370x335 format-webp as listing_mobile_image:
       target_var: listing_mobile_image
       raw:
         alt: 'mobile image'
-        url: 'https://source.unsplash.com/370x335?trees'
+        url: 'https://picsum.photos/370/335.webp'
     listing_image fill-740x670 format-webp as listing_mobile_image_retina:
       target_var: listing_mobile_image_retina
       raw:
         alt: 'mobile image retina'
-        url: 'https://source.unsplash.com/740x670?trees'
+        url: 'https://picsum.photos/740/670.webp'
   pageurl:
     page.work_index as work_index_url:
       raw: '#'

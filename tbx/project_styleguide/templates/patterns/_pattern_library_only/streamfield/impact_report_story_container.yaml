@@ -46,10 +46,10 @@ tags:
   # Image block
   srcset_image:
     'value.image format-webp width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" alt=value.alt_text':
-      raw: '<img alt="Screenshot of workshop to establish tone" height="225" loading="lazy" sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" src="https://source.unsplash.com/400x225?trees" srcset="https://source.unsplash.com/400x225?trees 400w, https://source.unsplash.com/900x506?trees 900w, https://source.unsplash.com/1600x900?trees 900w, https://source.unsplash.com/1800x1013?trees 1600w" width="400">'
+      raw: '<img alt="Screenshot of workshop to establish tone" height="225" loading="lazy" sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" src="https://picsum.photos/400/225.webp" srcset="https://picsum.photos/400/225.webp 400w, https://picsum.photos/900/506.webp 900w, https://picsum.photos/1600/900.webp 900w, https://picsum.photos/1800/1013.webp 1600w" width="400">'
     # Wide image block
     'wide_image format-webp width-{400,800,1600,1280} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt=value.alt_text':
-      raw: '<img alt="Screenshot of workshop to establish tone" height="225" sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" src="https://source.unsplash.com/400x225?trees" srcset="https://source.unsplash.com/400x225?trees 400w, https://source.unsplash.com/800x450?trees 800w, https://source.unsplash.com/1600x900?trees 1153w, https://source.unsplash.com/1280x720?trees 1153w" width="400">'
+      raw: '<img alt="Screenshot of workshop to establish tone" height="225" sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" src="https://picsum.photos/400/225.webp" srcset="https://picsum.photos/400/225.webp 400w, https://picsum.photos/800/450.webp 800w, https://picsum.photos/1600/900.webp 1153w, https://picsum.photos/1280/720.webp 1153w" width="400">'
 
     # Instagram block image
     'post.image format-webp fill-{250x250,500x500} sizes="(max-width: 598px) 50vw, (max-width: 1021px) 25vw, (min-width: 1022px) 250px" class="instagram-post__image" loading="lazy"':

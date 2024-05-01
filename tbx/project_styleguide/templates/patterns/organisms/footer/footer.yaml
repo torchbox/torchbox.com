@@ -36,14 +36,14 @@ tags:
   srcset_image:
     'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
       raw: |
-        <img alt="" class="avatar__image" height="72" loading="lazy" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
+        <img alt="" class="avatar__image" height="72" loading="lazy" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://picsum.photos/72/72.webp" srcset="https://picsum.photos/72/72.webp 72w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="72">
     'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
       raw: |
-        <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://source.unsplash.com/72x72?face" srcset="https://source.unsplash.com/72x72?face 72w, https://source.unsplash.com/144x144?face 144w, https://source.unsplash.com/286x286?face 286w" width="72">
+        <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://picsum.photos/72/72.webp" srcset="https://picsum.photos/72/72.webp 72w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="72">
   image:
     logo.image max-100x100 format-webp loading="lazy" class="footer__logo" alt=logo.alt_text|default:logo.image.title:
       raw: |
-        <img src="https://source.unsplash.com/100x100?logo" width="100" height="100" alt="test alt" class="footer__logo">
+        <img src="https://picsum.photos/100/100.webp" width="100" height="100" alt="test alt" class="footer__logo">
   footerlinks:
     '':
       template_name: 'patterns/navigation/components/footer-links.html'

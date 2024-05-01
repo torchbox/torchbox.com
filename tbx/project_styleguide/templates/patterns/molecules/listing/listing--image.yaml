@@ -17,19 +17,19 @@ tags:
       target_var: listing_desktop_image
       raw:
         alt: 'desktop image'
-        url: 'https://source.unsplash.com/370x370?trees'
+        url: 'https://picsum.photos/370/370.webp'
     listing_image fill-740x740 format-webp as listing_desktop_image_retina:
       target_var: listing_desktop_image_retina
       raw:
         alt: 'desktop image retina'
-        url: 'https://source.unsplash.com/740x740?trees'
+        url: 'https://picsum.photos/740/740.webp'
     listing_image fill-370x335 format-webp as listing_mobile_image:
       target_var: listing_mobile_image
       raw:
         alt: 'mobile image'
-        url: 'https://source.unsplash.com/370x335?trees'
+        url: 'https://picsum.photos/370/335.webp'
     listing_image fill-740x670 format-webp as listing_mobile_image_retina:
       target_var: listing_mobile_image_retina
       raw:
         alt: 'mobile image retina'
-        url: 'https://source.unsplash.com/740x670?trees'
+        url: 'https://picsum.photos/740/670.webp'

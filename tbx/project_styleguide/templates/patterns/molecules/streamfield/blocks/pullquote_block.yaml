@@ -14,4 +14,4 @@ tags:
   image:
     value.logo max-110x70 format-webp class="pullquote__company-logo":
       raw: |
-        <img src="https://source.unsplash.com/110x70?logo" width="110" height="70" alt="Some alt" class="pullquote__company-logo">
+        <img src="https://picsum.photos/110/70.webp" width="110" height="70" alt="Some alt" class="pullquote__company-logo">
