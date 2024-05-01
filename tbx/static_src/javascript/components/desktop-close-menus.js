@@ -11,6 +11,10 @@ class DesktopCloseMenus {
         this.allPrimaryNavs = document.querySelectorAll(
             '[data-desktop-menu] [data-primary-nav]',
         );
+        this.mobileNav = document.querySelector('[data-mobile-menu]');
+        this.mobileNavToggle = document.querySelector(
+            '[data-mobile-menu-toggle]',
+        );
         this.body = document.querySelector('body');
         this.bindEvents();
     }
@@ -25,6 +29,11 @@ class DesktopCloseMenus {
                 close = false;
             }
         });
+
+        if (this.mobileNav.classList.contains('is-visible')) {
+            // don't close the menus (or allow the page to scroll) if we are opening the mobile menu or clicking on it
+            close = false;
+        }
 
         if (close) {
             this.desktopSubMenus.forEach((item) => {
