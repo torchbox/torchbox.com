@@ -7,6 +7,14 @@
 {% image listing_image fill-740x670 format-webp as listing_mobile_image_retina %}
 
 <li class="listing-image listing {{ base_class }}">
+    {% comment %}
+    Reminder: please update the prefetched renditions list
+    - core.blocks.WorkChooserBlock.get_context()
+    - people.models.PersonPage.related_works()
+    - work.models.WorkPage.related_works()
+    - work.models.WorkIndex.works()
+    if you change any of the image filters.
+    {% endcomment %}
     {# alt text is empty for consistency with listing--avatar.html that includes avatar.html which has empty alt text #}
     <picture class="listing-image__picture">
         <source media="(max-width: 598px)" srcset="{{  listing_mobile_image.url }} 1x, {{ listing_mobile_image_retina.url }} 2x" width="{{ listing_mobile_image.width }}" height="{{ listing_mobile_image.height }}" />

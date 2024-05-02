@@ -16,6 +16,7 @@
             {% for member in people %}
                 <li class="team-listing__item">
                     {# lazy load after the first five #}
+                    {# Note: please update the prefetched renditions in people.models.PersonIndexPage.people() if you change the rendition filters #}
                     {% if forloop.counter > 5 %}
                         {% srcset_image member.image fill-{230x230,370x370} format-webp sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="team-listing__image" alt="" loading="lazy" %}
                     {% else %}

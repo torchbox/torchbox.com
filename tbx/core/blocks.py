@@ -10,19 +10,17 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 
+from tbx.images.models import CustomImage
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.embeds.blocks import EmbedBlock as WagtailEmbedBlock
 from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.exceptions import EmbedException
-from wagtail.images import get_image_model
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtailmarkdown.blocks import MarkdownBlock
 from wagtailmedia.blocks import VideoChooserBlock
-
-Image = get_image_model()
 
 logger = logging.getLogger(__name__)
 
@@ -430,7 +428,7 @@ class WorkChooserBlock(blocks.StructBlock):
 
         prefetch_listing_images = models.Prefetch(
             "header_image",
-            queryset=Image.objects.prefetch_renditions(
+            queryset=CustomImage.objects.prefetch_renditions(
                 "fill-370x370|format-webp",
                 "fill-370x335|format-webp",
                 "fill-740x740|format-webp",

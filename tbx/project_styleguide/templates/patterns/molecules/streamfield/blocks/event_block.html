@@ -42,6 +42,7 @@
             {% endwith %}
         {% endif %}
     </div>
+    {# Note: update core.blocks.EventImageChooserBlock._renditions_to_prefetch() if you change the rendition filters #}
     {% image value.image fill-430x320 format-webp as mobile_image %}
     {% image value.image fill-860x640 format-webp as mobile_image_retina %}
     {% image value.image fill-525x510 format-webp as desktop_image %}
