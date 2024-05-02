@@ -2,9 +2,9 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.forms.utils import ErrorList
 
+from tbx.core.blocks import CustomImageChooserBlock
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
-from wagtail.images.blocks import ImageChooserBlock
 
 
 class LinkBlockStructValue(blocks.StructValue):
@@ -133,7 +133,7 @@ class PrimaryNavLinkBlock(LinkBlock):
 
 
 class FooterLogoBlock(blocks.StructBlock):
-    image = ImageChooserBlock()
+    image = CustomImageChooserBlock()
     link = FooterLinkBlock()
     alt_text = blocks.CharBlock(
         label="Alt text",

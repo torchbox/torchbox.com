@@ -71,6 +71,25 @@ class LinkBlock(blocks.StreamBlock):
         max_num = 1
 
 
+class CustomImageChooserBlock(ImageChooserBlock):
+    """A custom ImageChooserBlock that prefetches the image renditions"""
+
+    def to_python(self, value):
+        if value is None:
+            return value
+        else:
+            try:
+                return self.model_class.objects.prefetch_renditions().get(pk=value)
+            except self.model_class.DoesNotExist:
+                return None
+
+    def bulk_to_python(self, values):
+        objects = self.model_class.objects.prefetch_renditions().in_bulk(values)
+        return [
+            objects.get(_id) for _id in values
+        ]  # Keeps the ordering the same as in values.
+
+
 class ImageFormatChoiceBlock(blocks.FieldBlock):
     """
     This block is no longer in use. However, because several migrations
@@ -94,7 +113,7 @@ class ImageWithAltTextBlock(blocks.StructBlock):
     Allows for specifying optional alt text for an image.
     """
 
-    image = ImageChooserBlock()
+    image = CustomImageChooserBlock()
     alt_text = blocks.CharBlock(
         required=False,
         help_text="By default the image title (shown above) is used as the alt text. "
@@ -122,7 +141,7 @@ class ImageBlock(ImageWithAltTextBlock):
 
 
 class ImageWithLinkBlock(blocks.StructBlock):
-    image = ImageChooserBlock()
+    image = CustomImageChooserBlock()
     link = LinkBlock(required=False)
 
     class Meta:
@@ -535,38 +554,8 @@ class BaseEventBlock(blocks.StructBlock):
         return struct_value
 
 
-class EventImageChooserBlock(ImageChooserBlock):
-    @property
-    def _renditions_to_prefetch(self) -> list[str]:
-        return [
-            "fill-430x320|format-webp",
-            "fill-525x510|format-webp",
-            "fill-860x640|format-webp",
-            "fill-1050x1020|format-webp",
-        ]
-
-    def to_python(self, value):
-        if value is None:
-            return value
-        else:
-            try:
-                return self.model_class.objects.prefetch_renditions(
-                    *self._renditions_to_prefetch
-                ).get(pk=value)
-            except self.model_class.DoesNotExist:
-                return None
-
-    def bulk_to_python(self, values):
-        objects = self.model_class.objects.prefetch_renditions(
-            *self._renditions_to_prefetch
-        ).in_bulk(values)
-        return [
-            objects.get(id) for id in values
-        ]  # Keeps the ordering the same as in values.
-
-
 class EventBlock(BaseEventBlock):
-    image = EventImageChooserBlock()
+    image = CustomImageChooserBlock()
     secondary_link = LinkBlock(required=False, label="Secondary link")
 
     class Meta:
@@ -577,7 +566,7 @@ class EventBlock(BaseEventBlock):
 class PromoBlock(blocks.StructBlock):
     title = blocks.TextBlock()
     description = blocks.TextBlock()
-    image = ImageChooserBlock()
+    image = CustomImageChooserBlock()
     button_text = blocks.CharBlock(max_length=55)
     button_link = blocks.StreamBlock(
         [
