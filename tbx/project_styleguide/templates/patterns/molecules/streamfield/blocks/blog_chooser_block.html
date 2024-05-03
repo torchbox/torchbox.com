@@ -5,6 +5,7 @@
 <ul class="grid__related-posts streamfield__related-posts mb-spacerMedium lg:mb-spacerLarge">
     {% for blog_page in value.blog_pages %}
         {% pageurl blog_page.blog_index as blog_index_url %}
-        {% include "patterns/molecules/listing/listing--avatar.html" with title=blog_page.title name=blog_page.first_author.name job_title=blog_page.first_author.role link=blog_page.url date=blog_page.date reading_time=blog_page.read_time tags=blog_page.tags avatar=blog_page.first_author.image tag_link_base=blog_index_url %}
+        {% pageurl blog_page as blog_post_url %}
+        {% include "patterns/molecules/listing/listing--avatar.html" with title=blog_page.title name=blog_page.first_author.name job_title=blog_page.first_author.role link=blog_post_url date=blog_page.date reading_time=blog_page.read_time tags=blog_page.tags avatar=blog_page.first_author.image tag_link_base=blog_index_url %}
     {% endfor %}
 </ul>

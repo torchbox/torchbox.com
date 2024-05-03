@@ -61,6 +61,10 @@ tags:
   # page url
   pageurl:
     blog_page.blog_index as blog_index_url:
-      raw: '/'
-    work_page.specific.work_index as work_index_url:
-      raw: '/'
+      raw: '../../pages/blog/blog_listing.html'
+    blog_page as blog_post_url:
+      raw: '../../pages/blog/blog_detail.html'
+    work_page.work_index as work_index_url:
+      raw: '../../pages/work/work_index_page.html'
+    work_page as work_page_url:
+      raw: '../../pages/work/work_page.html'

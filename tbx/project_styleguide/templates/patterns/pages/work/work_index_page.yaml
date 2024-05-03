@@ -105,6 +105,8 @@ tags:
     item as index:
       target_var: index
       raw: '#'
+    post as post_url:
+      raw: 'work_page.html'
   footerlinks:
     '':
       template_name: 'patterns/navigation/components/footer-links.html'
