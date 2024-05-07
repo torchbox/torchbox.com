@@ -27,6 +27,7 @@
 
 - [ ] Updated build docs
 - [ ] Updated editor guidelines (https://docs.google.com/document/d/1PAWccdQ4tfaZsrEWmpDhvP3GH5RRmBOARFVp4b-kje8/edit?usp=sharing)
+- [ ] Updated field spec (https://docs.google.com/spreadsheets/d/1v1yqcSC54Vag4mxmTp8e6ZrnxITqzbjCA4A9XPQdXk8/edit?usp=sharing)
 - [ ] Not required
 
 #### Browser testing

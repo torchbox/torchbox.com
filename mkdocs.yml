@@ -58,6 +58,7 @@ nav:
   - 'Infrastructure': 'infrastructure.md'
   - 'Project conventions': 'project-conventions.md'
   - 'Page models': 'page-models.md'
+  - 'Accessibility testing': 'accessibility-testing.md'
   - 'Deployment': 'deployment.md'
   - 'VSCode Dev container': 'vscode-dev-container.md'
   - 'Front end':
