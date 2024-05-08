@@ -86,7 +86,8 @@
 
             <ul class="grid__related-posts streamfield__related-posts">
                 {% for work_page in page.related_works %}
-                    {% include "patterns/molecules/listing/listing--image.html" with listing_image=work_page.listing_image title=work_page.title name=work_page.client link=work_page.url date=work_page.date reading_time=work_page.read_time tags=work_page.tags %}
+                    {% pageurl work_page as work_page_url %}
+                    {% include "patterns/molecules/listing/listing--image.html" with listing_image=work_page.header_image title=work_page.title name=work_page.client link=work_page_url date=work_page.date reading_time=work_page.read_time tags=work_page.tags %}
                 {% endfor %}
 
                 <li class="mx-auto lg:mx-0 mt-spacerSmall">

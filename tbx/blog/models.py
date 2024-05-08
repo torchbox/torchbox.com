@@ -19,6 +19,7 @@ from tbx.core.utils.models import (
     NavigationFields,
     SocialFields,
 )
+from tbx.images.models import CustomImage
 from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -42,12 +43,25 @@ class BlogIndexPage(
 
     @property
     def blog_posts(self):
+        prefetch_author_images = models.Prefetch(
+            "authors__author__image",
+            queryset=CustomImage.objects.prefetch_renditions(
+                "format-webp|fill-72x72",
+                "format-webp|fill-144x144",
+                "format-webp|fill-286x286",
+            ),
+        )
         # Get list of blog pages that are descendants of this page
         blog_posts = (
             BlogPage.objects.live()
             .descendant_of(self)
             .distinct()
-            .prefetch_related("authors__author")
+            .prefetch_related(
+                "authors__author",
+                "related_sectors",
+                "related_services",
+                prefetch_author_images,
+            )
         )
 
         # Order by most recent date first
@@ -71,20 +85,6 @@ class BlogIndexPage(
                 | Q(related_services__slug=slug_filter)
             )
             extra_url_params["filter"] = slug_filter
-
-        # format for template
-        blog_posts = [
-            {
-                "title": blog_post.title,
-                "url": blog_post.url,
-                "author": blog_post.first_author,
-                "date": blog_post.date,
-                "read_time": blog_post.read_time,
-                "type": blog_post.type,
-                "tags": blog_post.tags,
-            }
-            for blog_post in blog_posts
-        ]
 
         # use page to filter
         page = request.GET.get("page", 1)
@@ -180,30 +180,35 @@ class BlogPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
     def tags(self):
         return chain(self.services, self.sectors)
 
-    @property
+    @cached_property
     def related_blog_posts(self):
-        # format for template
-        return [
-            {
-                "title": blog_post.title,
-                "url": blog_post.url,
-                "author": blog_post.first_author,
-                "date": blog_post.date,
-                "read_time": blog_post.read_time,
-                "type": blog_post.type,
-                "tags": self.tags,
-            }
-            for blog_post in BlogPage.objects.filter(
+        prefetch_author_images = models.Prefetch(
+            "authors__author__image",
+            queryset=CustomImage.objects.prefetch_renditions(
+                "format-webp|fill-72x72",
+                "format-webp|fill-144x144",
+                "format-webp|fill-286x286",
+            ),
+        )
+
+        return (
+            BlogPage.objects.filter(
                 Q(related_sectors__in=self.sectors)
                 | Q(related_services__in=self.services)
             )
             .live()
-            .prefetch_related("related_sectors", "related_services")
+            .public()
             .defer_streamfields()
+            .prefetch_related(
+                "authors__author",
+                "related_sectors",
+                "related_services",
+                prefetch_author_images,
+            )
             .distinct()
             .order_by("-date")
             .exclude(pk=self.pk)[:3]
-        ]
+        )
 
     @cached_property
     def blog_index(self):
@@ -216,7 +221,7 @@ class BlogPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
             # just return first blog index in database
             return BlogIndexPage.objects.first()
 
-    @property
+    @cached_property
     def first_author(self):
         """Safely return the first author if one exists."""
         author = self.authors.first()

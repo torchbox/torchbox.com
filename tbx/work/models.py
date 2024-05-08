@@ -19,6 +19,7 @@ from tbx.core.utils.models import (
     NavigationFields,
     SocialFields,
 )
+from tbx.images.models import CustomImage
 from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 from tbx.work.blocks import WorkStoryBlock
@@ -109,7 +110,7 @@ class HistoricalWorkPage(
             return author.author
         return None
 
-    @property
+    @cached_property
     def related_works(self):
         services = self.related_services.all()
         sectors = self.related_sectors.all()
@@ -278,33 +279,32 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
 
     @property
     def related_works(self):
-        return [
-            {
-                "client": work_page.client,
-                "title": work_page.title,
-                "url": work_page.url,
-                "author": work_page.first_author,
-                "date": work_page.date,
-                "read_time": work_page.read_time,
-                "related_sectors": work_page.related_sectors.all(),
-                "related_services": work_page.related_services.all(),
-                "tags": work_page.tags,
-                "listing_image": work_page.header_image,
-            }
-            # get 3 pages with same services and exclude self page
-            for work_page in WorkPage.objects.filter(
+        prefetch_listing_images = models.Prefetch(
+            "header_image",
+            queryset=CustomImage.objects.prefetch_renditions(
+                "fill-370x370|format-webp",
+                "fill-370x335|format-webp",
+                "fill-740x740|format-webp",
+                "fill-740x670|format-webp",
+            ),
+        )
+
+        # get 3 pages with same services and exclude self page
+        return (
+            WorkPage.objects.filter(
                 Q(related_sectors__in=self.sectors)
                 | Q(related_services__in=self.services)
             )
             .live()
-            .prefetch_related(
-                "related_sectors", "related_services", "authors", "authors__author"
-            )
+            .public()
             .defer_streamfields()
+            .prefetch_related(
+                "related_sectors", "related_services", prefetch_listing_images
+            )
             .distinct()
             .order_by(F("date").desc(nulls_last=True))
             .exclude(pk=self.pk)[:3]
-        ]
+        )
 
     def set_body_word_count(self):
         body_basic_html = self.body.stream_block.render_basic(self.body)
@@ -348,6 +348,16 @@ class WorkIndexPage(
 
     @cached_property
     def works(self):
+        prefetch_listing_images = models.Prefetch(
+            "header_image",
+            queryset=CustomImage.objects.prefetch_renditions(
+                "fill-370x370|format-webp",
+                "fill-370x335|format-webp",
+                "fill-740x740|format-webp",
+                "fill-740x670|format-webp",
+            ),
+        )
+
         pages = (
             self.get_children()
             .live()
@@ -361,7 +371,7 @@ class WorkIndexPage(
                 "historicalworkpage__related_services",
                 "authors",
                 "authors__author",
-                "header_image",
+                prefetch_listing_images,
             )
             .annotate(
                 priority=Case(

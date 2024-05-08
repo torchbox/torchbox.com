@@ -18,24 +18,24 @@ The `child_display` has 3 possible values:
                     {% if children and child_display != 'hide_children' %}
                         data-open-subnav aria-haspopup="true" aria-expanded="false"
                     {% endif %}
-                    href="{{ link.url }}"
+                    href="{% if link.page %}{% pageurl link.page %}{% elif link.external_link %}{{ link.external_link }}{% endif %}"
                 >
                     <span class="primary-nav-desktop__text">{{ link.text }}</span>
                     {% if children and child_display != 'hide_children' %}
                         {# desktop arrows #}
                         <div class="primary-nav-desktop__icon-wrapper">
-                            {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="primary-nav-desktop__icon-closed" %}
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="primary-nav-desktop__icon-hover" %}
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow-tall" classname="primary-nav-desktop__icon-open" %}
+                            {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="primary-nav-desktop__icon-closed" only %}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="primary-nav-desktop__icon-hover" only %}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow-tall" classname="primary-nav-desktop__icon-open" only %}
                         </div>
                     {% endif %}
                 </a>
                 {% if children and child_display == 'show_up_to_level1' %}
                     {# if we are only showing up to level 1, show a small dropdown #}
-                    {% include "patterns/navigation/components/includes/subnav-menu-mini.html" with links=children last=forloop.last revcounter=forloop.revcounter %}
+                    {% include "patterns/navigation/components/includes/subnav-menu-mini.html" with links=children last=forloop.last revcounter=forloop.revcounter only %}
                 {% elif children and child_display == 'show_up_to_level2' %}
                     {# if we are showing level 1 and level 2 children, show a wide dropdown #}
-                    {% include "patterns/navigation/components/includes/subnav-menu.html" with links=children number=children|length %}
+                    {% include "patterns/navigation/components/includes/subnav-menu.html" with links=children number=children|length only %}
                 {% endif %}
             {% endwith %}
         </li>

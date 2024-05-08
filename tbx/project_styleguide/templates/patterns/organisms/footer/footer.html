@@ -1,4 +1,4 @@
-{% load navigation_tags wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtail_cache navigation_tags %}
 
 <footer class="footer">
 
@@ -11,7 +11,9 @@
         {% endwith %}
 
         <div class="grid__footer-links">
-            {% footerlinks %}
+            {% wagtailcache 600 "footerlinks" current_site.pk is_pattern_library %}
+                {% footerlinks %}
+            {% endwagtailcache %}
             <p class="footer__copyright">© Torchbox {% now "Y" %}</p>
 
             <ul class="footer__socials">

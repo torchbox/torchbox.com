@@ -47,8 +47,14 @@ tags:
     '':
       template_name: 'patterns/navigation/components/footer-links.html'
   pageurl:
-    work_page.specific.work_index as work_index_url:
+    post.get_parent as blog_index_url:
+      raw: '../blog/blog_listing.html'
+    post as post_url:
+      raw: '../blog/blog_detail.html'
+    page.work_index as work_index_url:
       raw: '/'
+    work_page as work_page_url:
+      raw: '../work/work_page.html'
   image:
     listing_image fill-370x370 format-webp as listing_desktop_image:
       target_var: listing_desktop_image

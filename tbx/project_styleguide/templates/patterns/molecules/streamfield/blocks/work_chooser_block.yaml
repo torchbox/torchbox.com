@@ -1,38 +1,37 @@
 context:
   value:
     featured_work_heading: Case studies
-    work_pages:
-      - title: Imagining and designing a future product for MQ in 5 days flat
-        specific:
-          client: 'MQ: Transforming Mental Health'
-          date: 26 Sep 2018
-          read_time: '3'
-          tags:
-            - name: Digital products
-              slug: digital-products
-            - name: Wagtail
-              slug: wagtail
-      - title: Multi-awarding winning site for one of the world's leading universities
-        specific:
-          client: University of Oxford
-          date: 19 Feb 2016
-          read_time: '4'
-          tags:
-            - name: Digital products
-              slug: digital-products
-      - title: A PWA in 4 weeks for Mozilla (oh yeah!)
-        specific:
-          client: Mozilla
-          date: 5 Dec 2018
-          read_time: '4'
-          tags:
-            - name: Digital products
-              slug: digital-products
+  work_pages:
+    - title: Imagining and designing a future product for MQ in 5 days flat
+      client: 'MQ: Transforming Mental Health'
+      date: 26 Sep 2018
+      read_time: '3'
+      tags:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
+    - title: Multi-awarding winning site for one of the world's leading universities
+      client: University of Oxford
+      date: 19 Feb 2016
+      read_time: '4'
+      tags:
+        - name: Digital products
+          slug: digital-products
+    - title: A PWA in 4 weeks for Mozilla (oh yeah!)
+      client: Mozilla
+      date: 5 Dec 2018
+      read_time: '4'
+      tags:
+        - name: Digital products
+          slug: digital-products
 
 tags:
   pageurl:
-    work_page.specific.work_index as work_index_url:
-      raw: '/'
+    work_page.work_index as work_index_url:
+      raw: '../../../pages/work/work_index_page.html'
+    work_page as work_page_url:
+      raw: '../../../pages/work/work_page.html'
   image:
     listing_image fill-370x370 format-webp as listing_desktop_image:
       target_var: listing_desktop_image

@@ -1,4 +1,4 @@
-{% load wagtailcore_tags cache navigation_tags %}
+{% load wagtailcore_tags wagtail_cache navigation_tags %}
 {% wagtail_site as current_site %}
 <header class="header grid">
     {% include "patterns/atoms/skip-link/skip-link.html" %}
@@ -8,11 +8,11 @@
     <div class="grid__header-nav">
         {# Desktop navigation #}
         <nav aria-label="Main navigation" class="primary-nav-desktop" data-desktop-menu>
-            {% cache 600 primarynav current_site.pk request.is_preview is_pattern_library %}
+            {% wagtailcache 600 "primarynav" current_site.pk is_pattern_library %}
                 <ul data-primary-nav class="primary-nav-desktop__list">
                     {% primarynav %}
                 </ul>
-            {% endcache %}
+            {% endwagtailcache %}
         </nav>
     </div>
     {# Mobile menu toggle #}
@@ -28,10 +28,10 @@
 
     {# Mobile navigation #}
     <nav aria-label="Main navigation"  class="primary-nav-mobile" data-mobile-menu>
-        {% cache 600 primarynavmobile current_site.pk request.is_preview is_pattern_library %}
+        {% wagtailcache 600 "primarynavmobile" current_site.pk is_pattern_library %}
             <ul data-primary-nav class="primary-nav-mobile__list">
                 {% primarynavmobile %}
             </ul>
-        {% endcache %}
+        {% endwagtailcache %}
     </nav>
 </header>

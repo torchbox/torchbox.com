@@ -16,7 +16,7 @@ The `child_display` has 3 possible values:
             </button>
         </li>
         <li class="sub-nav-mobile__item sub-nav-mobile__item--parent">
-            <a class="sub-nav-mobile__link sub-nav-mobile__link--parent" href="{{ parent.url }}">
+            <a class="sub-nav-mobile__link sub-nav-mobile__link--parent" href="{% if parent.page %}{% pageurl parent.page %}{% elif parent.external_link %}{{ parent.external_link }}{% endif %}">
                 {{ parent.text }}
             </a>
         </li>
@@ -28,7 +28,7 @@ The `child_display` has 3 possible values:
                         {% if children and child_display != 'show_up_to_level1' %}
                             data-open-subnav aria-haspopup="true" aria-expanded="false"
                         {% endif %}
-                        href="{{ link.url }}"
+                        href="{% pageurl link %}"
                     >
                         {{ link.nav_text }}
                         {% if children and child_display != 'show_up_to_level1' %}

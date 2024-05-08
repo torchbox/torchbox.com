@@ -4,18 +4,54 @@ context:
     strapline: This is us, the people that make Torchbox.
     get_verbose_name: team-listing
   people:
-    - { title: Tom Dyson, role: Techical Director, url: '#', image: fake }
-    - { title: James Leavesley, role: Managing Director, url: '#', image: fake }
-    - { title: Paul Vetch, role: Strategy Director, url: '#', image: fake }
-    - { title: Olly Willans, role: Creative Director, url: '#', image: fake }
-    - { title: Tom Dyson, role: Techical Director, url: '#', image: fake }
-    - { title: James Leavesley, role: Managing Director, url: '#', image: fake }
-    - { title: Paul Vetch, role: Strategy Director, url: '#', image: fake }
-    - { title: Olly Willans, role: Creative Director, url: '#', image: fake }
-    - { title: Tom Dyson, role: Techical Director, url: '#', image: fake }
-    - { title: James Leavesley, role: Managing Director, url: '#', image: fake }
-    - { title: Paul Vetch, role: Strategy Director, url: '#', image: fake }
-    - { title: Olly Willans, role: Creative Director, url: '#', image: fake }
+    - title: Tom Dyson
+      role: Techical Director
+      url: '#'
+      image: fake
+    - title: James Leavesley
+      role: Managing Director
+      url: '#'
+      image: fake
+    - title: Paul Vetch
+      role: Strategy Director
+      url: '#'
+      image: fake
+    - title: Olly Willans
+      role: Creative Director
+      url: '#'
+      image: fake
+    - title: Tom Dyson
+      role: Techical Director
+      url: '#'
+      image: fake
+    - title: James Leavesley
+      role: Managing Director
+      url: '#'
+      image: fake
+    - title: Paul Vetch
+      role: Strategy Director
+      url: '#'
+      image: fake
+    - title: Olly Willans
+      role: Creative Director
+      url: '#'
+      image: fake
+    - title: Tom Dyson
+      role: Techical Director
+      url: '#'
+      image: fake
+    - title: James Leavesley
+      role: Managing Director
+      url: '#'
+      image: fake
+    - title: Paul Vetch
+      role: Strategy Director
+      url: '#'
+      image: fake
+    - title: Olly Willans
+      role: Creative Director
+      url: '#'
+      image: fake
   tags:
     - name: Innovation
       slug: innovation
@@ -30,10 +66,10 @@ context:
 
 tags:
   srcset_image:
-    'member.image format-webp fill-{230x230,370x370} sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="team-listing__image" alt=""':
+    'member.image fill-{230x230,370x370} format-webp sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="team-listing__image" alt=""':
       raw: |
         <img alt="Abigail" class="team-listing__image" height="230" sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" src="https://picsum.photos/230/230.webp" srcset="https://picsum.photos/230/230.webp 230w, https://picsum.photos/370/370.webp 370w" width="230">
-    'member.image format-webp fill-{230x230,370x370} sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="team-listing__image" alt="" loading="lazy"':
+    'member.image fill-{230x230,370x370} format-webp sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="team-listing__image" alt="" loading="lazy"':
       raw: |
         <img alt="Abigail" class="team-listing__image" height="230" sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" src="https://picsum.photos/230/230.webp" srcset="https://picsum.photos/230/230.webp 230w, https://picsum.photos/370/370.webp 370w" width="230" loading="lazy">
 
@@ -41,6 +77,8 @@ tags:
     '':
       template_name: 'patterns/navigation/components/footer-links.html'
   pageurl:
+    member:
+      raw: '#'
     item as index:
       target_var: index
       raw: '#'

@@ -5,14 +5,12 @@
     <ul class="sub-nav-desktop-mini__list">
         {% for link in links %}
             <li class="sub-nav-desktop-mini__item">
-                {% with children=link.get_children.live.public.in_menu.specific %}
-                    <a
-                        class="sub-nav-desktop-mini__link"
-                        href="{{ link.url }}"
-                    >
-                        {{ link.nav_text }}
-                    </a>
-                {% endwith %}
+                <a
+                    class="sub-nav-desktop-mini__link"
+                    href="{% pageurl link %}"
+                >
+                    {{ link.nav_text }}
+                </a>
             </li>
         {% endfor %}
     </ul>

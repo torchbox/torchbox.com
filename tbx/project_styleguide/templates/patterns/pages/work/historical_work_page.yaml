@@ -83,6 +83,8 @@ tags:
   pageurl:
     page.work_index as work_index_url:
       raw: '#'
+    work_page as work_page_url:
+      raw: ''
   footerlinks:
     '':
       template_name: 'patterns/navigation/components/footer-links.html'

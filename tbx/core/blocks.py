@@ -10,12 +10,14 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 
+from tbx.images.models import CustomImage
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.embeds.blocks import EmbedBlock as WagtailEmbedBlock
 from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.exceptions import EmbedException
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtailmarkdown.blocks import MarkdownBlock
 from wagtailmedia.blocks import VideoChooserBlock
@@ -69,6 +71,25 @@ class LinkBlock(blocks.StreamBlock):
         max_num = 1
 
 
+class CustomImageChooserBlock(ImageChooserBlock):
+    """A custom ImageChooserBlock that prefetches the image renditions"""
+
+    def to_python(self, value):
+        if value is None:
+            return value
+        else:
+            try:
+                return self.model_class.objects.prefetch_renditions().get(pk=value)
+            except self.model_class.DoesNotExist:
+                return None
+
+    def bulk_to_python(self, values):
+        objects = self.model_class.objects.prefetch_renditions().in_bulk(values)
+        return [
+            objects.get(_id) for _id in values
+        ]  # Keeps the ordering the same as in values.
+
+
 class ImageFormatChoiceBlock(blocks.FieldBlock):
     """
     This block is no longer in use. However, because several migrations
@@ -92,7 +113,7 @@ class ImageWithAltTextBlock(blocks.StructBlock):
     Allows for specifying optional alt text for an image.
     """
 
-    image = ImageChooserBlock()
+    image = CustomImageChooserBlock()
     alt_text = blocks.CharBlock(
         required=False,
         help_text="By default the image title (shown above) is used as the alt text. "
@@ -120,7 +141,7 @@ class ImageBlock(ImageWithAltTextBlock):
 
 
 class ImageWithLinkBlock(blocks.StructBlock):
-    image = ImageChooserBlock()
+    image = CustomImageChooserBlock()
     link = LinkBlock(required=False)
 
     class Meta:
@@ -421,6 +442,28 @@ class WorkChooserBlock(blocks.StructBlock):
         max_num=3,
     )
 
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context)
+
+        prefetch_listing_images = models.Prefetch(
+            "header_image",
+            queryset=CustomImage.objects.prefetch_renditions(
+                "fill-370x370|format-webp",
+                "fill-370x335|format-webp",
+                "fill-740x740|format-webp",
+                "fill-740x670|format-webp",
+            ),
+        )
+        context["work_pages"] = (
+            Page.objects.filter(pk__in=[page.pk for page in value["work_pages"]])
+            .live()
+            .public()
+            .defer_streamfields()
+            .prefetch_related(prefetch_listing_images)
+            .specific()
+        )
+        return context
+
     class Meta:
         icon = "link"
         template = "patterns/molecules/streamfield/blocks/work_chooser_block.html"
@@ -512,7 +555,7 @@ class BaseEventBlock(blocks.StructBlock):
 
 
 class EventBlock(BaseEventBlock):
-    image = ImageChooserBlock()
+    image = CustomImageChooserBlock()
     secondary_link = LinkBlock(required=False, label="Secondary link")
 
     class Meta:
@@ -523,7 +566,7 @@ class EventBlock(BaseEventBlock):
 class PromoBlock(blocks.StructBlock):
     title = blocks.TextBlock()
     description = blocks.TextBlock()
-    image = ImageChooserBlock()
+    image = CustomImageChooserBlock()
     button_text = blocks.CharBlock(max_length=55)
     button_link = blocks.StreamBlock(
         [

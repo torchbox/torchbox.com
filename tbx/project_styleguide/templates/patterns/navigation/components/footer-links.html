@@ -2,7 +2,7 @@
 <nav aria-label="Footer navigation" class="footerlinks-nav">
     {% for item in footerlinks %}
         {% with link=item.value %}
-            <a href="{{ link.url }}" class="footerlinks-nav__link">
+            <a href="{% if link.page %}{% pageurl link.page %}{% elif link.external_link %}{{ link.external_link }}{% endif %}" class="footerlinks-nav__link">
                 {{ link.text }}
             </a>
         {% endwith %}

@@ -1,5 +1,6 @@
 from tbx.core.blocks import (
     BlogChooserBlock,
+    CustomImageChooserBlock,
     EventBlock,
     FeaturedCaseStudyBlock,
     ImageWithAltTextBlock,
@@ -11,14 +12,13 @@ from tbx.core.blocks import (
     WorkChooserBlock,
 )
 from wagtail import blocks
-from wagtail.images.blocks import ImageChooserBlock
 
 
 class PartnersBlock(blocks.StructBlock):
     title = blocks.CharBlock(
         max_length=255,
     )
-    partner_logos = blocks.ListBlock(ImageChooserBlock(), label="Logos")
+    partner_logos = blocks.ListBlock(CustomImageChooserBlock(), label="Logos")
 
     class Meta:
         icon = "openquote"

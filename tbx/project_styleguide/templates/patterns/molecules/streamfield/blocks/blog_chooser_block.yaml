@@ -39,7 +39,9 @@ context:
 tags:
   pageurl:
     blog_page.blog_index as blog_index_url:
-      raw: '/'
+      raw: '../../../pages/blog/blog_listing.html'
+    blog_page as blog_post_url:
+      raw: '../../../pages/blog/blog_detail.html'
   srcset_image:
     # avatar image
     'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':

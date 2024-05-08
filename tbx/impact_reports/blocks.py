@@ -1,4 +1,4 @@
-from tbx.core.blocks import StoryBlock
+from tbx.core.blocks import CustomImageChooserBlock, StoryBlock
 from wagtail.blocks import (
     CharBlock,
     ListBlock,
@@ -6,11 +6,10 @@ from wagtail.blocks import (
     StructBlock,
     URLBlock,
 )
-from wagtail.images.blocks import ImageChooserBlock
 
 
 class ImpactReportHeadingBlock(StructBlock):
-    image = ImageChooserBlock(
+    image = CustomImageChooserBlock(
         required=False,
         help_text="Can be omitted for the first heading immediately after the main image",
     )
@@ -27,7 +26,7 @@ class ImpactReportHeadingBlock(StructBlock):
 
 
 class SmallImageWithTextBlock(StructBlock):
-    image = ImageChooserBlock()
+    image = CustomImageChooserBlock()
     title = CharBlock()
     text = RichTextBlock()
 
@@ -39,7 +38,7 @@ class SmallImageWithTextBlock(StructBlock):
 
 
 class InstagramGalleryItemBlock(StructBlock):
-    image = ImageChooserBlock()
+    image = CustomImageChooserBlock()
     link = URLBlock(
         required=False,
     )
