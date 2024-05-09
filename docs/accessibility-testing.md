@@ -4,7 +4,7 @@ This build has a very high standard for accessibility testing. The merge request
 
 ## Automated checks
 
-Automated checks can be tested with the [Axe browser plugin](https://www.deque.com/axe/devtools/chrome-browser-extension). There should be zero issues reported, both at desktop and mobile.
+Automated checks can be tested with the Axe browser plugin for [chrome](https://www.deque.com/axe/devtools/chrome-browser-extension) or [firefox](https://www.deque.com/axe/devtools/firefox-browser-extension/). There should be zero issues reported, both at desktop and mobile.
 
 ## HTML validation passes
 
