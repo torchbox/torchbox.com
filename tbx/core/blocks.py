@@ -466,7 +466,9 @@ class WorkChooserBlock(blocks.StructBlock):
             .in_bulk()
         )
         # Keeps the ordering the same as in values.
-        context["work_pages"] = [work_pages.get(_id) for _id in work_page_ids]
+        context["work_pages"] = [
+            work_pages[_id] for _id in work_page_ids if _id in work_pages
+        ]
         return context
 
     class Meta:

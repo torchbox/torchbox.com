@@ -26,3 +26,12 @@ class WorkChooserBlockTest(TestCase):
         self.assertListEqual(
             context["work_pages"], [self.pages[2], self.pages[1], self.pages[0]]
         )
+
+    def test_block_context_with_unpublished_pages(self):
+        block = WorkChooserBlock()
+        self.pages[0].unpublish()
+
+        context = block.get_context(
+            {"featured_work_heading": "Featured Work", "work_pages": self.pages}
+        )
+        self.assertListEqual(context["work_pages"], [self.pages[1], self.pages[2]])
