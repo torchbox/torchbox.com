@@ -78,6 +78,7 @@ nav:
       - front-end/impact-report.md
       - front-end/lite-youtube.md
       - front-end/facebook-app-id.md
+      - front-end/incident-form.md
   - 'Navigation': 'navigation.md'
   - 'Custom features':
       - 'Migration-friendly StreamFields': 'custom-features/migration-friendly-streamfields.md'
@@ -88,4 +89,4 @@ nav:
   - 'Data import': 'data-import.md'
   - 'Upgrading guidelines': 'upgrading.md'
   - 'Hotjar tracking in wagtail admin': 'hotjar-tracking.md'
-  - 'Runbook': support-runbook.md
+  - 'Runbook': 'support-runbook.md'
