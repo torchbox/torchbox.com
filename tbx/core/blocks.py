@@ -454,14 +454,21 @@ class WorkChooserBlock(blocks.StructBlock):
                 "fill-740x670|format-webp",
             ),
         )
-        context["work_pages"] = (
-            Page.objects.filter(pk__in=[page.pk for page in value["work_pages"]])
+
+        work_page_ids = [page.pk for page in value["work_pages"]]
+        work_pages = (
+            Page.objects.filter(pk__in=work_page_ids)
             .live()
             .public()
             .defer_streamfields()
             .prefetch_related(prefetch_listing_images)
             .specific()
+            .in_bulk()
         )
+        # Keeps the ordering the same as in values.
+        context["work_pages"] = [
+            work_pages[_id] for _id in work_page_ids if _id in work_pages
+        ]
         return context
 
     class Meta:
