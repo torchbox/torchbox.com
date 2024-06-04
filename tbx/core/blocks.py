@@ -811,10 +811,7 @@ class StoryBlock(blocks.StreamBlock):
         template="patterns/molecules/streamfield/blocks/pullquote_block.html",
         group="Basics",
     )
-    typed_table = TypedTableBlock(
-        label="Table block",
-        group="Basics"
-    )
+    typed_table = TypedTableBlock(label="Table block", group="Basics")
     raw_html = blocks.RawHTMLBlock(
         label="Raw HTML",
         icon="code",
