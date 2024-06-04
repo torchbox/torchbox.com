@@ -28,6 +28,11 @@
             background-color: var(--color--light-background);
             color: var(--color--light-background-text);
         }
+
+        // Ensure borders show in high contrast mode
+        @include high-contrast-mode() {
+            border-color: var(--color--border);
+        }
     }
 }
 
@@ -64,6 +69,12 @@
         @include media-query(medium) {
             display: none;
         }
+
+        // hide hint in high contrast mode as the gradient
+        // is not visible
+        @include high-contrast-mode() {
+            display: none;
+        }
     }
 
     // Button to scroll right
@@ -73,6 +84,12 @@
         font-weight: $weight--semibold;
 
         @include media-query(medium) {
+            display: none;
+        }
+
+        // hide button in high contrast mode as the gradient
+        // is not visible
+        @include high-contrast-mode() {
             display: none;
         }
     }
