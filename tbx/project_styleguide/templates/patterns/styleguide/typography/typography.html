@@ -1,100 +1,106 @@
-<div class="p-4 mb-8" style="max-width: 710px">
-    {# Headings #}
-    <p class="underline mt-8">Heading 1</p>
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" %}
+{% extends "patterns/styleguide_base.html" %}
 
-    <p class="underline mt-8">Heading 1 with the 'narrowest' drop-cap class</p>
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Thinking" %}
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Yikes" %}
+{% block title %}<h1 class="heading heading--one">Typography</h1>{% endblock %}
 
-    <p class="underline mt-8">Heading 1 with the 'narrower' drop-cap class</p>
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Which" %}
+{% block content %}
+    <div class="p-4 mb-8" style="max-width: 710px">
+        {# Headings #}
+        <p class="underline mt-8">Heading 1</p>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" %}
 
-    <p class="underline mt-8">Heading 1 with the 'narrow' drop-cap class</p>
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Flight" %}
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Platitude" %}
+        <p class="underline mt-8">Heading 1 with the 'narrowest' drop-cap class</p>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Thinking" %}
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Yikes" %}
 
+        <p class="underline mt-8">Heading 1 with the 'narrower' drop-cap class</p>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Which" %}
 
-    <p class="underline mt-8">Heading 1 with the 'i' drop-cap class</p>
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Inventory" %}
-
-
-    <p class="underline mt-8">Heading 1-B</p>
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" %}
-
-    <p class="underline mt-8">Heading 1-B with the 'narrowest' drop-cap class</p>
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Thinking" %}
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Yikes" %}
-
-    <p class="underline mt-8">Heading 1-B with the 'narrower' drop-cap class</p>
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Which" %}
-
-    <p class="underline mt-8">Heading 1-B with the 'narrow' drop-cap class</p>
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Flight" %}
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Platitude" %}
+        <p class="underline mt-8">Heading 1 with the 'narrow' drop-cap class</p>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Flight" %}
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Platitude" %}
 
 
-    <p class="underline mt-8">Heading 2</p>
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" %}
-
-    <p class="underline mt-8">Heading 2 with the 'narrowest' drop-cap class</p>
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Thinking"%}
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Yikes"%}
-
-    <p class="underline mt-8">Heading 2 with the 'narrower' drop-cap class</p>
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Which"%}
-
-    <p class="underline mt-8">Heading 2 with the 'narrow' drop-cap class</p>
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Flight"%}
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Platitude"%}
+        <p class="underline mt-8">Heading 1 with the 'i' drop-cap class</p>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Inventory" %}
 
 
-    <p class="underline mt-8">Heading 2-B</p>
-    <h2 class="heading heading--two-b">Joining the battle to protect our oceans</h2>
-    <p class="underline mt-8">Heading 3</p>
-    <h3 class="heading heading--three">Joining the battle to protect our oceans</h3>
-    <p class="underline mt-8">Heading 4</p>
-    <h4 class="heading heading--four">Joining the battle to protect our oceans</h4>
-    <p class="underline mt-8">Heading 5</p>
-    <h5 class="heading heading--five">Joining the battle to protect our oceans</h5>
-    <p class="underline mt-8">Heading 6</p>
-    <h6 class="heading heading--six">Joining the battle to protect our oceans</h6>
+        <p class="underline mt-8">Heading 1-B</p>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" %}
 
-    {# Rich text #}
-    <p class="mt-8 underline">Rich text</p>
-    <div class="rich-text">
-        <h2>Heading 2</h2>
-        <h3>Heading 3</h3>
-        <h4>Heading 4</h4>
-        <p>We can help you create digital products and services that solve real customer problems. And, you can transform your organisation along the way.</p>
-        <ul>
-            <li>Product Strategy</li>
-            <li>Prototype products at speed</li>
-            <li>Launch and optimise</li>
-        </ul>
+        <p class="underline mt-8">Heading 1-B with the 'narrowest' drop-cap class</p>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Thinking" %}
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Yikes" %}
 
-        <ol>
-            <li>Unify your digital estate</li>
-            <li>Prioritise your customers</li>
-            <li>Improve accessibility</li>
-        </ol>
+        <p class="underline mt-8">Heading 1-B with the 'narrower' drop-cap class</p>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Which" %}
 
-        <p>We're <a href="#">100% employee owned</a>. That means we're <b>all business owners</b>, fully engaged in the <em>quality of our work</em>. Engineers, product people, designers and analysts with deep expertise in the nonprofit world. <a href="#">Meet the team</a>.</p>
+        <p class="underline mt-8">Heading 1-B with the 'narrow' drop-cap class</p>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Flight" %}
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Platitude" %}
+
+
+        <p class="underline mt-8">Heading 2</p>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" %}
+
+        <p class="underline mt-8">Heading 2 with the 'narrowest' drop-cap class</p>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Thinking"%}
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Yikes"%}
+
+        <p class="underline mt-8">Heading 2 with the 'narrower' drop-cap class</p>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Which"%}
+
+        <p class="underline mt-8">Heading 2 with the 'narrow' drop-cap class</p>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Flight"%}
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Platitude"%}
+
+
+        <p class="underline mt-8">Heading 2-B</p>
+        <h2 class="heading heading--two-b">Joining the battle to protect our oceans</h2>
+        <p class="underline mt-8">Heading 3</p>
+        <h3 class="heading heading--three">Joining the battle to protect our oceans</h3>
+        <p class="underline mt-8">Heading 4</p>
+        <h4 class="heading heading--four">Joining the battle to protect our oceans</h4>
+        <p class="underline mt-8">Heading 5</p>
+        <h5 class="heading heading--five">Joining the battle to protect our oceans</h5>
+        <p class="underline mt-8">Heading 6</p>
+        <h6 class="heading heading--six">Joining the battle to protect our oceans</h6>
+
+        {# Rich text #}
+        <p class="mt-8 underline">Rich text</p>
+        <div class="rich-text">
+            <h2>Heading 2</h2>
+            <h3>Heading 3</h3>
+            <h4>Heading 4</h4>
+            <p>We can help you create digital products and services that solve real customer problems. And, you can transform your organisation along the way.</p>
+            <ul>
+                <li>Product Strategy</li>
+                <li>Prototype products at speed</li>
+                <li>Launch and optimise</li>
+            </ul>
+
+            <ol>
+                <li>Unify your digital estate</li>
+                <li>Prioritise your customers</li>
+                <li>Improve accessibility</li>
+            </ol>
+
+            <p>We're <a href="#">100% employee owned</a>. That means we're <b>all business owners</b>, fully engaged in the <em>quality of our work</em>. Engineers, product people, designers and analysts with deep expertise in the nonprofit world. <a href="#">Meet the team</a>.</p>
+        </div>
+
+        {# Links #}
+        <p class="mt-8 mb-1 underline">Link</p>
+        <p class="mb-4"><a class="link" href="#">Digital products</a></p>
+
+        <p class="mb-1 underline">Link with arrow</p>
+        <p class="mb-4">
+            <a class="link link--with-arrow" href="#">
+                <span class="link__text">Digital products</span>
+                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="link__icon" %}
+            </a>
+        </p>
+
+        {# Buttons #}
+        <p class="mb-1 underline">Button</p>
+        <p class="mb-4"><a class="button" href="#">Digital products</a></p>
     </div>
-
-    {# Links #}
-    <p class="mt-8 mb-1 underline">Link</p>
-    <p class="mb-4"><a class="link" href="#">Digital products</a></p>
-
-    <p class="mb-1 underline">Link with arrow</p>
-    <p class="mb-4">
-        <a class="link link--with-arrow" href="#">
-            <span class="link__text">Digital products</span>
-            {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="link__icon" %}
-        </a>
-    </p>
-
-    {# Buttons #}
-    <p class="mb-1 underline">Button</p>
-    <p class="mb-4"><a class="button" href="#">Digital products</a></p>
-</div>
+{% endblock %}

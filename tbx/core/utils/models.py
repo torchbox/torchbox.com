@@ -92,6 +92,7 @@ class ColourTheme(models.TextChoices):
     CORAL = "theme-coral", "Coral"
     LAGOON = "theme-lagoon", "Lagoon"
     BANANA = "theme-banana", "Banana"
+    EARTH = "theme-earth", "Earth"
 
 
 class ColourThemeMixin(models.Model):

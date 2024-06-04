@@ -8,7 +8,7 @@ The site has been initially built in dark-mode only, but the longer-term plan is
 
 An editor has an option to select a theme on each page. Selecting a theme on a page will change it for that page, and all child pages, unless another selection is made further down the page tree.
 
-There are currently 3 themes in use: coral, lagoon and banana. The CSS to set the theme is an html class of either `.theme-coral`, `.theme-lagoon` or `.theme-banana`.
+There are currently 4 themes in use: coral, lagoon, banana and earth. The CSS to set the theme is an html class of either `.theme-coral`, `.theme-lagoon`, `.theme-banana` or `.theme-earth`.
 
 ???+ note
 
