@@ -1,5 +1,3 @@
-from django.utils.safestring import mark_safe
-
 from tbx.core.blocks import (
     NumericStatisticsBlock,
     StoryBlock,
