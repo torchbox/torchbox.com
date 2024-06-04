@@ -191,11 +191,11 @@ class TestColourTheme(WagtailPageTestCase):
 
         # another child of workindex, this time we set the theme
         morework = HistoricalWorkPageFactory(
-            parent=self.workindex, theme=ColourTheme.CORAL
+            parent=self.workindex, theme=ColourTheme.EARTH
         )
 
-        self.assertEqual(morework.theme, ColourTheme.CORAL)
-        self.assertEqual(morework.theme_class, ColourTheme.CORAL)
+        self.assertEqual(morework.theme, ColourTheme.EARTH)
+        self.assertEqual(morework.theme_class, ColourTheme.EARTH)
         # sibling shouldn't be affected
         self.assertEqual(work.theme, ColourTheme.NONE)
         self.assertEqual(work.theme_class, ColourTheme.BANANA)
@@ -206,7 +206,7 @@ class TestColourTheme(WagtailPageTestCase):
         # child of morework
         std_page = StandardPageFactory(parent=morework)
         # `theme_class` should be inherited from parent
-        self.assertEqual(std_page.theme_class, ColourTheme.CORAL)
+        self.assertEqual(std_page.theme_class, ColourTheme.EARTH)
         # but `theme` should remain unset
         self.assertEqual(std_page.theme, ColourTheme.NONE)
 
@@ -256,9 +256,9 @@ class TestColourTheme(WagtailPageTestCase):
 
             # Check that we have the correct classes applied
             self.assertIn(f"template-{class_suffix}", html_classes)
-            self.assertIn(ColourTheme.CORAL, html_classes)
+            self.assertIn(ColourTheme.EARTH, html_classes)
             # The rest of the theme classes should not be applied
             for theme in list(
-                filter(lambda theme: theme != ColourTheme.CORAL, self.themes)
+                filter(lambda theme: theme != ColourTheme.EARTH, self.themes)
             ):
                 self.assertNotIn(theme, html_classes)
