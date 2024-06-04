@@ -547,7 +547,8 @@
         &__raw-html,
         &__markdown,
         &__embed,
-        &__table {
+        &__table,
+        &__stats {
             @include media-query(large) {
                 grid-column: 5 / span 7;
             }
