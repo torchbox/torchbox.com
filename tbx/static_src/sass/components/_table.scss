@@ -1,0 +1,79 @@
+@use 'config' as *;
+
+// This is identical to table.scss, but due to the limitations of the kit
+// features we need to duplicate it
+// If you have both table and typed-tables in your codebase, you can
+// rationalise these to a single file
+.table {
+    @include font-size(body-one);
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 600px;
+
+    &__caption {
+        @include font-size(heading-four);
+        font-weight: $weight--semibold;
+        margin-bottom: $grid;
+        text-align: left;
+    }
+
+    &__cell {
+        padding: $spacer-mini-plus;
+        border: 1px solid var(--color--light-background);
+        text-align: left;
+
+        &--heading {
+            @include font-size(heading-five);
+            font-weight: $weight--medium;
+            background-color: var(--color--light-background);
+            color: var(--color--light-background-text);
+        }
+    }
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: scroll;
+    position: relative;
+
+    @include media-query(medium) {
+        overflow-x: visible;
+    }
+
+    &__hint {
+        position: absolute;
+        right: 0;
+        top: 0;
+        display: flex;
+        height: 100%;
+        justify-content: flex-end;
+        align-items: center;
+        background: linear-gradient(
+            to right,
+            var(--color--background--overlay) 0%,
+            var(--color--background) 100%
+        );
+        opacity: 1;
+        transition: opacity 0.25s ease;
+        width: 300px;
+
+        .is-scrolling & {
+            opacity: 0;
+        }
+
+        @include media-query(medium) {
+            display: none;
+        }
+    }
+
+    // Button to scroll right
+    &__button {
+        @include font-size(heading-five);
+        @include link-styles();
+        font-weight: $weight--semibold;
+
+        @include media-query(medium) {
+            display: none;
+        }
+    }
+}

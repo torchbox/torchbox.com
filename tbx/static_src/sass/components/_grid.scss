@@ -223,7 +223,8 @@
     &__image,
     &__video,
     &__mailchimp,
-    &__form {
+    &__form,
+    &__table {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
 
@@ -328,7 +329,8 @@
         &__raw-html,
         &__markdown,
         &__embed,
-        &__video {
+        &__video,
+        &__table {
             @include media-query(large) {
                 grid-column: 5 / span 7;
             }
@@ -392,7 +394,8 @@
         &__markdown,
         &__embed,
         &__video,
-        &__heading {
+        &__heading,
+        &__table {
             @include media-query(large) {
                 grid-column: 5 / span 7;
             }
@@ -444,7 +447,8 @@
         &__image,
         &__raw-html,
         &__markdown,
-        &__embed {
+        &__embed,
+        &__table {
             @include media-query(large) {
                 grid-column: 2 / span 7;
             }
@@ -542,7 +546,8 @@
         &__image,
         &__raw-html,
         &__markdown,
-        &__embed {
+        &__embed,
+        &__table {
             @include media-query(large) {
                 grid-column: 5 / span 7;
             }

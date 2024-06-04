@@ -13,6 +13,9 @@ from django.utils.safestring import mark_safe
 from tbx.images.models import CustomImage
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
+from wagtail.contrib.typed_table_block.blocks import (
+    TypedTableBlock as WagtailTypedTableBlock,
+)
 from wagtail.embeds.blocks import EmbedBlock as WagtailEmbedBlock
 from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.exceptions import EmbedException
@@ -740,6 +743,23 @@ class EmbedBlock(WagtailEmbedBlock):
         template = "patterns/molecules/streamfield/blocks/embed_block.html"
 
 
+class TypedTableBlock(blocks.StructBlock):
+    table = WagtailTypedTableBlock(
+        [
+            (
+                "rich_text",
+                blocks.RichTextBlock(
+                    features=["bold", "italic", "link", "ol", "ul", "document-link"]
+                ),
+            ),
+        ]
+    )
+
+    class Meta:
+        icon = "table"
+        template = "patterns/molecules/streamfield/blocks/typed_table_block.html"
+
+
 class StoryBlock(blocks.StreamBlock):
     h2 = blocks.CharBlock(
         form_classname="title",
@@ -790,6 +810,10 @@ class StoryBlock(blocks.StreamBlock):
     pullquote = PullQuoteBlock(
         template="patterns/molecules/streamfield/blocks/pullquote_block.html",
         group="Basics",
+    )
+    typed_table = TypedTableBlock(
+        label="Table block",
+        group="Basics"
     )
     raw_html = blocks.RawHTMLBlock(
         label="Raw HTML",
