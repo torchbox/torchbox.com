@@ -75,6 +75,11 @@
         @include high-contrast-mode() {
             display: none;
         }
+
+        // hide hint if js is disabled
+        @media (scripting: none) {
+            display: none;
+        }
     }
 
     // Button to scroll right
@@ -90,6 +95,11 @@
         // hide button in high contrast mode as the gradient
         // is not visible
         @include high-contrast-mode() {
+            display: none;
+        }
+
+        // hide button if js is disabled
+        @media (scripting: none) {
             display: none;
         }
     }
