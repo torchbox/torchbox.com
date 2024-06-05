@@ -57,3 +57,13 @@
         }
     }
 }
+
+.quote-icon {
+    &__white {
+        fill: var(--color--heading);
+
+        @include high-contrast-light-mode() {
+            fill: var(--color--background);
+        }
+    }
+}
