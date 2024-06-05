@@ -22,12 +22,25 @@ class TableHint {
             }
         });
 
+        const isReduced =
+            window.matchMedia(`(prefers-reduced-motion: reduce)`) === true ||
+            window.matchMedia(`(prefers-reduced-motion: reduce)`).matches ===
+                true;
+
         this.button.addEventListener('click', () => {
-            this.node.scroll({
-                top: 0,
-                left: 500,
-                behavior: 'smooth',
-            });
+            if (isReduced) {
+                this.node.scroll({
+                    top: 0,
+                    left: 500,
+                    behavior: 'auto',
+                });
+            } else {
+                this.node.scroll({
+                    top: 0,
+                    left: 500,
+                    behavior: 'smooth',
+                });
+            }
         });
     }
 }

@@ -59,7 +59,7 @@
             var(--color--background) 100%
         );
         opacity: 1;
-        transition: opacity 0.25s ease;
+        transition: opacity $transition;
         width: 300px;
 
         .is-scrolling & {
@@ -79,6 +79,10 @@
         // hide hint if js is disabled
         @media (scripting: none) {
             display: none;
+        }
+
+        @include reduced-motion() {
+            transition: none;
         }
     }
 
