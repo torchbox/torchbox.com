@@ -1,0 +1,33 @@
+context:
+  pattern_library_only: True
+  value:
+    caption: Some caption
+    table:
+      columns:
+        - heading: 'Description'
+          block:
+            name: 'rich_text'
+        - heading: 'Value'
+          block:
+            name: 'rich_text'
+        - heading: 'Result'
+          block:
+            name: 'rich_text'
+      rows:
+        - - block:
+              name: 'rich_text'
+          - block:
+              name: 'rich_text'
+          - block:
+              name: 'rich_text'
+        - - block:
+              name: 'rich_text'
+          - block:
+              name: 'rich_text'
+          - block:
+              name: 'rich_text'
+
+tags:
+  include_block:
+    table_block:
+      raw: '<div class="rich-text"><p>Some <b>content</b> for a <i>table</i>.</p><ul><li>May include</li><li>Lists</li></ul><ol><li>May include</li><li>Ordered lists</li></ol><p><a href="/">May include a link</a></p></div>'

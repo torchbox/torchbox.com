@@ -1,0 +1,33 @@
+{% load wagtailcore_tags %}
+<div class="table-wrapper grid__table" data-table-hint>
+    {# Hint to show more of the table at mobile #}
+    <div class="table-wrapper__hint">
+        {# Note this is not hidden from screen readers - see discussion at https://stackoverflow.com/questions/74835059/hide-irrelevant-focusable-elements-from-screen-reader #}
+        <button type="button" class="table-wrapper__button" data-table-hint-button>
+            See more <span class="sr-only">(Scrolls horizontally)</span>
+        </button>
+    </div>
+    <table class="table">
+        {% if value.table.caption %}
+            <caption class="table__caption">{{ value.table.caption }}</caption>
+        {% endif %}
+        <thead class="table__head">
+            <tr class="table__row">
+                {% for col in value.table.columns %}
+                    <th class="table__cell table__cell--heading table__cell--{{ col.block.name }} rich-text" scope="col">{{ col.heading }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody class="table__body">
+            {% for row in value.table.rows %}
+                <tr class="table__row">
+                    {% for table_block in row %}
+                        <td class="table__cell table__cell--{{ block.block.name }} rich-text">
+                            {% include_block table_block %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

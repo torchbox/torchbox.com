@@ -6,6 +6,7 @@ import SkipLink from './components/skip-link';
 import CookieWarning from './components/cookie-message';
 import YouTubeConsentManager from './components/youtube-embed';
 import Tabs from './components/tabs';
+import TableHint from './components/table-hint';
 
 // IE11 polyfills
 import foreachPolyfill from './polyfills/foreach-polyfill';
@@ -33,5 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initComponent(CookieWarning);
     initComponent(YouTubeConsentManager);
     initComponent(Tabs);
+    initComponent(TableHint);
     new DesktopCloseMenus();
 });
