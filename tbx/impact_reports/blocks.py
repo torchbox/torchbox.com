@@ -1,4 +1,9 @@
-from tbx.core.blocks import CustomImageChooserBlock, StoryBlock
+from tbx.core.blocks import (
+    CustomImageChooserBlock,
+    NumericStatisticsBlock,
+    StoryBlock,
+    TextualStatisticsBlock,
+)
 from wagtail.blocks import (
     CharBlock,
     ListBlock,
@@ -59,3 +64,15 @@ class ImpactReportStoryBlock(StoryBlock):
     impact_report_heading = ImpactReportHeadingBlock(group="Impact Report")
     small_image_with_text = SmallImageWithTextBlock(group="Impact Report")
     instagram_gallery = InstagramGalleryGridBlock(group="Impact Report")
+    numeric_stats = ListBlock(
+        NumericStatisticsBlock,
+        group="Results",
+        max_num=3,
+        template="patterns/molecules/streamfield/blocks/stats_numeric.html",
+    )
+    textual_stats = ListBlock(
+        TextualStatisticsBlock,
+        group="Results",
+        max_num=2,
+        template="patterns/molecules/streamfield/blocks/stats_textual.html",
+    )
