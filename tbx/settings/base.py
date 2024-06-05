@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     "wagtail_purge",
     "birdbath",
     "wagtailmedia",
+    "wagtail.contrib.typed_table_block",
 ]
 
 MIDDLEWARE = [

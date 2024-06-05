@@ -54,3 +54,7 @@ tags:
     # Instagram block image
     'post.image format-webp fill-{250x250,500x500} sizes="(max-width: 598px) 50vw, (max-width: 1021px) 25vw, (min-width: 1022px) 250px" class="instagram-post__image" loading="lazy"':
       raw: '<img alt="advent-9" class="instagram-post__image" height="250" loading="lazy" sizes="(max-width: 598px) 50vw, (max-width: 1021px) 25vw, (min-width: 1022px) 250px" src="https://picsum.photos/250/250.webp" srcset="https://picsum.photos/250/250.webp 250w, https://picsum.photos/500/500.webp 500w" width="250">'
+  # Table block
+  include_block:
+    table_block:
+      raw: '<div class="rich-text"><p>Some <b>content</b> for a <i>table</i>.</p><ul><li>May include</li><li>Lists</li></ul><ol><li>May include</li><li>Ordered lists</li></ol><p><a href="/">May include a link</a></p></div>'

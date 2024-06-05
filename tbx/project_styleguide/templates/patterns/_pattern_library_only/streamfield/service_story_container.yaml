@@ -68,3 +68,8 @@ tags:
       raw: '../../pages/work/work_index_page.html'
     work_page as work_page_url:
       raw: '../../pages/work/work_page.html'
+
+  # Table block
+  include_block:
+    table_block:
+      raw: '<div class="rich-text"><p>Some <b>content</b> for a <i>table</i>.</p><ul><li>May include</li><li>Lists</li></ul><ol><li>May include</li><li>Ordered lists</li></ol><p><a href="/">May include a link</a></p></div>'

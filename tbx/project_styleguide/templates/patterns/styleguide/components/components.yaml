@@ -222,3 +222,7 @@ tags:
   footerlinks:
     '':
       template_name: 'patterns/navigation/components/footer-links.html'
+  # Table block
+  include_block:
+    table_block:
+      raw: '<div class="rich-text"><p>Some <b>content</b> for a <i>table</i>.</p><ul><li>May include</li><li>Lists</li></ul><ol><li>May include</li><li>Ordered lists</li></ol><p><a href="/">May include a link</a></p></div>'

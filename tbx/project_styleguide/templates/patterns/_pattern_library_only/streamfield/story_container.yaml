@@ -6,3 +6,7 @@ tags:
     # Wide image block
     'wide_image format-webp width-{400,800,1600,1280} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" loading="lazy" alt=value.alt_text':
       raw: '<img alt="Screenshot of workshop to establish tone" height="225" sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 70vw, (min-width: 1880px) 1170px" src="https://picsum.photos/400/225.webp" srcset="https://picsum.photos/400/225.webp 400w, https://picsum.photos/800/450.webp 800w, https://picsum.photos/1600/900.webp 1153w, https://picsum.photos/1280/720.webp 1153w" width="400">'
+  # Table block
+  include_block:
+    table_block:
+      raw: '<div class="rich-text"><p>Some <b>content</b> for a <i>table</i>.</p><ul><li>May include</li><li>Lists</li></ul><ol><li>May include</li><li>Ordered lists</li></ol><p><a href="/">May include a link</a></p></div>'

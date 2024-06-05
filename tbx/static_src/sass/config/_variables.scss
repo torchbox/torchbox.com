@@ -55,6 +55,7 @@ $color--mid-grey: #282e30; // in figma this colour is created with a very transp
     --color--decoration: #{$color--grey-50};
     --color--border: #{color.adjust($color--grey-50, $alpha: -0.5)};
     --color--overlay: #{color.adjust($color--black, $alpha: -0.6)};
+    --color--background--overlay: #{color.adjust($color--eclipse, $alpha: -1)};
     --color--light-grey-background: #{$color--grey-5};
     // where we always want white
     --color--white: #{$color--white};
