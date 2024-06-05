@@ -146,10 +146,15 @@
 
         @include media-query(large) {
             display: block;
+            color: var(--color--heading);
             left: -140px;
             position: absolute;
             top: -5px;
             z-index: ($gradient-z-index + 1);
+        }
+
+        @include high-contrast-light-mode() {
+            color: var(--color--background);
         }
     }
 
