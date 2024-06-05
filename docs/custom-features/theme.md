@@ -10,6 +10,7 @@ The available color themes are defined using the `tbx.core.utils.models.ColourTh
 - `ColourTheme.CORAL`: Applies a `theme-coral` class to the page.
 - `ColourTheme.LAGOON`: Applies a `theme-lagoon` class to the page.
 - `ColourTheme.BANANA`: Applies a `theme-banana` class to the page.
+- `ColourTheme.EARTH`: Applies a `theme-earth` class to the page.
 
 ???+ tip
 
