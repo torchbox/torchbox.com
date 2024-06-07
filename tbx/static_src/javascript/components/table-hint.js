@@ -22,25 +22,17 @@ class TableHint {
             }
         });
 
+        // Check if the user prefers reduced motion - only use smooth scroll if they don't
         const isReduced =
-            window.matchMedia(`(prefers-reduced-motion: reduce)`) === true ||
-            window.matchMedia(`(prefers-reduced-motion: reduce)`).matches ===
-                true;
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches ===
+            true;
 
         this.button.addEventListener('click', () => {
-            if (isReduced) {
-                this.node.scroll({
-                    top: 0,
-                    left: 500,
-                    behavior: 'auto',
-                });
-            } else {
-                this.node.scroll({
-                    top: 0,
-                    left: 500,
-                    behavior: 'smooth',
-                });
-            }
+            this.node.scroll({
+                top: 0,
+                left: 500,
+                behavior: isReduced ? 'auto' : 'smooth',
+            });
         });
     }
 }
