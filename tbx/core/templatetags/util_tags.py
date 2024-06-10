@@ -78,3 +78,10 @@ def format_date_for_event(start_date, start_time=None, end_date=None, end_time=N
                     f", {format_time(end_time)}{end_time.strftime('%p').lower()}"
                 )
     return formatted_start_date
+
+
+@register.filter(name='ifinlist')
+def ifinlist(value, list):
+    # cast to strings before testing as this is used for heading levels 2, 3, 4 etc
+    stringList = [str(x) for x in list]
+    return str(value) in stringList
