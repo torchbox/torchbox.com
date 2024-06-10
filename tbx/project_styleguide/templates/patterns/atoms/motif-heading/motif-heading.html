@@ -1,5 +1,3 @@
-{% load util_tags %}
-
 {% if heading_level > '1' and heading_level < '7' %}
     {# If the heading level is anything other than one, output the heading tag with the motif styles #}
     <h{{ heading_level|default:1 }} class="motif-heading {% if classes %}{{ classes }}{% endif %}" aria-label="{% firstof aria_label heading %}">
