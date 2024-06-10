@@ -226,6 +226,11 @@ class ButtonLinkStructValue(blocks.StructValue):
 
         return ""
 
+    def get_button_file_size(self):
+        block = self.get_button_link_block()
+        if block.block_type == "document_link":
+            return block.value.file.size
+
 
 class CallToActionBlock(blocks.StructBlock):
     text = blocks.CharBlock(required=True, max_length=255)
