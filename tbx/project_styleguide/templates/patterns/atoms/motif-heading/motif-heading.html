@@ -1,6 +1,6 @@
 {% load util_tags %}
 
-{% if heading_level|ifinlist:"2,3,4,5,6" %}
+{% if heading_level > '1' and heading_level < '7' %}
     {# If the heading level is anything other than one, output the heading tag with the motif styles #}
     <h{{ heading_level|default:1 }} class="motif-heading {% if classes %}{{ classes }}{% endif %}" aria-label="{% firstof aria_label heading %}">
 {% else %}
@@ -19,7 +19,7 @@
     <span class="motif-heading__drop-cap {% if first_letter|lower == 'i' %}motif-heading__drop-cap--i{% endif %} {% if first_letter|lower in 'f,p' %}motif-heading__drop-cap--narrow{% endif %} {% if first_letter|lower == 'w' %}motif-heading__drop-cap--narrower{% endif %} {% if first_letter|lower in 't,y' %}motif-heading__drop-cap--narrowest{% endif %}">{{ first_letter }}</span><span>{{ heading|slice:"1:" }}</span>
 {% endwith %}
 
-{% if heading_level|ifinlist:"2,3,4,5,6" %}
+{% if heading_level > '1' and heading_level < '7' %}
     </h{{ heading_level|default:1 }}>
 {% else %}
     </p>
