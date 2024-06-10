@@ -16,6 +16,7 @@ from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.contrib.typed_table_block.blocks import (
     TypedTableBlock as WagtailTypedTableBlock,
 )
+from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock as WagtailEmbedBlock
 from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.exceptions import EmbedException
@@ -220,8 +221,15 @@ class ButtonLinkStructValue(blocks.StructValue):
             return block.value
         elif block_type == "email":
             return f"mailto:{block.value}"
+        elif block_type == "document_link":
+            return block.value.file.url
 
         return ""
+
+    def get_button_file_size(self):
+        block = self.get_button_link_block()
+        if block.block_type == "document_link":
+            return block.value.file.size
 
 
 class CallToActionBlock(blocks.StructBlock):
@@ -232,6 +240,7 @@ class CallToActionBlock(blocks.StructBlock):
             ("internal_link", blocks.PageChooserBlock()),
             ("external_link", blocks.URLBlock()),
             ("email", blocks.EmailBlock()),
+            ("document_link", DocumentChooserBlock()),
         ],
         required=True,
         max_num=1,

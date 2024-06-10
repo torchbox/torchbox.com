@@ -5,7 +5,12 @@
         <p class="call-to-action__text">{{ value.text }}</p>
 
         {% if value.button_text and value.button_link %}
-            <a href="{{ value.get_button_link }}" class="call-to-action__button button">{{ value.button_text }}</a>
+            <a href="{{ value.get_button_link }}" class="call-to-action__button button">
+                {{ value.button_text }}
+                {% if value.get_button_link_block.block_type == "document_link" %}
+                    ({{ value.get_button_file_size|filesizeformat }})
+                {% endif %}
+            </a>
         {% endif %}
     </div>
 </div>
