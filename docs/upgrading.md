@@ -41,13 +41,32 @@ As indicated [here](./custom-features/migration-friendly-streamfields.md), this 
 
 - Ensure that the [page themes](custom-features/theme.md) are still working correctly
 
-### Lite youtube integration
+### Wagtail package dependencies
+
+We are maintaining our own forks of Wagtail packages at: <https://github.com/torchbox-forks>.
+
+The enables any team member to propose a change to a package, we can all work directly on the work branch and submit it to the original author for consideration.
+
+- [How we work on forked packages (intranet article).](https://intranet.torchbox.com/torchbox-teams/tech-team/working-with-3rd-party-packages/#forking-repositories)
+- [Where we manage forked packages (Monday board).](https://torchbox.monday.com/boards/1124794299)
+
+As much as possible, we want to use the official releases available on PyPI for the Wagtail package dependencies. A temporary solution is to fork the package dependency, tag the working branch, and use the tag in the pyproject file.
+
+### Check these packages for updates
+
+#### Lite youtube integration
 
 - Check that the [custom lite youtube](front-end/lite-youtube.md) feature is still working for all youtube embeds
 
-### Code blocks using wagtail-markdown
+#### Code blocks using wagtail-markdown
 
 - Check that [code blocks](front-end/markdown-codehilite.md) still display as expected
+
+#### Wagtailmedia
+
+- Check if the [wagtailmedia] package has been updated and if possible use the official release.
+
+Currently using https://github.com/torchbox-forks/wagtailmedia.git @ 0.15.2+tbx
 
 ### Responsive images
 
