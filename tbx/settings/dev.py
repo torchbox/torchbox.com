@@ -5,7 +5,7 @@ DEBUG = True
 SECURE_SSL_REDIRECT = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "CHANGEME!!!"
+SECRET_KEY = "CHANGEME!!!"  # pragma: allowlist secret
 
 # Enable FE component library
 PATTERN_LIBRARY_ENABLED = True

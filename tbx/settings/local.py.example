@@ -7,7 +7,7 @@ GOOGLE_MAPS_KEY = 'get-one-from-https://code.google.com/apis/console/?noredirect
 
 # It is strongly recommended that you define a SECRET_KEY here, where it won't be visible
 # in your version control system.
-SECRET_KEY = 'enter-a-long-unguessable-string-here'
+SECRET_KEY = 'enter-a-long-unguessable-string-here'  # pragma: allowlist secret
 
 
 # If you're developing Wagtail itself (as opposed to building a Wagtail-powered site), you'll
