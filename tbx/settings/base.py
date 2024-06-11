@@ -549,7 +549,7 @@ if "MAILCHIMP_MAILING_LIST_ID" in env:
     MAILCHIMP_MAILING_LIST_ID = env["MAILCHIMP_MAILING_LIST_ID"]
 
 
-PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
+WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
 # Styleguide
 PATTERN_LIBRARY_ENABLED = env.get("PATTERN_LIBRARY_ENABLED", "false").lower() == "true"
 PATTERN_LIBRARY = {
