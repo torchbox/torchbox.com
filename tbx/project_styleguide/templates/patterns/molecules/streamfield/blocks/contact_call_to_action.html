@@ -22,7 +22,12 @@
 
     {% for cta in value.call_to_action %}
         {% if cta.value.button_text and cta.value.button_link %}
-            <a href="{{ cta.value.get_button_link }}" class="contact-cta__button button">{{ cta.value.button_text }}</a>
+            <a href="{{ cta.value.get_button_link }}" class="contact-cta__button button">
+                {{ cta.value.button_text }}
+                {% if cta.value.get_button_link_block.block_type == "document_link" %}
+                    ({{ cta.value.get_button_file_size|filesizeformat }})
+                {% endif %}
+            </a>
         {% endif %}
     {% endfor %}
 </div>
