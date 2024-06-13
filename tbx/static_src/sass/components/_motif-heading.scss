@@ -3,6 +3,7 @@
 .motif-heading {
     $root: &;
     font-weight: $weight--light;
+    color: var(--color--heading);
 
     &__drop-cap {
         color: transparent;
