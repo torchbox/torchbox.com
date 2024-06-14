@@ -46,6 +46,9 @@ $color--grey-75: #3a3a3a;
 
 $color--mid-grey: #282e30; // in figma this colour is created with a very transparent white, but this is used on the cookie banner where it needs to be a solid colour
 
+// specific colour for the streamfield background in the earth theme light mode, where grey 5 is too light
+$color--earth-streamfield-background: #e6e3df;
+
 // Dark mode by default
 :root,
 .mode-dark {
@@ -67,6 +70,9 @@ $color--mid-grey: #282e30; // in figma this colour is created with a very transp
     --color--light-grey-background: #{$color--grey-5};
     // where we always want white
     --color--white: #{$color--white};
+    // where we always want grey-20 - used by footer carbon text
+    --color--grey-20: #{$color--grey-20};
+    // where we always want grey-50 - used
 }
 
 // Coral theme, dark mode - also by default
@@ -163,6 +169,7 @@ $color--mid-grey: #282e30; // in figma this colour is created with a very transp
     --color--background: #{$color--white};
     --color--heading: #{$color--eclipse};
     --color--text: #{$color--grey-70};
+    --color--decoration: #{$color--eclipse};
     --color--link: #{$color--eclipse};
     --color--link-interaction: #{$color--eclipse};
     --color--streamfield-background: #{$color--grey-5};
@@ -230,6 +237,8 @@ $color--mid-grey: #282e30; // in figma this colour is created with a very transp
 .theme-earth.mode-light {
     // Earth theme has a different background colour in light mode
     --color--background: #{$color--earth-10};
+    // And a different streamfield background colour
+    --color--streamfield-background: #{$color--earth-streamfield-background};
     // Usual overrides
     --color--focus-ring: #{$color--earth-30};
     --color--focus-ring-muted: #{color.adjust($color--earth-30, $alpha: -0.4)};
