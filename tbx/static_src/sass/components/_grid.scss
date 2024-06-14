@@ -575,6 +575,7 @@
         }
 
         // targets last div in a set of .small-image-with-text divs
+        /* stylelint-disable selector-max-specificity */
         .small-image-with-text:not(:has(~ .small-image-with-text)) {
             margin-bottom: $spacer-medium;
 
@@ -582,8 +583,10 @@
                 margin-bottom: $spacer-large;
             }
         }
+        /* stylelint-enable selector-max-specificity */
 
         // tighten space between paragraph and instagram block on the impact report page
+
         &__paragraph:has(+ .grid__instagram-gallery) {
             margin-bottom: $spacer-small;
 
