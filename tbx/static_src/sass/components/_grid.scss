@@ -568,17 +568,39 @@
             margin-bottom: $spacer-small;
             grid-column: 2 / span 4;
 
-            &:last-child {
-                margin-bottom: $spacer-medium;
-            }
-
             @include media-query(large) {
                 margin-bottom: $spacer-medium;
                 grid-column: 5 / span 7;
+            }
+        }
 
-                &:last-child {
-                    margin-bottom: $spacer-large;
-                }
+        // targets last div in a set of .small-image-with-text divs
+        /* stylelint-disable selector-max-specificity */
+        .small-image-with-text:not(:has(~ .small-image-with-text)) {
+            margin-bottom: $spacer-medium;
+
+            @include media-query(large) {
+                margin-bottom: $spacer-large;
+            }
+        }
+        /* stylelint-enable selector-max-specificity */
+
+        // tighten space between paragraph and instagram block on the impact report page
+
+        &__paragraph:has(+ .grid__instagram-gallery) {
+            margin-bottom: $spacer-small;
+
+            @include media-query(large) {
+                margin-bottom: $spacer-medium;
+            }
+        }
+
+        // increase space between the impact report heading and h3 on the impact report page
+        &__impact-report-heading:has(+ .grid__heading) {
+            margin-bottom: $spacer-small;
+
+            @include media-query(large) {
+                margin-bottom: $spacer-medium;
             }
         }
     }
