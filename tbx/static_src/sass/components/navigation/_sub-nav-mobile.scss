@@ -50,7 +50,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         // styles for links with children
         &--has-children {
             @include font-size('body-two');
-            color: var(--color--heading);
+            color: var(--color--white);
             padding: $spacer-mini-plus $spacer-small;
             font-weight: $weight--medium;
         }
@@ -58,8 +58,8 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         // styles for links without children
         &--no-children {
             @include link-styles(
-                $color: var(--color--heading),
-                $interaction-color: var(--color--heading)
+                $color: var(--color--white),
+                $interaction-color: var(--color--white)
             );
             @include font-size('body-two');
             padding: $spacer-mini-plus $spacer-small;
@@ -69,7 +69,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         // back link which goes one level up in the mobile menu
         &--back {
             @include font-size('body-two');
-            color: var(--color--heading);
+            color: var(--color--white);
             width: 100%;
             padding: $spacer-mini-plus $spacer-small;
             font-weight: $weight--medium;
@@ -78,8 +78,8 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         // parent link which takes you to the parent page for the section being viewed in the mobile menu
         &--parent {
             @include link-styles(
-                $color: var(--color--heading),
-                $interaction-color: var(--color--heading)
+                $color: var(--color--white),
+                $interaction-color: var(--color--white)
             );
         }
     }
@@ -91,7 +91,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         height: 21px;
         flex-grow: 0;
         flex-shrink: 0;
-        fill: var(--color--heading);
+        fill: var(--color--white);
         transition: transform $transition-quick;
 
         #{$root}__link:hover & {
@@ -105,7 +105,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         height: 21px;
         flex-grow: 0;
         flex-shrink: 0;
-        fill: var(--color--heading);
+        fill: var(--color--white);
         transition: transform $transition-quick;
 
         #{$root}__link:hover & {
