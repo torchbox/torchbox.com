@@ -62,12 +62,6 @@ As much as possible, we want to use the official releases available on PyPI for 
 
 - Check that [code blocks](front-end/markdown-codehilite.md) still display as expected
 
-#### Wagtailmedia
-
-- Check if the [wagtailmedia] package has been updated and if possible use the official release.
-
-Currently using https://github.com/torchbox-forks/wagtailmedia.git @ 0.15.2+tbx
-
 ### Responsive images
 
 - The [responsive images](front-end/responsive-images.md) (`{% srcset_image %}` and `<picture>` tags) can use a lot of memory if renditions need to be recreated. Consider any changes that force image renditions to be recreated out of UK working hours, and visit the work listing, blog listing and team pages to force the new renditions to be created.
