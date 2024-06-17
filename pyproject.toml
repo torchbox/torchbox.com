@@ -30,7 +30,7 @@ dj-database-url = "^2.2.0"
 wagtail-accessibility = "^2.0.0"
 wagtail-lite-youtube-embed = "^0.1.0"
 wagtail-markdown = "^0.12.1"
-wagtailmedia = {git = "https://github.com/torchbox-forks/wagtailmedia.git", rev="0.15.2+tbx"}
+wagtailmedia = "^0.15.2"
 wagtail-purge = "^0.4.0"
 
 # Production
