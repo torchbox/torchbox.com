@@ -2,8 +2,15 @@
     <div class="p-4 flex items-center justify-between">
         {% block title %}<h1 class="heading heading--one">Styleguide</h1>{% endblock %}
         <div class="flex items-center gap-2">
+            <label for="mode-chooser">Choose a mode:</label>
+            <select name="mode-chooser" id="mode-chooser" class="p-2 text-black select" onchange="changeThemeAndMode()">
+                <option value="mode-dark">Dark</option>
+                <option value="mode-light">Light</option>
+            </select>
+        </div>
+        <div class="flex items-center gap-2">
             <label for="theme-chooser">Choose a theme:</label>
-            <select name="theme-chooser" id="theme-chooser" class="p-2 text-black select" onchange="changeTheme(this.value)">
+            <select name="theme-chooser" id="theme-chooser" class="p-2 text-black select" onchange="changeThemeAndMode()">
                 <option value="theme-coral">Coral</option>
                 <option value="theme-lagoon">Lagoon</option>
                 <option value="theme-banana">Banana</option>
@@ -19,9 +26,14 @@
 {% block theme_chooser_js %}
     <script>
         // JS to change the theme of the styleguide
-        function changeTheme(theme) {
-            document.documentElement.className = 'mode-dark';
+        function changeThemeAndMode() {
+            theme = document.querySelector('#theme-chooser').value;
+            mode = document.querySelector('#mode-chooser').value;
+            document.documentElement.className = '';
+            document.documentElement.classList.add(mode);
             document.documentElement.classList.add(theme);
         }
+
+        changeThemeAndMode();
     </script>
 {% endblock %}
