@@ -244,10 +244,6 @@ $color--earth-streamfield-background: #e6e3df;
 
 // Earth theme, light mode
 .theme-earth.mode-light {
-    // Earth theme has a different background colour in light mode
-    --color--background: #{$color--earth-10};
-    // And a different streamfield background colour
-    --color--streamfield-background: #{$color--earth-streamfield-background};
     // Usual overrides
     --color--focus-ring: #{$color--earth-30};
     --color--focus-ring-muted: #{color.adjust($color--earth-30, $alpha: -0.4)};
