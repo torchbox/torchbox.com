@@ -2,6 +2,7 @@
 Called by GitHub Action 'copy prod to staging' button is pressed.
 This calls flightpath to copy prod database and media to staging.
 """
+
 import os
 
 import requests
@@ -21,7 +22,11 @@ def get_flightpath_args_from_env():
 
     except KeyError:
         raise KeyError(
-            "You need the following environment variables to run flightpath: FLIGHTPATH_URL, HEROKU_APP_NAME_PRODUCTION, HEROKU_APP_NAME_STAGING, FLIGHTPATH_AUTH_KEY, DEPLOYMENT_KEY. This should be set on GitHub secrets if running as GitHub Actions."
+            "You need the following environment variables to run flightpath: "
+            "FLIGHTPATH_URL, HEROKU_APP_NAME_PRODUCTION, "
+            "HEROKU_APP_NAME_STAGING, FLIGHTPATH_AUTH_KEY, "
+            "DEPLOYMENT_KEY. This should be set on GitHub "
+            "secrets if running as GitHub Actions."
         )
 
     return args

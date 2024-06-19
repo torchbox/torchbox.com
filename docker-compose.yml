@@ -13,7 +13,7 @@ services:
       DJANGO_SETTINGS_MODULE: tbx.settings.dev
       MEDIA_DIR: /app/media/
       REDIS_URL: redis://redis
-      SECRET_KEY: local_dev_secret_key
+      SECRET_KEY: local_dev_secret_key # pragma: allowlist secret
       SECURE_SSL_REDIRECT: 'false'
       STATIC_DIR: /app/static/
       STATIC_URL: /static/

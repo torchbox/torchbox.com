@@ -49,7 +49,10 @@ def format_date_for_event(start_date, start_time=None, end_date=None, end_time=N
                         if start_time.strftime("%p") == end_time.strftime("%p"):
                             formatted_start_date += f"-{format_time(end_time)}{end_time.strftime('%p').lower()}"
                         else:
-                            formatted_start_date += f"{start_time.strftime('%p').lower()}-{format_time(end_time)}{end_time.strftime('%p').lower()}"
+                            formatted_start_date += (
+                                f"{start_time.strftime('%p').lower()}-{format_time(end_time)}"
+                                f"{end_time.strftime('%p').lower()}"
+                            )
                     else:
                         formatted_start_date += start_time.strftime("%p").lower()
                 else:
