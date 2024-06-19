@@ -26,7 +26,7 @@ See also our [incident process](https://intranet.torchbox.com/propositions/desig
 
 ###Infrastructure
 
-- S3 bucket production: `buckup-torchbox-production-new` (Note that there is a ticket to change this post-launch)
+- S3 bucket production: `media.torchbox.com` (Note that there is a ticket to change this post-launch)
 - S3 bucket staging: `buckup-torchbox-staging-new`
 - [Heroku Production](https://dashboard.heroku.com/apps/torchbox-com-production)
 - [Heroku Staging](https://dashboard.heroku.com/apps/torchbox-com-staging)
