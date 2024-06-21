@@ -67,7 +67,11 @@
         fill: var(--color--heading);
 
         @include high-contrast-light-mode() {
-            fill: var(--color--background);
+            fill: var(--color--eclipse);
+        }
+
+        @include high-contrast-dark-mode() {
+            fill: var(--color--white);
         }
     }
 }
