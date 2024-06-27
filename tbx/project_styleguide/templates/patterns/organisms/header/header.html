@@ -27,6 +27,7 @@
                 class="site-switcher__checkbox"
                 id="id-site-switcher-light"
                 data-mode-switch
+                {% if MODE == 'light' %}checked="checked"{% endif %}
             >
             <input
                 type="radio"
@@ -35,9 +36,9 @@
                 class="site-switcher__checkbox"
                 id="id-site-switcher-dark"
                 data-mode-switch
-                checked="checked"
+                {% if MODE == 'dark' %}checked="checked"{% endif %}
             >
-            <label for="id-site-switcher-dark" class="site-switcher__label" checked="checked">Switch to dark mode</label>
+            <label for="id-site-switcher-dark" class="site-switcher__label">Switch to dark mode</label>
         </fieldset>
     </form>
 
