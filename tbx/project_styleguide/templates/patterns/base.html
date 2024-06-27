@@ -2,8 +2,9 @@
 <!doctype html>
 <html
     class="
-           {% block html_class %}template-{{ page.get_verbose_name|slugify }}{% endblock %}
-           {% if page.theme_class %}{{ page.theme_class }}{% endif %} mode-dark"
+        {% block html_class %}template-{{ page.get_verbose_name|slugify }}{% endblock %}
+        {% if page.theme_class %}{{ page.theme_class }}{% endif %} mode-{{ MODE }}"
+    data-mode="{{ MODE }}"
     lang="en-GB"
 >
     <head>
@@ -51,6 +52,13 @@
         </main>
 
         {% block footer %}{% endblock %}
+
+        <script>
+            // global variables
+            window.GLOBALS = {
+                ALLOWED_MODES: {{ ALLOWED_MODES|safe }},
+            }
+        </script>
 
         <script src="{% static 'js/main.js' %}"></script>
 
