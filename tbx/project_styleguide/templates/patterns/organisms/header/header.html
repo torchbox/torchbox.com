@@ -15,6 +15,32 @@
             {% endwagtailcache %}
         </nav>
     </div>
+    {# Site switcher #}
+    <form class="site-switcher" data-mode-switcher>
+        <fieldset>
+            <legend>Toggle light or dark mode</legend>
+            <label for="id-site-switcher-light" class="site-switcher__label">Switch to light mode</label>
+            <input
+                type="radio"
+                name="switch-mode"
+                value="light"
+                class="site-switcher__checkbox"
+                id="id-site-switcher-light"
+                data-mode-switch
+            >
+            <input
+                type="radio"
+                name="switch-mode"
+                value="dark"
+                class="site-switcher__checkbox"
+                id="id-site-switcher-dark"
+                data-mode-switch
+                checked="checked"
+            >
+            <label for="id-site-switcher-dark" class="site-switcher__label" checked="checked">Switch to dark mode</label>
+        </fieldset>
+    </form>
+
     {# Mobile menu toggle #}
     <div class="header__menu-toggle grid__header-toggle">
         <span class="sr-only">Menu</span>

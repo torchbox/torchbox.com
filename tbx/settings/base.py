@@ -614,3 +614,6 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
         },
     },
 }
+
+# Used when switching between light and dark modes
+ALLOWED_MODES = ["light", "dark"]
