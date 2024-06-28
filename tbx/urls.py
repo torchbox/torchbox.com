@@ -10,7 +10,7 @@ from tbx.core.utils.cache import (
     get_default_cache_control_decorator,
     get_default_cache_control_method_decorator,
 )
-from tbx.core.views import robots
+from tbx.core.views import robots, switch_mode
 from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.contrib.sitemaps.views import sitemap
@@ -21,6 +21,7 @@ from wagtail.utils.urlpatterns import decorate_urlpatterns
 private_urlpatterns = [
     path("django-admin/", admin.site.urls),
     path("admin/", include(wagtailadmin_urls)),
+    path("switch-mode/", switch_mode, name="switch_mode"),
 ] + decorate_urlpatterns([path("documents/", include(wagtaildocs_urls))], never_cache)
 
 urlpatterns = [
