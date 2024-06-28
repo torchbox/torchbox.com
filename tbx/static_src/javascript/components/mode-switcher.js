@@ -19,7 +19,7 @@ class ModeSwitcher {
         if (!ALLOWED_MODES.includes(mode)) mode = '';
 
         // if mode cookie is not set, use dark by default, otherwise use the cookie value
-        mode === '' ? (this.mode = 'dark') : (this.mode = mode);
+        this.mode = mode === '' ? 'dark' : mode;
 
         this.toggleMode();
         this.bindEventListeners();
