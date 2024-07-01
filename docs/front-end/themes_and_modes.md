@@ -16,10 +16,20 @@ There are currently 4 themes in use: coral, lagoon, banana and earth. The CSS to
 
     The drop-caps svgs use a semi-transparent version of the accent colours, and the contrast of the resulting colour also needs to be checked. The [colour contrast checker](https://chromewebstore.google.com/detail/colour-contrast-checker/nmmjeclfkgjdomacpcflgdkgpphpmnfe?hl=en-GB&utm_source=ext_sidebar) is a useful chrome extension to assist with this.
 
+## Defaults
+
+The site will show in dark mode by default, and if a theme is not selected for a page or any parent pages, then it will display with the coral theme.
+
 ## CSS Variables
 
 All colours should be set using CSS variables, and these are updated according to the theme or mode in use on any given page.
 
-## Defaults
+The colours are named to match the figma colours. There is a section of the figma file that is only visible to editors which defines all the colours, and sets out a grid of the different colours used in different themes, which are variables file follows when setting up the themes. For reference these are in the screenshots below.
 
-The site will show in dark mode by default, and if a theme is not selected for a page or any parent pages, then it will display with the coral theme.
+![Colour definitions](/images/colour-definitions.png)
+
+<figcaption>Colour definitions</figcaption>
+
+![Colour grid](/images/colour-grid.png)
+
+<figcaption>Colour grid</figcaption>

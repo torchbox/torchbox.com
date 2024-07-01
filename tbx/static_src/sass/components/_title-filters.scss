@@ -30,7 +30,7 @@
     &--team {
         @include media-query(large) {
             padding-top: 200px;
-            background-image: url('../images/map.webp');
+            background-image: url('../images/map-dark.webp');
             background-repeat: no-repeat;
             background-size: 735px 405px;
             background-position: right 30px top;
@@ -38,6 +38,12 @@
 
         &::before {
             display: none;
+        }
+
+        .mode-light & {
+            @include media-query(large) {
+                background-image: url('../images/map-light.webp');
+            }
         }
     }
 

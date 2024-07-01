@@ -59,6 +59,10 @@
         @include high-contrast-light-mode() {
             filter: none;
         }
+
+        .mode-light & {
+            filter: none;
+        }
     }
 
     &__logo-picture {

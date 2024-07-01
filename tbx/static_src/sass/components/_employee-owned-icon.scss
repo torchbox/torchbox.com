@@ -11,6 +11,7 @@
         left: calc(50% - 15px);
         color: var(--color--accent-three);
         opacity: 0.5;
+        mix-blend-mode: screen;
 
         #{$root}:hover & {
             opacity: 1;
@@ -23,6 +24,18 @@
             top: calc(50% - 16px);
             left: calc(50% - 18px);
         }
+
+        .mode-light & {
+            mix-blend-mode: multiply;
+
+            @include high-contrast-mode() {
+                mix-blend-mode: normal;
+            }
+        }
+
+        @include high-contrast-mode() {
+            mix-blend-mode: normal;
+        }
     }
 
     &__heart-fill-icon {
@@ -33,6 +46,7 @@
         left: calc(50% - 19px);
         color: var(--color--accent-two);
         opacity: 0.5;
+        mix-blend-mode: screen;
 
         #{$root}:hover & {
             color: var(--color--accent-three);
@@ -44,6 +58,18 @@
             height: 33px;
             top: calc(50% - 16px);
             left: calc(50% - 22px);
+        }
+
+        .mode-light & {
+            mix-blend-mode: multiply;
+
+            @include high-contrast-mode() {
+                mix-blend-mode: normal;
+            }
+        }
+
+        @include high-contrast-mode() {
+            mix-blend-mode: normal;
         }
     }
 
@@ -70,7 +96,15 @@
         }
 
         @include high-contrast-light-mode() {
-            color: var(--color--background);
+            .mode-dark & {
+                color: var(--color--background);
+            }
+        }
+
+        @include high-contrast-dark-mode() {
+            .mode-light & {
+                color: var(--color--background);
+            }
         }
 
         @include media-query(large) {
