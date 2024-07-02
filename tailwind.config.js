@@ -20,6 +20,8 @@ module.exports = {
             inherit: 'inherit',
             current: 'currentColor',
             transparent: 'transparent',
+            background: 'var(--color--background)',
+            heading: 'var(--color--heading)',
         },
         screens: {
             sm: '410px',

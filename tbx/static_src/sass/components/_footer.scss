@@ -117,16 +117,17 @@
 
     &__carbon-impact-link {
         @include link-styles(
-            $color: var(--color--text),
-            $interaction-color: var(--color--heading)
+            $color: var(--color--grey-20),
+            $interaction-color: var(--color--white)
         );
     }
 
     &__carbon-impact-text {
         display: inline-block;
+        color: var(--color--grey-20);
 
         span {
-            color: var(--color--accent-three);
+            color: var(--color--footer-coloured-text);
             font-weight: $weight--semibold;
         }
 
