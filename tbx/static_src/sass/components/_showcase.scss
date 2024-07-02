@@ -100,9 +100,12 @@
             height: 80px;
         }
 
-        @include high-contrast-light-mode() {
-            // hide the icons in light high contrast mode as most of the colours don't display properly
+        @include high-contrast-mode() {
             display: none;
+        }
+
+        .mode-light & {
+            mix-blend-mode: multiply;
         }
     }
 
