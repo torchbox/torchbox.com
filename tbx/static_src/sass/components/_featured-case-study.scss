@@ -94,6 +94,10 @@
     &__link {
         display: block;
         margin-bottom: $spacer-small;
+
+        &:focus {
+            @include focus-style();
+        }
     }
 
     &__link-text {
