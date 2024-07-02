@@ -16,7 +16,7 @@ On the previous torchbox.com build we found that some page types were too inflex
 
 ## Clear editor guidelines
 
-We have created a set of editor guidelines at https://docs.google.com/document/d/1PAWccdQ4tfaZsrEWmpDhvP3GH5RRmBOARFVp4b-kje8/edit?usp=sharing. This should be updated with information on accessibility, image processing, image formats and content authoring. We have QA reminders in the merge request template and the ticket template to update this document when new work is done.
+We have created a set of editor guidelines. This should be updated with information on accessibility, image processing, image formats and content authoring. We have QA reminders in the merge request template and the ticket template to update this document when new work is done. A private link, for Torchbox employees only, can be found at https://intranet.torchbox.com/torchbox-com-project-docs.
 
 ## Good documentation of both front-end and back-end
 
