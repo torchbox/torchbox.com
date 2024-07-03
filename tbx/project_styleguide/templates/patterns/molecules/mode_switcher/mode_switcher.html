@@ -1,0 +1,36 @@
+{# <form class="mode-switcher" data-mode-switcher method="GET" action="{% url 'switch_mode' %}"> #}
+<form class="mode-switcher" data-mode-switcher method="GET" action="">
+    <fieldset class="mode-switcher__layout">
+        <legend class="sr-only">Toggle light or dark mode</legend>
+        <label for="id-mode-switcher-light" class="mode-switcher__label mode-switcher__label--light" aria-label="Switch to light mode">
+            {% include "patterns/atoms/icons/icon.html" with name="light-mode-icon" classname="mode-switcher__icon mode-switcher__icon--light" %}
+        </label>
+        <div class="mode-switcher__button">
+            <input
+                type="radio"
+                name="switch_mode"
+                value="light"
+                class="mode-switcher__radio"
+                id="id-mode-switcher-light"
+                data-mode-switch
+                {% if MODE == 'light' %}checked="checked"{% endif %}
+            >
+            <input
+                type="radio"
+                name="switch_mode"
+                value="dark"
+                class="mode-switcher__radio"
+                id="id-mode-switcher-dark"
+                data-mode-switch
+                {% if MODE == 'dark' %}checked="checked"{% endif %}
+            >
+        </div>
+        <label for="id-mode-switcher-dark" class="mode-switcher__label mode-switcher__label--dark" aria-label="Switch to dark mode">
+            {% include "patterns/atoms/icons/icon.html" with name="dark-mode-icon" classname="mode-switcher__icon mode-switcher__icon--dark" %}
+        </label>
+        <input type="hidden" name="next_url" value="{{ request.get_full_path }}">
+        <noscript>
+            <input type="submit" class="button" value="Switch mode" />
+        </noscript>
+    </fieldset>
+</form>

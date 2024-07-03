@@ -35,6 +35,7 @@
 @use 'components/logo';
 @use 'components/mailchimp';
 @use 'components/markdown-block';
+@use 'components/mode-switcher';
 @use 'components/motif-heading';
 @use 'components/pagination';
 @use 'components/partners';
@@ -48,7 +49,6 @@
 @use 'components/promo';
 @use 'components/section-title';
 @use 'components/showcase';
-@use 'components/site-switcher';
 @use 'components/skip-link';
 @use 'components/small-image-with-text';
 @use 'components/sprites-preview-icons';

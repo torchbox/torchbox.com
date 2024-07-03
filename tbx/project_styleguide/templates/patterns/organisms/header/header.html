@@ -15,8 +15,8 @@
             {% endwagtailcache %}
         </nav>
 
-        {# Site switcher #}
-        {% include "patterns/molecules/site_switcher/site_switcher.html" %}
+        {# Mode switcher desktop #}
+        {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
     </div>
 
     {# Mobile menu toggle #}
@@ -35,8 +35,8 @@
         {% wagtailcache 600 "primarynavmobile" current_site.pk is_pattern_library %}
             <ul data-primary-nav class="primary-nav-mobile__list">
                 {% primarynavmobile %}
-                {# Site switcher #}
-                {% include "patterns/molecules/site_switcher/site_switcher.html" %}
+                {# Mode switcher mobile #}
+                {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
             </ul>
         {% endwagtailcache %}
     </nav>
