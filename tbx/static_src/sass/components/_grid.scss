@@ -306,7 +306,8 @@
         display: none;
 
         @include media-query(medium) {
-            display: block;
+            display: flex;
+            justify-content: flex-end;
             grid-column: 3 / span 3;
         }
 

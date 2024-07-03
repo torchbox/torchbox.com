@@ -14,37 +14,10 @@
                 </ul>
             {% endwagtailcache %}
         </nav>
+
+        {# Site switcher #}
+        {% include "patterns/molecules/site_switcher/site_switcher.html" %}
     </div>
-    {# Site switcher #}
-    <form class="site-switcher" data-mode-switcher method="GET" action="{% url 'switch_mode' %}">
-        <fieldset>
-            <legend>Toggle light or dark mode</legend>
-            <label for="id-site-switcher-light" class="site-switcher__label">Switch to light mode</label>
-            <input
-                type="radio"
-                name="switch_mode"
-                value="light"
-                class="site-switcher__checkbox"
-                id="id-site-switcher-light"
-                data-mode-switch
-                {% if MODE == 'light' %}checked="checked"{% endif %}
-            >
-            <input
-                type="radio"
-                name="switch_mode"
-                value="dark"
-                class="site-switcher__checkbox"
-                id="id-site-switcher-dark"
-                data-mode-switch
-                {% if MODE == 'dark' %}checked="checked"{% endif %}
-            >
-            <label for="id-site-switcher-dark" class="site-switcher__label">Switch to dark mode</label>
-            <input type="hidden" name="next_url" value="{{ request.get_full_path }}">
-            <noscript>
-                <input type="submit" class="button" value="Switch mode" />
-            </noscript>
-        </fieldset>
-    </form>
 
     {# Mobile menu toggle #}
     <div class="header__menu-toggle grid__header-toggle">
@@ -62,6 +35,8 @@
         {% wagtailcache 600 "primarynavmobile" current_site.pk is_pattern_library %}
             <ul data-primary-nav class="primary-nav-mobile__list">
                 {% primarynavmobile %}
+                {# Site switcher #}
+                {% include "patterns/molecules/site_switcher/site_switcher.html" %}
             </ul>
         {% endwagtailcache %}
     </nav>

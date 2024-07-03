@@ -13,7 +13,7 @@ Styles for the top level of the navigation at desktop
     display: none;
 
     @include media-query(medium) {
-        display: block;
+        display: inline-block;
     }
 
     // Top level menu unordered list

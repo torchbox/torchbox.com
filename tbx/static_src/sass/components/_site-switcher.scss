@@ -1,0 +1,91 @@
+@use 'config' as *;
+
+.site-switcher {
+    margin-top: 45px;
+    display: flex;
+    justify-content: center;
+
+    @include media-query(medium) {
+        display: inline-block;
+        margin-top: 0;
+        margin-left: $spacer-small;
+        border-left: 1px solid var(--color--border);
+        padding-left: $spacer-small;
+    }
+
+    &__layout {
+        display: flex;
+        align-items: center;
+    }
+
+    &__label {
+        &--light {
+            margin-right: 8px;
+        }
+
+        &--dark {
+            margin-left: 8px;
+        }
+    }
+
+    &__icon {
+        &--light {
+            width: 18px;
+            height: 18px;
+        }
+
+        &--dark {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &__moon-stroke {
+        fill: var(--color--heading);
+    }
+
+    &__moon-fill {
+        fill: var(--color--background);
+    }
+
+    &__sun {
+        fill: var(--color--white);
+
+        @include media-query(medium) {
+            fill: var(--color--text);
+        }
+    }
+
+    // 'button' which contains the radio buttons
+    &__button {
+        border: 1px solid var(--color--heading-50);
+        border-radius: 21px;
+        width: 50px;
+        height: 26px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px;
+
+        @include media-query(medium) {
+            border: 1px solid var(--color--text-50);
+        }
+    }
+
+    &__checkbox {
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: transparent;
+        opacity: 1;
+
+        &:checked {
+            background-color: var(--color--heading);
+
+            @include media-query(medium) {
+                background-color: var(--color--text);
+            }
+        }
+    }
+}
