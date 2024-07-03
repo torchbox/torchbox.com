@@ -20,6 +20,8 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
     );
     background-color: var(--color--nav-background);
     padding: $spacer-half $grid-gutters;
+    // for high contrast mode
+    border: 1px solid transparent;
 
     // padding matches grid spacers but we don't want a grid layout for the sub-nav
     @include media-query(large) {
@@ -37,6 +39,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         // links remain hidden until opened
         visibility: hidden;
         padding: 0;
+        border: 0;
     }
 
     // the unordered list containing the level 2 menu items
