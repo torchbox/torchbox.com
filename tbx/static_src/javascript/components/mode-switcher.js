@@ -52,7 +52,7 @@ class ModeSwitcher {
         });
         this.html.classList.add(`mode-${this.mode}`);
         this.html.dataset.mode = this.mode;
-        Cookies.set('mode', this.mode, {
+        Cookies.set('torchbox-mode', this.mode, {
             expires: 365,
         });
     }
