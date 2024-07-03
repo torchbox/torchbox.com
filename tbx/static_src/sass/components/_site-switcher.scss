@@ -5,7 +5,7 @@
     display: flex;
     justify-content: center;
 
-    @include media-query(medium) {
+    @include media-query(menu) {
         display: inline-block;
         margin-top: 0;
         margin-left: $spacer-small;
@@ -21,10 +21,18 @@
     &__label {
         &--light {
             margin-right: 8px;
+
+            @include media-query(large) {
+                margin-right: 15px;
+            }
         }
 
         &--dark {
             margin-left: 8px;
+
+            @include media-query(large) {
+                margin-left: 15px;
+            }
         }
     }
 
@@ -61,7 +69,7 @@
     &__sun {
         fill: var(--color--heading);
 
-        @include media-query(medium) {
+        @include media-query(menu) {
             fill: var(--color--text);
         }
     }
@@ -77,7 +85,7 @@
         align-items: center;
         padding: 2px;
 
-        @include media-query(medium) {
+        @include media-query(menu) {
             border: 1px solid var(--color--text-50);
         }
     }
@@ -93,7 +101,7 @@
         &:checked {
             background-color: var(--color--heading);
 
-            @include media-query(medium) {
+            @include media-query(menu) {
                 background-color: var(--color--accent-five);
             }
         }

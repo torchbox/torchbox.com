@@ -12,7 +12,7 @@ Styles for the top level of the navigation at desktop
     // At desktop the top level of the menu is always visible in the header
     display: none;
 
-    @include media-query(medium) {
+    @include media-query(menu) {
         display: inline-block;
     }
 
