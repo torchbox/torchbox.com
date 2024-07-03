@@ -30,13 +30,23 @@
 
     &__icon {
         &--light {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
+
+            @include media-query(large) {
+                width: 26px;
+                height: 26px;
+            }
         }
 
         &--dark {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
+
+            @include media-query(large) {
+                width: 23px;
+                height: 23px;
+            }
         }
     }
 
@@ -49,7 +59,7 @@
     }
 
     &__sun {
-        fill: var(--color--white);
+        fill: var(--color--heading);
 
         @include media-query(medium) {
             fill: var(--color--text);
@@ -72,7 +82,7 @@
         }
     }
 
-    &__checkbox {
+    &__radio {
         appearance: none;
         width: 18px;
         height: 18px;
@@ -84,7 +94,7 @@
             background-color: var(--color--heading);
 
             @include media-query(medium) {
-                background-color: var(--color--text);
+                background-color: var(--color--accent-five);
             }
         }
     }
