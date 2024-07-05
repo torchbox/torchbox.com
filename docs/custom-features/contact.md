@@ -34,4 +34,4 @@ The `tbx.people.ContactMixin` provides a mechanism for associating a specific co
 
 ???+ note
 
-    Please ensure that the [Editor's guide](https://docs.google.com/document/d/1PAWccdQ4tfaZsrEWmpDhvP3GH5RRmBOARFVp4b-kje8/edit?usp=sharing) is updated accordingly whenever any changes are made to this feature.
+    Please ensure that the Editors' guide is updated accordingly whenever any changes are made to this feature. A private link, for Torchbox employees only, can be found at https://intranet.torchbox.com/torchbox-com-project-docs.

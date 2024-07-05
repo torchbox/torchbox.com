@@ -7,7 +7,7 @@ def global_vars(request):
 
     # Read the mode cookie to determine the user's saved preference for light or dark mode, if it exists
     # Ensure it is one of the allowed values
-    mode = request.COOKIES.get("mode", "dark")
+    mode = request.COOKIES.get("torchbox-mode", "dark")
     if mode not in settings.ALLOWED_MODES:
         mode = "dark"
 

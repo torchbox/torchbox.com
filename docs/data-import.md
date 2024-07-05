@@ -4,7 +4,7 @@ When the current iteration of the site was built (January 2024) we needed to kee
 
 We kept the model code for these page types, but regenerated the migrations from scratch.
 
-The process of importing the data (via `dumpdata` and `loaddata`) is described in the [annexe of the tech spec](https://docs.google.com/document/d/10ffo_nP2NqZ7K0rM3V2pP2JRQPD561FtjodlhiwnBrg/edit#heading=h.z5yppi5irclb)
+The process of importing the data (via `dumpdata` and `loaddata`) is described in the annexe of the tech spec. You can find a private link, for Torchbox employees only, at https://intranet.torchbox.com/torchbox-com-project-docs.
 
 Streamfield data that did not match with our new definitions had data migrations applied:
 

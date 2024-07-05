@@ -91,7 +91,6 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         height: 21px;
         flex-grow: 0;
         flex-shrink: 0;
-        fill: var(--color--white);
         transition: transform $transition-quick;
 
         #{$root}__link:hover & {
@@ -105,7 +104,6 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         height: 21px;
         flex-grow: 0;
         flex-shrink: 0;
-        fill: var(--color--white);
         transition: transform $transition-quick;
 
         #{$root}__link:hover & {

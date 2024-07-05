@@ -18,6 +18,7 @@ class ModeSwitcher {
         // check for invalid mode values
         if (!ALLOWED_MODES.includes(mode)) mode = '';
 
+<<<<<<< HEAD
         // mode cookie is not set, use dark by default
         if (mode === '') {
             this.mode = 'dark';
@@ -27,6 +28,11 @@ class ModeSwitcher {
         }
 
         this.toggleMode();
+=======
+        // if mode cookie is not set, use dark by default, otherwise use the cookie value
+        this.mode = mode === '' ? 'dark' : mode;
+
+>>>>>>> origin/integration/light-mode
         this.bindEventListeners();
     }
 
@@ -57,7 +63,7 @@ class ModeSwitcher {
         });
         this.html.classList.add(`mode-${this.mode}`);
         this.html.dataset.mode = this.mode;
-        Cookies.set('mode', this.mode, {
+        Cookies.set('torchbox-mode', this.mode, {
             expires: 365,
         });
     }
