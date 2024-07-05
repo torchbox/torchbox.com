@@ -84,7 +84,7 @@ def switch_mode(request):
             )
             response = HttpResponseNotFound()
         response.set_cookie(
-            "mode",
+            "torchbox-mode",
             new_mode,
             max_age=365 * 24 * 60 * 60,
             path="/",
