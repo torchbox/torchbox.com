@@ -78,8 +78,8 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
     // The link for each menu item in the 2nd and 3rd level
     &__link {
         @include link-styles(
-            $color: var(--color--white),
-            $interaction-color: var(--color--white)
+            $color: var(--color--heading),
+            $interaction-color: var(--color--heading)
         );
         @include font-size('heading-five');
         font-weight: $weight--semibold;
@@ -94,7 +94,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         &--child {
             @include link-styles(
                 $color: var(--color--nav-text),
-                $interaction-color: var(--color--white)
+                $interaction-color: var(--color--heading)
             );
             @include font-size('body-three');
             font-weight: $weight--normal;

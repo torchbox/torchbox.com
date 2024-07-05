@@ -57,14 +57,14 @@ Styles for the top level of the navigation at mobile
 
         // styles for links with children
         &--has-children {
-            color: var(--color--white);
+            color: var(--color--heading);
         }
 
         // styles for links without children
         &--no-children {
             @include link-styles(
-                $color: var(--color--white),
-                $interaction-color: var(--color--white)
+                $color: var(--color--heading),
+                $interaction-color: var(--color--heading)
             );
         }
     }
