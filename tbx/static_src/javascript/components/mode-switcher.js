@@ -18,7 +18,7 @@ class ModeSwitcher {
         // check for invalid mode values
         if (!ALLOWED_MODES.includes(mode)) mode = '';
 
-        // if mode cookie is not set, use dark by default, otherwise use the cookie value
+        // if torchbox-mode cookie is not set (it is passed via the data-mode attribute on the html tag), use dark by default - otherwise use the cookie value
         this.mode = mode === '' ? 'dark' : mode;
 
         this.bindEventListeners();

@@ -16,13 +16,13 @@
         </nav>
     </div>
     {# Site switcher #}
-    <form class="site-switcher" data-mode-switcher>
+    <form class="site-switcher" data-mode-switcher method="GET" action="{% url 'switch_mode' %}">
         <fieldset>
             <legend>Toggle light or dark mode</legend>
             <label for="id-site-switcher-light" class="site-switcher__label">Switch to light mode</label>
             <input
                 type="radio"
-                name="switch-mode"
+                name="switch_mode"
                 value="light"
                 class="site-switcher__checkbox"
                 id="id-site-switcher-light"
@@ -31,7 +31,7 @@
             >
             <input
                 type="radio"
-                name="switch-mode"
+                name="switch_mode"
                 value="dark"
                 class="site-switcher__checkbox"
                 id="id-site-switcher-dark"
@@ -39,6 +39,10 @@
                 {% if MODE == 'dark' %}checked="checked"{% endif %}
             >
             <label for="id-site-switcher-dark" class="site-switcher__label">Switch to dark mode</label>
+            <input type="hidden" name="next_url" value="{{ request.get_full_path }}">
+            <noscript>
+                <input type="submit" class="button" value="Switch mode" />
+            </noscript>
         </fieldset>
     </form>
 
