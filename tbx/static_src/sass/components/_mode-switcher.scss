@@ -20,8 +20,10 @@
     }
 
     &__label {
+        color: var(--color--text);
+        cursor: pointer;
+
         &--light {
-            color: var(--color--text);
             margin-right: 8px;
 
             @include media-query(large) {
@@ -30,7 +32,6 @@
         }
 
         &--dark {
-            color: var(--color--text);
             margin-left: 8px;
 
             @include media-query(large) {
@@ -84,6 +85,7 @@
         border-radius: 50%;
         background-color: transparent;
         opacity: 1;
+        cursor: pointer;
 
         &:checked {
             background-color: var(--color--heading);
@@ -102,5 +104,12 @@
     // change the colour of the dark mode label (and icon) when the equivalent checkbox is checked
     &__button:has(> #{$root}__radio--dark:checked) + #{$root}__label--dark {
         color: var(--color--accent-five);
+    }
+
+    // button which only appears if js is disabled
+    &__no-js-button {
+        display: block;
+        cursor: pointer;
+        text-decoration: underline;
     }
 }

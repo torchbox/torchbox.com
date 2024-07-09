@@ -28,8 +28,8 @@
             {% include "patterns/atoms/icons/icon.html" with name="dark-mode-icon" classname="mode-switcher__icon mode-switcher__icon--dark" %}
         </label>
         <input type="hidden" name="next_url" value="{{ request.get_full_path }}">
-        <noscript>
-            <input type="submit" class="button" value="Switch mode" />
-        </noscript>
     </fieldset>
+    <noscript>
+        <input type="submit" class="mode-switcher__no-js-button" value="Switch mode" />
+    </noscript>
 </form>
