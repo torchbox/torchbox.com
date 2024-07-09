@@ -1,6 +1,7 @@
 @use 'config' as *;
 
 .mode-switcher {
+    $root: &;
     margin-top: 45px;
     display: flex;
     justify-content: center;
@@ -20,6 +21,7 @@
 
     &__label {
         &--light {
+            color: var(--color--text);
             margin-right: 8px;
 
             @include media-query(large) {
@@ -28,6 +30,7 @@
         }
 
         &--dark {
+            color: var(--color--text);
             margin-left: 8px;
 
             @include media-query(large) {
@@ -55,22 +58,6 @@
                 width: 23px;
                 height: 23px;
             }
-        }
-    }
-
-    &__moon-stroke {
-        fill: var(--color--heading);
-    }
-
-    &__moon-fill {
-        fill: var(--color--background);
-    }
-
-    &__sun {
-        fill: var(--color--heading);
-
-        @include media-query(menu) {
-            fill: var(--color--text);
         }
     }
 
@@ -105,5 +92,15 @@
                 background-color: var(--color--accent-five);
             }
         }
+    }
+
+    // change the colour of the light mode label (and icon) when the equivalent checkbox is checked
+    &__label--light:has(+ #{$root}__button #{$root}__radio--light:checked) {
+        color: var(--color--accent-five);
+    }
+
+    // change the colour of the dark mode label (and icon) when the equivalent checkbox is checked
+    &__button:has(> #{$root}__radio--dark:checked) + #{$root}__label--dark {
+        color: var(--color--accent-five);
     }
 }
