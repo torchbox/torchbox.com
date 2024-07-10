@@ -93,7 +93,7 @@
         opacity: 1;
         cursor: pointer;
 
-        @include high-contrast-mode {
+        @include high-contrast-mode() {
             border: 1px solid transparent;
         }
 
@@ -104,8 +104,10 @@
                 background-color: var(--color--accent-five);
             }
 
-            @include high-contrast-mode {
+            @include high-contrast-mode() {
+                /* stylelint-disable value-keyword-case */
                 background-color: ActiveText;
+                /* stylelint-enable value-keyword-case */
             }
         }
     }
