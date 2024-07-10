@@ -35,9 +35,9 @@
         {% wagtailcache 600 "primarynavmobile" current_site.pk is_pattern_library %}
             <ul data-primary-nav class="primary-nav-mobile__list">
                 {% primarynavmobile %}
-                {# Mode switcher mobile #}
-                {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
             </ul>
+            {# Mode switcher mobile #}
+            {% include "patterns/molecules/mode_switcher/mode_switcher.html" with mobile=True %}
         {% endwagtailcache %}
     </nav>
 </header>

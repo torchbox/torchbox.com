@@ -2,16 +2,18 @@
 
 .mode-switcher {
     $root: &;
-    margin-top: 45px;
+    padding-top: 45px;
+    border-top: 1px solid var(--color--nav-border);
     display: flex;
     justify-content: center;
 
     @include media-query(menu) {
         display: inline-block;
-        margin-top: 0;
+        padding-top: 0;
+        padding-left: $spacer-small;
         margin-left: $spacer-small;
         border-left: 1px solid var(--color--border);
-        padding-left: $spacer-small;
+        border-top: 0;
     }
 
     &__layout {
@@ -20,8 +22,12 @@
     }
 
     &__label {
-        color: var(--color--text);
+        color: var(--color--heading);
         cursor: pointer;
+
+        @include media-query(menu) {
+            color: var(--color--text);
+        }
 
         &--light {
             margin-right: 8px;
@@ -52,12 +58,12 @@
         }
 
         &--dark {
-            width: 14px;
-            height: 14px;
+            width: 13px;
+            height: 13px;
 
             @include media-query(large) {
-                width: 23px;
-                height: 23px;
+                width: 21px;
+                height: 21px;
             }
         }
     }
@@ -98,12 +104,16 @@
 
     // change the colour of the light mode label (and icon) when the equivalent checkbox is checked
     &__label--light:has(+ #{$root}__button #{$root}__radio--light:checked) {
-        color: var(--color--accent-five);
+        @include media-query(menu) {
+            color: var(--color--accent-five);
+        }
     }
 
     // change the colour of the dark mode label (and icon) when the equivalent checkbox is checked
     &__button:has(> #{$root}__radio--dark:checked) + #{$root}__label--dark {
-        color: var(--color--accent-five);
+        @include media-query(menu) {
+            color: var(--color--accent-five);
+        }
     }
 
     // button which only appears if js is disabled
