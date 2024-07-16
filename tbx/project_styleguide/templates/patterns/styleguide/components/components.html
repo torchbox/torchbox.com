@@ -5,6 +5,11 @@
 {% block content %}
     <div class="p-4 flex flex-col gap-y-16">
         <div>
+            <h2 class="underline mb-2">Mode switcher</h2>
+            {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
+        </div>
+
+        <div>
             <h2 class="underline mb-2">Letter Motif</h2>
             {% include "patterns/atoms/motif-heading/motif-heading.html" with classes="motif-heading--one" %}
         </div>

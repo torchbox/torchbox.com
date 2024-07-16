@@ -5,6 +5,12 @@
     padding: 25px 0;
     align-items: end;
 
+    // when js is disabled, there is a button below the mode switcher
+    // the overall aligment on the header then needs tweaking
+    @media (scripting: none) {
+        align-items: flex-start;
+    }
+
     @include media-query(medium) {
         padding: 35px 0 $spacer-small-plus;
     }
@@ -21,7 +27,7 @@
         width: 100%;
         justify-content: flex-end;
 
-        @include media-query(medium) {
+        @include media-query(menu) {
             display: none;
         }
     }

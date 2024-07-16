@@ -1,0 +1,135 @@
+@use 'config' as *;
+
+.mode-switcher {
+    $root: &;
+    padding-top: 45px;
+    border-top: 1px solid var(--color--nav-border);
+    display: flex;
+    justify-content: center;
+
+    @include media-query(menu) {
+        display: inline-block;
+        padding-top: 0;
+        padding-left: $spacer-small;
+        margin-left: $spacer-small;
+        border-left: 1px solid var(--color--border);
+        border-top: 0;
+    }
+
+    &__layout {
+        display: flex;
+        align-items: center;
+    }
+
+    &__label {
+        color: var(--color--heading);
+        cursor: pointer;
+
+        @include media-query(menu) {
+            color: var(--color--text);
+        }
+
+        &--light {
+            margin-right: 8px;
+
+            @include media-query(large) {
+                margin-right: 15px;
+            }
+        }
+
+        &--dark {
+            margin-left: 8px;
+
+            @include media-query(large) {
+                margin-left: 15px;
+            }
+        }
+    }
+
+    &__icon {
+        &--light {
+            width: 16px;
+            height: 16px;
+
+            @include media-query(large) {
+                width: 26px;
+                height: 26px;
+            }
+        }
+
+        &--dark {
+            width: 13px;
+            height: 13px;
+
+            @include media-query(large) {
+                width: 21px;
+                height: 21px;
+            }
+        }
+    }
+
+    // 'button' which contains the radio buttons
+    &__button {
+        border: 1px solid var(--color--heading-50);
+        border-radius: 21px;
+        width: 50px;
+        height: 26px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px;
+
+        @include media-query(menu) {
+            border: 1px solid var(--color--text-50);
+        }
+    }
+
+    &__radio {
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: transparent;
+        opacity: 1;
+        cursor: pointer;
+
+        @include high-contrast-mode() {
+            border: 1px solid transparent;
+        }
+
+        &:checked {
+            background-color: var(--color--heading);
+
+            @include media-query(menu) {
+                background-color: var(--color--accent-five);
+            }
+
+            @include high-contrast-mode() {
+                /* stylelint-disable value-keyword-case */
+                background-color: ActiveText;
+                /* stylelint-enable value-keyword-case */
+            }
+        }
+    }
+
+    // change the colour of the light mode label (and icon) when the equivalent checkbox is checked
+    &__label--light:has(+ #{$root}__button #{$root}__radio--light:checked) {
+        @include media-query(menu) {
+            color: var(--color--accent-five);
+        }
+    }
+
+    // change the colour of the dark mode label (and icon) when the equivalent checkbox is checked
+    &__button:has(> #{$root}__radio--dark:checked) + #{$root}__label--dark {
+        @include media-query(menu) {
+            color: var(--color--accent-five);
+        }
+    }
+
+    // button which only appears if js is disabled
+    &__no-js-button {
+        display: block;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}

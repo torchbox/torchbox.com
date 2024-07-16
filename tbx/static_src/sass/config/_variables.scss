@@ -62,7 +62,9 @@ $color--earth-streamfield-background: #e6e3df;
     --color--nav-border: #{color.adjust($color--eclipse, $alpha: -0.5)};
     --color--light-background-text: #{$color--eclipse};
     --color--heading: #{$color--white};
+    --color--heading-50: #{color.adjust($color--white, $alpha: -0.5)};
     --color--text: #{$color--grey-20};
+    --color--text-50: #{color.adjust($color--grey-20, $alpha: -0.5)};
     --color--link: #{$color--white};
     --color--link-interaction: #{$color--white};
     --color--streamfield-background: #{$color--mid-grey};
@@ -88,7 +90,7 @@ $color--earth-streamfield-background: #e6e3df;
     --color--accent-two: #{$color--nebuline-20}; // 'primary-darkmode' in figma
     --color--accent-three: #{$color--coral-20}; // 'secondary-darkmode' in figma
     --color--accent-four: #{$color--purple}; // 'highlight dark' in figma. Note that these colours were primarily intended for a mix-blend in the letter caps, which we're no longer using.
-    --color--accent-five: #{$color--white};
+    --color--accent-five: #{$color--pink}; // 'highlight light' in figma
     // inverse using the light mode colour accent - used for 'results icon' in the featured case study
     --color--accent-two-inverse: #{$color--nebuline-30};
     --color--accent-three-inverse: #{$color--coral-30};
@@ -111,7 +113,7 @@ $color--earth-streamfield-background: #e6e3df;
     --color--accent-two: #{$color--nebuline-20}; // 'primary-darkmode' in figma
     --color--accent-three: #{$color--lagoon-20}; // 'secondary-darkmode' in figma
     --color--accent-four: #{$color--blue}; // 'highlight dark' in figma. Note that these colours were primarily intended for a mix-blend in the letter caps, which we're no longer using.
-    --color--accent-five: #{$color--white};
+    --color--accent-five: #{$color--sky}; // 'highlight light' in figma
     // inverse using the light mode colour accent - used for 'results icon' in the featured case study
     --color--accent-two-inverse: #{$color--nebuline-30};
     --color--accent-three-inverse: #{$color--lagoon-30};
@@ -134,7 +136,7 @@ $color--earth-streamfield-background: #e6e3df;
     --color--accent-two: #{$color--lagoon-20}; // 'primary-darkmode' in figma
     --color--accent-three: #{$color--banana-20}; // 'secondary-darkmode' in figma
     --color--accent-four: #{$color--unripe-banana}; // 'highlight dark' in figma. Note that these colours were primarily intended for a mix-blend in the letter caps, which we're no longer using.
-    --color--accent-five: #{$color--white};
+    --color--accent-five: #{$color--spearmint}; // 'highlight light' in figma
     // inverse using the light mode colour accent - used for 'results icon' in the featured case study
     --color--accent-two-inverse: #{$color--lagoon-30};
     --color--accent-three-inverse: #{$color--banana-30};
@@ -157,7 +159,7 @@ $color--earth-streamfield-background: #e6e3df;
     --color--accent-two: #{$color--lagoon-20}; // 'primary-darkmode' in figma
     --color--accent-three: #{$color--earth-20}; // 'secondary-darkmode' in figma
     --color--accent-four: #{$color--green}; // 'highlight dark' in figma. Note that these colours were primarily intended for a mix-blend in the letter caps, which we're no longer using.
-    --color--accent-five: #{$color--white};
+    --color--accent-five: #{$color--coolmint}; // 'highlight light' in figma
     // inverse using the light mode colour accent - used for 'results icon' in the featured case study
     --color--accent-two-inverse: #{$color--lagoon-30};
     --color--accent-three-inverse: #{$color--banana-30};
@@ -177,7 +179,9 @@ $color--earth-streamfield-background: #e6e3df;
     --color--background: #{$color--white};
     --color--nav-text: #{$color--eclipse};
     --color--heading: #{$color--eclipse};
+    --color--heading-50: #{color.adjust($color--eclipse, $alpha: -0.5)};
     --color--text: #{$color--grey-70};
+    --color--text-50: #{color.adjust($color--grey-70, $alpha: -0.5)};
     --color--decoration: #{$color--eclipse};
     --color--link: #{$color--eclipse};
     --color--link-interaction: #{$color--eclipse};
@@ -193,7 +197,7 @@ $color--earth-streamfield-background: #e6e3df;
     --color--accent-two: #{$color--nebuline-30}; // 'primary-lightmode' in figma
     --color--accent-three: #{$color--coral-30}; // 'secondary-lightmode' in figma
     --color--accent-four: #{$color--pink}; // 'highlight light' in figma. Note that these colours were primarily intended for a mix-blend in the letter caps, which we're no longer using.
-    --color--accent-five: #{$color--eclipse};
+    --color--accent-five: #{$color--purple}; // 'highlight dark' in figma
     // inverse using the dark mode colour accent - used for 'results icon' in the featured case study
     --color--accent-two-inverse: #{$color--nebuline-20};
     --color--accent-three-inverse: #{$color--coral-20};
@@ -216,7 +220,7 @@ $color--earth-streamfield-background: #e6e3df;
     --color--accent-two: #{$color--nebuline-30}; // 'primary-lightmode' in figma
     --color--accent-three: #{$color--lagoon-30}; // 'secondary-lightmode' in figma
     --color--accent-four: #{$color--sky}; // 'highlight light' in figma. Note that these colours were primarily intended for a mix-blend in the letter caps, which we're no longer using.
-    --color--accent-five: #{$color--eclipse};
+    --color--accent-five: #{$color--blue}; // 'highlight dark' in figma
     // inverse using the dark mode colour accent - used for 'results icon' in the featured case study
     --color--accent-two-inverse: #{$color--nebuline-20};
     --color--accent-three-inverse: #{$color--lagoon-20};
@@ -239,7 +243,7 @@ $color--earth-streamfield-background: #e6e3df;
     --color--accent-two: #{$color--lagoon-30}; // 'primary-lightmode' in figma
     --color--accent-three: #{$color--banana-30}; // 'secondary-lightmode' in figma
     --color--accent-four: #{$color--spearmint}; // 'highlight light' in figma. Note that these colours were primarily intended for a mix-blend in the letter caps, which we're no longer using.
-    --color--accent-five: #{$color--eclipse};
+    --color--accent-five: #{$color--unripe-banana}; // 'highlight dark' in figma
     // inverse using the dark mode colour accent - used for 'results icon' in the featured case study
     --color--accent-two-inverse: #{$color--lagoon-20};
     --color--accent-three-inverse: #{$color--banana-20};
@@ -263,7 +267,7 @@ $color--earth-streamfield-background: #e6e3df;
     --color--accent-two: #{$color--lagoon-30}; // 'primary-lightmode' in figma
     --color--accent-three: #{$color--earth-30}; // 'secondary-lightmode' in figma
     --color--accent-four: #{$color--coolmint}; // 'highlight light' in figma. Note that these colours were primarily intended for a mix-blend in the letter caps, which we're no longer using.
-    --color--accent-five: #{$color--eclipse};
+    --color--accent-five: #{$color--green}; // 'highlight dark' in figma
     // inverse using the dark mode colour accent - used for 'results icon' in the featured case study
     --color--accent-two-inverse: #{$color--lagoon-20};
     --color--accent-three-inverse: #{$color--earth-20};
@@ -451,7 +455,8 @@ $breakpoints: (
     'x-large' '(min-width: 1280px)',
     // secondary breakpoints - use sparingly
     'small' '(min-width: 410px)',
-    'xx-large' '(min-width: 1800px)'
+    'xx-large' '(min-width: 1800px)',
+    'menu' '(min-width: 890px)'
 );
 
 // Layout
