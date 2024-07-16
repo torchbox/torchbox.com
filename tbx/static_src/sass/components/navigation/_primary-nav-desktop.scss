@@ -12,8 +12,8 @@ Styles for the top level of the navigation at desktop
     // At desktop the top level of the menu is always visible in the header
     display: none;
 
-    @include media-query(medium) {
-        display: block;
+    @include media-query(menu) {
+        display: inline-block;
     }
 
     // Top level menu unordered list

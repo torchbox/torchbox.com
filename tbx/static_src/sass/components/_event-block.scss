@@ -3,8 +3,8 @@
 .event-block {
     display: grid;
     grid-template-columns: 1fr;
-    background-color: rgba($color--white, 0.04);
-    color: $color--white;
+    background-color: rgba(var(--color--heading), 0.04);
+    color: var(--color--heading);
 
     @include media-query(large) {
         grid-template-columns: 3fr 2fr;
@@ -30,7 +30,7 @@
 
     &__title {
         @include font-size(heading-two-b);
-        @include link-styles($color--white, $color--white);
+        @include link-styles(var(--color--heading), var(--color--heading));
         margin-bottom: $spacer-mini;
 
         @include media-query(large) {
@@ -77,6 +77,14 @@
     &__meta-item-icon {
         height: 50px;
         width: 50px;
+
+        .mode-light & {
+            mix-blend-mode: multiply;
+        }
+
+        @include high-contrast-mode() {
+            display: none;
+        }
     }
 
     &__meta-item-title {
@@ -89,7 +97,7 @@
 
     &__divider {
         margin: $spacer-small 0;
-        color: rgba($color--white, 0.2);
+        color: rgba(var(--color--heading), 0.2);
 
         @include media-query(large) {
             margin: $spacer-medium 0 $spacer-small;
@@ -97,7 +105,7 @@
     }
 
     &__link {
-        @include link-styles($color--white, $color--white);
+        @include link-styles(var(--color--heading), var(--color--heading));
         width: fit-content;
     }
 

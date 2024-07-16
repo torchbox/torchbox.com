@@ -15,7 +15,7 @@ Styles for the top level of the navigation at mobile
     display: block;
     background-color: var(--color--nav-background);
 
-    @include media-query(medium) {
+    @include media-query(menu) {
         display: none;
     }
 
@@ -75,14 +75,13 @@ Styles for the top level of the navigation at mobile
         height: 21px;
         flex-grow: 0;
         flex-shrink: 0;
-        fill: var(--color--heading);
         transition: transform $transition-quick;
 
         #{$root}__link:hover & {
             transform: translateX(10px);
         }
 
-        @include media-query(medium) {
+        @include media-query(menu) {
             display: none;
         }
 
