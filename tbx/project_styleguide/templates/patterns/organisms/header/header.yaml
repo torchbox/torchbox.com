@@ -5,3 +5,6 @@ tags:
   primarynavmobile:
     '':
       template_name: 'patterns/navigation/components/primary-nav-mobile.html'
+  pageurl:
+    link:
+      raw: '#'

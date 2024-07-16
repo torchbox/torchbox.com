@@ -15,7 +15,7 @@ Styles for the top level of the navigation at mobile
     display: block;
     background-color: var(--color--nav-background);
 
-    @include media-query(medium) {
+    @include media-query(menu) {
         display: none;
     }
 
@@ -81,7 +81,7 @@ Styles for the top level of the navigation at mobile
             transform: translateX(10px);
         }
 
-        @include media-query(medium) {
+        @include media-query(menu) {
             display: none;
         }
 
