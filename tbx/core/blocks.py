@@ -894,6 +894,10 @@ class StoryBlock(blocks.StreamBlock):
         template = "patterns/molecules/streamfield/stream_block.html"
 
 
+class StandardPageStoryBlock(StoryBlock):
+    promo = PromoBlock()
+
+
 class HomePageStoryBlock(blocks.StreamBlock):
     showcase = ShowcaseBlock(label="Standard showcase")
     homepage_showcase = HomepageShowcaseBlock(label="Large showcase with icons")
