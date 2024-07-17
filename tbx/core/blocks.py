@@ -620,16 +620,19 @@ class TabbedParagraphSectionsListBlock(blocks.ListBlock):
             item_errors = ErrorList()
 
             if button_values.get("button_link") and button_values.get("button_url"):
-                item_errors.append(ValidationError("You must specify either a page link or a URL, not both."))
-
-            if (
-                button_values.get("button_text")
-                and (
-                    not button_values.get("button_link")
-                    and not button_values.get("button_url")
+                item_errors.append(
+                    ValidationError(
+                        "You must specify either a page link or a URL, not both."
+                    )
                 )
+
+            if button_values.get("button_text") and (
+                not button_values.get("button_link")
+                and not button_values.get("button_url")
             ):
-                item_errors.append("You must specify a button link or URL for the button text you have provided.")
+                item_errors.append(
+                    "You must specify a button link or URL for the button text you have provided."
+                )
 
             if item_errors:
                 errors[i] = item_errors
@@ -669,9 +672,7 @@ class TabbedParagraphBlock(blocks.StructBlock):
             errors["title"].append(ValidationError(message))
 
         if errors:
-            raise blocks.StructBlockValidationError(
-                block_errors=errors
-            )
+            raise blocks.StructBlockValidationError(block_errors=errors)
 
         return value
 
