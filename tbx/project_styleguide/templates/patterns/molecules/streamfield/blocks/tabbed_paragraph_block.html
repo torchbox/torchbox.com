@@ -9,7 +9,7 @@
     {% endif %}
 
     {% if value.intro %}
-        <p class="tabbed-paragraph__intro">{{ value.intro }}</p>
+        <div class="tabbed-paragraph__intro rich-text">{{ value.intro }}</div>
     {% endif %}
 
     {# desktop - tabs #}
@@ -43,8 +43,16 @@
                 <div class="tabs__panel-text">
                     {{ item.text|richtext }}
                 </div>
-                {% if item.button_text and item.button_link %}
-                    <a href="{% pageurl item.button_link %}" class="button tabs__panel-button">{{ item.button_text }}</a>
+                {% if item.button_text%}
+                    {% if item.button_link or item.button_url %}
+                        {% if item.button_link %}
+                            <a href="{% pageurl item.button_link %}" class="button tabs__panel-button">
+                        {% else %}
+                            <a href="{{ item.button_url }}" class="button tabs__panel-button">
+                        {% endif %}
+                            {{ item.button_text }}
+                        </a>
+                    {% endif %}
                 {% endif %}
             </div>
         {% endfor %}
