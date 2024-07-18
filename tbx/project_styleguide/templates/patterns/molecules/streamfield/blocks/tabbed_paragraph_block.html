@@ -78,8 +78,16 @@
                 <div class="tabs-mobile__text">
                     {{ tab.text|richtext }}
                 </div>
-                {% if tab.button_text and tab.button_link %}
-                    <a href="{% pageurl tab.button_link %}" class="button tabs-mobile__button">{{ tab.button_text }}</a>
+                {% if tab.button_text %}
+                    {% if tab.button_link or tab.button_url %}
+                        {% if tab.button_link %}
+                            <a href="{% pageurl tab.button_link %}" class="button tabs-mobile__button">
+                        {% else %}
+                            <a href="{{ tab.button_url }}" class="button tabs-mobile__button">
+                        {% endif %}
+                        {{ tab.button_text }}
+                        </a>
+                    {% endif %}
                 {% endif %}
             </div>
         </details>
