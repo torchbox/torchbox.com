@@ -51,6 +51,15 @@ class DesktopSubMenu {
                 this.body.classList.add('no-scroll');
             }
         });
+
+        document.addEventListener('focusin', (e) => {
+            const inSubMenu = !!e.target.closest('[data-desktop-menu]');
+            if (!inSubMenu) {
+                this.toggleNode.classList.remove('active');
+                this.node.setAttribute('aria-expanded', 'false');
+                this.body.classList.remove('no-scroll');
+            }
+        });
     }
 }
 
