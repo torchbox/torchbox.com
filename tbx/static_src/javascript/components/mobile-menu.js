@@ -34,6 +34,10 @@ class MobileMenu {
         });
 
         // Close the mobile menu when the focus moves away from the last item in the top level
+        if (this.lastMenuItem === null) {
+            return;
+        }
+
         this.lastMenuItem.addEventListener('focusout', () => {
             if (this.state.open) {
                 this.close();
