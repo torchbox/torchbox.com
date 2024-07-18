@@ -4,7 +4,7 @@
     <ul class="sub-nav-desktop__list sub-nav-desktop__list--child">
         {% for page in pages %}
             <li class="sub-nav-desktop__item">
-                <a class="sub-nav-desktop__link sub-nav-desktop__link--child sub-nav-desktop__link--no-children" href="{% pageurl page %}">
+                <a class="sub-nav-desktop__link sub-nav-desktop__link--child sub-nav-desktop__link--no-children" href="{% pageurl page %}" {% if last_menu_item and forloop.last %}data-last-menu-item-desktop{% endif %}>
                     {{ page.nav_text }}
                 </a>
             </li>

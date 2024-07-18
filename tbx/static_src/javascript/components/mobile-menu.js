@@ -7,6 +7,9 @@ class MobileMenu {
         this.node = node;
         this.body = document.querySelector('body');
         this.mobileMenu = document.querySelector('[data-mobile-menu]');
+        this.lastMenuItem = document.querySelector(
+            '[data-last-menu-item-mobile]',
+        );
 
         this.state = {
             open: false,
@@ -27,6 +30,14 @@ class MobileMenu {
                     this.close();
                     this.state.open = false;
                 }
+            }
+        });
+
+        // Close the mobile menu when the focus moves away from the last item in the top level
+        this.lastMenuItem.addEventListener('focusout', () => {
+            if (this.state.open) {
+                this.close();
+                this.state.open = false;
             }
         });
     }

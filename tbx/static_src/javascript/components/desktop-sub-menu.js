@@ -15,6 +15,9 @@ class DesktopSubMenu {
             '[data-desktop-menu] [data-has-subnav]',
         );
         this.activeClass = 'active';
+        this.lastMenuItems = document.querySelectorAll(
+            '[data-last-menu-item-desktop]',
+        );
         this.bindEventListeners();
     }
 
@@ -52,13 +55,13 @@ class DesktopSubMenu {
             }
         });
 
-        document.addEventListener('focusin', (e) => {
-            const inSubMenu = !!e.target.closest('[data-desktop-menu]');
-            if (!inSubMenu) {
+        // Close the desktop menu when the focus moves away from the last item
+        this.lastMenuItems.forEach((item) => {
+            item.addEventListener('focusout', () => {
                 this.toggleNode.classList.remove('active');
                 this.node.setAttribute('aria-expanded', 'false');
                 this.body.classList.remove('no-scroll');
-            }
+            });
         });
     }
 }
