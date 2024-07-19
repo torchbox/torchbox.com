@@ -8,11 +8,12 @@ The `tbx.people.Contact` model represents contact information, including details
 
 1. `title`: A descriptive title for the contact block, typically used as a heading.
 2. `text`: Additional text to accompany the contact information, providing further context.
-3. `cta`: Call-to-action block, allowing customization of a button link and text.
-4. `name`: The name of the contact person or entity.
-5. `role`: The role or position of the contact person.
-6. `image`: An image associated with the contact.
-7. `default_contact`: Flag to designate this contact as the default for the site.
+3. `email_text`: An email field which will display an email address and link below the button cta.
+4. `cta`: Call-to-action block, allowing customization of a button link and text.
+5. `name`: The name of the contact person or entity.
+6. `role`: The role or position of the contact person.
+7. `image`: An image associated with the contact.
+8. `default_contact`: Flag to designate this contact as the default for the site.
 
 The `Contact` model also includes functionality to:
 

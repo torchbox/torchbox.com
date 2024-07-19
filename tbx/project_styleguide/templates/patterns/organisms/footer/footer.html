@@ -6,7 +6,7 @@
         <span class="grid__footer-line footer__line"></span>
         {% with contact=page.footer_contact %}
             {% if contact %}
-                {% include "patterns/molecules/footer-cta/footer-cta.html" with contact_heading=contact.title contact_text=contact.text contact_link=contact.link contact_name=contact.name contact_role=contact.role contact_image=contact.image contact_action=contact.button_text %}
+                {% include "patterns/molecules/footer-cta/footer-cta.html" with contact_heading=contact.title contact_text=contact.text contact_link=contact.link contact_name=contact.name contact_role=contact.role contact_image=contact.image contact_action=contact.button_text contact_email=contact.email_text %}
             {% endif %}
         {% endwith %}
 
