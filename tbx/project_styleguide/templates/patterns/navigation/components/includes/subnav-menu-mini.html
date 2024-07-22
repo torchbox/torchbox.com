@@ -8,6 +8,9 @@
                 <a
                     class="sub-nav-desktop-mini__link"
                     href="{% pageurl link %}"
+                    {% if forloop.last %}
+                        data-last-menu-item-desktop
+                    {% endif %}
                 >
                     {{ link.nav_text }}
                 </a>
