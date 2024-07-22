@@ -14,7 +14,9 @@
         <div class="footer-cta__button-wrapper">
             <a href="{{ contact_link }}" class="button footer-cta__button">{{ contact_action }}</a>
 
-            <p class="footer-cta__email-wrapper"><a class="footer-cta__email" href="mailto:{{ contact_email }}">{{ contact_email }}</a></p>
+            {% if contact_email %}
+                <p class="footer-cta__email-wrapper"><a class="footer-cta__email" href="mailto:{{ contact_email }}">{{ contact_email }}</a></p>
+            {% endif %}
         </div>
 
     </div>

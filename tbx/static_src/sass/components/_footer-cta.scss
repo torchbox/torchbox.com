@@ -79,6 +79,5 @@
 
     &__email {
         @include link-styles();
-        //@include focus-styles();
     }
 }
