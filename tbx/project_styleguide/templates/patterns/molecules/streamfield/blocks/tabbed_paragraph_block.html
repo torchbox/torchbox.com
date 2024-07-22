@@ -40,7 +40,7 @@
                 <div class="tabs__panel-summary">
                     {{ item.summary }}
                 </div>
-                <div class="tabs__panel-text">
+                <div class="tabs__panel-text rich-text">
                     {{ item.text|richtext }}
                 </div>
                 {% if item.button_text%}
@@ -75,7 +75,7 @@
                 <div class="tabs-mobile__summary-text">
                     {{ tab.summary }}
                 </div>
-                <div class="tabs-mobile__text">
+                <div class="tabs-mobile__text rich-text">
                     {{ tab.text|richtext }}
                 </div>
                 {% if tab.button_text %}
