@@ -120,6 +120,7 @@
             text-decoration: underline;
             text-decoration-thickness: $link-underline-thickness;
             text-underline-offset: 2px;
+            text-decoration-color: var(--color--link-underline);
             gap: $spacer-mini;
         }
 
