@@ -18,6 +18,7 @@
 
         &:focus {
             @include focus-style();
+            padding-right: $link-transition-gap;
 
             #{$root}__arrow {
                 @include arrow-focus-style();
