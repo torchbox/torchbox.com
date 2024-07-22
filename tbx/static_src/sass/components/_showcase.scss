@@ -59,6 +59,7 @@
 
                 #{$root}__heading {
                     text-decoration-thickness: $link-underline-thickness-interaction;
+                    text-decoration-color: var(--color--heading);
                 }
 
                 #{$root}__ring--one {
