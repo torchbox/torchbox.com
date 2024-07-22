@@ -2,7 +2,7 @@
     <a class="listing__link" href="{{ link }}" aria-label="{{ aria_text|default:title }} by {{ name }}">
         <h2 class="listing__title">
             {# The title and icon need to be on the same line with no whitespace to prevent the arrow being orphaned on a new line #}
-            <span class="listing__title-text">{{ title }}</span><span class="listing__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-avatar__arrow listing__arrow" %}</span>
+            <span class="listing__title-text">{{ title }}</span><span class="listing__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing__arrow" %}</span>
         </h2>
     </a>
     <div class="listing__details">

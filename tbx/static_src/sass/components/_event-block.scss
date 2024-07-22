@@ -1,6 +1,8 @@
 @use 'config' as *;
 
 .event-block {
+    $root: &;
+
     display: grid;
     grid-template-columns: 1fr;
     background-color: rgba($color--white, 0.04);
@@ -35,6 +37,12 @@
 
         @include media-query(large) {
             margin-bottom: $spacer-small;
+        }
+
+        &:focus {
+            #{$root}__arrow {
+                @include arrow-focus-style();
+            }
         }
     }
 

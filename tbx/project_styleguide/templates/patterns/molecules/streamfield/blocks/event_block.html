@@ -5,7 +5,7 @@
         <a class="event-block__title" href="{{ value.get_button_link }}" aria-label="{{ value.title }}">
             <h2>
                 {# The title and icon need to be on the same line with no whitespace to prevent the arrow being orphaned on a new line #}
-                <span>{{ value.title }}</span><span class="listing__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-avatar__arrow listing__arrow" %}</span>
+                <span>{{ value.title }}</span><span class="listing__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="event-block__arrow listing__arrow" %}</span>
             </h2>
         </a>
         <div class="event-block__meta">

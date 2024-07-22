@@ -54,7 +54,7 @@
             &:focus,
             &:hover {
                 #{$root}__arrow {
-                    transform: translate3d($link-transition-gap, 0, 0);
+                    @include arrow-focus-style();
                 }
 
                 #{$root}__heading {

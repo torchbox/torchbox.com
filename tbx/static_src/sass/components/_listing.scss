@@ -3,6 +3,8 @@
 @use 'config' as *;
 
 .listing {
+    $root: &;
+
     list-style-type: none;
     margin-bottom: $spacer-small;
 
@@ -16,6 +18,10 @@
 
         &:focus {
             @include focus-style();
+
+            #{$root}__arrow {
+                @include arrow-focus-style();
+            }
         }
 
         @include media-query(medium) {

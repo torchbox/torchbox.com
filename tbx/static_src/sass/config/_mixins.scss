@@ -133,6 +133,15 @@
     }
 }
 
+@mixin arrow-focus-style() {
+    transform: translate3d($link-transition-gap, 0, 0);
+    color: var(--color--link-interaction);
+
+    @include reduced-motion() {
+        transform: none;
+    }
+}
+
 /* ============================================
     Link styles - set to be the same colour as the text by default
     but can be overridden by passing in a resting colour and interaction colour
