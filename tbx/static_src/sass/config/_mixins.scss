@@ -151,7 +151,7 @@
     $interaction-color: var(--color--text),
     $shadow: false,
     $offset: 2px,
-    $underline-color: $color,
+    $underline-color: var(--color--link-underline),
     $underline-hover-color: $interaction-color
 ) {
     color: $color;
