@@ -18,7 +18,7 @@ from wagtail.models import Orderable, Page
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
-from .blocks import HomePageStoryBlock, StoryBlock
+from .blocks import HomePageStoryBlock, StandardPageStoryBlock
 
 
 @register_snippet
@@ -173,7 +173,7 @@ class StandardPage(
 ):
     template = "patterns/pages/standard/standard_page.html"
 
-    body = StreamField(StoryBlock())
+    body = StreamField(StandardPageStoryBlock())
 
     content_panels = Page.content_panels + [
         FieldPanel("body"),
