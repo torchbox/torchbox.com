@@ -44,6 +44,9 @@ class Contact(index.Indexed, models.Model):
     text = models.TextField(
         blank=True,
     )
+    email_text = models.EmailField(
+        blank=True,
+    )
     cta = StreamField(
         [("call_to_action", ContactCTABlock(label="CTA"))],
         blank=True,
@@ -106,6 +109,7 @@ class Contact(index.Indexed, models.Model):
     panels = [
         FieldPanel("title"),
         FieldPanel("text"),
+        FieldPanel("email_text"),
         FieldPanel("cta", heading="Call to action"),
         MultiFieldPanel(
             [
