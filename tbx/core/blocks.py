@@ -440,10 +440,22 @@ class BlogChooserBlock(blocks.StructBlock):
         max_num=3,
     )
 
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        context['is_standard_page'] = False
+        return context
+
     class Meta:
         icon = "link"
         template = "patterns/molecules/streamfield/blocks/blog_chooser_block.html"
         group = "Custom"
+
+
+class BlogChooserStandardPageBlock(BlogChooserBlock):
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        context['is_standard_page'] = True
+        return context
 
 
 class WorkChooserBlock(blocks.StructBlock):
@@ -481,12 +493,20 @@ class WorkChooserBlock(blocks.StructBlock):
         context["work_pages"] = [
             work_pages[_id] for _id in work_page_ids if _id in work_pages
         ]
+        context['is_standard_page'] = False
         return context
 
     class Meta:
         icon = "link"
         template = "patterns/molecules/streamfield/blocks/work_chooser_block.html"
         group = "Custom"
+
+
+class WorkChooserStandardPageBlock(WorkChooserBlock):
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        context['is_standard_page'] = True
+        return context
 
 
 class EventLinkStructValue(ButtonLinkStructValue):
@@ -896,6 +916,8 @@ class StoryBlock(blocks.StreamBlock):
 
 class StandardPageStoryBlock(StoryBlock):
     promo = PromoBlock()
+    blog_chooser = BlogChooserStandardPageBlock()
+    work_chooser = WorkChooserStandardPageBlock()
 
 
 class HomePageStoryBlock(blocks.StreamBlock):

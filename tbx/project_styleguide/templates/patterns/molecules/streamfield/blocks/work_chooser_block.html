@@ -1,7 +1,11 @@
 {% load wagtailcore_tags %}
 
 {% if work_pages %}
-    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.featured_work_heading classes="motif-heading--two motif-heading--static  motif-heading--half-width section-title--related-posts" %}
+    {% if is_standard_page %}
+        <h2 class="heading heading--two-b grid__heading mb-spacerMedium">{{ value.featured_work_heading }}</h2>
+    {% else %}
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.featured_work_heading classes="motif-heading--two motif-heading--static  motif-heading--half-width section-title--related-posts" %}
+    {% endif %}
 
     <ul class="grid__related-posts streamfield__related-posts mb-spacerMedium lg:mb-spacerLarge">
         {% for work_page in work_pages %}
