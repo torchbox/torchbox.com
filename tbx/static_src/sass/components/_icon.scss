@@ -26,7 +26,7 @@
 
     &--listing-arrow {
         @include arrow-link-icon-styles();
-        margin-left: $spacer-mini-plus;
+        margin-left: $spacer-mini-plus; // without this the arrows that are only on one line overlap the focus ring
     }
 
     .template-404-page & {
