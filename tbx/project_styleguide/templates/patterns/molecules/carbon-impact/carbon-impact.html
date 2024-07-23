@@ -1,8 +1,14 @@
+{% load wagtailcore_tags %}
+
 <div class="grid footer__carbon-impact-container" data-page-carbon>
     <div class="grid__carbon-impact">
         <div class="footer__carbon-impact">
             <p class="footer__carbon-impact-text">Loading the site homepage emits just <span>0.07g of CO2</span> per view.</p>
-            <p class="footer__carbon-impact-text"><a href="/about/digital-emissions/" class="footer__carbon-impact-link">Find out more about our carbon impact</a></p>
+            {% if CARBON_EMISSIONS_PAGE %}
+                <p class="footer__carbon-impact-text">
+                    <a href="{% pageurl CARBON_EMISSIONS_PAGE %}" class="footer__carbon-impact-link">Find out more about our carbon impact</a>
+                </p>
+            {% endif %}
         </div>
     </div>
 </div>
