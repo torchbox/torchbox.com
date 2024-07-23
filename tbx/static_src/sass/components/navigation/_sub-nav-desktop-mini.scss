@@ -43,7 +43,8 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
     &__link {
         @include link-styles(
             $color: var(--color--heading),
-            $interaction-color: var(--color--heading)
+            $interaction-color: var(--color--heading),
+            $underline-color: var(--color--heading)
         );
         @include font-size('body-three');
         font-weight: $weight--normal;
