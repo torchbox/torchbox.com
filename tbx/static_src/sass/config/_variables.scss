@@ -186,6 +186,7 @@ $color--earth-streamfield-background: #e6e3df;
     --color--text-50: #{color.adjust($color--grey-70, $alpha: -0.5)};
     --color--decoration: #{$color--eclipse};
     --color--link: #{$color--eclipse};
+    --color--link-underline: #{$color--eclipse};
     --color--link-interaction: #{$color--eclipse};
     --color--streamfield-background: #{$color--grey-5};
 }
