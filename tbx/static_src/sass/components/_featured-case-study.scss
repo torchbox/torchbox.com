@@ -1,6 +1,8 @@
 @use 'config' as *;
 
 .featured-case-study {
+    $root: &;
+
     $gradient-z-index: 1;
     position: relative;
     margin-top: $spacer-medium;
@@ -97,6 +99,10 @@
 
         &:focus {
             @include focus-style();
+
+            #{$root}__arrow {
+                @include arrow-focus-style();
+            }
         }
     }
 

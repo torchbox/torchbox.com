@@ -81,6 +81,10 @@
         display: flex;
         align-items: center;
         height: 100%;
+
+        &:focus {
+            @include focus-style($shadow: true);
+        }
     }
 
     &__logo {
