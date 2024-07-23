@@ -605,10 +605,48 @@ class PromoBlock(blocks.StructBlock):
         group = "Calls to action"
 
 
+class TabbedParagraphSectionsListBlock(blocks.ListBlock):
+    def clean(self, value):
+        result = super().clean(value)
+        errors = {}
+
+        for i in range(0, len(result)):
+            button_values = {
+                "button_link": result[i]["button_link"],
+                "button_text": result[i]["button_text"],
+                "button_url": result[i]["button_url"],
+            }
+
+            item_errors = ErrorList()
+
+            if button_values.get("button_link") and button_values.get("button_url"):
+                item_errors.append(
+                    ValidationError(
+                        "You must specify either a page link or a URL, not both."
+                    )
+                )
+
+            if button_values.get("button_text") and (
+                not button_values.get("button_link")
+                and not button_values.get("button_url")
+            ):
+                item_errors.append(
+                    "You must specify a button link or URL for the button text you have provided."
+                )
+
+            if item_errors:
+                errors[i] = item_errors
+
+        if errors:
+            raise blocks.ListBlockValidationError(block_errors=errors)
+
+        return result
+
+
 class TabbedParagraphBlock(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255, required=False)
-    intro = blocks.TextBlock(label="Introduction", required=False)
-    tabbed_paragraph_sections = blocks.ListBlock(
+    intro = blocks.RichTextBlock(label="Introduction", required=False)
+    tabbed_paragraph_sections = TabbedParagraphSectionsListBlock(
         blocks.StructBlock(
             [
                 ("name", blocks.CharBlock()),
@@ -616,6 +654,7 @@ class TabbedParagraphBlock(blocks.StructBlock):
                 ("text", blocks.RichTextBlock()),
                 ("button_text", blocks.CharBlock(required=False)),
                 ("button_link", blocks.PageChooserBlock(required=False)),
+                ("button_url", blocks.URLBlock(required=False)),
             ],
             help_text="Add a tabbed paragraph, with a name, summary, text and an optional page link & button text",
             icon="breadcrumb-expand",
@@ -627,30 +666,13 @@ class TabbedParagraphBlock(blocks.StructBlock):
     def clean(self, value):
         value = super().clean(value)
         errors = defaultdict(ErrorList)
-        non_block_errors = ErrorList()
 
         if value["intro"] and not value["title"]:
             message = "You cannot add an intro without also adding a title"
             errors["title"].append(ValidationError(message))
 
-        for tabbed_paragraph_section in value["tabbed_paragraph_sections"]:
-            button_values = {
-                "button_link": tabbed_paragraph_section["button_link"],
-                "button_text": tabbed_paragraph_section["button_text"],
-            }
-
-            if any(button_values.values()) and not all(button_values.values()):
-                message = "There must be a value for both button link and text, if one has a value."
-
-                for key, value in button_values.items():
-                    if not value:
-                        errors[key].append(message)
-                        non_block_errors.append(ValidationError(message))
-
-        if errors or non_block_errors:
-            raise blocks.StructBlockValidationError(
-                block_errors=errors, non_block_errors=non_block_errors
-            )
+        if errors:
+            raise blocks.StructBlockValidationError(block_errors=errors)
 
         return value
 

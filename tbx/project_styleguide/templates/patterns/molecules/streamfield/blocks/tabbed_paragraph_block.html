@@ -9,7 +9,7 @@
     {% endif %}
 
     {% if value.intro %}
-        <p class="tabbed-paragraph__intro">{{ value.intro }}</p>
+        <div class="tabbed-paragraph__intro rich-text">{{ value.intro }}</div>
     {% endif %}
 
     {# desktop - tabs #}
@@ -40,11 +40,19 @@
                 <div class="tabs__panel-summary">
                     {{ item.summary }}
                 </div>
-                <div class="tabs__panel-text">
+                <div class="tabs__panel-text rich-text">
                     {{ item.text|richtext }}
                 </div>
-                {% if item.button_text and item.button_link %}
-                    <a href="{% pageurl item.button_link %}" class="button tabs__panel-button">{{ item.button_text }}</a>
+                {% if item.button_text%}
+                    {% if item.button_link or item.button_url %}
+                        {% if item.button_link %}
+                            <a href="{% pageurl item.button_link %}" class="button tabs__panel-button">
+                        {% else %}
+                            <a href="{{ item.button_url }}" class="button tabs__panel-button">
+                        {% endif %}
+                        {{ item.button_text }}
+                        </a>
+                    {% endif %}
                 {% endif %}
             </div>
         {% endfor %}
@@ -67,11 +75,19 @@
                 <div class="tabs-mobile__summary-text">
                     {{ tab.summary }}
                 </div>
-                <div class="tabs-mobile__text">
+                <div class="tabs-mobile__text rich-text">
                     {{ tab.text|richtext }}
                 </div>
-                {% if tab.button_text and tab.button_link %}
-                    <a href="{% pageurl tab.button_link %}" class="button tabs-mobile__button">{{ tab.button_text }}</a>
+                {% if tab.button_text %}
+                    {% if tab.button_link or tab.button_url %}
+                        {% if tab.button_link %}
+                            <a href="{% pageurl tab.button_link %}" class="button tabs-mobile__button">
+                        {% else %}
+                            <a href="{{ tab.button_url }}" class="button tabs-mobile__button">
+                        {% endif %}
+                        {{ tab.button_text }}
+                        </a>
+                    {% endif %}
                 {% endif %}
             </div>
         </details>
