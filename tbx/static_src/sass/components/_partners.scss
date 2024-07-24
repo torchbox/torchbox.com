@@ -10,6 +10,11 @@
         max-height: 90px;
     }
 
+    &__title {
+        @include font-size(heading-two-c);
+        margin-bottom: $spacer-medium;
+    }
+
     &__logos {
         display: flex;
         flex-wrap: wrap;
