@@ -15,7 +15,30 @@ class DesktopSubMenu {
             '[data-desktop-menu] [data-has-subnav]',
         );
         this.activeClass = 'active';
+        this.lastMenuItems = document.querySelectorAll(
+            '[data-last-menu-item-desktop]',
+        );
         this.bindEventListeners();
+    }
+
+    close() {
+        this.toggleNode.classList.remove('active');
+        this.node.setAttribute('aria-expanded', 'false');
+        this.body.classList.remove('no-scroll');
+    }
+
+    open() {
+        // Fire a custom event which is useful if we need any other items such as
+        // a search box to close when the desktop menu opens
+        // Can be listened to with
+        // document.addEventListener('onMenuOpen', () => {
+        //     // do stuff here...;
+        // });
+        const menuOpenEvent = new Event('onMenuOpen');
+        document.dispatchEvent(menuOpenEvent);
+        this.toggleNode.classList.add('active');
+        this.node.setAttribute('aria-expanded', 'true');
+        this.body.classList.add('no-scroll');
     }
 
     bindEventListeners() {
@@ -34,22 +57,17 @@ class DesktopSubMenu {
             });
 
             if (this.toggleNode.classList.contains('active')) {
-                this.toggleNode.classList.remove('active');
-                this.node.setAttribute('aria-expanded', 'false');
-                this.body.classList.remove('no-scroll');
+                this.close();
             } else {
-                // Fire a custom event which is useful if we need any other items such as
-                // a search box to close when the desktop menu opens
-                // Can be listened to with
-                // document.addEventListener('onMenuOpen', () => {
-                //     // do stuff here...;
-                // });
-                const menuOpenEvent = new Event('onMenuOpen');
-                document.dispatchEvent(menuOpenEvent);
-                this.toggleNode.classList.add('active');
-                this.node.setAttribute('aria-expanded', 'true');
-                this.body.classList.add('no-scroll');
+                this.open();
             }
+        });
+
+        // Close the desktop menu when the focus moves away from the last item
+        this.lastMenuItems.forEach((item) => {
+            item.addEventListener('focusout', () => {
+                this.close();
+            });
         });
     }
 }

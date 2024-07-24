@@ -8,10 +8,14 @@
                     <a
                         class="sub-nav-desktop__link {% if children and child_display != 'hide_children' %}sub-nav-desktop__link--has-children{% else %}sub-nav-desktop__link--no-children{% endif %}"
                         href="{% pageurl link %}"
+                        {% if forloop.last %}
+                            {% if not children or child_display == 'hide_children' %}data-last-menu-item-desktop{% endif %}{% endif %}
                     >
                         {{ link.nav_text }}
                     </a>
-                    {% include "patterns/navigation/components/includes/subnav-child-menu.html" with pages=children %}
+                    {% if children and child_display != 'hide_children' %}
+                        {% include "patterns/navigation/components/includes/subnav-child-menu.html" with pages=children last_menu_item=forloop.last %}
+                    {% endif %}
                 {% endwith %}
             </li>
         {% endfor %}

@@ -17,6 +17,7 @@ The `child_display` has 3 possible values:
                         data-open-subnav aria-haspopup="true" aria-expanded="false"
                     {% endif %}
                     href="{% if link.page %}{% pageurl link.page %}{% elif link.external_link %}{{ link.external_link }}{% endif %}"
+                    {% if forloop.last %}data-last-menu-item-mobile{% endif %}
                 >
                     <span class="primary-nav-mobile__text">{{ link.text }}</span>
                     {% if children and child_display != 'hide_children' %}
