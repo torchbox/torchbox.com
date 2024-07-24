@@ -32,7 +32,7 @@
         &--light {
             margin-right: 8px;
 
-            @include media-query(large) {
+            @include media-query(menu) {
                 margin-right: 15px;
             }
         }
@@ -40,7 +40,7 @@
         &--dark {
             margin-left: 8px;
 
-            @include media-query(large) {
+            @include media-query(menu) {
                 margin-left: 15px;
             }
         }
@@ -51,9 +51,9 @@
             width: 16px;
             height: 16px;
 
-            @include media-query(large) {
-                width: 26px;
-                height: 26px;
+            @include media-query(menu) {
+                width: 22px;
+                height: 22px;
             }
         }
 
@@ -61,9 +61,9 @@
             width: 13px;
             height: 13px;
 
-            @include media-query(large) {
-                width: 21px;
-                height: 21px;
+            @include media-query(menu) {
+                width: 18px;
+                height: 18px;
             }
         }
     }
@@ -72,8 +72,8 @@
     &__button {
         border: 1px solid var(--color--heading-50);
         border-radius: 21px;
-        width: 50px;
-        height: 26px;
+        width: 58px;
+        height: 28px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -86,22 +86,33 @@
 
     &__radio {
         appearance: none;
-        width: 18px;
-        height: 18px;
+        width: 22px;
+        height: 22px;
         border-radius: 50%;
+        border: 1px solid var(--color--heading-50);
         background-color: transparent;
         opacity: 1;
         cursor: pointer;
 
-        @include high-contrast-mode() {
-            border: 1px solid transparent;
+        @include media-query(menu) {
+            border: 1px solid var(--color--text-50);
+        }
+
+        &:hover {
+            background-color: var(--color--nav-border);
+
+            @include media-query(menu) {
+                background-color: var(--color--accent-five-alpha);
+            }
         }
 
         &:checked {
             background-color: var(--color--heading);
+            border: 1px solid var(--color--heading);
 
             @include media-query(menu) {
                 background-color: var(--color--accent-five);
+                border: 1px solid var(--color--accent-five);
             }
 
             @include high-contrast-mode() {
