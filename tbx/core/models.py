@@ -196,16 +196,6 @@ class StandardPage(
     ]
 
 
-# Currently hidden. These were used in the past and may be used again in the future
-# @register_snippet
-class Tag(models.Model):
-    name = models.CharField(max_length=255)
-    slug = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-
 class SubMenuItemBlock(StreamBlock):
     # subitem = PageChooserBlock()
     related_listing_page = PageChooserBlock()
