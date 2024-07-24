@@ -195,6 +195,11 @@ class StandardPage(
     ]
 
 
+# No longer in use but kept for migration history
+class Tag(models.Model):
+    pass
+
+
 class SubMenuItemBlock(StreamBlock):
     # subitem = PageChooserBlock()
     related_listing_page = PageChooserBlock()
