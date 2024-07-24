@@ -206,23 +206,6 @@ class Tag(models.Model):
         return self.name
 
 
-class BaseAddress(blocks.StructBlock):
-    title = blocks.CharBlock(blank=True)
-    address = blocks.RichTextBlock(blank=True)
-
-
-@register_setting
-class GlobalSettings(BaseSiteSetting):
-    addresses = StreamField([("address", BaseAddress())], blank=True)
-
-    panels = [
-        FieldPanel("addresses"),
-    ]
-
-    class Meta:
-        verbose_name = "Global Settings"
-
-
 class SubMenuItemBlock(StreamBlock):
     # subitem = PageChooserBlock()
     related_listing_page = PageChooserBlock()
