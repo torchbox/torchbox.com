@@ -32,3 +32,5 @@ SHOW_TOOLBAR = True
 #         "BACKEND": "django.core.cache.backends.dummy.DummyCache",
 #     }
 # }
+
+BASE_DOMAIN = 'localhost'

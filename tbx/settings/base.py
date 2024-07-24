@@ -619,3 +619,6 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 
 # Used when switching between light and dark modes
 ALLOWED_MODES = ["light", "dark"]
+BASE_DOMAIN = env.get(
+    "BASE_DOMAIN", ""
+)  # this is used for sharing cookies across subdomains

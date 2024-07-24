@@ -16,4 +16,5 @@ def global_vars(request):
         "SEO_NOINDEX": settings.SEO_NOINDEX,
         "ALLOWED_MODES": json.dumps(settings.ALLOWED_MODES),
         "MODE": mode,
+        "BASE_DOMAIN": settings.BASE_DOMAIN,
     }
