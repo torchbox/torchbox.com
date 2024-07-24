@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="contact-cta grid__contact-cta">
     {% for cta in value.call_to_action %}
-        <p class="contact-cta__text heading heading--three">{{ cta.value.text }}</p>
+        <h2 class="contact-cta__text heading heading--three">{{ cta.value.text }}</h2>
     {% endfor %}
 
     {% if value.person %}
