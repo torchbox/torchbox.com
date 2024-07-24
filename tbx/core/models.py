@@ -9,7 +9,6 @@ from tbx.core.utils.models import (
     SocialFields,
 )
 from tbx.people.models import ContactMixin
-from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.blocks import PageChooserBlock, StreamBlock, StructBlock
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
