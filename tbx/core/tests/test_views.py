@@ -1,5 +1,8 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
+
+from tbx.core.factories import HomePageFactory
+from wagtail.models import Site
 
 
 class SecurityViewTestCase(TestCase):
@@ -70,4 +73,36 @@ class TestModeSwitcherView(TestCase):
         )
 
         resp = self.client.get("/")
+        self.assertEqual(resp.context["MODE"], mode)
+
+    @override_settings(
+        BASE_DOMAIN="example.com",
+    )
+    def test_setting_theme_on_one_site_sets_it_on_multiple_sites(self):
+        current_site = Site.objects.get(is_default_site=True)
+
+        # change domain of default site
+        current_site.hostname = "example.com"
+        current_site.save()
+
+        # create new information page
+        new_home_page = HomePageFactory(title="New home page")
+
+        # create new site
+        new_site = Site.objects.create(
+            hostname="new.example.com", root_page=new_home_page
+        )
+
+        # set theme on default site
+        self.client.get(
+            reverse("switch_mode"),
+            data=dict(switch_mode=mode, next_url="/"),
+        )
+
+        # check theme is set on default site
+        resp = self.client.get("/")
+        self.assertEqual(resp.context["MODE"], mode)
+
+        # check theme is set on new site
+        resp = self.client.get(f"http://{new_site.hostname}/")
         self.assertEqual(resp.context["MODE"], mode)
