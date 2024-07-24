@@ -309,6 +309,7 @@
             display: flex;
             justify-content: flex-end;
             grid-column: 3 / span 3;
+            align-items: flex-end;
         }
 
         @include media-query(large) {
