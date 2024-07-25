@@ -23,7 +23,6 @@
 
     &__label {
         color: var(--color--heading);
-        cursor: pointer;
 
         @include media-query(menu) {
             color: var(--color--text);
