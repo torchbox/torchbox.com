@@ -10,7 +10,14 @@ def get_quality(media_type):
 
 
 def show_html_error_page(request):
+    # If there is no `Accept` header, serve the simpler page
+    if not request.headers.get("Accept"):
+        return False
+
     accepted_types = sorted(request.accepted_types, key=get_quality, reverse=True)
+
+    if len(accepted_types) == 1 and accepted_types[0].match("*/*"):
+        return False
 
     html_type = next(
         (
