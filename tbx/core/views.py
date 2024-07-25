@@ -88,6 +88,7 @@ def switch_mode(request):
             new_mode,
             max_age=365 * 24 * 60 * 60,
             path="/",
+            domain=f".{settings.BASE_DOMAIN}",
         )
         return response
     except UnauthorizedHTTPError:
