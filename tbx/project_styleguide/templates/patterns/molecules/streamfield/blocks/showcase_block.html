@@ -29,6 +29,8 @@
                         {% include "patterns/atoms/icons/animated/wagtail-head.html" %}
                     {% elif item.icon == 'target' %}
                         {% include "patterns/atoms/icons/animated/target.html" %}
+                    {% elif item.icon == 'lightbulb' %}
+                        {% include "patterns/atoms/icons/animated/lightbulb.html" %}
                     {% else %}
                         {% include "patterns/atoms/icons/icon.html" with name=item.icon classname="showcase__icon" %}
                     {% endif %}

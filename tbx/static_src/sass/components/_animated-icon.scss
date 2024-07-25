@@ -184,4 +184,52 @@
             }
         }
     }
+
+    &--lightbulb {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 90px;
+
+        #{$root}__lightbulb-inner {
+            position: absolute;
+            width: 19px;
+            height: 19px;
+            transform: scale(1);
+            transition: transform $transition;
+            transform-origin: 5px 20px;
+            z-index: -1;
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        #{$root}__lightbulb-outer {
+            position: absolute;
+            width: 50px;
+            height: 65px;
+            transform: rotate(0);
+            transition: transform $transition;
+            transform-origin: 30px 60px;
+            mix-blend-mode: screen;
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        a:focus &,
+        a:hover & {
+            #{$root}__lightbulb-outer {
+                transform: rotate(-7deg);
+            }
+
+            #{$root}__lightbulb-inner {
+                transform: scale(2.4);
+            }
+        }
+    }
 }
