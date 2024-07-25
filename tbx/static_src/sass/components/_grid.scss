@@ -321,6 +321,17 @@
         grid-column: 5 / span 1;
     }
 
+    // standard page adjustments for blog chooser and work chooser
+    .template-standard-page & {
+        &__related-posts {
+            grid-column: 2 / span 4;
+
+            @include media-query(large) {
+                grid-column: 4 / span 7;
+            }
+        }
+    }
+
     // Move everything over by 1 column on the blog page and work pages
     .template-blog-page &,
     .template-work-page & {
