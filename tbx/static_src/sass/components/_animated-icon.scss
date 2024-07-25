@@ -62,13 +62,23 @@
             position: absolute;
             width: 44px;
             height: 44px;
-            mix-blend-mode: screen;
             left: 18px;
             top: 15px;
             transition: height $transition;
 
             @include reduced-motion() {
                 transition: none;
+            }
+
+            .mode-dark & {
+                mix-blend-mode: screen;
+            }
+
+            // Mix blend mode doesn't work well for light mode
+            // so emulate it with opacity and z-index
+            .mode-light & {
+                z-index: -1;
+                opacity: 0.5;
             }
         }
 
@@ -199,7 +209,16 @@
             transform: scale(1);
             transition: transform $transition;
             transform-origin: 5px 20px;
-            z-index: -1;
+
+            .mode-dark & {
+                mix-blend-mode: screen;
+            }
+
+            // Mix blend mode doesn't work well for light mode
+            // so emulate it with z-index
+            .mode-light & {
+                z-index: -1;
+            }
 
             @include reduced-motion() {
                 transition: none;
@@ -213,7 +232,6 @@
             transform: rotate(0);
             transition: transform $transition;
             transform-origin: 30px 60px;
-            mix-blend-mode: screen;
 
             @include reduced-motion() {
                 transition: none;
