@@ -3,6 +3,8 @@
 @use 'config' as *;
 
 .listing {
+    $root: &;
+
     list-style-type: none;
     margin-bottom: $spacer-small;
 
@@ -16,6 +18,11 @@
 
         &:focus {
             @include focus-style();
+            padding-right: $link-transition-gap; // without this the arrows that are only on one line overlap the focus ring
+
+            #{$root}__arrow {
+                @include arrow-focus-style();
+            }
         }
 
         @include media-query(medium) {

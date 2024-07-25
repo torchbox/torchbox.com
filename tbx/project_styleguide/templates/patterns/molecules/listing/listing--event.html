@@ -31,7 +31,7 @@ This component is heavily based on listing--image.html.
         <a class="listing-image__link listing__link" href="{{ link }}">
             <h2 class="listing-image__title listing__title">
                 {# The title and icon need to be on the same line with no whitespace to prevent the icon being orphaned on a new line #}
-                <span class="listing__title-text">{{ title }}</span><span class="listing__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing-image__arrow listing__arrow" %}</span>
+                <span class="listing__title-text">{{ title }}</span><span class="listing__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing__arrow icon--listing-arrow" %}</span>
             </h2>
         </a>
         <div class="listing-event__details listing__details">

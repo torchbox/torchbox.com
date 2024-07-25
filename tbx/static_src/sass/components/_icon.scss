@@ -24,6 +24,11 @@
         width: 100%;
     }
 
+    &--listing-arrow {
+        @include arrow-link-icon-styles();
+        margin-left: $spacer-mini-plus;
+    }
+
     .template-404-page & {
         &--broken-matchstick {
             margin: 0 auto;
