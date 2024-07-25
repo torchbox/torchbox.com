@@ -64,7 +64,7 @@
             position: absolute;
             width: 44px;
             height: 44px;
-            z-index: -1;
+            mix-blend-mode: screen;
             left: 18px;
             top: 15px;
             transition: height $transition;
@@ -83,6 +83,7 @@
             transform: rotate(0);
             transition: transform $transition;
             transform-origin: left;
+            z-index: -1;
 
             @include reduced-motion() {
                 transition: none;
@@ -98,6 +99,7 @@
             transform: rotate(0);
             transition: transform $transition;
             transform-origin: 10px 0;
+            z-index: -1;
 
             @include reduced-motion() {
                 transition: none;
