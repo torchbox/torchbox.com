@@ -9,7 +9,6 @@
         align-items: center;
         gap: 3px;
         transition: transform $transition;
-        flex-shrink: 0;
 
         @include reduced-motion() {
             transition: none;
@@ -46,7 +45,6 @@
         display: inline-block;
         width: 65px;
         height: 65px;
-        flex-shrink: 0;
 
         #{$root}__head {
             position: absolute;
@@ -133,7 +131,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-shrink: 0;
 
         #{$root}__center {
             position: absolute;
@@ -233,5 +230,10 @@
                 transform: scale(2.4);
             }
         }
+    }
+
+    // Make sure they don't get squashed when used in the showcase sf
+    .showcase & {
+        flex-shrink: 0;
     }
 }
