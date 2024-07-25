@@ -1,7 +1,8 @@
+{% load wagtailcore_tags %}
 <div data-cookie-message class="cookie-message {{ classes }}">
     <div class="cookie-message__container grid">
         <div class="cookie-message__message grid__cookie-message">
-            <p>We use cookies to measure how you use the website. We want our site to be easy for you to use; understanding how you interact with it helps us know that. <a aria-label="Find out more about how we use cookies" href="/cookies/" class="cookie-message__link">Find out more</a>.</p>
+            <p>We use cookies to measure how you use the website. We want our site to be easy for you to use; understanding how you interact with it helps us know that. {% if COOKIE_POLICY_PAGE %}<a aria-label="Find out more about how we use cookies" href="{% pageurl COOKIE_POLICY_PAGE %}" class="cookie-message__link">Find out more</a>{% endif %}.</p>
         </div>
         <div class="cookie-message__action grid__cookie-message">
             {# ids are needed by GTM #}

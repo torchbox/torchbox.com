@@ -247,3 +247,27 @@ class MainMenu(BaseSiteSetting):
     panels = [
         FieldPanel("menu"),
     ]
+
+
+@register_setting
+class ImportantPageSettings(BaseSiteSetting):
+    cookie_policy_page = models.ForeignKey(
+        "wagtailcore.Page",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+    carbon_emissions_page = models.ForeignKey(
+        "wagtailcore.Page",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+    panels = [
+        FieldPanel("cookie_policy_page"),
+        FieldPanel("carbon_emissions_page"),
+    ]
