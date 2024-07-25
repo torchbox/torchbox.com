@@ -106,3 +106,28 @@ class TestModeSwitcherView(TestCase):
         # check theme is set on new site
         resp = self.client.get(f"http://{new_site.hostname}/")
         self.assertEqual(resp.context["MODE"], mode)
+
+class PageNotFoundTestCase(TestCase):
+    url = "/does-not-exist/"
+
+    def test_accessible(self) -> None:
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 404)
+        self.assertIn("text/html", response.headers["content-type"])
+
+    def test_accept_html(self) -> None:
+        response = self.client.get(self.url, headers={"Accept": "text/html"})
+        self.assertEqual(response.status_code, 404)
+        self.assertIn("text/html", response.headers["content-type"])
+
+    def test_simple_when_doesnt_accept_html(self) -> None:
+        response = self.client.get(self.url, headers={"Accept": "text/css"})
+        self.assertEqual(response.status_code, 404)
+        self.assertIn("text/plain", response.headers["content-type"])
+
+    def test_simple_when_html_not_highest(self) -> None:
+        response = self.client.get(
+            self.url, headers={"Accept": "text/html;q=0.8,text/css"}
+        )
+        self.assertEqual(response.status_code, 404)
+        self.assertIn("text/plain", response.headers["content-type"])
