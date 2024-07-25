@@ -1,5 +1,6 @@
 from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.views import defaults
+from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import requires_csrf_token
 from django.views.decorators.vary import vary_on_headers
 
@@ -33,8 +34,9 @@ def show_html_error_page(request):
     return True
 
 
-@vary_on_headers("Accept")
 @requires_csrf_token
+@vary_on_headers("Accept")
+@cache_control(max_age=900)  # 15 minutes
 def page_not_found(
     request, exception=None, template_name="patterns/pages/errors/404.html"
 ):
@@ -47,8 +49,8 @@ def page_not_found(
     )
 
 
-@vary_on_headers("Accept")
 @requires_csrf_token
+@vary_on_headers("Accept")
 def server_error(request, template_name="patterns/pages/errors/500.html"):
     if show_html_error_page(request):
         return defaults.server_error(request, template_name)
