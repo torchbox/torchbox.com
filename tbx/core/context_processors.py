@@ -24,4 +24,5 @@ def global_vars(request):
         "CARBON_EMISSIONS_PAGE": ImportantPageSettings.for_request(
             request
         ).carbon_emissions_page,
+        "BASE_DOMAIN": settings.BASE_DOMAIN,
     }

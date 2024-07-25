@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-const { ALLOWED_MODES } = window.GLOBALS;
+const { ALLOWED_MODES, BASE_DOMAIN } = window.GLOBALS;
 
 class ModeSwitcher {
     static selector() {
@@ -11,7 +11,7 @@ class ModeSwitcher {
         this.node = node;
         this.window = window;
         this.html = document.querySelector('html');
-        this.modeRadios = node.querySelectorAll('[data-mode-switch]');
+        this.modeButton = node.querySelector('[data-mode-switch]');
 
         let { mode } = this.html.dataset;
 
@@ -25,15 +25,16 @@ class ModeSwitcher {
     }
 
     bindEventListeners() {
-        this.modeRadios.forEach((radio) => {
-            radio.addEventListener('change', () => {
-                if (radio.checked) {
-                    const mode = radio.value;
-                    if (mode === this.mode) return;
-                    this.mode = mode;
-                    this.toggleMode();
-                }
-            });
+        this.modeButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            this.mode = this.mode === 'dark' ? 'light' : 'dark';
+            this.toggleMode();
+            this.modeButton.setAttribute(
+                'aria-label',
+                this.mode === 'dark'
+                    ? 'Switch to light mode'
+                    : 'Switch to dark mode',
+            );
         });
 
         this.node.querySelectorAll('form').forEach((form) => {
@@ -53,6 +54,7 @@ class ModeSwitcher {
         this.html.dataset.mode = this.mode;
         Cookies.set('torchbox-mode', this.mode, {
             expires: 365,
+            domain: BASE_DOMAIN,
         });
     }
 }
