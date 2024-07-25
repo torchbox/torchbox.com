@@ -1,0 +1,42 @@
+@use 'config' as *;
+
+.animated-icon {
+    $root: &;
+
+    &--megaphone {
+        transform: rotate(0);
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        transition: transform $transition;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        #{$root}__megaphone {
+            width: 55px;
+            height: 50px;
+        }
+
+        #{$root}__noise {
+            width: 20px;
+            height: 45px;
+            transition: transform $transition;
+            transform: translate3d(0, 0, 0);
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        a:focus &,
+        a:hover & {
+            transform: rotate(15deg);
+
+            #{$root}__noise {
+                transform: translate3d(-3px, 0, 0);
+            }
+        }
+    }
+}
