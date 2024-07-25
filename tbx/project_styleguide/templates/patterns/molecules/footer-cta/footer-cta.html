@@ -1,7 +1,7 @@
 <div class="grid__footer-contact footer-cta">
     {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=contact_heading heading_level=2 classes="motif-heading--two motif-heading--static footer-cta__heading" %}
 
-    <p class="footer-cta__text">{{ contact_text }} </p>
+    <p class="footer-cta__text">{{ contact_text }}</p>
 
     <div class="footer-cta__grid">
         {% include "patterns/atoms/avatar/avatar.html" with avatar=contact_image classes="footer-cta__avatar avatar--smallest" %}
@@ -13,6 +13,11 @@
 
         <div class="footer-cta__button-wrapper">
             <a href="{{ contact_link }}" class="button footer-cta__button">{{ contact_action }}</a>
+
+            {% if contact_email %}
+                <p class="footer-cta__email-wrapper"><a class="footer-cta__email" href="mailto:{{ contact_email }}">{{ contact_email }}</a></p>
+            {% endif %}
         </div>
+
     </div>
 </div>

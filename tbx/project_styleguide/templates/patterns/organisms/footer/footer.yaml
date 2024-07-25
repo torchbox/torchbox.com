@@ -6,6 +6,7 @@ context:
       name: Will Heinemann
       role: New Business Director
       link: '#'
+      email_text: 'will@torchbox.com'
       button_text: Get in touch
   settings:
     navigation:
