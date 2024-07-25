@@ -17,6 +17,7 @@ from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.models import Page
 from wagtail.utils.urlpatterns import decorate_urlpatterns
+from wagtail_ab_testing import urls as ab_testing_urls
 
 private_urlpatterns = [
     path("django-admin/", admin.site.urls),
@@ -26,6 +27,7 @@ private_urlpatterns = [
 urlpatterns = [
     path("sitemap.xml", sitemap),
     path("robots.txt", robots),
+    path("abtesting/", include(ab_testing_urls)),
 ]
 
 
