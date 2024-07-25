@@ -9,6 +9,7 @@
         align-items: center;
         gap: 3px;
         transition: transform $transition;
+        flex-shrink: 0;
 
         @include reduced-motion() {
             transition: none;
@@ -45,6 +46,7 @@
         display: inline-block;
         width: 65px;
         height: 65px;
+        flex-shrink: 0;
 
         #{$root}__head {
             position: absolute;
