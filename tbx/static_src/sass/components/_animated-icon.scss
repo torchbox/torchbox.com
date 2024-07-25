@@ -123,4 +123,65 @@
             }
         }
     }
+
+    &--target {
+        width: 65px;
+        height: 65px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        #{$root}__center {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            transform: scale(1);
+            transition: transform $transition;
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        #{$root}__inner {
+            position: absolute;
+            width: 38px;
+            height: 38px;
+            transform: scale(1);
+            transition: transform $transition;
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        #{$root}__outer {
+            position: absolute;
+            width: 62px;
+            height: 62px;
+            transform: scale(1);
+            transition: transform $transition;
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        a:focus &,
+        a:hover & {
+            #{$root}__center {
+                transform: scale(2.6);
+            }
+
+            #{$root}__inner {
+                transform: scale(1.3);
+            }
+
+            #{$root}__outer {
+                transform: scale(1.1);
+            }
+        }
+    }
 }

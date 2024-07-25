@@ -27,6 +27,8 @@
                         {% include "patterns/atoms/icons/animated/megaphone.html" %}
                     {% elif item.icon == 'wagtail' %}
                         {% include "patterns/atoms/icons/animated/wagtail-head.html" %}
+                    {% elif item.icon == 'target' %}
+                        {% include "patterns/atoms/icons/animated/target.html" %}
                     {% else %}
                         {% include "patterns/atoms/icons/icon.html" with name=item.icon classname="showcase__icon" %}
                     {% endif %}
