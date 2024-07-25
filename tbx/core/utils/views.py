@@ -50,7 +50,7 @@ def page_not_found(
     if show_html_error_page(request):
         return defaults.page_not_found(request, exception, template_name)
 
-    # Serve a simpler, cheaper 404 page if we don't need to
+    # Serve a simpler, cheaper 404 page if possible
     return HttpResponseNotFound(
         "Page not found", content_type="text/plain; charset=utf-8"
     )
@@ -62,7 +62,7 @@ def server_error(request, template_name="patterns/pages/errors/500.html"):
     if show_html_error_page(request):
         return defaults.server_error(request, template_name)
 
-    # Serve a simpler, cheaper 500 page if we don't need to
+    # Serve a simpler, cheaper 500 page if possible
     return HttpResponseServerError(
         "Server error", content_type="text/plain; charset=utf-8"
     )
