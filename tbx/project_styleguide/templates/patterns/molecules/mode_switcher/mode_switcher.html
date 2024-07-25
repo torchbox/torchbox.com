@@ -4,7 +4,7 @@
         <span class="mode-switcher__label mode-switcher__label--light">
             {% include "patterns/atoms/icons/icon.html" with name="light-mode-icon" classname="mode-switcher__icon mode-switcher__icon--light" %}
         </span>
-        <button aria-label="Toggle dark or light mode" data-mode-switch class="mode-switcher__button">
+        <button aria-label="Switch to {% if MODE == 'light' %}dark{% else %}light{% endif%} mode" data-mode-switch class="mode-switcher__button">
         </button>
         <span class="mode-switcher__label mode-switcher__label--dark">
             {% include "patterns/atoms/icons/icon.html" with name="dark-mode-icon" classname="mode-switcher__icon mode-switcher__icon--dark" %}

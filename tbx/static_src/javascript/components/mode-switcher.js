@@ -29,6 +29,12 @@ class ModeSwitcher {
             event.preventDefault();
             this.mode = this.mode === 'dark' ? 'light' : 'dark';
             this.toggleMode();
+            this.modeButton.setAttribute(
+                'aria-label',
+                this.mode === 'dark'
+                    ? 'Switch to light mode'
+                    : 'Switch to dark mode',
+            );
         });
 
         this.node.querySelectorAll('form').forEach((form) => {
