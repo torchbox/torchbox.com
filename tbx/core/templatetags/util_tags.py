@@ -95,8 +95,12 @@ def ifinlist(value, list):
 
 @register.filter(name="has_raw_html_block")
 def has_raw_html_block(value):
-    if isinstance(value, StreamValue):
-        return any(type(item.block) is blocks.RawHTMLBlock for item in value)
+    if not isinstance(value, StreamValue):
+        return False
+
+    for block in value._raw_data:
+        if block["type"] == "raw_html" and "https://gist.github.com" in block["value"]:
+            return True
     return False
 
 
