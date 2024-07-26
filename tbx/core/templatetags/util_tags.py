@@ -2,7 +2,6 @@ from django import template
 from django.utils.text import camel_case_to_spaces, slugify
 
 from tbx.core.utils.models import SocialMediaSettings
-from wagtail import blocks
 from wagtail.blocks import StreamValue
 from wagtailmarkdown.blocks import MarkdownBlock
 
