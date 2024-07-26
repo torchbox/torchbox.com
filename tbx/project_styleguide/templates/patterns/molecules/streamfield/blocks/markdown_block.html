@@ -1,5 +1,8 @@
-{% load wagtailmarkdown %}
+{% load wagtailmarkdown static %}
+
 <div class="grid__markdown markdown-block">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/codehilite.css' %}">
+
     {# tabindex needed because in order to scroll using the keyboard #}
     <div class="markdown-block__scroller" tabindex="0">
         {{ value|markdown }}

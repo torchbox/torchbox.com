@@ -1,3 +1,9 @@
+{% load static %}
+
 <div class="grid__raw-html">
+    {% if 'gist' in value %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/gist.css' %}">
+    {% endif %}
+
     {{ value }}
 </div>
