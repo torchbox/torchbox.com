@@ -3,6 +3,10 @@ from django.utils.text import camel_case_to_spaces, slugify
 
 from tbx.core.utils.models import SocialMediaSettings
 
+from wagtail import blocks
+from wagtail.blocks import StreamValue
+from wagtailmarkdown.blocks import MarkdownBlock
+
 register = template.Library()
 
 
@@ -88,3 +92,17 @@ def ifinlist(value, list):
     # cast to strings before testing as this is used for heading levels 2, 3, 4 etc
     stringList = [str(x) for x in list]
     return str(value) in stringList
+
+
+@register.filter(name="has_raw_html_block")
+def has_raw_html_block(value):
+    if isinstance(value, StreamValue):
+        return any(type(item.block) is blocks.RawHTMLBlock for item in value)
+    return False
+
+
+@register.filter(name="has_markdown_block")
+def has_markdown_block(value):
+    if isinstance(value, StreamValue):
+        return any(type(item.block) is MarkdownBlock for item in value)
+    return False
