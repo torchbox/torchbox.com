@@ -15,15 +15,25 @@
         }
 
         #{$root}__megaphone {
-            width: 55px;
-            height: 50px;
+            width: 35px;
+            height: 30px;
+
+            @include media-query(large) {
+                width: 55px;
+                height: 50px;
+            }
         }
 
         #{$root}__noise {
-            width: 20px;
-            height: 45px;
+            width: 15px;
+            height: 25px;
             transition: transform $transition;
             transform: translate3d(0, 0, 0);
+
+            @include media-query(large) {
+                width: 20px;
+                height: 45px;
+            }
 
             @include reduced-motion() {
                 transition: none;
@@ -43,15 +53,25 @@
     &--wagtail-head {
         position: relative;
         display: inline-block;
-        width: 65px;
-        height: 65px;
+        width: 55px;
+        height: 55px;
+
+        @include media-query(large) {
+            width: 65px;
+            height: 65px;
+        }
 
         #{$root}__head {
             position: absolute;
-            width: 70px;
-            height: 85px;
+            width: 50px;
+            height: 65px;
             transform: rotate(0);
             transition: transform $transition;
+
+            @include media-query(large) {
+                width: 70px;
+                height: 85px;
+            }
 
             @include reduced-motion() {
                 transition: none;
@@ -60,11 +80,16 @@
 
         #{$root}__circle {
             position: absolute;
-            width: 44px;
-            height: 44px;
+            width: 24px;
+            height: 24px;
             left: 18px;
             top: 15px;
             transition: height $transition;
+
+            @include media-query(large) {
+                width: 44px;
+                height: 44px;
+            }
 
             @include reduced-motion() {
                 transition: none;
@@ -84,14 +109,21 @@
 
         #{$root}__top-beak {
             position: absolute;
-            width: 15px;
-            height: 9px;
-            right: 0;
-            top: 29px;
+            width: 10px;
+            height: 7px;
+            right: 9px;
+            top: 24px;
             transform: rotate(0);
             transition: transform $transition;
             transform-origin: left;
             z-index: -1;
+
+            @include media-query(large) {
+                width: 15px;
+                height: 9px;
+                right: 0;
+                top: 29px;
+            }
 
             @include reduced-motion() {
                 transition: none;
@@ -100,14 +132,20 @@
 
         #{$root}__bottom-beak {
             position: absolute;
-            width: 10px;
+            width: 7px;
             height: 7px;
-            right: 3px;
-            top: 31px;
+            right: 10px;
+            top: 25px;
             transform: rotate(0);
             transition: transform $transition;
             transform-origin: 10px 0;
             z-index: -1;
+
+            @include media-query(large) {
+                width: 10px;
+                right: 3px;
+                top: 31px;
+            }
 
             @include reduced-motion() {
                 transition: none;
@@ -121,7 +159,11 @@
             }
 
             #{$root}__circle {
-                height: 34px;
+                height: 20px;
+
+                @include media-query(large) {
+                    height: 34px;
+                }
             }
 
             #{$root}__top-beak {
@@ -135,19 +177,29 @@
     }
 
     &--target {
-        width: 65px;
-        height: 65px;
+        width: 50px;
+        height: 50px;
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
 
+        @include media-query(large) {
+            width: 65px;
+            height: 65px;
+        }
+
         #{$root}__center {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 5px;
+            height: 5px;
             transform: scale(1);
             transition: transform $transition;
+
+            @include media-query(large) {
+                width: 10px;
+                height: 10px;
+            }
 
             @include reduced-motion() {
                 transition: none;
@@ -156,10 +208,15 @@
 
         #{$root}__inner {
             position: absolute;
-            width: 38px;
-            height: 38px;
+            width: 28px;
+            height: 28px;
             transform: scale(1);
             transition: transform $transition;
+
+            @include media-query(large) {
+                width: 38px;
+                height: 38px;
+            }
 
             @include reduced-motion() {
                 transition: none;
@@ -168,10 +225,15 @@
 
         #{$root}__outer {
             position: absolute;
-            width: 62px;
-            height: 62px;
+            width: 45px;
+            height: 45px;
             transform: scale(1);
             transition: transform $transition;
+
+            @include media-query(large) {
+                width: 62px;
+                height: 62px;
+            }
 
             @include reduced-motion() {
                 transition: none;
@@ -199,16 +261,30 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 80px;
-        height: 90px;
+        width: 50px;
+        height: 60px;
+
+        @include media-query(large) {
+            width: 80px;
+            height: 90px;
+        }
 
         #{$root}__lightbulb-inner {
             position: absolute;
-            width: 19px;
-            height: 19px;
+            width: 14px;
+            height: 14px;
             transform: scale(1);
             transition: transform $transition;
             transform-origin: 5px 20px;
+
+            @include media-query(large) {
+                width: 19px;
+                height: 19px;
+            }
+
+            @include reduced-motion() {
+                transition: none;
+            }
 
             .mode-dark & {
                 mix-blend-mode: screen;
@@ -219,19 +295,20 @@
             .mode-light & {
                 z-index: -1;
             }
-
-            @include reduced-motion() {
-                transition: none;
-            }
         }
 
         #{$root}__lightbulb-outer {
             position: absolute;
-            width: 50px;
-            height: 65px;
+            width: 40px;
+            height: 55px;
             transform: rotate(0);
             transition: transform $transition;
             transform-origin: 30px 60px;
+
+            @include media-query(large) {
+                width: 50px;
+                height: 65px;
+            }
 
             @include reduced-motion() {
                 transition: none;
