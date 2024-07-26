@@ -40,6 +40,7 @@ services:
       - ./manage.py:/app/manage.py:rw
       - ./pyproject.toml:/app/pyproject.toml:rw
       - ./poetry.lock:/app/poetry.lock:rw
+      - ./cloudflare:/app/cloudflare:rw
 
       # Frontend config
       - ./.babelrc.js:/app/.babelrc.js:rw
