@@ -137,7 +137,14 @@ function getCachingRequest(request) {
      *
      * Note: Modifications to this request are not sent upstream.
      */
-    return new Request(new URL(request.url), request);  // Do nothing.
+    const cookies = getCookies(request);
+
+    const requestURL = new URL(request.url);
+
+    // Cache based on the mode
+    requestURL.searchParams.set('cookie-torchbox-mode', cookies['torchbox-mode'] || 'dark');
+
+    return new Request(requestURL, request);
 }
 
 
@@ -187,13 +194,30 @@ function hasPrivateCookie(request) {
         return false;
     }
 
-    const requestCookieNames = cookieHeader
-        .split(";")
-        .map((cookie) => cookie.split("=")[0].trim());
+    const allCookies = getCookies(request);
 
-    return PRIVATE_COOKIES.some((privateCookieName) =>
-        requestCookieNames.includes(privateCookieName)
-    );
+    // Check if any of the private cookies are present and have a non-empty value
+    for (const cookieName of PRIVATE_COOKIES) {
+        if (cookieName in allCookies && allCookies[cookieName]) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function getCookies(request) {
+    /*
+     * Extract the cookies from a given request
+     */
+    const cookieHeader = request.headers.get('Cookie');
+    if (!cookieHeader) {
+        return {};
+    }
+
+    return cookieHeader.split(';').reduce((cookieMap, cookieString) => {
+        const [cookieKey, cookieValue] = cookieString.split('=');
+        return { ...cookieMap, [cookieKey.trim()]: cookieValue.trim() };
+    }, {});
 }
 
 /**
