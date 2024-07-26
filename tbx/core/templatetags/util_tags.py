@@ -3,7 +3,6 @@ from django.utils.text import camel_case_to_spaces, slugify
 
 from tbx.core.utils.models import SocialMediaSettings
 from wagtail.blocks import StreamValue
-from wagtailmarkdown.blocks import MarkdownBlock
 
 register = template.Library()
 
@@ -105,6 +104,9 @@ def has_raw_html_block(value):
 
 @register.filter(name="has_markdown_block")
 def has_markdown_block(value):
-    if isinstance(value, StreamValue):
-        return any(type(item.block) is MarkdownBlock for item in value)
-    return False
+    if not isinstance(value, StreamValue):
+        return False
+
+    for block in value._raw_data:
+        if block["type"] == "markdown":
+            return True
