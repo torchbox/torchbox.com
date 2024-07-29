@@ -205,13 +205,5 @@
             top: 30px;
             right: 30px;
         }
-
-        @include high-contrast-light-mode() {
-            filter: none;
-        }
-
-        .mode-light & {
-            filter: none;
-        }
     }
 }
