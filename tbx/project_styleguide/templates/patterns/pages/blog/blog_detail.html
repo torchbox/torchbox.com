@@ -3,7 +3,7 @@
 
 {% block extra_css %}
     {{ block.super }}
-    {% if page.body|has_raw_html_block %}
+    {% if page.body|has_gist_block %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/gist.css' %}">
     {% endif %}
 

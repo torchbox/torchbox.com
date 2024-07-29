@@ -91,8 +91,8 @@ def ifinlist(value, list):
     return str(value) in stringList
 
 
-@register.filter(name="has_raw_html_block")
-def has_raw_html_block(value):
+@register.filter(name="has_gist_block")
+def has_gist_block(value):
     if not isinstance(value, StreamValue):
         return False
 
