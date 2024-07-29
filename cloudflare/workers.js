@@ -3,7 +3,7 @@
 // applied after this worker runs.
 
 // When any cookie in this list is present in the request, cache will be skipped
-const PRIVATE_COOKIES = ['sessionid'];
+const PRIVATE_COOKIES = ['sessionid', 'csrftoken'];
 
 // These querystring keys are stripped from the request as they are generally not
 // needed by the origin.
