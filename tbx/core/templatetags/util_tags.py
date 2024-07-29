@@ -97,6 +97,15 @@ def has_gist_block(value):
         return False
 
     for block in value._raw_data:
+        # special case for work page section block as the streamfields are nested within sections
+        if block["type"] == "section":
+            for sub_block in block["value"]["content"]:
+                if (
+                    sub_block["type"] == "raw_html"
+                    and "https://gist.github.com" in sub_block["value"]
+                ):
+                    return True
+
         if block["type"] == "raw_html" and "https://gist.github.com" in block["value"]:
             return True
     return False
@@ -108,5 +117,10 @@ def has_markdown_block(value):
         return False
 
     for block in value._raw_data:
+        # special case for work page section block  as the streamfields are nested within sections
+        if block["type"] == "section":
+            for sub_block in block["value"]["content"]:
+                if sub_block["type"] == "markdown":
+                    return True
         if block["type"] == "markdown":
             return True

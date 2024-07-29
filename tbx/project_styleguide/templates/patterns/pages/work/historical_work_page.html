@@ -1,16 +1,5 @@
 {% extends "patterns/pages/work/work_page_base.html" %}
-{% load wagtailcore_tags wagtailimages_tags util_tags static %}
-
-{% block extra_css %}
-    {{ block.super }}
-    {% if page.body|has_gist_block %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/gist.css' %}">
-    {% endif %}
-
-    {% if page.body|has_markdown_block %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/codehilite.css' %}">
-    {% endif %}
-{% endblock %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {# The historical work pages did not have a separate intro - so we just loop over the body streamfield to find the intro block(s) #}
 {% block intro %}
