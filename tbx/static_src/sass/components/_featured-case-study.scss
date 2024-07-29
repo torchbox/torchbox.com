@@ -164,8 +164,8 @@
             overflow: visible;
         }
 
-        @include high-contrast-light-mode() {
-            color: var(--color--background);
+        @include high-contrast-mode() {
+            display: none;
         }
     }
 
@@ -207,6 +207,10 @@
         }
 
         @include high-contrast-light-mode() {
+            filter: none;
+        }
+
+        .mode-light & {
             filter: none;
         }
     }

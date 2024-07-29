@@ -14,7 +14,11 @@
                 </ul>
             {% endwagtailcache %}
         </nav>
+
+        {# Mode switcher desktop #}
+        {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
     </div>
+
     {# Mobile menu toggle #}
     <div class="header__menu-toggle grid__header-toggle">
         <span class="sr-only">Menu</span>
@@ -33,5 +37,7 @@
                 {% primarynavmobile %}
             </ul>
         {% endwagtailcache %}
+        {# Mode switcher mobile #}
+        {% include "patterns/molecules/mode_switcher/mode_switcher.html" with mobile=True %}
     </nav>
 </header>

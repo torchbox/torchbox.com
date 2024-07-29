@@ -305,9 +305,11 @@
     &__header-nav {
         display: none;
 
-        @include media-query(medium) {
-            display: block;
+        @include media-query(menu) {
+            display: flex;
+            justify-content: flex-end;
             grid-column: 3 / span 3;
+            align-items: flex-end;
         }
 
         @include media-query(large) {

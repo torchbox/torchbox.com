@@ -59,7 +59,8 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         &--no-children {
             @include link-styles(
                 $color: var(--color--heading),
-                $interaction-color: var(--color--heading)
+                $interaction-color: var(--color--heading),
+                $underline-color: var(--color--heading)
             );
             @include font-size('body-two');
             padding: $spacer-mini-plus $spacer-small;
@@ -79,7 +80,8 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         &--parent {
             @include link-styles(
                 $color: var(--color--heading),
-                $interaction-color: var(--color--heading)
+                $interaction-color: var(--color--heading),
+                $underline-color: var(--color--heading)
             );
         }
     }
@@ -91,7 +93,6 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         height: 21px;
         flex-grow: 0;
         flex-shrink: 0;
-        fill: var(--color--heading);
         transition: transform $transition-quick;
 
         #{$root}__link:hover & {
@@ -105,7 +106,6 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         height: 21px;
         flex-grow: 0;
         flex-shrink: 0;
-        fill: var(--color--heading);
         transition: transform $transition-quick;
 
         #{$root}__link:hover & {

@@ -30,7 +30,11 @@
         }
 
         // Ensure borders show in high contrast mode
-        @include high-contrast-mode() {
+        @include high-contrast-light-mode() {
+            border-color: var(--color--border);
+        }
+
+        .mode-light & {
             border-color: var(--color--border);
         }
     }
@@ -56,7 +60,7 @@
         background: linear-gradient(
             to right,
             var(--color--background--overlay) 0%,
-            var(--color--background) 100%
+            var(--color--background) 50%
         );
         opacity: 1;
         transition: opacity $transition;

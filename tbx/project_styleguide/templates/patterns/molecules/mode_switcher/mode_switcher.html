@@ -1,0 +1,16 @@
+<form class="mode-switcher" data-mode-switcher method="GET" action="{% url 'switch_mode' %}">
+    <div class="mode-switcher__layout">
+
+        <span class="mode-switcher__label mode-switcher__label--light">
+            {% include "patterns/atoms/icons/icon.html" with name="light-mode-icon" classname="mode-switcher__icon mode-switcher__icon--light" %}
+        </span>
+        <button aria-label="Switch to {% if MODE == 'light' %}dark{% else %}light{% endif%} mode" data-mode-switch class="mode-switcher__button">
+        </button>
+        <span class="mode-switcher__label mode-switcher__label--dark">
+            {% include "patterns/atoms/icons/icon.html" with name="dark-mode-icon" classname="mode-switcher__icon mode-switcher__icon--dark" %}
+        </span>
+
+    </div>
+    <input type="hidden" name="switch_mode" value="{% if MODE == 'light' %}dark{% else %}light{% endif %}">
+    <input type="hidden" name="next_url" value="{{ request.get_full_path }}">
+</form>

@@ -21,7 +21,7 @@
         width: 100%;
         justify-content: flex-end;
 
-        @include media-query(medium) {
+        @include media-query(menu) {
             display: none;
         }
     }

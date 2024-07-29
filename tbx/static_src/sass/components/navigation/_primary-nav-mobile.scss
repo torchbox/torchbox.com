@@ -15,7 +15,7 @@ Styles for the top level of the navigation at mobile
     display: block;
     background-color: var(--color--nav-background);
 
-    @include media-query(medium) {
+    @include media-query(menu) {
         display: none;
     }
 
@@ -64,7 +64,8 @@ Styles for the top level of the navigation at mobile
         &--no-children {
             @include link-styles(
                 $color: var(--color--heading),
-                $interaction-color: var(--color--heading)
+                $interaction-color: var(--color--heading),
+                $underline-color: var(--color--heading)
             );
         }
     }
@@ -75,14 +76,13 @@ Styles for the top level of the navigation at mobile
         height: 21px;
         flex-grow: 0;
         flex-shrink: 0;
-        fill: var(--color--heading);
         transition: transform $transition-quick;
 
         #{$root}__link:hover & {
             transform: translateX(10px);
         }
 
-        @include media-query(medium) {
+        @include media-query(menu) {
             display: none;
         }
 
