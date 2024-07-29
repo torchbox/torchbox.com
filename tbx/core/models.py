@@ -9,7 +9,6 @@ from tbx.core.utils.models import (
     SocialFields,
 )
 from tbx.people.models import ContactMixin
-from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.blocks import PageChooserBlock, StreamBlock, StructBlock
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
@@ -196,31 +195,9 @@ class StandardPage(
     ]
 
 
-# Currently hidden. These were used in the past and may be used again in the future
-# @register_snippet
+# No longer in use but kept for migration history
 class Tag(models.Model):
-    name = models.CharField(max_length=255)
-    slug = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-
-class BaseAddress(blocks.StructBlock):
-    title = blocks.CharBlock(blank=True)
-    address = blocks.RichTextBlock(blank=True)
-
-
-@register_setting
-class GlobalSettings(BaseSiteSetting):
-    addresses = StreamField([("address", BaseAddress())], blank=True)
-
-    panels = [
-        FieldPanel("addresses"),
-    ]
-
-    class Meta:
-        verbose_name = "Global Settings"
+    pass
 
 
 class SubMenuItemBlock(StreamBlock):
