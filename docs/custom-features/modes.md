@@ -27,3 +27,7 @@ The incident form is embedded in an iframe at https://torchbox.com/incident/. It
 The `torchbox-mode` cookie therefore explicitly sets a `domain` value in order to be read by `incident-form.torchbox.com` where the form is hosted.
 
 Note that there isn't any easy way to test the incident form's reading of the `torchbox-mode` cookie locally, as the domains won't match.
+
+## Cloudflare workers
+
+In order to avoid cloudflare caching an incorrect version of a page, we use some custom cloudflare workers to ensure that both versions of the page are cached, and the user's preference respected.
