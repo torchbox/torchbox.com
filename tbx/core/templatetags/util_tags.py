@@ -96,21 +96,18 @@ def has_gist_block(value):
     if not isinstance(value, StreamValue):
         return False
 
-    for block in value._raw_data:
-        # special case for work page section block as the streamfields are nested within sections
-        if block["type"] == "section":
-            try:
-                for sub_block in block["value"]["content"]:
-                    if (
-                        sub_block["type"] == "raw_html"
-                        and "https://gist.github.com" in sub_block["value"]
-                    ):
-                        return True
-            except (KeyError, TypeError):
-                pass
-
-        if block["type"] == "raw_html" and "https://gist.github.com" in block["value"]:
+    for block in value.blocks_by_name(block_name="raw_html"):
+        if "https://gist.github.com" in block.value:
             return True
+
+    # Special case for work page section block as the StreamField blockss are nested within sections
+    for block in value.blocks_by_name(block_name="section"):
+        if "content" not in block.value:
+            continue
+        for sub_block in block.value["content"].blocks_by_name("raw_html"):
+            if "https://gist.github.com" in sub_block.value:
+                return True
+
     return False
 
 
@@ -119,15 +116,14 @@ def has_markdown_block(value):
     if not isinstance(value, StreamValue):
         return False
 
-    for block in value._raw_data:
-        if block["type"] == "section":
-            try:
-                for sub_block in block["value"]["content"]:
-                    if sub_block["type"] == "markdown":
-                        return True
-            except (KeyError, TypeError):
-                pass
-        if block["type"] == "markdown":
+    if len(value.blocks_by_name(block_name="markdown")):
+        return True
+
+    # Special case for work page section block as the StreamField blockss are nested within sections
+    for block in value.blocks_by_name(block_name="section"):
+        if "content" not in block.value:
+            continue
+        if len(block.value["content"].blocks_by_name("markdown")):
             return True
 
     return False
