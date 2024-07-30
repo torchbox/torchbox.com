@@ -8,9 +8,7 @@
         </div>
 
         {% if page.intro %}
-            <div class="grid__intro streamfield__intro">
-                <div class="heading heading--four">{{page.intro|richtext}}</div>
-            </div>
+            {% include "patterns/molecules/intro/intro.html" with intro_text=page.intro %}
         {% endif %}
 
         {% include_block page.body %}
