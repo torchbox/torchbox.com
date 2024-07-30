@@ -12,11 +12,11 @@
             &:last-child {
                 margin-bottom: 0;
             }
+        }
 
-            .template-standard-page &,
-            .template-blog-page & {
-                font-weight: $weight--medium;
-            }
+        // override the rich-text font-size
+        &.rich-text {
+            @include font-size(intro);
         }
     }
 
@@ -71,10 +71,12 @@
     .template-work-page &,
     .template-historical-work-page & {
         &__intro {
-            margin-bottom: $spacer-small;
+            margin-top: $spacer-small;
+            margin-bottom: $spacer-medium;
 
             @include media-query(large) {
                 margin-bottom: 0;
+                margin-top: 0;
             }
         }
     }
