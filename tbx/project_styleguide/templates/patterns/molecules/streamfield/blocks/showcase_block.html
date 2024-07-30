@@ -23,8 +23,17 @@
 
                 {# Showcase block uses the rings icons, homepage block uses an icon selected by the editor #}
                 {% if is_homepage_showcase %}
-                    {# Note that a future enhancement will be to animated these icons, in which case they will need to be split out into separate svgs and a custom css animation applied to each one - similar to the 'employee owned trust' icon on the home page #}
-                    {% include "patterns/atoms/icons/icon.html" with name=item.icon classname="showcase__icon" %}
+                    {% if item.icon == 'megaphone' %}
+                        {% include "patterns/atoms/icons/animated/megaphone.html" %}
+                    {% elif item.icon == 'wagtail' %}
+                        {% include "patterns/atoms/icons/animated/wagtail-head.html" %}
+                    {% elif item.icon == 'target' %}
+                        {% include "patterns/atoms/icons/animated/target.html" %}
+                    {% elif item.icon == 'lightbulb' %}
+                        {% include "patterns/atoms/icons/animated/lightbulb.html" %}
+                    {% else %}
+                        {% include "patterns/atoms/icons/icon.html" with name=item.icon classname="showcase__icon" %}
+                    {% endif %}
                 {% else %}
                     <div class="showcase__rings">
                         {% include "patterns/atoms/icons/icon.html" with name="ring-one" classname="icon--stroke showcase__ring showcase__ring--one" %}
