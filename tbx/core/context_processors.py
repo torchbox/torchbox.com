@@ -24,7 +24,5 @@ def global_vars(request):
         "CARBON_EMISSIONS_PAGE": ImportantPageSettings.for_request(
             request
         ).carbon_emissions_page,
-        "ALLOWED_MODES": json.dumps(settings.ALLOWED_MODES),
-        "MODE": mode,
         "BASE_DOMAIN": settings.BASE_DOMAIN,
     }
