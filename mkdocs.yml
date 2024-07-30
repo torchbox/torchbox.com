@@ -83,6 +83,7 @@ nav:
   - 'Custom features':
       - 'Migration-friendly StreamFields': 'custom-features/migration-friendly-streamfields.md'
       - 'Theme': 'custom-features/theme.md'
+      - 'Modes': 'custom-features/modes.md'
       - 'Contact': 'custom-features/contact.md'
   - 'Continuous integration': 'continuous-integration.md'
   - 'Anonymised data': 'anonymised-data.md'

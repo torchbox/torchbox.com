@@ -2,7 +2,7 @@
 
 ## Modes
 
-The site has been initially built in dark-mode only, but the longer-term plan is to introduce a toggle switch where the user can opt to display it in light mode. The CSS to set the mode is an html class of either `.mode-dark` or `.mode-light`.
+The CSS to set the mode is an html class of either `.mode-dark` or `.mode-light`.
 
 ## Themes
 
