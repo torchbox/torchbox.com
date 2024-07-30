@@ -3,9 +3,7 @@
 
 {% block intro %}
     {% if page.intro %}
-        <div class="streamfield__intro rich-text">
-            {{ page.intro|richtext }}
-        </div>
+        {% include "patterns/molecules/intro/intro.html" with intro_text=page.intro %}
     {% endif %}
 {% endblock %}
 

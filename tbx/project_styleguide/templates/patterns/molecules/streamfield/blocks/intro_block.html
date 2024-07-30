@@ -1,4 +1,1 @@
-{% load wagtailcore_tags %}
-<div class="grid__intro streamfield__intro rich-text">
-    {{ value|richtext }}
-</div>
+{% include "patterns/molecules/intro/intro.html" with intro_text=value %}

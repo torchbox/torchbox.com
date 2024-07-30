@@ -2,6 +2,9 @@
 
 .streamfield {
     &__intro {
+        color: var(--color--heading);
+        font-weight: $weight--light;
+
         a {
             @include link-styles(var(--color--heading), var(--color--heading));
         }
