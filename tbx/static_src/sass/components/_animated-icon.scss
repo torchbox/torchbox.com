@@ -1,0 +1,350 @@
+@use 'config' as *;
+
+.animated-icon {
+    $root: &;
+
+    &--megaphone {
+        transform: rotate(0);
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        transition: transform $transition;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        @include high-contrast-mode() {
+            display: none;
+        }
+
+        #{$root}__megaphone {
+            width: 35px;
+            height: 30px;
+
+            @include media-query(large) {
+                width: 55px;
+                height: 50px;
+            }
+        }
+
+        #{$root}__noise {
+            width: 15px;
+            height: 25px;
+            transition: transform $transition;
+            transform: translate3d(0, 0, 0);
+
+            @include media-query(large) {
+                width: 20px;
+                height: 45px;
+            }
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        a:focus &,
+        a:hover & {
+            transform: rotate(15deg);
+
+            #{$root}__noise {
+                transform: translate3d(-3px, 0, 0);
+            }
+        }
+    }
+
+    &--wagtail-head {
+        position: relative;
+        display: inline-block;
+        width: 55px;
+        height: 55px;
+
+        @include media-query(large) {
+            width: 65px;
+            height: 65px;
+        }
+
+        @include high-contrast-mode() {
+            display: none;
+        }
+
+        #{$root}__head {
+            position: absolute;
+            width: 50px;
+            height: 65px;
+            transform: rotate(0);
+            transition: transform $transition;
+
+            @include media-query(large) {
+                width: 70px;
+                height: 85px;
+            }
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        #{$root}__circle {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            left: 18px;
+            top: 15px;
+            transition: height $transition;
+
+            @include media-query(large) {
+                width: 44px;
+                height: 44px;
+            }
+
+            @include reduced-motion() {
+                transition: none;
+            }
+
+            .mode-dark & {
+                mix-blend-mode: screen;
+            }
+
+            // Mix blend mode doesn't work well for light mode
+            // so emulate it with opacity and z-index
+            .mode-light & {
+                z-index: -1;
+                opacity: 0.5;
+            }
+        }
+
+        #{$root}__top-beak {
+            position: absolute;
+            width: 10px;
+            height: 7px;
+            right: 9px;
+            top: 24px;
+            transform: rotate(0);
+            transition: transform $transition;
+            transform-origin: left;
+            z-index: -1;
+
+            @include media-query(large) {
+                width: 15px;
+                height: 9px;
+                right: 0;
+                top: 29px;
+            }
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        #{$root}__bottom-beak {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            right: 10px;
+            top: 25px;
+            transform: rotate(0);
+            transition: transform $transition;
+            transform-origin: 10px 0;
+            z-index: -1;
+
+            @include media-query(large) {
+                width: 10px;
+                right: 3px;
+                top: 31px;
+            }
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        a:focus &,
+        a:hover & {
+            #{$root}__head {
+                transform: rotate(-10deg);
+            }
+
+            #{$root}__circle {
+                height: 20px;
+
+                @include media-query(large) {
+                    height: 34px;
+                }
+            }
+
+            #{$root}__top-beak {
+                transform: rotate(-30deg);
+            }
+
+            #{$root}__bottom-beak {
+                transform: rotate(4deg);
+            }
+        }
+    }
+
+    &--target {
+        width: 50px;
+        height: 50px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include media-query(large) {
+            width: 65px;
+            height: 65px;
+        }
+
+        @include high-contrast-mode() {
+            display: none;
+        }
+
+        #{$root}__center {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            transform: scale(1);
+            transition: transform $transition;
+
+            @include media-query(large) {
+                width: 10px;
+                height: 10px;
+            }
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        #{$root}__inner {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            transform: scale(1);
+            transition: transform $transition;
+
+            @include media-query(large) {
+                width: 38px;
+                height: 38px;
+            }
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        #{$root}__outer {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            transform: scale(1);
+            transition: transform $transition;
+
+            @include media-query(large) {
+                width: 62px;
+                height: 62px;
+            }
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        a:focus &,
+        a:hover & {
+            #{$root}__center {
+                transform: scale(2.6);
+            }
+
+            #{$root}__inner {
+                transform: scale(1.3);
+            }
+
+            #{$root}__outer {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    &--lightbulb {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 60px;
+
+        @include media-query(large) {
+            width: 80px;
+            height: 90px;
+        }
+
+        @include high-contrast-mode() {
+            display: none;
+        }
+
+        #{$root}__lightbulb-inner {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            transform: scale(1);
+            transition: transform $transition;
+            transform-origin: 5px 20px;
+
+            @include media-query(large) {
+                width: 19px;
+                height: 19px;
+            }
+
+            @include reduced-motion() {
+                transition: none;
+            }
+
+            .mode-dark & {
+                mix-blend-mode: screen;
+            }
+
+            // Mix blend mode doesn't work well for light mode
+            // so emulate it with z-index
+            .mode-light & {
+                z-index: -1;
+            }
+        }
+
+        #{$root}__lightbulb-outer {
+            position: absolute;
+            width: 40px;
+            height: 55px;
+            transform: rotate(0);
+            transition: transform $transition;
+            transform-origin: 30px 60px;
+
+            @include media-query(large) {
+                width: 50px;
+                height: 65px;
+            }
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+
+        a:focus &,
+        a:hover & {
+            #{$root}__lightbulb-outer {
+                transform: rotate(-7deg);
+            }
+
+            #{$root}__lightbulb-inner {
+                transform: scale(2.4);
+            }
+        }
+    }
+
+    // Make sure they don't get squashed when used in the showcase sf
+    .showcase & {
+        flex-shrink: 0;
+    }
+}
