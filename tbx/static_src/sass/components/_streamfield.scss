@@ -8,10 +8,14 @@
 
         p {
             margin-bottom: $spacer-small;
-            font-weight: $weight--medium;
 
             &:last-child {
                 margin-bottom: 0;
+            }
+
+            .template-standard-page &,
+            .template-blog-page & {
+                font-weight: $weight--medium;
             }
         }
     }
