@@ -45,6 +45,11 @@
 - [ ] Not relevant
 - [ ] This adds new sources of PII and documents it and modifies Birdbath processors accordingly
 
+#### Light and dark mode
+
+- [ ] I have tested the changes in both light and dark mode
+- [ ] The change is not relevant to dark and light mode
+
 #### Accessibility
 
 - [ ] Automated WCAG 2.1 tests pass
