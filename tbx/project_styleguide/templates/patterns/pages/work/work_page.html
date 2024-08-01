@@ -19,7 +19,7 @@
             <picture>
                 <source media="(max-width: 598px)" srcset="{{ mobile_image.url }} 1x, {{ mobile_image_retina.url }} 2x" />
                 <source media="(min-width: 599px)" srcset="{{ desktop_image.url }} 1x, {{ desktop_image_retina.url }} 2x" />
-                <img src="{{ desktop_image.url }}" alt="{{ desktop_image.alt }}" />
+                <img src="{{ desktop_image.url }}" alt="{% if not page.header_image_is_decorative %}{{ page.header_image_alt_text }}{% endif %}" />
             </picture>
 
             {% if page.header_caption %}

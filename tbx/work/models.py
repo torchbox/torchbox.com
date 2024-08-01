@@ -201,6 +201,16 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
         on_delete=models.SET_NULL,
         related_name="+",
     )
+    header_image_is_decorative = models.BooleanField(
+        help_text="If checked, this will make the alt text empty.",
+        default=False,
+    )
+    header_alt_text = models.CharField(
+        blank=True,
+        max_length=255,
+        help_text="By default the image title (shown above) is used as the alt text. "
+        "Use this field to provide more specific alt text if required.",
+    )
 
     header_caption = models.CharField("caption", max_length=255, blank=True)
     header_attribution = models.CharField("attribution", max_length=255, blank=True)
@@ -226,6 +236,8 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
         MultiFieldPanel(
             [
                 FieldPanel("header_image"),
+                FieldPanel("header_alt_text"),
+                FieldPanel("header_image_is_decorative"),
                 FieldPanel("header_caption"),
                 FieldPanel("header_attribution"),
             ],
@@ -276,6 +288,12 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
         if author := self.authors.first():
             return author.author
         return None
+
+    @cached_property
+    def header_image_alt_text(self):
+        if header_alt_text := self.header_alt_text:
+            return header_alt_text
+        return self.header_image.title
 
     @property
     def related_works(self):
