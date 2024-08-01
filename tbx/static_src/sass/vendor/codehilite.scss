@@ -1,3 +1,5 @@
+// This file has it's own entry point in webpack and is only included in markdown_block.html
+
 /*!
     Code highlighting generated from Pygments | https://pygments.org/
     | Copyright 2006-2023 by the Pygments team
@@ -7,8 +9,6 @@
 */
 
 /* stylelint-disable */
-
-@use 'config' as *;
 
 .mode-dark {
     pre {

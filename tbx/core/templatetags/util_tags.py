@@ -2,6 +2,7 @@ from django import template
 from django.utils.text import camel_case_to_spaces, slugify
 
 from tbx.core.utils.models import SocialMediaSettings
+from wagtail.blocks import StreamValue
 
 register = template.Library()
 
@@ -88,3 +89,41 @@ def ifinlist(value, list):
     # cast to strings before testing as this is used for heading levels 2, 3, 4 etc
     stringList = [str(x) for x in list]
     return str(value) in stringList
+
+
+@register.filter(name="has_gist_block")
+def has_gist_block(value):
+    if not isinstance(value, StreamValue):
+        return False
+
+    for block in value.blocks_by_name(block_name="raw_html"):
+        if "https://gist.github.com" in block.value:
+            return True
+
+    # Special case for work page section block as the StreamField blockss are nested within sections
+    for block in value.blocks_by_name(block_name="section"):
+        if "content" not in block.value:
+            continue
+        for sub_block in block.value["content"].blocks_by_name("raw_html"):
+            if "https://gist.github.com" in sub_block.value:
+                return True
+
+    return False
+
+
+@register.filter(name="has_markdown_block")
+def has_markdown_block(value):
+    if not isinstance(value, StreamValue):
+        return False
+
+    if len(value.blocks_by_name(block_name="markdown")):
+        return True
+
+    # Special case for work page section block as the StreamField blockss are nested within sections
+    for block in value.blocks_by_name(block_name="section"):
+        if "content" not in block.value:
+            continue
+        if len(block.value["content"].blocks_by_name("markdown")):
+            return True
+
+    return False
