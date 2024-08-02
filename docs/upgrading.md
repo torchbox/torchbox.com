@@ -41,18 +41,9 @@ As indicated [here](./custom-features/migration-friendly-streamfields.md), this 
 
 - Ensure that the [page themes](custom-features/theme.md) are still working correctly
 
-### Wagtail package dependencies
+### Dark and light mode
 
-We are maintaining our own forks of Wagtail packages at: <https://github.com/torchbox-forks>.
-
-The enables any team member to propose a change to a package, we can all work directly on the work branch and submit it to the original author for consideration.
-
-- [How we work on forked packages (intranet article).](https://intranet.torchbox.com/torchbox-teams/tech-team/working-with-3rd-party-packages/#forking-repositories)
-- [Where we manage forked packages (Monday board).](https://torchbox.monday.com/boards/1124794299)
-
-As much as possible, we want to use the official releases available on PyPI for the Wagtail package dependencies. A temporary solution is to fork the package dependency, tag the working branch, and use the tag in the pyproject file.
-
-### Check these packages for updates
+- Ensure that [light and dark mode](custom-features/modes.md) are still working correctly
 
 #### Lite youtube integration
 
@@ -68,4 +59,22 @@ As much as possible, we want to use the official releases available on PyPI for 
 
 ### Contact snippets in footer
 
-- Ensure that these still display all the relevant content - title, text, photo, role contact link and button text
+- Ensure that these still display all the relevant content - title, text, photo, role contact link, button text and email text
+
+## Wagtail package dependencies
+
+We are maintaining our own forks of Wagtail packages at: <https://github.com/torchbox-forks>.
+
+The enables any team member to propose a change to a package, we can all work directly on the work branch and submit it to the original author for consideration.
+
+- [How we work on forked packages (intranet article).](https://intranet.torchbox.com/torchbox-teams/tech-team/working-with-3rd-party-packages/#forking-repositories)
+- [Where we manage forked packages (Monday board).](https://torchbox.monday.com/boards/1124794299)
+
+As much as possible, we want to use the official releases available on PyPI for the Wagtail package dependencies. A temporary solution is to fork the package dependency, tag the working branch, and use the tag in the pyproject file.
+
+### Check these packages for updates
+
+(This list may not be exhaustive)
+
+- [lite youtube](front-end/lite-youtube.md)
+- [wagtail markdown](front-end/markdown-codehilite.md)
