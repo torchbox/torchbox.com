@@ -31,6 +31,16 @@
 
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
+        {# Add syntax highlighting for gists if a gist exists within a raw html streamfield #}
+        {% if page.body|has_gist_block %}
+            <link rel="stylesheet" type="text/css" href="{% static 'css/gist.css' %}">
+        {% endif %}
+
+        {# Add syntax highlighting for code snippets within a code block streamfield (aka markdown block) #}
+        {% if page.body|has_markdown_block %}
+            <link rel="stylesheet" type="text/css" href="{% static 'css/codehilite.css' %}">
+        {% endif %}
+
         {% block extra_css %}{% endblock %}
     </head>
 

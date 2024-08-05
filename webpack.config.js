@@ -15,6 +15,8 @@ const options = {
         // here, it will deem the quotes uneccessary.
         'main': `./${projectRoot}/static_src/javascript/main.js`, // prettier-ignore
         'admin': `./${projectRoot}/static_src/javascript/admin.js`, // prettier-ignore
+        'gist': `./${projectRoot}/static_src/sass/vendor/gist.scss`, // prettier-ignore
+        'codehilite': `./${projectRoot}/static_src/sass/vendor/codehilite.scss`, // prettier-ignore
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],
