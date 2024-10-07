@@ -273,6 +273,14 @@
         grid-column: 2 / span 4;
 
         @include media-query(large) {
+            grid-column: 2 / span 4;
+        }
+    }
+
+    &__footer-address {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
             grid-column: 2 / span 12;
         }
     }
