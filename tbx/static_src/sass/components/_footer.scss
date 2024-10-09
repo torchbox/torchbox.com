@@ -77,15 +77,6 @@
         }
     }
 
-    &__address {
-        text-align: center;
-        padding-bottom: $spacer-small;
-    }
-
-    &__address-text {
-        color: var(--color--grey-20);
-    }
-
     &__logo-link {
         display: flex;
         align-items: center;
@@ -102,6 +93,28 @@
 
         @include high-contrast-light-mode() {
             filter: none;
+        }
+    }
+
+    &__company {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        margin: $spacer-medium 0 $spacer-mini;
+        color: var(--color--grey-20);
+
+        @include media-query(large) {
+            justify-content: center;
+            margin: 0;
+        }
+    }
+
+    &__company-address {
+        font-weight: 600;
+
+        > * {
+            font-style: normal;
+            display: inline;
         }
     }
 
