@@ -35,10 +35,6 @@
         }
     }
 
-    &__copyright {
-        margin: $spacer-mini 0 0;
-    }
-
     &__socials {
         display: flex;
         gap: $spacer-mini * 2;
@@ -93,6 +89,28 @@
 
         @include high-contrast-light-mode() {
             filter: none;
+        }
+    }
+
+    &__company {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        margin: $spacer-medium 0 $spacer-mini;
+        color: var(--color--grey-20);
+
+        @include media-query(large) {
+            justify-content: center;
+            margin: 0;
+        }
+    }
+
+    &__company-address {
+        font-weight: 600;
+
+        > * {
+            font-style: normal;
+            display: inline;
         }
     }
 
