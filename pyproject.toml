@@ -38,6 +38,7 @@ scout-apm = "^3.2.1"
 sentry-sdk = "^2.16.0"
 html5lib = "^1.1"
 beautifulsoup4 = "^4.12.3"
+django-xff = "^1.4.0"
 
 [tool.poetry.extras]
 gunicorn = ["gunicorn"]
