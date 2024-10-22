@@ -24,3 +24,6 @@ ALLOWED_HOSTS = ["example.com", "localhost", "127.0.0.1"]
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 
 WAGTAILADMIN_BASE_URL = "http://localhost:8000"
+
+# Ignore proxy count in tests
+XFF_ALWAYS_PROXY = False
