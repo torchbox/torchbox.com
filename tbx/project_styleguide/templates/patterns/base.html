@@ -1,4 +1,4 @@
-{% load static wagtailuserbar wagtailcore_tags wagtailimages_tags navigation_tags util_tags wagtailaccessibility_tags %}
+{% load static wagtailuserbar wagtailcore_tags wagtailimages_tags navigation_tags util_tags wagtailaccessibility_tags wagtail_ab_testing_tags %}
 <!doctype html>
 <html
     class="
@@ -72,6 +72,7 @@
         </script>
 
         <script src="{% static 'js/main.js' %}"></script>
+        {% wagtail_ab_testing_script %}
 
         {% tota11y %}
 
