@@ -85,7 +85,6 @@
 
     &__logo {
         filter: grayscale(1) invert(1) brightness(0.52);
-        max-width: 70px;
 
         @include high-contrast-light-mode() {
             filter: none;
