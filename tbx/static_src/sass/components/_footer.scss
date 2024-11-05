@@ -89,6 +89,10 @@
         @include high-contrast-light-mode() {
             filter: none;
         }
+
+        &--narrow {
+            max-width: 70px;
+        }
     }
 
     &__company {
