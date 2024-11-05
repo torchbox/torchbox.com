@@ -52,7 +52,7 @@
                                     <li>
                                         {% with logo.link as link %}
                                             <a class="footer__logo-link" href="{{ link.url }}">
-                                                {% image logo.image max-100x100 format-webp loading="lazy" class="footer__logo" alt=logo.alt_text|default:logo.image.title %}
+                                                {% image logo.image max-200x100 format-webp loading="lazy" class="footer__logo" alt=logo.alt_text|default:logo.image.title %}
                                             </a>
                                         {% endwith %}
                                     </li>
