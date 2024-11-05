@@ -9,77 +9,77 @@
         {% endwith %}
         <div class="grid__footer-links">
             {% wagtailcache 600 "footerlinks" current_site.pk is_pattern_library %}
-            {% footerlinks %}
-        {% endwagtailcache %}
-        <ul class="footer__socials">
-            <li>
-                <a aria-label="Follow us on Twitter"
-                   href="https://twitter.com/torchbox"
-                   class="footer__social-link">
-                    <svg width="24" height="24" aria-hidden="true" class="footer__social-icon">
-                        <use xlink:href="#twitter" />
-                    </svg>
-                </a>
-            </li>
-            <li>
-                <a aria-label="Connect with us on LinkedIn"
-                   href="https://www.linkedin.com/company/torchbox"
-                   class="footer__social-link">
-                    <svg width="24" height="24" aria-hidden="true" class="footer__social-icon">
-                        <use xlink:href="#linkedin" />
-                    </svg>
-                </a>
-            </li>
-            <li>
-                <a aria-label="Follow us on Instagram"
-                   href="https://www.instagram.com/torchboxltd/"
-                   class="footer__social-link">
-                    <svg width="24" height="24" aria-hidden="true" class="footer__social-icon">
-                        <use xlink:href="#instagram" />
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="footer__bottom-container">
-    <div class="grid footer__bottom">
-        <div class="grid__footer-logos">
-            {% with settings.navigation.NavigationSettings as global_settings %}
-                {% if global_settings.footer_logos %}
-                    <ul class="footer__logos">
-                        {% for item in global_settings.footer_logos %}
-                            {% with item.value as logo %}
-                                <li>
-                                    {% with logo.link as link %}
-                                        <a class="footer__logo-link" href="{{ link.url }}">
-                                            {% if logo.image.width > logo.image.height %}
-                                                {% image logo.image max-200x100 format-webp loading="lazy" class="footer__logo" alt=logo.alt_text|default:logo.image.title %}
-                                            {% else %}
-                                                {% image logo.image max-100x100 format-webp loading="lazy" class="footer__logo" alt=logo.alt_text|default:logo.image.title %}
-                                            {% endif %}
-                                        </a>
-                                    {% endwith %}
-                                </li>
-                            {% endwith %}
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endwith %}
+                {% footerlinks %}
+            {% endwagtailcache %}
+            <ul class="footer__socials">
+                <li>
+                    <a aria-label="Follow us on Twitter"
+                       href="https://twitter.com/torchbox"
+                       class="footer__social-link">
+                        <svg width="24" height="24" aria-hidden="true" class="footer__social-icon">
+                            <use xlink:href="#twitter" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a aria-label="Connect with us on LinkedIn"
+                       href="https://www.linkedin.com/company/torchbox"
+                       class="footer__social-link">
+                        <svg width="24" height="24" aria-hidden="true" class="footer__social-icon">
+                            <use xlink:href="#linkedin" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a aria-label="Follow us on Instagram"
+                       href="https://www.instagram.com/torchboxltd/"
+                       class="footer__social-link">
+                        <svg width="24" height="24" aria-hidden="true" class="footer__social-icon">
+                            <use xlink:href="#instagram" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
         </div>
-        <div class="grid__footer-company">
-            <div class="footer__company">
-                <div class="footer__company-address">
-                    <p>© Torchbox {% now "Y" %} -</p>
-                    <address>3rd Floor, 15 Colston St, Bristol, BS1 5AP</address>
-                </div>
-                <div>
-                    <p>Registered in England &amp; Wales. Company no. 3983354, VAT no. 752981011</p>
+    </div>
+    <div class="footer__bottom-container">
+        <div class="grid footer__bottom">
+            <div class="grid__footer-logos">
+                {% with settings.navigation.NavigationSettings as global_settings %}
+                    {% if global_settings.footer_logos %}
+                        <ul class="footer__logos">
+                            {% for item in global_settings.footer_logos %}
+                                {% with item.value as logo %}
+                                    <li>
+                                        {% with logo.link as link %}
+                                            <a class="footer__logo-link" href="{{ link.url }}">
+                                                {% if logo.image.width > logo.image.height %}
+                                                    {% image logo.image max-200x100 format-webp loading="lazy" class="footer__logo" alt=logo.alt_text|default:logo.image.title %}
+                                                {% else %}
+                                                    {% image logo.image max-100x100 format-webp loading="lazy" class="footer__logo" alt=logo.alt_text|default:logo.image.title %}
+                                                {% endif %}
+                                            </a>
+                                        {% endwith %}
+                                    </li>
+                                {% endwith %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div class="grid__footer-company">
+                <div class="footer__company">
+                    <div class="footer__company-address">
+                        <p>© Torchbox {% now "Y" %} -</p>
+                        <address>3rd Floor, 15 Colston St, Bristol, BS1 5AP</address>
+                    </div>
+                    <div>
+                        <p>Registered in England &amp; Wales. Company no. 3983354, VAT no. 752981011</p>
+                    </div>
                 </div>
             </div>
         </div>
+        {% include "patterns/molecules/carbon-impact/carbon-impact.html" %}
     </div>
-    {% include "patterns/molecules/carbon-impact/carbon-impact.html" %}
-</div>
-{% include "patterns/molecules/cookie-message/cookie-message.html" %}
+    {% include "patterns/molecules/cookie-message/cookie-message.html" %}
 </footer>
