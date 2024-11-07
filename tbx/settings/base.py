@@ -86,6 +86,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django_permissions_policy.PermissionsPolicyMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "xff.middleware.XForwardedForMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -315,6 +316,7 @@ LOGGING = {
             "level": "WARNING",
             "propagate": False,
         },
+        "xff": {"handlers": ["console"], "level": "WARNING", "propagate": False},
     },
 }
 
@@ -510,6 +512,7 @@ if env.get("BASIC_AUTH_ENABLED", "false").lower().strip() == "true":
             "BASIC_AUTH_WHITELISTED_HTTP_HOSTS"
         ].split(",")
 
+XFF_TRUSTED_PROXY_DEPTH = int(env.get("XFF_TRUSTED_PROXY_DEPTH", 1))
 
 AUTH_USER_MODEL = "users.User"
 
