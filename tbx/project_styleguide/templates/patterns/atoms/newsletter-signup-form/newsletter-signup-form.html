@@ -1,0 +1,8 @@
+{% load i18n wagtailcore_tags %}
+<form class="footer__signup" action="{% slugurl 'newsletter-subscribe' %}" method="POST">
+    <h2 class="footer__signup-heading"><label for="email-address-input">{% trans 'Get news and insights' %}</label></h2>
+    <div class="flex">
+        <input type="email" autocomplete="email" placeholder="{% trans 'Enter email' %}" id="email-address-input" required>
+        <button class="button footer__button" type="submit">{% trans 'Sign up' %}</button>
+    </div>
+</form>
