@@ -57,6 +57,7 @@ $color--earth-streamfield-background: #e6e3df;
 :root,
 .mode-dark {
     // the following base variables do not change with the theme
+    --color--dark-background: #{color.adjust($color--black, $alpha: -0.3)};
     --color--background: #{$color--eclipse};
     --color--footer-background: #{$color--dark-background};
     --color--nav-text: #{$color--grey-5};
@@ -178,6 +179,7 @@ $color--earth-streamfield-background: #e6e3df;
 
 .mode-light {
     // redeclare any base variables that are different in light mode (these ones don't change with the theme)
+    --color--dark-background: #{color.adjust($color--black, $alpha: -0.97)};
     --color--background: #{$color--white};
     --color--nav-text: #{$color--eclipse};
     --color--nav-border: #{color.adjust($color--white, $alpha: -0.3)};

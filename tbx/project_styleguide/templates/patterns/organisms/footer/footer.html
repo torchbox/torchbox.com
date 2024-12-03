@@ -11,6 +11,7 @@
             {% wagtailcache 600 "footerlinks" current_site.pk is_pattern_library %}
                 {% footerlinks %}
             {% endwagtailcache %}
+            <div class="footer__signup">{% include "patterns/atoms/newsletter-signup-form/newsletter-signup-form.html" %}</div>
             <ul class="footer__socials">
                 <li>
                     <a aria-label="Follow us on Twitter"

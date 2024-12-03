@@ -35,6 +35,35 @@
         }
     }
 
+    &__button {
+        padding: 12px 20px;
+    }
+
+    &__signup {
+        margin-top: $spacer-small-plus;
+
+        input[type="email"] {
+            flex-grow: 1;
+            padding: 12px 20px;
+            color: var(--color--text);
+            background-color: var(--color--dark-background);
+
+            @include placeholder-text() {
+                color: inherit;
+            }
+
+            @include high-contrast-mode() {
+                border: 1px solid var(--color--border);
+            }
+        }
+    }
+
+    &__signup-heading {
+        @include font-size('heading-four');
+        font-weight: $weight--semibold;
+        margin-bottom:$spacer-mini;
+    }
+
     &__socials {
         display: flex;
         gap: $spacer-mini * 2;
