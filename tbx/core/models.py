@@ -19,6 +19,7 @@ from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 from .blocks import HomePageStoryBlock, StandardPageStoryBlock
+from .utils.formatting import get_inline_markdown
 
 
 @register_snippet
@@ -185,6 +186,10 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
     def get_context(self, request):
         context = super().get_context(request)
         context["is_home_page"] = True
+
+        # Format the heading
+        context["hero_heading"] = get_inline_markdown(self.hero_heading)
+
         return context
 
 
