@@ -1,6 +1,7 @@
 context:
   page:
     get_verbose_name: home-page
+    hero_introduction: '<p data-block-key="hs0yc">Innovative and strategic digital experiences, powerful tech platforms, and targeted digital marketing to catalyse impact for the world&apos;s leading <a href="/services/charity/"><b>charities</b></a> and <a href="/services/public-sector/"><i>public sector</i></a> organisations.</p>'
     partner_logos:
       - partner_logo:
       - partner_logo:
