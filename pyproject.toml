@@ -39,6 +39,7 @@ sentry-sdk = "^2.16.0"
 html5lib = "^1.1"
 beautifulsoup4 = "^4.12.3"
 django-xff = "^1.4.0"
+markdown = "^3.6"
 
 [tool.poetry.extras]
 gunicorn = ["gunicorn"]
