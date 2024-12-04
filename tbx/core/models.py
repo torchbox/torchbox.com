@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.functional import cached_property
+from django.utils.safestring import mark_safe
 
 from modelcluster.fields import ParentalKey
 from tbx.core.utils.fields import StreamField
@@ -130,7 +131,8 @@ class HomePagePartnerLogo(Orderable):
 # Home Page
 class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
     template = "patterns/pages/home/home_page.html"
-    introduction = models.TextField(blank=True)
+    hero_heading = models.CharField(max_length=255)
+    hero_introduction = RichTextField(blank=True, features=["bold", "italic", "link"])
     body = StreamField(HomePageStoryBlock())
 
     class Meta:
@@ -143,7 +145,27 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
         return []
 
     content_panels = Page.content_panels + [
-        FieldPanel("introduction"),
+        MultiFieldPanel(
+            [
+                FieldPanel(
+                    "hero_heading",
+                    heading="Heading",
+                    help_text=mark_safe(
+                        "Use markdown to format the text. e.g. **bold** for <b>bold</b>."
+                    ),
+                ),
+                FieldPanel(
+                    "hero_introduction",
+                    heading="Introduction",
+                    help_text=mark_safe(
+                        'Use bold to mark text as <span style="color:#EE5276">pink</span>,'
+                        " and use italics to mark text as"
+                        ' <span style="color:#6F60D0">purple</span>.'
+                    ),
+                ),
+            ],
+            heading="Hero",
+        ),
         InlinePanel("logos", heading="Partner logos", label="logo", max_num=7),
         FieldPanel("body"),
     ]
