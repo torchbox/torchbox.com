@@ -10,7 +10,7 @@
     <ul>
         {% for card in value.cards %}
             <li class="{{ card.card_colour }}">
-                {{ card.get_heading }}
+                {% firstof card.heading card.page.title %}
                 {{ card.description|richtext }}
                 {% image card.image fill-100x100 %}
                 <a href="{% pageurl card.page %}">{{ card.link_text }}</a>

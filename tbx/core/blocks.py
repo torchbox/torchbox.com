@@ -298,13 +298,6 @@ class IconChoice(models.TextChoices):
     WAGTAIL = "wagtail", "wagtail icon"
 
 
-class DivisionSignpostCardValue(blocks.StructValue):
-    def get_heading(self):
-        if override := self.get("heading"):
-            return override
-        return self["page"].title
-
-
 class DivisionSignpostCardBlock(blocks.StructBlock):
     class ColourTheme(models.TextChoices):
         CORAL = "theme-coral", "Coral"
@@ -322,7 +315,6 @@ class DivisionSignpostCardBlock(blocks.StructBlock):
 
     class Meta:
         icon = "breadcrumb-expand"
-        value_class = DivisionSignpostCardValue
 
 
 class DivisionSignpostBlock(blocks.StructBlock):
