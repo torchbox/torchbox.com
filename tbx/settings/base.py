@@ -634,21 +634,23 @@ WILLOW_OPTIMIZERS = True
 
 
 # Rich text settings
+DEFAULT_RICH_TEXT_FEATURES = [
+    "h2",
+    "h3",
+    "h4",
+    "bold",
+    "italic",
+    "ul",
+    "ol",
+    "link",
+    "document-link",
+]
+NO_HEADING_RICH_TEXT_FEATURES = ["bold", "italic", "ul", "ol", "link", "document-link"]
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
     "default": {
         "WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea",
         "OPTIONS": {
-            "features": [
-                "h2",
-                "h3",
-                "h4",
-                "bold",
-                "italic",
-                "ul",
-                "ol",
-                "link",
-                "document-link",
-            ]
+            "features": DEFAULT_RICH_TEXT_FEATURES,
         },
     },
 }
