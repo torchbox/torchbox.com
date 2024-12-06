@@ -17,7 +17,13 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name="homepage",
-            name="hero_heading",
+            name="hero_heading_1",
+            field=models.CharField(default="", max_length=255),
+            preserve_default=False,
+        ),
+        migrations.AddField(
+            model_name="homepage",
+            name="hero_heading_2",
             field=models.CharField(default="", max_length=255),
             preserve_default=False,
         ),
