@@ -1,3 +1,4 @@
 context:
-  hero_heading_1: The digital partner
-  hero_heading_2: for positive change
+  page:
+    hero_heading_1: The digital partner
+    hero_heading_2: for positive change
