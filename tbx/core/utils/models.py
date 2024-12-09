@@ -90,9 +90,9 @@ class SocialMediaSettings(BaseSiteSetting):
 class ColourTheme(models.TextChoices):
     NONE = "", "None"
     CORAL = "theme-coral", "Coral"
+    NEBULINE = "theme-nebuline", "Nebuline"
     LAGOON = "theme-lagoon", "Lagoon"
-    BANANA = "theme-banana", "Banana"
-    EARTH = "theme-earth", "Earth"
+    GREEN = "theme-green", "Green"
 
 
 class ColourThemeMixin(models.Model):
