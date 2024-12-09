@@ -104,11 +104,6 @@ class ColourThemeMixin(models.Model):
         max_length=25,
         blank=True,
         choices=ColourTheme.choices,
-        help_text=_(
-            "The theme will be applied to this page and all of its "
-            "descendants. If no theme is selected, it will be derived from "
-            "this page's ancestors."
-        ),
     )
 
     @property
@@ -125,7 +120,16 @@ class ColourThemeMixin(models.Model):
         except StopIteration:
             return ColourTheme.NONE
 
-    promote_panels = [FieldPanel("theme")]
+    promote_panels = [
+        FieldPanel(
+            "theme",
+            help_text=_(
+                "The theme will be applied to this page and all of its descendants. "
+                "If no theme is selected, it will be derived from "
+                "this page's ancestors."
+            ),
+        ),
+    ]
 
     class Meta:
         abstract = True
