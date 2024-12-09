@@ -6,11 +6,11 @@ The Theme feature enables the customization of page styles through the applicati
 
 The available color themes are defined using the `tbx.core.utils.models.ColourTheme` enumeration. Each theme option consists of a CSS class name and a human-readable label. The following themes are available:
 
-- `ColourTheme.NONE`: No specific theme applied. When the theme is set to "None", this means we don't add a `theme-****` class to the page, and the default theme (_Coral_, at the time of writing these docs) is applied.
+- `ColourTheme.NONE`: No specific theme applied. When the theme is set to "None", this means we don't add a `theme-****` class to the page, and the default theme (_Coral_, at the time of writing these docs) is applied (unless the page inherits a theme).
 - `ColourTheme.CORAL`: Applies a `theme-coral` class to the page.
+- `ColourTheme.NEBULINE`: Applies a `theme-nebuline` class to the page.
 - `ColourTheme.LAGOON`: Applies a `theme-lagoon` class to the page.
-- `ColourTheme.BANANA`: Applies a `theme-banana` class to the page.
-- `ColourTheme.EARTH`: Applies a `theme-earth` class to the page.
+- `ColourTheme.GREEN`: Applies a `theme-green` class to the page.
 
 ???+ tip
 

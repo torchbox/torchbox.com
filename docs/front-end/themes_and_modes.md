@@ -8,7 +8,7 @@ The CSS to set the mode is an html class of either `.mode-dark` or `.mode-light`
 
 An editor has an option to select a theme on each page. Selecting a theme on a page will change it for that page, and all child pages, unless another selection is made further down the page tree.
 
-There are currently 4 themes in use: coral, lagoon, banana and earth. The CSS to set the theme is an html class of either `.theme-coral`, `.theme-lagoon`, `.theme-banana` or `.theme-earth`.
+There are currently 4 themes in use: coral, nebuline, lagoon and green. The CSS to set the theme is an html class of either `.theme-coral`, `.theme-nebuline`, `.theme-lagoon` or `.theme-green`.
 
 ???+ note
 
