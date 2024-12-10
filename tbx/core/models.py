@@ -4,6 +4,10 @@ from django.utils.safestring import mark_safe
 
 from modelcluster.fields import ParentalKey
 from tbx.core.utils.fields import StreamField
+from tbx.core.utils.formatting import (
+    convert_bold_links_to_pink,
+    convert_italic_links_to_purple,
+)
 from tbx.core.utils.models import (
     ColourThemeMixin,
     NavigationFields,
@@ -162,8 +166,9 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
                     "hero_introduction",
                     heading="Introduction",
                     help_text=mark_safe(
-                        'Use bold to mark text as <span style="color:#EE5276">pink</span>,'
-                        " and use italics to mark text as"
+                        "Use bold to mark links as"
+                        ' <span style="color:#EE5276">pink</span>,'
+                        " and use italics to mark links as"
                         ' <span style="color:#6F60D0">purple</span>.'
                     ),
                 ),
@@ -193,6 +198,9 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
     def get_context(self, request):
         context = super().get_context(request)
         context["is_home_page"] = True
+        context["hero_introduction"] = convert_bold_links_to_pink(
+            convert_italic_links_to_purple(self.hero_introduction)
+        )
         return context
 
 
