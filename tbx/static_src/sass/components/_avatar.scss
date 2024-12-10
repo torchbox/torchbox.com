@@ -13,17 +13,20 @@
         height: $avatar-size-145;
     }
 
+    &--footer-cta {
+        width: $avatar-size-100;
+        height: $avatar-size-100;
+
+        @include media-query(medium) {
+            width: $avatar-size-130;
+            height: $avatar-size-130;
+        }
+    }
+
     &--small {
         @include media-query(medium) {
             width: $avatar-size-120;
             height: $avatar-size-120;
-        }
-    }
-
-    &--smallest {
-        @include media-query(medium) {
-            width: $avatar-size-100;
-            height: $avatar-size-100;
         }
     }
 

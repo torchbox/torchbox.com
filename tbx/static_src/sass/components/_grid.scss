@@ -245,11 +245,13 @@
     }
 
     // Footer grid elements
-    &__footer-line {
-        grid-column: 1 / span 4;
+    &__footer-contact-container {
+        grid-column: 1 / span 6;
+        display: grid;
+        grid-template-columns: subgrid;
 
         @include media-query(large) {
-            grid-column: 1 / span 3;
+            grid-column: 1 / span 8;
         }
     }
 
@@ -273,7 +275,7 @@
         grid-column: 2 / span 4;
 
         @include media-query(large) {
-            grid-column: 2 / span 4;
+            grid-column: 2 / span 7;
         }
     }
 

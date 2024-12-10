@@ -1,20 +1,21 @@
 @use 'config' as *;
 
 .footerlinks-nav {
+    padding: $spacer-small-plus 0;
+
     @include media-query(medium) {
         columns: 2;
         column-gap: $spacer-medium;
-        max-width: 400px;
-    }
-
-    @include media-query(large) {
-        padding-top: $spacer-small-plus;
     }
 
     &__link {
-        @include link-styles();
+        @include link-styles(
+            $color: var(--color--heading),
+            $interaction-color: var(--color--heading),
+            $offset: 5px,
+            $underline-color: var(--color--grey-50)
+        );
         @include font-size('body-two');
-        font-weight: 500;
         display: block;
         margin-bottom: 10px;
     }
