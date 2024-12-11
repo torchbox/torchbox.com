@@ -37,7 +37,7 @@ LOCAL_DATABASE_USERNAME = "tbx"
 
 def dexec(cmd, service="web"):
     return local(
-        "docker-compose exec -T {} bash -c {}".format(quote(service), quote(cmd))
+        "docker compose exec -T {} bash -c {}".format(quote(service), quote(cmd))
     )
 
 
@@ -54,8 +54,8 @@ def build(c):
     local("chown -R $USER:{} {}".format(group, directories_arg))
     local("chmod -R 775 " + directories_arg)
 
-    local("docker-compose pull")
-    local("docker-compose build")
+    local("docker compose pull", pty=True)
+    local("docker compose build", pty=True)
 
 
 @task
@@ -64,10 +64,11 @@ def start(c):
     Start the development environment
     """
     if FRONTEND == "local":
-        local("docker-compose up -d")
+        local("docker compose up --detach", pty=True)
     else:
         local(
-            "docker-compose -f docker-compose.yml -f docker/docker-compose-frontend.yml up -d"
+            "docker compose -f docker-compose.yml -f docker/docker-compose-frontend.yml up -d",
+            pty=True,
         )
 
 
@@ -76,7 +77,7 @@ def stop(c):
     """
     Stop the development environment
     """
-    local("docker-compose stop")
+    local("docker compose stop", pty=True)
 
 
 @task
@@ -93,7 +94,7 @@ def destroy(c):
     """
     Destroy development environment containers (database will lost!)
     """
-    local("docker-compose down")
+    local("docker compose down --volumes", pty=True)
 
 
 @task
@@ -101,7 +102,7 @@ def sh(c, service="web"):
     """
     Run bash in a local container
     """
-    subprocess.run(["docker-compose", "exec", service, "bash"])
+    subprocess.run(["docker", "compose", "exec", service, "bash"])
 
 
 @task
@@ -109,7 +110,7 @@ def sh_root(c, service="web"):
     """
     Run bash as root in the local web container.
     """
-    subprocess.run(["docker-compose", "exec", "--user=root", "web", "bash"])
+    subprocess.run(["docker", "compose", "exec", "--user=root", "web", "bash"])
 
 
 @task
@@ -118,7 +119,8 @@ def psql(c, command=None):
     Connect to the local postgres DB using psql
     """
     cmd_list = [
-        "docker-compose",
+        "docker",
+        "compose",
         "exec",
         "db",
         "psql",
@@ -458,7 +460,8 @@ def run_test(c):
     """
     subprocess.call(
         [
-            "docker-compose",
+            "docker",
+            "compose",
             "exec",
             "web",
             "python",
@@ -475,4 +478,6 @@ def migrate(c):
     """
     Run database migrations
     """
-    subprocess.run(["docker-compose", "run", "--rm", "web", "./manage.py", "migrate"])
+    subprocess.run(
+        ["docker", "compose", "run", "--rm", "web", "./manage.py", "migrate"]
+    )

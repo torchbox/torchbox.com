@@ -1,6 +1,5 @@
 # A custom compose file for $FRONTEND=docker, which also binds frontend ports
 
-version: '3.7' # NB synchronise with /docker-compose.yml
 services:
   web:
     ports:

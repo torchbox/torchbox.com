@@ -1,4 +1,4 @@
-FROM node:20 as frontend
+FROM node:20 AS frontend
 
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true
@@ -16,7 +16,7 @@ RUN npm run build:prod
 # ones becase they use a different C compiler. Debian images also come with
 # all useful packages required for image manipulation out of the box. They
 # however weight a lot, approx. up to 1.5GiB per built image.
-FROM python:3.11 as production
+FROM python:3.11 AS production
 
 ARG POETRY_INSTALL_ARGS="--no-dev"
 
@@ -91,10 +91,10 @@ COPY ./docker/bashrc.sh /home/tbx/.bashrc
 
 # Run the WSGI server. It reads GUNICORN_CMD_ARGS, PORT and WEB_CONCURRENCY
 # environment variable hence we don't specify a lot options below.
-CMD gunicorn tbx.wsgi:application
+CMD ["gunicorn", "tbx.wsgi:application"]
 
 # These steps won't be run on production
-FROM production as dev
+FROM production AS dev
 
 # Swap user, so the following tasks can be run as root
 USER root
@@ -117,4 +117,4 @@ RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh
 COPY --chown=tbx --from=frontend ./node_modules ./node_modules
 
 # do nothing forever - exec commands elsewhere
-CMD tail -f /dev/null
+CMD ["tail", "-f", "/dev/null"]
