@@ -49,6 +49,17 @@
     &__newsletter-link-text {
         display: flex;
         flex-direction: column;
+        line-height: 1;
+    }
+
+    &__newsletter-link-title {
+        @include font-size('heading-four');
+        font-weight: $weight--semibold;
+
+        @include media-query(large) {
+            line-height: 1;
+            margin-bottom: 5px;
+        }
     }
 
     &__arrow {

@@ -10,7 +10,7 @@
             {% wagtailcache 600 "footerlinks" current_site.pk is_pattern_library %}
                 {% footerlinks %}
             {% endwagtailcache %}
-            <a href="#" class="footer__newsletter-link"><span class="footer__newsletter-link-text"><span class="heading heading--four heading--semibold">Get news and insights </span>Sign up for our newsletter</span>{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="footer__arrow" %}</a>
+            <a href="#" class="footer__newsletter-link"><span class="footer__newsletter-link-text"><span class="footer__newsletter-link-title">Get news and insights </span>Sign up for our newsletter</span>{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="footer__arrow" %}</a>
             <ul class="footer__socials">
                 <li>
                     <a aria-label="Follow us on Twitter"
