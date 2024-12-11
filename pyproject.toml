@@ -5,7 +5,7 @@ description = "Torchbox.com"
 authors = ["Torchbox Ltd"]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 Django = "~4.2"
 wagtail = "~6.2"
 psycopg2 = "^2.9.9"
@@ -75,7 +75,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.black]
 line_length = 88
-target-version = ['py39']
+target-version = ['py312']
 exclude = '''
     /(
         .+/migrations
