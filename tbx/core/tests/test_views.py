@@ -26,7 +26,7 @@ class TestModeSwitcherView(TestCase):
         resp = self.client.get(
             reverse("switch_mode"), data=dict(switch_mode=mode, next_url="/")
         )
-        self.assertEquals(resp.cookies["torchbox-mode"].value, mode)
+        self.assertEqual(resp.cookies["torchbox-mode"].value, mode)
 
     def test_view_redirects_to_original_url(self):
         resp = self.client.get(
