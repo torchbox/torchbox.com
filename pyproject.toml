@@ -7,7 +7,7 @@ authors = ["Torchbox Ltd"]
 [tool.poetry.dependencies]
 python = "^3.12"
 Django = "~4.2"
-wagtail = "~6.2"
+wagtail = "~6.3"
 psycopg2 = "^2.9.9"
 gunicorn = {version = "^23.0.0", optional = true}
 whitenoise = "^6.7.0"
