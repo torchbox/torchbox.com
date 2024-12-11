@@ -38,7 +38,7 @@ class BlogFeed(Feed):
     def item_enclosure_mime_type(self, item):
         if item.feed_image:
             image_format = imghdr.what(item.feed_image.file)
-            return "image/{}".format(image_format)
+            return f"image/{image_format}"
 
     def item_enclosure_length(self, item):
         if item.feed_image:
