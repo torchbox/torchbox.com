@@ -1,7 +1,8 @@
-import imghdr
 from datetime import datetime, time
 
 from django.contrib.syndication.views import Feed
+
+import filetype
 
 from .models import BlogPage
 
@@ -37,7 +38,7 @@ class BlogFeed(Feed):
 
     def item_enclosure_mime_type(self, item):
         if item.feed_image:
-            image_format = imghdr.what(item.feed_image.file)
+            image_format = filetype.guess_extension(item.feed_image.file)
             return f"image/{image_format}"
 
     def item_enclosure_length(self, item):
