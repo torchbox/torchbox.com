@@ -71,7 +71,7 @@ USER tbx
 # Install your app's Python requirements.
 RUN python -m venv $VIRTUAL_ENV
 COPY --chown=tbx pyproject.toml poetry.lock ./
-RUN pip install --no-cache --upgrade pip && poetry install ${POETRY_INSTALL_ARGS} --no-root --extras gunicorn && rm -rf $HOME/.cache
+RUN pip install --no-cache --upgrade pip && poetry install ${POETRY_INSTALL_ARGS} --no-root && rm -rf $HOME/.cache
 
 COPY --chown=tbx --from=frontend ./tbx/static_compiled ./tbx/static_compiled
 
