@@ -102,7 +102,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
                 $underline-color: var(--color--heading)
             );
             @include font-size('size-seven');
-            font-weight: $weight--normal;
+            font-weight: $weight--regular;
             line-height: 1.2;
             display: block;
             margin-bottom: $spacer-mini;

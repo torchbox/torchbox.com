@@ -55,7 +55,7 @@ h6 {
     }
 
     &--regular {
-        font-weight: $weight--normal;
+        font-weight: $weight--regular;
     }
 
     &--light {
@@ -117,7 +117,7 @@ h6 {
 
 // ------------------------------- Body text ----------------------------------
 .text {
-    font-weight: $weight--normal;
+    font-weight: $weight--regular;
 
     &--semibold {
         font-weight: $weight--semibold;
