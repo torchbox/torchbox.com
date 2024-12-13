@@ -358,6 +358,7 @@
     Button styles
 */
 @mixin button-styles() {
+    @include font-size(heading-six);
     display: inline-block;
     text-align: center;
     border: 1px solid var(--color--link);
