@@ -61,7 +61,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
     &__item {
         // at desktop level 2 these are arranged in columns
         // which are based on the number of items at that level
-        font-weight: $weight--medium;
+        font-weight: $weight--semibold;
         flex-basis: calc(100% - #{$spacer-small});
 
         #{$root}--2 &,
@@ -85,7 +85,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
             $interaction-color: var(--color--heading),
             $underline-color: var(--color--heading)
         );
-        @include font-size('heading-five');
+        @include font-size('size-five');
         font-weight: $weight--semibold;
         display: block;
         margin-bottom: $spacer-mini-plus;
@@ -101,7 +101,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
                 $interaction-color: var(--color--heading),
                 $underline-color: var(--color--heading)
             );
-            @include font-size('body-three');
+            @include font-size('size-seven');
             font-weight: $weight--normal;
             line-height: 1.2;
             display: block;

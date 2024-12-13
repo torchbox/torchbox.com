@@ -50,7 +50,7 @@
     }
 
     &__short-heading {
-        @include font-size('heading-five');
+        @include font-size('size-five');
         align-items: flex-start;
         display: flex;
         font-weight: $weight--semibold;

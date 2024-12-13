@@ -8,7 +8,7 @@
     }
 
     &__list {
-        @include font-size(supporting);
+        @include font-size(size-eight);
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

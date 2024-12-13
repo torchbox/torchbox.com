@@ -12,7 +12,7 @@
 }
 
 .tag {
-    @include font-size(supporting);
+    @include font-size(size-eight);
     padding: 5px $spacer-mini;
     border-radius: 50px;
     border: 1px solid var(--color--border);

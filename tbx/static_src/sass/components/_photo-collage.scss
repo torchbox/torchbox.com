@@ -59,7 +59,7 @@
     }
 
     &__intro {
-        @include font-size('body');
+        @include font-size('size-five');
         margin-bottom: $spacer-small;
 
         @include media-query(large) {

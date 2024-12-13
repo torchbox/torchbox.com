@@ -11,7 +11,7 @@
     }
 
     &__title {
-        @include font-size(heading-two-c);
+        @include font-size(size-two-b);
         margin-bottom: $spacer-medium;
     }
 

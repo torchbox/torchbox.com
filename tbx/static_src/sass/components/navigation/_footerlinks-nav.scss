@@ -13,7 +13,7 @@
 
     &__link {
         @include link-styles();
-        @include font-size('body-two');
+        @include font-size('size-seven');
         font-weight: 500;
         display: block;
         margin-bottom: 10px;

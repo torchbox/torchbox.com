@@ -18,7 +18,7 @@
     }
 
     &__text {
-        @include font-size(heading-three);
+        @include font-size(size-three);
         color: var(--color--heading);
         max-width: $streamfield-content-width;
     }

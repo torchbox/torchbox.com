@@ -8,7 +8,7 @@
 /* stylelint-disable selector-class-pattern */
 .mailchimp {
     #mc_embed_signup {
-        @include font-size('heading-four');
+        @include font-size('size-four');
         font-family: $font--primary;
         font-weight: $weight--light;
         background-color: var(--color--background);
@@ -37,7 +37,7 @@
                 padding-bottom: 0;
 
                 label {
-                    @include font-size('body');
+                    @include font-size('size-five');
                     font-weight: $weight--semibold;
                     margin: $spacer-small 0 10px;
                 }
@@ -92,7 +92,7 @@
             }
 
             div.mce_inline_error {
-                @include font-size('body-two');
+                @include font-size('size-seven');
                 font-weight: $weight--semibold;
                 color: var(--color--accent-two-inverse);
                 background-color: var(--color--light-grey-background);

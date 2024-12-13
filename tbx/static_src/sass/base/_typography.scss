@@ -41,7 +41,7 @@ h6 {
 // ------------------------------- Heading ----------------------------------
 .heading {
     @include heading-text();
-    font-weight: $weight--light;
+    font-weight: $weight--semibold;
 
     // Legacy CMS used italics in headings so reset that here
     i {
@@ -54,57 +54,94 @@ h6 {
         font-weight: inherit;
     }
 
+    &--regular {
+        font-weight: $weight--normal;
+    }
+
+    &--light {
+        font-weight: $weight--light;
+    }
+
+    &--extralight {
+        font-weight: $weight--extralight;
+    }
+
+    &--mega {
+        @include font-size(size-zero);
+    }
+
     &--one {
-        @include font-size(heading-one);
+        @include font-size(size-one);
     }
 
     &--one-b {
-        @include font-size(heading-one-b);
+        @include font-size(size-one-b);
     }
 
     &--two {
-        @include font-size(heading-two);
+        @include font-size(size-two);
     }
 
     &--two-b {
-        @include font-size(heading-two-b);
+        @include font-size(size-two-b);
     }
 
     &--three {
-        @include font-size(heading-three);
+        @include font-size(size-three);
     }
 
     &--three-b {
-        @include font-size(heading-three-b);
+        @include font-size(size-three);
     }
 
     &--four {
-        @include font-size(heading-four);
+        @include font-size(size-four);
     }
+
+    &--four-b {
+        @include font-size(size-four-b);
+    }
+
+    &--five {
+        @include font-size(size-five);
+    }
+
+    &--five-b {
+        @include font-size(size-five-b);
+    }
+
+    &--six {
+        @include font-size(size-six);
+    }
+}
+
+// ------------------------------- Body text ----------------------------------
+.text {
+    font-weight: $weight--normal;
 
     &--semibold {
         font-weight: $weight--semibold;
     }
 
     &--five {
-        @include font-size(heading-five);
+        @include font-size(size-five);
+    }
+
+    &--five-b {
+        @include font-size(size-five-b);
     }
 
     &--six {
-        @include font-size(heading-six);
+        @include font-size(size-six);
     }
-}
 
-// ------------------------------- Body ----------------------------------
-.body {
-    @include font-size(body);
-    font-weight: $weight--normal;
-    line-height: 1.4;
-}
+    &--seven {
+        @include font-size(size-seven);
+    }
 
-// ------------------------------- Supporting ----------------------------------
-.supporting {
-    @include font-size(supporting);
+    &--eight {
+        @include font-size(size-eight);
+    }
 }
 
 blockquote {
