@@ -24,26 +24,17 @@
     }
 
     &__newsletter-link {
-        color: var(--color--heading);
+        @include link-styles(
+            $color: var(--color--heading),
+            $interaction-color: var(--color--heading),
+            $offset: 5px,
+            $underline-color: var(--color--grey-50)
+        );
         display: flex;
         align-items: center;
         gap: $spacer-mini-plus;
         padding: $spacer-mini 0 $spacer-small 0;
         border-bottom: 1px solid var(--color--border);
-
-        &:focus {
-            @include focus-style();
-        }
-
-        @include high-contrast-mode() {
-            text-decoration: underline;
-            text-decoration-thickness: $link-underline-thickness;
-
-            &:focus,
-            &:hover {
-                text-decoration-thickness: $link-underline-thickness-interaction;
-            }
-        }
     }
 
     &__newsletter-link-text {
