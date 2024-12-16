@@ -1,20 +1,22 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-<div>
-    {# Section heading #}
-    <h2>{{ value.title }}</h2>
-
-    {# Section intro #}
-    <div>{{ value.intro|richtext }}</div>
-
-    {# Signposting cards #}
-    <ul>
-        {% for card in value.cards %}
-            <li class="{{ card.card_colour }}">
-                {% firstof card.heading card.page.title %}
-                {{ card.description|richtext }}
-                {% image card.image fill-100x100 %}
-                <a href="{% pageurl card.page %}">{{ card.link_text }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+<div class="grid division-signpost">
+    <div class="grid__division-signpost">
+        {# Section heading #}
+        <h2>{{ value.title }}</h2>
+        {# Section intro #}
+        <div>{{ value.intro|richtext }}</div>
+        {# Signposting cards #}
+        <ul class="division-signpost__cards">
+            {% for card in value.cards %}
+                <li class="division-signpost__card division-signpost__card--{{ card.card_colour }}">
+                    <div class="division-signpost__text">
+                        <h2 class="heading heading--two heading--semibold">{% firstof card.heading card.page.title %}</h2>
+                        <p>{{ card.description|richtext }}</p>
+                    </div>
+                    {% srcset_image card.image format-webp fill-{230x230,370x370} sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="" alt="" %}
+                    <a href="{% pageurl card.page %}">{{ card.link_text }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>

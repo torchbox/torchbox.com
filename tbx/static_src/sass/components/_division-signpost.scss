@@ -1,0 +1,26 @@
+@use 'config' as *;
+
+.division-signpost {
+    &__cards {
+        display: flex;
+        gap: $spacer-mini-plus;
+    }
+
+    &__card {
+        &--theme-nebuline {
+            background-color: $color--nebuline-public;
+        }
+
+        &--theme-lagoon {
+            background-color: $color--lagoon-wagtail;
+        }
+
+        &--theme-coral {
+            background-color: $color--coral-charity;
+        }
+    }
+
+    &__text {
+        padding: $spacer-medium-plus $spacer-small $spacer-mini;
+    }
+}
