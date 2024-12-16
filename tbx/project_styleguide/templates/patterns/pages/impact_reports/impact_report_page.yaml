@@ -55,9 +55,9 @@ tags:
 
   srcset_image:
     # avatar image for authors
-    'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
+    'avatar format-webp fill-{100x100,144x144,286x286} sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
       raw: |
-        <img alt="" class="avatar__image" height="72" loading="lazy" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://picsum.photos/72/72.webp" srcset="https://picsum.photos/72/72.webp 72w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="72">
-    'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
+        <img alt="" class="avatar__image" height="100" loading="lazy" sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" src="https://picsum.photos/100/100.webp" srcset="https://picsum.photos/100/100.webp 100w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="100">
+    'avatar format-webp fill-{100x100,144x144,286x286} sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" alt="" class="avatar__image"':
       raw: |
-        <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://picsum.photos/72/72.webp" srcset="https://picsum.photos/72/72.webp 72w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="72">
+        <img alt="" class="avatar__image" height="100" sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" src="https://picsum.photos/100/100.webp" srcset="https://picsum.photos/100/100.webp 100w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="100">

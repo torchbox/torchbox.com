@@ -56,8 +56,8 @@ $color--earth-streamfield-background: #e6e3df;
 :root,
 .mode-dark {
     // the following base variables do not change with the theme
+    --color--dark-background: #{color.adjust($color--black, $alpha: -0.7)};
     --color--background: #{$color--eclipse};
-    --color--footer-background: #{$color--dark-background};
     --color--nav-text: #{$color--grey-5};
     --color--nav-border: #{color.adjust($color--eclipse, $alpha: -0.3)};
     --color--light-background-text: #{$color--eclipse};
@@ -76,8 +76,12 @@ $color--earth-streamfield-background: #e6e3df;
     --color--light-grey-background: #{$color--grey-5};
     // where we always want white
     --color--white: #{$color--white};
-    // where we always want grey-20 - used by footer carbon text
-    --color--grey-20: #{$color--grey-20};
+    // where we always want black - used by footer carbon component
+    --color--black: #{$color--black};
+    // where we always want grey-10 - used by footer carbon component
+    --color--grey-10: #{$color--grey-10};
+    // where we always want grey-50 - used by footer nav links
+    --color--grey-50: #{$color--grey-50};
     // where we always want elcipse (high contrast mode bits)
     --color--eclipse: #{$color--eclipse};
 }
@@ -177,6 +181,7 @@ $color--earth-streamfield-background: #e6e3df;
 
 .mode-light {
     // redeclare any base variables that are different in light mode (these ones don't change with the theme)
+    --color--dark-background: #{color.adjust($color--black, $alpha: -0.97)};
     --color--background: #{$color--white};
     --color--nav-text: #{$color--eclipse};
     --color--nav-border: #{color.adjust($color--white, $alpha: -0.3)};
@@ -474,6 +479,7 @@ $focus-width: 3px;
 
 // --------------------------------- Specific styles ---------------------------
 $avatar-size-145: 145px;
+$avatar-size-130: 130px;
 $avatar-size-120: 120px;
 $avatar-size-100: 100px;
 $avatar-size-72: 72px;
