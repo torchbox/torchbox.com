@@ -36,17 +36,17 @@
             $color: var(--color--heading),
             $interaction-color: var(--color--heading)
         );
-        @include font-size('heading-four');
+        @include font-size('size-four');
         font-weight: $weight--semibold;
         display: block;
         margin-bottom: 5px;
     }
 
     &__role {
-        @include font-size('heading-four');
+        @include font-size('size-four');
 
         @include media-query(medium) {
-            @include font-size('supporting');
+            @include font-size('size-eight');
         }
     }
 }

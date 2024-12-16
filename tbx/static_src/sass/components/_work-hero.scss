@@ -41,13 +41,13 @@
     }
 
     &__client {
-        @include font-size('body-two');
+        @include font-size('size-seven');
         color: var(--color--heading);
         font-weight: $weight--semibold;
     }
 
     &__meta {
-        @include font-size('supporting');
+        @include font-size('size-eight');
         margin-bottom: $spacer-mini;
 
         @include media-query(large) {

@@ -74,7 +74,7 @@
     }
 
     &--one {
-        @include font-size(heading-one);
+        @include font-size(size-one);
 
         #{$root}__drop-cap {
             @include drop-cap(100px, 160px);
@@ -82,23 +82,15 @@
     }
 
     &--one-b {
-        @include font-size(heading-one-b);
+        @include font-size(size-one-b);
 
         #{$root}__drop-cap {
             @include drop-cap(80px, 150px);
         }
     }
 
-    &--one-c {
-        @include font-size(heading-one-c);
-
-        #{$root}__drop-cap {
-            @include drop-cap(72px, 120px);
-        }
-    }
-
     &--two {
-        @include font-size(heading-two);
+        @include font-size(size-two);
 
         #{$root}__drop-cap {
             @include drop-cap(72px, 90px);
@@ -107,7 +99,7 @@
 
     // kept the same name as the heading variable for consistency
     &--two-c {
-        @include font-size(heading-two-c);
+        @include font-size(size-two-b);
 
         #{$root}__drop-cap {
             @include drop-cap(46px, 90px);

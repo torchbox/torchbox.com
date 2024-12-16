@@ -5,7 +5,7 @@
     $root: &;
 
     &__title {
-        @include font-size(heading-two-c);
+        @include font-size(size-two-b);
         margin-bottom: $spacer-medium;
 
         @include media-query(large) {
@@ -19,7 +19,7 @@
 
     // home page showcase block only
     &__intro {
-        @include font-size('heading-five');
+        @include font-size('size-five');
         margin-bottom: $spacer-medium;
 
         @include media-query(large) {
@@ -111,7 +111,7 @@
     }
 
     &__heading {
-        @include font-size(heading-four);
+        @include font-size(size-four);
         font-weight: $weight--semibold;
         margin-bottom: $spacer-mini;
 
@@ -127,7 +127,7 @@
 
         // home page showcase block only
         &--with-tail {
-            @include font-size(heading-three-b);
+            @include font-size(size-three);
             display: block;
         }
     }
@@ -164,6 +164,6 @@
     }
 
     &__summary {
-        @include font-size(body-one);
+        @include font-size(size-six);
     }
 }

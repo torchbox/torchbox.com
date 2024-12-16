@@ -291,9 +291,9 @@ $font--primary: 'Outfit', sans-serif;
 
 // Font weights
 $weight--semibold: 600;
-$weight--medium: 500;
-$weight--normal: 400;
+$weight--regular: 400;
 $weight--light: 300;
+$weight--extralight: 200;
 
 // Font sizes
 $base-font-size: 16px;
@@ -301,160 +301,112 @@ $base-line-height: 25px;
 
 // Font sizes and line heights
 $large-font-sizes: (
-    heading-one: (
+    size-zero: (
+        100px,
+        1,
+    ),
+    size-one: (
         80px,
-        1.2,
+        1.1,
     ),
-    heading-one-b: (
+    size-one-b: (
         66px,
-        1.3,
+        1.15,
     ),
-    heading-one-c: (
-        60px,
-        1.3,
-    ),
-    heading-two: (
+    size-two: (
         54px,
-        1.3,
+        1.1,
     ),
-    heading-two-b: (
+    size-two-b: (
         38px,
         1.4,
     ),
-    heading-two-c: (
-        54px,
-        1.4,
-    ),
-    heading-three: (
+    size-three: (
         32px,
         1.4,
     ),
-    heading-three-b: (
-        32px,
-        1.4,
-    ),
-    heading-four: (
+    size-four: (
         24px,
         1.5,
     ),
-    heading-five: (
+    size-four-b: (
+        24px,
+        1.3,
+    ),
+    size-five: (
         20px,
         1.6,
     ),
-    heading-six: (
-        18px,
-        1.6,
-    ),
-    body: (
+    size-five-b: (
         20px,
-        1.6,
+        1.4,
     ),
-    body-one: (
+    size-six: (
         18px,
         1.6,
     ),
-    body-two: (
+    size-seven: (
         16px,
         1.5,
     ),
-    body-three: (
-        17px,
-        1.5,
-    ),
-    supporting: (
+    size-eight: (
         14px,
         1.5,
-    ),
-    stat: (
-        80px,
-        1.2,
-    ),
-    stat-text: (
-        32px,
-        1.4,
-    ),
-    intro: (
-        24px,
-        1.6,
     ),
 );
 
 $small-font-sizes: (
-    heading-one: (
-        50px,
+    size-zero: (
+        60px,
         1.2,
     ),
-    heading-one-b: (
+    size-one: (
+        50px,
+        1.1,
+    ),
+    size-one-b: (
         42px,
-        1.3,
+        1.15,
     ),
-    heading-one-c: (
-        36px,
-        1.3,
+    size-two: (
+        38px,
+        1.1,
     ),
-    heading-two: (
-        36px,
-        1.3,
-    ),
-    heading-two-b: (
+    size-two-b: (
         32px,
         1.4,
     ),
-    heading-two-c: (
+    size-three: (
         28px,
         1.4,
     ),
-    heading-three: (
-        28px,
+    size-four: (
+        22px,
         1.4,
     ),
-    heading-three-b: (
-        24px,
-        1.4,
+    size-four-b: (
+        22px,
+        1.3,
     ),
-    heading-four: (
-        24px,
-        1.4,
-    ),
-    heading-five: (
-        20px,
-        1.4,
-    ),
-    heading-six: (
+    size-five: (
         18px,
-        1.5,
+        1.4,
     ),
-    body: (
-        16px,
-        1.6,
-    ),
-    body-one: (
+    size-five-b: (
         18px,
-        1.5,
+        1.4,
     ),
-    body-two: (
+    size-six: (
         16px,
         1.5,
     ),
-    body-three: (
-        17px,
-        1.5,
-    ),
-    supporting: (
+    size-seven: (
         14px,
         1.5,
     ),
-    stat: (
-        80px,
-        1.2,
-    ),
-    stat-text: (
-        32px,
-        1.4,
-    ),
-    intro: (
-        20px,
-        1.6,
+    size-eight: (
+        14px,
+        1.5,
     ),
 );
 

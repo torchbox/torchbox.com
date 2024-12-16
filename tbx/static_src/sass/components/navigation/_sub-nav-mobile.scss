@@ -32,7 +32,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
 
     // The link for each menu item in the 2nd and 3rd level
     &__link {
-        @include font-size('heading-five');
+        @include font-size('size-five');
         display: flex;
         padding: $spacer-small;
         border-bottom: 1px solid var(--color--nav-border);
@@ -49,10 +49,10 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
 
         // styles for links with children
         &--has-children {
-            @include font-size('body-two');
+            @include font-size('size-seven');
             color: var(--color--heading);
             padding: $spacer-mini-plus $spacer-small;
-            font-weight: $weight--medium;
+            font-weight: $weight--semibold;
         }
 
         // styles for links without children
@@ -62,18 +62,18 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
                 $interaction-color: var(--color--heading),
                 $underline-color: var(--color--heading)
             );
-            @include font-size('body-two');
+            @include font-size('size-seven');
             padding: $spacer-mini-plus $spacer-small;
-            font-weight: $weight--medium;
+            font-weight: $weight--semibold;
         }
 
         // back link which goes one level up in the mobile menu
         &--back {
-            @include font-size('body-two');
+            @include font-size('size-seven');
             color: var(--color--heading);
             width: 100%;
             padding: $spacer-mini-plus $spacer-small;
-            font-weight: $weight--medium;
+            font-weight: $weight--semibold;
         }
 
         // parent link which takes you to the parent page for the section being viewed in the mobile menu

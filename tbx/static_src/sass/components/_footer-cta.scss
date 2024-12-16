@@ -33,14 +33,14 @@
     }
 
     &__text {
-        @include font-size('heading-four');
+        @include font-size('size-four');
         color: var(--color--heading);
         font-weight: $weight--light;
         margin-bottom: $spacer-small;
     }
 
     &__cite {
-        @include font-size('body-one');
+        @include font-size('size-six');
         font-style: normal;
 
         @include media-query(medium) {
