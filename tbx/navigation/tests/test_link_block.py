@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 import wagtail_factories
+
 from tbx.core.models import HomePage
 from tbx.images.models import CustomImage
 from tbx.navigation.blocks import (

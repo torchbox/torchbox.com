@@ -7,6 +7,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.models import Orderable
 
+
 SEARCH_DESCRIPTION_LABEL = "Meta description"  # NOTE changing this requires migrations
 
 
@@ -111,6 +112,11 @@ class ColourThemeMixin(models.Model):
         ),
     )
 
+    promote_panels = [FieldPanel("theme")]
+
+    class Meta:
+        abstract = True
+
     @property
     def theme_class(self):
         if theme := self.theme:
@@ -124,8 +130,3 @@ class ColourThemeMixin(models.Model):
             )
         except StopIteration:
             return ColourTheme.NONE
-
-    promote_panels = [FieldPanel("theme")]
-
-    class Meta:
-        abstract = True

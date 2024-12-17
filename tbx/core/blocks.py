@@ -1,6 +1,6 @@
-import logging
 from collections import defaultdict
 from datetime import datetime
+import logging
 
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -9,7 +9,6 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 
-from tbx.images.models import CustomImage
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.contrib.typed_table_block.blocks import (
@@ -22,8 +21,12 @@ from wagtail.embeds.exceptions import EmbedException
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
+
 from wagtailmarkdown.blocks import MarkdownBlock
 from wagtailmedia.blocks import VideoChooserBlock
+
+from tbx.images.models import CustomImage
+
 
 logger = logging.getLogger(__name__)
 
@@ -100,8 +103,6 @@ class ImageFormatChoiceBlock(blocks.FieldBlock):
     without breaking the migrations.
     See https://github.com/wagtail/wagtail/issues/3710 for more details.
     """
-
-    pass
 
 
 class AltTextStructValue(blocks.StructValue):
@@ -373,22 +374,23 @@ class CaseStudyStructValue(blocks.StructValue):
         """
         if logo := self.get("logo"):
             return logo
-        elif page := self.get("link"):
-            if page.content_type.model_class().__name__ == "WorkPage":
-                return page.specific.logo
+        elif (
+            page := self.get("link")
+        ) and page.content_type.model_class().__name__ == "WorkPage":
+            return page.specific.logo
         return None
 
 
 class NumericResultBlock(blocks.StructBlock):
     label = blocks.CharBlock(
         max_length=255,
-        help_text=mark_safe(
+        help_text=mark_safe(  # noqa: S308
             "Short text to describe the change e.g. <strong>Raised over</strong>"
         ),
     )
     headline_number = blocks.CharBlock(
         max_length=255,
-        help_text=mark_safe("A numerical value e.g. <strong>£600k</strong>"),
+        help_text=mark_safe("A numerical value e.g. <strong>£600k</strong>"),  # noqa: S308
     )
 
 
@@ -629,7 +631,7 @@ class TabbedParagraphSectionsListBlock(blocks.ListBlock):
         result = super().clean(value)
         errors = {}
 
-        for i in range(0, len(result)):
+        for i in range(len(result)):
             button_values = {
                 "button_link": result[i]["button_link"],
                 "button_text": result[i]["button_text"],
@@ -796,16 +798,16 @@ class EmbedBlock(WagtailEmbedBlock):
 class NumericStatisticsBlock(blocks.StructBlock):
     headline_number = blocks.CharBlock(
         max_length=255,
-        help_text=mark_safe("A numerical value e.g. <strong>30%</strong>"),
+        help_text=mark_safe("A numerical value e.g. <strong>30%</strong>"),  # noqa: S308
     )
     description = blocks.TextBlock(
-        help_text=mark_safe(
+        help_text=mark_safe(  # noqa: S308
             "Text to describe the change e.g. <strong>Reduction in accessibility errors</strong>"
         )
     )
     further_details = blocks.TextBlock(
         required=False,
-        help_text=mark_safe(
+        help_text=mark_safe(  # noqa: S308
             "Text to give more information, e.g. <strong>Over 80% of pages</strong>"
         ),
     )
@@ -817,13 +819,13 @@ class NumericStatisticsBlock(blocks.StructBlock):
 class TextualStatisticsBlock(blocks.StructBlock):
     headline_text = blocks.CharBlock(
         max_length=255,
-        help_text=mark_safe(
+        help_text=mark_safe(  # noqa: S308
             "Describe a general improvement, e.g. <strong>Reduction in accessibility issues</strong>"
         ),
     )
     further_details = blocks.TextBlock(
         required=False,
-        help_text=mark_safe(
+        help_text=mark_safe(  # noqa: S308
             "Text to give more information, e.g. <strong>Over 80% of pages</strong>"
         ),
     )

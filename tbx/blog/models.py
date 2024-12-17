@@ -1,6 +1,6 @@
+from itertools import chain
 import math
 import string
-from itertools import chain
 
 from django import forms
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -10,8 +10,14 @@ from django.dispatch import receiver
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 
-from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalManyToManyField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.models import Page
+from wagtail.search import index
+from wagtail.signals import page_published
+
+from bs4 import BeautifulSoup
+
 from tbx.core.blocks import StoryBlock
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
@@ -22,10 +28,6 @@ from tbx.core.utils.models import (
 from tbx.images.models import CustomImage
 from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.models import Page
-from wagtail.search import index
-from wagtail.signals import page_published
 
 
 class BlogIndexPage(

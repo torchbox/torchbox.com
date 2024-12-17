@@ -1,3 +1,8 @@
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.fields import RichTextField
+from wagtail.models import Page
+from wagtail.search import index
+
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
     ColourThemeMixin,
@@ -5,10 +10,6 @@ from tbx.core.utils.models import (
     SocialFields,
 )
 from tbx.people.models import ContactMixin
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.fields import RichTextField
-from wagtail.models import Page
-from wagtail.search import index
 
 from .blocks import ServiceStoryBlock
 

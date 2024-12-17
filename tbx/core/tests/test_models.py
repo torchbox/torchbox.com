@@ -1,5 +1,3 @@
-from tbx.core.factories import HomePageFactory, StandardPageFactory
-from tbx.core.models import HomePage, StandardPage
 from wagtail.models import Site
 from wagtail.test.utils import WagtailPageTestCase
 from wagtail.test.utils.form_data import (
@@ -7,6 +5,9 @@ from wagtail.test.utils.form_data import (
     rich_text,
     streamfield,
 )
+
+from tbx.core.factories import HomePageFactory, StandardPageFactory
+from tbx.core.models import HomePage, StandardPage
 
 
 class TestHomePageFactory(WagtailPageTestCase):

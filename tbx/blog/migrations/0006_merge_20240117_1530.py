@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("blog", "0004_alter_blogpage_body"),
         ("blog", "0005_remove_aligned_and_wide_image_blocks_from_body_streamfield"),
