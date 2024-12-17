@@ -385,6 +385,10 @@
         @include focus-style();
     }
 
+    @include high-contrast-text-decoration();
+}
+
+@mixin high-contrast-text-decoration() {
     @include high-contrast-mode() {
         text-decoration: underline;
         text-decoration-thickness: $link-underline-thickness;

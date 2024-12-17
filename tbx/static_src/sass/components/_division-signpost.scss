@@ -32,6 +32,10 @@
             flex-basis: calc(33.33% - ($spacer-mini-plus * 2 / 3));
         }
 
+        @include high-contrast-mode() {
+            border: 1px solid var(--color--text);
+        }
+
         &--theme-coral {
             background-color: var(--color--coral-charity);
 
