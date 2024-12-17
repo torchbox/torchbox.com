@@ -1,0 +1,42 @@
+target-version = "py313"
+
+[lint]
+extend-select = [
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "DJ",   # flake8-django
+    "E",    # pycodestyle errors
+    "F",    # pyflakes
+    "I",    # isort
+    "INT",  # flake8-gettext
+    "PIE",  # flake8-pie
+    "PGH",  # pygrep-hooks
+    "S",    # flake8-bandit
+    "SIM",  # flake8-simplify
+    "T20",  # flake8-print
+    "W",    # pycodestyle warnings
+    "YTT",  # flake8-2020
+    "UP",   # pyupgrade
+    "RUF100",  # unused noqa
+]
+
+extend-ignore = [
+    "E501",  # no line length errors
+]
+fixable = ["C4", "E", "F", "I", "UP"]
+
+[lint.per-file-ignores]
+"fabfile.py" = ["S603", "S607", "T201"]
+"tbx/core/utils/scripts/run_flightpath.py" = ["T201"]
+"tbx/core/utils/scripts/run_flightpath_status_check.py" = ["T201"]
+
+
+[lint.isort.sections]
+"django" = ["django"]
+"wagtail" = ["wagtail", "modelcluster"]
+
+[lint.isort]
+known-first-party = ["tbx"]
+section-order = ["future", "standard-library", "django", "wagtail", "third-party", "first-party", "local-folder"]
+force-sort-within-sections = true
+lines-after-imports = 2

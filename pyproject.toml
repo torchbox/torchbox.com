@@ -49,13 +49,10 @@ pudb = "^2024.1"
 honcho = "^2.0.0"
 
 # Linters etc.
-black = "^24.10.0"
 detect-secrets = "^1.5.0"
 djhtml = "^3.0.6"
-flake8 = "^7.1.1"
-isort = "^5.13.2"
+ruff = "^0.9.1"  # update pre-commit-config.yaml too
 pre-commit = "^4.0.1"
-seed-isort-config = "^2.2.0"
 
 # Documentation
 mkdocs = "^1.6.1"
@@ -69,16 +66,3 @@ wagtail-factories = "^4.2.1"
 [build-system]
 requires = ["poetry>=1,<2"]
 build-backend = "poetry.masonry.api"
-
-[tool.black]
-line_length = 88
-target-version = ['py312']
-exclude = '''
-    /(
-        .+/migrations
-      | venv
-      | \.venv
-      | node_modules
-      | \.git
-    )/
-'''
