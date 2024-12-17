@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
-
 from wagtail.contrib.frontend_cache.utils import purge_url_from_cache
 from wagtail.models import Site
 

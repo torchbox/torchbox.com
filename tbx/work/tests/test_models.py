@@ -1,10 +1,11 @@
+from wagtail.test.utils import WagtailPageTestCase
+
 from tbx.taxonomy.factories import ServiceFactory
 from tbx.work.factories import (
     HistoricalWorkPageFactory,
     WorkIndexPageFactory,
     WorkPageFactory,
 )
-from wagtail.test.utils import WagtailPageTestCase
 
 
 class TestWorkIndexPageFactory(WagtailPageTestCase):

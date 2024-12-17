@@ -4,6 +4,12 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.decorators.cache import never_cache
 from django.views.decorators.vary import vary_on_headers
+from wagtail import urls as wagtail_urls
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.contrib.sitemaps.views import sitemap
+from wagtail.documents import urls as wagtaildocs_urls
+from wagtail.models import Page
+from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 from tbx.core import urls as torchbox_urls
 from tbx.core.utils.cache import (
@@ -11,12 +17,7 @@ from tbx.core.utils.cache import (
     get_default_cache_control_method_decorator,
 )
 from tbx.core.views import robots, switch_mode
-from wagtail import urls as wagtail_urls
-from wagtail.admin import urls as wagtailadmin_urls
-from wagtail.contrib.sitemaps.views import sitemap
-from wagtail.documents import urls as wagtaildocs_urls
-from wagtail.models import Page
-from wagtail.utils.urlpatterns import decorate_urlpatterns
+
 
 private_urlpatterns = [
     path("django-admin/", admin.site.urls),

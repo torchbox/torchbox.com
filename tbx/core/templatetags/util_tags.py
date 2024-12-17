@@ -1,8 +1,9 @@
 from django import template
 from django.utils.text import camel_case_to_spaces, slugify
+from wagtail.blocks import StreamValue
 
 from tbx.core.utils.models import SocialMediaSettings
-from wagtail.blocks import StreamValue
+
 
 register = template.Library()
 

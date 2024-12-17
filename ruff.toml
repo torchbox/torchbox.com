@@ -25,6 +25,11 @@ extend-ignore = [
 ]
 fixable = ["C4", "E", "F", "I", "UP"]
 
+[lint.per-file-ignores]
+"fabfile.py" = ["S603", "S607", "T201"]
+"tbx/core/utils/scripts/run_flightpath.py" = ["T201"]
+"tbx/core/utils/scripts/run_flightpath_status_check.py" = ["T201"]
+
 [lint.isort]
 known-first-party = ["tbx"]
 lines-between-types = 1

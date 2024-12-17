@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("torchbox", "0007_alter_standardpage_body"),
         ("torchbox", "0008_remove_aligned_and_wide_image_blocks_from_body_streamfield"),

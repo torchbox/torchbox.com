@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("impact_reports", "0002_update_impact_report_fields"),
     ]

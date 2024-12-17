@@ -1,10 +1,10 @@
 import logging
 
 from django.core.management.base import BaseCommand
-
 from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.exceptions import EmbedException
 from wagtail.embeds.models import Embed
+
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +17,6 @@ class Command(BaseCommand):
     """
 
     def handle(self, *args, **options):
-
         youtube_embeds = Embed.objects.filter(provider_name="YouTube")
         urls = list(youtube_embeds.values_list("url", flat=True))
 

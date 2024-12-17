@@ -1,4 +1,5 @@
 import json
+
 from functools import wraps
 
 from django.core.exceptions import FieldError

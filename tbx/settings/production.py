@@ -1,4 +1,7 @@
-from .base import *  # noqa
+import contextlib
+
+from .base import *  # noqa: F403
+
 
 # Disable debug mode
 DEBUG = False
@@ -6,7 +9,5 @@ DEBUG = False
 # Error if there aren't enough proxies in between
 XFF_ALWAYS_PROXY = True
 
-try:
-    from .local import *  # noqa
-except ImportError:
-    pass
+with contextlib.suppress(ImportError):
+    from .local import *  # noqa: F403

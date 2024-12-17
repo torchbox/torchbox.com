@@ -3,8 +3,10 @@ import logging
 
 import factory
 import wagtail_factories
+
 from factory.django import DjangoModelFactory
 from faker import Faker
+
 from tbx.core.factories import StandardPageFactory
 from tbx.core.models import HomePage
 from tbx.images.factories import CustomImageFactory
@@ -18,6 +20,7 @@ from tbx.people.models import (
 )
 from tbx.taxonomy.factories import TeamFactory
 from tbx.taxonomy.models import Team
+
 
 faker = Faker(["en_GB"])
 logger = logging.getLogger(__name__)
@@ -105,7 +108,7 @@ class ContactFactory(DjangoModelFactory):
                         ", ".join(acceptable_link_types)
                     )
                 )
-            if page and not link_type == "internal_link":
+            if page and link_type != "internal_link":
                 logger.warning(
                     "Page argument ignored because link type is not 'internal_link'"
                 )
