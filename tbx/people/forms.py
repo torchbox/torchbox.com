@@ -1,5 +1,4 @@
 from django.core.exceptions import ValidationError
-
 from wagtail.admin.forms import WagtailAdminModelForm
 
 

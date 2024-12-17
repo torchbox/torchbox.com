@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("services", "0006_move_blog_and_work_chooser_to_streamfields"),
     ]

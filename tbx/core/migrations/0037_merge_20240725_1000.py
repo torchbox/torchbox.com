@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("torchbox", "0035_add_important_page_settings"),
         ("torchbox", "0036_delete_unused_tag_snippet"),

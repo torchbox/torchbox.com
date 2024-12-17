@@ -1,6 +1,9 @@
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.utils.http import urlencode
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.fields import RichTextField
+from wagtail.models import Page
 
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
@@ -10,9 +13,6 @@ from tbx.core.utils.models import (
 )
 from tbx.events.blocks import EventItemBlock
 from tbx.people.models import ContactMixin
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.fields import RichTextField
-from wagtail.models import Page
 
 
 class EventIndexPage(

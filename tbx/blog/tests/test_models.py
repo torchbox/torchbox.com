@@ -1,7 +1,9 @@
 from faker import Faker
+from wagtail.test.utils import WagtailPageTestCase
+
 from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
 from tbx.taxonomy.factories import SectorFactory, ServiceFactory
-from wagtail.test.utils import WagtailPageTestCase
+
 
 fake = Faker(["en_GB"])
 

@@ -1,10 +1,11 @@
 from datetime import datetime, time
 
-from django.contrib.syndication.views import Feed
-
 import filetype
 
+from django.contrib.syndication.views import Feed
+
 from .models import BlogPage
+
 
 # Main blog feed
 

@@ -1,7 +1,8 @@
-from django.utils.text import slugify
-
 import factory
+
+from django.utils.text import slugify
 from factory.django import DjangoModelFactory
+
 from tbx.taxonomy.models import Sector, Service, Team
 
 

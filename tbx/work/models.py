@@ -1,7 +1,9 @@
 import math
 import string
+
 from itertools import chain
 
+from bs4 import BeautifulSoup
 from django import forms
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
@@ -9,9 +11,12 @@ from django.db.models import Case, DateField, F, Q, When
 from django.dispatch import receiver
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
-
-from bs4 import BeautifulSoup
 from modelcluster.fields import ParentalManyToManyField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.fields import RichTextField
+from wagtail.models import Page
+from wagtail.signals import page_published
+
 from tbx.core.blocks import StoryBlock
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
@@ -23,10 +28,6 @@ from tbx.images.models import CustomImage
 from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 from tbx.work.blocks import WorkStoryBlock
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.fields import RichTextField
-from wagtail.models import Page
-from wagtail.signals import page_published
 
 
 class HistoricalWorkPage(

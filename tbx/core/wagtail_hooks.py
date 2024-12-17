@@ -5,7 +5,6 @@ from django.templatetags.static import static
 from django.utils.cache import add_never_cache_headers
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
-
 from PIL import ImageEnhance
 from storages.backends.s3 import S3Storage
 from wagtail import hooks
@@ -51,7 +50,7 @@ def hotjar_admin_tracking():
     if not hjid:
         return ""
 
-    return mark_safe(
+    return mark_safe(  # noqa: S308
         f"""
     <script>
         (function(h,o,t,j,a,r){{

@@ -9,6 +9,7 @@ import wagtail.images.blocks
 import wagtail.snippets.blocks
 import wagtailmarkdown.blocks
 import wagtailmedia.blocks
+
 from django.db import migrations, models
 
 

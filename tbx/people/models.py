@@ -7,9 +7,15 @@ from django.db import models
 from django.dispatch import receiver
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
-
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.fields import RichTextField
+from wagtail.models import Orderable, Page
+from wagtail.search import index
+from wagtail.signals import page_published
+from wagtail.snippets.models import register_snippet
+
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
     ColourThemeMixin,
@@ -20,12 +26,6 @@ from tbx.images.models import CustomImage
 from tbx.people.blocks import ContactCTABlock
 from tbx.people.forms import ContactAdminForm
 from tbx.taxonomy.models import Team
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.fields import RichTextField
-from wagtail.models import Orderable, Page
-from wagtail.search import index
-from wagtail.signals import page_published
-from wagtail.snippets.models import register_snippet
 
 
 @register_snippet
@@ -142,6 +142,9 @@ class ContactMixin(models.Model):
 
     promote_panels = [FieldPanel("contact")]
 
+    class Meta:
+        abstract = True
+
     @cached_property
     def footer_contact(self):
         """
@@ -165,9 +168,6 @@ class ContactMixin(models.Model):
         # (see `tbx.people.models.Contact.save()`)
         return Contact.objects.filter(default_contact=True).first()
 
-    class Meta:
-        abstract = True
-
 
 class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
     template = "patterns/pages/team/team_detail.html"
@@ -184,10 +184,6 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields,
         related_name="+",
     )
     related_teams = ParentalManyToManyField("taxonomy.Team", related_name="people")
-
-    @cached_property
-    def teams(self):
-        return self.related_teams.all()
 
     search_fields = Page.search_fields + [
         index.SearchField("intro"),
@@ -213,6 +209,13 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields,
             FieldPanel("related_teams", widget=forms.CheckboxSelectMultiple),
         ]
     )
+
+    def __str__(self) -> str:
+        return self.title
+
+    @cached_property
+    def teams(self):
+        return self.related_teams.all()
 
     @cached_property
     def author_posts(self):
@@ -309,6 +312,25 @@ class PersonIndexPage(
 
     subpage_types = ["PersonPage"]
 
+    content_panels = Page.content_panels + [
+        FieldPanel("strapline"),
+    ]
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + NavigationFields.promote_panels
+        + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
+        + [
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+        ]
+    )
+
+    def __str__(self) -> str:
+        return self.title
+
     @cached_property
     def people(self):
         prefetch_images = models.Prefetch(
@@ -356,22 +378,6 @@ class PersonIndexPage(
         )
         return context
 
-    content_panels = Page.content_panels + [
-        FieldPanel("strapline"),
-    ]
-
-    promote_panels = (
-        [
-            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ]
-        + NavigationFields.promote_panels
-        + ColourThemeMixin.promote_panels
-        + ContactMixin.promote_panels
-        + [
-            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-        ]
-    )
-
 
 # An author snippet which keeps a copy of a person's details in case they leave and their page is unpublished
 # Could also be used for external authors
@@ -395,6 +401,9 @@ class Author(index.Indexed, models.Model):
         related_name="+",
     )
 
+    def __str__(self) -> str:
+        return self.name
+
     def update_manual_fields(self, person_page):
         self.name = person_page.title
         self.role = person_page.role
@@ -408,9 +417,6 @@ class Author(index.Indexed, models.Model):
 
         if self.person_page:
             self.update_manual_fields(self.person_page)
-
-    def __str__(self):
-        return self.name
 
     search_fields = [
         index.AutocompleteField("name"),

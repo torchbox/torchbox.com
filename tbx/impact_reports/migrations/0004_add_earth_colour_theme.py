@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("impact_reports", "0003_add_navigation_title_override"),
     ]
