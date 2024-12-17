@@ -14,7 +14,7 @@ class BlogFeed(Feed):
     description = "The latest news and views from Torchbox on the work we do, the web and the wider world"
 
     def items(self):
-        return BlogPage.objects.live().order_by("-date")[:10]
+        return BlogPage.objects.public().live().order_by("-date")[:10]
 
     def item_title(self, item):
         return item.title
