@@ -1,11 +1,11 @@
 from django.core.paginator import Page as PaginatorPage
-from faker import Faker
-from wagtail.coreutils import get_dummy_request
-from wagtail.models import PageViewRestriction
 
+from faker import Faker
 from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
 from tbx.blog.models import BlogPage
 from tbx.taxonomy.factories import SectorFactory, ServiceFactory
+from wagtail.coreutils import get_dummy_request
+from wagtail.models import PageViewRestriction
 from wagtail.test.utils import WagtailPageTestCase
 
 fake = Faker(["en_GB"])
@@ -16,11 +16,17 @@ class TestBlogIndexPageFactory(WagtailPageTestCase):
     def setUpTestData(cls):
         cls.blog_index = BlogIndexPageFactory(title="The Torchbox Blog")
         cls.blog_post = BlogPageFactory(title="The blog post", parent=cls.blog_index)
-        cls.private_blog_post = BlogPageFactory(title="Private blog post", parent=cls.blog_index)
-        cls.draft_blog_post = BlogPageFactory(title="Draft blog post", live=False, parent=cls.blog_index)
+        cls.private_blog_post = BlogPageFactory(
+            title="Private blog post", parent=cls.blog_index
+        )
+        cls.draft_blog_post = BlogPageFactory(
+            title="Draft blog post", live=False, parent=cls.blog_index
+        )
 
         PageViewRestriction.objects.create(
-            page=cls.private_blog_post, restriction_type="password", password="password123"
+            page=cls.private_blog_post,
+            restriction_type="password",
+            password="password123",
         )
 
     def test_get_context(self):
@@ -34,7 +40,9 @@ class TestBlogIndexPageFactory(WagtailPageTestCase):
         another_blog = BlogPageFactory(title="Tech blog")
         BlogPageFactory(title="Tech blog", parent=another_blog)
 
-        self.assertQuerysetEqual(self.blog_index.blog_posts, BlogPage.objects.filter(pk=self.blog_post.pk))
+        self.assertQuerysetEqual(
+            self.blog_index.blog_posts, BlogPage.objects.filter(pk=self.blog_post.pk)
+        )
 
 
 class TestBlogPageFactory(WagtailPageTestCase):

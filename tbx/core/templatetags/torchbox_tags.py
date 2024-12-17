@@ -37,7 +37,11 @@ def get_prev_sibling_by_order(page):
 @register.simple_tag
 def get_next_sibling_blog(page):
     sibling = (
-        BlogPage.objects.filter(date__lt=page.date).order_by("-date").live().public().first()
+        BlogPage.objects.filter(date__lt=page.date)
+        .order_by("-date")
+        .live()
+        .public()
+        .first()
     )
     if sibling:
         return sibling.specific
@@ -46,7 +50,11 @@ def get_next_sibling_blog(page):
 @register.simple_tag
 def get_prev_sibling_blog(page):
     sibling = (
-        BlogPage.objects.filter(date__gt=page.date).order_by("-date").live().public().last()
+        BlogPage.objects.filter(date__gt=page.date)
+        .order_by("-date")
+        .live()
+        .public()
+        .last()
     )
     if sibling:
         return sibling.specific
