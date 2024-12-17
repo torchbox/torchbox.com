@@ -20,7 +20,7 @@ def get_googe_maps_key():
 
 @register.simple_tag
 def get_next_sibling_by_order(page):
-    sibling = page.get_next_siblings().live().first()
+    sibling = page.get_next_siblings().live().public().first()
 
     if sibling:
         return sibling.specific
@@ -28,7 +28,7 @@ def get_next_sibling_by_order(page):
 
 @register.simple_tag
 def get_prev_sibling_by_order(page):
-    sibling = page.get_prev_siblings().live().first()
+    sibling = page.get_prev_siblings().live().public().first()
 
     if sibling:
         return sibling.specific
@@ -37,7 +37,7 @@ def get_prev_sibling_by_order(page):
 @register.simple_tag
 def get_next_sibling_blog(page):
     sibling = (
-        BlogPage.objects.filter(date__lt=page.date).order_by("-date").live().first()
+        BlogPage.objects.filter(date__lt=page.date).order_by("-date").live().public().first()
     )
     if sibling:
         return sibling.specific
@@ -46,7 +46,7 @@ def get_next_sibling_blog(page):
 @register.simple_tag
 def get_prev_sibling_blog(page):
     sibling = (
-        BlogPage.objects.filter(date__gt=page.date).order_by("-date").live().last()
+        BlogPage.objects.filter(date__gt=page.date).order_by("-date").live().public().last()
     )
     if sibling:
         return sibling.specific
