@@ -366,6 +366,7 @@
 */
 @mixin button-styles() {
     @include font-size('size-six');
+    @include high-contrast-text-decoration();
     display: inline-block;
     text-align: center;
     border: 1px solid var(--color--link);
@@ -384,8 +385,6 @@
     &:focus {
         @include focus-style();
     }
-
-    @include high-contrast-text-decoration();
 }
 
 @mixin high-contrast-text-decoration() {

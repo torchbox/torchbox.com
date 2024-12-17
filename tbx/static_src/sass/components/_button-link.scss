@@ -2,6 +2,7 @@
 
 .button-link {
     @include font-size('size-six');
+    @include high-contrast-text-decoration();
     font-weight: $weight--semibold;
     display: inline-block;
     padding: $spacer-mini-plus $spacer-small;
@@ -10,8 +11,6 @@
     color: var(--color--white);
     transition: background-color $transition-quick;
     // TODO: add default bg color for themed pages var(--color--accent) once color themes BE is ready
-
-    @include high-contrast-text-decoration();
 
     @include reduced-motion() {
         transition: none;
