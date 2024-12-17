@@ -180,15 +180,22 @@
 }
 
 /* ============================================
-    Arrow icon styles - Hidden below medium breakpoint, shown above
-    Translates on hover
+    Arrow icon styles - Translates on hover
 */
-@mixin arrow-link-icon-styles() {
-    display: none;
+@mixin arrow-link-icon-styles(
+    $mobile-hidden: false,
+    $color: var(--color--decoration),
+    $interaction-color: var(--color--link-interaction)
+) {
+    @if $mobile-hidden {
+        display: none;
 
-    @include media-query(medium) {
+        @include media-query(medium) {
+            display: inline-block;
+        }
+    } @else {
         display: inline-block;
-        color: var(--color--decoration);
+        color: $color;
         width: 72px;
         height: 22px;
         transition: transform, $transition-quick;
@@ -198,7 +205,7 @@
         }
 
         a:hover & {
-            color: var(--color--link-interaction);
+            color: $interaction-color;
             transform: translateX(8px);
 
             @include reduced-motion() {

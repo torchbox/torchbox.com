@@ -7,17 +7,17 @@ context:
         heading: Charity
         description: Amplify your impact, reach more supporters and transform your organisation with tailored digital strategies and solutions
         link_text: Find out more
-      - card_colour: 'theme-lagoon'
+      - card_colour: 'theme-nebuline'
         heading: Public
         description: Navigate complex challenges. Accelerate your mission and transform public services through digital
         link_text: Find out more
-      - card_colour: 'theme-nebuline'
+      - card_colour: 'theme-lagoon'
         heading: Wagtail CMS services
         description: Empower your editors and developers to do their best work with Wagtail, the world's leading open-source Python CMS.
         link_text: Find out more
 
 tags:
   srcset_image:
-    'card.image format-webp fill-{230x230,370x370} sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" class="" alt=""':
+    'card.image format-webp fill-{540x280,490x280} sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" class="" alt=""':
       raw: |
-        <img alt="" class="" height="230" sizes="(max-width: 598px) 370px, (min-width: 599px) 230px" src="https://picsum.photos/230/230.webp" srcset="https://picsum.photos/230/230.webp 230w, https://picsum.photos/370/370.webp 370w" width="230">
+        <img alt="" class="" height="280" sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" src="https://picsum.photos/540/280.webp" srcset="https://picsum.photos/540/280.webp 540w, https://picsum.photos/490/280.webp 490w" width="540">

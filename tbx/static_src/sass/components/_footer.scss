@@ -56,10 +56,6 @@
     &__arrow {
         @include arrow-link-icon-styles();
         color: var(--color--heading);
-        // Show static version on mobile screens
-        display: inline-block;
-        width: 72px;
-        height: 22px;
     }
 
     &__socials {

@@ -71,12 +71,14 @@ $color--earth-streamfield-background: #e6e3df;
     --color--link: #{$color--white};
     --color--link-underline: #{color.adjust($color--white, $alpha: -0.5)};
     --color--link-interaction: #{$color--white};
+    --color--button-link-interaction: #{$color--eclipse};
     --color--streamfield-background: #{$color--mid-grey};
     --color--decoration: #{$color--grey-50};
     --color--border: #{color.adjust($color--grey-50, $alpha: -0.5)};
     --color--overlay: #{color.adjust($color--black, $alpha: -0.6)};
     --color--background--overlay: #{color.adjust($color--eclipse, $alpha: -1)};
     --color--light-grey-background: #{$color--grey-5};
+    // The following base variables do not change with neither theme nor mode
     // where we always want white
     --color--white: #{$color--white};
     // where we always want black - used by footer carbon component
@@ -87,6 +89,12 @@ $color--earth-streamfield-background: #e6e3df;
     --color--grey-50: #{$color--grey-50};
     // where we always want elcipse (high contrast mode bits)
     --color--eclipse: #{$color--eclipse};
+    --color--coral-charity: #{$color--coral-charity};
+    --color--nebuline-public: #{$color--nebuline-public};
+    --color--lagoon-wagtail: #{$color--lagoon-wagtail};
+    --color--coral-30: #{$color--coral-30};
+    --color--nebuline-30: #{$color--nebuline-30};
+    --color--lagoon-30: #{$color--lagoon-30};
 }
 
 // Coral theme, dark mode - also by default
@@ -196,6 +204,7 @@ $color--earth-streamfield-background: #e6e3df;
     --color--link: #{$color--eclipse};
     --color--link-underline: #{color.adjust($color--eclipse, $alpha: -0.5)};
     --color--link-interaction: #{$color--eclipse};
+    --color--button-link-interaction: #{$color--white};
     --color--streamfield-background: #{$color--grey-5};
 }
 
