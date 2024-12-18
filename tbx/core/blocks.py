@@ -327,7 +327,7 @@ class DivisionSignpostBlock(blocks.StructBlock):
     cards = blocks.ListBlock(
         DivisionSignpostCardBlock(),
         max_num=3,
-        min_num=1,
+        min_num=3,
     )
 
     class Meta:
