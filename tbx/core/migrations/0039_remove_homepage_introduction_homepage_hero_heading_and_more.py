@@ -7,7 +7,7 @@ import wagtail.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("torchbox", "0037_merge_20240725_1000"),
+        ("torchbox", "0038_update_theme_colour_choices"),
     ]
 
     operations = [
