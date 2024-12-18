@@ -15,7 +15,7 @@
     }
 
     &__role {
-        @include font-size('body-one');
+        @include font-size('size-six');
         color: var(--color--text);
         display: flex;
         align-items: center;

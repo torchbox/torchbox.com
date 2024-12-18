@@ -35,7 +35,7 @@
     }
 
     &__number {
-        @include font-size(stat);
+        @include font-size(size-zero);
         color: var(--color--heading);
         display: block;
         font-weight: $weight--light;
@@ -43,7 +43,7 @@
     }
 
     &__text {
-        @include font-size(stat-text);
+        @include font-size(size-three);
         font-weight: $weight--semibold;
         color: var(--color--heading);
         display: block;
@@ -51,14 +51,14 @@
     }
 
     &__description {
-        @include font-size('heading-five');
+        @include font-size('size-five');
         color: var(--color--heading);
         display: block;
         margin-bottom: $spacer-mini;
     }
 
     &__details {
-        @include font-size('supporting');
+        @include font-size('size-eight');
         display: block;
     }
 }

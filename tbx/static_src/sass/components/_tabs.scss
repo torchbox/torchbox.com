@@ -16,7 +16,7 @@
     }
 
     &__nav-item {
-        @include font-size('heading-four');
+        @include font-size('size-four');
         @include link-styles(
             $color: var(--color--heading),
             $interaction-color: var(--color--heading),
@@ -110,14 +110,14 @@
     }
 
     &__panel-summary {
-        @include font-size('heading-four');
+        @include font-size('size-four');
         font-weight: $weight--light;
         color: var(--color--heading);
         margin-bottom: $spacer-small;
     }
 
     &__panel-text {
-        @include font-size('body-one');
+        @include font-size('size-six');
     }
 
     &__panel-button {

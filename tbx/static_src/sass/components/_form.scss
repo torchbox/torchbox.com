@@ -3,12 +3,12 @@
 // Very basic form styling used for the 'password required' form but this could be adapted for other forms in the future
 
 .form {
-    @include font-size('heading-four');
+    @include font-size('size-four');
     font-family: $font--primary;
     font-weight: $weight--light;
 
     label {
-        @include font-size('body');
+        @include font-size('size-five');
         font-weight: $weight--semibold;
         margin: $spacer-small 0 10px;
         display: block;
@@ -20,7 +20,7 @@
         border: 1px solid var(--color--border);
         background-color: var(--color--streamfield-background);
         color: var(--color--text);
-        font-weight: $weight--normal;
+        font-weight: $weight--regular;
         padding: 10px $spacer-mini;
         text-indent: 0;
         display: block;
