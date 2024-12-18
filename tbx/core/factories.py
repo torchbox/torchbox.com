@@ -23,6 +23,8 @@ class StoryBlockFactory(wagtail_factories.StreamBlockFactory):
 
 class HomePageFactory(wagtail_factories.PageFactory):
     title = "Home"
+    hero_heading_1 = "The digital partner"
+    hero_heading_2 = "for positive change"
 
     class Meta:
         model = HomePage
