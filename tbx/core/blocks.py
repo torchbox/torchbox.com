@@ -262,6 +262,17 @@ class ContactCTABlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/contact_call_to_action.html"
 
 
+class PartnersBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255, required=False)
+    partner_logos = blocks.ListBlock(CustomImageChooserBlock(), label="Logos")
+
+    class Meta:
+        icon = "openquote"
+        label = "Partner logos"
+        template = "patterns/molecules/streamfield/blocks/partners_block.html"
+        group = "Custom"
+
+
 class ShowcaseBlock(blocks.StructBlock):
     """
     This block is a standard ShowcaseBlock, available on the home page and
