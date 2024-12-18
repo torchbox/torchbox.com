@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 import wagtail_factories
-from tbx.core.models import HomePage
+from tbx.core.factories import HomePageFactory
 from tbx.images.models import CustomImage
 from tbx.navigation.blocks import (
     LinkBlock,
@@ -16,13 +16,6 @@ class CustomImageFactory(wagtail_factories.ImageFactory):
 
     class Meta:
         model = CustomImage
-
-
-class HomePageFactory(wagtail_factories.PageFactory):
-    title = "Home"
-
-    class Meta:
-        model = HomePage
 
 
 class TestLinkBlock(TestCase):

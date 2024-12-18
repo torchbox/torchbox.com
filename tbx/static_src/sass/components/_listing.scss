@@ -31,7 +31,7 @@
     }
 
     &__title {
-        @include font-size('heading-three-b');
+        @include font-size('size-three');
         margin-bottom: $spacer-mini;
 
         @include media-query(medium) {
@@ -63,17 +63,17 @@
     }
 
     &__name {
-        @include font-size('body-two');
+        @include font-size('size-seven');
         color: var(--color--heading);
         font-weight: $weight--semibold;
     }
 
     &__job-title {
-        @include font-size('body-two');
+        @include font-size('size-seven');
     }
 
     &__meta {
-        @include font-size('supporting');
+        @include font-size('size-eight');
     }
 
     &__arrow {

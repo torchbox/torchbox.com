@@ -77,11 +77,11 @@
     }
 
     &__title {
-        @include font-size('heading-three');
+        @include font-size('size-three');
         font-weight: $weight--light;
 
         @include media-query(x-large) {
-            @include font-size('heading-two-b');
+            @include font-size('size-two-b');
         }
     }
 
@@ -136,7 +136,7 @@
     }
 
     &__meta {
-        @include font-size(supporting);
+        @include font-size(size-eight);
         color: var(--color--text);
     }
 
@@ -183,12 +183,12 @@
     }
 
     &__result-number {
-        @include font-size(heading-five);
+        @include font-size(size-five);
         color: var(--color--heading);
         font-weight: $weight--semibold;
 
         @include media-query(large) {
-            @include font-size(heading-four);
+            @include font-size(size-four);
         }
     }
 

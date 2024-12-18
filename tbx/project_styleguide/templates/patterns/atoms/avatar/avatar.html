@@ -2,8 +2,8 @@
 
 <div class="avatar{% if classes %} {{ classes }}{% endif %}">
     {% if lazy_load %}
-        {% srcset_image avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image" %}
+        {% srcset_image avatar format-webp fill-{100x100,144x144,286x286} sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image" %}
     {% else %}
-        {% srcset_image avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image" %}
+        {% srcset_image avatar format-webp fill-{100x100,144x144,286x286} sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" alt="" class="avatar__image" %}
     {% endif %}
 </div>
