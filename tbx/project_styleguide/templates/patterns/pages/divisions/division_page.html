@@ -1,0 +1,14 @@
+{% extends "patterns/base_page.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+
+    <p>Title: {{ page.title }}</p>
+
+    <p>Label for logo: {{ page.label }}</p>
+
+    {% include_block page.hero %}
+
+    {% include_block page.body %}
+
+{% endblock content %}

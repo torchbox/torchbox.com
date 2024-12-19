@@ -1,9 +1,9 @@
 from tbx.core.blocks import (
     BlogChooserBlock,
-    CustomImageChooserBlock,
     EventBlock,
     FeaturedCaseStudyBlock,
     ImageWithAltTextBlock,
+    PartnersBlock,
     PhotoCollageBlock,
     PromoBlock,
     ShowcaseBlock,
@@ -12,19 +12,6 @@ from tbx.core.blocks import (
     WorkChooserBlock,
 )
 from wagtail import blocks
-
-
-class PartnersBlock(blocks.StructBlock):
-    title = blocks.CharBlock(
-        max_length=255,
-    )
-    partner_logos = blocks.ListBlock(CustomImageChooserBlock(), label="Logos")
-
-    class Meta:
-        icon = "openquote"
-        label = "Partner logos"
-        template = "patterns/molecules/streamfield/blocks/partners_block.html"
-        group = "Custom"
 
 
 class ValuesBlock(blocks.StructBlock):

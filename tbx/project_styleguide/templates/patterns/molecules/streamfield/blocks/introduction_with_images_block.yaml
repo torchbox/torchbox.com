@@ -1,0 +1,13 @@
+context:
+  value:
+    introduction: '<p><a href="#">Wagtail</a> is the leading open-source Python/Django CMS, designed to empower teams to do their best work.</p>'
+    description: '<p>As its creators, we know Wagtail inside out and our specialist services can help you get the most out of it.</p>'
+    images:
+      - image:
+      - image:
+
+tags:
+  srcset_image:
+    item.image format-webp loading="lazy" fill-{100x100} alt=item.image.alt_text:
+      raw: |
+        <img alt="" width="100" height="100" loading="lazy" sizes="100px" src="https://picsum.photos/100/100.webp" srcset="https://picsum.photos/100/100.webp 100w">
