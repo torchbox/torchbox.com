@@ -113,7 +113,11 @@ tags:
     # instagram block
     'post.image format-webp fill-{250x250,500x500} sizes="(max-width: 598px) 50vw, (max-width: 1021px) 25vw, (min-width: 1022px) 250px" class="instagram-post__image" loading="lazy"':
       raw: '<img alt="advent-9" class="instagram-post__image" height="250" loading="lazy" sizes="(max-width: 598px) 50vw, (max-width: 1021px) 25vw, (min-width: 1022px) 250px" src="https://picsum.photos/250/250.webp" srcset="https://picsum.photos/250/250.webp 250w, https://picsum.photos/500/500.webp 500w" width="250">'
-  image:
+    # division signpost block
+    'card.image format-webp fill-{540x280,490x280} sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" alt=""':
+      raw: |
+        <img alt="" height="280" sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" src="https://picsum.photos/540/280.webp" srcset="https://picsum.photos/540/280.webp 540w, https://picsum.photos/490/280.webp 490w" width="540">
+      image:
     # company logo for pull quote
     value.logo max-110x70 format-webp class="pullquote__company-logo":
       raw: |
