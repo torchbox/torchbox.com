@@ -7,7 +7,7 @@
         {% endif %}
         {# Section intro #}
         {% if value.intro %}
-            <p class="text text--five division-signpost__intro">{{ value.intro|richtext }}</p>
+            <div class="text text--five division-signpost__intro">{{ value.intro|richtext }}</div>
         {% endif %}
         {# Signposting cards #}
         <ul class="division-signpost__cards">
@@ -15,9 +15,9 @@
                 <li class="division-signpost__card division-signpost__card--{{ card.card_colour }}">
                     <div class="division-signpost__text">
                         <h3 class="heading heading--two division-signpost__heading">{% firstof card.heading card.page.title %}</h3>
-                        <p class="heading heading--four-b heading--light division-signpost__description">{{ card.description|richtext }}</p>
+                        <div class="heading heading--four-b heading--light division-signpost__description">{{ card.description|richtext }}</div>
                     </div>
-                    {% srcset_image card.image format-webp fill-{540x280,490x280} sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" class="" alt="" %}
+                    {% srcset_image card.image format-webp fill-{540x280,490x280} sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" alt="" %}
                     {# The title and icon need to be on the same line with no whitespace to prevent the arrow being orphaned on a new line #}
                     <a href="{% pageurl card.page %}" class="button-link button-link--{{ card.card_colour }}">{{ card.link_text }}&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="button-link__arrow" %}<span class="sr-only"> about {% firstof card.heading card.page.title %} division</span></a>
                 </li>
