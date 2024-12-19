@@ -7,14 +7,17 @@ $color--black: #000;
 $color--eclipse: #1d2325;
 $color--dark-background: #171c1d;
 
+$color--nebuline-public: #6f60d0;
 $color--nebuline-30: #481cd9;
 $color--nebuline-20: #9373ff;
 $color--nebuline-10: #f1edff;
 
+$color--coral-charity: #ee5276;
 $color--coral-30: #d02e3c;
 $color--coral-20: #fc8698;
 $color--coral-10: #f9f1f6;
 
+$color--lagoon-wagtail: #0096a8;
 $color--lagoon-30: #0b778e;
 $color--lagoon-20: #6bd8ef;
 $color--lagoon-10: #ecf2ed;
@@ -69,12 +72,14 @@ $color--earth-streamfield-background: #e6e3df;
     --color--link: #{$color--white};
     --color--link-underline: #{color.adjust($color--white, $alpha: -0.5)};
     --color--link-interaction: #{$color--white};
+    --color--button-link-interaction: #{$color--eclipse};
     --color--streamfield-background: #{$color--mid-grey};
     --color--decoration: #{$color--grey-50};
     --color--border: #{color.adjust($color--grey-50, $alpha: -0.5)};
     --color--overlay: #{color.adjust($color--black, $alpha: -0.6)};
     --color--background--overlay: #{color.adjust($color--eclipse, $alpha: -1)};
     --color--light-grey-background: #{$color--grey-5};
+    // The following base variables do not change with neither theme nor mode
     // where we always want white
     --color--white: #{$color--white};
     // where we always want black - used by footer carbon component
@@ -85,6 +90,12 @@ $color--earth-streamfield-background: #e6e3df;
     --color--grey-50: #{$color--grey-50};
     // where we always want elcipse (high contrast mode bits)
     --color--eclipse: #{$color--eclipse};
+    --color--coral-charity: #{$color--coral-charity};
+    --color--nebuline-public: #{$color--nebuline-public};
+    --color--lagoon-wagtail: #{$color--lagoon-wagtail};
+    --color--coral-30: #{$color--coral-30};
+    --color--nebuline-30: #{$color--nebuline-30};
+    --color--lagoon-30: #{$color--lagoon-30};
 }
 
 // Coral theme, dark mode - also by default
@@ -194,6 +205,7 @@ $color--earth-streamfield-background: #e6e3df;
     --color--link: #{$color--eclipse};
     --color--link-underline: #{color.adjust($color--eclipse, $alpha: -0.5)};
     --color--link-interaction: #{$color--eclipse};
+    --color--button-link-interaction: #{$color--white};
     --color--streamfield-background: #{$color--grey-5};
 }
 
@@ -340,11 +352,11 @@ $large-font-sizes: (
         1.3,
     ),
     size-five: (
-        20px,
+        21px,
         1.6,
     ),
     size-five-b: (
-        20px,
+        21px,
         1.4,
     ),
     size-six: (
@@ -387,19 +399,19 @@ $small-font-sizes: (
         1.4,
     ),
     size-four: (
-        22px,
+        24px,
         1.4,
     ),
     size-four-b: (
-        22px,
+        24px,
         1.3,
     ),
     size-five: (
-        18px,
+        19px,
         1.4,
     ),
     size-five-b: (
-        18px,
+        19px,
         1.4,
     ),
     size-six: (

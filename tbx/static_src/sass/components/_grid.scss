@@ -305,6 +305,15 @@
         }
     }
 
+    &__division-signpost {
+        grid-column: 2 / span 4;
+        margin-bottom: $spacer;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+    }
+
     // header and navigation grid elements
     &__header-logo {
         grid-column: 2 / span 2;
