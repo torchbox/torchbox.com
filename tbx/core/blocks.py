@@ -310,7 +310,9 @@ class DivisionSignpostCardBlock(blocks.StructBlock):
     heading = blocks.CharBlock(required=False)
     description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
     image = ImageChooserBlock()
-    link_text = blocks.CharBlock()
+    link_text = blocks.CharBlock(
+        help_text=("This should be descriptive for accessibility."),
+    )
     page = blocks.PageChooserBlock()
 
     class Meta:
@@ -325,7 +327,7 @@ class DivisionSignpostBlock(blocks.StructBlock):
     cards = blocks.ListBlock(
         DivisionSignpostCardBlock(),
         max_num=3,
-        min_num=1,
+        min_num=3,
     )
 
     class Meta:
