@@ -1,7 +1,7 @@
 @use 'config' as *;
 
 .button-link {
-    @include font-size('size-six');
+    @include font-size('size-four');
     @include high-contrast-text-decoration();
     font-weight: $weight--semibold;
     display: inline-block;
