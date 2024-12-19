@@ -1,0 +1,20 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div>
+    {# Section heading #}
+    <h2>{{ value.title }}</h2>
+
+    {# Section intro #}
+    <div>{{ value.intro|richtext }}</div>
+
+    {# Signposting cards #}
+    <ul>
+        {% for card in value.cards %}
+            <li class="{{ card.card_colour }}">
+                {% firstof card.heading card.page.title %}
+                {{ card.description|richtext }}
+                {% image card.image fill-100x100 %}
+                <a href="{% pageurl card.page %}">{{ card.link_text }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

@@ -3,6 +3,7 @@ from collections import defaultdict
 from datetime import datetime
 from typing import Optional
 
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.forms.utils import ErrorList
@@ -295,6 +296,44 @@ class IconChoice(models.TextChoices):
     TARGET = "target", "target icon"
     MEGAPHONE = "megaphone", "megaphone icon"
     WAGTAIL = "wagtail", "wagtail icon"
+
+
+class DivisionSignpostCardBlock(blocks.StructBlock):
+    class ColourTheme(models.TextChoices):
+        CORAL = "theme-coral", "Coral"
+        NEBULINE = "theme-nebuline", "Nebuline"
+        LAGOON = "theme-lagoon", "Lagoon"
+
+    card_colour = blocks.ChoiceBlock(
+        choices=ColourTheme.choices, default=ColourTheme.CORAL, max_length=20
+    )
+    heading = blocks.CharBlock(required=False)
+    description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
+    image = ImageChooserBlock()
+    link_text = blocks.CharBlock(
+        help_text=("This should be descriptive for accessibility."),
+    )
+    page = blocks.PageChooserBlock()
+
+    class Meta:
+        icon = "breadcrumb-expand"
+
+
+class DivisionSignpostBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    cards = blocks.ListBlock(
+        DivisionSignpostCardBlock(),
+        max_num=3,
+        min_num=3,
+    )
+
+    class Meta:
+        group = "Custom"
+        icon = "thumbtack"
+        template = "patterns/molecules/streamfield/blocks/division_signpost_block.html"
 
 
 class HomepageShowcaseBlock(blocks.StructBlock):
@@ -943,6 +982,7 @@ class StandardPageStoryBlock(StoryBlock):
 
 
 class HomePageStoryBlock(blocks.StreamBlock):
+    division_signpost = DivisionSignpostBlock()
     showcase = ShowcaseBlock(label="Standard showcase")
     homepage_showcase = HomepageShowcaseBlock(label="Large showcase with icons")
     featured_case_study = FeaturedCaseStudyBlock()
