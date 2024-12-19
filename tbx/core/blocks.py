@@ -10,6 +10,7 @@ from django.forms.utils import ErrorList
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext as _
 
 from tbx.images.models import CustomImage
 from wagtail import blocks
@@ -260,6 +261,68 @@ class ContactCTABlock(blocks.StructBlock):
 
     class Meta:
         template = "patterns/molecules/streamfield/blocks/contact_call_to_action.html"
+
+
+class DynamicHeroBlock(blocks.StructBlock):
+    """
+    This block displays text that will be cycled through.
+    """
+
+    static_text = blocks.CharBlock(required=False)
+    dynamic_text = blocks.ListBlock(
+        blocks.CharBlock(),
+        help_text=_(
+            "The hero will cycle through these texts on larger screen sizes "
+            "and only show the first text on smaller screen sizes."
+        ),
+        required=False,
+    )
+
+    class Meta:
+        icon = "title"
+        template = "patterns/molecules/streamfield/blocks/dynamic_hero_block.html"
+
+
+class FourPhotoCollageBlock(blocks.StructBlock):
+    """Accepts 4 photos shown as a collage. Used on the division page."""
+
+    images = blocks.ListBlock(
+        ImageWithAltTextBlock(label="Photo"),
+        min_num=4,
+        max_num=4,
+        label="Photos",
+        help_text=_("Exactly four required."),
+        default=[{"image": None, "alt_text": ""}] * 4,
+    )
+
+    class Meta:
+        group = "Custom"
+        icon = "image"
+        template = "patterns/molecules/streamfield/blocks/four_photo_collage_block.html"
+
+
+class IntroductionWithImagesBlock(blocks.StructBlock):
+    """Used on the division page."""
+
+    introduction = blocks.RichTextBlock(features=settings.PARAGRAPH_RICH_TEXT_FEATURES)
+    description = blocks.RichTextBlock(
+        blank=True, features=settings.NO_HEADING_RICH_TEXT_FEATURES
+    )
+    images = blocks.ListBlock(
+        ImageWithAltTextBlock(label="Photo"),
+        min_num=2,
+        max_num=2,
+        label="Photos",
+        help_text=_("Exactly two required."),
+        default=[{"image": None, "alt_text": ""}] * 2,
+    )
+
+    class Meta:
+        group = "Custom"
+        icon = "pilcrow"
+        template = (
+            "patterns/molecules/streamfield/blocks/introduction_with_images_block.html"
+        )
 
 
 class PartnersBlock(blocks.StructBlock):

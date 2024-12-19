@@ -1,0 +1,12 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div>
+    <div>
+        {% for item in value.images %}
+            {% srcset_image item.image format-webp loading="lazy" fill-{100x100} alt=item.image.alt_text %}
+        {% endfor %}
+    </div>
+    <div>
+        {{ value.introduction|richtext }}
+        {% if value.description %}{{ value.description|richtext }}{% endif %}
+    </div>
+</div>

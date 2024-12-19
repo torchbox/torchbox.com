@@ -1,0 +1,10 @@
+<div>
+    {% if value.static_text %}<span>{{ value.static_text }}</span>{% endif %}
+    {% if value.dynamic_text %}
+        <ul>
+            {% for text in value.dynamic_text %}
+                <li>{{ text }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
