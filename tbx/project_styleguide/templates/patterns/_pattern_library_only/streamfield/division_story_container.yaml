@@ -1,0 +1,5 @@
+tags:
+  srcset_image:
+    item.image format-webp loading="lazy" fill-{100x100} alt=item.image.alt_text:
+      raw: |
+        <img alt="" width="100" height="100" loading="lazy" sizes="100px" src="https://picsum.photos/100/100.webp" srcset="https://picsum.photos/100/100.webp 100w">
