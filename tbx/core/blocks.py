@@ -284,7 +284,7 @@ class DynamicHeroBlock(blocks.StructBlock):
 
 
 class FourPhotoCollageBlock(blocks.StructBlock):
-    """Accepts 4 photos shown as a collage. Used on the division page."""
+    """Accepts 4 photos shown as a collage + text below. Used on the division page."""
 
     images = blocks.ListBlock(
         ImageWithAltTextBlock(label="Photo"),
@@ -293,6 +293,9 @@ class FourPhotoCollageBlock(blocks.StructBlock):
         label="Photos",
         help_text=_("Exactly four required."),
         default=[{"image": None, "alt_text": ""}] * 4,
+    )
+    caption = blocks.RichTextBlock(
+        features=settings.PARAGRAPH_RICH_TEXT_FEATURES, required=False
     )
 
     class Meta:

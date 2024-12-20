@@ -3,4 +3,7 @@
     {% for item in value.images %}
         {% srcset_image item.image format-webp loading="lazy" fill-{100x100} alt=item.image.alt_text %}
     {% endfor %}
+    {% if value.caption %}
+        {{ value.caption|richtext }}
+    {% endif %}
 </div>
