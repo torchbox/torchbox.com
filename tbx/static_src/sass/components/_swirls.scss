@@ -1,0 +1,25 @@
+@use 'config' as *;
+
+.swirls {
+    position: relative;
+    display: none;
+
+    @include media-query(large) {
+        display: block;
+    }
+
+    &__container {
+        @include z-index(under);
+        position: absolute;
+        width: 100%;
+        aspect-ratio: 1512 / 1239;
+    }
+
+    &__icon {
+        position: absolute;
+
+        @include high-contrast-mode() {
+            display: none;
+        }
+    }
+}
