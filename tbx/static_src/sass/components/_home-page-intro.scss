@@ -1,0 +1,38 @@
+@use 'config' as *;
+
+.home-page-intro {
+    @include font-size(size-five);
+
+    .text-coral,
+    .text-nebuline {
+        @include link-styles(
+            $color: var(--color--heading),
+            $interaction-color: var(--color--heading),
+            $underline-color: var(--color--heading),
+            $underline-hover-color: var(--color--heading)
+        );
+        font-weight: $weight--semibold;
+    }
+
+    .text-coral {
+        @include media-query(large) {
+            @include link-styles(
+                $color: var(--color--coral-charity),
+                $interaction-color: var(--color--coral-charity),
+                $underline-color: var(--color--coral-charity),
+                $underline-hover-color: var(--color--coral-charity)
+            );
+        }
+    }
+
+    .text-nebuline {
+        @include media-query(large) {
+            @include link-styles(
+                $color: var(--color--nebuline-public),
+                $interaction-color: var(--color--nebuline-public),
+                $underline-color: var(--color--nebuline-public),
+                $underline-hover-color: var(--color--nebuline-public)
+            );
+        }
+    }
+}

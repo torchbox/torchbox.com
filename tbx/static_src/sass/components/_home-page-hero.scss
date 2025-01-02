@@ -2,11 +2,7 @@
 
 .home-page-hero {
     position: relative;
-    margin-top: 160px;
-
-    @include media-query('large') {
-        margin-top: 200px;
-    }
+    margin-top: $spacer;
 
     &__title {
         @include media-query('large') {
@@ -26,7 +22,8 @@
         top: -100px;
 
         @include media-query('large') {
-            top: -72px;
+            top: -20px;
+            right: -144px;
             width: 144px;
             height: 144px;
         }

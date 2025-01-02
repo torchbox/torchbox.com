@@ -3,10 +3,10 @@
 <div class="partners__logos {% if classes %}{{ classes }}{% endif %}">
     {% for partner_logo in partner_logos %}
         <div class="partners__logo-wrapper">
-            {% image partner_logo max-100x90 format-webp as partner_logo_image %}
-            {% image partner_logo max-200x180 format-webp as partner_logo_image_retina %}
+            {% image partner_logo max-107x107 format-webp as partner_logo_image %}
+            {% image partner_logo max-214x214 format-webp as partner_logo_image_retina %}
 
-            <picture class="partners__logo-picture">
+            <picture>
                 <source srcset="{{ partner_logo_image.url }} 1x, {{ partner_logo_image_retina.url }} 2x" />
                 <img src="{{ partner_logo_image.url }}" alt="{{ partner_logo_image.alt }}" class="partners__logo" {% if not is_home_page %}loading="lazy"{% endif %} />
             </picture>
