@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
 <div class="grid__title home-page-hero">
-    <h1>{{ page.hero_heading_1 }} <b>{{ page.hero_heading_2 }}</b></h1>
+    <h1><span class="heading heading--one heading--extralight">{{ page.hero_heading_1 }}</span><br><span class="heading heading--mega">{{ page.hero_heading_2 }}</span></h1>
 
     <div class="employee-owned-icon home-page-hero__icon">
         {% include "patterns/atoms/icons/icon.html" with name="employee-owned-text" classname="employee-owned-icon__text-icon" %}

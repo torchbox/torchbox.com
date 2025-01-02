@@ -1,8 +1,6 @@
 @use 'config' as *;
 
 .division-signpost {
-    margin-bottom: $spacer-large;
-
     &__intro {
         margin-bottom: $spacer-medium;
     }
