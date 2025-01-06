@@ -16,13 +16,13 @@ def global_vars(request):
     return {
         "GOOGLE_TAG_MANAGER_ID": getattr(settings, "GOOGLE_TAG_MANAGER_ID", None),
         "SEO_NOINDEX": settings.SEO_NOINDEX,
+        "ALLOWED_MODES": json.dumps(settings.ALLOWED_MODES),
+        "MODE": mode,
         "COOKIE_POLICY_PAGE": ImportantPageSettings.for_request(
             request
         ).cookie_policy_page,
         "CARBON_EMISSIONS_PAGE": ImportantPageSettings.for_request(
             request
         ).carbon_emissions_page,
-        "ALLOWED_MODES": json.dumps(settings.ALLOWED_MODES),
-        "MODE": mode,
         "BASE_DOMAIN": settings.BASE_DOMAIN,
     }
