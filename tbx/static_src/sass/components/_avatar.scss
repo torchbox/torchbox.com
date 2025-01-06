@@ -1,6 +1,14 @@
 @use 'config' as *;
 
 .avatar {
+    // Component-specific heme-less accent colors
+    --avatar-accent-one: #{$color--white};
+    --avatar-accent-two: #{$color--white};
+    // Themed accent colors
+    [class*='theme-'] & {
+        --avatar-accent-one: var(--color--theme-primary);
+        --avatar-accent-two: var(--color--theme-secondary);
+    }
     position: relative;
     width: $avatar-size-72;
     height: $avatar-size-72;
@@ -43,11 +51,10 @@
         display: block;
         border-radius: 50%;
         position: absolute;
-        opacity: 0.8;
     }
 
     &::before {
-        border: 1px solid var(--color--accent-two);
+        border: 1px solid var(--avatar-accent-two);
         width: 102%;
         height: 103%;
         inset: -3px 2px;
@@ -55,13 +62,13 @@
         @include media-query(medium) {
             width: 95%;
             height: 95%;
-            border-width: 3px;
+            border-width: 2px;
             inset: 2px -3px;
         }
     }
 
     &::after {
-        border: 2px solid var(--color--accent-three);
+        border: 2px solid var(--avatar-accent-one);
         height: 95%;
         width: 95%;
         inset: 2px 3px;
@@ -69,6 +76,7 @@
         @include media-query(medium) {
             width: 102%;
             height: 103%;
+            border-width: 3px;
             inset: -5px -4px;
         }
     }

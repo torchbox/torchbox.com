@@ -41,7 +41,7 @@ form {
     input:focus,
     select:focus,
     textarea:focus {
-        outline: $focus-width solid var(--color--focus-ring);
+        outline: $focus-width solid var(--color--theme-primary);
         outline-offset: 0;
     }
 }

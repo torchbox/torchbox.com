@@ -1,2 +1,2 @@
 context:
-  value: '<link href="//cdn-images.mailchimp.com/embedcode/classic-071822.css" rel="stylesheet" type="text/css"><div id="mc_embed_signup"><form><div id="mc_embed_signup_scroll"><div class="mc-field-group"><label for="test">mailchimp form gets embedded here</label> <input type="text" id="test"></div></div></form></div>'
+  value: '<link href="//cdn-images.mailchimp.com/embedcode/classic-071822.css" rel="stylesheet" type="text/css"><div id="mc_embed_signup"><form><div id="mc_embed_signup_scroll"><div class="mce_inline_error">This is an error</div><div class="mc-field-group"><label for="test">mailchimp form gets embedded here</label> <input type="text" id="test"></div></div></form></div>'
