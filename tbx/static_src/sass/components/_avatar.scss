@@ -1,7 +1,7 @@
 @use 'config' as *;
 
 .avatar {
-    // Component-specific heme-less accent colors
+    // Component-specific theme-less accent colors
     --avatar-accent-one: #{$color--white};
     --avatar-accent-two: #{$color--white};
     // Themed accent colors
