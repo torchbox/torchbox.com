@@ -1,0 +1,15 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="grid__division-signpost">
+    {# Section heading #}
+    {% if value.title %}
+        <h2 class="heading heading--two">{{ value.title }}</h2>
+    {% endif %}
+    {# Section intro #}
+    {% if value.intro %}
+        <div class="text text--five division-signpost__intro">{{ value.intro|richtext }}</div>
+    {% endif %}
+    {# Stats #}
+    {# Not sure if the impact report page (which uses stats_numeric.html) should be affected. #}
+    {% include "patterns/molecules/streamfield/blocks/stats_numeric.html" with value=value.statistics %}
+</div>
+
