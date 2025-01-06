@@ -929,6 +929,7 @@ class NumericStatisticsBlock(blocks.StructBlock):
 
     class Meta:
         icon = "table"
+        label_format = "{headline_number} {description} {further_details}"
 
 
 class NumericStatisticsGroupBlock(blocks.StructBlock):
