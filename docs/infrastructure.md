@@ -123,5 +123,4 @@ This will be copied by flightpath.
 <!-- Footnotes -->
 
 [^1]: The client in this case is Torchbox!
-
 [^2]: See [`tbx/core/utils/scripts/run_flightpath.py`](https://github.com/torchbox/torchbox.com/blob/bfccccca76c389a2f539419e745e7ac5f191ce4c/tbx/core/utils/scripts/run_flightpath.py)
