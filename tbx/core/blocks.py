@@ -283,6 +283,41 @@ class DynamicHeroBlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/dynamic_hero_block.html"
 
 
+class FeaturedPageCardBlock(blocks.StructBlock):
+    heading = blocks.CharBlock(required=False)
+    description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
+    image = ImageChooserBlock()
+    link_text = blocks.CharBlock()
+    accessible_link_text = blocks.CharBlock(
+        help_text=(
+            "Used by screen readers. This should be descriptive for accessibility. "
+            'If not filled, the "Link text" field will be used instead.'
+        ),
+        required=False,
+    )
+    page = blocks.PageChooserBlock()
+
+    class Meta:
+        icon = "breadcrumb-expand"
+
+
+class FeaturedServicesBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    cards = blocks.ListBlock(
+        FeaturedPageCardBlock(),
+        max_num=4,
+        min_num=2,
+    )
+
+    class Meta:
+        group = "Custom"
+        icon = "link"
+        template = "patterns/molecules/streamfield/blocks/featured_services_block.html"
+
+
 class FourPhotoCollageBlock(blocks.StructBlock):
     """Accepts 4 photos shown as a collage + text below. Used on the division page."""
 
