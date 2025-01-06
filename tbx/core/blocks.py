@@ -392,8 +392,13 @@ class DivisionSignpostCardBlock(blocks.StructBlock):
     heading = blocks.CharBlock(required=False)
     description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
     image = ImageChooserBlock()
-    link_text = blocks.CharBlock(
-        help_text=("This should be descriptive for accessibility."),
+    link_text = blocks.CharBlock()
+    accessible_link_text = blocks.CharBlock(
+        help_text=(
+            "Used by screen readers. This should be descriptive for accessibility. "
+            'If not filled, the "Link text" field will be used instead.'
+        ),
+        required=False,
     )
     page = blocks.PageChooserBlock()
 
