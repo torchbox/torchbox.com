@@ -179,7 +179,7 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
                 " sentence or one paragraph, depending on the presence of punctuation."
             ),
         ),
-        InlinePanel("logos", heading="Partner logos", label="logo", max_num=7),
+        InlinePanel("logos", heading="Partner logos", label="logo", max_num=12),
         FieldPanel("body"),
     ]
 

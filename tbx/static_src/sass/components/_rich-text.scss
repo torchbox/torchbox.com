@@ -8,7 +8,7 @@
     h4,
     h5,
     h6 {
-        font-weight: $weight--light;
+        font-weight: $weight--semibold;
 
         b {
             // <b> tags were used in the legacy CMS within headings
@@ -40,7 +40,6 @@
     h4 {
         @include font-size(size-four);
         @include rich-text-heading-spacing();
-        font-weight: $weight--semibold;
     }
 
     // overide top heading margins for the first child

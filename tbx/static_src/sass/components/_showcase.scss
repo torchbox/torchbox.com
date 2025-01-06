@@ -157,7 +157,7 @@
         }
 
         &--tail {
-            @include arrow-link-icon-styles();
+            @include arrow-link-icon-styles($mobile-hidden: true);
             margin-left: $spacer-mini-plus;
             margin-top: 0;
         }

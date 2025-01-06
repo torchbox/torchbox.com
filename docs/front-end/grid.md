@@ -36,7 +36,7 @@ Any alignment or spacing rules for a component should be added using BEM syntax 
     grid-column: 2 / span 4;
 
     @include media-query(large) {
-      grid-column: 4 / span 9;
+      grid-column: 2 / span 9;
     }
   }
 }

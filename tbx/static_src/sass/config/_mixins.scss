@@ -180,34 +180,43 @@
 }
 
 /* ============================================
-    Arrow icon styles - Hidden below medium breakpoint, shown above
-    Translates on hover
+    Arrow icon styles - Translates on hover
 */
-@mixin arrow-link-icon-styles() {
-    display: none;
+@mixin arrow-link-icon-styles(
+    $mobile-hidden: false,
+    $color: var(--color--decoration),
+    $interaction-color: var(--color--link-interaction)
+) {
+    // Apply all common styles regardless of mobile-hidden
+    display: inline-block;
+    color: $color;
+    width: 72px;
+    height: 22px;
+    transition: transform, $transition-quick;
 
-    @include media-query(medium) {
-        display: inline-block;
-        color: var(--color--decoration);
-        width: 72px;
-        height: 22px;
-        transition: transform, $transition-quick;
+    @include reduced-motion() {
+        transition: none;
+    }
+
+    // If mobile-hidden is true, hide on mobile
+    @if $mobile-hidden {
+        display: none;
+
+        @include media-query(medium) {
+            display: inline-block;
+        }
+    }
+
+    a:hover & {
+        color: $interaction-color;
+        transform: translateX(8px);
 
         @include reduced-motion() {
-            transition: none;
+            transform: none;
         }
 
-        a:hover & {
-            color: var(--color--link-interaction);
-            transform: translateX(8px);
-
-            @include reduced-motion() {
-                transform: none;
-            }
-
-            @include high-contrast-mode() {
-                color: var(--color--decoration);
-            }
+        @include high-contrast-mode() {
+            color: var(--color--decoration);
         }
     }
 }
@@ -359,6 +368,7 @@
 */
 @mixin button-styles() {
     @include font-size('size-six');
+    @include high-contrast-text-decoration();
     display: inline-block;
     text-align: center;
     border: 1px solid var(--color--link);
@@ -377,7 +387,9 @@
     &:focus {
         @include focus-style();
     }
+}
 
+@mixin high-contrast-text-decoration() {
     @include high-contrast-mode() {
         text-decoration: underline;
         text-decoration-thickness: $link-underline-thickness;
