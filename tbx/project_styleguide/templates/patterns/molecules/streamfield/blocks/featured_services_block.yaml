@@ -1,0 +1,23 @@
+context:
+  value:
+    title: Our featured services
+    intro: This is an optional field. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    cards:
+      - heading: Advocacy, Engagement & Income
+        description: '<p>Grow your audience, mobilise and increase your income through design, communication and strategy</p>'
+        link_text: Our services
+        accessible_link_text: Our Advocacy, Engagement & Income services
+      - heading: Measure, Analyse & Optimise
+        description: '<p>Organise your data to gain the insights and confidence needed to boost your charity&apos;s performance.</p>'
+        link_text: Our services
+        accessible_link_text: Our Measure, Analyse & Optimise services
+      - heading: Scale impact through Technology
+        description: '<p>We design technology that&apos;s built for humans. Scale your impact and better deliver your services by leveraging our expertise.</p>'
+        link_text: Our services
+        accessible_link_text: Our services on scaling impact through Technology
+
+tags:
+  image:
+    'card.image fill-100x100':
+      raw: |
+        <img alt="" height="100" src="https://picsum.photos/100/100.webp" width="100">
