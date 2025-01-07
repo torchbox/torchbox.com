@@ -29,7 +29,6 @@
 
         @include media-query(large) {
             gap: $spacer-small;
-            justify-content: flex-start;
         }
 
         @include media-query('x-large') {

@@ -42,6 +42,7 @@ h6 {
 .heading {
     @include heading-text();
     font-weight: $weight--semibold;
+    letter-spacing: -1px;
 
     // Legacy CMS used italics in headings so reset that here
     i {

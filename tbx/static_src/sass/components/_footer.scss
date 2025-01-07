@@ -38,12 +38,6 @@
     }
 
     &__newsletter-link-text {
-        display: flex;
-        flex-direction: column;
-        line-height: 1;
-    }
-
-    &__newsletter-link-title {
         @include font-size('size-four');
         font-weight: $weight--semibold;
 
