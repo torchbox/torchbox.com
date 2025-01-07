@@ -20,6 +20,7 @@ html {
     color: var(--color--heading);
     font-style: inherit;
     font-weight: inherit;
+    letter-spacing: -1px;
 }
 
 @mixin quote-text() {
@@ -42,7 +43,6 @@ h6 {
 .heading {
     @include heading-text();
     font-weight: $weight--semibold;
-    letter-spacing: -1px;
 
     // Legacy CMS used italics in headings so reset that here
     i {

@@ -24,22 +24,18 @@
     }
 
     &__newsletter-link {
+        @include font-size('size-four');
         @include link-styles(
             $color: var(--color--heading),
             $interaction-color: var(--color--heading),
             $offset: 5px,
             $underline-color: var(--color--grey-50)
         );
+        font-weight: $weight--semibold;
         display: flex;
         align-items: center;
         gap: $spacer-mini-plus;
-        padding: $spacer-mini 0 $spacer-small 0;
-        border-bottom: 1px solid var(--color--border);
-    }
-
-    &__newsletter-link-text {
-        @include font-size('size-four');
-        font-weight: $weight--semibold;
+        padding: $spacer-mini 0;
 
         @include media-query(large) {
             line-height: 1;
