@@ -8,7 +8,7 @@ from invoke.tasks import task
 
 # Process .env file
 if os.path.exists(".env"):
-    with open(".env", "r") as f:
+    with open(".env") as f:
         for line in f.readlines():
             if not line or line.startswith("#") or "=" not in line:
                 continue
@@ -36,9 +36,7 @@ LOCAL_DATABASE_USERNAME = "tbx"
 
 
 def dexec(cmd, service="web"):
-    return local(
-        "docker compose exec -T {} bash -c {}".format(quote(service), quote(cmd))
-    )
+    return local(f"docker compose exec -T {quote(service)} bash -c {quote(cmd)}")
 
 
 @task
@@ -51,7 +49,7 @@ def build(c):
 
     group = subprocess.check_output(["id", "-gn"], encoding="utf-8").strip()
     local("mkdir -p " + directories_arg)
-    local("chown -R $USER:{} {}".format(group, directories_arg))
+    local(f"chown -R $USER:{group} {directories_arg}")
     local("chmod -R 775 " + directories_arg)
 
     local("docker compose pull", pty=True)
@@ -267,9 +265,7 @@ def dev_shell(c):
 
 
 def delete_local_database(c, local_database_name=LOCAL_DATABASE_NAME):
-    local(
-        "dropdb --if-exists {database_name}".format(database_name=LOCAL_DATABASE_NAME)
-    )
+    local(f"dropdb --if-exists {LOCAL_DATABASE_NAME}")
 
 
 ####
@@ -391,7 +387,7 @@ def open_heroku_shell(c, app_instance, shell_command="bash"):
 
 
 def make_bold(msg):
-    return "\033[1m{}\033[0m".format(msg)
+    return f"\033[1m{msg}\033[0m"
 
 
 @task
@@ -441,16 +437,14 @@ def dellar_list(c):
 def dellar_remove(c, filename):
     """Remove database snapshots"""
     dexec(
-        "rm {filename}.psql".format(filename=filename),
+        f"rm {filename}.psql",
         service="db",
     ),
     print(f"Snapshot {filename} removed")
 
 
 def get_heroku_variable(c, app_instance, variable):
-    return local(
-        "heroku config:get {var} --app {app}".format(app=app_instance, var=variable)
-    ).stdout.strip()
+    return local(f"heroku config:get {variable} --app {app_instance}").stdout.strip()
 
 
 @task
