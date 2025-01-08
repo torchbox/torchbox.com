@@ -1,0 +1,62 @@
+@use 'config' as *;
+
+.intro-with-images {
+   display: flex;
+   flex-direction: column;
+   gap: $spacer-medium;
+
+   @include media-query(large) {
+       flex-direction: row-reverse;
+       justify-content: flex-end;
+   }
+
+   @include media-query(x-large) {
+       // gap: $spacer-large;
+   }
+
+   &__collage {
+       flex-basis: 40%;
+       display: flex;
+       gap: $spacer-mini-plus;
+       margin-right: $spacer-mini-plus;
+
+
+       @include media-query(medium) {
+           max-width: 80vw;
+       }
+   }
+
+   &__image {
+       width: 100%;
+
+       &:first-child {
+           margin-top: $spacer-small-plus;
+
+
+           @include media-query(large) {
+               margin-top: $spacer-medium;
+           }
+       }
+
+       &:last-child {
+           margin-bottom: $spacer-small-plus;
+
+
+           @include media-query(large) {
+               margin-bottom: $spacer-medium;
+           }
+       }
+   }
+
+   &__text {
+       flex-basis: 40%;
+       margin: 0 $spacer-small;
+       display: flex;
+       flex-direction: column;
+       gap: $spacer-small-plus;
+
+       @include media-query(large) {
+           margin: $spacer-half 0 0;
+       }
+   }
+}

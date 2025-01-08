@@ -1,0 +1,12 @@
+@use 'config' as *;
+
+.four-photo-collage {
+   &__container {
+       display: grid;
+       margin-bottom: $spacer-medium;
+
+       @include media-query(large) {
+           margin-bottom: $spacer-small-plus;
+       }
+   }
+}

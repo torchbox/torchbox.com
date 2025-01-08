@@ -1,9 +1,14 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-<div>
-    {% for item in value.images %}
-        {% srcset_image item.image format-webp loading="lazy" fill-{100x100} alt=item.image.alt_text %}
-    {% endfor %}
+<div class="grid__photo-collage">
+    {# Note the tabindex is important here as it makes the div focussable, meaning that the scrollbar can be operated with the keyboard #}
+    <div class="photo-collage__scroller" tabindex="0">
+        <div class="four-photo-collage__container">
+            {% for item in value.images %}
+                {% srcset_image item.image format-webp loading="lazy" fill-{500x500} class="photo-collage__image" alt=item.image.alt_text %}
+            {% endfor %}
+        </div>
+    </div>
     {% if value.caption %}
-        {{ value.caption|richtext }}
+        <div class="heading heading--three heading--light">{{ value.caption|richtext }}</div>
     {% endif %}
 </div>

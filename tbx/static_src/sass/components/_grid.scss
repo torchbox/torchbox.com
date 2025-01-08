@@ -52,6 +52,16 @@
         }
     }
 
+    &__intro-with-images {
+        grid-column: 1 / span 6;
+        margin-bottom: $spacer-small-plus;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 2 / span 13;
+        }
+    }
+
     &__quote {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
