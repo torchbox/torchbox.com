@@ -28,7 +28,6 @@
         @include link-styles(
             $color: var(--color--heading),
             $interaction-color: var(--color--heading),
-            $offset: 5px,
             $underline-color: var(--color--grey-50)
         );
         font-weight: $weight--semibold;
