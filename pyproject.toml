@@ -9,7 +9,7 @@ python = "^3.13"
 Django = "~5.1"
 wagtail = "~6.3"
 psycopg = "^3.2.3"
-gunicorn = {version = "^23.0.0", optional = true}
+gunicorn = "^23.0.0"
 whitenoise = "^6.8.0"
 phonenumbers = "^8.13.47"
 Wand = "^0.6.10"
