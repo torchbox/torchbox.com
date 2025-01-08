@@ -1,4 +1,4 @@
-FROM node:20 AS frontend
+FROM node:20 as frontend
 
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true
@@ -91,10 +91,10 @@ COPY ./docker/bashrc.sh /home/tbx/.bashrc
 
 # Run the WSGI server. It reads GUNICORN_CMD_ARGS, PORT and WEB_CONCURRENCY
 # environment variable hence we don't specify a lot options below.
-CMD ["gunicorn", "tbx.wsgi:application"]
+CMD gunicorn tbx.wsgi:application
 
 # These steps won't be run on production
-FROM production AS dev
+FROM production as dev
 
 # Swap user, so the following tasks can be run as root
 USER root
@@ -117,4 +117,4 @@ RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh
 COPY --chown=tbx --from=frontend ./node_modules ./node_modules
 
 # do nothing forever - exec commands elsewhere
-CMD ["tail", "-f", "/dev/null"]
+CMD tail -f /dev/null
