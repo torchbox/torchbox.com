@@ -120,6 +120,7 @@ class HistoricalWorkPage(
                 Q(related_sectors__in=sectors) | Q(related_services__in=services)
             )
             .live()
+            .public()
             .distinct()
             .order_by(F("date").desc(nulls_last=True))
             .exclude(pk=self.pk)[:4]
@@ -379,6 +380,7 @@ class WorkIndexPage(
         pages = (
             self.get_children()
             .live()
+            .public()
             .type(HistoricalWorkPage, WorkPage)
             .specific()
             .prefetch_related(
