@@ -43,7 +43,7 @@ class TestWorkIndexPageFactory(WagtailPageTestCase):
         """Checks that the works property returns public and published work pages under the given work index."""
         another_work_index = WorkIndexPageFactory(title="Another work index")
         WorkPageFactory(title="Another work page", parent=another_work_index)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             self.work_index.works, WorkPage.objects.filter(pk=self.work_page.pk)
         )
 
