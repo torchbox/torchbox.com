@@ -75,7 +75,7 @@
 
     &__strapline {
         @include font-size('size-five');
-        color: var(--color--accent-three);
+        color: var(--color--theme-primary);
         font-weight: $weight--semibold;
         margin-bottom: $spacer-mini-plus;
     }

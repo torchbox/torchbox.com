@@ -10,7 +10,7 @@
     width: 100%;
     color: var(--color--white);
     transition: background-color $transition-quick;
-    // TODO: add default bg color for themed pages var(--color--accent) once color themes BE is ready
+    background-color: var(--color--theme-primary);
 
     @include reduced-motion() {
         transition: none;
@@ -26,15 +26,15 @@
     }
 
     &--theme-coral {
-        background-color: $color--coral-charity;
+        background-color: $color--coral;
     }
 
     &--theme-nebuline {
-        background-color: $color--nebuline-public;
+        background-color: $color--nebuline;
     }
 
     &--theme-lagoon {
-        background-color: $color--lagoon-wagtail;
+        background-color: $color--lagoon;
     }
 
     &__arrow {

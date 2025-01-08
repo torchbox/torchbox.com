@@ -24,11 +24,11 @@
         @include ring($diameter: 30px, $opacity: 0.75);
 
         &--one {
-            @include ring-one($top: 3px, $color: var(--color--accent-two));
+            @include ring-one($top: 3px, $color: var(--color--theme-secondary));
         }
 
         &--two {
-            @include ring-two($top: 3px, $color: var(--color--accent-three));
+            @include ring-two($top: 3px, $color: var(--color--theme-primary));
         }
     }
 }

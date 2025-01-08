@@ -66,11 +66,11 @@
         @include ring($opacity: 1);
 
         &--one {
-            @include ring-one($color: var(--color--accent-two));
+            @include ring-one($color: var(--color--theme-secondary));
         }
 
         &--two {
-            @include ring-two($color: var(--color--accent-three));
+            @include ring-two($color: var(--color--theme-primary));
         }
     }
 

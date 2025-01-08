@@ -35,26 +35,26 @@
         }
 
         &--theme-coral {
-            background-color: var(--color--coral-charity);
+            background-color: var(--color--coral);
 
             &:has(.button-link:hover) {
-                background-color: var(--color--coral-30);
+                background-color: var(--color--coral-dark);
             }
         }
 
         &--theme-nebuline {
-            background-color: var(--color--nebuline-public);
+            background-color: var(--color--nebuline);
 
             &:has(.button-link:hover) {
-                background-color: var(--color--nebuline-30);
+                background-color: var(--color--nebuline-dark);
             }
         }
 
         &--theme-lagoon {
-            background-color: var(--color--lagoon-wagtail);
+            background-color: var(--color--lagoon);
 
             &:has(.button-link:hover) {
-                background-color: var(--color--lagoon-30);
+                background-color: var(--color--lagoon-dark);
             }
         }
     }

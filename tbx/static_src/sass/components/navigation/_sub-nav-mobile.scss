@@ -14,7 +14,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
     $root: &;
     @include z-index(base);
     @include nav-fixed-position($header-height: $header-height-mobile);
-    background-color: var(--color--nav-background);
+    background-color: var(--color--background);
 
     // the unordered list containing the level 2 menu items
     // also used for the level 3 menu items
@@ -35,7 +35,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         @include font-size('size-five');
         display: flex;
         padding: $spacer-small;
-        border-bottom: 1px solid var(--color--nav-border);
+        border-bottom: 1px solid var(--color--border);
         gap: 18px;
         align-items: center;
 
