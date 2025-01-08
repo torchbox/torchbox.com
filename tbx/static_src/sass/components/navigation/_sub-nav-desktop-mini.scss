@@ -16,7 +16,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         $header-height: $header-height-desktop,
         $full-height: false
     );
-    background-color: var(--color--nav-background);
+    background-color: var(--color--background);
     padding: 25px 0 $spacer-mini;
     position: absolute;
     top: $spacer-medium;
@@ -50,7 +50,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         font-weight: $weight--regular;
         display: block;
         padding: $spacer-mini $spacer-mini-plus;
-        border-bottom: 1px solid var(--color--nav-border);
+        border-bottom: 1px solid var(--color--border);
 
         &:focus {
             @include focus-style();
