@@ -39,7 +39,6 @@
         color: var(--color--theme-primary);
         display: block;
         font-weight: $weight--semibold;
-        line-height: 1;
     }
 
     &__text {
@@ -51,14 +50,15 @@
     }
 
     &__description {
-        @include font-size('size-five');
+        @include font-size('size-four');
+        font-weight: $weight--semibold;
         color: var(--color--heading);
         display: block;
         line-height: 1;
     }
 
     &__details {
-        @include font-size('size-eight');
+        @include font-size('size-seven');
         display: block;
     }
 }
