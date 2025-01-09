@@ -196,7 +196,7 @@
         margin-bottom: $spacer-medium;
 
         @include media-query(large) {
-            grid-column: 3 / span 11;
+            grid-column: 2 / span 12;
             margin-bottom: $spacer;
         }
     }

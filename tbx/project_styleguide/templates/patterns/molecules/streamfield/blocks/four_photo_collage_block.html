@@ -1,5 +1,5 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-<div class="grid__four-photo-collage">
+<div class="grid__four-photo-collage four-photo-collage">
     {# Note the tabindex is important here as it makes the div focussable, meaning that the scrollbar can be operated with the keyboard #}
     <div class="four-photo-collage__scroller" tabindex="0">
         <div class="four-photo-collage__container">
@@ -11,6 +11,6 @@
         </div>
     </div>
     {% if value.caption %}
-        <div class="heading heading--three heading--light">{{ value.caption|richtext }}</div>
+        <div class="heading heading--three heading--light four-photo-collage__caption">{{ value.caption|richtext }}</div>
     {% endif %}
 </div>
