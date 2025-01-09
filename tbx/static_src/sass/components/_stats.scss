@@ -36,9 +36,9 @@
 
     &__number {
         @include font-size(size-zero);
-        color: var(--color--heading);
+        color: var(--color--theme-primary);
         display: block;
-        font-weight: $weight--light;
+        font-weight: $weight--semibold;
         line-height: 1;
     }
 
@@ -54,7 +54,7 @@
         @include font-size('size-five');
         color: var(--color--heading);
         display: block;
-        margin-bottom: $spacer-mini;
+        line-height: 1;
     }
 
     &__details {
