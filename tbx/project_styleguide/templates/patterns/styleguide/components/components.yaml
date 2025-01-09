@@ -107,6 +107,14 @@ tags:
     'item.image format-webp loading="lazy" fill-{288x288,576x576} sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" class="photo-collage__image" alt=item.image_alt_text':
       raw: |
         <img alt="alt text" class="photo-collage__image" height="288" loading="lazy" sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" src="https://picsum.photos/288/288.webp" srcset="https://picsum.photos/288/288.webp 288w, https://picsum.photos/576/576.webp 576w" width="288">
+    # four photo collage block
+    'item.image format-webp loading="lazy" fill-{500x500,600x600} sizes="(max-width: 1022px) 600px, 500px" class="four-photo-collage__image" alt=item.image.alt_text':
+      raw: |
+        <img alt="" width="500" height="500" loading="lazy" class="four-photo-collage__image" sizes="(max-width: 1022px) 600px, 500px" src="https://picsum.photos/500/500.webp" srcset="https://picsum.photos/500/500.webp 500w, https://picsum.photos/600/600.webp 600w">
+    # introduction with images block
+    'item.image format-webp loading="lazy" fill-{200x300,400x600,600x900} sizes="(max-width: 598px) 150px, (max-width: 799px) 300px, 700px" class="intro-with-images__image" alt=item.image_alt_text':
+      raw: |
+        <img alt="alt text" class="intro-with-images__image" height="225" loading="lazy" sizes="(max-width: 598px) 150px, (max-width: 799px) 300px, 700px" src="https://picsum.photos/200/300.webp" srcset="https://picsum.photos/200/300.webp 200w, https://picsum.photos/400/600.webp 400w, https://picsum.photos/600/900.webp 600w" width="200">
     # values block
     'value_item.image.image format-webp width-{482,964} sizes="(max-width: 598px) 100vw, (min-width: 599px) 30vw" loading="lazy" class="values__image"':
       raw: '<img alt="test alt" class="values__image" height="590" loading="lazy" sizes="(max-width: 598px) 100vw, (min-width: 599px) 30vw" src="https://picsum.photos/482/589.webp" srcset="https://picsum.photos/482/589.webp 482w, https://picsum.photos/964/1178.webp 964w" width="482">'

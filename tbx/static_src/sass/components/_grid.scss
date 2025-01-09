@@ -53,12 +53,12 @@
     }
 
     &__intro-with-images {
-        grid-column: 1 / span 6;
+        grid-column: 1 / span 5;
         margin-bottom: $spacer-small-plus;
 
         @include media-query(large) {
             margin-bottom: $spacer-large;
-            grid-column: 2 / span 13;
+            grid-column: 2 / span 12;
         }
     }
 
@@ -187,6 +187,16 @@
 
         @include media-query(large) {
             grid-column: 2 / span 11;
+            margin-bottom: $spacer;
+        }
+    }
+
+    &__four-photo-collage {
+        grid-column: 2 / span 5;
+        margin-bottom: $spacer-medium;
+
+        @include media-query(large) {
+            grid-column: 3 / span 11;
             margin-bottom: $spacer;
         }
     }
