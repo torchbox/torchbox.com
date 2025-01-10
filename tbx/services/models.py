@@ -3,6 +3,7 @@ from django.db import models
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
     ColourThemeMixin,
+    DivisionMixin,
     NavigationFields,
     SocialFields,
 )
@@ -44,7 +45,7 @@ class ServicePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields
 
 
 class ServiceAreaPage(
-    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
+    ColourThemeMixin, ContactMixin, DivisionMixin, SocialFields, NavigationFields, Page
 ):
     template = "patterns/pages/service/service_area_page.html"
 
