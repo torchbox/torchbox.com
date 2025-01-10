@@ -18,7 +18,7 @@ class TestPageFactory(TestCase):
 
     # Exclude these modules from the check.
     # (They currently don't have factories. Un-exclude once they have factories.)
-    EXCLUDE = ["tbx.events", "tbx.impact_reports", "tbx.services"]
+    EXCLUDE = ["tbx.events", "tbx.impact_reports"]
 
     def test_pages(self):
         app_configs = apps.get_app_configs()
