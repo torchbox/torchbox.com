@@ -3,6 +3,7 @@ from tbx.core.blocks import (
     EventBlock,
     FeaturedCaseStudyBlock,
     FourPhotoCollageBlock,
+    IconKeyPointsBlock,
     ImageWithAltTextBlock,
     PartnersBlock,
     PhotoCollageBlock,
@@ -69,4 +70,5 @@ class ServiceStoryBlock(StoryBlock):
 class ServiceAreaStoryBlock(StoryBlock):
     blog_chooser = BlogChooserBlock()
     four_photo_collage = FourPhotoCollageBlock()
+    key_points = IconKeyPointsBlock(label="Key points with icons")
     work_chooser = WorkChooserBlock()

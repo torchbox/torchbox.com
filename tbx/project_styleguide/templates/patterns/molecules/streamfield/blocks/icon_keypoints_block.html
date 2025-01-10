@@ -1,0 +1,25 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div>
+    {# Section heading #}
+    <h2>{{ value.title }}</h2>
+
+    {# Section intro #}
+    <div>{{ value.intro|richtext }}</div>
+
+    {# Key points #}
+    <ul>
+        {% for key_point in value.key_points %}
+            <li>
+                <svg>
+                    <use xhref:link="#{{ key_point.icon }}"></use>
+                </svg>
+                <p>
+                    <b>Icon:</b> {{ key_point.icon }}<br>
+                    <b>Icon Label:</b> {{ key_point.icon_label }}<br>
+                    <b>Heading:</b> {{ key_point.heading }}
+                </p>
+                <div>{{ key_point.description|richtext }}</div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
