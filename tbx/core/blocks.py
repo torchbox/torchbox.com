@@ -284,7 +284,10 @@ class DynamicHeroBlock(blocks.StructBlock):
 
 
 class FourPhotoCollageBlock(blocks.StructBlock):
-    """Accepts 4 photos shown as a collage + text below. Used on the division page."""
+    """
+    Accepts 4 photos shown as a collage + text below.
+    Used on the division page and the service area page.
+    """
 
     images = blocks.ListBlock(
         ImageWithAltTextBlock(label="Photo"),
