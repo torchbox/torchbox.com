@@ -1,11 +1,20 @@
 {% load wagtailcore_tags %}
 
+{# Section heading #}
 {% if is_standard_page %}
     <h2 class="heading heading--two-b heading--light grid__heading mb-spacerMedium">{{ value.featured_blog_heading }}</h2>
 {% else %}
     {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.featured_blog_heading classes="motif-heading--two motif-heading--static  motif-heading--half-width   section-title--related-posts" %}
 {% endif %}
 
+{# Section intro #}
+{% if value.intro %}
+    <div class="rich-text">
+        {{ value.intro|richtext }}
+    </div>
+{% endif %}
+
+{# Blog posts #}
 <ul class="grid__related-posts streamfield__related-posts mb-spacerMedium lg:mb-spacerLarge">
     {% for blog_page in value.blog_pages %}
         {% pageurl blog_page.blog_index as blog_index_url %}

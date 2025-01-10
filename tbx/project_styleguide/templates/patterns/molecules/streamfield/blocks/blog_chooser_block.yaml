@@ -1,6 +1,7 @@
 context:
   value:
-    featured_blog_heading: Case studies
+    featured_blog_heading: Blog posts
+    intro: '<p>An injection of fresh ideas, and the occasional challenging opinion, to ignite your fire.</p>'
     blog_pages:
       - title: Explore the potential of AI in content management
         date: 20 Oct 2023

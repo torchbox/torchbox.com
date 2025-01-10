@@ -473,6 +473,9 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
 
 class BlogChooserBlock(blocks.StructBlock):
     featured_blog_heading = blocks.CharBlock(max_length=255)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
     blog_pages = blocks.ListBlock(
         blocks.PageChooserBlock(page_type="blog.BlogPage"),
         min_num=1,
