@@ -1,3 +1,5 @@
+from django.db import models
+
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
     ColourThemeMixin,
@@ -10,7 +12,7 @@ from wagtail.fields import RichTextField
 from wagtail.models import Page
 from wagtail.search import index
 
-from .blocks import ServiceStoryBlock
+from .blocks import ServiceAreaStoryBlock, ServiceStoryBlock
 
 
 class ServicePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
@@ -21,6 +23,39 @@ class ServicePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields
 
     content_panels = Page.content_panels + [
         FieldPanel("intro"),
+        FieldPanel("body"),
+    ]
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + NavigationFields.promote_panels
+        + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
+        + [
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+        ]
+    )
+
+    search_fields = Page.search_fields + [
+        index.SearchField("body"),
+    ]
+
+
+class ServiceAreaPage(
+    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
+):
+    template = "patterns/pages/service/service_area_page.html"
+
+    # Fields
+    subtitle = models.CharField(max_length=255)
+    body = StreamField(ServiceAreaStoryBlock())
+
+    # Panels
+
+    content_panels = Page.content_panels + [
+        FieldPanel("subtitle"),
         FieldPanel("body"),
     ]
 
