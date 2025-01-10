@@ -502,6 +502,9 @@ class BlogChooserStandardPageBlock(BlogChooserBlock):
 
 class WorkChooserBlock(blocks.StructBlock):
     featured_work_heading = blocks.CharBlock(max_length=255)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
     work_pages = blocks.ListBlock(
         blocks.PageChooserBlock(page_type=["work.WorkPage", "work.HistoricalWorkPage"]),
         min_num=1,
