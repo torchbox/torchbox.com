@@ -2,6 +2,7 @@
 <div class="contact-cta grid__contact-cta">
     {% for cta in value.call_to_action %}
         <h2 class="contact-cta__text heading heading--three heading--light">{{ cta.value.text }}</h2>
+        {% if cta.value.description %}{{ cta.value.description|richtext }}{% endif %}
     {% endfor %}
 
     {% if value.person %}
