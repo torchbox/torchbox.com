@@ -1,0 +1,17 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div>
+    {# Section heading #}
+    <h2>{{ value.title }}</h2>
+
+    {# Section intro #}
+    <div>{{ value.intro|richtext }}</div>
+
+    {# Links #}
+    <ul>
+        {% for link in value.links %}
+            <li>
+                <a href="{{ link.value.url }}">{{ link.value.text }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
