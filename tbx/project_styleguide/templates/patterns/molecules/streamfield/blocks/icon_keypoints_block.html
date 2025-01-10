@@ -13,6 +13,10 @@
                 <svg>
                     <use xhref:link="#{{ key_point.icon }}"></use>
                 </svg>
+                {% comment %}
+                    We might actually want to use icon.html:
+                    {% include "patterns/atoms/icons/icon.html" with name=key_point.icon classname=key_point.icon %}
+                {% endcomment %}
                 <p>
                     <b>Icon:</b> {{ key_point.icon }}<br>
                     <b>Icon Label:</b> {{ key_point.icon_label }}<br>
