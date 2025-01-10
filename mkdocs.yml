@@ -81,10 +81,11 @@ nav:
       - front-end/incident-form.md
   - 'Navigation': 'navigation.md'
   - 'Custom features':
-      - 'Migration-friendly StreamFields': 'custom-features/migration-friendly-streamfields.md'
-      - 'Theme': 'custom-features/theme.md'
-      - 'Modes': 'custom-features/modes.md'
       - 'Contact': 'custom-features/contact.md'
+      - 'Division': 'custom-features/divisions.md'
+      - 'Migration-friendly StreamFields': 'custom-features/migration-friendly-streamfields.md'
+      - 'Modes': 'custom-features/modes.md'
+      - 'Theme': 'custom-features/theme.md'
   - 'Continuous integration': 'continuous-integration.md'
   - 'Anonymised data': 'anonymised-data.md'
   - 'Data import': 'data-import.md'
