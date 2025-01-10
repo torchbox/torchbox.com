@@ -2,10 +2,12 @@ context:
   page:
     title: Advocacy, engagement & income
     subtitle: Create a movement around your mission.
-
-    division_label: Charity
+    # get_division will return the DivisionPage
+    get_division:
+      title: Charity
+      label: Charity
 
 tags:
   include_block:
     page.body:
-      template_name: 'patterns/molecules/streamfield/stream_block_division.html'
+      template_name: 'patterns/_pattern_library_only/streamfield/service_area_story_container.html'
