@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="grid__stats-group stats-group">
     {% if value.title %}
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading="Lighting little fires" classes="motif-heading motif-heading--two-c motif-heading--static stats-group__heading" %}
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.title classes="motif-heading motif-heading--two-c motif-heading--static stats-group__heading" %}
     {% endif %}
     {% if value.intro %}
         <div class="text text--five stats-group__intro">{{ value.intro|richtext }}</div>
