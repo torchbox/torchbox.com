@@ -1,15 +1,12 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-<div class="grid__division-signpost">
-    {# Section heading #}
+<div class="grid__stats-group stats-group">
     {% if value.title %}
-        <h2 class="heading heading--two">{{ value.title }}</h2>
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.title classes="motif-heading motif-heading--two-c motif-heading--static stats-group__heading" %}
     {% endif %}
-    {# Section intro #}
     {% if value.intro %}
-        <div class="text text--five division-signpost__intro">{{ value.intro|richtext }}</div>
+        <div class="text text--five stats-group__intro">{{ value.intro|richtext }}</div>
     {% endif %}
     {# Stats #}
     {# Not sure if the impact report page (which uses stats_numeric.html) should be affected. #}
     {% include "patterns/molecules/streamfield/blocks/stats_numeric.html" with value=value.statistics %}
 </div>
-
