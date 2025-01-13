@@ -1,6 +1,16 @@
 @use 'config' as *;
 
 .featured-services {
+    $root: &;
+
+    &__title {
+        margin-bottom: $spacer-medium;
+
+        #{$root}--with-intro & {
+            margin-bottom: $spacer-mini;
+        }
+    }
+
     &__intro {
         margin-bottom: $spacer-medium;
     }
@@ -39,10 +49,6 @@
     &__heading {
         color: var(--color--white);
         margin-bottom: $spacer-mini;
-    }
-
-    &__description {
-        color: var(--color--white);
     }
 }
 

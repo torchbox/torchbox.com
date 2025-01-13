@@ -10,7 +10,7 @@
     width: 100%;
     color: var(--color--white);
     transition: background-color $transition-quick;
-    // TODO: add default bg color for themed pages var(--color--accent) once color themes BE is ready
+    background-color: var(--color--theme-primary);
 
     @include reduced-motion() {
         transition: none;
