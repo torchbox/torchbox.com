@@ -1,5 +1,16 @@
 tags:
+  # Introduction with images block & Four photo collage block
   srcset_image:
     item.image format-webp loading="lazy" fill-{100x100} alt=item.image.alt_text:
       raw: |
         <img alt="" width="100" height="100" loading="lazy" sizes="100px" src="https://picsum.photos/100/100.webp" srcset="https://picsum.photos/100/100.webp 100w">
+  # Partners block
+  image:
+    partner_logo max-107x107 format-webp as partner_logo_image:
+      target_var: partner_logo_image
+      raw:
+        url: 'https://picsum.photos/107/107.webp'
+    partner_logo max-214x214 format-webp as partner_logo_image_retina:
+      target_var: partner_logo_image_retina
+      raw:
+        url: 'https://picsum.photos/214/214.webp'
