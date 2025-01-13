@@ -66,6 +66,7 @@ class ServiceAreaPage(
         ]
         + NavigationFields.promote_panels
         + ColourThemeMixin.promote_panels
+        + DivisionMixin.promote_panels
         + ContactMixin.promote_panels
         + [
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
