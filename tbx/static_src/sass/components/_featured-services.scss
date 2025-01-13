@@ -19,16 +19,16 @@
         display: grid;
         gap: $spacer-mini-plus;
         grid-template-columns: repeat(1, 1fr);
-    
+
         @include media-query(medium) {
             grid-template-columns: repeat(2, 1fr);
         }
-    
+
         @include media-query(large) {
             grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
         }
     }
-    
+
     &__card {
         display: flex;
         flex-direction: column;
@@ -39,16 +39,19 @@
         &:has(.button-link:hover) {
             background-color: var(--color--black);
         }
+
+        @include high-contrast-mode() {
+            border: 1px solid var(--color--text);
+        }
     }
 
     &__text {
         padding: $spacer-small;
         margin-bottom: auto;
     }
-    
+
     &__heading {
         color: var(--color--white);
         margin-bottom: $spacer-mini;
     }
 }
-
