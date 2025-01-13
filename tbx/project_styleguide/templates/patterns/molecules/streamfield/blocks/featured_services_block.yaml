@@ -1,6 +1,6 @@
 context:
   value:
-    title: Our featured services
+    title: What we do
     intro: This is an optional field. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     cards:
       - heading: Advocacy, Engagement & Income
@@ -17,7 +17,7 @@ context:
         accessible_link_text: Our services on scaling impact through Technology
 
 tags:
-  image:
-    'card.image fill-100x100':
+  srcset_image:
+    'card.image format-webp fill-{540x280,490x280} sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" alt=""':
       raw: |
-        <img alt="" height="100" src="https://picsum.photos/100/100.webp" width="100">
+        <img alt="" height="280" sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" src="https://picsum.photos/540/280.webp" srcset="https://picsum.photos/540/280.webp 540w, https://picsum.photos/490/280.webp 490w" width="540">

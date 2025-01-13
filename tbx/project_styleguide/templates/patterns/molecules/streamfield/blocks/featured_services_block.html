@@ -1,22 +1,26 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-<div>
+<div class="grid__featured-services">
     {# Section heading #}
-    <h2>{{ value.title }}</h2>
-
+    {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.title classes="motif-heading--two motif-heading--static featured-services__title" %}
     {# Section intro #}
-    <div>{{ value.intro|richtext }}</div>
-
-    {# Signposting cards #}
-    <ul>
+    {% if value.intro %}
+    <div class="text text--five featured-services__intro">{{ value.intro|richtext }}</div>
+    {% endif %}
+    {# Featured services cards #}
+    <ul class="featured-services__cards featured-services__cards">
         {% for card in value.cards %}
-            <li class="{{ card.card_colour }}">
-                {% firstof card.heading card.page.title %}
-                {{ card.description|richtext }}
-                {% image card.image fill-100x100 %}
+            <li class="featured-services__card">
+                {% srcset_image card.image format-webp fill-{540x280,490x280} sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" alt="" %}
+                <div class="featured-services__text">
+                <h3 class="heading heading--two-b featured-services__heading">{% firstof card.heading card.page.title %}</h3>
+                <div class="text text--seven featured-services__description">{{ card.description|richtext }}</div>
+                </div>
+                {# The title and icon need to be on the same line with no whitespace to prevent the arrow being orphaned on a new line #}
                 <a href="{% pageurl card.page %}"
+                class="button-link"
                    {% if card.accessible_link_text %}aria-label="{{ card.accessible_link_text }}"{% endif %}
                 >
-                    {{ card.link_text }}
+                    {{ card.link_text }}&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="button-link__arrow" %}
                 </a>
             </li>
         {% endfor %}
