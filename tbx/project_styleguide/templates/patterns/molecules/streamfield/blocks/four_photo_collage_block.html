@@ -5,12 +5,12 @@
         <div class="four-photo-collage__container">
             {% for item in value.images %}
                 <div class="four-photo-collage__image-wrapper four-photo-collage__image-wrapper--{{ forloop.counter }}">
-                    {% srcset_image item.image format-webp loading="lazy" fill-{500x500,600x600} sizes="(max-width: 1022px) 600px, 500px" class="four-photo-collage__image" alt=item.image.alt_text %}
+                    {% srcset_image item.image format-webp loading="lazy" fill-{500x500,600x600} sizes="(max-width: 1022px) 600px, 500px" class="four-photo-collage__image" alt=item.alt_text %}
                 </div>
             {% endfor %}
         </div>
     </div>
     {% if value.caption %}
-        <div class="heading heading--three heading--light four-photo-collage__caption">{{ value.caption|richtext }}</div>
+        <div class="heading heading--three heading--light four-photo-collage__caption rich-text">{{ value.caption|richtext }}</div>
     {% endif %}
 </div>

@@ -26,6 +26,8 @@
         display: flex;
         column-gap: 10px;
         height: 270px;
+        // calculated based on the total width of the images rendered at the correct aspect ratio plus the 10px gap
+        aspect-ratio: 1946 / 403;
 
         @include media-query(small) {
             height: 370px;
@@ -61,7 +63,7 @@
         }
 
         // Some browsers seem to need the aspect ratio set explicitly on each image wrapper at mobile
-        // but this needs unsetting at desltop
+        // but this needs unsetting at desktop
         &--1 {
             aspect-ratio: 4 / 3;
 

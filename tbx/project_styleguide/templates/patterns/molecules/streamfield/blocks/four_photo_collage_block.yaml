@@ -9,6 +9,6 @@ context:
 
 tags:
   srcset_image:
-    'item.image format-webp loading="lazy" fill-{500x500,600x600} sizes="(max-width: 1022px) 600px, 500px" class="four-photo-collage__image" alt=item.image.alt_text':
+    'item.image format-webp loading="lazy" fill-{500x500,600x600} sizes="(max-width: 1022px) 600px, 500px" class="four-photo-collage__image" alt=item.alt_text':
       raw: |
         <img alt="" width="500" height="500" loading="lazy" class="four-photo-collage__image" sizes="(max-width: 1022px) 600px, 500px" src="https://picsum.photos/500/500.webp" srcset="https://picsum.photos/500/500.webp 500w, https://picsum.photos/600/600.webp 600w">
