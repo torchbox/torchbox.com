@@ -10,7 +10,6 @@ from django.forms.utils import ErrorList
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils.translation import gettext as _
 
 from tbx.images.models import CustomImage
 from wagtail import blocks
@@ -271,7 +270,7 @@ class DynamicHeroBlock(blocks.StructBlock):
     static_text = blocks.CharBlock(required=False)
     dynamic_text = blocks.ListBlock(
         blocks.CharBlock(),
-        help_text=_(
+        help_text=(
             "The hero will cycle through these texts on larger screen sizes "
             "and only show the first text on smaller screen sizes."
         ),
@@ -291,7 +290,7 @@ class FourPhotoCollageBlock(blocks.StructBlock):
         min_num=4,
         max_num=4,
         label="Photos",
-        help_text=_("Exactly four required."),
+        help_text="Exactly four required.",
         default=[{"image": None, "alt_text": ""}] * 4,
     )
     caption = blocks.RichTextBlock(
@@ -319,7 +318,7 @@ class IntroductionWithImagesBlock(blocks.StructBlock):
         min_num=2,
         max_num=2,
         label="Photos",
-        help_text=_("Exactly two required."),
+        help_text="Exactly two required.",
         default=[{"image": None, "alt_text": ""}] * 2,
     )
 
