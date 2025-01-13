@@ -17,10 +17,10 @@
     .text-coral {
         @include media-query(large) {
             @include link-styles(
-                $color: var(--color--coral-charity),
-                $interaction-color: var(--color--coral-charity),
-                $underline-color: var(--color--coral-charity),
-                $underline-hover-color: var(--color--coral-charity)
+                $color: var(--color--coral),
+                $interaction-color: var(--color--coral),
+                $underline-color: var(--color--coral),
+                $underline-hover-color: var(--color--coral)
             );
         }
     }
@@ -28,10 +28,10 @@
     .text-nebuline {
         @include media-query(large) {
             @include link-styles(
-                $color: var(--color--nebuline-public),
-                $interaction-color: var(--color--nebuline-public),
-                $underline-color: var(--color--nebuline-public),
-                $underline-hover-color: var(--color--nebuline-public)
+                $color: var(--color--nebuline),
+                $interaction-color: var(--color--nebuline),
+                $underline-color: var(--color--nebuline),
+                $underline-hover-color: var(--color--nebuline)
             );
         }
     }
