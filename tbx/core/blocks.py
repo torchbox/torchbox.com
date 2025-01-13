@@ -296,7 +296,7 @@ class FourPhotoCollageBlock(blocks.StructBlock):
     caption = blocks.RichTextBlock(
         features=settings.PARAGRAPH_RICH_TEXT_FEATURES, required=False
     )
-    small_caption = blocks.RichTextBlock(
+    description = blocks.RichTextBlock(
         features=settings.PARAGRAPH_RICH_TEXT_FEATURES, required=False
     )
 
