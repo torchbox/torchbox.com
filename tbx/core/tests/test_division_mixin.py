@@ -6,27 +6,26 @@ from wagtail.test.utils import WagtailPageTestCase
 
 
 class TestDivisionMixin(WagtailPageTestCase):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
 
         # Set up the site & homepage.
         site = Site.objects.get(is_default_site=True)
         root = site.root_page.specific
-        self.home = HomePageFactory(parent=root)
+        cls.home = HomePageFactory(parent=root)
 
-        site.root_page = self.home
+        site.root_page = cls.home
         site.save()
 
         # Set up a services "index" page.
-        self.services = ServiceAreaPageFactory(title="Services", parent=self.home)
-        self.service_1 = ServiceAreaPageFactory(title="Service 1", parent=self.services)
-        self.service_2 = ServiceAreaPageFactory(
-            title="Service 2", parent=self.service_1
-        )
+        cls.services = ServiceAreaPageFactory(title="Services", parent=cls.home)
+        cls.service_1 = ServiceAreaPageFactory(title="Service 1", parent=cls.services)
+        cls.service_2 = ServiceAreaPageFactory(title="Service 2", parent=cls.service_1)
 
         # Set up a division page.
-        self.division_1 = DivisionPageFactory(parent=self.home)
-        self.division_2 = DivisionPageFactory(title="Public sector", parent=self.home)
+        cls.division_1 = DivisionPageFactory(parent=cls.home)
+        cls.division_2 = DivisionPageFactory(title="Public sector", parent=cls.home)
 
     def test_division_selected(self):
         """
