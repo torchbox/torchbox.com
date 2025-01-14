@@ -47,8 +47,10 @@ class ServicePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields
 class ServiceAreaPage(
     ColourThemeMixin, ContactMixin, DivisionMixin, SocialFields, NavigationFields, Page
 ):
-    page_description = "A group of services"
+    page_description = "A group of services for a division"
     template = "patterns/pages/service/service_area_page.html"
+
+    parent_page_types = ["divisions.DivisionPage"]
 
     # Fields
     subtitle = models.CharField(max_length=255)
