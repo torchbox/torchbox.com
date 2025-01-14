@@ -1,17 +1,7 @@
 @use 'config' as *;
 
 .featured-services {
-    $root: &;
-
-    &__title {
-        margin-bottom: $spacer-medium;
-
-        #{$root}--with-intro & {
-            margin-bottom: $spacer-mini;
-        }
-    }
-
-    &__intro {
+    &__header {
         margin-bottom: $spacer-medium;
     }
 
@@ -46,12 +36,17 @@
     }
 
     &__text {
-        padding: $spacer-small;
+        padding: $spacer-small-plus $spacer-small $spacer-medium;
         margin-bottom: auto;
     }
 
     &__heading {
         color: var(--color--white);
         margin-bottom: $spacer-mini;
+    }
+
+    // override the rich-text font-size
+    &__description.rich-text {
+        @include font-size(size-seven);
     }
 }
