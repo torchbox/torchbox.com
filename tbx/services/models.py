@@ -47,6 +47,7 @@ class ServicePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields
 class ServiceAreaPage(
     ColourThemeMixin, ContactMixin, DivisionMixin, SocialFields, NavigationFields, Page
 ):
+    page_description = "A group of services"
     template = "patterns/pages/service/service_area_page.html"
 
     # Fields
