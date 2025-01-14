@@ -15,7 +15,7 @@ The available options are dependent on the `DivisionPage`s that have been create
 The `tbx.core.utils.models.DivisionMixin` provides a mechanism for associating a specific division with a page. It offers the following functionality:
 
 - `division` field: Adds a ForeignKey field to associate a specific division with a page.
-- `get_division`: A method that determines the appropriate division to associate to a page. It first checks if the page has a `division` specified. If not, it traverses the page's ancestors to find the first page that either has a `division` specified or is a `DivisionPage`, defaulting to `None`.
+- `final_division`: A cached property that determines the appropriate division to associate to a page. It first checks if the page has a `division` specified. If not, it traverses the page's ancestors to find the first page that either has a `division` specified or is a `DivisionPage`, defaulting to `None`.
 
 ---
 

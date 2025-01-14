@@ -147,7 +147,8 @@ class DivisionMixin(models.Model):
         on_delete=models.SET_NULL,
     )
 
-    def get_division(self):
+    @cached_property
+    def final_division(self):
         """
         Returns a DivisionPage.
 

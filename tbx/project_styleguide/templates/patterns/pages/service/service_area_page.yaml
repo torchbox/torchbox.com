@@ -2,8 +2,8 @@ context:
   page:
     title: Advocacy, engagement & income
     subtitle: Create a movement around your mission.
-    # get_division will return the DivisionPage
-    get_division:
+    # final_division will return the DivisionPage
+    final_division:
       title: Charity
       label: Charity
 
