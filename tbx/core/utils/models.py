@@ -167,7 +167,11 @@ class DivisionMixin(models.Model):
         try:
             return next(
                 getattr(p, "division", None) or p
-                for p in self.get_ancestors().specific().order_by("-depth")
+                for p in self.get_ancestors()
+                .filter(depth__gt=2)
+                .specific()
+                .defer_streamfields()
+                .order_by("-depth")
                 if isinstance(getattr(p, "division", None) or p, DivisionPage)
             )
         except StopIteration:
