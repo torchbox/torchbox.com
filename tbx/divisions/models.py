@@ -19,6 +19,8 @@ class DivisionPage(
 ):
     template = "patterns/pages/divisions/division_page.html"
 
+    parent_page_types = ["torchbox.HomePage"]
+
     label = models.CharField(blank=True, max_length=50)
 
     hero = StreamField([("hero", DynamicHeroBlock())], max_num=1, min_num=1)
