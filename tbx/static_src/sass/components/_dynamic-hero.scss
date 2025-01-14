@@ -1,0 +1,7 @@
+@use 'config' as *;
+
+// Set vendor component size https://swiperjs.com/get-started#swiper-css-stylessize
+.dynamic-hero {
+    width: 600px;
+    height: 600px;
+}

@@ -1,11 +1,11 @@
-<div>
-    {% if value.static_text %}<span>{{ value.static_text }}</span>{% endif %}
+<div data-dynamic-hero class="swiper dynamic-hero">
+    {% if value.static_text %}<span class="heading heading--three heading--light">{{ value.static_text }}</span>{% endif %}
     {% if value.dynamic_text %}
         {% if value.dynamic_text|length > 1 %}
             {# If there's more than one dynamic text, show the controls for the loop. #}
-            <ul>
+            <ul class="swiper-wrapper">
                 {% for text in value.dynamic_text %}
-                    <li>{{ text }}</li>
+                    <li class="swiper-slide heading heading--mega">{{ text }}</li>
                 {% endfor %}
             </ul>
         {% else %}
