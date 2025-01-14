@@ -109,6 +109,16 @@
         }
     }
 
+    &__division-signpost,
+    &__featured-services {
+        grid-column: 2 / span 4;
+        margin-bottom: $spacer;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+    }
+
     &__wide-image {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 5;
@@ -320,15 +330,6 @@
 
     &__cookie-message {
         grid-column: 2 / span 4;
-
-        @include media-query(large) {
-            grid-column: 2 / span 12;
-        }
-    }
-
-    &__division-signpost {
-        grid-column: 2 / span 4;
-        margin-bottom: $spacer;
 
         @include media-query(large) {
             grid-column: 2 / span 12;
