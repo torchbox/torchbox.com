@@ -1,7 +1,7 @@
 @use 'config' as *;
 
 .call-to-action {
-    background-color: var(--color--streamfield-background);
+    background-color: var(--color--theme-primary);
     padding: $spacer-small;
 
     @include media-query(large) {
@@ -18,8 +18,8 @@
     }
 
     &__text {
-        @include font-size(size-three);
-        color: var(--color--heading);
+        color: var(--color--white);
+        margin-bottom: $spacer-small;
         max-width: $streamfield-content-width;
     }
 

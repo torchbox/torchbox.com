@@ -1,12 +1,15 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="contact-cta grid__contact-cta">
+    <div class="contact-cta__text">
     {% for cta in value.call_to_action %}
-        <h2 class="contact-cta__text heading heading--three heading--light">{{ cta.value.text }}</h2>
-        {% if cta.value.description %}{{ cta.value.description|richtext }}{% endif %}
+        <h2 class="heading heading--two-b">{{ cta.value.text }}</h2>
+        {% if cta.value.description %}
+        <div class="rich-text">{{ cta.value.description|richtext }}</div>
+        {% endif %}
     {% endfor %}
-
+    </div>
     {% if value.person %}
-        {% include "patterns/atoms/avatar/avatar.html" with avatar=value.person.image classes="contact-cta__avatar avatar--small" %}
+        {% include "patterns/atoms/avatar/avatar.html" with avatar=value.person.image classes="contact-cta__avatar" %}
     {% endif %}
 
     {% if value.person %}

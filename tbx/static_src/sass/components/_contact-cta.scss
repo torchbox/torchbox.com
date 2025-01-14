@@ -1,12 +1,15 @@
 @use 'config' as *;
 
 .contact-cta {
+    background-color: var(--color--theme-primary);
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+    padding: $spacer-medium $spacer-medium $spacer-medium $spacer-small-plus;
 
     &__text {
+        color: var(--color--white); 
         grid-column: 1 / span 11;
-        margin-bottom: $spacer-mini-plus;
+        margin-bottom: $spacer-small;
 
         @include media-query(large) {
             grid-column: 2 / span 10;
@@ -24,35 +27,37 @@
         }
     }
 
-    &__name {
-        color: var(--color--heading);
-        display: block;
-        font-weight: $weight--semibold;
-    }
-
     &__cite {
-        margin-top: ($spacer-mini-plus * 0.5);
+        display: flex;
+        gap: $spacer-mini;
         font-style: normal;
         grid-column: 3 / span 10;
 
         @include media-query(large) {
             margin-top: 0;
-            grid-row: 2;
             grid-column: 2 / span 5;
         }
+    }
+
+    &__name {
+        color: var(--color--white);
+        display: block;
+        font-weight: $weight--semibold;
+    }
+
+    &__role {
+        color: var(--color--black);
     }
 
     &__button {
         grid-column: 1 / span 12;
         margin-top: $spacer-small;
-        margin-right: auto;
 
         @include media-query(large) {
             grid-row: 2;
             grid-column: 9 / span 4;
             margin-top: 0;
             margin-left: auto;
-            margin-right: $spacer-medium;
         }
     }
 }
