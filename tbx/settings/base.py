@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "scout_apm.django",
     "tbx.blog",
     "tbx.core.apps.TorchboxCoreAppConfig",
+    "tbx.divisions",
     "tbx.events",
     "tbx.impact_reports",
     "tbx.navigation",
@@ -646,6 +647,7 @@ DEFAULT_RICH_TEXT_FEATURES = [
     "document-link",
 ]
 NO_HEADING_RICH_TEXT_FEATURES = ["bold", "italic", "ul", "ol", "link", "document-link"]
+PARAGRAPH_RICH_TEXT_FEATURES = ["bold", "italic", "link", "document-link"]
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
     "default": {
         "WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea",

@@ -66,6 +66,8 @@ mkdocs-material = "^9.5.41"
 pymdown-extensions = "^10.11.2"
 
 # Testing
+factory-boy = "^3.3.0"
+faker = "^24.11.0"
 wagtail-factories = "^4.2.1"
 
 

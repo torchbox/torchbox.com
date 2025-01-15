@@ -1,13 +1,30 @@
 import factory
 import wagtail_factories
-from tbx.core.blocks import StoryBlock
+from faker import Faker
+from tbx.core.blocks import DynamicHeroBlock, StoryBlock
 from tbx.core.models import HomePage, StandardPage
-from wagtail.blocks import RichTextBlock
+from wagtail import blocks
+
+fake = Faker()
+
+
+class DynamicHeroBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = DynamicHeroBlock
+
+    static_text = fake.sentence()
+
+    @factory.post_generation
+    def dynamic_text(obj, create, extracted, **kwargs):
+        values = extracted or fake.sentences(nb=5)
+        obj["dynamic_text"] = blocks.list_block.ListValue(
+            blocks.ListBlock(blocks.CharBlock()), values
+        )
 
 
 class RichTextBlockFactory(wagtail_factories.blocks.BlockFactory):
     class Meta:
-        model = RichTextBlock
+        model = blocks.RichTextBlock
 
 
 class StoryBlockFactory(wagtail_factories.StreamBlockFactory):
