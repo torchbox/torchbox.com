@@ -270,7 +270,7 @@ class DynamicHeroBlock(blocks.StructBlock):
 
     static_text = blocks.CharBlock(required=False)
     dynamic_text = blocks.ListBlock(
-        blocks.CharBlock(),
+        blocks.CharBlock(max_length=45),
         help_text=_(
             "The hero will cycle through these texts on larger screen sizes "
             "and only show the first text on smaller screen sizes."

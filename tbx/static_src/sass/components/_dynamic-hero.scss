@@ -1,7 +1,37 @@
 @use 'config' as *;
 
-// Set vendor component size https://swiperjs.com/get-started#swiper-css-stylessize
+// Set fixed height to prevent Swiper's infinite height issue https://swiperjs.com/get-started#swiper-css-stylessize
 .dynamic-hero {
-    width: 600px;
-    height: 600px;
+    .swiper {
+        max-height: 600px;
+    }
+
+    .swiper-slide {
+        padding-bottom: 60px;
+    }
+
+    &__controls {
+        display: flex;
+    }
+
+    &__control {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        width: 40px;
+
+        &--prev {
+            transform: rotate(90deg);
+        }
+
+        &--next {
+            transform: rotate(-90deg);
+        }
+
+        &--pause {
+            height: 40px;
+            width: 40px;
+        }
+    }
 }

@@ -1,15 +1,22 @@
-<div data-dynamic-hero class="swiper dynamic-hero">
+<div data-dynamic-hero class="dynamic-hero">
     {% if value.static_text %}<span class="heading heading--three heading--light">{{ value.static_text }}</span>{% endif %}
     {% if value.dynamic_text %}
         {% if value.dynamic_text|length > 1 %}
-            {# If there's more than one dynamic text, show the controls for the loop. #}
-            <ul class="swiper-wrapper">
-                {% for text in value.dynamic_text %}
-                    <li class="swiper-slide heading heading--mega">{{ text }}</li>
-                {% endfor %}
-            </ul>
+            {# If there's more than one dynamic text, show Swiper carousel structure and controls for the loop. #}
+            <div class="swiper">
+                <ul class="swiper-wrapper">
+                    {% for text in value.dynamic_text %}
+                        <li class="swiper-slide heading heading--mega">{{ text }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="dynamic-hero__controls">
+                <button class="swiper-button-prev dynamic-hero__control" aria-label="Previous slide" data-dynamic-hero-prev>{% include "patterns/atoms/icons/icon.html" with name="chevron" classname="dynamic-hero__control--prev" %}</button>
+                <button class="swiper-button-pause dynamic-hero__control" aria-label="Pause autoplay" data-dynamic-hero-pause>{% include "patterns/atoms/icons/icon.html" with name="pause" classname="dynamic-hero__control--pause" %}</button>
+                <button class="swiper-button-next dynamic-hero__control" aria-label="Next slide" data-dynamic-hero-next>{% include "patterns/atoms/icons/icon.html" with name="chevron" classname="dynamic-hero__control--next" %}</button>
+            </div>
         {% else %}
-            {# If there's only one dynamic text, don't show the controls for the loop. #}
+            {# If there's only one dynamic text, don't show Swiper carousel structure and controls for the loop. #}
             {% for text in value.dynamic_text %}
                 <span>{{ text }}</span>
             {% endfor %}
