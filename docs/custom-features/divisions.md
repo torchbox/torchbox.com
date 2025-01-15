@@ -4,7 +4,7 @@ The site's target audience can be grouped into divisions; e.g. the charity divis
 
 The idea is that if you're a charity organisation, you can find content that's specific and relevant for you because the relevant content will all be in one place.
 
-This feature allows content to be associated to a specific `DivisionPage`, which allows us to display the same theme, logo and navigation for any content related to a division.
+This feature allows content to be associated to a specific `DivisionPage`, which allows us to display the same theme, logo and navigation for any content related to a division. (Because of this, a page should only have one associated division.)
 
 ## Options
 
