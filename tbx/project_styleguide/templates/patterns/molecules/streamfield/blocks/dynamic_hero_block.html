@@ -7,7 +7,8 @@
                 <ul class="swiper-wrapper">
                     {% for text in value.dynamic_text %}
                         <li class="swiper-slide">
-                            <h3 class="heading heading--mega">{{ text }}</h3>
+                            {# Fixed px values required to control the font size for all browsers and prevent slide overflow#}
+                            <h3 class="heading heading--mega text-[60px] lg:text-[100px]">{{ text }}</h3>
                         </li>
                     {% endfor %}
                 </ul>
