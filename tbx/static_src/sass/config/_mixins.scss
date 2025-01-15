@@ -124,7 +124,7 @@
     $shadow: false,
     $underline-hover-color: $color
 ) {
-    outline: $focus-width solid var(--color--focus-ring);
+    outline: $focus-width solid var(--color--theme-primary);
     text-decoration-thickness: $link-underline-thickness-interaction;
     text-decoration-color: $underline-hover-color;
 
@@ -343,23 +343,23 @@
     }
 }
 
-@mixin ring-one($top: 8px, $color: var(--color--accent-three)) {
+@mixin ring-one($top: 8px, $color: var(--color--theme-primary)) {
     top: $top;
     color: $color;
 }
 
-@mixin ring-two($top: 8px, $color: var(--color--accent-two)) {
+@mixin ring-two($top: 8px, $color: var(--color--theme-secondary)) {
     left: $top;
     color: $color;
 }
 
 @mixin ring-one-hover() {
-    color: var(--color--accent-two);
+    color: var(--color--theme-secondary);
     opacity: 1;
 }
 
 @mixin ring-two-hover() {
-    color: var(--color--accent-three);
+    color: var(--color--theme-primary);
     opacity: 1;
 }
 

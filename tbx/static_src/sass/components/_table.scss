@@ -19,12 +19,12 @@
 
     &__cell {
         padding: $spacer-mini-plus;
-        border: 1px solid var(--color--light-background);
+        border: 1px solid var(--color--theme-primary-light);
         text-align: left;
 
         &--heading {
             @include font-size(size-five);
-            background-color: var(--color--light-background);
+            background-color: var(--color--theme-primary-light);
             color: var(--color--light-background-text);
         }
 

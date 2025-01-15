@@ -8,6 +8,5 @@ context:
 
 tags:
   srcset_image:
-    item.image format-webp loading="lazy" fill-{100x100} alt=item.image.alt_text:
-      raw: |
-        <img alt="" width="100" height="100" loading="lazy" sizes="100px" src="https://picsum.photos/100/100.webp" srcset="https://picsum.photos/100/100.webp 100w">
+    'item.image format-webp loading="lazy" fill-{200x300,400x600,600x900} sizes="(max-width: 598px) 150px, (max-width: 799px) 300px, 700px" class="intro-with-images__image" alt=item.image_alt_text':
+      raw: '<img alt="alt" class="intro-with-images__image" height="225" sizes="(max-width: 598px) 150px, (max-width: 799px) 300px, 700px" src="https://picsum.photos/200/300.webp" srcset="https://picsum.photos/200/300.webp 200w, https://picsum.photos/400/600.webp 400w, https://picsum.photos/600/900.webp 600w" width="200">'

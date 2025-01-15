@@ -4,7 +4,7 @@
 {% block content %}
     <div class="grid grid--spacer-large streamfield">
         <div class="grid__title">
-            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.title classes="motif-heading--one" %}
+            <h1 class="heading heading--mega">{{ page.title }}</h1>
         </div>
 
         {% if page.intro %}

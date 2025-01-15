@@ -3,12 +3,16 @@
 
 {% block content %}
 
-    <p>Title: {{ page.title }}</p>
+    <div class="grid grid--spacer-large streamfield">
+        <div class="grid__title">
+            <h1 class="heading heading--mega">{{ page.title }}</h1>
 
-    <p>Label for logo: {{ page.label }}</p>
+            <p>{{ page.label }}</p>
+        </div>
 
-    {% include_block page.hero %}
+        <div class="grid__title">{% include_block page.hero %}</div>
 
-    {% include_block page.body %}
+        {% include_block page.body %}
+    </div>
 
 {% endblock content %}
