@@ -40,7 +40,7 @@ class TestBlogIndexPageFactory(WagtailPageTestCase):
         """Checks that the blog_posts property returns public and published blog posts under the given blog index."""
         another_blog = BlogIndexPageFactory(title="Tech blog")
         BlogPageFactory(title="Tech blog", parent=another_blog)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             self.blog_index.blog_posts, BlogPage.objects.filter(pk=self.blog_post.pk)
         )
 

@@ -16,7 +16,7 @@ RUN npm run build:prod
 # ones becase they use a different C compiler. Debian images also come with
 # all useful packages required for image manipulation out of the box. They
 # however weight a lot, approx. up to 1.5GiB per built image.
-FROM python:3.11 AS production
+FROM python:3.13 as production
 
 ARG POETRY_INSTALL_ARGS="--no-dev"
 
@@ -71,7 +71,7 @@ USER tbx
 # Install your app's Python requirements.
 RUN python -m venv $VIRTUAL_ENV
 COPY --chown=tbx pyproject.toml poetry.lock ./
-RUN pip install --no-cache --upgrade pip && poetry install ${POETRY_INSTALL_ARGS} --no-root --extras gunicorn && rm -rf $HOME/.cache
+RUN pip install --no-cache --upgrade pip && poetry install ${POETRY_INSTALL_ARGS} --no-root && rm -rf $HOME/.cache
 
 COPY --chown=tbx --from=frontend ./tbx/static_compiled ./tbx/static_compiled
 
