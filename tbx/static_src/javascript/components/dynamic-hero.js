@@ -36,14 +36,7 @@ export default class DynamicHero {
             loop: true,
             autoplay: {
                 delay: 5000,
-                enabled: false,
-            },
-            breakpoints: {
-                1023: {
-                    autoplay: {
-                        enabled: !isReduced,
-                    },
-                },
+                enabled: !isReduced,
             },
         });
 
