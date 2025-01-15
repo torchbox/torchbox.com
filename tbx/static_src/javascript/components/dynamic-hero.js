@@ -14,27 +14,19 @@ export default class DynamicHero {
         this.nextButton = this.node.querySelector('[data-dynamic-hero-next]');
         this.prevButton = this.node.querySelector('[data-dynamic-hero-prev]');
         this.pauseButton = this.node.querySelector('[data-dynamic-hero-pause]');
-        this.calculateSwiperHeight();
-        this.initSwiper();
-        this.addResizeListener();
+        this.playButton = this.node.querySelector('[data-dynamic-hero-play]');
+        this.bindEvents();
     }
 
-    calculateSwiperHeight() {
-        let maxHeight = 0;
-
-        this.slides.forEach((slide) => {
-            const { height } = slide.getBoundingClientRect();
-            maxHeight = Math.max(maxHeight, height);
-        });
-
-        // Add 60px to the max height to account for the padding-bottom
-        this.swiperContainer.style.height = `${maxHeight + 60}px`;
-    }
-
-    initSwiper() {
+    bindEvents() {
         if (!this.swiperContainer) {
             return;
         }
+
+        // Check if the user prefers reduced motion - don't autoplay if they do
+        const isReduced =
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches ===
+            true;
 
         this.swiper = new Swiper(this.swiperContainer, {
             modules: [Autoplay],
@@ -49,7 +41,7 @@ export default class DynamicHero {
             breakpoints: {
                 1023: {
                     autoplay: {
-                        enabled: true,
+                        enabled: !isReduced,
                     },
                 },
             },
@@ -72,17 +64,12 @@ export default class DynamicHero {
                 this.swiper.autoplay.stop(),
             );
         }
-    }
 
-    addResizeListener() {
-        window.addEventListener('resize', () => {
-            this.calculateSwiperHeight();
-            this.initSwiper();
-        });
+        if (this.playButton) {
+            this.playButton.addEventListener('click', () => {
+                this.swiper.autoplay.start();
+                this.swiper.slideNext();
+            });
+        }
     }
-
-    /*     // Check if the user prefers reduced motion - only use smooth scroll if they don't
-    const isReduced =
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches ===
-    true; */
 }
