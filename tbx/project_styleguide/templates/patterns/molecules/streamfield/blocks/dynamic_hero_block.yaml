@@ -1,0 +1,7 @@
+context:
+  value:
+    static_text: We help charities and nonprofits
+    dynamic_text:
+      - 'future-proof your funding streams.'
+      - 'transform lives through digital innovation.'
+      - 'increase supporter acquisition and retention.'

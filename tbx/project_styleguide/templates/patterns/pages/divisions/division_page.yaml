@@ -1,0 +1,13 @@
+context:
+  page:
+    title: Charity
+    label: Charity
+
+tags:
+  include_block:
+    page.hero:
+      template_name: 'patterns/molecules/streamfield/blocks/dynamic_hero_block.html'
+    page.introduction:
+      template_name: 'patterns/molecules/streamfield/blocks/introduction_section_block.html'
+    page.body:
+      template_name: 'patterns/_pattern_library_only/streamfield/division_story_container.html'

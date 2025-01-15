@@ -1,0 +1,15 @@
+context:
+  value:
+    caption: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>'
+    description: '<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>'
+    images:
+      - image:
+      - image:
+      - image:
+      - image:
+
+tags:
+  srcset_image:
+    'item.image format-webp loading="lazy" fill-{500x500,600x600} sizes="(max-width: 1022px) 600px, 500px" class="four-photo-collage__image" alt=item.alt_text':
+      raw: |
+        <img alt="" width="500" height="500" loading="lazy" class="four-photo-collage__image" sizes="(max-width: 1022px) 600px, 500px" src="https://picsum.photos/500/500.webp" srcset="https://picsum.photos/500/500.webp 500w, https://picsum.photos/600/600.webp 600w">
