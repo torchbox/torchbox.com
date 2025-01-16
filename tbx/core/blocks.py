@@ -1,7 +1,6 @@
 import logging
 from collections import defaultdict
 from datetime import datetime
-from typing import Optional
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -681,7 +680,7 @@ class EventLinkStructValue(ButtonLinkStructValue):
             return timezone.make_aware(datetime.combine(start_date, start_time))
         return timezone.make_aware(datetime.combine(start_date, datetime.min.time()))
 
-    def get_end_date_time(self) -> Optional[datetime]:
+    def get_end_date_time(self) -> datetime | None:
         end_date = self.get("end_date")
         end_time = self.get("end_time")
         if end_date and end_time:
