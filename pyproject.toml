@@ -6,7 +6,7 @@ authors = ["Torchbox Ltd"]
 
 [tool.poetry.dependencies]
 python = "^3.13"
-Django = "~5.1"
+Django = "~5.1.5"
 wagtail = "~6.3"
 psycopg = "^3.2.3"
 gunicorn = "^23.0.0"
