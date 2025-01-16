@@ -18,7 +18,7 @@ from storages.backends.s3 import S3Storage
 @hooks.register("before_serve_document", order=100)
 def serve_document_from_s3(document, request):
     # Skip this hook if not using django-storages boto3 backend.
-    if not issubclass(default_storage, S3Storage):
+    if not isinstance(default_storage, S3Storage):
         return
 
     # Send document_served signal.
