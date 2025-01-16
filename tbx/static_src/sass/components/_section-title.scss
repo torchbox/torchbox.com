@@ -2,13 +2,12 @@
 
 .section-title {
     &--related-posts {
-        margin-bottom: $spacer-small;
+        margin-bottom: $spacer-mini;
         margin-top: $spacer-medium;
         grid-column: 2 / span 4;
 
         @include media-query(large) {
             margin-top: $spacer-medium;
-            margin-bottom: $spacer-medium;
             grid-column: 2 / span 12;
         }
 
