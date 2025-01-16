@@ -1,0 +1,74 @@
+@use 'config' as *;
+
+.intro-with-images {
+    display: grid;
+    gap: $spacer-medium;
+
+    @include media-query(large) {
+        grid-template-columns: 1fr 1fr;
+        margin-right: -20px; // extend outside the grid
+    }
+
+    @include media-query(x-large) {
+        gap: $spacer-large;
+    }
+
+    &__collage {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: $spacer-mini-plus;
+
+        @include media-query(medium) {
+            max-width: 80vw;
+        }
+
+        @include media-query(large) {
+            grid-column: 2 / span 1;
+        }
+    }
+
+    &__image {
+        width: 100%;
+
+        &:first-child {
+            margin-top: $spacer-small-plus;
+
+            @include media-query(large) {
+                margin-top: $spacer-medium;
+            }
+        }
+
+        &:last-child {
+            margin-bottom: $spacer-small-plus;
+
+            @include media-query(large) {
+                margin-bottom: $spacer-medium;
+            }
+        }
+    }
+
+    &__text {
+        margin: 0 $spacer-small;
+        display: flex;
+        flex-direction: column;
+        gap: $spacer-small-plus;
+
+        @include media-query(large) {
+            margin: $spacer-half 0 0;
+            grid-column: 1 / span 1;
+            grid-row: 1;
+        }
+    }
+
+    &__title {
+        a {
+            // override rich text link color styles
+            .rich-text & {
+                @include link-styles(
+                    var(--color--heading),
+                    var(--color--heading)
+                );
+            }
+        }
+    }
+}
