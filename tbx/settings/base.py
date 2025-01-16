@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "scout_apm.django",
     "tbx.blog",
     "tbx.core.apps.TorchboxCoreAppConfig",
+    "tbx.divisions",
     "tbx.events",
     "tbx.impact_reports",
     "tbx.navigation",
@@ -172,7 +173,13 @@ STATICFILES_DIRS = [os.path.join(PROJECT_DIR, "static_compiled")]
 
 STATIC_ROOT = env.get("STATIC_DIR", os.path.join(BASE_DIR, "static"))
 STATIC_URL = env.get("STATIC_URL", "/static/")
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    },
+}
 
 # Place static files that need a specific URL (such as robots.txt and favicon.ico) in the "public" folder
 WHITENOISE_ROOT = os.path.join(BASE_DIR, "public")
@@ -187,7 +194,7 @@ MEDIA_PREFIX = env.get("MEDIA_PREFIX", "")
 # Server-side cache settings. Do not confuse with front-end cache.
 # https://docs.djangoproject.com/en/stable/topics/cache/
 # If the server has a Redis instance exposed via a URL string in the REDIS_URL
-# environment variable, prefer that. Otherwise use the database backend. We
+# environment variable, prefer that. Otherwise, use the database backend. We
 # usually use Redis in production and database backend on staging and dev. In
 # order to use database cache backend you need to run
 # "django-admin createcachetable" to create a table for the cache.
@@ -244,7 +251,8 @@ WAGTAILSEARCH_BACKENDS = {
 
 # S3 configuration
 if "AWS_STORAGE_BUCKET_NAME" in env:
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    STORAGES["default"]["BACKEND"] = "storages.backends.s3.S3Storage"
+
     AWS_STORAGE_BUCKET_NAME = env["AWS_STORAGE_BUCKET_NAME"]
     AWS_QUERYSTRING_AUTH = False
     AWS_S3_FILE_OVERWRITE = False
@@ -646,6 +654,7 @@ DEFAULT_RICH_TEXT_FEATURES = [
     "document-link",
 ]
 NO_HEADING_RICH_TEXT_FEATURES = ["bold", "italic", "ul", "ol", "link", "document-link"]
+PARAGRAPH_RICH_TEXT_FEATURES = ["bold", "italic", "link", "document-link"]
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
     "default": {
         "WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea",

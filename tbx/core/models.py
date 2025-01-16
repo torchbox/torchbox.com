@@ -135,6 +135,9 @@ class HomePagePartnerLogo(Orderable):
 # Home Page
 class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
     template = "patterns/pages/home/home_page.html"
+
+    parent_page_types = ["wagtailcore.Page"]
+
     hero_heading_1 = models.CharField(max_length=255)
     hero_heading_2 = models.CharField(max_length=255)
     hero_introduction = RichTextField(blank=True, features=["bold", "italic", "link"])

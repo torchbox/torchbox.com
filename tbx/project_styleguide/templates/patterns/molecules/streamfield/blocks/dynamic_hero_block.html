@@ -1,0 +1,18 @@
+<div>
+    {% if value.static_text %}<span>{{ value.static_text }}</span>{% endif %}
+    {% if value.dynamic_text %}
+        {% if value.dynamic_text|length > 1 %}
+            {# If there's more than one dynamic text, show the controls for the loop. #}
+            <ul>
+                {% for text in value.dynamic_text %}
+                    <li>{{ text }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            {# If there's only one dynamic text, don't show the controls for the loop. #}
+            {% for text in value.dynamic_text %}
+                <span>{{ text }}</span>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+</div>
