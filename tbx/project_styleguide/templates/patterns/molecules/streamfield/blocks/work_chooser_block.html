@@ -24,3 +24,11 @@
         {% endfor %}
     </ul>
 {% endif %}
+
+{% for button in value.primary_button %}
+    <a href="{{ button.value.url }}">{{ button.value.text }}</a>
+{% endfor %}
+
+{% for button in value.secondary_button %}
+    <a href="{{ button.value.url }}">{{ button.value.text }}</a>
+{% endfor %}

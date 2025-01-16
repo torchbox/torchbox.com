@@ -562,6 +562,8 @@ class BlogChooserBlock(blocks.StructBlock):
         min_num=1,
         max_num=3,
     )
+    primary_button = LinkBlock(label="Primary button", required=False)
+    secondary_button = LinkBlock(label="Secondary button", required=False)
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
@@ -591,6 +593,8 @@ class WorkChooserBlock(blocks.StructBlock):
         min_num=1,
         max_num=3,
     )
+    primary_button = LinkBlock(label="Primary button", required=False)
+    secondary_button = LinkBlock(label="Secondary button", required=False)
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context)
