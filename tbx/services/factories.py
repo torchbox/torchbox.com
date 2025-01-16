@@ -1,5 +1,6 @@
 import factory
 import wagtail_factories
+
 from tbx.core.factories import StoryBlockFactory
 
 from .models import ServiceAreaPage, ServicePage

@@ -2,11 +2,11 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+
 import tbx.core.utils.fields
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [

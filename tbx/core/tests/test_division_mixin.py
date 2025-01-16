@@ -1,8 +1,9 @@
+from wagtail.models import Site
+from wagtail.test.utils import WagtailPageTestCase
+
 from tbx.core.factories import HomePageFactory
 from tbx.divisions.factories import DivisionPageFactory
 from tbx.services.factories import ServiceAreaPageFactory
-from wagtail.models import Site
-from wagtail.test.utils import WagtailPageTestCase
 
 
 class TestDivisionMixin(WagtailPageTestCase):
