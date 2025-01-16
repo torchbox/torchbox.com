@@ -1,7 +1,6 @@
 import logging
 from collections import defaultdict
 from datetime import datetime
-from typing import Optional
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -10,7 +9,6 @@ from django.forms.utils import ErrorList
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils.translation import gettext as _
 
 from tbx.images.models import CustomImage
 from wagtail import blocks
@@ -270,10 +268,10 @@ class DynamicHeroBlock(blocks.StructBlock):
 
     static_text = blocks.CharBlock(required=False)
     dynamic_text = blocks.ListBlock(
-        blocks.CharBlock(min_length=25, max_length=45),
-        help_text=_(
-            "The hero will cycle through these texts."
-            "Keep all messages 35-45 characters long for optimal visual presentation."
+        blocks.CharBlock(),
+        help_text=(
+            "The hero will cycle through these texts on larger screen sizes "
+            "and only show the first text on smaller screen sizes."
         ),
         required=False,
     )
@@ -284,17 +282,23 @@ class DynamicHeroBlock(blocks.StructBlock):
 
 
 class FourPhotoCollageBlock(blocks.StructBlock):
-    """Accepts 4 photos shown as a collage + text below. Used on the division page."""
+    """
+    Accepts 4 photos shown as a collage + text below.
+    Used on the division page and the service area page.
+    """
 
     images = blocks.ListBlock(
         ImageWithAltTextBlock(label="Photo"),
         min_num=4,
         max_num=4,
         label="Photos",
-        help_text=_("Exactly four required."),
+        help_text="Exactly four required.",
         default=[{"image": None, "alt_text": ""}] * 4,
     )
     caption = blocks.RichTextBlock(
+        features=settings.PARAGRAPH_RICH_TEXT_FEATURES, required=False
+    )
+    description = blocks.RichTextBlock(
         features=settings.PARAGRAPH_RICH_TEXT_FEATURES, required=False
     )
 
@@ -316,7 +320,7 @@ class IntroductionWithImagesBlock(blocks.StructBlock):
         min_num=2,
         max_num=2,
         label="Photos",
-        help_text=_("Exactly two required."),
+        help_text="Exactly two required.",
         default=[{"image": None, "alt_text": ""}] * 2,
     )
 
@@ -636,7 +640,7 @@ class EventLinkStructValue(ButtonLinkStructValue):
             return timezone.make_aware(datetime.combine(start_date, start_time))
         return timezone.make_aware(datetime.combine(start_date, datetime.min.time()))
 
-    def get_end_date_time(self) -> Optional[datetime]:
+    def get_end_date_time(self) -> datetime | None:
         end_date = self.get("end_date")
         end_time = self.get("end_time")
         if end_date and end_time:

@@ -13,4 +13,7 @@
     {% if value.caption %}
         <div class="heading heading--three heading--light four-photo-collage__caption rich-text">{{ value.caption|richtext }}</div>
     {% endif %}
+    {% if value.description %}
+        {{ value.description|richtext }}
+    {% endif %}
 </div>

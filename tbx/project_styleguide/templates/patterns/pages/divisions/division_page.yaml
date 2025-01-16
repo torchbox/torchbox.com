@@ -10,4 +10,4 @@ tags:
     page.introduction:
       template_name: 'patterns/molecules/streamfield/blocks/introduction_section_block.html'
     page.body:
-      template_name: 'patterns/molecules/streamfield/stream_block_division.html'
+      template_name: 'patterns/_pattern_library_only/streamfield/division_story_container.html'

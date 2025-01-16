@@ -26,7 +26,7 @@ class TestModeSwitcherView(TestCase):
         resp = self.client.get(
             reverse("switch_mode"), data=dict(switch_mode=mode, next_url="/")
         )
-        self.assertEquals(resp.cookies["torchbox-mode"].value, mode)
+        self.assertEqual(resp.cookies["torchbox-mode"].value, mode)
 
     def test_view_redirects_to_original_url(self):
         resp = self.client.get(
@@ -38,7 +38,7 @@ class TestModeSwitcherView(TestCase):
         self.client.get(
             reverse("switch_mode"),
             data=dict(switch_mode=mode, next_url="/"),
-            HTTP_Accept="text/html",
+            headers={"accept": "text/html"},
         )
 
         resp = self.client.get("/")
@@ -48,7 +48,7 @@ class TestModeSwitcherView(TestCase):
         resp = self.client.get(
             reverse("switch_mode"),
             data=dict(switch_mode="some random value", next_url="/"),
-            HTTP_Accept="text/html",
+            headers={"accept": "text/html"},
         )
 
         self.assertEqual(resp.status_code, 401)
@@ -62,14 +62,14 @@ class TestModeSwitcherView(TestCase):
         self.client.get(
             reverse("switch_mode"),
             data=dict(switch_mode=mode, next_url="/"),
-            HTTP_Accept="text/html",
+            headers={"accept": "text/html"},
         )
 
         # set invalid mode
         self.client.get(
             reverse("switch_mode"),
             data=dict(switch_mode="some random value", next_url="/"),
-            HTTP_Accept="text/html",
+            headers={"accept": "text/html"},
         )
 
         resp = self.client.get("/")
