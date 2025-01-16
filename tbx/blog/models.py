@@ -54,6 +54,7 @@ class BlogIndexPage(
         # Get list of blog pages that are descendants of this page
         blog_posts = (
             BlogPage.objects.live()
+            .public()
             .descendant_of(self)
             .distinct()
             .prefetch_related(
