@@ -73,7 +73,7 @@ class Contact(index.Indexed, models.Model):
     def __str__(self):
         default = " (default)" if self.default_contact else ""
         if self.title:
-            return "{} – “{}”{}".format(self.name, self.title, default)
+            return f"{self.name} – “{self.title}”{default}"
         return self.name + default
 
     def save(self, *args, **kwargs):
