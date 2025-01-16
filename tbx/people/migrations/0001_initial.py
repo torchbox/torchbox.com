@@ -2,17 +2,18 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+
 import modelcluster.fields
-import phonenumber_field.modelfields
 import wagtail.blocks
 import wagtail.embeds.blocks
 import wagtail.fields
 import wagtail.images.blocks
 import wagtail.search.index
 
+import phonenumber_field.modelfields
+
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [

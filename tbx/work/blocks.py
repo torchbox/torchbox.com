@@ -1,9 +1,10 @@
+from wagtail import blocks
+
 from tbx.core.blocks import (
     NumericStatisticsBlock,
     StoryBlock,
     TextualStatisticsBlock,
 )
-from wagtail import blocks
 
 
 class WorkSectionContent(StoryBlock):

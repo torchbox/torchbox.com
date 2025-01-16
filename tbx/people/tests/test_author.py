@@ -1,9 +1,10 @@
 from django.test import TestCase
 
+from wagtail.models import Page, Site
+
 from tbx.core.factories import HomePageFactory
 from tbx.people.factories import PersonIndexPageFactory, PersonPageFactory
 from tbx.people.models import Author
-from wagtail.models import Page, Site
 
 
 class TestAuthor(TestCase):

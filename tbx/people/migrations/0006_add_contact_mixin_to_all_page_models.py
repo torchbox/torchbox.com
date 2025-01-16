@@ -2,12 +2,12 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+
 import wagtail.blocks
 import wagtail.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         (
             "people",

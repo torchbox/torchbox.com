@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("work", "0011_alter_workpage_body"),
         ("work", "0014_add_new_workpage_model"),

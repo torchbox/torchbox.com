@@ -1,5 +1,5 @@
-import hashlib
 from datetime import datetime, time, timedelta
+import hashlib
 from itertools import cycle, islice
 
 
@@ -27,14 +27,10 @@ def export_event(event, format="ical"):
         date = event.date_from + timedelta(days=day)
 
         # Get times
-        if event.time_from is not None:
-            start_time = event.time_from
-        else:
-            start_time = datetime.time.min
-        if event.time_to is not None:
-            end_time = event.time_to
-        else:
-            end_time = time.max
+        start_time = (
+            event.time_from if event.time_from is not None else datetime.time.min
+        )
+        end_time = event.time_to if event.time_to is not None else time.max
 
         # Combine dates and times
         start_datetime = datetime.combine(date, start_time)
@@ -49,8 +45,13 @@ def export_event(event, format="ical"):
             string.replace("\n", "\\n")
             return string
 
-        # Make a uid
-        uid = hashlib.sha1(event.url + str(start_datetime)).hexdigest() + "@wagtaildemo"
+        # Make an uid
+        uid = (
+            hashlib.sha1(
+                event.url + str(start_datetime), usedforsecurity=False
+            ).hexdigest()
+            + "@torchbox.com"
+        )
 
         # Make event
         ical_components.extend(

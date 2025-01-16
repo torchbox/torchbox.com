@@ -1,12 +1,15 @@
 from django.core.paginator import Page as PaginatorPage
 
-from faker import Faker
-from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
-from tbx.blog.models import BlogPage
-from tbx.taxonomy.factories import SectorFactory, ServiceFactory
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import PageViewRestriction
 from wagtail.test.utils import WagtailPageTestCase
+
+from faker import Faker
+
+from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
+from tbx.blog.models import BlogPage
+from tbx.taxonomy.factories import SectorFactory, ServiceFactory
+
 
 fake = Faker(["en_GB"])
 
@@ -25,14 +28,12 @@ class TestBlogIndexPageFactory(WagtailPageTestCase):
         PageViewRestriction.objects.create(
             page=cls.private_blog_post,
             restriction_type="password",
-            password="password123",
+            password="password123",  # noqa: S106
         )
 
     def test_get_context(self):
         context = self.blog_index.get_context(get_dummy_request())
         blog_posts = context["blog_posts"]
-        print("blog_posts")
-        print(blog_posts)
         self.assertIsInstance(blog_posts, PaginatorPage)
         self.assertEqual(blog_posts.object_list.first(), self.blog_post)
 

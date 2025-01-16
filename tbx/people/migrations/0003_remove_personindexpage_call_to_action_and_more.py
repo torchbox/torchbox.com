@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("people", "0002_remove_culturepagekeypoint_linked_page_and_more"),
     ]

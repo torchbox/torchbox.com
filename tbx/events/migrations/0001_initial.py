@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+
 import modelcluster.fields
 import wagtail.blocks
 import wagtail.embeds.blocks
@@ -10,7 +11,6 @@ import wagtail.images.blocks
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [

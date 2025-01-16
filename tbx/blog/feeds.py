@@ -6,6 +6,7 @@ import filetype
 
 from .models import BlogPage
 
+
 # Main blog feed
 
 

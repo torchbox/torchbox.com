@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("people", "0006_add_contact_mixin_to_all_page_models"),
         ("work", "0022_historicalworkpage_related_sectors_and_more"),

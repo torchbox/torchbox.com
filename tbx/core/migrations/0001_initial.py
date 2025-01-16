@@ -2,19 +2,21 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+
 import modelcluster.fields
-import tbx.core.blocks
-import tbx.core.fields
 import wagtail.blocks
 import wagtail.embeds.blocks
 import wagtail.fields
 import wagtail.images.blocks
+
 import wagtailmarkdown.blocks
 import wagtailmedia.blocks
 
+import tbx.core.blocks
+import tbx.core.fields
+
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [

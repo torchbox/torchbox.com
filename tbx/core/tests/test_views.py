@@ -1,8 +1,9 @@
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from tbx.core.factories import HomePageFactory
 from wagtail.models import Site
+
+from tbx.core.factories import HomePageFactory
 
 
 class SecurityViewTestCase(TestCase):
@@ -24,20 +25,20 @@ mode = "light"
 class TestModeSwitcherView(TestCase):
     def test_view_sets_cookie(self):
         resp = self.client.get(
-            reverse("switch_mode"), data=dict(switch_mode=mode, next_url="/")
+            reverse("switch_mode"), data={"switch_mode": mode, "next_url": "/"}
         )
         self.assertEqual(resp.cookies["torchbox-mode"].value, mode)
 
     def test_view_redirects_to_original_url(self):
         resp = self.client.get(
-            reverse("switch_mode"), data=dict(switch_mode=mode, next_url="/")
+            reverse("switch_mode"), data={"switch_mode": mode, "next_url": "/"}
         )
         self.assertRedirects(resp, "/")
 
     def test_mode_is_set_on_subsequent_requests(self):
         self.client.get(
             reverse("switch_mode"),
-            data=dict(switch_mode=mode, next_url="/"),
+            data={"switch_mode": mode, "next_url": "/"},
             headers={"accept": "text/html"},
         )
 
@@ -47,7 +48,7 @@ class TestModeSwitcherView(TestCase):
     def test_mode_cannot_be_outside_of_specific_values(self):
         resp = self.client.get(
             reverse("switch_mode"),
-            data=dict(switch_mode="some random value", next_url="/"),
+            data={"switch_mode": "some random value", "next_url": "/"},
             headers={"accept": "text/html"},
         )
 
@@ -61,14 +62,14 @@ class TestModeSwitcherView(TestCase):
         # set valid mode
         self.client.get(
             reverse("switch_mode"),
-            data=dict(switch_mode=mode, next_url="/"),
+            data={"switch_mode": mode, "next_url": "/"},
             headers={"accept": "text/html"},
         )
 
         # set invalid mode
         self.client.get(
             reverse("switch_mode"),
-            data=dict(switch_mode="some random value", next_url="/"),
+            data={"switch_mode": "some random value", "next_url": "/"},
             headers={"accept": "text/html"},
         )
 
@@ -96,7 +97,7 @@ class TestModeSwitcherView(TestCase):
         # set theme on default site
         self.client.get(
             reverse("switch_mode"),
-            data=dict(switch_mode=mode, next_url="/"),
+            data={"switch_mode": mode, "next_url": "/"},
         )
 
         # check theme is set on default site

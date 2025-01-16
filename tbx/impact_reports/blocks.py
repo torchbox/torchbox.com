@@ -1,15 +1,16 @@
-from tbx.core.blocks import (
-    CustomImageChooserBlock,
-    NumericStatisticsBlock,
-    StoryBlock,
-    TextualStatisticsBlock,
-)
 from wagtail.blocks import (
     CharBlock,
     ListBlock,
     RichTextBlock,
     StructBlock,
     URLBlock,
+)
+
+from tbx.core.blocks import (
+    CustomImageChooserBlock,
+    NumericStatisticsBlock,
+    StoryBlock,
+    TextualStatisticsBlock,
 )
 
 

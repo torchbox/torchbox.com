@@ -2,12 +2,12 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+
 import modelcluster.fields
 import wagtail.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("taxonomy", "0002_sector_team_remove_service_contact_reasons_and_more"),
         ("images", "0001_initial"),
