@@ -2,13 +2,6 @@ from django.db import models
 from django.utils.functional import cached_property
 
 from modelcluster.fields import ParentalKey
-from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import (
-    ColourThemeMixin,
-    NavigationFields,
-    SocialFields,
-)
-from tbx.people.models import ContactMixin
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.blocks import PageChooserBlock, StreamBlock, StructBlock
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
@@ -16,6 +9,14 @@ from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
+
+from tbx.core.utils.fields import StreamField
+from tbx.core.utils.models import (
+    ColourThemeMixin,
+    NavigationFields,
+    SocialFields,
+)
+from tbx.people.models import ContactMixin
 
 from .blocks import HomePageStoryBlock, StandardPageStoryBlock
 
@@ -57,15 +58,6 @@ class LinkFields(models.Model):
         related_name="+",
     )
 
-    @property
-    def link(self):
-        if self.link_page:
-            return self.link_page.url
-        elif self.link_document:
-            return self.link_document.url
-        else:
-            return self.link_external
-
     panels = [
         FieldPanel("link_external"),
         FieldPanel("link_page"),
@@ -74,6 +66,15 @@ class LinkFields(models.Model):
 
     class Meta:
         abstract = True
+
+    @property
+    def link(self):
+        if self.link_page_id:
+            return self.link_page.url
+        elif self.link_document:
+            return self.link_document.url
+        else:
+            return self.link_external
 
 
 # Carousel items
@@ -196,7 +197,7 @@ class StandardPage(
 
 
 # No longer in use but kept for migration history
-class Tag(models.Model):
+class Tag(models.Model):  # noqa: DJ008
     pass
 
 

@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("work", "0032_remove_workpage_remove_desaturation_on_header_image"),
     ]

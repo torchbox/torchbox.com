@@ -1,5 +1,7 @@
 from django.test import TestCase
 
+from wagtail.models import Site
+
 from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
 from tbx.core.factories import HomePageFactory, StandardPageFactory
 from tbx.people.factories import ContactFactory
@@ -9,7 +11,6 @@ from tbx.work.factories import (
     WorkIndexPageFactory,
     WorkPageFactory,
 )
-from wagtail.models import Site
 
 
 class TestContact(TestCase):

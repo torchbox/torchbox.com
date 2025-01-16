@@ -1,10 +1,12 @@
-from .base import *  # noqa
+from .base import *  # noqa: F403
+
 
 # #############
 # General
 
 # SECRET_KEY is required by Django to start.
-SECRET_KEY = "fake_secret_key_to_run_tests"  # pragma: allowlist secret
+# pragma: allowlist nextline secret
+SECRET_KEY = "fake_secret_key_to_run_tests"  # noqa: S105
 
 # Don't redirect to HTTPS in tests.
 SECURE_SSL_REDIRECT = False

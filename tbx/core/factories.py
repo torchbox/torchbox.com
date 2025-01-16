@@ -1,8 +1,10 @@
+from wagtail.blocks import RichTextBlock
+
 import factory
 import wagtail_factories
+
 from tbx.core.blocks import StoryBlock
 from tbx.core.models import HomePage, StandardPage
-from wagtail.blocks import RichTextBlock
 
 
 class RichTextBlockFactory(wagtail_factories.blocks.BlockFactory):

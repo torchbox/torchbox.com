@@ -4,6 +4,7 @@ from django.conf import settings
 from tbx.blog.models import BlogPage
 from tbx.core.models import MainMenu
 
+
 register = template.Library()
 
 
@@ -95,16 +96,10 @@ def time_display(time):
     hour_string = str(hour)
 
     # Minute string
-    if minute != 0:
-        minute_string = "." + str(minute)
-    else:
-        minute_string = ""
+    minute_string = "." + str(minute) if minute != 0 else ""
 
     # PM string
-    if pm:
-        pm_string = "pm"
-    else:
-        pm_string = "am"
+    pm_string = "pm" if pm else "am"
 
     # Join and return
     return "".join([hour_string, minute_string, pm_string])

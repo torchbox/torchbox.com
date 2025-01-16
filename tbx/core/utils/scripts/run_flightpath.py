@@ -20,14 +20,14 @@ def get_flightpath_args_from_env():
             "flightpath_url": os.environ["FLIGHTPATH_URL"],
         }
 
-    except KeyError:
+    except KeyError as err:
         raise KeyError(
             "You need the following environment variables to run flightpath: "
             "FLIGHTPATH_URL, HEROKU_APP_NAME_PRODUCTION, "
             "HEROKU_APP_NAME_STAGING, FLIGHTPATH_AUTH_KEY, "
             "DEPLOYMENT_KEY. This should be set on GitHub "
             "secrets if running as GitHub Actions."
-        )
+        ) from err
 
     return args
 
@@ -52,6 +52,7 @@ def post_to_flightpath(
         headers={
             "Authorization": f"Token {flightpath_auth_key}",
         },
+        timeout=30,
     )
 
     response.raise_for_status()
