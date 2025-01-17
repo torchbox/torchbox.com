@@ -4,12 +4,12 @@
     <div class="call-to-action__inner">
         <div class="call-to-action__text">
             <h2 class="heading heading--two-b">{{ value.text }}</h2>
-        {% if value.description %}
-        <div class="rich-text">
-        {{ value.description|richtext }}
+            {% if value.description %}
+                <div class="rich-text">
+                    {{ value.description|richtext }}
+                </div>
+            {% endif %}
         </div>
-    {% endif %}
-    </div>
         {% if value.button_text and value.button_link %}
             <a href="{{ value.get_button_link }}" class="call-to-action__button button">
                 {{ value.button_text }}

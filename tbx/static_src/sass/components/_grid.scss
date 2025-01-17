@@ -62,16 +62,7 @@
         }
     }
 
-    &__call-to-action {
-        margin-bottom: $spacer-medium;
-        grid-column: 2 / span 5;
-
-        @include media-query(large) {
-            margin-bottom: $spacer-large;
-            grid-column: 4 / span 12;
-        }
-    }
-
+    &__call-to-action,
     &__contact-cta {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 5;
