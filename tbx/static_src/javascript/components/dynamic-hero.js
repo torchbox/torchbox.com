@@ -1,4 +1,5 @@
 import Swiper from 'swiper';
+// eslint-disable-next-line import/no-unresolved
 import { Autoplay } from 'swiper/modules';
 
 export default class DynamicHero {
