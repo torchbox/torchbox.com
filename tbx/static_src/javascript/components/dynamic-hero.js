@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import Swiper from 'swiper';
 // eslint-disable-next-line import/no-unresolved
 import { Autoplay } from 'swiper/modules';
@@ -53,15 +54,19 @@ export default class DynamicHero {
         }
 
         if (this.pauseButton) {
-            this.pauseButton.addEventListener('click', () =>
-                this.swiper.autoplay.stop(),
-            );
+            this.pauseButton.addEventListener('click', () => {
+                this.swiper.autoplay.stop();
+                this.pauseButton.classList.add('hidden');
+                this.playButton.classList.remove('hidden');
+            });
         }
 
         if (this.playButton) {
             this.playButton.addEventListener('click', () => {
                 this.swiper.autoplay.start();
                 this.swiper.slideNext();
+                this.playButton.classList.add('hidden');
+                this.pauseButton.classList.remove('hidden');
             });
         }
     }

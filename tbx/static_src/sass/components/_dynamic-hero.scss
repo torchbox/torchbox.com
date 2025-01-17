@@ -37,6 +37,9 @@
         justify-content: center;
         height: 40px;
         width: 40px;
+        opacity: 1;
+        visibility: visible;
+        transition: $transition;
 
         &:hover,
         &:focus {
@@ -59,6 +62,13 @@
         &--play {
             height: 40px;
             width: 40px;
+        }
+
+        &.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            position: absolute;
         }
     }
 }
