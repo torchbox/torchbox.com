@@ -1,5 +1,9 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="contact-cta grid__contact-cta">
+    {% if value.person %}
+        {% include "patterns/atoms/avatar/avatar.html" with avatar=value.person.image classes="contact-cta__avatar avatar--cta" %}
+    {% endif %}
+
     <div class="contact-cta__text">
         {% for cta in value.call_to_action %}
             <h2 class="heading heading--two-b">{{ cta.value.text }}</h2>
@@ -8,14 +12,11 @@
             {% endif %}
         {% endfor %}
     </div>
-    {% if value.person %}
-        {% include "patterns/atoms/avatar/avatar.html" with avatar=value.person.image classes="contact-cta__avatar" %}
-    {% endif %}
 
     {% if value.person %}
         <p class="contact-cta__cite">
             {% if value.person.name %}
-                <span class="contact-cta__name">{{ value.person.name }}</span>
+                <span class="contact-cta__name mr-2">{{ value.person.name }}</span>
             {% endif %}
 
             {% if value.person.role %}
