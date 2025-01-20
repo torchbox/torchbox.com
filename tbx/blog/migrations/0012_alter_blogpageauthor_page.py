@@ -2,11 +2,11 @@
 
 from django.db import migrations
 import django.db.models.deletion
+
 import modelcluster.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("blog", "0011_remove_blogpagetagselect_page_and_more"),
     ]

@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("work", "0031_rename_feed_image_historicalworkpage_header_image"),
     ]

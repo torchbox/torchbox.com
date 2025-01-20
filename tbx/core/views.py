@@ -1,5 +1,5 @@
-import logging
 from datetime import timedelta
+import logging
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseNotFound
@@ -11,8 +11,10 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
 
 import requests
+
 from tbx.core.errors import UnauthorizedHTTPError
 from tbx.core.forms import ModeSwitcherForm
+
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +30,7 @@ def newsletter_subsribe(request):
                 "id": settings.MAILCHIMP_MAILING_LIST_ID,
                 "email": {"email": request.GET.get("email")},
             },
+            timeout=20,
         )
     return HttpResponse()
 

@@ -1,5 +1,6 @@
-from tbx.core.blocks import BaseEventBlock
 from wagtail.images.blocks import ImageChooserBlock
+
+from tbx.core.blocks import BaseEventBlock
 
 
 class EventItemBlock(BaseEventBlock):

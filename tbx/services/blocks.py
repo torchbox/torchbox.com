@@ -1,3 +1,5 @@
+from wagtail import blocks
+
 from tbx.core.blocks import (
     BlogChooserBlock,
     EventBlock,
@@ -12,7 +14,6 @@ from tbx.core.blocks import (
     TabbedParagraphBlock,
     WorkChooserBlock,
 )
-from wagtail import blocks
 
 
 class ValuesBlock(blocks.StructBlock):
