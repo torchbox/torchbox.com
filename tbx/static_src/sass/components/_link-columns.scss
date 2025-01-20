@@ -29,13 +29,18 @@
         color: var(--color--white);
 
         &:hover {
+            transition: color $transition-quick;
             color: var(--color--theme-primary);
+
+            @include reduced-motion() {
+                transition: none;
+            }
         }
     }
 
     &__arrow {
         @include arrow-link-icon-styles(
-            $width: 22px,
+            $width: 18px,
             $interaction-color: var(--color--theme-primary)
         );
         color: var(--color--theme-primary);
