@@ -36,7 +36,7 @@ class TestPageFactory(TestCase):
                         # Get the model's factory
                         self.assertTrue(
                             module_has_submodule(app.module, "factories"),
-                            f"App '{app.name}' does not have a factories module.",
+                            msg=f"App '{app.name}' does not have a factories module.",
                         )
 
                         page_factory = import_string(

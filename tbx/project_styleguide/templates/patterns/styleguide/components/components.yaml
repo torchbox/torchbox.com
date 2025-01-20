@@ -126,6 +126,11 @@ tags:
       raw: |
         <img alt="" height="280" sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" src="https://picsum.photos/540/280.webp" srcset="https://picsum.photos/540/280.webp 540w, https://picsum.photos/490/280.webp 490w" width="540">
       image:
+    # featured services block
+    'card.image format-webp fill-{750x420,650x420} sizes="(max-width: 750px) 100vw, (min-width: 751px) 650px" alt=""':
+      raw: |
+        <img height="420" sizes="(max-width: 750px) 100vw, (min-width: 751px) 650px" src="https://picsum.photos/750/420.webp" srcset="https://picsum.photos/750/420.webp 750w, https://picsum.photos/650/420.webp 650w" width="750" alt="">
+      image:
     # company logo for pull quote
     value.logo max-110x70 format-webp class="pullquote__company-logo":
       raw: |

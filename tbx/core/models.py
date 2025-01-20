@@ -169,6 +169,7 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
                 FieldPanel(
                     "hero_introduction",
                     heading="Introduction",
+                    # mark_safe needed so the HTML tags aren't escaped
                     help_text=mark_safe(  # noqa: S308
                         "Use bold to mark links as"
                         ' <span style="color:#EE5276">pink</span>,'
