@@ -1,0 +1,52 @@
+@use 'config' as *;
+
+.featured-services {
+    &__header {
+        margin-bottom: $spacer-medium;
+    }
+
+    &__cards {
+        display: grid;
+        gap: $spacer-mini-plus;
+        grid-template-columns: repeat(1, 1fr);
+
+        @include media-query(medium) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media-query(large) {
+            grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+        }
+    }
+
+    &__card {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        transition: background-color $transition-quick;
+        background-color: var(--color--dark-background);
+
+        &:has(.button-link:hover) {
+            background-color: var(--color--black);
+        }
+
+        @include high-contrast-mode() {
+            border: 1px solid var(--color--text);
+        }
+    }
+
+    &__text {
+        padding: $spacer-small-plus $spacer-small $spacer-medium;
+        margin-bottom: auto;
+    }
+
+    &__heading {
+        color: var(--color--white);
+        margin-bottom: $spacer-mini;
+    }
+
+    // override the rich-text font-size
+    &__description.rich-text {
+        @include font-size(size-seven);
+    }
+}
