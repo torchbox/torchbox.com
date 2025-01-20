@@ -973,6 +973,27 @@ class NumericStatisticsBlock(blocks.StructBlock):
 
     class Meta:
         icon = "table"
+        label_format = "{headline_number} {description} {further_details}"
+
+
+class NumericStatisticsGroupBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    statistics = blocks.ListBlock(
+        NumericStatisticsBlock(),
+        max_num=4,
+        min_num=1,
+    )
+
+    class Meta:
+        group = "Custom"
+        icon = "table"
+        label = "Numeric statistics"
+        template = (
+            "patterns/molecules/streamfield/blocks/numeric_stats_group_block.html"
+        )
 
 
 class TextualStatisticsBlock(blocks.StructBlock):
