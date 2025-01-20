@@ -2,18 +2,19 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+
 import modelcluster.fields
 import wagtail.blocks
 import wagtail.embeds.blocks
 import wagtail.fields
 import wagtail.images.blocks
 import wagtail.snippets.blocks
+
 import wagtailmarkdown.blocks
 import wagtailmedia.blocks
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("images", "0001_initial"),
         ("torchbox", "0019_alter_standardpage_body"),

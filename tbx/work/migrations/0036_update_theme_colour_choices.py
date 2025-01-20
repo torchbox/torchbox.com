@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("work", "0035_add_alt_text_options_to_work_image"),
     ]

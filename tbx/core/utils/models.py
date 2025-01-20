@@ -7,6 +7,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.models import Orderable
 
+
 SEARCH_DESCRIPTION_LABEL = "Meta description"  # NOTE changing this requires migrations
 
 
@@ -106,20 +107,6 @@ class ColourThemeMixin(models.Model):
         choices=ColourTheme.choices,
     )
 
-    @property
-    def theme_class(self):
-        if theme := self.theme:
-            return theme
-
-        try:
-            return next(
-                p.theme
-                for p in self.get_ancestors().specific().order_by("-depth")
-                if getattr(p, "theme", ColourTheme.NONE) != ColourTheme.NONE
-            )
-        except StopIteration:
-            return ColourTheme.NONE
-
     promote_panels = [
         FieldPanel(
             "theme",
@@ -134,6 +121,20 @@ class ColourThemeMixin(models.Model):
     class Meta:
         abstract = True
 
+    @property
+    def theme_class(self):
+        if theme := self.theme:
+            return theme
+
+        try:
+            return next(
+                p.theme
+                for p in self.get_ancestors().specific().order_by("-depth")
+                if getattr(p, "theme", ColourTheme.NONE) != ColourTheme.NONE
+            )
+        except StopIteration:
+            return ColourTheme.NONE
+
 
 class DivisionMixin(models.Model):
     """
@@ -146,6 +147,21 @@ class DivisionMixin(models.Model):
         null=True,
         on_delete=models.SET_NULL,
     )
+
+    promote_panels = [
+        FieldPanel(
+            "division",
+            help_text=_(
+                "The division will be applied to this page and its descendants. "
+                "If no division is selected, it will be derived from "
+                "this page's ancestors. "
+                "If one of the ancestors is a division page, that will be used."
+            ),
+        ),
+    ]
+
+    class Meta:
+        abstract = True
 
     @cached_property
     def final_division(self):
@@ -176,18 +192,3 @@ class DivisionMixin(models.Model):
             )
         except StopIteration:
             pass
-
-    promote_panels = [
-        FieldPanel(
-            "division",
-            help_text=_(
-                "The division will be applied to this page and its descendants. "
-                "If no division is selected, it will be derived from "
-                "this page's ancestors. "
-                "If one of the ancestors is a division page, that will be used."
-            ),
-        ),
-    ]
-
-    class Meta:
-        abstract = True
