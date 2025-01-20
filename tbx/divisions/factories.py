@@ -1,8 +1,10 @@
+from wagtail import blocks
+
 import factory
 import wagtail_factories
+
 from tbx.core.blocks import DynamicHeroBlock
 from tbx.core.factories import DynamicHeroBlockFactory, StoryBlockFactory
-from wagtail import blocks
 
 from .models import DivisionPage
 
