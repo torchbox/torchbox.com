@@ -25,6 +25,10 @@
         }
     }
 
+    &__description {
+        @include font-size(size-four);
+    }
+
     &__avatar {
         grid-column: span 1;
         margin-bottom: $spacer-mini-plus;
@@ -37,6 +41,7 @@
     }
 
     &__cite {
+        @include font-size(size-five);
         display: flex;
         flex-direction: column;
         margin-bottom: $spacer-mini-plus;
@@ -60,6 +65,7 @@
     }
 
     &__button {
+        @include font-size('size-five');
         grid-column: span 1;
 
         @include media-query(medium) {

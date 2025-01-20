@@ -23,7 +23,12 @@
         max-width: $streamfield-content-width;
     }
 
+    &__description {
+        @include font-size(size-four);
+    }
+
     &__button {
+        @include font-size('size-five');
         margin-top: $spacer-small;
 
         @include media-query(large) {
