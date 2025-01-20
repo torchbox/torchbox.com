@@ -7,14 +7,17 @@ context:
         heading: Charity
         description: Amplify your impact, reach more supporters and transform your organisation with tailored digital strategies and solutions
         link_text: Find out more
+        accessible_link_text: Find out more about our charity services
       - card_colour: 'theme-nebuline'
         heading: Public
         description: Navigate complex challenges. Accelerate your mission and transform public services through digital
         link_text: Find out more
+        accessible_link_text: Find out more about our public sector services
       - card_colour: 'theme-lagoon'
-        heading: Wagtail CMS services
+        heading: Wagtail
         description: Empower your editors and developers to do their best work with Wagtail, the world's leading open-source Python CMS.
         link_text: Find out more
+        accessible_link_text: Find out more about our Wagtail CMS services
 
 tags:
   srcset_image:
