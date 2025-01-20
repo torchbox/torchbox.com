@@ -1,0 +1,43 @@
+@use 'config' as *;
+
+.link-columns {
+    &__header {
+        margin-bottom: $spacer-half;
+    }
+
+    &__links {
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: $spacer-half;
+
+        @include media-query(medium) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media-query(large) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    &__item {
+        padding: $spacer-mini-plus 0;
+        border-top: 1px solid var(--color--border);
+    }
+
+    &__link {
+        @include font-size(size-six);
+        color: var(--color--white);
+
+        &:hover {
+            color: var(--color--theme-primary);
+        }
+    }
+
+    &__arrow {
+        @include arrow-link-icon-styles(
+            $width: 22px,
+            $interaction-color: var(--color--theme-primary)
+        );
+        color: var(--color--theme-primary);
+    }
+}
