@@ -14,7 +14,7 @@
             grid-template-columns: repeat(2, 1fr);
         }
 
-        @include media-query(large) {
+        @include media-query(x-large) {
             grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
         }
     }
