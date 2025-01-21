@@ -1,5 +1,6 @@
 // CSS from external vendors (available as npm)
 @use '../../../node_modules/lite-youtube-embed/src/lite-yt-embed.css';
+@use '../../../node_modules/swiper/swiper.scss';
 
 // Base
 @use 'base/base';
@@ -19,6 +20,7 @@
 @use 'components/contact-cta';
 @use 'components/cookie-message';
 @use 'components/division-signpost';
+@use 'components/dynamic-hero';
 @use 'components/employee-owned-icon';
 @use 'components/event-block';
 @use 'components/featured-case-study';

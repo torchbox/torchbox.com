@@ -1,17 +1,28 @@
-<div>
-    {% if value.static_text %}<span>{{ value.static_text }}</span>{% endif %}
+<div data-dynamic-hero class="dynamic-hero">
+    {% if value.static_text %}<h2 class="heading heading--three heading--light">{{ value.static_text }}</h2>{% endif %}
     {% if value.dynamic_text %}
         {% if value.dynamic_text|length > 1 %}
-            {# If there's more than one dynamic text, show the controls for the loop. #}
-            <ul>
-                {% for text in value.dynamic_text %}
-                    <li>{{ text }}</li>
-                {% endfor %}
-            </ul>
+            {# If there's more than one dynamic text, show Swiper carousel structure and controls for the loop. #}
+            <div class="swiper">
+                <ul class="swiper-wrapper">
+                    {% for text in value.dynamic_text %}
+                        <li class="swiper-slide">
+                            {# Fixed px values required to control the font size for all browsers and prevent slide overflow#}
+                            <h3 class="heading heading--mega text-[60px] lg:text-[100px]">{{ text }}</h3>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="dynamic-hero__controls" aria-label="Carousel controls">
+                <button class="dynamic-hero__control" aria-label="Previous message" data-dynamic-hero-prev>{% include "patterns/atoms/icons/icon.html" with name="chevron" classname="dynamic-hero__control--prev" %}</button>
+                <button class="dynamic-hero__control" aria-label="Pause autoplay" data-dynamic-hero-pause>{% include "patterns/atoms/icons/icon.html" with name="pause" classname="dynamic-hero__control--pause" %}</button>
+                <button class="dynamic-hero__control hidden" aria-label="Resume autoplay" data-dynamic-hero-play>{% include "patterns/atoms/icons/icon.html" with name="play" classname="dynamic-hero__control--play" %}</button>
+                <button class="dynamic-hero__control" aria-label="Next message" data-dynamic-hero-next>{% include "patterns/atoms/icons/icon.html" with name="chevron" classname="dynamic-hero__control--next" %}</button>
+            </div>
         {% else %}
-            {# If there's only one dynamic text, don't show the controls for the loop. #}
+            {# If there's only one dynamic text, don't show Swiper carousel structure and controls for the loop. #}
             {% for text in value.dynamic_text %}
-                <span>{{ text }}</span>
+                <h3 class="heading heading--mega">{{ text }}</h3>
             {% endfor %}
         {% endif %}
     {% endif %}

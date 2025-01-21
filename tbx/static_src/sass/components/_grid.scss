@@ -42,6 +42,15 @@
         }
     }
 
+    &__dynamic-hero {
+        grid-column: 2 / span 4;
+        margin-bottom: $spacer-medium;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+    }
+
     &__intro {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
