@@ -10,7 +10,7 @@
     <ul class="link-columns__links">
         {% for link in value.links %}
             <li class="link-columns__item">
-                <a href="{{ link.value.url }}" class="link-columns__link">{{ link.value.text }}&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow" classname="link-columns__arrow" %}</a>
+                <a href="{{ link.value.url }}" class="link-columns__link">{{ link.value.text }}<span class="link-columns__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow" classname="link-columns__arrow" %}</span></a>
             </li>
         {% endfor %}
     </ul>

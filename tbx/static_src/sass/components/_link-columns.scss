@@ -36,6 +36,16 @@
                 transition: none;
             }
         }
+
+        @include high-contrast-mode() {
+            text-decoration: underline;
+        }
+    }
+
+    &__tail {
+        // Keep the arrow attached to the last word so it's not orphaned on a new line
+        white-space: nowrap;
+        display: inline;
     }
 
     &__arrow {
