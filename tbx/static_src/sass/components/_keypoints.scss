@@ -1,0 +1,55 @@
+@use 'config' as *;
+
+.keypoints {
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: $spacer;
+    }
+
+    &__item {
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: $spacer-small-plus;
+
+        @include media-query(medium) {
+            grid-template-columns: 1fr 3fr;
+        }
+    }
+
+    &__icon {
+        width: 112px;
+        height: 100px;
+    }
+
+    &__icon-wrapper {
+        border-top: 1px solid var(--color--border);
+        padding: $spacer-mini-plus $spacer-small 0 0;
+    }
+
+    &__icon-label {
+        @include font-size(size-four);
+        font-weight: $weight--semibold;
+        color: var(--color--theme-primary);
+    }
+
+    &__details {
+        padding-top: $spacer-mini-plus;
+    }
+
+    &__heading {
+        @include font-size(size-two);
+        font-weight: $weight--semibold;
+        color: var(--color--heading);
+        margin-bottom: $spacer-mini;
+
+        @include media-query(medium) {
+            margin-bottom: $spacer-mini-plus;
+        }
+    }
+
+    &__description {
+        @include font-size(size-four);
+        color: var(--color--heading);
+    }
+}

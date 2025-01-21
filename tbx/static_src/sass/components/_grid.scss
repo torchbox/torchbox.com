@@ -102,7 +102,8 @@
 
     &__related-posts-simple,
     &__team-listing,
-    &__stats-group {
+    &__stats-group,
+    &__keypoints {
         grid-column: 2 / span 4;
 
         @include media-query(large) {
