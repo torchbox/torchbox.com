@@ -346,27 +346,12 @@
         }
     }
 
-    // header and navigation grid elements
-    &__header-logo {
-        grid-column: 2 / span 2;
-
-        @include media-query(medium) {
-            grid-column: 2 / span 1;
-        }
-    }
-
     &__header-nav {
-        display: none;
-
-        @include media-query(menu) {
-            display: flex;
-            justify-content: flex-end;
-            grid-column: 3 / span 3;
-            align-items: flex-end;
-        }
+        display: flex;
+        grid-column: 2 / span 4;
 
         @include media-query(large) {
-            grid-column: 3 / span 11;
+            grid-column: 2 / span 12;
         }
     }
 
