@@ -13,7 +13,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
 .sub-nav-mobile {
     $root: &;
     @include z-index(base);
-    @include nav-fixed-position($header-height: $header-height-mobile);
+    @include nav-fixed-position();
     background-color: var(--color--background);
 
     // the unordered list containing the level 2 menu items

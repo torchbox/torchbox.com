@@ -1,6 +1,7 @@
 @use 'config' as *;
 
 .skip-link {
+    @include z-index('header');
     position: absolute;
     top: -200px;
     left: 0;

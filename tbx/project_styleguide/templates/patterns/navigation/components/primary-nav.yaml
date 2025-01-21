@@ -1,117 +1,26 @@
 context:
-  children: True
   primarynav:
     - item:
       value:
-        child_display_behaviour: 'show_up_to_level2'
         text: Services
         external_url: '#'
-        page:
-          get_children:
-            live:
-              public:
-                in_menu:
-                  specific:
-                    - nav_text: Strategy and consultancy
-                      get_children:
-                        live:
-                          public:
-                            in_menu:
-                              specific:
-                                - nav_text: AI strategy
-                                - nav_text: Content strategy and IA
-                                - nav_text: Digital transformation
-                                - nav_text: Innovation strategy
-                                - nav_text: Product strategy
-                                - nav_text: Service design
-                                - nav_text: Technical architecture design
-                                - nav_text: User research
-                    - nav_text: Digital marketing
-                      get_children:
-                        live:
-                          public:
-                            in_menu:
-                              specific:
-                                - nav_text: Asset and campaign creative
-                                - nav_text: Digital marketing training
-                                - nav_text: Data and measurement
-                                - nav_text: Digital marketing training
-                                - nav_text: Email marketing
-                                - nav_text: Google Ad Grants Management
-                                - nav_text: Pay-per-click management
-                                - nav_text: Search Engine Optimisation (SEO)
-                                - nav_text: Social media management
-                    - nav_text: Wagtail CMS services
-                      get_children:
-                        live:
-                          public:
-                            in_menu:
-                              specific:
-                                - nav_text: Developer support
-                                - nav_text: Staff augmentation
-                                - nav_text: Training and consultancy
-                    - nav_text: Digital product development
     - item:
       value:
-        child_display_behaviour: 'show_up_to_level1'
         text: Sectors
         external_url: '#'
-        page:
-          get_children:
-            live:
-              public:
-                in_menu:
-                  specific:
-                    - nav_text: Charities
-                      get_children:
-                        live:
-                          public:
-                            in_menu:
-                              specific:
-                                - nav_text: Charity sub 1
-                                - nav_text: Charity sub 2
-                                - nav_text: Charity sub 2
-                    - nav_text: Higher Education
-                    - nav_text: Government
     - item:
       value:
-        child_display_behaviour: 'show_up_to_level1'
         text: About
         external_url: '#'
-        page:
-          get_children:
-            live:
-              public:
-                in_menu:
-                  specific:
-                    - nav_text: Culture
-                      get_children:
-                        live:
-                          public:
-                            in_menu:
-                              specific:
-                                - nav_text: Culture child one
-                                - nav_text: Culture child two
-                                - nav_text: Culture child three
-                    - nav_text: Jobs
-                      get_children:
-                        live:
-                          public:
-                            in_menu:
-                              specific:
-                                - nav_text: Jobs child one
-                                - nav_text: Jobs child two
-                                - nav_text: Jobs child three
     - item:
       value:
-        child_display_behaviour: 'hide-children'
         text: Thinking
         external_link: '#'
     - item:
       value:
-        child_display_behaviour: 'hide-children'
         text: Work
         external_link: '#'
+
 tags:
   pageurl:
     'link.url':

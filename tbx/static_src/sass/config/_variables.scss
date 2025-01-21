@@ -60,6 +60,8 @@ $color--black: #000;
     // The following base variables do not change with either theme or mode
     --color--white: #{$color--white};
     --color--grey-10: #{$color--grey-10};
+    --color--grey-20: #{$color--grey-20};
+    --color--grey-50: #{$color--grey-50};
     --color--grey-70: #{$color--grey-70};
     --color--eclipse: #{$color--eclipse};
     --color--black: #{$color--black};
@@ -350,5 +352,4 @@ $avatar-size-100: 100px;
 $avatar-size-72: 72px;
 $avatar-size-80: 80px;
 
-$header-height-desktop: 106px;
-$header-height-mobile: 81px;
+$header-height: 46px;

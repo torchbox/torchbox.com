@@ -1,43 +1,65 @@
 {% load wagtailcore_tags wagtail_cache navigation_tags %}
 {% wagtail_site as current_site %}
-<header class="header grid">
-    {% include "patterns/atoms/skip-link/skip-link.html" %}
-    <a href="/" aria-label="Homepage link" class="grid__header-logo header__logo-link">
-        {% include "patterns/atoms/icons/icon.html" with name="logo" classname="logo" %}
-    </a>
-    <div class="grid__header-nav">
-        {# Desktop navigation #}
-        <nav aria-label="Main navigation" class="primary-nav-desktop" data-desktop-menu>
-            {% wagtailcache 600 "primarynav" current_site.pk is_pattern_library %}
-                <ul data-primary-nav class="primary-nav-desktop__list">
-                    {% primarynav %}
+<header class="header">
+    <div class="grid">
+        {% include "patterns/atoms/skip-link/skip-link.html" %}
+        <div class="grid__header-nav">
+            {# Primary desktop navigation #}
+            <nav aria-label="Main navigation" class="primary-nav-desktop" data-desktop-menu>
+                {% wagtailcache 600 "primarynav" current_site.pk is_pattern_library %}
+                    <ul class="primary-nav-desktop__list">
+                        <li class="primary-nav-desktop__item">
+                            <a href="/" aria-label="Homepage link" class="primary-nav-desktop__link">
+                                <span class="primary-nav-desktop__text">Home</span>
+                            </a>
+                        </li>
+                        {% primarynav %}
+                    </ul>
+                {% endwagtailcache %}
+            </nav>
+
+            {# Primary mobile menu toggle #}
+            <button class="header__primary-menu-toggle" data-primary-mobile-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="Mobile menu toggle">
+                Home
+                {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="header__primary-menu-toggle-icon" %}
+            </button>
+
+            {# Primary mobile navigation #}
+            <nav aria-label="Main navigation"  class="primary-nav-mobile" data-primary-mobile-menu>
+                {% wagtailcache 600 "primarynavmobile" current_site.pk is_pattern_library %}
+                    <ul class="primary-nav-mobile__list">
+                        <li class="primary-nav-mobile__item">
+                            <a href="/" aria-label="Homepage link" class="primary-nav-mobile__link">
+                                <span class="primary-nav-mobile__text">Home</span>
+                            </a>
+                        </li>
+                        {% primarynavmobile %}
+                    </ul>
+                {% endwagtailcache %}
+            </nav>
+
+            {# Mode switcher desktop - hide for now #}
+            {% comment %} {% include "patterns/molecules/mode_switcher/mode_switcher.html" %} {% endcomment %}
+        </div>
+        {# Mobile menu toggle -  hide for now, will be reused in the secondary nav #}
+        {% comment %} <div class="header__menu-toggle grid__header-toggle">
+            <span class="sr-only">Menu</span>
+            <button class="button-menu-toggle" data-mobile-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="Mobile menu toggle">
+                <span class="button-menu-toggle__line"></span>
+                <span class="button-menu-toggle__line"></span>
+                <span class="button-menu-toggle__line"></span>
+                <span class="button-menu-toggle__line"></span>
+            </button>
+        </div>
+        {# Mobile navigation #}
+        <nav aria-label="Main navigation"  class="primary-nav-mobile" data-mobile-menu>
+            {% wagtailcache 600 "primarynavmobile" current_site.pk is_pattern_library %}
+                <ul data-primary-nav class="primary-nav-mobile__list">
+                    {% primarynavmobile %}
                 </ul>
             {% endwagtailcache %}
-        </nav>
-
-        {# Mode switcher desktop #}
-        {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
+            {# Mode switcher mobile  #}
+            {% include "patterns/molecules/mode_switcher/mode_switcher.html" with mobile=True %}
+        </nav> {% endcomment %}
     </div>
-
-    {# Mobile menu toggle #}
-    <div class="header__menu-toggle grid__header-toggle">
-        <span class="sr-only">Menu</span>
-        <button class="button-menu-toggle" data-mobile-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="Mobile menu toggle">
-            <span class="button-menu-toggle__line"></span>
-            <span class="button-menu-toggle__line"></span>
-            <span class="button-menu-toggle__line"></span>
-            <span class="button-menu-toggle__line"></span>
-        </button>
-    </div>
-
-    {# Mobile navigation #}
-    <nav aria-label="Main navigation"  class="primary-nav-mobile" data-mobile-menu>
-        {% wagtailcache 600 "primarynavmobile" current_site.pk is_pattern_library %}
-            <ul data-primary-nav class="primary-nav-mobile__list">
-                {% primarynavmobile %}
-            </ul>
-        {% endwagtailcache %}
-        {# Mode switcher mobile #}
-        {% include "patterns/molecules/mode_switcher/mode_switcher.html" with mobile=True %}
-    </nav>
 </header>
