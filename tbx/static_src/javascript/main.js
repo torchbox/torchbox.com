@@ -8,6 +8,7 @@ import YouTubeConsentManager from './components/youtube-embed';
 import Tabs from './components/tabs';
 import TableHint from './components/table-hint';
 import ModeSwitcher from './components/mode-switcher';
+import DynamicHero from './components/dynamic-hero';
 
 // IE11 polyfills
 import foreachPolyfill from './polyfills/foreach-polyfill';
@@ -37,5 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initComponent(Tabs);
     initComponent(TableHint);
     initComponent(ModeSwitcher);
+    initComponent(DynamicHero);
     new DesktopCloseMenus();
 });
