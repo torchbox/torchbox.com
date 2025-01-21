@@ -66,6 +66,7 @@
 
     &__button {
         @include font-size('size-five');
+        align-self: flex-start;
         grid-column: span 1;
 
         @include media-query(medium) {
