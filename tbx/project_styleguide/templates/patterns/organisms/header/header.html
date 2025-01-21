@@ -24,9 +24,6 @@
                 {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="header__primary-menu-toggle-icon" %}
             </button>
 
-            {# Mode switcher desktop - hide for now #}
-            {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
-
             {# Primary mobile navigation #}
             <nav aria-label="Main navigation"  class="primary-nav-mobile" data-primary-mobile-menu>
                 {% wagtailcache 600 "primarynavmobile" current_site.pk is_pattern_library %}
@@ -40,6 +37,9 @@
                     </ul>
                 {% endwagtailcache %}
             </nav>
+
+            {# Mode switcher desktop - hide for now #}
+            {% comment %} {% include "patterns/molecules/mode_switcher/mode_switcher.html" %} {% endcomment %}
         </div>
         {# Mobile menu toggle -  hide for now, will be reused in the secondary nav #}
         {% comment %} <div class="header__menu-toggle grid__header-toggle">

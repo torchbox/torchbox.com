@@ -18,6 +18,7 @@ Styles for the primary navigation at mobile (top level)
     display: block;
     background-color: var(--color--black);
     border: 1px solid var(--color--eclipse);
+    padding: $spacer-mini-plus 0;
 
     @include media-query(menu) {
         display: none;
@@ -45,19 +46,12 @@ Styles for the primary navigation at mobile (top level)
             $color: var(--color--grey-20),
             $interaction-color: var(--color--white)
         );
+        @include high-contrast-text-decoration();
         display: flex;
         padding: 10px $spacer-small;
 
         &:focus {
             @include focus-style();
-        }
-
-        #{$root}__item:last-child & {
-            padding-bottom: $spacer-small;
-        }
-
-        #{$root}__item:first-child & {
-            padding-top: $spacer-small;
         }
     }
 }

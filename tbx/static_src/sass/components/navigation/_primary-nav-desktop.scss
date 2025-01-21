@@ -34,6 +34,7 @@ Styles for the primary navigation at desktop (top level)
     }
 
     &__link {
+        @include high-contrast-text-decoration();
         color: var(--color--grey-20);
 
         &:hover {
