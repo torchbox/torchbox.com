@@ -1,16 +1,16 @@
 {% load wagtailcore_tags wagtailimages_tags %}
-<div>
-    {# Section heading #}
-    <h2>{{ value.title }}</h2>
+<div class="grid__link-columns link-columns">
+    <div class="link-columns__header">
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.title classes="motif-heading--two motif-heading--static link-columns__title " %}
+        {% if value.intro %}
+            <div class="link-columns__intro rich-text">{{ value.intro|richtext }}</div>
+        {% endif %}
+    </div>
 
-    {# Section intro #}
-    <div>{{ value.intro|richtext }}</div>
-
-    {# Links #}
-    <ul>
+    <ul class="link-columns__links">
         {% for link in value.links %}
-            <li>
-                <a href="{{ link.value.url }}">{{ link.value.text }}</a>
+            <li class="link-columns__item">
+                <a href="{{ link.value.url }}" class="link-columns__link">{{ link.value.text }}<span class="link-columns__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow" classname="link-columns__arrow" %}</span></a>
             </li>
         {% endfor %}
     </ul>
