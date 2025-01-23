@@ -6,16 +6,14 @@
     }
 
     &__links {
-        display: grid;
-        grid-template-columns: 1fr;
-        column-gap: $spacer-half;
-
         @include media-query(medium) {
-            grid-template-columns: repeat(2, 1fr);
+            columns: 2;
+            column-gap: $spacer-large;
         }
 
         @include media-query(large) {
-            grid-template-columns: repeat(3, 1fr);
+            columns: 3;
+            column-gap: $spacer-half;
         }
     }
 
@@ -25,20 +23,28 @@
     }
 
     &__link {
+        display: block;
+        width: fit-content;
+
+        &:focus {
+            @include focus-style();
+        }
+    }
+
+    &__link-text {
         @include font-size(size-six);
-        color: var(--color--white);
+        @include link-styles(
+            $color: var(--color--link),
+            $interaction-color: var(--color--theme-primary),
+            $offset: 5px
+        );
 
         &:hover {
             transition: color $transition-quick;
-            color: var(--color--theme-primary);
 
             @include reduced-motion() {
                 transition: none;
             }
-        }
-
-        @include high-contrast-mode() {
-            text-decoration: underline;
         }
     }
 
