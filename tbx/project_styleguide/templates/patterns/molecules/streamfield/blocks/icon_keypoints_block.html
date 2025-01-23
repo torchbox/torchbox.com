@@ -12,7 +12,7 @@
             <li class="keypoints__item">
                 <div class="keypoints__wrapper">
                     <p class="keypoints__label">{{ key_point.icon_label }}</p>
-                    {% include "patterns/atoms/icons/icon.html" with name=key_point.icon classname="keypoints__icon key_point.icon" %}
+                    {% include "patterns/atoms/icons/icon.html" with name=key_point.icon classname="keypoints__icon" %}
                 </div>
                     {# header title is optional, so heading here may be h2 #}
                 <{% if value.title %}h3{% else %}h2{% endif %} class="keypoints__heading">
