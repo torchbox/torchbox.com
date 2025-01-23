@@ -1,10 +1,12 @@
 # Django settings for tbx project.
+import contextlib
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import sys
 
 import dj_database_url
+
 
 # Configuration from environment variables
 env = os.environ.copy()
@@ -334,10 +336,8 @@ if "EMAIL_HOST" in env:
     EMAIL_HOST = env["EMAIL_HOST"]
 
 if "EMAIL_PORT" in env:
-    try:
+    with contextlib.suppress(ValueError):
         EMAIL_PORT = int(env["EMAIL_PORT"])
-    except ValueError:
-        pass
 
 if "EMAIL_HOST_USER" in env:
     EMAIL_HOST_USER = env["EMAIL_HOST_USER"]
@@ -411,10 +411,8 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 DEFAULT_HSTS_SECONDS = 30 * 24 * 60 * 60  # 30 days
 SECURE_HSTS_SECONDS = DEFAULT_HSTS_SECONDS
 if "SECURE_HSTS_SECONDS" in env:
-    try:
+    with contextlib.suppress(ValueError):
         SECURE_HSTS_SECONDS = int(env["SECURE_HSTS_SECONDS"])
-    except ValueError:
-        pass
 
 # We don't enforce HSTS on subdomains as anything at subdomains is likely outside our control.
 # https://docs.djangoproject.com/en/3.2/ref/settings/#secure-hsts-include-subdomains
@@ -548,10 +546,8 @@ elif "FRONTEND_CACHE_CLOUDFLARE_TOKEN" in env:
 
 # Set s-max-age header that is used by reverse proxy/front end cache. See
 # urls.py
-try:
+with contextlib.suppress(ValueError):
     CACHE_CONTROL_S_MAXAGE = int(env.get("CACHE_CONTROL_S_MAXAGE", 600))
-except ValueError:
-    pass
 
 
 # Give front-end cache 30 second to revalidate the cache to avoid hitting the
@@ -594,7 +590,8 @@ if "MAILCHIMP_MAILING_LIST_ID" in env:
 
 
 WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = (
-    "patterns/pages/wagtail/password_required.html"  # pragma: allowlist secret
+    # pragma: allowlist nextline secret
+    "patterns/pages/wagtail/password_required.html"  # noqa: S105
 )
 # Styleguide
 PATTERN_LIBRARY_ENABLED = env.get("PATTERN_LIBRARY_ENABLED", "false").lower() == "true"

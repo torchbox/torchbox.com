@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("torchbox", "0014_alter_standardpage_body"),
         ("torchbox", "0014_data_migration_pageauthor"),

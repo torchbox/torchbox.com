@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("people", "0007_use_custom_streamfield"),
         ("images", "0001_initial"),

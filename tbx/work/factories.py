@@ -1,5 +1,6 @@
 import factory
 import wagtail_factories
+
 from tbx.core.factories import StoryBlockFactory
 from tbx.images.factories import CustomImageFactory
 from tbx.taxonomy.factories import ServiceFactory

@@ -2,11 +2,11 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+
 import modelcluster.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailcore", "0089_log_entry_data_json_null_to_object"),
         ("services", "0003_alter_servicepage_body"),

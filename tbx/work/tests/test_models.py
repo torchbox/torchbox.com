@@ -1,5 +1,9 @@
 from django.core.paginator import Page as PaginatorPage
 
+from wagtail.coreutils import get_dummy_request
+from wagtail.models import PageViewRestriction
+from wagtail.test.utils import WagtailPageTestCase
+
 from tbx.taxonomy.factories import ServiceFactory
 from tbx.work.factories import (
     HistoricalWorkPageFactory,
@@ -7,14 +11,9 @@ from tbx.work.factories import (
     WorkPageFactory,
 )
 from tbx.work.models import WorkPage
-from wagtail.coreutils import get_dummy_request
-from wagtail.models import PageViewRestriction
-from wagtail.test.utils import WagtailPageTestCase
 
 
 class TestWorkIndexPageFactory(WagtailPageTestCase):
-    # def test_create(self):
-    #     WorkIndexPageFactory()
     @classmethod
     def setUpTestData(cls):
         cls.work_index = WorkIndexPageFactory(title="Our work")
@@ -28,14 +27,12 @@ class TestWorkIndexPageFactory(WagtailPageTestCase):
         PageViewRestriction.objects.create(
             page=cls.private_work_page,
             restriction_type="password",
-            password="password123",
+            password="password123",  # noqa: S106
         )
 
     def test_get_context(self):
         context = self.work_index.get_context(get_dummy_request())
         work_pages = context["works"]
-        print("work_pages")
-        print(work_pages)
         self.assertIsInstance(work_pages, PaginatorPage)
         self.assertEqual(work_pages[0]["title"], self.work_page.title)
 

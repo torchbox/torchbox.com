@@ -122,7 +122,8 @@
 @mixin focus-style(
     $color: var(--color--link),
     $shadow: false,
-    $underline-hover-color: $color
+    $underline-hover-color: $color,
+    $keyboard-only: false
 ) {
     outline: $focus-width solid var(--color--theme-primary);
     text-decoration-thickness: $link-underline-thickness-interaction;
@@ -130,6 +131,12 @@
 
     @if $shadow {
         text-shadow: 0 0 0.4px $color, 0 0 0.4px $color;
+    }
+
+    @if $keyboard-only {
+        &:focus:not(:focus-visible) {
+            outline-color: transparent;
+        }
     }
 }
 
@@ -281,10 +288,7 @@
     Navigaiton mixins
 */
 
-@mixin nav-fixed-position(
-    $header-height: $header-height-mobile,
-    $full-height: true
-) {
+@mixin nav-fixed-position($header-height: $header-height, $full-height: true) {
     width: 100%;
     @if $full-height {
         height: calc(100vh - #{$header-height});

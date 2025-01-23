@@ -1,5 +1,8 @@
 from django.db import models
 
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.models import Page
+
 from tbx.core.blocks import DynamicHeroBlock
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
@@ -8,8 +11,6 @@ from tbx.core.utils.models import (
     SocialFields,
 )
 from tbx.people.models import ContactMixin
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.models import Page
 
 from .blocks import DivisionStoryBlock
 
