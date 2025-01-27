@@ -123,9 +123,10 @@
     $color: var(--color--link),
     $shadow: false,
     $underline-hover-color: $color,
-    $keyboard-only: false
+    $keyboard-only: false,
+    $outline-color: var(--color--theme-primary)
 ) {
-    outline: $focus-width solid var(--color--theme-primary);
+    outline: $focus-width solid $outline-color;
     text-decoration-thickness: $link-underline-thickness-interaction;
     text-decoration-color: $underline-hover-color;
 
