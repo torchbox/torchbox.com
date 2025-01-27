@@ -54,5 +54,11 @@
             margin-left: auto;
             margin-right: $spacer-medium;
         }
+
+        &:focus {
+            @include focus-style(
+                $outline-color: var(--color--background),
+            );
+        }
     }
 }

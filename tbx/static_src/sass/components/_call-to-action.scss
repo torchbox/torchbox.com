@@ -29,5 +29,11 @@
         @include media-query(large) {
             margin-top: 0;
         }
+
+        &:focus {
+            @include focus-style(
+                $outline-color: var(--color--background),
+            );
+        }
     }
 }
