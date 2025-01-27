@@ -347,23 +347,21 @@
     }
 }
 
-@mixin ring-one($top: 8px, $color: var(--color--theme-primary)) {
+@mixin ring-one($top: 8px, $color: var(--color--theme-secondary)) {
     top: $top;
     color: $color;
 }
 
-@mixin ring-two($top: 8px, $color: var(--color--theme-secondary)) {
+@mixin ring-two($top: 8px, $color: var(--color--theme-primary)) {
     left: $top;
     color: $color;
 }
 
 @mixin ring-one-hover() {
-    color: var(--color--theme-secondary);
     opacity: 1;
 }
 
 @mixin ring-two-hover() {
-    color: var(--color--theme-primary);
     opacity: 1;
 }
 
