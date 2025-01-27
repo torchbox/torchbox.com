@@ -48,7 +48,8 @@ Styles for the primary navigation at mobile (top level)
         );
         @include high-contrast-text-decoration();
         display: flex;
-        padding: 10px $spacer-small;
+        margin: 10px $spacer-small;
+        width: fit-content;
 
         &:focus {
             @include focus-style();

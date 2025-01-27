@@ -12,6 +12,10 @@
             $underline-hover-color: var(--color--heading)
         );
         font-weight: $weight--semibold;
+
+        &:focus {
+            @include focus-style();
+        }
     }
 
     .text-coral {
@@ -23,6 +27,13 @@
                 $underline-hover-color: var(--color--coral)
             );
         }
+
+        &:focus {
+            @include focus-style(
+                $color: var(--color--coral),
+                $outline-color: var(--color--coral)
+            );
+        }
     }
 
     .text-nebuline {
@@ -32,6 +43,13 @@
                 $interaction-color: var(--color--nebuline),
                 $underline-color: var(--color--nebuline),
                 $underline-hover-color: var(--color--nebuline)
+            );
+        }
+
+        &:focus {
+            @include focus-style(
+                $color: var(--color--nebuline),
+                $outline-color: var(--color--nebuline)
             );
         }
     }
