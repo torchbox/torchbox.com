@@ -56,9 +56,7 @@
         }
 
         &:focus {
-            @include focus-style(
-                $outline-color: var(--color--background),
-            );
+            @include focus-style($outline-color: var(--color--background));
         }
     }
 }
