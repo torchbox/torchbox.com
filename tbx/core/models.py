@@ -19,7 +19,9 @@ from tbx.core.utils.formatting import (
 from tbx.core.utils.models import (
     ColourThemeMixin,
     ContactMixin,
+    DivisionMixin,
     NavigationFields,
+    NavigationSetMixin,
     SocialFields,
 )
 
@@ -118,7 +120,15 @@ class RelatedLink(LinkFields):
         abstract = True
 
 
-class BasePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
+class BasePage(
+    ColourThemeMixin,
+    ContactMixin,
+    DivisionMixin,
+    NavigationFields,
+    NavigationSetMixin,
+    SocialFields,
+    Page,
+):
     class Meta:
         abstract = True
 
@@ -127,7 +137,9 @@ class BasePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + NavigationFields.promote_panels
+        + NavigationSetMixin.promote_panels
         + ColourThemeMixin.promote_panels
+        + DivisionMixin.promote_panels
         + ContactMixin.promote_panels
         + [
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
@@ -151,7 +163,14 @@ class HomePagePartnerLogo(Orderable):
 
 
 # Home Page
-class HomePage(BasePage):
+class HomePage(
+    ColourThemeMixin,
+    ContactMixin,
+    NavigationFields,
+    NavigationSetMixin,
+    SocialFields,
+    Page,
+):
     template = "patterns/pages/home/home_page.html"
 
     parent_page_types = ["wagtailcore.Page"]
@@ -204,6 +223,19 @@ class HomePage(BasePage):
         InlinePanel("logos", heading="Partner logos", label="logo", max_num=12),
         FieldPanel("body"),
     ]
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + NavigationFields.promote_panels
+        + NavigationSetMixin.promote_panels
+        + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
+        + [
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+        ]
+    )
 
     def get_context(self, request):
         context = super().get_context(request)

@@ -1,19 +1,11 @@
 from django.db import models
 
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
-from wagtail.models import Page
 from wagtail.search import index
 
 from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import (
-    ColourThemeMixin,
-    ContactMixin,
-    DivisionMixin,
-    NavigationFields,
-    SocialFields,
-)
 
 from .blocks import ServiceAreaStoryBlock, ServiceStoryBlock
 
@@ -34,7 +26,7 @@ class ServicePage(BasePage):
     ]
 
 
-class ServiceAreaPage(DivisionMixin, BasePage):
+class ServiceAreaPage(BasePage):
     page_description = "A group of services for a division"
     template = "patterns/pages/service/service_area_page.html"
 
@@ -50,19 +42,6 @@ class ServiceAreaPage(DivisionMixin, BasePage):
         FieldPanel("subtitle"),
         FieldPanel("body"),
     ]
-
-    promote_panels = (
-        [
-            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ]
-        + NavigationFields.promote_panels
-        + ColourThemeMixin.promote_panels
-        + DivisionMixin.promote_panels
-        + ContactMixin.promote_panels
-        + [
-            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-        ]
-    )
 
     search_fields = BasePage.search_fields + [
         index.SearchField("body"),
