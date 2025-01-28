@@ -1,16 +1,33 @@
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
+from django.db import models
 
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.snippets.models import register_snippet
 
 from tbx.core.utils.fields import StreamField
 from tbx.navigation.blocks import (
     FooterLogoBlock,
     LinkBlock,
     PrimaryNavLinkBlock,
+    SecondaryNavMenuBlock,
 )
+
+
+@register_snippet
+class NavigationSet(models.Model):
+    name = models.CharField(max_length=255)
+    navigation = StreamField(
+        [
+            ("link", LinkBlock(icon="link")),
+            ("menu", SecondaryNavMenuBlock()),
+        ],
+    )
+
+    def __str__(self):
+        return self.name
 
 
 @register_setting(icon="list-ul")
