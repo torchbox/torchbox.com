@@ -38,8 +38,8 @@
                 {% endwagtailcache %}
             </nav>
 
-            {# Mode switcher desktop - hide for now #}
-            {% comment %} {% include "patterns/molecules/mode_switcher/mode_switcher.html" %} {% endcomment %}
+            {# Mode switcher desktop #}
+            {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
         </div>
         {# Mobile menu toggle -  hide for now, will be reused in the secondary nav #}
         {% comment %} <div class="header__menu-toggle grid__header-toggle">
@@ -58,7 +58,7 @@
                     {% primarynavmobile %}
                 </ul>
             {% endwagtailcache %}
-            {# Mode switcher mobile  #}
+            {# Mode switcher mobile #}
             {% include "patterns/molecules/mode_switcher/mode_switcher.html" with mobile=True %}
         </nav> {% endcomment %}
     </div>
