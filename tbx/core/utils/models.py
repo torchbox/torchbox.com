@@ -44,6 +44,55 @@ class NavigationFields(models.Model):
         return self.navigation_text or self.title
 
 
+class NavigationSetMixin(models.Model):
+    override_navigation_set = models.ForeignKey(
+        "navigation.NavigationSet",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+    class Meta:
+        abstract = True
+
+    promote_panels = [
+        FieldPanel("override_navigation_set"),
+    ]
+
+    @cached_property
+    def navigation_set(self):
+        """
+        Returns a NavigationSet.
+
+        If a navigation set field is set on the current page, use that.
+        If not, check the ancestors.
+
+        The closest ancestor that fulfills one of the following will be followed:
+        - the navigation set field is populated, OR
+        - the ancestor page is a DivisionPage.
+        """
+        from tbx.divisions.models import DivisionPage
+
+        if self.override_navigation_set:
+            return self.override_navigation_set
+
+        try:
+            division_page = next(
+                getattr(p, "division", None) or p
+                for p in self.get_ancestors()
+                .filter(depth__gt=2)
+                .specific()
+                .defer_streamfields()
+                .order_by("-depth")
+                if isinstance(getattr(p, "division", None) or p, DivisionPage)
+            )
+        except StopIteration:
+            division_page = None
+
+        return division_page and division_page.override_navigation_set
+
+
 # Generic social fields abstract class to add social image/text to any new content type easily.
 class SocialFields(models.Model):
     social_image = models.ForeignKey(

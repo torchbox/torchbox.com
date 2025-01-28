@@ -5,11 +5,12 @@ from wagtail.admin.panels import FieldPanel
 from tbx.core.blocks import DynamicHeroBlock
 from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
+from tbx.core.utils.models import NavigationSetMixin
 
 from .blocks import DivisionStoryBlock
 
 
-class DivisionPage(BasePage):
+class DivisionPage(NavigationSetMixin, BasePage):
     template = "patterns/pages/divisions/division_page.html"
 
     parent_page_types = ["torchbox.HomePage"]
@@ -31,3 +32,5 @@ class DivisionPage(BasePage):
         FieldPanel("hero"),
         FieldPanel("body"),
     ]
+
+    promote_panels = BasePage.promote_panels + NavigationSetMixin.promote_panels
