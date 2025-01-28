@@ -35,7 +35,6 @@
     }
 
     &__number {
-        @include font-size(size-zero);
         color: var(--color--theme-primary);
         display: block;
         font-weight: $weight--semibold;
