@@ -1,23 +1,15 @@
 from django.db import models
 
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.models import Page
+from wagtail.admin.panels import FieldPanel
 
 from tbx.core.blocks import DynamicHeroBlock
+from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import (
-    ColourThemeMixin,
-    NavigationFields,
-    SocialFields,
-)
-from tbx.people.models import ContactMixin
 
 from .blocks import DivisionStoryBlock
 
 
-class DivisionPage(
-    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
-):
+class DivisionPage(BasePage):
     template = "patterns/pages/divisions/division_page.html"
 
     parent_page_types = ["torchbox.HomePage"]
@@ -27,7 +19,7 @@ class DivisionPage(
     hero = StreamField([("hero", DynamicHeroBlock())], max_num=1, min_num=1)
     body = StreamField(DivisionStoryBlock(), blank=True)
 
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         FieldPanel(
             "label",
             heading="Division label",
@@ -39,15 +31,3 @@ class DivisionPage(
         FieldPanel("hero"),
         FieldPanel("body"),
     ]
-
-    promote_panels = (
-        [
-            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ]
-        + NavigationFields.promote_panels
-        + ColourThemeMixin.promote_panels
-        + ContactMixin.promote_panels
-        + [
-            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-        ]
-    )

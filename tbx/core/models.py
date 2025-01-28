@@ -18,10 +18,10 @@ from tbx.core.utils.formatting import (
 )
 from tbx.core.utils.models import (
     ColourThemeMixin,
+    ContactMixin,
     NavigationFields,
     SocialFields,
 )
-from tbx.people.models import ContactMixin
 
 from .blocks import HomePageStoryBlock, StandardPageStoryBlock
 
@@ -118,6 +118,23 @@ class RelatedLink(LinkFields):
         abstract = True
 
 
+class BasePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
+    class Meta:
+        abstract = True
+
+    promote_panels = (
+        [
+            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        ]
+        + NavigationFields.promote_panels
+        + ColourThemeMixin.promote_panels
+        + ContactMixin.promote_panels
+        + [
+            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+        ]
+    )
+
+
 class HomePagePartnerLogo(Orderable):
     page = ParentalKey("torchbox.HomePage", related_name="logos")
     image = models.ForeignKey(
@@ -134,7 +151,7 @@ class HomePagePartnerLogo(Orderable):
 
 
 # Home Page
-class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
+class HomePage(BasePage):
     template = "patterns/pages/home/home_page.html"
 
     parent_page_types = ["wagtailcore.Page"]
@@ -153,7 +170,7 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
             return [logo.image for logo in logos]
         return []
 
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         MultiFieldPanel(
             [
                 FieldPanel(
@@ -188,18 +205,6 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
         FieldPanel("body"),
     ]
 
-    promote_panels = (
-        [
-            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ]
-        + NavigationFields.promote_panels
-        + ColourThemeMixin.promote_panels
-        + ContactMixin.promote_panels
-        + [
-            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-        ]
-    )
-
     def get_context(self, request):
         context = super().get_context(request)
         context["is_home_page"] = True
@@ -210,30 +215,16 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
 
 
 # Standard page
-class StandardPage(
-    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
-):
+class StandardPage(BasePage):
     template = "patterns/pages/standard/standard_page.html"
 
     body = StreamField(StandardPageStoryBlock())
 
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         FieldPanel("body"),
     ]
 
-    promote_panels = (
-        [
-            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ]
-        + NavigationFields.promote_panels
-        + ColourThemeMixin.promote_panels
-        + ContactMixin.promote_panels
-        + [
-            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-        ]
-    )
-
-    search_fields = Page.search_fields + [
+    search_fields = BasePage.search_fields + [
         index.SearchField("body"),
     ]
 
