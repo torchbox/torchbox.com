@@ -30,13 +30,16 @@
                         {% include "patterns/atoms/icons/icon.html" with name="ring-two" classname="icon--stroke tabs__ring tabs__ring--two" %}
                     </div>
                     <p class="tabs__nav-text">{{ tab.name }}</p>
-                    {% include "patterns/atoms/icons/icon.html" with name="arrow-extra-wide" classname="tabs__nav-arrow" %}
+                    {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="tabs__nav-arrow" %}
                 </a>
             {% endfor %}
         </div>
 
         {% for item in value.tabbed_paragraph_sections %}
             <div class="tabs__panel {% if not forloop.counter == 1 %}tabs__panel--hidden{% endif %}" id="tab-{{ item.name|slugify }}" role="tabpanel" aria-labelledby="{{ item.name|slugify }}" data-tab-panel>
+                <div class="tabs__panel-headline heading heading--mega">
+                    {{ item.headline }}
+                </div>
                 <div class="tabs__panel-summary">
                     {{ item.summary }}
                 </div>
@@ -72,6 +75,9 @@
                 </span>
             </summary>
             <div class="tabs-mobile__info">
+                <div class="tabs-mobile__headline heading heading--mega">
+                    {{ tab.headline }}
+                </div>
                 <div class="tabs-mobile__summary-text">
                     {{ tab.summary }}
                 </div>
