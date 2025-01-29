@@ -22,6 +22,7 @@ module.exports = {
             transparent: 'transparent',
             background: 'var(--color--background)',
             heading: 'var(--color--heading)',
+            themePrimary: 'var(--color--theme-primary)',
         },
         screens: {
             sm: '410px',
