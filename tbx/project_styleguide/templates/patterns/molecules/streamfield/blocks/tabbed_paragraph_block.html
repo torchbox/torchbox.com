@@ -3,9 +3,9 @@
 <div class="tabbed-paragraph grid__tabbed-paragraph">
 
     {% if value.title and not value.intro %}
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.title classes="motif-heading--two motif-heading--static tabbed-paragraph__heading tabbed-paragraph__heading--no-intro" %}
+        <h2 class="motif-heading tabbed-paragraph__heading tabbed-paragraph__heading--no-intro">{{ value.title }}</h2>
     {% elif value.title %}
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.title classes="motif-heading--two motif-heading--static tabbed-paragraph__heading" %}
+        <h2 class="motif-heading tabbed-paragraph__heading">{{ value.title }}</h2>
     {% endif %}
 
     {% if value.intro %}

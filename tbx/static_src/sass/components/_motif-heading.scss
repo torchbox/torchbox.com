@@ -1,109 +1,19 @@
 @use 'config' as *;
 
 .motif-heading {
-    $root: &;
-    font-weight: $weight--light;
-    color: var(--color--heading);
+    @include font-size(size-two);
+    font-weight: $weight--semibold;
+    color: transparent;
+    background-image: var(--motif-heading);
+    background-clip: text;
+    // background-color is essential here as a fallback for browsers that don't support background-clip
+    background-color: var(--color--heading);
+    background-repeat: no-repeat;
+    background-size: 30%;
+    background-origin: border-box;
 
-    &__drop-cap {
-        color: transparent;
-        background-image: var(--letter-motif-two), var(--letter-motif-one);
-        background-clip: text;
-        // background-color is essential here as a fallback for browsers that don't support background-clip
-        background-color: var(--color--heading);
-        background-repeat: no-repeat;
-        background-size: 100%;
-        animation: motifAnimation 1.7s cubic-bezier(0.3, 0, 0.6, 1);
-        background-origin: border-box;
-        text-transform: uppercase;
-
-        @include reduced-motion() {
-            animation: none;
-        }
-
-        #{$root}--static & {
-            animation: none;
-        }
-
-        // The letter I gets a special version of the animation so that the flame
-        // is visible in its final resting place
-        &--i {
-            background-size: 200%;
-            animation: motifAnimationForLeterI 1.7s cubic-bezier(0.3, 0, 0.6, 1)
-                forwards;
-
-            @include reduced-motion() {
-                animation: none;
-            }
-        }
-
-        // Narrower letters look like they have too much space after them
-        // These classes add a small negative margin on the letters after - using ems to work for different font-sizes
-        // Affects T and Y
-        &--narrowest + span {
-            margin-left: -0.3em;
-        }
-
-        // Affects W
-        &--narrower + span {
-            margin-left: -0.15em;
-        }
-
-        // Affects F and P
-        &--narrow + span {
-            margin-left: -0.05em;
-        }
-    }
-
-    @keyframes motifAnimation {
-        0% {
-            background-position: 120px -40px, -120px -90px;
-        }
-        100% {
-            background-position: 0 0, 0 0;
-        }
-    }
-
-    @keyframes motifAnimationForLeterI {
-        0% {
-            background-position: 120px -40px, -120px -90px;
-        }
-        100% {
-            background-position: 0 5px, 0 10px;
-        }
-    }
-
-    &--one {
-        @include font-size(size-one);
-
-        #{$root}__drop-cap {
-            @include drop-cap(100px, 160px);
-        }
-    }
-
-    &--one-b {
-        @include font-size(size-one-b);
-
-        #{$root}__drop-cap {
-            @include drop-cap(80px, 150px);
-        }
-    }
-
-    &--two {
-        @include font-size(size-two);
-
-        #{$root}__drop-cap {
-            @include drop-cap(72px, 90px);
-        }
-    }
-
-    // kept the same name as the heading variable for consistency
-    &--two-c {
-        @include font-size(size-two-b);
-
-        #{$root}__drop-cap {
-            @include drop-cap(46px, 90px);
-        }
+    @include media-query('large') {
+        background-size: 40%;
     }
 
     &--half-width {

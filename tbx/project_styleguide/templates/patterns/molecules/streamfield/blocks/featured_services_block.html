@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="grid__featured-services featured-services">
     <div class="featured-services__header">
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.title classes="motif-heading--two motif-heading--static featured-services__title " %}
+        <h2 class="motif-heading featured-services__title">{{ value.title }}</h2>
         {% if value.intro %}
             <div class="featured-services__intro rich-text">{{ value.intro|richtext }}</div>
         {% endif %}
