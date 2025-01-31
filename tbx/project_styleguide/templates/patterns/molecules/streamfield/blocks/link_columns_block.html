@@ -1,0 +1,17 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="grid__link-columns link-columns">
+    <div class="link-columns__header">
+        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.title classes="motif-heading--two motif-heading--static link-columns__title " %}
+        {% if value.intro %}
+            <div class="link-columns__intro rich-text">{{ value.intro|richtext }}</div>
+        {% endif %}
+    </div>
+
+    <ul class="link-columns__links">
+        {% for link in value.links %}
+            <li class="link-columns__item">
+                <a class="link-columns__link" href="{{ link.value.url }}"><span class="link-columns__link-text">{{ link.value.text }}</span><span class="link-columns__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow" classname="link-columns__arrow" %}</span></a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

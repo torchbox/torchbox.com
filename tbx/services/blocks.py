@@ -6,6 +6,7 @@ from tbx.core.blocks import (
     FeaturedCaseStudyBlock,
     FourPhotoCollageBlock,
     ImageWithAltTextBlock,
+    LinkColumnsBlock,
     PartnersBlock,
     PhotoCollageBlock,
     PromoBlock,
@@ -70,4 +71,5 @@ class ServiceStoryBlock(StoryBlock):
 class ServiceAreaStoryBlock(StoryBlock):
     blog_chooser = BlogChooserBlock()
     four_photo_collage = FourPhotoCollageBlock()
+    link_columns = LinkColumnsBlock()
     work_chooser = WorkChooserBlock()

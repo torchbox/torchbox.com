@@ -193,13 +193,15 @@
 @mixin arrow-link-icon-styles(
     $mobile-hidden: false,
     $color: var(--color--decoration),
-    $interaction-color: var(--color--link-interaction)
+    $interaction-color: var(--color--link-interaction),
+    $width: 72px,
+    $height: 22px
 ) {
     // Apply all common styles regardless of mobile-hidden
     display: inline-block;
     color: $color;
-    width: 72px;
-    height: 22px;
+    width: $width;
+    height: $height;
     transition: transform, $transition-quick;
 
     @include reduced-motion() {
