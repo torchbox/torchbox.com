@@ -35,27 +35,24 @@
         }
 
         &--theme-coral {
-            background-color: var(--color--coral);
-
-            &:has(.button-link:hover) {
-                background-color: var(--color--coral-dark);
-            }
+            @include card-hover-style(
+                var(--color--coral),
+                var(--color--coral-dark)
+            );
         }
 
         &--theme-nebuline {
-            background-color: var(--color--nebuline);
-
-            &:has(.button-link:hover) {
-                background-color: var(--color--nebuline-dark);
-            }
+            @include card-hover-style(
+                var(--color--nebuline),
+                var(--color--nebuline-dark)
+            );
         }
 
         &--theme-lagoon {
-            background-color: var(--color--lagoon);
-
-            &:has(.button-link:hover) {
-                background-color: var(--color--lagoon-dark);
-            }
+            @include card-hover-style(
+                var(--color--lagoon),
+                var(--color--lagoon-dark)
+            );
         }
     }
 

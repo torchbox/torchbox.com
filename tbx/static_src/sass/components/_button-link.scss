@@ -18,7 +18,7 @@
         padding: 13px $spacer-small;
 
         #{$root}__arrow {
-            margin-left: $spacer-mini;
+            margin-left: 0;
         }
     }
 
@@ -52,6 +52,6 @@
             $interaction-color: var(--color--button-link-interaction)
         );
         color: inherit;
-        margin-left: $spacer-mini-plus;
+        margin-left: $spacer-mini;
     }
 }

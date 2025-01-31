@@ -7,24 +7,28 @@
 $color--coral: #ee5276;
 $color--coral-dark: #be425e;
 $color--coral-light: #f9f1f6;
+$color--coral-lighter: #fcf8fb;
 $color--sky: #659ff2;
 
 // Public nebuline theme
 $color--nebuline: #6f60d0;
 $color--nebuline-dark: #594da6;
 $color--nebuline-light: #f1edff;
+$color--nebuline-lighter: #f8f6ff;
 $color--spearmint: #6cd9bf;
 
 // Wagtail lagoon theme
 $color--lagoon: #0096a8;
 $color--lagoon-dark: #007886;
 $color--lagoon-light: #ecf2ed;
+$color--lagoon-lighter: #f5f9f6;
 $color--coolmint: #b6e2df;
 
 // About green theme
 $color--green: #398078;
 $color--green-dark: #2e6660;
 $color--green-light: #f0eeea;
+$color--green-lighter: #f7f7f5;
 $color--banana: #fde05f;
 
 $color--white: #fff;
@@ -122,7 +126,7 @@ $color--black: #000;
 }
 
 .mode-light {
-    // redeclare any base variables that are different in light mode (these ones don't change with the theme)
+    // Redeclare any base variables that are different in light mode (these ones don't change with the theme)
     --color--dark-background: #{color.adjust($color--black, $alpha: -0.97)};
     --color--background: #{$color--white};
     --color--heading: #{$color--eclipse};
@@ -135,6 +139,11 @@ $color--black: #000;
     --color--streamfield-background: #{$color--grey-5};
     --color--background-swirls-one: #{$color--grey-5};
     --color--background-swirls-two: #{$color--grey-50};
+    // The following base variables are only used in light mode
+    --color--coral-lighter: #{$color--coral-lighter};
+    --color--nebuline-lighter: #{$color--nebuline-lighter};
+    --color--lagoon-lighter: #{$color--lagoon-lighter};
+    --color--green-lighter: #{$color--green-lighter};
 }
 
 // Coral theme, light mode
@@ -144,6 +153,7 @@ $color--black: #000;
     --color--theme-primary-muted: #{color.adjust($color--coral, $alpha: -0.5)};
     --color--theme-primary-dark: #{$color--coral-dark};
     --color--theme-primary-light: #{$color--coral-light};
+    --color--theme-primary-lighter: #{$color--coral-lighter};
     --color--theme-secondary: #{$color--sky};
     // Motif heading flames
     // - The 'fill' colour is inlined with the '#' of the hex being replaced with '%23' e.g. #ff0000 becomes %23ff0000
@@ -158,6 +168,7 @@ $color--black: #000;
     --color--theme-primary-muted: #{color.adjust($color--nebuline, $alpha: -0.5)};
     --color--theme-primary-dark: #{$color--nebuline-dark};
     --color--theme-primary-light: #{$color--nebuline-light};
+    --color--theme-primary-lighter: #{$color--nebuline-lighter};
     --color--theme-secondary: #{$color--spearmint};
 }
 
@@ -167,6 +178,7 @@ $color--black: #000;
     --color--theme-primary-muted: #{color.adjust($color--lagoon, $alpha: -0.5)};
     --color--theme-primary-dark: #{$color--lagoon-dark};
     --color--theme-primary-light: #{$color--lagoon-light};
+    --color--theme-primary-lighter: #{$color--lagoon-lighter};
     --color--theme-secondary: #{$color--coolmint};
     // Motif heading flames
     // - The 'fill' colour is inlined with the '#' of the hex being replaced with '%23' e.g. #ff0000 becomes %23ff0000
@@ -181,6 +193,7 @@ $color--black: #000;
     --color--theme-primary-muted: #{color.adjust($color--green, $alpha: -0.5)};
     --color--theme-primary-dark: #{$color--green-dark};
     --color--theme-primary-light: #{$color--green-light};
+    --color--theme-primary-lighter: #{$color--green-lighter};
     --color--theme-secondary: #{$color--banana};
 }
 
