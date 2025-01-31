@@ -1,5 +1,5 @@
 context:
-  hero_introduction: '<p data-block-key="hs0yc">Innovative and strategic digital experiences, powerful tech platforms, and targeted digital marketing to catalyse impact for the world&apos;s leading <a href="/services/charity/"><span class="text-coral">charities</span></a> and <a href="/services/public-sector/"><span class="text-nebuline">public sector</span></a> organisations.</p>'
+  hero_introduction: '<p data-block-key="hs0yc">Innovative and strategic digital experiences, powerful tech platforms, and targeted digital marketing to catalyse impact for the world&apos;s leading <a href="/services/charity/" class="text-coral">charities</a> and <a href="/services/public-sector/" class="text-nebuline">public sector</a> organisations.</p>'
   page:
     get_verbose_name: home-page
     partner_logos:

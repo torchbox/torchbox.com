@@ -6,7 +6,7 @@
     <div class="p-4 flex flex-col gap-y-16">
         <div>
             <h2 class="underline mb-2">Mode switcher</h2>
-            {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
+            <div class="bg-black">{% include "patterns/molecules/mode_switcher/mode_switcher.html" %}</div>
         </div>
 
         <div>
@@ -180,6 +180,11 @@
         </div>
 
         <div>
+            <h2 class="underline mt-8 mb-2">Dynamic hero</h2>
+            {% include "patterns/molecules/streamfield/blocks/dynamic_hero_block.html" %}
+        </div>
+
+        <div>
             <h2 class="underline mt-8 mb-2">Values block</h2>
             {% include "patterns/molecules/streamfield/blocks/values_block.html" %}
         </div>
@@ -207,6 +212,11 @@
         <div>
             <h2 class="underline mt-8 mb-2">Table block</h2>
             {% include "patterns/molecules/streamfield/blocks/typed_table_block.html" %}
+        </div>
+
+        <div>
+            <h2 class="underline mt-8 mb-2">Link columns block</h2>
+            {% include "patterns/molecules/streamfield/blocks/link_columns_block.html" %}
         </div>
 
         <div>

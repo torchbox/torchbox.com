@@ -26,6 +26,7 @@
         transition: none;
     }
 
+    &:focus,
     &:hover {
         color: var(--color--button-link-interaction);
         background-color: var(--color--link-interaction);
@@ -37,14 +38,26 @@
 
     &--theme-coral {
         background-color: $color--coral;
+
+        &:focus {
+            @include focus-style($outline-color: var(--color--coral));
+        }
     }
 
     &--theme-nebuline {
         background-color: $color--nebuline;
+
+        &:focus {
+            @include focus-style($outline-color: var(--color--nebuline));
+        }
     }
 
     &--theme-lagoon {
         background-color: $color--lagoon;
+
+        &:focus {
+            @include focus-style($outline-color: var(--color--lagoon));
+        }
     }
 
     &__arrow {

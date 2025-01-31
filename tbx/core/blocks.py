@@ -408,6 +408,24 @@ class IntroductionWithImagesBlock(blocks.StructBlock):
         )
 
 
+class LinkColumnsBlock(blocks.StructBlock):
+    """
+    Displays a list of links in columns.
+    Used on the service area page.
+    """
+
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    links = LinkBlock(max_num=None, min_num=1)
+
+    class Meta:
+        group = "Custom"
+        icon = "link"
+        template = "patterns/molecules/streamfield/blocks/link_columns_block.html"
+
+
 class PartnersBlock(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255, required=False)
     partner_logos = blocks.ListBlock(CustomImageChooserBlock(), label="Logos")
