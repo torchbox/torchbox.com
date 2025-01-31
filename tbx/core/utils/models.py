@@ -277,6 +277,9 @@ class DivisionMixin(models.Model):
         if self.division:
             return self.division
 
+        if isinstance(self, DivisionPage):
+            return self
+
         try:
             return next(
                 getattr(p, "division", None) or p
