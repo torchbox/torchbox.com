@@ -10,14 +10,16 @@
             {% endfor %}
         </div>
     </div>
-    <div class="four-photo-collage__text">
-        {% if value.caption %}
-            <div class="rich-text heading heading--three heading--light mb-8">
-                {{ value.caption|richtext }}
-            </div>
-        {% endif %}
-        {% if value.description %}
-            <div class="rich-text four-photo-collage__description">{{ value.description|richtext }}</div>
-        {% endif %}
-    </div>
+    {% if value.caption or value.description %}
+        <div class="four-photo-collage__text">
+            {% if value.caption %}
+                <div class="rich-text heading heading--three heading--light mb-8">
+                    {{ value.caption|richtext }}
+                </div>
+            {% endif %}
+            {% if value.description %}
+                <div class="rich-text four-photo-collage__description">{{ value.description|richtext }}</div>
+            {% endif %}
+        </div>
+    {% endif %}
 </div>
