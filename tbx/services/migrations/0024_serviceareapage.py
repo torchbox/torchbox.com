@@ -2,11 +2,11 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+
 import tbx.core.utils.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("images", "0001_initial"),
         ("wagtailcore", "0094_alter_page_locale"),

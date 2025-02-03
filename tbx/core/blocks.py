@@ -1,6 +1,6 @@
-import logging
 from collections import defaultdict
 from datetime import datetime
+import logging
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -10,7 +10,6 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 
-from tbx.images.models import CustomImage
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.contrib.typed_table_block.blocks import (
@@ -23,8 +22,12 @@ from wagtail.embeds.exceptions import EmbedException
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
+
 from wagtailmarkdown.blocks import MarkdownBlock
 from wagtailmedia.blocks import VideoChooserBlock
+
+from tbx.images.models import CustomImage
+
 
 logger = logging.getLogger(__name__)
 
@@ -101,8 +104,6 @@ class ImageFormatChoiceBlock(blocks.FieldBlock):
     without breaking the migrations.
     See https://github.com/wagtail/wagtail/issues/3710 for more details.
     """
-
-    pass
 
 
 class AltTextStructValue(blocks.StructValue):
@@ -284,6 +285,41 @@ class DynamicHeroBlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/dynamic_hero_block.html"
 
 
+class FeaturedPageCardBlock(blocks.StructBlock):
+    heading = blocks.CharBlock(required=False)
+    description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
+    image = ImageChooserBlock()
+    link_text = blocks.CharBlock()
+    accessible_link_text = blocks.CharBlock(
+        help_text=(
+            "Used by screen readers. This should be descriptive for accessibility. "
+            'If not filled, the "Link text" field will be used instead.'
+        ),
+        required=False,
+    )
+    page = blocks.PageChooserBlock()
+
+    class Meta:
+        icon = "breadcrumb-expand"
+
+
+class FeaturedServicesBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    cards = blocks.ListBlock(
+        FeaturedPageCardBlock(),
+        max_num=4,
+        min_num=2,
+    )
+
+    class Meta:
+        group = "Custom"
+        icon = "link"
+        template = "patterns/molecules/streamfield/blocks/featured_services_block.html"
+
+
 class FourPhotoCollageBlock(blocks.StructBlock):
     """
     Accepts 4 photos shown as a collage + text below.
@@ -311,6 +347,46 @@ class FourPhotoCollageBlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/four_photo_collage_block.html"
 
 
+class KeyPointIconChoice(models.TextChoices):
+    CALENDAR = "key-calendar", "calendar icon"
+    CONVERSATION = "key-conversation", "chat bubbles icon"
+    LIGHTBULB = "key-lightbulb", "lightbulb icon"
+    MAIL = "key-mail", "mail icon"
+    MEGAPHONE = "key-megaphone", "megaphone icon"
+    PEOPLE = "key-people", "people icon"
+    BULLSEYE = "key-bullseye", "target icon"
+    UP_ARROW = "key-up-arrow", "up arrow icon"
+
+
+class IconKeyPointBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(
+        choices=KeyPointIconChoice.choices,
+        default=KeyPointIconChoice.LIGHTBULB,
+        max_length=32,
+    )
+    icon_label = blocks.CharBlock()
+    heading = blocks.CharBlock()
+    description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
+
+    class Meta:
+        icon = "breadcrumb-expand"
+
+
+class IconKeyPointsBlock(blocks.StructBlock):
+    """Used on the service area page."""
+
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    key_points = blocks.ListBlock(IconKeyPointBlock(label="Key point"), min_num=1)
+
+    class Meta:
+        group = "Custom"
+        icon = "list-ul"
+        template = "patterns/molecules/streamfield/blocks/icon_keypoints_block.html"
+
+
 class IntroductionWithImagesBlock(blocks.StructBlock):
     """Used on the division page."""
 
@@ -333,6 +409,24 @@ class IntroductionWithImagesBlock(blocks.StructBlock):
         template = (
             "patterns/molecules/streamfield/blocks/introduction_with_images_block.html"
         )
+
+
+class LinkColumnsBlock(blocks.StructBlock):
+    """
+    Displays a list of links in columns.
+    Used on the service area page.
+    """
+
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    links = LinkBlock(max_num=None, min_num=1)
+
+    class Meta:
+        group = "Custom"
+        icon = "link"
+        template = "patterns/molecules/streamfield/blocks/link_columns_block.html"
 
 
 class PartnersBlock(blocks.StructBlock):
@@ -394,8 +488,13 @@ class DivisionSignpostCardBlock(blocks.StructBlock):
     heading = blocks.CharBlock(required=False)
     description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
     image = ImageChooserBlock()
-    link_text = blocks.CharBlock(
-        help_text=("This should be descriptive for accessibility."),
+    link_text = blocks.CharBlock()
+    accessible_link_text = blocks.CharBlock(
+        help_text=(
+            "Used by screen readers. This should be descriptive for accessibility. "
+            'If not filled, the "Link text" field will be used instead.'
+        ),
+        required=False,
     )
     page = blocks.PageChooserBlock()
 
@@ -497,22 +596,23 @@ class CaseStudyStructValue(blocks.StructValue):
         """
         if logo := self.get("logo"):
             return logo
-        elif page := self.get("link"):
-            if page.content_type.model_class().__name__ == "WorkPage":
-                return page.specific.logo
+        elif (
+            page := self.get("link")
+        ) and page.content_type.model_class().__name__ == "WorkPage":
+            return page.specific.logo
         return None
 
 
 class NumericResultBlock(blocks.StructBlock):
     label = blocks.CharBlock(
         max_length=255,
-        help_text=mark_safe(
+        help_text=mark_safe(  # noqa: S308
             "Short text to describe the change e.g. <strong>Raised over</strong>"
         ),
     )
     headline_number = blocks.CharBlock(
         max_length=255,
-        help_text=mark_safe("A numerical value e.g. <strong>£600k</strong>"),
+        help_text=mark_safe("A numerical value e.g. <strong>£600k</strong>"),  # noqa: S308
     )
 
 
@@ -557,11 +657,16 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
 
 class BlogChooserBlock(blocks.StructBlock):
     featured_blog_heading = blocks.CharBlock(max_length=255)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
     blog_pages = blocks.ListBlock(
         blocks.PageChooserBlock(page_type="blog.BlogPage"),
         min_num=1,
         max_num=3,
     )
+    primary_button = LinkBlock(label="Primary button", required=False)
+    secondary_button = LinkBlock(label="Secondary button", required=False)
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
@@ -583,11 +688,16 @@ class BlogChooserStandardPageBlock(BlogChooserBlock):
 
 class WorkChooserBlock(blocks.StructBlock):
     featured_work_heading = blocks.CharBlock(max_length=255)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
     work_pages = blocks.ListBlock(
         blocks.PageChooserBlock(page_type=["work.WorkPage", "work.HistoricalWorkPage"]),
         min_num=1,
         max_num=3,
     )
+    primary_button = LinkBlock(label="Primary button", required=False)
+    secondary_button = LinkBlock(label="Secondary button", required=False)
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context)
@@ -753,7 +863,7 @@ class TabbedParagraphSectionsListBlock(blocks.ListBlock):
         result = super().clean(value)
         errors = {}
 
-        for i in range(0, len(result)):
+        for i in range(len(result)):
             button_values = {
                 "button_link": result[i]["button_link"],
                 "button_text": result[i]["button_text"],
@@ -920,34 +1030,55 @@ class EmbedBlock(WagtailEmbedBlock):
 class NumericStatisticsBlock(blocks.StructBlock):
     headline_number = blocks.CharBlock(
         max_length=255,
-        help_text=mark_safe("A numerical value e.g. <strong>30%</strong>"),
+        help_text=mark_safe("A numerical value e.g. <strong>30%</strong>"),  # noqa: S308
     )
     description = blocks.TextBlock(
-        help_text=mark_safe(
+        help_text=mark_safe(  # noqa: S308
             "Text to describe the change e.g. <strong>Reduction in accessibility errors</strong>"
         )
     )
     further_details = blocks.TextBlock(
         required=False,
-        help_text=mark_safe(
+        help_text=mark_safe(  # noqa: S308
             "Text to give more information, e.g. <strong>Over 80% of pages</strong>"
         ),
     )
 
     class Meta:
         icon = "table"
+        label_format = "{headline_number} {description} {further_details}"
+
+
+class NumericStatisticsGroupBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    statistics = blocks.ListBlock(
+        NumericStatisticsBlock(),
+        max_num=4,
+        min_num=1,
+    )
+
+    class Meta:
+        group = "Custom"
+        icon = "table"
+        label = "Numeric statistics"
+        template = (
+            "patterns/molecules/streamfield/blocks/numeric_stats_group_block.html"
+        )
 
 
 class TextualStatisticsBlock(blocks.StructBlock):
     headline_text = blocks.CharBlock(
         max_length=255,
-        help_text=mark_safe(
+        help_text=mark_safe(  # noqa: S308
             "Describe a general improvement, e.g. <strong>Reduction in accessibility issues</strong>"
         ),
     )
     further_details = blocks.TextBlock(
         required=False,
-        help_text=mark_safe(
+        help_text=mark_safe(  # noqa: S308
             "Text to give more information, e.g. <strong>Over 80% of pages</strong>"
         ),
     )

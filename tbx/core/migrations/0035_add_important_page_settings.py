@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtailcore", "0091_remove_revision_submitted_for_moderation"),
         ("torchbox", "0034_add_earth_colour_theme"),

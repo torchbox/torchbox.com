@@ -3,14 +3,15 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import taggit.managers
+
 import wagtail.images.models
 import wagtail.models.collections
 import wagtail.search.index
 
+import taggit.managers
+
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [

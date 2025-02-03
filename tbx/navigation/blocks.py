@@ -2,9 +2,10 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.forms.utils import ErrorList
 
-from tbx.core.blocks import CustomImageChooserBlock
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockValidationError
+
+from tbx.core.blocks import CustomImageChooserBlock
 
 
 class LinkBlockStructValue(blocks.StructValue):

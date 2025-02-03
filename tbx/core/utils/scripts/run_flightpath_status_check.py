@@ -18,12 +18,12 @@ def get_flightpath_args_from_env():
             "flightpath_url": os.environ["FLIGHTPATH_URL"],
         }
 
-    except KeyError:
+    except KeyError as err:
         raise KeyError(
             "You need the following environment variables to run flightpath: "
             "FLIGHTPATH_URL, FLIGHTPATH_AUTH_KEY. "
             "This should be set on GitHub secrets if running as GitHub Actions."
-        )
+        ) from err
 
     return args
 
@@ -38,6 +38,7 @@ def get_flightpath_job_status(flightpath_url, flightpath_auth_key, job_id):
         headers={
             "Authorization": f"Token {flightpath_auth_key}",
         },
+        timeout=30,
     )
     response.raise_for_status()
     return response

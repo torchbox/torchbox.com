@@ -1,11 +1,20 @@
 {% load wagtailcore_tags %}
 
+{# Section heading #}
 {% if is_standard_page %}
     <h2 class="heading heading--two-b heading--light grid__heading mb-spacerMedium">{{ value.featured_blog_heading }}</h2>
 {% else %}
     {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.featured_blog_heading classes="motif-heading--two motif-heading--static  motif-heading--half-width   section-title--related-posts" %}
 {% endif %}
 
+{# Section intro #}
+{% if value.intro %}
+    <div class="rich-text">
+        {{ value.intro|richtext }}
+    </div>
+{% endif %}
+
+{# Blog posts #}
 <ul class="grid__related-posts streamfield__related-posts mb-spacerMedium lg:mb-spacerLarge">
     {% for blog_page in value.blog_pages %}
         {% pageurl blog_page.blog_index as blog_index_url %}
@@ -13,3 +22,13 @@
         {% include "patterns/molecules/listing/listing--avatar.html" with title=blog_page.title name=blog_page.first_author.name job_title=blog_page.first_author.role link=blog_post_url date=blog_page.date reading_time=blog_page.read_time tags=blog_page.tags avatar=blog_page.first_author.image tag_link_base=blog_index_url %}
     {% endfor %}
 </ul>
+
+{# We expect only up to 1 primary button (`max_num=1` is set in the block definition.) #}
+{% for button in value.primary_button %}
+    <a href="{{ button.value.url }}">{{ button.value.text }}</a>
+{% endfor %}
+
+{# We expect only up to 1 secondary button (`max_num=1` is set in the block definition.) #}
+{% for button in value.secondary_button %}
+    <a href="{{ button.value.url }}">{{ button.value.text }}</a>
+{% endfor %}

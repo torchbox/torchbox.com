@@ -3,6 +3,14 @@ from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 
 from modelcluster.fields import ParentalKey
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.blocks import PageChooserBlock, StreamBlock, StructBlock
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.fields import RichTextField
+from wagtail.models import Orderable, Page
+from wagtail.search import index
+from wagtail.snippets.models import register_snippet
+
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.formatting import (
     convert_bold_links_to_pink,
@@ -14,13 +22,6 @@ from tbx.core.utils.models import (
     SocialFields,
 )
 from tbx.people.models import ContactMixin
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.blocks import PageChooserBlock, StreamBlock, StructBlock
-from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
-from wagtail.fields import RichTextField
-from wagtail.models import Orderable, Page
-from wagtail.search import index
-from wagtail.snippets.models import register_snippet
 
 from .blocks import HomePageStoryBlock, StandardPageStoryBlock
 
@@ -62,15 +63,6 @@ class LinkFields(models.Model):
         related_name="+",
     )
 
-    @property
-    def link(self):
-        if self.link_page:
-            return self.link_page.url
-        elif self.link_document:
-            return self.link_document.url
-        else:
-            return self.link_external
-
     panels = [
         FieldPanel("link_external"),
         FieldPanel("link_page"),
@@ -79,6 +71,15 @@ class LinkFields(models.Model):
 
     class Meta:
         abstract = True
+
+    @property
+    def link(self):
+        if self.link_page_id:
+            return self.link_page.url
+        elif self.link_document:
+            return self.link_document.url
+        else:
+            return self.link_external
 
 
 # Carousel items
@@ -168,7 +169,8 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
                 FieldPanel(
                     "hero_introduction",
                     heading="Introduction",
-                    help_text=mark_safe(
+                    # mark_safe needed so the HTML tags aren't escaped
+                    help_text=mark_safe(  # noqa: S308
                         "Use bold to mark links as"
                         ' <span style="color:#EE5276">pink</span>,'
                         " and use italics to mark links as"
@@ -237,7 +239,7 @@ class StandardPage(
 
 
 # No longer in use but kept for migration history
-class Tag(models.Model):
+class Tag(models.Model):  # noqa: DJ008
     pass
 
 

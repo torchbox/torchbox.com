@@ -1,10 +1,11 @@
 import datetime
 import os
-import subprocess
 from shlex import quote
+import subprocess
 
 from invoke import run as local
 from invoke.tasks import task
+
 
 # Process .env file
 if os.path.exists(".env"):
@@ -137,15 +138,11 @@ def psql(c, command=None):
 @task
 def delete_docker_database(c, local_database_name=LOCAL_DATABASE_NAME):
     dexec(
-        "dropdb --if-exists --host db --username={project_name} {database_name}".format(
-            project_name=PROJECT_NAME, database_name=LOCAL_DATABASE_NAME
-        ),
+        f"dropdb --if-exists --host db --username={PROJECT_NAME} {LOCAL_DATABASE_NAME}",
         "db",
     )
     dexec(
-        "createdb --host db --username={project_name} {database_name}".format(
-            project_name=PROJECT_NAME, database_name=LOCAL_DATABASE_NAME
-        ),
+        f"createdb --host db --username={PROJECT_NAME} {LOCAL_DATABASE_NAME}",
         "db",
     )
     psql(c, "CREATE SCHEMA heroku_ext;")
@@ -160,12 +157,8 @@ def import_data(c, database_filename):
     delete_docker_database(c)
     # Import the database file to the db container
     dexec(
-        "pg_restore --clean --no-acl --if-exists --no-owner --host db \
-            --username={project_name} -d {database_name} {database_filename}".format(
-            project_name=PROJECT_NAME,
-            database_name=LOCAL_DATABASE_NAME,
-            database_filename=database_filename,
-        ),
+        f"pg_restore --clean --no-acl --if-exists --no-owner --host db \
+            --username={PROJECT_NAME} -d {LOCAL_DATABASE_NAME} {database_filename}",
         service="db",
     )
     print(
@@ -275,12 +268,8 @@ def delete_local_database(c, local_database_name=LOCAL_DATABASE_NAME):
 
 def aws(c, command, aws_access_key_id, aws_secret_access_key):
     return local(
-        "AWS_ACCESS_KEY_ID={access_key_id} AWS_SECRET_ACCESS_KEY={secret_key} "
-        "aws {command}".format(
-            access_key_id=aws_access_key_id,
-            secret_key=aws_secret_access_key,
-            command=command,
-        )
+        f"AWS_ACCESS_KEY_ID={aws_access_key_id} AWS_SECRET_ACCESS_KEY={aws_secret_access_key} "
+        f"aws {command}"
     )
 
 
@@ -291,10 +280,7 @@ def pull_media_from_s3(
     aws_storage_bucket_name,
     local_media_dir=LOCAL_MEDIA_DIR,
 ):
-    aws_cmd = "s3 sync --delete s3://{bucket_name} {local_media}".format(
-        bucket_name=aws_storage_bucket_name,
-        local_media=local_media_dir,
-    )
+    aws_cmd = f"s3 sync --delete s3://{aws_storage_bucket_name} {local_media_dir}"
     aws(c, aws_cmd, aws_access_key_id, aws_secret_access_key)
 
 
@@ -318,11 +304,7 @@ def pull_images_from_s3(
     aws_storage_bucket_name,
     local_images_dir=LOCAL_IMAGES_DIR,
 ):
-    aws_cmd = (
-        "s3 sync --delete s3://{bucket_name}/original_images {local_media}".format(
-            bucket_name=aws_storage_bucket_name, local_media=local_images_dir
-        )
-    )
+    aws_cmd = f"s3 sync --delete s3://{aws_storage_bucket_name}/original_images {local_images_dir}"
     aws(c, aws_cmd, aws_access_key_id, aws_secret_access_key)
     # The above command just syncs the original images, so we need to drop the wagtailimages_renditions
     # table so that the renditions will be re-created when requested on the local build.
@@ -351,18 +333,13 @@ def pull_database_from_heroku(c, app_instance, anonymise=False):
     datestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
     local(
-        "heroku pg:backups:download --output={dump_folder}/{datestamp}.dump --app {app}".format(
-            app=app_instance, dump_folder=LOCAL_DUMP_DIR, datestamp=datestamp
-        ),
+        f"heroku pg:backups:download --output={LOCAL_DUMP_DIR}/{datestamp}.dump --app {app_instance}",
     )
 
     import_data(c, f"/app/{LOCAL_DUMP_DIR}/{datestamp}.dump")
 
     local(
-        "rm {dump_folder}/{datestamp}.dump".format(
-            dump_folder=LOCAL_DUMP_DIR,
-            datestamp=datestamp,
-        ),
+        f"rm {LOCAL_DUMP_DIR}/{datestamp}.dump",
     )
 
     if anonymise:
@@ -394,13 +371,9 @@ def make_bold(msg):
 def dellar_snapshot(c, filename):
     """Snapshot the database, files will be stored in the db container"""
     dexec(
-        "pg_dump -d {database_name} -U {database_username} > {filename}.psql".format(
-            database_name=LOCAL_DATABASE_NAME,
-            database_username=LOCAL_DATABASE_USERNAME,
-            filename=filename,
-        ),
+        f"pg_dump -d {LOCAL_DATABASE_NAME} -U {LOCAL_DATABASE_USERNAME} > {filename}.psql",
         service="db",
-    ),
+    )
     print("Database snapshot created")
 
 
@@ -409,14 +382,12 @@ def dellar_restore(c, filename):
     """Restore the database from a snapshot in the db container"""
     delete_docker_database(c)
 
-    dexec(
-        "psql -U {database_username} -d {database_name} < {filename}.psql".format(
-            database_name=LOCAL_DATABASE_NAME,
-            database_username=LOCAL_DATABASE_USERNAME,
-            filename=filename,
+    (
+        dexec(
+            f"psql -U {LOCAL_DATABASE_USERNAME} -d {LOCAL_DATABASE_NAME} < {filename}.psql",
+            service="db",
         ),
-        service="db",
-    ),
+    )
     print("Database restored.")
 
 
@@ -426,10 +397,10 @@ def dellar_list(c):
     print("Database snapshots:")
     dexec(
         """for f in *.psql; do
-            printf ' - %s\n' "${f%.psql}"
-        done""",
+        printf ' - %s\n' "${f%.psql}"
+    done""",
         service="db",
-    ),
+    )
     print("Restore with `dellar-restore <snapshot>`")
 
 
@@ -439,7 +410,7 @@ def dellar_remove(c, filename):
     dexec(
         f"rm {filename}.psql",
         service="db",
-    ),
+    )
     print(f"Snapshot {filename} removed")
 
 
