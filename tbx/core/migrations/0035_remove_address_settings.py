@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("torchbox", "0034_add_earth_colour_theme"),
     ]

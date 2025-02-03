@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("blog", "0010_add_help_text_to_alt_text_field_in_image_block"),
     ]

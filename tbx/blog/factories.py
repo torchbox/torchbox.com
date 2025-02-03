@@ -1,5 +1,6 @@
 import factory
 import wagtail_factories
+
 from tbx.blog.models import BlogIndexPage, BlogPage
 from tbx.core.factories import StoryBlockFactory
 

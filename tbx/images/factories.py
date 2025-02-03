@@ -1,5 +1,6 @@
-from tbx.images.models import CustomImage
 from wagtail_factories import ImageFactory
+
+from tbx.images.models import CustomImage
 
 
 class CustomImageFactory(ImageFactory):

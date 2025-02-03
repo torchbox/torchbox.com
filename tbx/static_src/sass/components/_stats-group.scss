@@ -1,0 +1,20 @@
+@use 'config' as *;
+
+.stats-group {
+    &__heading {
+        margin-bottom: $spacer-mini;
+
+        @include media-query('large') {
+            max-width: 50%;
+        }
+    }
+
+    &__intro {
+        margin-bottom: $spacer-medium;
+
+        @include media-query('large') {
+            margin-bottom: $spacer-half;
+            max-width: 60%;
+        }
+    }
+}

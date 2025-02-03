@@ -7,6 +7,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.models import Orderable
 
+
 SEARCH_DESCRIPTION_LABEL = "Meta description"  # NOTE changing this requires migrations
 
 
@@ -106,6 +107,20 @@ class ColourThemeMixin(models.Model):
         choices=ColourTheme.choices,
     )
 
+    promote_panels = [
+        FieldPanel(
+            "theme",
+            help_text=_(
+                "The theme will be applied to this page and all of its descendants. "
+                "If no theme is selected, it will be derived from "
+                "this page's ancestors."
+            ),
+        ),
+    ]
+
+    class Meta:
+        abstract = True
+
     @property
     def theme_class(self):
         if theme := self.theme:
@@ -120,16 +135,60 @@ class ColourThemeMixin(models.Model):
         except StopIteration:
             return ColourTheme.NONE
 
+
+class DivisionMixin(models.Model):
+    """
+    Provides a 'division' field to allow pages to be associated to a Division.
+    """
+
+    division = models.ForeignKey(
+        "divisions.DivisionPage",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
     promote_panels = [
         FieldPanel(
-            "theme",
+            "division",
             help_text=_(
-                "The theme will be applied to this page and all of its descendants. "
-                "If no theme is selected, it will be derived from "
-                "this page's ancestors."
+                "The division will be applied to this page and its descendants. "
+                "If no division is selected, it will be derived from "
+                "this page's ancestors. "
+                "If one of the ancestors is a division page, that will be used."
             ),
         ),
     ]
 
     class Meta:
         abstract = True
+
+    @cached_property
+    def final_division(self):
+        """
+        Returns a DivisionPage.
+
+        If a division field is set on the current page, use that.
+        If not, check the ancestors.
+
+        The closest ancestor that fulfills one of the following will be followed:
+        - the division field is populated, OR
+        - the ancestor page is a DivisionPage.
+        """
+        from tbx.divisions.models import DivisionPage
+
+        if self.division:
+            return self.division
+
+        try:
+            return next(
+                getattr(p, "division", None) or p
+                for p in self.get_ancestors()
+                .filter(depth__gt=2)
+                .specific()
+                .defer_streamfields()
+                .order_by("-depth")
+                if isinstance(getattr(p, "division", None) or p, DivisionPage)
+            )
+        except StopIteration:
+            pass

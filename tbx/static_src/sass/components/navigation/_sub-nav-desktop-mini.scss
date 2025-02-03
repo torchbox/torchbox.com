@@ -12,10 +12,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
 .sub-nav-desktop-mini {
     $root: &;
     @include z-index(base);
-    @include nav-fixed-position(
-        $header-height: $header-height-desktop,
-        $full-height: false
-    );
+    @include nav-fixed-position($full-height: false);
     background-color: var(--color--background);
     padding: 25px 0 $spacer-mini;
     position: absolute;

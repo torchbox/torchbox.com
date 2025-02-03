@@ -26,14 +26,15 @@
         </ul>
         {% if value.primary_button or value.secondary_button %}
             <div class="flex flex-wrap gap-4">
+                {# We expect only up to 1 primary button (`max_num=1` is set in the block definition.) #}
                 {% for button in value.primary_button %}
                     <a class="button" href="{{ button.value.url }}">{{ button.value.text }}</a>
                 {% endfor %}
 
+                {# We expect only up to 1 secondary button (`max_num=1` is set in the block definition.) #}
                 {% for button in value.secondary_button %}
                     <a class="button" href="{{ button.value.url }}">{{ button.value.text }}</a>
                 {% endfor %}
             </div>
         {% endif %}
     </div>
-{% endif %}

@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("people", "0006_add_contact_mixin_to_all_page_models"),
         ("blog", "0018_blogpage_related_sectors"),

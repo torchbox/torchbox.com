@@ -1,9 +1,14 @@
+from wagtail import blocks
+
 from tbx.core.blocks import (
     BlogChooserBlock,
-    CustomImageChooserBlock,
     EventBlock,
     FeaturedCaseStudyBlock,
+    FourPhotoCollageBlock,
+    IconKeyPointsBlock,
     ImageWithAltTextBlock,
+    LinkColumnsBlock,
+    PartnersBlock,
     PhotoCollageBlock,
     PromoBlock,
     ShowcaseBlock,
@@ -11,20 +16,6 @@ from tbx.core.blocks import (
     TabbedParagraphBlock,
     WorkChooserBlock,
 )
-from wagtail import blocks
-
-
-class PartnersBlock(blocks.StructBlock):
-    title = blocks.CharBlock(
-        max_length=255,
-    )
-    partner_logos = blocks.ListBlock(CustomImageChooserBlock(), label="Logos")
-
-    class Meta:
-        icon = "openquote"
-        label = "Partner logos"
-        template = "patterns/molecules/streamfield/blocks/partners_block.html"
-        group = "Custom"
 
 
 class ValuesBlock(blocks.StructBlock):
@@ -76,3 +67,11 @@ class ServiceStoryBlock(StoryBlock):
         features=["h3", "h4", "bold", "italic", "ul", "ol", "link", "document-link"],
         group="Basics",
     )
+
+
+class ServiceAreaStoryBlock(StoryBlock):
+    blog_chooser = BlogChooserBlock()
+    four_photo_collage = FourPhotoCollageBlock()
+    key_points = IconKeyPointsBlock(label="Key points with icons")
+    link_columns = LinkColumnsBlock()
+    work_chooser = WorkChooserBlock()

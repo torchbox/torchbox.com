@@ -1,0 +1,23 @@
+context:
+  value:
+    title: What we do
+    intro: 'Discover how we can help you achieve your goals through our range of services.'
+    cards:
+      - heading: Advocacy, Engagement & Income
+        description: '<p>Grow your audience, mobilise and increase your income through design, communication and strategy</p>'
+        link_text: Our services
+        accessible_link_text: Our Advocacy, Engagement & Income services
+      - heading: Measure, Analyse & Optimise
+        description: '<p>Organise your data to gain the insights and confidence needed to boost your charity&apos;s performance.</p>'
+        link_text: Our services
+        accessible_link_text: Our Measure, Analyse & Optimise services
+      - heading: Scale impact through Technology
+        description: '<p>We design technology that&apos;s built for humans. Scale your impact and better deliver your services by leveraging our expertise.</p>'
+        link_text: Our services
+        accessible_link_text: Our services on scaling impact through Technology
+
+tags:
+  srcset_image:
+    'card.image format-webp fill-{750x420,650x420} sizes="(max-width: 750px) 100vw, (min-width: 751px) 650px" alt=""':
+      raw: |
+        <img height="420" sizes="(max-width: 750px) 100vw, (min-width: 751px) 650px" src="https://picsum.photos/750/420.webp" srcset="https://picsum.photos/750/420.webp 750w, https://picsum.photos/650/420.webp 650w" width="750" alt="">

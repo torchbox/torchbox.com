@@ -1,0 +1,17 @@
+context:
+  value:
+    title: Lighting little fires
+    intro: 'Torchbox has been supporting charities since the start of the digital era. Some of the stats we&apos;re particularly proud of:'
+    statistics:
+      - headline_number: 120
+        description: charities
+        further_details: and counting...
+      - headline_number: 24
+        description: years
+        further_details: working with the sector
+      - headline_number: '263%'
+        description: traffic increase
+        further_details: for an imaginary charity
+      - headline_number: 1
+        description: Guinness record
+        further_details: working with the DEC

@@ -1,0 +1,38 @@
+context:
+  value:
+    title: Optional section title (Link columns)
+    intro: '<p>Optional section intro</p>'
+    links:
+      - value:
+          text: Digital marketing for charities
+          url: '#'
+      - value:
+          text: Search engine optimisation (SEO)
+          url: '#'
+      - value:
+          text: Website design and development
+          url: '#'
+      - value:
+          text: Strategy, innovation and AI
+          url: '#'
+      - value:
+          text: Google Ad Grants management
+          url: '#'
+      - value:
+          text: Digital marketing creative
+          url: '#'
+      - value:
+          text: Digital marketing training
+          url: '#'
+      - value:
+          text: Wagtail CMS services
+          url: '#'
+      - value:
+          text: Email marketing
+          url: '#'
+      - value:
+          text: Pay-per-click (PPC)
+          url: '#'
+      - value:
+          text: Social media management
+          url: '#'

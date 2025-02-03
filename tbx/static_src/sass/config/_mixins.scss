@@ -122,14 +122,22 @@
 @mixin focus-style(
     $color: var(--color--link),
     $shadow: false,
-    $underline-hover-color: $color
+    $underline-hover-color: $color,
+    $keyboard-only: false,
+    $outline-color: var(--color--theme-primary)
 ) {
-    outline: $focus-width solid var(--color--theme-primary);
+    outline: $focus-width solid $outline-color;
     text-decoration-thickness: $link-underline-thickness-interaction;
     text-decoration-color: $underline-hover-color;
 
     @if $shadow {
         text-shadow: 0 0 0.4px $color, 0 0 0.4px $color;
+    }
+
+    @if $keyboard-only {
+        &:focus:not(:focus-visible) {
+            outline-color: transparent;
+        }
     }
 }
 
@@ -185,13 +193,15 @@
 @mixin arrow-link-icon-styles(
     $mobile-hidden: false,
     $color: var(--color--decoration),
-    $interaction-color: var(--color--link-interaction)
+    $interaction-color: var(--color--link-interaction),
+    $width: 72px,
+    $height: 22px
 ) {
     // Apply all common styles regardless of mobile-hidden
     display: inline-block;
     color: $color;
-    width: 72px;
-    height: 22px;
+    width: $width;
+    height: $height;
     transition: transform, $transition-quick;
 
     @include reduced-motion() {
@@ -279,10 +289,7 @@
     Navigaiton mixins
 */
 
-@mixin nav-fixed-position(
-    $header-height: $header-height-mobile,
-    $full-height: true
-) {
+@mixin nav-fixed-position($header-height: $header-height, $full-height: true) {
     width: 100%;
     @if $full-height {
         height: calc(100vh - #{$header-height});
@@ -343,23 +350,21 @@
     }
 }
 
-@mixin ring-one($top: 8px, $color: var(--color--theme-primary)) {
+@mixin ring-one($top: 8px, $color: var(--color--theme-secondary)) {
     top: $top;
     color: $color;
 }
 
-@mixin ring-two($top: 8px, $color: var(--color--theme-secondary)) {
+@mixin ring-two($top: 8px, $color: var(--color--theme-primary)) {
     left: $top;
     color: $color;
 }
 
 @mixin ring-one-hover() {
-    color: var(--color--theme-secondary);
     opacity: 1;
 }
 
 @mixin ring-two-hover() {
-    color: var(--color--theme-primary);
     opacity: 1;
 }
 

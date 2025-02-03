@@ -1,23 +1,24 @@
 from django.conf import settings
-from django.core.files.storage import get_storage_class
+from django.core.files.storage import default_storage
 from django.shortcuts import redirect
 from django.templatetags.static import static
 from django.utils.cache import add_never_cache_headers
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
-from PIL import ImageEnhance
-from storages.backends.s3boto3 import S3Boto3Storage
 from wagtail import hooks
 from wagtail.documents import get_document_model
 from wagtail.documents.models import document_served
 from wagtail.images.image_operations import FilterOperation
 
+from PIL import ImageEnhance
+from storages.backends.s3 import S3Storage
+
 
 @hooks.register("before_serve_document", order=100)
 def serve_document_from_s3(document, request):
     # Skip this hook if not using django-storages boto3 backend.
-    if not issubclass(get_storage_class(), S3Boto3Storage):
+    if not isinstance(default_storage, S3Storage):
         return
 
     # Send document_served signal.
@@ -51,7 +52,7 @@ def hotjar_admin_tracking():
     if not hjid:
         return ""
 
-    return mark_safe(
+    return mark_safe(  # noqa: S308
         f"""
     <script>
         (function(h,o,t,j,a,r){{

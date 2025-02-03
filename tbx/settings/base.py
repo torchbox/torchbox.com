@@ -1,10 +1,12 @@
 # Django settings for tbx project.
+import contextlib
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import sys
 
 import dj_database_url
+
 
 # Configuration from environment variables
 env = os.environ.copy()
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     "scout_apm.django",
     "tbx.blog",
     "tbx.core.apps.TorchboxCoreAppConfig",
+    "tbx.divisions",
     "tbx.events",
     "tbx.impact_reports",
     "tbx.navigation",
@@ -172,7 +175,13 @@ STATICFILES_DIRS = [os.path.join(PROJECT_DIR, "static_compiled")]
 
 STATIC_ROOT = env.get("STATIC_DIR", os.path.join(BASE_DIR, "static"))
 STATIC_URL = env.get("STATIC_URL", "/static/")
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    },
+}
 
 # Place static files that need a specific URL (such as robots.txt and favicon.ico) in the "public" folder
 WHITENOISE_ROOT = os.path.join(BASE_DIR, "public")
@@ -187,7 +196,7 @@ MEDIA_PREFIX = env.get("MEDIA_PREFIX", "")
 # Server-side cache settings. Do not confuse with front-end cache.
 # https://docs.djangoproject.com/en/stable/topics/cache/
 # If the server has a Redis instance exposed via a URL string in the REDIS_URL
-# environment variable, prefer that. Otherwise use the database backend. We
+# environment variable, prefer that. Otherwise, use the database backend. We
 # usually use Redis in production and database backend on staging and dev. In
 # order to use database cache backend you need to run
 # "django-admin createcachetable" to create a table for the cache.
@@ -244,7 +253,8 @@ WAGTAILSEARCH_BACKENDS = {
 
 # S3 configuration
 if "AWS_STORAGE_BUCKET_NAME" in env:
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    STORAGES["default"]["BACKEND"] = "storages.backends.s3.S3Storage"
+
     AWS_STORAGE_BUCKET_NAME = env["AWS_STORAGE_BUCKET_NAME"]
     AWS_QUERYSTRING_AUTH = False
     AWS_S3_FILE_OVERWRITE = False
@@ -326,10 +336,8 @@ if "EMAIL_HOST" in env:
     EMAIL_HOST = env["EMAIL_HOST"]
 
 if "EMAIL_PORT" in env:
-    try:
+    with contextlib.suppress(ValueError):
         EMAIL_PORT = int(env["EMAIL_PORT"])
-    except ValueError:
-        pass
 
 if "EMAIL_HOST_USER" in env:
     EMAIL_HOST_USER = env["EMAIL_HOST_USER"]
@@ -403,10 +411,8 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 DEFAULT_HSTS_SECONDS = 30 * 24 * 60 * 60  # 30 days
 SECURE_HSTS_SECONDS = DEFAULT_HSTS_SECONDS
 if "SECURE_HSTS_SECONDS" in env:
-    try:
+    with contextlib.suppress(ValueError):
         SECURE_HSTS_SECONDS = int(env["SECURE_HSTS_SECONDS"])
-    except ValueError:
-        pass
 
 # We don't enforce HSTS on subdomains as anything at subdomains is likely outside our control.
 # https://docs.djangoproject.com/en/3.2/ref/settings/#secure-hsts-include-subdomains
@@ -540,10 +546,8 @@ elif "FRONTEND_CACHE_CLOUDFLARE_TOKEN" in env:
 
 # Set s-max-age header that is used by reverse proxy/front end cache. See
 # urls.py
-try:
+with contextlib.suppress(ValueError):
     CACHE_CONTROL_S_MAXAGE = int(env.get("CACHE_CONTROL_S_MAXAGE", 600))
-except ValueError:
-    pass
 
 
 # Give front-end cache 30 second to revalidate the cache to avoid hitting the
@@ -586,7 +590,8 @@ if "MAILCHIMP_MAILING_LIST_ID" in env:
 
 
 WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = (
-    "patterns/pages/wagtail/password_required.html"  # pragma: allowlist secret
+    # pragma: allowlist nextline secret
+    "patterns/pages/wagtail/password_required.html"  # noqa: S105
 )
 # Styleguide
 PATTERN_LIBRARY_ENABLED = env.get("PATTERN_LIBRARY_ENABLED", "false").lower() == "true"
@@ -646,6 +651,7 @@ DEFAULT_RICH_TEXT_FEATURES = [
     "document-link",
 ]
 NO_HEADING_RICH_TEXT_FEATURES = ["bold", "italic", "ul", "ol", "link", "document-link"]
+PARAGRAPH_RICH_TEXT_FEATURES = ["bold", "italic", "link", "document-link"]
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
     "default": {
         "WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea",
