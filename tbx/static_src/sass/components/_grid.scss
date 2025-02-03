@@ -81,16 +81,7 @@
         }
     }
 
-    &__call-to-action {
-        margin-bottom: $spacer-medium;
-        grid-column: 2 / span 5;
-
-        @include media-query(large) {
-            margin-bottom: $spacer-large;
-            grid-column: 4 / span 12;
-        }
-    }
-
+    &__call-to-action,
     &__contact-cta {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 5;
@@ -111,6 +102,7 @@
 
     &__related-posts-simple,
     &__team-listing,
+    &__link-columns,
     &__stats-group {
         grid-column: 2 / span 4;
 
@@ -120,7 +112,8 @@
     }
 
     &__division-signpost,
-    &__featured-services {
+    &__featured-services,
+    &__keypoints {
         grid-column: 2 / span 4;
         margin-bottom: $spacer;
 
