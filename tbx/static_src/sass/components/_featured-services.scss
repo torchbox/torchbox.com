@@ -52,6 +52,12 @@
         line-height: 1;
     }
 
+    &__subheading {
+        @include font-size(size-four-b);
+        color: var(--color--theme-primary);
+        margin-bottom: $spacer-mini;
+    }
+
     // override the rich-text font-size
     &__description.rich-text {
         @include font-size(size-seven);
