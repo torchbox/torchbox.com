@@ -654,11 +654,16 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
 
 class BlogChooserBlock(blocks.StructBlock):
     featured_blog_heading = blocks.CharBlock(max_length=255)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
     blog_pages = blocks.ListBlock(
         blocks.PageChooserBlock(page_type="blog.BlogPage"),
         min_num=1,
         max_num=3,
     )
+    primary_button = LinkBlock(label="Primary button", required=False)
+    secondary_button = LinkBlock(label="Secondary button", required=False)
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
@@ -680,11 +685,16 @@ class BlogChooserStandardPageBlock(BlogChooserBlock):
 
 class WorkChooserBlock(blocks.StructBlock):
     featured_work_heading = blocks.CharBlock(max_length=255)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
     work_pages = blocks.ListBlock(
         blocks.PageChooserBlock(page_type=["work.WorkPage", "work.HistoricalWorkPage"]),
         min_num=1,
         max_num=3,
     )
+    primary_button = LinkBlock(label="Primary button", required=False)
+    secondary_button = LinkBlock(label="Secondary button", required=False)
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context)
