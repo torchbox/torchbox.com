@@ -1,9 +1,12 @@
+from wagtail import blocks
+
 import factory
-import wagtail_factories
 from faker import Faker
+import wagtail_factories
+
 from tbx.core.blocks import DynamicHeroBlock, StoryBlock
 from tbx.core.models import HomePage, StandardPage
-from wagtail import blocks
+
 
 fake = Faker()
 

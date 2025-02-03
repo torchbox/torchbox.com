@@ -2,8 +2,6 @@ from django.apps import apps
 from django.test import TestCase
 from django.utils.module_loading import import_string, module_has_submodule
 
-from tbx.core.factories import HomePageFactory, StandardPageFactory
-from tbx.core.models import HomePage, StandardPage
 from wagtail.models import Page, Site
 from wagtail.test.utils import WagtailPageTestCase
 from wagtail.test.utils.form_data import (
@@ -11,6 +9,9 @@ from wagtail.test.utils.form_data import (
     rich_text,
     streamfield,
 )
+
+from tbx.core.factories import HomePageFactory, StandardPageFactory
+from tbx.core.models import HomePage, StandardPage
 
 
 class TestPageFactory(TestCase):
@@ -33,9 +34,10 @@ class TestPageFactory(TestCase):
 
                     with self.subTest(model=model.__name__):
                         # Get the model's factory
-                        assert module_has_submodule(
-                            app.module, "factories"
-                        ), f"App '{app.name}' does not have a factories module."
+                        self.assertTrue(
+                            module_has_submodule(app.module, "factories"),
+                            msg=f"App '{app.name}' does not have a factories module.",
+                        )
 
                         page_factory = import_string(
                             f"{app.module.__name__}.factories.{model.__name__}Factory"

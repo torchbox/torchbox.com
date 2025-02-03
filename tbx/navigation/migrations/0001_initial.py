@@ -2,13 +2,13 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+
 import wagtail.blocks
 import wagtail.fields
 import wagtail.images.blocks
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
