@@ -12,6 +12,9 @@
                 {% srcset_image card.image format-webp fill-{750x420,650x420} sizes="(max-width: 750px) 100vw, (min-width: 751px) 650px" alt="" %}
                 <div class="featured-services__text">
                     <h3 class="featured-services__heading heading heading--two-b">{% firstof card.heading card.page.title %}</h3>
+                    {% if card.subheading %}
+                        <p class="featured-services__subheading">{{ card.subheading }}</p>
+                    {% endif %}
                     <div class="featured-services__description rich-text">{{ card.description|richtext }}</div>
                 </div>
                 {# The title and icon need to be on the same line with no whitespace to prevent the arrow being orphaned on a new line #}
