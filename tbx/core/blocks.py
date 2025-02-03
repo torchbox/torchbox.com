@@ -235,6 +235,9 @@ class ButtonLinkStructValue(blocks.StructValue):
 
 class CallToActionBlock(blocks.StructBlock):
     text = blocks.CharBlock(required=True, max_length=255)
+    description = blocks.RichTextBlock(
+        features=settings.PARAGRAPH_RICH_TEXT_FEATURES, required=False
+    )
     button_text = blocks.CharBlock(max_length=55)
     button_link = blocks.StreamBlock(
         [
