@@ -121,7 +121,8 @@
     }
 
     &__division-signpost,
-    &__featured-services {
+    &__featured-services,
+    &__keypoints {
         grid-column: 2 / span 4;
         margin-bottom: $spacer;
 

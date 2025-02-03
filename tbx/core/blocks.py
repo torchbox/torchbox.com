@@ -344,6 +344,46 @@ class FourPhotoCollageBlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/four_photo_collage_block.html"
 
 
+class KeyPointIconChoice(models.TextChoices):
+    CALENDAR = "key-calendar", "calendar icon"
+    CONVERSATION = "key-conversation", "chat bubbles icon"
+    LIGHTBULB = "key-lightbulb", "lightbulb icon"
+    MAIL = "key-mail", "mail icon"
+    MEGAPHONE = "key-megaphone", "megaphone icon"
+    PEOPLE = "key-people", "people icon"
+    BULLSEYE = "key-bullseye", "target icon"
+    UP_ARROW = "key-up-arrow", "up arrow icon"
+
+
+class IconKeyPointBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(
+        choices=KeyPointIconChoice.choices,
+        default=KeyPointIconChoice.LIGHTBULB,
+        max_length=32,
+    )
+    icon_label = blocks.CharBlock()
+    heading = blocks.CharBlock()
+    description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
+
+    class Meta:
+        icon = "breadcrumb-expand"
+
+
+class IconKeyPointsBlock(blocks.StructBlock):
+    """Used on the service area page."""
+
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    key_points = blocks.ListBlock(IconKeyPointBlock(label="Key point"), min_num=1)
+
+    class Meta:
+        group = "Custom"
+        icon = "list-ul"
+        template = "patterns/molecules/streamfield/blocks/icon_keypoints_block.html"
+
+
 class IntroductionWithImagesBlock(blocks.StructBlock):
     """Used on the division page."""
 
