@@ -2,8 +2,14 @@
 
 <div class="call-to-action grid__call-to-action">
     <div class="call-to-action__inner">
-        <p class="call-to-action__text">{{ value.text }}</p>
-
+        <div class="call-to-action__text">
+            <h2 class="heading heading--two-b">{{ value.text }}</h2>
+            {% if value.description %}
+                <div class="call-to-action__description">
+                    {{ value.description|richtext }}
+                </div>
+            {% endif %}
+        </div>
         {% if value.button_text and value.button_link %}
             <a href="{{ value.get_button_link }}" class="call-to-action__button button">
                 {{ value.button_text }}

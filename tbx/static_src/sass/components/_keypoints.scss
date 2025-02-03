@@ -1,0 +1,68 @@
+@use 'config' as *;
+
+.keypoints {
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: $spacer-medium;
+
+        @include media-query(medium) {
+            gap: $spacer;
+        }
+    }
+
+    &__item {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    &__icon {
+        width: 115px;
+        height: 105px;
+    }
+
+    &__wrapper {
+        border-top: 1px solid var(--color--border);
+        padding-top: $spacer-mini-plus;
+        grid-column: 1 / span 9;
+        grid-row: 1;
+
+        @include media-query(medium) {
+            margin-right: $spacer-medium;
+            grid-column: 1 / span 3;
+            grid-row: span 2;
+        }
+    }
+
+    &__label {
+        @include font-size(size-four);
+        font-weight: $weight--semibold;
+        color: var(--color--theme-primary);
+    }
+
+    &__heading {
+        @include font-size(size-two);
+        font-weight: $weight--semibold;
+        color: var(--color--heading);
+        padding: $spacer-mini-plus 0 $spacer-mini;
+        align-self: flex-start;
+        grid-column: 1 / span 12;
+
+        @include media-query(medium) {
+            padding: 0 0 $spacer-mini-plus;
+            grid-column: 4 / span 6;
+            grid-row: 1;
+        }
+    }
+
+    &__description {
+        @include font-size(size-four);
+        font-weight: $weight--light;
+        color: var(--color--heading);
+        grid-column: 1 / span 12;
+
+        @include media-query(medium) {
+            grid-column: 4 / span 8;
+        }
+    }
+}

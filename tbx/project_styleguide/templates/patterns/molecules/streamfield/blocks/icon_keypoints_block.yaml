@@ -1,0 +1,37 @@
+context:
+  value:
+    title: Optional section title (Key Points with Icons)
+    intro: '<p>Optional section intro</p>'
+    key_points:
+      - icon: 'key-lightbulb'
+        icon_label: Grow sustainable income
+        heading: Future-proof your funding streams.
+        description: '<p>We help develop reliable income streams through giving, legacy and events, while creating innovative digital products that engage new audiences.</p>'
+      - icon: 'key-bullseye'
+        icon_label: Drive digital growth
+        heading: Expand your reach.
+        description: '<p>We&apos;ll help you improve search visibility to connect with supporters when they need you most, ensuring you stand out in an increasingly competitive landscape.</p>'
+      - icon: 'key-conversation'
+        icon_label: Create high-impact campaigns
+        heading: Turn audiences into advocates.
+        description: '<p>We create eye-catching, data-driven campaigns across digital channels to deliver exceptional results, from emergency appeals to regular giving.</p>'
+      - icon: 'key-people'
+        icon_label: Deepen supporter relationships
+        heading: Transform one-off donors into champions.
+        description: '<p>We&apos;ll help you create meaningful supporter journeys that show the difference they make, inspiring deeper connection to your cause.</p>'
+      - icon: 'key-up-arrow'
+        icon_label: Increase online giving
+        heading: Turn interest into action.
+        description: '<p>We&apos;ll help you create frictionless donation experiences across all channels, from compelling web journeys to seamless payment flows that drive regular giving.</p>'
+      - icon: 'key-calendar'
+        icon_label: Unlock your supporter network
+        heading: Multiply your reach through trusted voices.
+        description: '<p>We&apos;ll help you tap into friends and family networks - where donation rates are highest - to make it easy for supporters to advocate for your cause.</p>'
+      - icon: 'key-megaphone'
+        icon_label: Maximise your CRM investment
+        heading: Make systems work harder.
+        description: '<p>We help you choose and optimise tools for supporter management and stewardship, ensuring your CRM delivers ROI whilst making teams more efficient.</p>'
+      - icon: 'key-mail'
+        icon_label: Transform data into action
+        heading: Make every penny count.
+        description: '<p>We turn your data into insights to improve fundraising and engagement, helping you understand supporter behaviour and enhance performance across all channels.</p>'
