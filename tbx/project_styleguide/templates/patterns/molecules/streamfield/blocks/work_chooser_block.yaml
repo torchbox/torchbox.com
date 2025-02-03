@@ -1,6 +1,15 @@
 context:
   value:
     featured_work_heading: Case studies
+    # intro: '<p>An injection of fresh ideas, and the occasional challenging opinion, to ignite your fire.</p>'
+    # primary_button:
+    #   - value:
+    #       text: Primary button
+    #       url: '#'
+    # secondary_button:
+    #   - value:
+    #       text: Secondary button
+    #       url: '#'
   work_pages:
     - title: Imagining and designing a future product for MQ in 5 days flat
       client: 'MQ: Transforming Mental Health'
