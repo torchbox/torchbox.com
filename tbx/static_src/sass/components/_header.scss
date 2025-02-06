@@ -1,8 +1,14 @@
 @use 'config' as *;
 
 .header {
-    background-color: var(--color--black);
-    padding: 10px 0;
+    &__top {
+        background-color: var(--color--black);
+        padding: 10px 0;
+    }
+
+    &__bottom {
+        padding: $spacer-small-plus 0 $spacer-mini-plus;
+    }
 
     &__primary-menu-toggle {
         @include link-styles(

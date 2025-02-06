@@ -1,8 +1,8 @@
 @use 'config' as *;
 
 .logo {
-    width: 105px;
-    height: 31px;
+    width: 168px;
+    height: 28px;
     color: var(--color--heading);
 
     @include high-contrast-light-mode() {
