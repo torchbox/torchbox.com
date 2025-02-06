@@ -20,7 +20,7 @@
                             {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-mobile__icon-mobile" only %}
                         </div>
                     </a>
-                    {% include "patterns/navigation/components/includes/subnav-menu.html" with links=block.value.child_links number=block.value.child_links|length %}
+                    {% include "patterns/navigation/components/includes/subnav-menu-mobile.html" with links=block.value.child_links number=block.value.child_links|length %}
                 </li>
             {% endif %}
         {% endfor %}

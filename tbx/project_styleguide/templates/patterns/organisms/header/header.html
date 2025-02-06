@@ -1,50 +1,50 @@
 {% load wagtailcore_tags wagtail_cache navigation_tags %}
 {% wagtail_site as current_site %}
 <header class="header">
-        {% include "patterns/atoms/skip-link/skip-link.html" %}
-        <div class="header__top">
-            <div class="grid">
-                <div class="grid__header-nav">
+    {% include "patterns/atoms/skip-link/skip-link.html" %}
+    <div class="header__top">
+        <div class="grid">
+            <div class="grid__header-nav">
             {# Primary desktop navigation #}
-            <nav aria-label="Main navigation" class="primary-nav-desktop" data-desktop-menu>
-                {% wagtailcache 600 "primarynav" current_site.pk is_pattern_library %}
-                    <ul class="primary-nav-desktop__list">
-                        <li class="primary-nav-desktop__item">
-                            <a href="/" aria-label="Homepage link" class="primary-nav-desktop__link">
-                                <span class="primary-nav-desktop__text">Home</span>
-                            </a>
-                        </li>
-                        {% primarynav %}
-                    </ul>
-                {% endwagtailcache %}
-            </nav>
+                <nav aria-label="Main navigation" class="primary-nav-desktop" data-desktop-menu>
+                    {% wagtailcache 600 "primarynav" current_site.pk is_pattern_library %}
+                        <ul class="primary-nav-desktop__list">
+                            <li class="primary-nav-desktop__item">
+                                <a href="/" aria-label="Homepage link" class="primary-nav-desktop__link">
+                                    <span class="primary-nav-desktop__text">Home</span>
+                                </a>
+                            </li>
+                            {% primarynav %}
+                        </ul>
+                    {% endwagtailcache %}
+                </nav>
 
             {# Primary mobile menu toggle #}
-            <button class="header__primary-menu-toggle" data-primary-mobile-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="Mobile menu toggle">
-                Home
-                {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="header__primary-menu-toggle-icon" %}
-            </button>
+                <button class="header__primary-menu-toggle" data-primary-mobile-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="Mobile menu toggle">
+                    Home
+                    {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="header__primary-menu-toggle-icon" %}
+                </button>
 
             {# Primary mobile navigation #}
-            <nav aria-label="Main navigation"  class="primary-nav-mobile" data-primary-mobile-menu>
-                {% wagtailcache 600 "primarynavmobile" current_site.pk is_pattern_library %}
-                    <ul class="primary-nav-mobile__list">
-                        <li class="primary-nav-mobile__item">
-                            <a href="/" aria-label="Homepage link" class="primary-nav-mobile__link">
-                                <span class="primary-nav-mobile__text">Home</span>
-                            </a>
-                        </li>
-                        {% primarynavmobile %}
-                    </ul>
-                {% endwagtailcache %}
-            </nav>
+                <nav aria-label="Main navigation"  class="primary-nav-mobile" data-primary-mobile-menu>
+                    {% wagtailcache 600 "primarynavmobile" current_site.pk is_pattern_library %}
+                        <ul class="primary-nav-mobile__list">
+                            <li class="primary-nav-mobile__item">
+                                <a href="/" aria-label="Homepage link" class="primary-nav-mobile__link">
+                                    <span class="primary-nav-mobile__text">Home</span>
+                                </a>
+                            </li>
+                            {% primarynavmobile %}
+                        </ul>
+                    {% endwagtailcache %}
+                </nav>
 
-            {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
+                {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
+            </div>
         </div>
     </div>
-    </div>
-            <div class="grid">
-            <div class="header__bottom grid__header-nav">
+    <div class="grid">
+        <div class="header__bottom grid__header-nav">
             <div class="header__logo">
                 {% include "patterns/atoms/icons/icon.html" with name="logo" classname="logo" %}
                 <span class="logo__label">{% if page.final_division and page.final_division.label %} | {{ page.final_division.label }}{% endif %}</span>
@@ -53,19 +53,19 @@
                 {# Secondary desktop navigation #}
             {% include "patterns/navigation/components/secondary-nav.html" %}
 
-                <!-- {# Secondary mobile menu toggle #}
-        <div class="header__menu-toggle grid__header-toggle">
-            <span class="sr-only">Menu</span>
-            <button class="button-menu-toggle" data-mobile-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="Mobile menu toggle">
-                <span class="button-menu-toggle__line"></span>
-                <span class="button-menu-toggle__line"></span>
-                <span class="button-menu-toggle__line"></span>
-                <span class="button-menu-toggle__line"></span>
-            </button>
-        </div>
+        {# Secondary mobile menu toggle #}
+            <div class="header__secondary-menu-toggle">
+                <span class="sr-only">Menu</span>
+                <button class="button-menu-toggle" data-mobile-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="Mobile menu toggle">
+                    <span class="button-menu-toggle__line"></span>
+                    <span class="button-menu-toggle__line"></span>
+                    <span class="button-menu-toggle__line"></span>
+                    <span class="button-menu-toggle__line"></span>
+                </button>
+            </div>
 
             {# Secondary mobile navigation #}
-            {% include "patterns/navigation/components/secondary-nav-mobile.html" %} -->
+            {% include "patterns/navigation/components/secondary-nav-mobile.html" %}
         </div>
-        </div>
+    </div>
 </header>
