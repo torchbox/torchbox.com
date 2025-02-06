@@ -2,13 +2,23 @@
 
 <div class="sub-nav-desktop sub-nav-desktop--child">
     <ul class="sub-nav-desktop__list sub-nav-desktop__list--child">
-        {% for page in pages %}
+        {% for gchild in child.value.child_links %}
             <li class="sub-nav-desktop__item">
-                <a class="sub-nav-desktop__link sub-nav-desktop__link--child sub-nav-desktop__link--no-children" href="{% pageurl page %}" {% if last_menu_item and forloop.last %}data-last-menu-item-desktop{% endif %}>
-                    {{ page.nav_text }}
+                <a href="{{ gchild.value.url }}" class="sub-nav-desktop__link">
+                    <span>{{ gchild.value.text }}</span><span class="link-columns__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-desktop__arrow" %}</span>
                 </a>
+                {% if gchild.value.description %}
+                        <span class="sub-nav-desktop__description">{{ gchild.value.description }}</span>
+                    {% endif %}
             </li>
         {% endfor %}
+        {% if child.value.section_link %}
+            <li class="sub-nav-desktop__item">
+                <a href="{{ child.value.section_link.url }}" class="sub-nav-desktop__link">
+                    <span>{% firstof child.value.section_link_text child.value.section_link %}</span><span class="link-columns__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-desktop__arrow" %}</span>
+                </a>
+            </li>
+        {% endif %}
     </ul>
 </div>
 

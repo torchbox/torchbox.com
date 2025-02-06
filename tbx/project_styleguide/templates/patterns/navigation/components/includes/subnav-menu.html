@@ -2,22 +2,28 @@
 
 <div class="sub-nav-desktop sub-nav-desktop--{{ number }}">
     <ul class="sub-nav-desktop__list">
-        {% for link in links %}
-            <li class="sub-nav-desktop__item">
-                {% with children=link.get_children.live.public.in_menu.specific %}
-                    <a
-                        class="sub-nav-desktop__link {% if children and child_display != 'hide_children' %}sub-nav-desktop__link--has-children{% else %}sub-nav-desktop__link--no-children{% endif %}"
-                        href="{% pageurl link %}"
-                        {% if forloop.last %}
-                            {% if not children or child_display == 'hide_children' %}data-last-menu-item-desktop{% endif %}{% endif %}
-                    >
-                        {{ link.nav_text }}
+        {% for child in links %}
+            {% if child.block_type == "link" %}
+                <li class="sub-nav-desktop__item">
+                    <a href="{{ child.value.url }}" class="sub-nav-desktop__link">
+                        {{ child.value.text }}
                     </a>
-                    {% if children and child_display != 'hide_children' %}
-                        {% include "patterns/navigation/components/includes/subnav-child-menu.html" with pages=children last_menu_item=forloop.last %}
-                    {% endif %}
-                {% endwith %}
-            </li>
+                    {% if child.value.description %}
+                            <span class="sub-nav-desktop__description">{{ child.value.description }}</span>
+                        {% endif %}
+                </li>
+            {% elif child.block_type == "menu" %}
+                <li> 
+                    <div class="sub-nav-desktop__item">
+                        <span class="sub-nav-desktop__heading">
+                            {{ child.value.section_heading }}
+                        </span>
+                        {% if child.value.child_links %}
+                            {% include "patterns/navigation/components/includes/subnav-child-menu.html" with child=child %}
+                        {% endif %}
+                    </div>
+                </li>
+            {% endif %}
         {% endfor %}
     </ul>
 </div>
