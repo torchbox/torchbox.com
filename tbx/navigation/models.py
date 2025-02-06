@@ -5,6 +5,7 @@ from django.db import models
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.models import RevisionMixin
 from wagtail.snippets.models import register_snippet
 
 from tbx.core.utils.fields import StreamField
@@ -17,7 +18,7 @@ from tbx.navigation.blocks import (
 
 
 @register_snippet
-class NavigationSet(models.Model):
+class NavigationSet(RevisionMixin, models.Model):
     name = models.CharField(max_length=255)
     navigation = StreamField(
         [
