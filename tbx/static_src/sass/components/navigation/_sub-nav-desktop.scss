@@ -3,8 +3,6 @@
 
 /*
 Styles for the lower levels of the navigation at desktop
-Note that in the navigation settings we refer to 'level 1 and 2 children'.
-Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'level 3'.
 */
 
 // At desktop, the sub-navigation appears when a top level item is clicked
@@ -14,15 +12,16 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
 .sub-nav-desktop {
     $root: &;
     @include z-index(base);
-    @include nav-fixed-position($full-height: false);
-    background-color: var(--color--background);
+    @include nav-fixed-position($header-height: 118px,
+        $full-height: false);
+    background-color: var(--color--dark-background);
     padding: $spacer-half $grid-gutters;
     // for high contrast mode
     border: 1px solid transparent;
 
     // padding matches grid spacers but we don't want a grid layout for the sub-nav
     @include media-query(large) {
-        padding: $spacer-half $grid-gutters-large;
+        padding: $spacer-small-plus $grid-gutters-large;
     }
 
     @include media-query(x-large) {
@@ -45,7 +44,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         display: flex;
         flex-wrap: wrap;
         row-gap: $spacer-half;
-        column-gap: $spacer-small;
+        column-gap: $spacer-medium;
 
         // at desktop the third level is always visible once the subnav is expanded
         // it sits inside each column
@@ -56,9 +55,10 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
 
     // the list item for each menu item in the 2nd and 3rd levels
     &__item {
+        display: flex;
+        flex-direction: column;
         // at desktop level 2 these are arranged in columns
         // which are based on the number of items at that level
-        font-weight: $weight--semibold;
         flex-basis: calc(100% - #{$spacer-small});
 
         #{$root}--2 &,
@@ -75,6 +75,11 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         }
     }
 
+    &__heading {
+        @include font-size('size-six');
+        color: var(--color--theme-primary);
+    }
+
     // The link for each menu item in the 2nd and 3rd level
     &__link {
         @include link-styles(
@@ -82,10 +87,9 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
             $interaction-color: var(--color--heading),
             $underline-color: var(--color--heading)
         );
-        @include font-size('size-five');
+        @include font-size('size-six');
         font-weight: $weight--semibold;
         display: block;
-        margin-bottom: $spacer-mini-plus;
 
         &:focus {
             @include focus-style();
@@ -110,5 +114,19 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
     .active & {
         opacity: 1;
         visibility: visible;
+    }
+    
+    &__tail {
+        // Keep the arrow attached to the last word so it's not orphaned on a new line
+        white-space: nowrap;
+        display: inline;
+    }
+
+    &__arrow {
+        @include arrow-link-icon-styles(
+            $width: 13px,
+            $interaction-color: var(--color--theme-primary)
+        );
+        color: var(--color--theme-primary);
     }
 }
