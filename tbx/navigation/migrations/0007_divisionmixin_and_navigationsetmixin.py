@@ -8,6 +8,7 @@ import tbx.core.utils.fields
 class Migration(migrations.Migration):
     dependencies = [
         ("navigation", "0006_use_custom_streamfield"),
+        ("wagtailcore", "0094_alter_page_locale"),
     ]
 
     operations = [
@@ -38,5 +39,8 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
+            options={
+                "abstract": False,
+            },
         ),
     ]
