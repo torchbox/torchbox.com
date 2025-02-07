@@ -9,17 +9,27 @@
             </button>
         </li>
         <li class="sub-nav-mobile__item sub-nav-mobile__item--parent">
-            <a class="sub-nav-mobile__link sub-nav-mobile__link--parent" href="{% pageurl parent %}">
-                {{ parent.nav_text }}
+            <a class="sub-nav-mobile__link sub-nav-mobile__link--parent" href="{% if parent.page %}{% pageurl parent.page %}{% elif parent.external_link %}{{ parent.external_link }}{% endif %}">
+                {{ parent.text }}
             </a>
         </li>
-        {% for page in pages %}
+        {% for gchild in child.value.child_links %}
             <li class="sub-nav-mobile__item">
-                <a class="sub-nav-mobile__link sub-nav-mobile__link--child sub-nav-mobile__link--no-children" href="{% pageurl page %}">
-                    {{ page.nav_text }}
+                <a class="sub-nav-mobile__link sub-nav-mobile__link--child sub-nav-mobile__link--no-children" href="{{ gchild.value.url }}">
+                    {{ gchild.value.text }}
+                    {% if gchild.value.description %}
+                        <span class="sub-nav-mobile__description">{{ gchild.value.description }}</span>
+                    {% endif %}
                 </a>
             </li>
         {% endfor %}
+        {% if child.value.section_link %}
+            <li class="sub-nav-mobile__item">
+                <a class="sub-nav-mobile__link sub-nav-mobile__link--child sub-nav-mobile__link--no-children" href="{{ child.value.section_link.url }}">
+                    <span>{% firstof child.value.section_link_text child.value.section_link %}</span>
+                </a>
+            </li>
+        {% endif %}
     </ul>
 </div>
 

@@ -1,5 +1,7 @@
+{% load wagtailcore_tags %}
+
 <nav aria-label="Secondary navigation" class="secondary-nav-desktop" data-desktop-menu>
-    <ul data-secondary-nav class="secondary-nav-desktop__list">
+    <ul class="secondary-nav-desktop__list" data-secondary-nav>
         {% for block in page.navigation_set.navigation %}
             {% if block.block_type == "link" %}
                 <li class="secondary-nav-desktop__item">
@@ -9,7 +11,7 @@
                 </li>
             {% elif block.block_type == "menu" %}
                 <li class="secondary-nav-desktop__item" data-has-subnav>
-                    <a
+                    <button
                        class="secondary-nav-desktop__link"
                        data-open-subnav
                        aria-haspopup="true"
@@ -19,7 +21,7 @@
                             {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="secondary-nav-desktop__icon-closed" only %}
                             {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="secondary-nav-desktop__icon-open" only %}
                         </div>
-                    </a>
+                    </button>
                     {% include "patterns/navigation/components/includes/subnav-menu.html" with links=block.value.child_links number=block.value.child_links|length %}
                 </li>
             {% endif %}
