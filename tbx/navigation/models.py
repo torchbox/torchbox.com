@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 from django.db import models
@@ -27,8 +28,17 @@ class NavigationSet(RevisionMixin, models.Model):
         ],
     )
 
+    # This will let us do revision.navigation_set
+    _revisions = GenericRelation(
+        "wagtailcore.Revision", related_query_name="navigation_set"
+    )
+
     def __str__(self):
         return self.name
+
+    @property
+    def revisions(self):
+        return self._revisions
 
 
 @register_setting(icon="list-ul")
