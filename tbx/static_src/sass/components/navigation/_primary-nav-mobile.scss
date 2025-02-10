@@ -1,19 +1,24 @@
 @use 'config' as *;
 
 /*
-Styles for the top level of the navigation at mobile
+Styles for the primary navigation at mobile (top level)
 */
 
-// the nav element surrounding the whole navigation
+// The nav element surrounding the whole navigation
 // There are separate nav elements for desktop and mobile
 .primary-nav-mobile {
     $root: &;
 
     // At mobile the navigation is only revealed when the menu icon is clicked
     @include z-index(base);
-    @include nav-fixed-position($header-height: $header-height-mobile);
+    @include nav-fixed-position($header-height: 12px, $full-height: false);
+    left: 15px;
+    width: auto;
+    min-width: 200px;
     display: block;
-    background-color: var(--color--nav-background);
+    background-color: var(--color--black);
+    border: 1px solid var(--color--eclipse);
+    padding: $spacer-mini-plus 0;
 
     @include media-query(menu) {
         display: none;
@@ -25,69 +30,29 @@ Styles for the top level of the navigation at mobile
         opacity: 1;
     }
 
-    // Top level menu unordered list
     &__list {
         display: flex;
         flex-direction: column;
     }
 
-    // top level menu list items
     &__item {
-        font-weight: $weight--semibold;
         position: relative;
         width: 100%;
     }
 
-    // top level menu links
     &__link {
-        @include font-size('heading-five');
+        @include font-size('size-six');
+        @include link-styles(
+            $color: var(--color--grey-20),
+            $interaction-color: var(--color--white)
+        );
+        @include high-contrast-text-decoration();
         display: flex;
-        padding: $spacer-small;
-        border-bottom: 1px solid var(--color--nav-border);
-        justify-content: space-between;
-        align-items: center;
+        margin: 10px $spacer-small;
+        width: fit-content;
 
         &:focus {
             @include focus-style();
-        }
-
-        #{$root}__item:last-child & {
-            border-bottom: none;
-        }
-
-        // styles for links with children
-        &--has-children {
-            color: var(--color--heading);
-        }
-
-        // styles for links without children
-        &--no-children {
-            @include link-styles(
-                $color: var(--color--heading),
-                $interaction-color: var(--color--heading),
-                $underline-color: var(--color--heading)
-            );
-        }
-    }
-
-    // mobile arrow - appears if there are children
-    &__icon-mobile {
-        width: 18px;
-        height: 21px;
-        flex-grow: 0;
-        flex-shrink: 0;
-        transition: transform $transition-quick;
-
-        #{$root}__link:hover & {
-            transform: translateX(10px);
-        }
-
-        @include media-query(menu) {
-            display: none;
-        }
-
-        @include reduced-motion() {
-            transition: none;
         }
     }
 }

@@ -173,7 +173,7 @@ class TestColourTheme(WagtailPageTestCase):
                 self.assertNotIn(theme, html_classes)
 
     def test_custom_theme_on_descendants(self):
-        self.workindex.theme = ColourTheme.BANANA
+        self.workindex.theme = ColourTheme.NEBULINE
         self.workindex.save()
         self.workindex.refresh_from_db()
 
@@ -183,32 +183,32 @@ class TestColourTheme(WagtailPageTestCase):
         self.assertEqual(self.blogindex.theme, ColourTheme.NONE)
         self.assertEqual(self.blogindex.theme_class, ColourTheme.NONE)
 
-        self.assertEqual(self.workindex.theme, ColourTheme.BANANA)
-        self.assertEqual(self.workindex.theme_class, ColourTheme.BANANA)
+        self.assertEqual(self.workindex.theme, ColourTheme.NEBULINE)
+        self.assertEqual(self.workindex.theme_class, ColourTheme.NEBULINE)
 
         # child of workindex
         work = HistoricalWorkPageFactory(parent=self.workindex)
         self.assertEqual(work.theme, ColourTheme.NONE)
-        self.assertEqual(work.theme_class, ColourTheme.BANANA)
+        self.assertEqual(work.theme_class, ColourTheme.NEBULINE)
 
         # another child of workindex, this time we set the theme
         morework = HistoricalWorkPageFactory(
-            parent=self.workindex, theme=ColourTheme.EARTH
+            parent=self.workindex, theme=ColourTheme.GREEN
         )
 
-        self.assertEqual(morework.theme, ColourTheme.EARTH)
-        self.assertEqual(morework.theme_class, ColourTheme.EARTH)
+        self.assertEqual(morework.theme, ColourTheme.GREEN)
+        self.assertEqual(morework.theme_class, ColourTheme.GREEN)
         # sibling shouldn't be affected
         self.assertEqual(work.theme, ColourTheme.NONE)
-        self.assertEqual(work.theme_class, ColourTheme.BANANA)
+        self.assertEqual(work.theme_class, ColourTheme.NEBULINE)
         # parent shouldn't be affected
-        self.assertEqual(self.workindex.theme, ColourTheme.BANANA)
-        self.assertEqual(self.workindex.theme_class, ColourTheme.BANANA)
+        self.assertEqual(self.workindex.theme, ColourTheme.NEBULINE)
+        self.assertEqual(self.workindex.theme_class, ColourTheme.NEBULINE)
 
         # child of morework
         std_page = StandardPageFactory(parent=morework)
         # `theme_class` should be inherited from parent
-        self.assertEqual(std_page.theme_class, ColourTheme.EARTH)
+        self.assertEqual(std_page.theme_class, ColourTheme.GREEN)
         # but `theme` should remain unset
         self.assertEqual(std_page.theme, ColourTheme.NONE)
 
@@ -241,10 +241,10 @@ class TestColourTheme(WagtailPageTestCase):
 
             # Check that we have the correct classes applied
             self.assertIn(f"template-{class_suffix}", html_classes)
-            self.assertIn(ColourTheme.BANANA, html_classes)
+            self.assertIn(ColourTheme.NEBULINE, html_classes)
             # The rest of the theme classes should not be applied
             for theme in list(
-                filter(lambda theme: theme != ColourTheme.BANANA, self.themes)
+                filter(lambda theme: theme != ColourTheme.NEBULINE, self.themes)
             ):
                 self.assertNotIn(theme, html_classes)
 
@@ -258,9 +258,9 @@ class TestColourTheme(WagtailPageTestCase):
 
             # Check that we have the correct classes applied
             self.assertIn(f"template-{class_suffix}", html_classes)
-            self.assertIn(ColourTheme.EARTH, html_classes)
+            self.assertIn(ColourTheme.GREEN, html_classes)
             # The rest of the theme classes should not be applied
             for theme in list(
-                filter(lambda theme: theme != ColourTheme.EARTH, self.themes)
+                filter(lambda theme: theme != ColourTheme.GREEN, self.themes)
             ):
                 self.assertNotIn(theme, html_classes)

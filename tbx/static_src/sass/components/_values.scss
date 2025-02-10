@@ -12,7 +12,7 @@
     }
 
     &__intro {
-        @include font-size('heading-five');
+        @include font-size('size-five');
         color: var(--color--text);
     }
 }
@@ -74,8 +74,8 @@
     }
 
     &__strapline {
-        @include font-size('heading-five');
-        color: var(--color--accent-three);
+        @include font-size('size-five');
+        color: var(--color--theme-primary);
         font-weight: $weight--semibold;
         margin-bottom: $spacer-mini-plus;
     }

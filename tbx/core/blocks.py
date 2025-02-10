@@ -2,6 +2,7 @@ from collections import defaultdict
 from datetime import datetime
 import logging
 
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.forms.utils import ErrorList
@@ -234,6 +235,9 @@ class ButtonLinkStructValue(blocks.StructValue):
 
 class CallToActionBlock(blocks.StructBlock):
     text = blocks.CharBlock(required=True, max_length=255)
+    description = blocks.RichTextBlock(
+        features=settings.PARAGRAPH_RICH_TEXT_FEATURES, required=False
+    )
     button_text = blocks.CharBlock(max_length=55)
     button_link = blocks.StreamBlock(
         [
@@ -259,6 +263,181 @@ class ContactCTABlock(blocks.StructBlock):
 
     class Meta:
         template = "patterns/molecules/streamfield/blocks/contact_call_to_action.html"
+
+
+class DynamicHeroBlock(blocks.StructBlock):
+    """
+    This block displays text that will be cycled through.
+    """
+
+    static_text = blocks.CharBlock(required=False)
+    dynamic_text = blocks.ListBlock(
+        blocks.CharBlock(),
+        help_text=(
+            "The hero will cycle through these texts on larger screen sizes "
+            "and only show the first text on smaller screen sizes."
+        ),
+        required=False,
+    )
+
+    class Meta:
+        icon = "title"
+        template = "patterns/molecules/streamfield/blocks/dynamic_hero_block.html"
+
+
+class FeaturedPageCardBlock(blocks.StructBlock):
+    heading = blocks.CharBlock(required=False)
+    description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
+    image = ImageChooserBlock()
+    link_text = blocks.CharBlock()
+    accessible_link_text = blocks.CharBlock(
+        help_text=(
+            "Used by screen readers. This should be descriptive for accessibility. "
+            'If not filled, the "Link text" field will be used instead.'
+        ),
+        required=False,
+    )
+    page = blocks.PageChooserBlock()
+
+    class Meta:
+        icon = "breadcrumb-expand"
+
+
+class FeaturedServicesBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    cards = blocks.ListBlock(
+        FeaturedPageCardBlock(),
+        max_num=4,
+        min_num=2,
+    )
+
+    class Meta:
+        group = "Custom"
+        icon = "link"
+        template = "patterns/molecules/streamfield/blocks/featured_services_block.html"
+
+
+class FourPhotoCollageBlock(blocks.StructBlock):
+    """
+    Accepts 4 photos shown as a collage + text below.
+    Used on the division page and the service area page.
+    """
+
+    images = blocks.ListBlock(
+        ImageWithAltTextBlock(label="Photo"),
+        min_num=4,
+        max_num=4,
+        label="Photos",
+        help_text="Exactly four required.",
+        default=[{"image": None, "alt_text": ""}] * 4,
+    )
+    caption = blocks.RichTextBlock(
+        features=settings.PARAGRAPH_RICH_TEXT_FEATURES, required=False
+    )
+    description = blocks.RichTextBlock(
+        features=settings.PARAGRAPH_RICH_TEXT_FEATURES, required=False
+    )
+
+    class Meta:
+        group = "Custom"
+        icon = "image"
+        template = "patterns/molecules/streamfield/blocks/four_photo_collage_block.html"
+
+
+class KeyPointIconChoice(models.TextChoices):
+    CALENDAR = "key-calendar", "calendar icon"
+    CONVERSATION = "key-conversation", "chat bubbles icon"
+    LIGHTBULB = "key-lightbulb", "lightbulb icon"
+    MAIL = "key-mail", "mail icon"
+    MEGAPHONE = "key-megaphone", "megaphone icon"
+    PEOPLE = "key-people", "people icon"
+    BULLSEYE = "key-bullseye", "target icon"
+    UP_ARROW = "key-up-arrow", "up arrow icon"
+
+
+class IconKeyPointBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(
+        choices=KeyPointIconChoice.choices,
+        default=KeyPointIconChoice.LIGHTBULB,
+        max_length=32,
+    )
+    icon_label = blocks.CharBlock()
+    heading = blocks.CharBlock()
+    description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
+
+    class Meta:
+        icon = "breadcrumb-expand"
+
+
+class IconKeyPointsBlock(blocks.StructBlock):
+    """Used on the service area page."""
+
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    key_points = blocks.ListBlock(IconKeyPointBlock(label="Key point"), min_num=1)
+
+    class Meta:
+        group = "Custom"
+        icon = "list-ul"
+        template = "patterns/molecules/streamfield/blocks/icon_keypoints_block.html"
+
+
+class IntroductionWithImagesBlock(blocks.StructBlock):
+    """Used on the division page."""
+
+    introduction = blocks.RichTextBlock(features=settings.PARAGRAPH_RICH_TEXT_FEATURES)
+    description = blocks.RichTextBlock(
+        blank=True, features=settings.NO_HEADING_RICH_TEXT_FEATURES
+    )
+    images = blocks.ListBlock(
+        ImageWithAltTextBlock(label="Photo"),
+        min_num=2,
+        max_num=2,
+        label="Photos",
+        help_text="Exactly two required.",
+        default=[{"image": None, "alt_text": ""}] * 2,
+    )
+
+    class Meta:
+        group = "Custom"
+        icon = "pilcrow"
+        template = (
+            "patterns/molecules/streamfield/blocks/introduction_with_images_block.html"
+        )
+
+
+class LinkColumnsBlock(blocks.StructBlock):
+    """
+    Displays a list of links in columns.
+    Used on the service area page.
+    """
+
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    links = LinkBlock(max_num=None, min_num=1)
+
+    class Meta:
+        group = "Custom"
+        icon = "link"
+        template = "patterns/molecules/streamfield/blocks/link_columns_block.html"
+
+
+class PartnersBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255, required=False)
+    partner_logos = blocks.ListBlock(CustomImageChooserBlock(), label="Logos")
+
+    class Meta:
+        icon = "openquote"
+        label = "Partner logos"
+        template = "patterns/molecules/streamfield/blocks/partners_block.html"
+        group = "Custom"
 
 
 class ShowcaseBlock(blocks.StructBlock):
@@ -295,6 +474,49 @@ class IconChoice(models.TextChoices):
     TARGET = "target", "target icon"
     MEGAPHONE = "megaphone", "megaphone icon"
     WAGTAIL = "wagtail", "wagtail icon"
+
+
+class DivisionSignpostCardBlock(blocks.StructBlock):
+    class ColourTheme(models.TextChoices):
+        CORAL = "theme-coral", "Coral"
+        NEBULINE = "theme-nebuline", "Nebuline"
+        LAGOON = "theme-lagoon", "Lagoon"
+
+    card_colour = blocks.ChoiceBlock(
+        choices=ColourTheme.choices, default=ColourTheme.CORAL, max_length=20
+    )
+    heading = blocks.CharBlock(required=False)
+    description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
+    image = ImageChooserBlock()
+    link_text = blocks.CharBlock()
+    accessible_link_text = blocks.CharBlock(
+        help_text=(
+            "Used by screen readers. This should be descriptive for accessibility. "
+            'If not filled, the "Link text" field will be used instead.'
+        ),
+        required=False,
+    )
+    page = blocks.PageChooserBlock()
+
+    class Meta:
+        icon = "breadcrumb-expand"
+
+
+class DivisionSignpostBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    cards = blocks.ListBlock(
+        DivisionSignpostCardBlock(),
+        max_num=3,
+        min_num=3,
+    )
+
+    class Meta:
+        group = "Custom"
+        icon = "thumbtack"
+        template = "patterns/molecules/streamfield/blocks/division_signpost_block.html"
 
 
 class HomepageShowcaseBlock(blocks.StructBlock):
@@ -435,11 +657,16 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
 
 class BlogChooserBlock(blocks.StructBlock):
     featured_blog_heading = blocks.CharBlock(max_length=255)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
     blog_pages = blocks.ListBlock(
         blocks.PageChooserBlock(page_type="blog.BlogPage"),
         min_num=1,
         max_num=3,
     )
+    primary_button = LinkBlock(label="Primary button", required=False)
+    secondary_button = LinkBlock(label="Secondary button", required=False)
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
@@ -461,11 +688,16 @@ class BlogChooserStandardPageBlock(BlogChooserBlock):
 
 class WorkChooserBlock(blocks.StructBlock):
     featured_work_heading = blocks.CharBlock(max_length=255)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
     work_pages = blocks.ListBlock(
         blocks.PageChooserBlock(page_type=["work.WorkPage", "work.HistoricalWorkPage"]),
         min_num=1,
         max_num=3,
     )
+    primary_button = LinkBlock(label="Primary button", required=False)
+    secondary_button = LinkBlock(label="Secondary button", required=False)
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context)
@@ -814,6 +1046,27 @@ class NumericStatisticsBlock(blocks.StructBlock):
 
     class Meta:
         icon = "table"
+        label_format = "{headline_number} {description} {further_details}"
+
+
+class NumericStatisticsGroupBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=255, required=False)
+    intro = blocks.RichTextBlock(
+        features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
+    )
+    statistics = blocks.ListBlock(
+        NumericStatisticsBlock(),
+        max_num=4,
+        min_num=1,
+    )
+
+    class Meta:
+        group = "Custom"
+        icon = "table"
+        label = "Numeric statistics"
+        template = (
+            "patterns/molecules/streamfield/blocks/numeric_stats_group_block.html"
+        )
 
 
 class TextualStatisticsBlock(blocks.StructBlock):
@@ -944,6 +1197,7 @@ class StandardPageStoryBlock(StoryBlock):
 
 
 class HomePageStoryBlock(blocks.StreamBlock):
+    division_signpost = DivisionSignpostBlock()
     showcase = ShowcaseBlock(label="Standard showcase")
     homepage_showcase = HomepageShowcaseBlock(label="Large showcase with icons")
     featured_case_study = FeaturedCaseStudyBlock()

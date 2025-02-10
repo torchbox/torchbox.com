@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.functional import cached_property
+from django.utils.safestring import mark_safe
 
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -11,6 +12,10 @@ from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 from tbx.core.utils.fields import StreamField
+from tbx.core.utils.formatting import (
+    convert_bold_links_to_pink,
+    convert_italic_links_to_purple,
+)
 from tbx.core.utils.models import (
     ColourThemeMixin,
     NavigationFields,
@@ -131,7 +136,12 @@ class HomePagePartnerLogo(Orderable):
 # Home Page
 class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
     template = "patterns/pages/home/home_page.html"
-    introduction = models.TextField(blank=True)
+
+    parent_page_types = ["wagtailcore.Page"]
+
+    hero_heading_1 = models.CharField(max_length=255)
+    hero_heading_2 = models.CharField(max_length=255)
+    hero_introduction = RichTextField(blank=True, features=["bold", "italic", "link"])
     body = StreamField(HomePageStoryBlock())
 
     class Meta:
@@ -144,8 +154,37 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
         return []
 
     content_panels = Page.content_panels + [
-        FieldPanel("introduction"),
-        InlinePanel("logos", heading="Partner logos", label="logo", max_num=7),
+        MultiFieldPanel(
+            [
+                FieldPanel(
+                    "hero_heading_1",
+                    heading="Heading (Part 1)",
+                    help_text="This is the non-bold part of the heading.",
+                ),
+                FieldPanel(
+                    "hero_heading_2",
+                    heading="Heading (Part 2)",
+                    help_text="This is the bold part of the heading.",
+                ),
+                FieldPanel(
+                    "hero_introduction",
+                    heading="Introduction",
+                    # mark_safe needed so the HTML tags aren't escaped
+                    help_text=mark_safe(  # noqa: S308
+                        "Use bold to mark links as"
+                        ' <span style="color:#EE5276">pink</span>,'
+                        " and use italics to mark links as"
+                        ' <span style="color:#6F60D0">purple</span>.'
+                    ),
+                ),
+            ],
+            heading="Hero",
+            help_text=(
+                "When combined, part 1 & part 2 of the heading can be treated as one"
+                " sentence or one paragraph, depending on the presence of punctuation."
+            ),
+        ),
+        InlinePanel("logos", heading="Partner logos", label="logo", max_num=12),
         FieldPanel("body"),
     ]
 
@@ -164,6 +203,9 @@ class HomePage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
     def get_context(self, request):
         context = super().get_context(request)
         context["is_home_page"] = True
+        context["hero_introduction"] = convert_bold_links_to_pink(
+            convert_italic_links_to_purple(self.hero_introduction)
+        )
         return context
 
 

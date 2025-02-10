@@ -1,5 +1,6 @@
 // CSS from external vendors (available as npm)
 @use '../../../node_modules/lite-youtube-embed/src/lite-yt-embed.css';
+@use '../../../node_modules/swiper/swiper.scss';
 
 // Base
 @use 'base/base';
@@ -13,21 +14,30 @@
 @use 'components/authors-wide';
 @use 'components/avatar';
 @use 'components/button';
+@use 'components/button-link';
 @use 'components/blog-meta';
 @use 'components/call-to-action';
 @use 'components/contact-cta';
 @use 'components/cookie-message';
+@use 'components/division-signpost';
+@use 'components/dynamic-hero';
 @use 'components/employee-owned-icon';
 @use 'components/event-block';
 @use 'components/featured-case-study';
+@use 'components/featured-services';
 @use 'components/footer';
 @use 'components/footer-cta';
 @use 'components/form';
+@use 'components/four-photo-collage';
 @use 'components/grid';
 @use 'components/header';
 @use 'components/home-page-hero';
+@use 'components/home-page-intro';
 @use 'components/image';
 @use 'components/instagram-gallery';
+@use 'components/intro-with-images';
+@use 'components/keypoints';
+@use 'components/link-columns';
 @use 'components/link';
 @use 'components/listing';
 @use 'components/listing-avatar';
@@ -38,6 +48,7 @@
 @use 'components/markdown-block';
 @use 'components/mode-switcher';
 @use 'components/motif-heading';
+@use 'components/stats-group';
 @use 'components/pagination';
 @use 'components/partners';
 @use 'components/photo-collage';
@@ -55,6 +66,7 @@
 @use 'components/sprites-preview-icons';
 @use 'components/stats';
 @use 'components/streamfield';
+@use 'components/swirls';
 @use 'components/team-page-meta';
 @use 'components/tabbed-paragraph';
 @use 'components/table';

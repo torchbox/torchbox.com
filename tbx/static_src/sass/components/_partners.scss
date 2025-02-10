@@ -6,12 +6,17 @@
     @mixin partner-logo-sizes() {
         width: 100%;
         height: 100%;
-        max-width: 100px;
+        max-width: 90px;
         max-height: 90px;
+
+        @include media-query(large) {
+            max-width: 107px;
+            max-height: 107px;
+        }
     }
 
     &__title {
-        @include font-size(heading-two-c);
+        @include font-size(size-two-b);
         margin-bottom: $spacer-medium;
     }
 
@@ -23,30 +28,24 @@
         align-items: center;
 
         @include media-query(large) {
-            justify-content: flex-start;
+            gap: $spacer-small;
         }
 
-        &--wide {
-            @include media-query('x-large') {
-                justify-content: space-between;
-            }
+        @include media-query('x-large') {
+            gap: $spacer-medium;
         }
     }
 
     &__logo-wrapper {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
         display: flex;
         align-items: center;
         justify-content: center;
 
         @include media-query(medium) {
-            width: 160px;
-            height: 160px;
-        }
-
-        @include media-query(large) {
-            justify-content: flex-start;
+            width: 120px;
+            height: 120px;
         }
 
         #{$root}__logos--wide & {
@@ -58,7 +57,7 @@
 
     &__logo {
         @include partner-logo-sizes();
-        filter: grayscale(1) invert(1) brightness(1.5);
+        filter: grayscale(1) invert(1) brightness(1.2);
         object-fit: contain;
 
         @include high-contrast-light-mode() {
@@ -66,11 +65,7 @@
         }
 
         .mode-light & {
-            filter: none;
+            filter: grayscale(1) brightness(1.2);
         }
-    }
-
-    &__logo-picture {
-        @include partner-logo-sizes();
     }
 }

@@ -50,7 +50,7 @@
     }
 
     &__header {
-        @include font-size('heading-five');
+        @include font-size('size-five');
         color: var(--color--heading);
         font-weight: $weight--semibold;
         display: flex;
@@ -66,11 +66,11 @@
         @include ring($opacity: 1);
 
         &--one {
-            @include ring-one($color: var(--color--accent-two));
+            @include ring-one($color: var(--color--theme-secondary));
         }
 
         &--two {
-            @include ring-two($color: var(--color--accent-three));
+            @include ring-two($color: var(--color--theme-primary));
         }
     }
 
@@ -103,14 +103,14 @@
     }
 
     &__summary-text {
-        @include font-size('heading-four');
+        @include font-size('size-four');
         font-weight: $weight--light;
         color: var(--color--heading);
         margin-bottom: $spacer-mini;
     }
 
     &__text {
-        @include font-size('heading-six');
+        @include font-size('size-six');
         margin-bottom: $spacer-small;
     }
 }

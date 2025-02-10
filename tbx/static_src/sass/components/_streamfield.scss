@@ -19,7 +19,7 @@
 
         // override the rich-text font-size
         &.rich-text {
-            @include font-size(intro);
+            @include font-size(size-four-b);
         }
     }
 

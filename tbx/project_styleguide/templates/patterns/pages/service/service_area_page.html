@@ -1,0 +1,16 @@
+{% extends "patterns/base_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    <div>
+        {# Division #}
+        <p>Division: {{ page.final_division.label }}</p>
+
+        {# Title #}
+        <h1>{{ page.title }}</h1>
+        {# Subtitle #}
+        <p>{{ page.subtitle }}</p>
+
+        {% include_block page.body %}
+    </div>
+{% endblock %}

@@ -31,7 +31,7 @@
     }
 
     &__title {
-        @include font-size(heading-two-b);
+        @include font-size(size-two-b);
         @include link-styles(var(--color--heading), var(--color--heading));
         margin-bottom: $spacer-mini;
 

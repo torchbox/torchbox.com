@@ -1,14 +1,14 @@
 @use 'config' as *;
 
 .rich-text {
-    @include font-size(body);
+    @include font-size(size-five);
 
     h2,
     h3,
     h4,
     h5,
     h6 {
-        font-weight: $weight--light;
+        font-weight: $weight--semibold;
 
         b {
             // <b> tags were used in the legacy CMS within headings
@@ -18,7 +18,7 @@
     }
 
     h2 {
-        @include font-size(heading-two-b);
+        @include font-size(size-two-b);
         @include rich-text-heading-spacing();
 
         // if the h2 comes after a work section heading, remove top margin
@@ -28,7 +28,7 @@
     }
 
     h3 {
-        @include font-size(heading-three);
+        @include font-size(size-three);
         @include rich-text-heading-spacing();
 
         // if the h3 comes after a work section heading, remove top margin
@@ -38,9 +38,8 @@
     }
 
     h4 {
-        @include font-size(heading-four);
+        @include font-size(size-four);
         @include rich-text-heading-spacing();
-        font-weight: $weight--semibold;
     }
 
     // overide top heading margins for the first child

@@ -75,7 +75,7 @@
     }
 
     &__consent-banner {
-        @include font-size(body);
+        @include font-size(size-five);
         color: var(--color--heading);
         width: 100%;
         background-color: rgba($color--mid-grey, 0.5);
@@ -98,7 +98,7 @@
     }
 
     &__button-container {
-        @include font-size(supporting);
+        @include font-size(size-eight);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -135,7 +135,7 @@
     }
 
     &__label {
-        @include font-size(supporting);
+        @include font-size(size-eight);
     }
 
     &__container {

@@ -1,5 +1,10 @@
 tags:
   srcset_image:
+    # Division signpost
+    'card.image format-webp fill-{540x280,490x280} sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" alt=""':
+      raw: |
+        <img alt="" height="280" sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" src="https://picsum.photos/540/280.webp" srcset="https://picsum.photos/540/280.webp 540w, https://picsum.photos/490/280.webp 490w" width="540">
+
     # Featured case study
     'value.featured_case_study_image format-webp fill-{400x225,800x450,1600x900,1280x720} sizes="(max-width: 1022px) 90vw, (max-width: 1789px) 50vw, (min-width: 1800px) 1120px" class="featured-case-study__image"':
       raw: '<img alt="Jeth-JulyImage_from_iOS" class="featured-case-study__image" height="225" sizes="(max-width: 1022px) 90vw, (max-width: 1789px) 50vw, (min-width: 1800px) 1120px" src="https://picsum.photos/400/225.webp" srcset="https://picsum.photos/400/225.webp 400w, https://picsum.photos/800/450.webp 800w, https://picsum.photos/1600/900.webp 1280w, https://picsum.photos/1280/720.webp 1280w" width="400">'
@@ -15,12 +20,12 @@ tags:
       raw: |
         <img alt="alt text" class="photo-collage__image" height="288" loading="lazy" sizes="(max-width: 598px) 576px, (min-width: 599px) 288px" src="https://picsum.photos/288/288.webp" srcset="https://picsum.photos/288/288.webp 288w, https://picsum.photos/576/576.webp 576w" width="288">
     # avatar image for blog chooser
-    'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
+    'avatar format-webp fill-{100x100,144x144,286x286} sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
       raw: |
-        <img alt="" class="avatar__image" height="72" loading="lazy" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://picsum.photos/72/72.webp" srcset="https://picsum.photos/72/72.webp 72w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="72">
-    'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
+        <img alt="" class="avatar__image" height="100" loading="lazy" sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" src="https://picsum.photos/100/100.webp" srcset="https://picsum.photos/100/100.webp 100w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="100">
+    'avatar format-webp fill-{100x100,144x144,286x286} sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" alt="" class="avatar__image"':
       raw: |
-        <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://picsum.photos/72/72.webp" srcset="https://picsum.photos/72/72.webp 72w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="72">
+        <img alt="" class="avatar__image" height="100" sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" src="https://picsum.photos/100/100.webp" srcset="https://picsum.photos/100/100.webp 100w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="100">
   image:
     # Featured case study logo
     value.featured_case_study_logo max-110x70 format-webp class="featured-case-study__company-logo":

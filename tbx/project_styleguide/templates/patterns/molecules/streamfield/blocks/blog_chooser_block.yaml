@@ -1,6 +1,15 @@
 context:
   value:
-    featured_blog_heading: Case studies
+    featured_blog_heading: Blog posts
+    # intro: '<p>An injection of fresh ideas, and the occasional challenging opinion, to ignite your fire.</p>'
+    # primary_button:
+    #   - value:
+    #       text: Primary button
+    #       url: '#'
+    # secondary_button:
+    #   - value:
+    #       text: Secondary button
+    #       url: '#'
     blog_pages:
       - title: Explore the potential of AI in content management
         date: 20 Oct 2023
@@ -44,9 +53,9 @@ tags:
       raw: '../../../pages/blog/blog_detail.html'
   srcset_image:
     # avatar image
-    'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
+    'avatar format-webp fill-{100x100,144x144,286x286} sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
       raw: |
-        <img alt="" class="avatar__image" height="72" loading="lazy" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://picsum.photos/72/72.webp" srcset="https://picsum.photos/72/72.webp 72w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="72">
-    'avatar format-webp fill-{72x72,144x144,286x286} sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" alt="" class="avatar__image"':
+        <img alt="" class="avatar__image" height="100" loading="lazy" sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" src="https://picsum.photos/100/100.webp" srcset="https://picsum.photos/100/100.webp 100w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="100">
+    'avatar format-webp fill-{100x100,144x144,286x286} sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" alt="" class="avatar__image"':
       raw: |
-        <img alt="" class="avatar__image" height="72" sizes="(max-width: 598px) 72px, (min-width: 599px) 145px" src="https://picsum.photos/72/72.webp" srcset="https://picsum.photos/72/72.webp 72w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="72">
+        <img alt="" class="avatar__image" height="100" sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" src="https://picsum.photos/100/100.webp" srcset="https://picsum.photos/100/100.webp 100w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="100">

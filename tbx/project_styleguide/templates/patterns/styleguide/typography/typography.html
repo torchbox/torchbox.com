@@ -4,66 +4,56 @@
 
 {% block content %}
     <div class="p-4 mb-8" style="max-width: 710px">
-        {# Headings #}
-        <p class="underline mt-8">Heading 1</p>
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" %}
+        {# Headings and body text #}
+        <p class="underline mt-8">Size 0 semibold</p>
+        <h1 class="heading heading--mega">Always be curious, daring, and eager to learn</h1>
 
-        <p class="underline mt-8">Heading 1 with the 'narrowest' drop-cap class</p>
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Thinking" %}
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Yikes" %}
+        <p class="underline mt-8">Size 1 semibold & extralight</p>
+        <h1 class="heading heading--one">Joining the battle to protect our oceans</h1>
+        <h1 class="heading heading--one heading--extralight">Joining the battle to protect our oceans</h1>
 
-        <p class="underline mt-8">Heading 1 with the 'narrower' drop-cap class</p>
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Which" %}
+        <p class="underline mt-8">Size 1B semibold & extralight</p>
+        <h1 class="heading heading--one-b">Joining the battle to protect our oceans</h1>
+        <h1 class="heading heading--one-b heading--extralight">Joining the battle to protect our oceans</h1>
 
-        <p class="underline mt-8">Heading 1 with the 'narrow' drop-cap class</p>
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Flight" %}
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Platitude" %}
+        <p class="underline mt-8">Size 2 semibold</p>
+        <h2 class="heading heading--two">Joining the battle to protect our oceans</h2>
 
-
-        <p class="underline mt-8">Heading 1 with the 'i' drop-cap class</p>
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one" heading="Inventory" %}
-
-
-        <p class="underline mt-8">Heading 1-B</p>
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" %}
-
-        <p class="underline mt-8">Heading 1-B with the 'narrowest' drop-cap class</p>
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Thinking" %}
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Yikes" %}
-
-        <p class="underline mt-8">Heading 1-B with the 'narrower' drop-cap class</p>
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Which" %}
-
-        <p class="underline mt-8">Heading 1-B with the 'narrow' drop-cap class</p>
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Flight" %}
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=1 classes="motif-heading--one-b" heading="Platitude" %}
-
-
-        <p class="underline mt-8">Heading 2</p>
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" %}
-
-        <p class="underline mt-8">Heading 2 with the 'narrowest' drop-cap class</p>
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Thinking"%}
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Yikes"%}
-
-        <p class="underline mt-8">Heading 2 with the 'narrower' drop-cap class</p>
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Which"%}
-
-        <p class="underline mt-8">Heading 2 with the 'narrow' drop-cap class</p>
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Flight"%}
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 classes="motif-heading--two" heading="Platitude"%}
-
-
-        <p class="underline mt-8">Heading 2-B</p>
+        <p class="underline mt-8">Size 2B semibold & light</p>
         <h2 class="heading heading--two-b">Joining the battle to protect our oceans</h2>
-        <p class="underline mt-8">Heading 3</p>
+        <h2 class="heading heading--two-b heading--light">Joining the battle to protect our oceans</h2>
+
+        <p class="underline mt-8">Size 3 semibold & light</p>
         <h3 class="heading heading--three">Joining the battle to protect our oceans</h3>
-        <p class="underline mt-8">Heading 4</p>
-        <h4 class="heading heading--four">Joining the battle to protect our oceans</h4>
-        <p class="underline mt-8">Heading 5</p>
-        <h5 class="heading heading--five">Joining the battle to protect our oceans</h5>
-        <p class="underline mt-8">Heading 6</p>
+        <h3 class="heading heading--three heading--light">Joining the battle to protect our oceans</h3>
+
+        <p class="underline mt-8">Size 4 semibold & light</p>
+        <h4 class="heading heading--four">We can help you create digital products and services that solve real customer problems. And, you can transform your organisation along the way.</h4>
+        <h4 class="heading heading--four heading--light">We can help you create digital products and services that solve real customer problems. And, you can transform your organisation along the way.</h4>
+
+        <p class="underline mt-8">Size 4B light, less line height</p>
+        <h4 class="heading heading--four-b">We can help you create digital products and services that solve real customer problems. And, you can transform your organisation along the way.</h4>
+
+        <p class="underline mt-8">Size 5 semibold & regular</p>
+        <h5 class="heading heading--five">We can help you create digital products and services that solve real customer problems. And, you can transform your organisation along the way.</h5>
+        <h5 class="heading heading--five heading--regular">We can help you create digital products and services that solve real customer problems. And, you can transform your organisation along the way.</h5>
+        <p class="text text--five">We can help you create digital products and services that solve real customer problems. And, you can transform your organisation along the way.</p>
+
+        <p class="underline mt-8">Size 5B regular, less line height</p>
+        <h5 class="heading heading--five-b heading--regular">We can help you create digital products and services that solve real customer problems. And, you can transform your organisation along the way.</h5>
+        <p class="text text--five-b">We can help you create digital products and services that solve real customer problems. And, you can transform your organisation along the way.</p>
+
+        <p class="underline mt-8">Size 6 semibold & regular</p>
         <h6 class="heading heading--six">Joining the battle to protect our oceans</h6>
+        <p class="text text--six">Joining the battle to protect our oceans</p>
+
+        <p class="underline mt-8">Size 7 semibold & regular</p>
+        <p class="text text--seven text--semibold">Joining the battle to protect our oceans</p>
+        <p class="text text--seven">Joining the battle to protect our oceans</p>
+
+        <p class="underline mt-8">Size 8 semibold & regular</p>
+        <p class="text text--eight text--semibold">Joining the battle to protect our oceans</p>
+        <p class="text text--eight">Joining the battle to protect our oceans</p>
 
         {# Rich text #}
         <p class="mt-8 underline">Rich text</p>
@@ -97,6 +87,13 @@
                 <span class="link__text">Digital products</span>
                 {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="link__icon" %}
             </a>
+        </p>
+
+        <p class="mb-1 underline">Links styled as buttons</p>
+        <p class="mb-4" style="max-width: 400px">
+            <a class="mb-4 button-link button-link--theme-coral" href="#">Digital products&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="button-link__arrow" %}</a>
+            <a class="mb-4 button-link button-link--theme-nebuline" href="#">Digital products&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="button-link__arrow" %}</a>
+            <a class="mb-4 button-link button-link--theme-lagoon" href="#">Digital products&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="button-link__arrow" %}</a>
         </p>
 
         {# Buttons #}

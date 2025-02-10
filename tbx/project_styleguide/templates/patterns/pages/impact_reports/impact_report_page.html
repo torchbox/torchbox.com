@@ -4,7 +4,7 @@
 {% block content %}
     <div class="grid mt-spacerMedium lg:mt-spacerLarge">
         <div class="grid__title">
-            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.title classes="motif-heading--one" %}
+            <h1 class="heading heading--mega">{{ page.title }}</h1>
         </div>
     </div>
 
@@ -38,11 +38,11 @@
             </picture>
 
             {% if page.hero_caption %}
-                <p class="image__caption supporting">{{ page.hero_caption }}</p>
+                <p class="image__caption text--eight">{{ page.hero_caption }}</p>
             {% endif %}
 
             {% if page.hero_attribution %}
-                <p class="image__attribution supporting">{{ page.hero_attribution }}</p>
+                <p class="image__attribution text--eight">{{ page.hero_attribution }}</p>
             {% endif %}
         </div>
     </div>

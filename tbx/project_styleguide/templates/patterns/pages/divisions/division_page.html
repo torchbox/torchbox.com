@@ -1,0 +1,14 @@
+{% extends "patterns/base_page.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+
+    <div class="grid grid--spacer-large streamfield">
+        <h1 class="sr-only">{{ page.title }}</h1>
+
+        <div class="grid__dynamic-hero">{% include_block page.hero %}</div>
+
+        {% include_block page.body %}
+    </div>
+
+{% endblock content %}

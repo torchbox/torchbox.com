@@ -4,41 +4,57 @@
     $root: &;
     display: flex;
     flex-direction: column;
-    gap: $spacer-small;
     margin-top: $spacer-medium;
 
     @include media-query(large) {
         margin-top: $spacer-half * 2;
-        gap: $spacer-medium;
     }
 
     &__top {
         width: 100%;
     }
 
-    &__bottom-container {
-        background-color: var(--color--footer-background);
-    }
-
     &__bottom {
         width: 100%;
-        padding: $spacer-small 0;
-    }
-
-    &__line {
-        height: 1px;
-        background-color: var(--color--decoration);
-        margin-bottom: $spacer-half;
+        padding: $spacer-medium 0 $spacer-small 0;
 
         @include media-query(large) {
-            margin-bottom: $spacer-medium;
+            padding-top: $spacer-small;
         }
+    }
+
+    &__newsletter-link {
+        @include font-size('size-four');
+        @include link-styles(
+            $color: var(--color--heading),
+            $interaction-color: var(--color--heading),
+            $underline-color: var(--color--grey-50)
+        );
+        font-weight: $weight--semibold;
+        display: flex;
+        align-items: center;
+        gap: $spacer-mini-plus;
+        padding: $spacer-mini 0;
+
+        @include media-query(large) {
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+    }
+
+    &__arrow {
+        @include arrow-link-icon-styles();
+        color: var(--color--heading);
     }
 
     &__socials {
         display: flex;
-        gap: $spacer-mini * 2;
-        margin: $spacer-mini * 2 $spacer-mini 0 0;
+        gap: $spacer-small-plus;
+        padding: $spacer-small 0;
+
+        @include media-query(large) {
+            border-bottom: none;
+        }
     }
 
     &__social-link {
@@ -65,12 +81,9 @@
 
     &__logos {
         display: flex;
-        justify-content: space-between;
-
-        @include media-query(large) {
-            justify-content: flex-start;
-            gap: $spacer-medium;
-        }
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: $spacer-medium;
     }
 
     &__logo-link {
@@ -84,8 +97,12 @@
     }
 
     &__logo {
-        filter: grayscale(1) invert(1) brightness(0.52);
-        max-width: 150px;
+        max-width: $spacer-large;
+        filter: grayscale(1) invert(1) opacity(0.8);
+
+        .mode-light & {
+            filter: grayscale(1) opacity(0.8);
+        }
 
         @include high-contrast-light-mode() {
             filter: none;
@@ -97,6 +114,7 @@
     }
 
     &__company {
+        @include font-size('size-eight');
         display: flex;
         flex-direction: column;
         height: 100%;
@@ -119,18 +137,17 @@
     }
 
     &__carbon-impact-container {
-        background-color: var(--color--footer-background);
-        border-top: 1px solid var(--color--border);
+        background-color: var(--color--black);
+        width: 100%;
     }
 
     &__carbon-impact {
         display: flex;
         flex-direction: column;
         padding: $spacer-mini-plus 0;
-        gap: $spacer-mini;
         width: 100%;
 
-        @include media-query(medium) {
+        @include media-query(large) {
             flex-direction: row;
             // for larger screens, the margin on separator pseudo element is used for spacing instead
             gap: 0;
@@ -139,21 +156,21 @@
 
     &__carbon-impact-link {
         @include link-styles(
-            $color: var(--color--grey-20),
+            $color: var(--color--grey-10),
             $interaction-color: var(--color--white)
         );
     }
 
     &__carbon-impact-text {
         display: inline-block;
-        color: var(--color--grey-20);
+        color: var(--color--grey-10);
 
         span {
-            color: var(--color--footer-coloured-text);
+            color: var(--color--white);
             font-weight: $weight--semibold;
         }
 
-        @include media-query(medium) {
+        @include media-query(large) {
             &:first-child::after {
                 content: '';
                 border-right: 1px solid var(--color--border);

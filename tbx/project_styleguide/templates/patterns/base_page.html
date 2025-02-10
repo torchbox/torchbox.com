@@ -57,11 +57,12 @@
         {% endif %}
     {% else %}
         {# Use default social sharing image #}
-        {% with page.theme_class|default:'theme-coral' as image_theme %}
-            {% with 'images/social/twitter-'|add:image_theme|add:'.webp' as twitter_default_image %}
-                <meta name="twitter:image" content="{{ current_site.root_url }}{% static twitter_default_image %}">
-            {% endwith %}
-        {% endwith %}
+        {# TODO Update social images #}
+        {# {% with page.theme_class|default:'theme-coral' as image_theme %} #}
+        {#     {% with 'images/social/twitter-'|add:image_theme|add:'.webp' as twitter_default_image %} #}
+        {#         <meta name="twitter:image" content="{{ current_site.root_url }}{% static twitter_default_image %}"> #}
+        {#     {% endwith %} #}
+        {# {% endwith %} #}
     {% endif %}
 
     {# facebook opengraph tags #}
@@ -91,13 +92,14 @@
         <meta property="og:image:height" content="{{ og_image.height }}" />
     {% else %}
         {# Use default social sharing image #}
-        {% with page.theme_class|default:'theme-coral' as image_theme %}
-            {% with 'images/social/og-'|add:image_theme|add:'.webp' as og_default_image %}
-                <meta name="og:image" content="{{ current_site.root_url }}{% static og_default_image %}">
-                <meta property="og:image:width" content="1200" />
-                <meta property="og:image:height" content="630" />
-            {% endwith %}
-        {% endwith %}
+        {# TODO Update social images #}
+        {# {% with page.theme_class|default:'theme-coral' as image_theme %} #}
+        {#     {% with 'images/social/og-'|add:image_theme|add:'.webp' as og_default_image %} #}
+        {#         <meta name="og:image" content="{{ current_site.root_url }}{% static og_default_image %}"> #}
+        {#         <meta property="og:image:width" content="1200" /> #}
+        {#         <meta property="og:image:height" content="630" /> #}
+        {#     {% endwith %} #}
+        {# {% endwith %} #}
     {% endif %}
 
     <meta property="og:description" content="{% if page|social_text:current_site %}{{ page|social_text:current_site }}{% elif page.search_description %}{{ page.search_description }}{% elif page.listing_summary %}{{ page.listing_summary }}{% else %}{{ social_media_settings.default_sharing_text }}{% endif %}" />
@@ -124,4 +126,3 @@
 {% block footer %}
     {% include "patterns/organisms/footer/footer.html" %}
 {% endblock footer %}
-

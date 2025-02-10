@@ -35,15 +35,13 @@
     }
 
     &__number {
-        @include font-size(stat);
-        color: var(--color--heading);
+        color: var(--color--theme-primary);
         display: block;
-        font-weight: $weight--light;
-        line-height: 1;
+        font-weight: $weight--semibold;
     }
 
     &__text {
-        @include font-size(stat-text);
+        @include font-size(size-three);
         font-weight: $weight--semibold;
         color: var(--color--heading);
         display: block;
@@ -51,14 +49,15 @@
     }
 
     &__description {
-        @include font-size('heading-five');
+        @include font-size('size-four');
+        font-weight: $weight--semibold;
         color: var(--color--heading);
         display: block;
-        margin-bottom: $spacer-mini;
+        line-height: 1;
     }
 
     &__details {
-        @include font-size('supporting');
+        @include font-size('size-seven');
         display: block;
     }
 }

@@ -1,11 +1,12 @@
 @use 'config' as *;
 
 .skip-link {
+    @include z-index('header');
     position: absolute;
     top: -200px;
     left: 0;
     color: var(--color--light-background-text);
-    background-color: var(--color--light-background);
+    background-color: var(--color--theme-primary-light);
     padding: $spacer-mini;
 
     &:focus {

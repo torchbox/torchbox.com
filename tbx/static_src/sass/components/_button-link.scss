@@ -1,0 +1,70 @@
+@use 'config' as *;
+
+.button-link {
+    $root: &;
+    @include font-size('size-four');
+    @include high-contrast-text-decoration();
+    font-weight: $weight--semibold;
+    display: inline-block;
+    padding: $spacer-mini-plus $spacer-small;
+    text-align: center;
+    width: 100%;
+    color: var(--color--white);
+    transition: background-color $transition-quick;
+    background-color: var(--color--theme-primary);
+
+    // compact variant of the button with reduced padding
+    &--compact {
+        padding: 13px $spacer-small;
+
+        #{$root}__arrow {
+            margin-left: $spacer-mini;
+        }
+    }
+
+    @include reduced-motion() {
+        transition: none;
+    }
+
+    &:focus,
+    &:hover {
+        color: var(--color--button-link-interaction);
+        background-color: var(--color--link-interaction);
+    }
+
+    &:focus {
+        @include focus-style();
+    }
+
+    &--theme-coral {
+        background-color: $color--coral;
+
+        &:focus {
+            @include focus-style($outline-color: var(--color--coral));
+        }
+    }
+
+    &--theme-nebuline {
+        background-color: $color--nebuline;
+
+        &:focus {
+            @include focus-style($outline-color: var(--color--nebuline));
+        }
+    }
+
+    &--theme-lagoon {
+        background-color: $color--lagoon;
+
+        &:focus {
+            @include focus-style($outline-color: var(--color--lagoon));
+        }
+    }
+
+    &__arrow {
+        @include arrow-link-icon-styles(
+            $interaction-color: var(--color--button-link-interaction)
+        );
+        color: inherit;
+        margin-left: $spacer-mini-plus;
+    }
+}

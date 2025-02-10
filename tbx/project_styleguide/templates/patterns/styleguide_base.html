@@ -1,6 +1,6 @@
 {% block theme_chooser_and_title %}
     <div class="p-4 flex items-center justify-between sticky top-0 bg-background z-50">
-        {% block title %}<h1 class="heading heading--one text-heading">Styleguide</h1>{% endblock %}
+        {% block title %}<h1 class="heading heading--mega text-heading">Styleguide</h1>{% endblock %}
         <div class="flex items-center gap-2">
             <label for="mode-chooser" class="text-heading">Choose a mode:</label>
             <select name="mode-chooser" id="mode-chooser" class="p-2 text-black select" onchange="changeThemeAndMode()">
@@ -12,9 +12,10 @@
             <label for="theme-chooser" class="text-heading">Choose a theme:</label>
             <select name="theme-chooser" id="theme-chooser" class="p-2 text-black select" onchange="changeThemeAndMode()">
                 <option value="theme-coral">Coral</option>
+                <option value="theme-nebuline">Nebuline</option>
                 <option value="theme-lagoon">Lagoon</option>
-                <option value="theme-banana">Banana</option>
-                <option value="theme-earth">Earth</option>
+                <option value="theme-green">Green</option>
+                <option value="">None</option>
             </select>
         </div>
     </div>

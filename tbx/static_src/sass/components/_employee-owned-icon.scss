@@ -9,13 +9,12 @@
         position: absolute;
         top: calc(50% - 15px);
         left: calc(50% - 15px);
-        color: var(--color--accent-three);
+        color: var(--color--sky);
         opacity: 0.5;
         mix-blend-mode: screen;
 
         #{$root}:hover & {
             opacity: 1;
-            color: var(--color--accent-two);
         }
 
         @include media-query(large) {
@@ -44,12 +43,11 @@
         position: absolute;
         top: calc(50% - 15px);
         left: calc(50% - 19px);
-        color: var(--color--accent-two);
+        color: var(--color--coral);
         opacity: 0.5;
         mix-blend-mode: screen;
 
         #{$root}:hover & {
-            color: var(--color--accent-three);
             opacity: 1;
         }
 

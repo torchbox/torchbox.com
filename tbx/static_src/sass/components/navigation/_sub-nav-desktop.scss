@@ -14,11 +14,8 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
 .sub-nav-desktop {
     $root: &;
     @include z-index(base);
-    @include nav-fixed-position(
-        $header-height: $header-height-desktop,
-        $full-height: false
-    );
-    background-color: var(--color--nav-background);
+    @include nav-fixed-position($full-height: false);
+    background-color: var(--color--background);
     padding: $spacer-half $grid-gutters;
     // for high contrast mode
     border: 1px solid transparent;
@@ -61,7 +58,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
     &__item {
         // at desktop level 2 these are arranged in columns
         // which are based on the number of items at that level
-        font-weight: $weight--medium;
+        font-weight: $weight--semibold;
         flex-basis: calc(100% - #{$spacer-small});
 
         #{$root}--2 &,
@@ -85,7 +82,7 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
             $interaction-color: var(--color--heading),
             $underline-color: var(--color--heading)
         );
-        @include font-size('heading-five');
+        @include font-size('size-five');
         font-weight: $weight--semibold;
         display: block;
         margin-bottom: $spacer-mini-plus;
@@ -97,12 +94,12 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         // a link item at the lowest level
         &--child {
             @include link-styles(
-                $color: var(--color--nav-text),
+                $color: var(--color--heading),
                 $interaction-color: var(--color--heading),
                 $underline-color: var(--color--heading)
             );
-            @include font-size('body-three');
-            font-weight: $weight--normal;
+            @include font-size('size-seven');
+            font-weight: $weight--regular;
             line-height: 1.2;
             display: block;
             margin-bottom: $spacer-mini;

@@ -23,7 +23,7 @@
             background-color: var(--color--decoration);
             margin-right: 30px;
             position: relative;
-            top: 28px;
+            top: 17px;
         }
     }
 
@@ -63,7 +63,7 @@
 
     // team page only
     &__strapline {
-        @include font-size('heading-four');
+        @include font-size('size-four');
         font-weight: $weight--light;
         color: var(--color--heading);
         margin-top: $spacer-small-plus;

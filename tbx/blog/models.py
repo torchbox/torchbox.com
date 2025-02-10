@@ -48,7 +48,7 @@ class BlogIndexPage(
         prefetch_author_images = models.Prefetch(
             "authors__author__image",
             queryset=CustomImage.objects.prefetch_renditions(
-                "format-webp|fill-72x72",
+                "format-webp|fill-100x100",
                 "format-webp|fill-144x144",
                 "format-webp|fill-286x286",
             ),
@@ -188,7 +188,7 @@ class BlogPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
         prefetch_author_images = models.Prefetch(
             "authors__author__image",
             queryset=CustomImage.objects.prefetch_renditions(
-                "format-webp|fill-72x72",
+                "format-webp|fill-100x100",
                 "format-webp|fill-144x144",
                 "format-webp|fill-286x286",
             ),
