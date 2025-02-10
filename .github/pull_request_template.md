@@ -64,7 +64,7 @@
 
 - [ ] Images are optimised and lazy-loading used where appropriate
 - [ ] SVGs have been optimised
-- [ ] Perfomance and transfer of data considered
+- [ ] Performance and transfer of data considered
 - [ ] If JavaScript is needed alternatives have been considered
 - [ ] Not required
 
