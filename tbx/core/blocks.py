@@ -287,6 +287,7 @@ class DynamicHeroBlock(blocks.StructBlock):
 
 class FeaturedPageCardBlock(blocks.StructBlock):
     heading = blocks.CharBlock(required=False)
+    subheading = blocks.CharBlock(required=False)
     description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
     image = ImageChooserBlock()
     link_text = blocks.CharBlock()

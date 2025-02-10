@@ -1,16 +1,44 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
+from django.db import models
 
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.models import RevisionMixin
+from wagtail.snippets.models import register_snippet
 
 from tbx.core.utils.fields import StreamField
 from tbx.navigation.blocks import (
     FooterLogoBlock,
     LinkBlock,
     PrimaryNavLinkBlock,
+    SecondaryNavMenuBlock,
 )
+
+
+@register_snippet
+class NavigationSet(RevisionMixin, models.Model):
+    name = models.CharField(max_length=255)
+    navigation = StreamField(
+        [
+            ("link", LinkBlock(icon="link")),
+            ("menu", SecondaryNavMenuBlock()),
+        ],
+    )
+
+    # This will let us do revision.navigation_set
+    _revisions = GenericRelation(
+        "wagtailcore.Revision", related_query_name="navigation_set"
+    )
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def revisions(self):
+        return self._revisions
 
 
 @register_setting(icon="list-ul")

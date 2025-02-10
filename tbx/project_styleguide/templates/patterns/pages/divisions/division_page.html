@@ -3,6 +3,12 @@
 
 {% block content %}
 
+    {# Temporary logo #}
+    <span>Torchbox{% if page.final_division and page.final_division.label %} | {{ page.final_division.label }}{% endif %}</span>
+
+    {# Probably temporary to display the navigation #}
+    {% include "patterns/navigation/components/secondary-nav.html" %}
+
     <div class="grid grid--spacer-large streamfield">
         <h1 class="sr-only">{{ page.title }}</h1>
 

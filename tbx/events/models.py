@@ -2,23 +2,15 @@ from django.core.paginator import Paginator
 from django.utils import timezone
 from django.utils.http import urlencode
 
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
-from wagtail.models import Page
 
+from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import (
-    ColourThemeMixin,
-    NavigationFields,
-    SocialFields,
-)
 from tbx.events.blocks import EventItemBlock
-from tbx.people.models import ContactMixin
 
 
-class EventIndexPage(
-    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
-):
+class EventIndexPage(BasePage):
     template = "patterns/pages/events/events_listing.html"
     no_events_message = RichTextField(
         features=["bold", "italic", "link", "superscript", "subscript"],
@@ -30,22 +22,10 @@ class EventIndexPage(
 
     events = StreamField([("event", EventItemBlock())], blank=True)
 
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         FieldPanel("no_events_message"),
         FieldPanel("events"),
     ]
-
-    promote_panels = (
-        [
-            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ]
-        + NavigationFields.promote_panels
-        + ColourThemeMixin.promote_panels
-        + ContactMixin.promote_panels
-        + [
-            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-        ]
-    )
 
     def get_events(self, time_filter=None):
         today = timezone.localdate()

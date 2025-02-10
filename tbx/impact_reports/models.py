@@ -8,22 +8,14 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
     TitleFieldPanel,
 )
-from wagtail.models import Page
 from wagtail.search import index
 
+from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
-from tbx.core.utils.models import (
-    ColourThemeMixin,
-    NavigationFields,
-    SocialFields,
-)
 from tbx.impact_reports.blocks import ImpactReportStoryBlock
-from tbx.people.models import ContactMixin
 
 
-class ImpactReportPage(
-    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
-):
+class ImpactReportPage(BasePage):
     template = "patterns/pages/impact_reports/impact_report_page.html"
 
     hero_image = models.ForeignKey(
@@ -58,19 +50,7 @@ class ImpactReportPage(
         FieldPanel("body"),
     ]
 
-    promote_panels = (
-        [
-            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ]
-        + NavigationFields.promote_panels
-        + ColourThemeMixin.promote_panels
-        + ContactMixin.promote_panels
-        + [
-            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-        ]
-    )
-
-    search_fields = Page.search_fields + [
+    search_fields = BasePage.search_fields + [
         index.SearchField("body"),
     ]
 

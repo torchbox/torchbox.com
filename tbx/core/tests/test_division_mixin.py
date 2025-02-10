@@ -45,6 +45,14 @@ class TestDivisionMixin(WagtailPageTestCase):
         self.assertEqual(self.service_1.final_division, self.division_1)
         self.assertEqual(service_3.final_division, self.division_2)
 
+    def test_division_self(self):
+        """
+        For a division page,
+        final_division should return the page itself.
+        """
+        self.assertEqual(self.division_1.final_division, self.division_1)
+        self.assertEqual(self.division_2.final_division, self.division_2)
+
     def test_division_selected_on_ancestor(self):
         """
         For a page that does not have a division selected
