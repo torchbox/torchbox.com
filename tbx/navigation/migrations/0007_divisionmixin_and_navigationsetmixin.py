@@ -8,6 +8,7 @@ import tbx.core.utils.fields
 class Migration(migrations.Migration):
     dependencies = [
         ("navigation", "0006_use_custom_streamfield"),
+        ("wagtailcore", "0094_alter_page_locale"),
     ]
 
     operations = [
@@ -25,6 +26,21 @@ class Migration(migrations.Migration):
                 ),
                 ("name", models.CharField(max_length=255)),
                 ("navigation", tbx.core.utils.fields.StreamField(block_lookup={})),
+                (
+                    "latest_revision",
+                    models.ForeignKey(
+                        blank=True,
+                        editable=False,
+                        null=True,
+                        on_delete=models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailcore.revision",
+                        verbose_name="latest revision",
+                    ),
+                ),
             ],
+            options={
+                "abstract": False,
+            },
         ),
     ]

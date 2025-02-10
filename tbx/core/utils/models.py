@@ -66,31 +66,45 @@ class NavigationSetMixin(models.Model):
         Returns a NavigationSet.
 
         If a navigation set field is set on the current page, use that.
+        Or if a division with a navigation set is selected, use that.
         If not, check the ancestors.
 
         The closest ancestor that fulfills one of the following will be followed:
         - the navigation set field is populated, OR
-        - the ancestor page is a DivisionPage.
+        - the division field is populated with a DivisionPage that has a navigation set.
         """
-        from tbx.divisions.models import DivisionPage
 
         if self.override_navigation_set:
             return self.override_navigation_set
 
+        # If a division page with a navigation set is selected, use that.
+        if getattr(self, "division", None) and getattr(
+            self.division, "override_navigation_set", None
+        ):
+            return self.division.override_navigation_set
+
         try:
-            division_page = next(
-                getattr(p, "division", None) or p
+            page = next(
+                p
                 for p in self.get_ancestors()
                 .filter(depth__gt=2)
                 .specific()
                 .defer_streamfields()
                 .order_by("-depth")
-                if isinstance(getattr(p, "division", None) or p, DivisionPage)
+                if (
+                    getattr(p, "override_navigation_set", None)
+                    or (
+                        getattr(p, "division", None)
+                        and getattr(p.division, "override_navigation_set", None)
+                    )
+                )
             )
         except StopIteration:
-            division_page = None
+            page = None
 
-        return division_page and division_page.override_navigation_set
+        return page and (
+            page.override_navigation_set or page.division.override_navigation_set
+        )
 
 
 # Generic social fields abstract class to add social image/text to any new content type easily.
