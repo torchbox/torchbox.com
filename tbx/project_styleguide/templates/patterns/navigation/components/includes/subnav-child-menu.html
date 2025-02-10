@@ -8,8 +8,8 @@
                     <span class="sub-nav-desktop__link-text">{{ gchild.value.text }}</span><span class="link-columns__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-desktop__arrow" %}</span>
                 </a>
                 {% if gchild.value.description %}
-                        <span class="sub-nav-desktop__description">{{ gchild.value.description }}</span>
-                    {% endif %}
+                    <span class="sub-nav-desktop__description">{{ gchild.value.description }}</span>
+                {% endif %}
             </li>
         {% endfor %}
         {% if child.value.section_link %}

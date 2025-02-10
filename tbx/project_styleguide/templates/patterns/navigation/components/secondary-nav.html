@@ -12,10 +12,10 @@
             {% elif block.block_type == "menu" %}
                 <li class="secondary-nav-desktop__item" data-has-subnav>
                     <button
-                       class="secondary-nav-desktop__link"
-                       data-open-subnav
-                       aria-haspopup="true"
-                       aria-expanded="false">
+                        class="secondary-nav-desktop__link"
+                        data-open-subnav
+                        aria-haspopup="true"
+                        aria-expanded="false">
                         {{ block.value.section_heading }}
                         <div class="secondary-nav-desktop__icon-wrapper">
                             {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="secondary-nav-desktop__icon-closed" only %}

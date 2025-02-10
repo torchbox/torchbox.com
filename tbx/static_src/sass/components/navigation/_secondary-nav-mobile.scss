@@ -45,23 +45,27 @@ Styles for the top level of the navigation at mobile
         align-items: center;
         width: 100%;
         padding: $spacer-small;
-        border-bottom: 2px solid var(--color--border);
-
-        &:focus {
-            @include focus-style();
-        }
+        border-bottom: 2px solid var(--color--light-border);
+        color: var(--color--link);
 
         &--has-children {
             justify-content: space-between;
-            color: var(--color--link);
         }
 
         &--no-children {
             @include link-styles(
                 $color: var(--color--link),
-                $interaction-color: var(--color--link),
+                $interaction-color: var(--color--theme-primary),
                 $underline-color: var(--color--link)
             );
+
+            &:hover {
+                transition: color $transition-quick;
+
+                @include reduced-motion() {
+                    transition: none;
+                }
+            }
         }
     }
 

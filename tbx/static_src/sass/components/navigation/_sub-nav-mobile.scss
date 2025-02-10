@@ -46,7 +46,7 @@ Styles for the lower levels of the navigation at mobile
         align-items: center;
         width: 100%;
         padding: $spacer-small;
-        border-bottom: 2px solid var(--color--border);
+        border-bottom: 2px solid var(--color--light-border);
         color: var(--color--link);
 
         &:focus {
@@ -60,9 +60,17 @@ Styles for the lower levels of the navigation at mobile
         &--no-children {
             @include link-styles(
                 $color: var(--color--link),
-                $interaction-color: var(--color--link),
+                $interaction-color: var(--color--theme-primary),
                 $underline-color: var(--color--link)
             );
+
+            &:hover {
+                transition: color $transition-quick;
+
+                @include reduced-motion() {
+                    transition: none;
+                }
+            }
         }
 
         &--parent {

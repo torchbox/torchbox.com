@@ -107,9 +107,17 @@ Styles for the lower levels of the navigation at desktop
         @include font-size('size-five-b');
         @include link-styles(
             $color: var(--color--link),
-            $interaction-color: var(--color--link),
-            $offset: 5px
+            $interaction-color: var(--color--theme-primary),
+            $underline-color: var(--color--link)
         );
+
+        &:hover {
+            transition: color $transition-quick;
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
     }
 
     &__tail {

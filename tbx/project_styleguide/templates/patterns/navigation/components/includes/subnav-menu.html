@@ -9,17 +9,17 @@
                         {{ child.value.text }}
                     </a>
                     {% if child.value.description %}
-                            <span class="sub-nav-desktop__description">{{ child.value.description }}</span>
-                        {% endif %}
+                        <span class="sub-nav-desktop__description">{{ child.value.description }}</span>
+                    {% endif %}
                 </li>
             {% elif child.block_type == "menu" %}
                 <li class="sub-nav-desktop__item">
-                        <span class="sub-nav-desktop__heading">
-                            {{ child.value.section_heading }}
-                        </span>
-                        {% if child.value.child_links %}
-                            {% include "patterns/navigation/components/includes/subnav-child-menu.html" with child=child %}
-                        {% endif %}
+                    <span class="sub-nav-desktop__heading">
+                        {{ child.value.section_heading }}
+                    </span>
+                    {% if child.value.child_links %}
+                        {% include "patterns/navigation/components/includes/subnav-child-menu.html" with child=child %}
+                    {% endif %}
                 </li>
             {% endif %}
         {% endfor %}
