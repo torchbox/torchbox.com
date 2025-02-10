@@ -7,7 +7,20 @@
     }
 
     &__bottom {
-        padding: $spacer-small-plus 0 $spacer-mini-plus;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: $spacer-small 0;
+
+        @include media-query(menu) {
+            padding: $spacer-small-plus 0 $spacer-mini-plus;
+        }
+    }
+
+    &__logo {
+        display: flex;
+        align-items: baseline;
+        gap: 7px;
     }
 
     &__primary-menu-toggle {

@@ -47,13 +47,16 @@
         <div class="header__bottom grid__header-nav">
             <div class="header__logo">
                 {% include "patterns/atoms/icons/icon.html" with name="logo" classname="logo" %}
-                <span class="logo__label">{% if page.final_division and page.final_division.label %} | {{ page.final_division.label }}{% endif %}</span>
+            <span class="logo__label">
+                {% if page.label %}{{ page.label }}{% endif %}
+                {% if page.final_division and page.final_division.label %}{{ page.final_division.label }}{% endif %}
+            </span>
             </div>
 
-                {# Secondary desktop navigation #}
+            {# Secondary desktop navigation #}
             {% include "patterns/navigation/components/secondary-nav.html" %}
 
-        {# Secondary mobile menu toggle #}
+            {# Secondary mobile menu toggle #}
             <div class="header__secondary-menu-toggle">
                 <span class="sr-only">Menu</span>
                 <button class="button-menu-toggle" data-mobile-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="Mobile menu toggle">

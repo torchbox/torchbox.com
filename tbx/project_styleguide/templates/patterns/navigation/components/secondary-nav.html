@@ -6,7 +6,7 @@
             {% if block.block_type == "link" %}
                 <li class="secondary-nav-desktop__item">
                     <a href="{{ block.value.url }}" class="secondary-nav-desktop__link">
-                        <span class="secondary-nav-desktop__text">{{ block.value.text }}</span>
+                        {{ block.value.text }}
                     </a>
                 </li>
             {% elif block.block_type == "menu" %}
@@ -16,7 +16,7 @@
                        data-open-subnav
                        aria-haspopup="true"
                        aria-expanded="false">
-                        <span class="secondary-nav-desktop__text">{{ block.value.section_heading }}</span>
+                        {{ block.value.section_heading }}
                         <div class="secondary-nav-desktop__icon-wrapper">
                             {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="secondary-nav-desktop__icon-closed" only %}
                             {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="secondary-nav-desktop__icon-open" only %}

@@ -1,11 +1,25 @@
 @use 'config' as *;
 
 .logo {
-    width: 168px;
-    height: 28px;
+    width: 108px;
+    height: 20px;
     color: var(--color--heading);
+
+    @include media-query(menu) {
+        width: 158px;
+        height: 28px;
+    }
 
     @include high-contrast-light-mode() {
         color: var(--color--decoration);
+    }
+
+    &__label {
+        @include font-size(size-four);
+        color: var(--color--theme-primary);
+
+        @include media-query(menu) {
+            @include font-size(size-three);
+        }
     }
 }

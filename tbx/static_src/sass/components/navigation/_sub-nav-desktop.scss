@@ -12,8 +12,7 @@ Styles for the lower levels of the navigation at desktop
 .sub-nav-desktop {
     $root: &;
     @include z-index(base);
-    @include nav-fixed-position($header-height: 118px,
-        $full-height: false);
+    @include nav-fixed-position($header-height: 149px, $full-height: false);
     background-color: var(--color--dark-background);
     padding: $spacer-half $grid-gutters;
     // for high contrast mode
@@ -26,6 +25,12 @@ Styles for the lower levels of the navigation at desktop
 
     @include media-query(x-large) {
         padding: $spacer-half $grid-gutters-x-large;
+    }
+
+    // active state
+    .active & {
+        opacity: 1;
+        visibility: visible;
     }
 
     // at desktop, the lowest level of menu is visible in the same screen as the second level
@@ -42,14 +47,15 @@ Styles for the lower levels of the navigation at desktop
     // also used for the level 3 menu items
     &__list {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: row;
         row-gap: $spacer-half;
         column-gap: $spacer-medium;
 
         // at desktop the third level is always visible once the subnav is expanded
         // it sits inside each column
         &--child {
-            display: block;
+            flex-direction: column;
+            row-gap: $spacer-small;
         }
     }
 
@@ -75,47 +81,37 @@ Styles for the lower levels of the navigation at desktop
         }
     }
 
+    // the heading for each menu item in the 2nd and 3rd level
     &__heading {
-        @include font-size('size-six');
+        @include font-size('size-five');
         color: var(--color--theme-primary);
+        margin-bottom: $spacer-small;
     }
 
-    // The link for each menu item in the 2nd and 3rd level
+    // the link for each menu item in the 2nd and 3rd level
     &__link {
-        @include link-styles(
-            $color: var(--color--heading),
-            $interaction-color: var(--color--heading),
-            $underline-color: var(--color--heading)
-        );
-        @include font-size('size-six');
         font-weight: $weight--semibold;
         display: block;
+        width: fit-content;
 
         &:focus {
             @include focus-style();
         }
 
-        // a link item at the lowest level
-        &--child {
-            @include link-styles(
-                $color: var(--color--heading),
-                $interaction-color: var(--color--heading),
-                $underline-color: var(--color--heading)
-            );
-            @include font-size('size-seven');
+        &--no-description {
             font-weight: $weight--regular;
-            line-height: 1.2;
-            display: block;
-            margin-bottom: $spacer-mini;
         }
     }
 
-    // active state
-    .active & {
-        opacity: 1;
-        visibility: visible;
+    &__link-text {
+        @include font-size('size-five-b');
+        @include link-styles(
+            $color: var(--color--link),
+            $interaction-color: var(--color--link),
+            $offset: 5px
+        );
     }
-    
+
     &__tail {
         // Keep the arrow attached to the last word so it's not orphaned on a new line
         white-space: nowrap;
@@ -124,7 +120,7 @@ Styles for the lower levels of the navigation at desktop
 
     &__arrow {
         @include arrow-link-icon-styles(
-            $width: 13px,
+            $width: 18px,
             $interaction-color: var(--color--theme-primary)
         );
         color: var(--color--theme-primary);

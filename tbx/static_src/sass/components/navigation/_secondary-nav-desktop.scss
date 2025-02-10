@@ -8,8 +8,7 @@ Styles for the secondary navigation at desktop (top level)
 // There are separate nav elements for desktop and mobile
 .secondary-nav-desktop {
     $root: &;
-    margin-left: auto;
-    
+
     // at desktop the top level of the menu is always visible in the header
     display: none;
 
@@ -20,8 +19,6 @@ Styles for the secondary navigation at desktop (top level)
     // top level menu unordered list
     &__list {
         display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
         gap: 3vw;
         overflow: visible;
 
@@ -38,15 +35,16 @@ Styles for the secondary navigation at desktop (top level)
 
     // top level menu links
     &__link {
+        @include link-styles(
+            $color: var(--color--link),
+            $interaction-color: var(--color--link),
+            $offset: 5px
+        );
+        font-weight: $weight--semibold;
+
         &:focus {
             @include focus-style();
         }
-    }
-
-    // top level menu link text
-    &__text {
-        @include link-styles($interaction-color: var(--color--heading), $offset: 5px);
-        font-weight: $weight--semibold;
     }
 
     // desktop arrows

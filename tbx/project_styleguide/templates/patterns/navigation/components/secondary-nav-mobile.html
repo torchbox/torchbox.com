@@ -5,22 +5,20 @@
         {% for block in page.navigation_set.navigation %}
             {% if block.block_type == "link" %}
                 <li class="secondary-nav-mobile__item">
-                    <a href="{{ block.value.url }}" class="secondary-nav-mobile__link">
+                    <a href="{{ block.value.url }}" class="secondary-nav-mobile__link secondary-nav-mobile__link--no-children">
                         {{ block.value.text }}
+                        {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="secondary-nav-mobile__icon" %}
                     </a>
                 </li>
             {% elif block.block_type == "menu" %}
                 <li class="secondary-nav-mobile__item secondary-nav-mobile__item--has-children" data-has-subnav>
                     <button
-                       class="secondary-nav-mobile__link secondary-nav-mobile__link--has-children"
-                       data-open-subnav
-                       aria-haspopup="true"
-                       aria-expanded="false">
-                       {% if forloop.last %}data-last-menu-item-mobile{% endif %}
-                        <span>{{ block.value.section_heading }}</span>
-                        <div class="secondary-nav-mobile__icon-wrapper">
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-mobile__icon-mobile" only %}
-                        </div>
+                        class="secondary-nav-mobile__link secondary-nav-mobile__link--has-children"
+                        data-open-subnav
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                        {{ block.value.section_heading }}
+                        {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="secondary-nav-mobile__icon-front" only %}
                     </button>
                     {% include "patterns/navigation/components/includes/subnav-menu-mobile.html" with links=block.value.child_links number=block.value.child_links|length %}
                 </li>
