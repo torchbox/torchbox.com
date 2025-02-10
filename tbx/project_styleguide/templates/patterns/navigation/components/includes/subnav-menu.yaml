@@ -1,8 +1,11 @@
 context:
-  pages:
+  links:
     - block_type: 'menu'
       value:
         section_heading: '1'
+        section_link:
+          url: '#'
+        section_link_text: 'See all in section 1'
         child_links:
           - block_type: 'link'
             value:
@@ -14,13 +17,13 @@ context:
               text: '1B'
               url: '#'
               description: '1B description'
-        section_link:
-          url: '#'
-        section_link_text: 'See all in section 1'
-    
+
     - block_type: 'menu'
       value:
         section_heading: '2'
+        section_link:
+          url: '#'
+        section_link_text: 'See all in section 2'
         child_links:
           - block_type: 'link'
             value:
@@ -32,6 +35,3 @@ context:
               text: '2B'
               url: '#'
               description: '2B description'
-        section_link:
-          url: '#'
-        section_link_text: 'See all in section 2'
