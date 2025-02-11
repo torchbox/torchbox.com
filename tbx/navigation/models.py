@@ -1,10 +1,11 @@
 from django.contrib.contenttypes.fields import GenericRelation
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
+from django.core.exceptions import ValidationError
 from django.db import models
 
 from modelcluster.models import ClusterableModel
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.models import RevisionMixin
 from wagtail.snippets.models import register_snippet
@@ -58,11 +59,20 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
         blank=True,
         help_text="Single list of logos that appear before the footer box",
     )
+    footer_newsletter_cta_url = models.URLField(blank=True)
+    footer_newsletter_cta_text = models.CharField(blank=True, max_length=255)
 
     panels = [
         FieldPanel("primary_navigation"),
         FieldPanel("footer_links"),
         FieldPanel("footer_logos"),
+        MultiFieldPanel(
+            [
+                FieldPanel("footer_newsletter_cta_url", heading="External link"),
+                FieldPanel("footer_newsletter_cta_text", heading="Text"),
+            ],
+            heading="Footer newsletter CTA",
+        ),
     ]
 
     def save(self, **kwargs):
@@ -83,3 +93,10 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
             for key in fragment_keys
         ]
         cache.delete_many(keys)
+
+    def clean(self):
+        super().clean()
+
+        if self.footer_newsletter_cta_url and not self.footer_newsletter_cta_text:
+            msg = "The CTA footer text is required when a URL is supplied"
+            raise ValidationError({"footer_newsletter_cta_text": msg})

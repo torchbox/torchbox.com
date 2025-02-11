@@ -210,7 +210,8 @@ class HomePage(
                         "Use bold to mark links as"
                         ' <span style="color:#EE5276">pink</span>,'
                         " and use italics to mark links as"
-                        ' <span style="color:#6F60D0">purple</span>.'
+                        ' <span style="color:#6F60D0">purple</span> '
+                        "(the colours will only take effect on larger screen sizes)."
                     ),
                 ),
             ],
