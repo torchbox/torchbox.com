@@ -32,6 +32,8 @@ context:
                 url: '#'
               alt_text: 'We are carbon neutral'
               image: fake
+        footer_newsletter_cta_url: '#'
+        footer_newsletter_cta_text: 'Sign up for news and insights'
 
 tags:
   srcset_image:
