@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="grid__link-columns link-columns">
     <div class="link-columns__header">
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.title classes="motif-heading--two motif-heading--static link-columns__title " %}
+        <h2 class="motif-heading link-columns__title">{{ value.title }}</h2>
         {% if value.intro %}
             <div class="link-columns__intro rich-text">{{ value.intro|richtext }}</div>
         {% endif %}
