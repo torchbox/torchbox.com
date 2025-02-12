@@ -5,6 +5,12 @@ tags:
   primarynavmobile:
     '':
       template_name: 'patterns/navigation/components/primary-nav-mobile.html'
+  secondarynav:
+    '':
+      template_name: 'patterns/navigation/components/secondary-nav.html'
+  secondarynavmobile:
+    '':
+      template_name: 'patterns/navigation/components/secondary-nav-mobile.html'
   pageurl:
     link:
       raw: '#'

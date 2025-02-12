@@ -1,46 +1,38 @@
 {% load wagtailcore_tags %}
 
-{% comment %}
-The `child_display` has 3 possible values:
-- hide_children - do not show a subnavigation
-- show_up_to_level1 - show level one child pages
-- show_up_to_level2 - show level one and level two child pages
-{% endcomment %}
-
 <div class="sub-nav-mobile" data-subnav>
     <ul class="sub-nav-mobile__list">
         <li class="sub-nav-mobile__item sub-nav-mobile__item--back">
             <button data-subnav-back class="sub-nav-mobile__link sub-nav-mobile__link--back">
-                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-mobile__icon-back" %}
+                {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="sub-nav-mobile__icon-back" %}
                 Back to main menu
             </button>
         </li>
         <li class="sub-nav-mobile__item sub-nav-mobile__item--parent">
-            <a class="sub-nav-mobile__link sub-nav-mobile__link--parent" href="{% if parent.page %}{% pageurl parent.page %}{% elif parent.external_link %}{{ parent.external_link }}{% endif %}">
-                {{ parent.text }}
-            </a>
+            <span class="sub-nav-mobile__link sub-nav-mobile__link--parent" href="{% if parent.page %}{% pageurl parent.page %}{% elif parent.external_link %}{{ parent.external_link }}{% endif %}">
+                {{ block.value.section_heading }}
+                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-mobile__icon" %}
+            </span>
         </li>
-        {% for link in links %}
-            <li class="sub-nav-mobile__item">
-                {% with children=link.get_children.live.public.in_menu.specific %}
-                    <a
-                        class="sub-nav-mobile__link {% if children and child_display != 'show_up_to_level1' %}sub-nav-mobile__link--has-children{% else %}sub-nav-mobile__link--no-children{% endif %}"
-                        {% if children and child_display != 'show_up_to_level1' %}
-                            data-open-subnav aria-haspopup="true" aria-expanded="false"
-                        {% endif %}
-                        href="{% pageurl link %}"
-                    >
-                        {{ link.nav_text }}
-                        {% if children and child_display != 'show_up_to_level1' %}
-                            {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-mobile__icon-mobile" %}
-                        {% endif %}
+        {% for child in links %}
+            {% if child.block_type == "link" %}
+                <li class="sub-nav-mobile__item">
+                    <a href="{{ child.value.url }}" class="sub-nav-mobile__link">
+                        <span class="sub-nav-mobile__link-text">{{ child.value.text }}</span>
+                        {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-mobile__icon" %}
                     </a>
-                    {# only show the next level if the settings tell us to shows up to level 2 children #}
-                    {% if children and child_display != 'show_up_to_level1' %}
-                        {% include "patterns/navigation/components/includes/subnav-child-menu-mobile.html" with pages=children parent=link grandparent=parent %}
+                </li>
+            {% elif child.block_type == "menu" %}
+                <li class="sub-nav-mobile__item sub-nav-mobile__item--has-children">
+                    <button class="sub-nav-mobile__link sub-nav-mobile__link--has-children" data-open-subnav aria-haspopup="true" aria-expanded="false">
+                        {{ child.value.section_heading }}
+                        {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="sub-nav-mobile__icon-front" %}
+                    </button>
+                    {% if child.value.child_links %}
+                        {% include "patterns/navigation/components/includes/subnav-child-menu-mobile.html" with pages=child.value.child_links parent=child %}
                     {% endif %}
-                {% endwith %}
-            </li>
+                </li>
+            {% endif %}
         {% endfor %}
     </ul>
 </div>

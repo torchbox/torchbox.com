@@ -1,45 +1,44 @@
 @use 'config' as *;
-@use 'sass:color';
 
 /*
-Styles for the lower levels of the navigation at mobile
+Styles for the top level of the navigation at mobile
 */
 
-// At mobile, the sub-navigation appears when a top level item is clicked, and also when a second level item is clicked.
-// The second and third levels are shown in separate views
-
-// div element at levels 2 and 3 of the menu
-.sub-nav-mobile {
+// The nav element surrounding the whole navigation
+// There are separate nav elements for desktop and mobile
+.secondary-nav-mobile {
     $root: &;
+
+    // at mobile the navigation is only revealed when the menu icon is clicked
     @include z-index(base);
     @include nav-fixed-position($header-height: 134px);
+    display: block;
     background-color: var(--color--background);
+
+    @include media-query(menu) {
+        display: none;
+    }
 
     // active state
     &.is-visible {
-        opacity: 1;
         visibility: visible;
+        opacity: 1;
     }
 
-    // the unordered list containing the level 2 menu items
-    // also used for the level 3 menu items
+    // top level menu unordered list
     &__list {
         display: flex;
         flex-direction: column;
     }
 
-    // 2nd and 3rd level list items
+    // top level menu list items
     &__item {
-        &--back {
-            background-color: var(--color--dark-background);
-        }
-
         &--has-children {
             background-color: var(--color--dark-background);
         }
     }
 
-    // 2nd and 3rd level menu links
+    // top level menu links
     &__link {
         @include font-size('size-five');
         display: flex;
@@ -56,22 +55,9 @@ Styles for the lower levels of the navigation at mobile
         &--has-children {
             justify-content: space-between;
         }
-
-        &--parent {
-            color: var(--color--heading);
-            font-weight: $weight--semibold;
-            text-decoration: underline;
-            text-decoration-thickness: 1px;
-            text-underline-offset: 2px;
-        }
-
-        &--back {
-            @include font-size('size-six');
-            padding: 10px $spacer-small;
-        }
     }
 
-    // 2nd and 3rd level link text for items with no children
+    // top level menu link text for items with no children
     &__link-text {
         @include link-styles(
             $color: var(--color--link),
@@ -95,11 +81,5 @@ Styles for the lower levels of the navigation at mobile
         );
         color: var(--color--theme-primary);
         margin-left: 10px;
-    }
-
-    // back icon which sits inside the back link
-    &__icon-back {
-        transform: rotate(180deg);
-        margin-right: $spacer-mini-plus;
     }
 }

@@ -1,39 +1,30 @@
-<div>
-    {# Secondary nav: Top-level #}
-    <ul>
+{% load wagtailcore_tags %}
+
+<nav aria-label="Secondary navigation" class="secondary-nav-desktop" data-desktop-menu>
+    <ul class="secondary-nav-desktop__list" data-secondary-nav>
         {% for block in page.navigation_set.navigation %}
             {% if block.block_type == "link" %}
-                <li>- <a href="{{ block.value.url }}">{{ block.value.text }}</a></li>
+                <li class="secondary-nav-desktop__item">
+                    <a href="{{ block.value.url }}" class="secondary-nav-desktop__link">
+                        {{ block.value.text }}
+                    </a>
+                </li>
             {% elif block.block_type == "menu" %}
-                <li>
-                    <div>
-                    {# Secondary nav: Second level #}
-                        <span>- {{ block.value.section_heading }}</span>
-                        <ul>
-                            {% for child in block.value.child_links %}
-                                {% if child.block_type == "link" %}
-                                    <li>- - <a href="{{ child.value.url }}">{{ child.value.text }} - {{ child.value.description }}</a></li>
-                                {% elif child.block_type == "menu" %}
-                                    <li>
-                                        <div>
-                                        {# Secondary nav: third level #}
-                                            <span>- - {{ child.value.section_heading }}</span>
-                                            <ul>
-                                                {% for gchild in child.value.child_links %}
-                                                    <li>- - - <a href="{{ gchild.value.url }}">{{ gchild.value.text }} - {{ gchild.value.description }}</a></li>
-                                                {% endfor %}
-                                                {% if child.value.section_link %}
-                                                    <li>- - - <a href="{{ child.value.section_link.url }}">{% firstof child.value.section_link_text child.value.section_link %}</a></li>
-                                                {% endif %}
-                                            </ul>
-                                        </div>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
+                <li class="secondary-nav-desktop__item" data-has-subnav>
+                    <button
+                        class="secondary-nav-desktop__link"
+                        data-open-subnav
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                        {{ block.value.section_heading }}
+                        <div class="secondary-nav-desktop__icon-wrapper">
+                            {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="secondary-nav-desktop__icon-closed" only %}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="secondary-nav-desktop__icon-open" only %}
+                        </div>
+                    </button>
+                    {% include "patterns/navigation/components/includes/subnav-menu.html" with links=block.value.child_links number=block.value.child_links|length %}
                 </li>
             {% endif %}
         {% endfor %}
     </ul>
-</div>
+</nav>
