@@ -2,7 +2,7 @@
 
 <div class="partners grid__partners">
     {% if value.title %}
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=value.title heading_level=2 classes="partners__title motif-heading--two motif-heading--static" %}
+        <h2 class="motif-heading partners__title">{{ value.title }}</h2>
     {% endif %}
 
     {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=value.partner_logos %}

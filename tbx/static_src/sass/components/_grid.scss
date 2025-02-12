@@ -422,6 +422,17 @@
         }
     }
 
+    // Service area page adjustments
+    .template-service-area-page & {
+        &__title {
+            margin-bottom: $spacer-medium;
+
+            @include media-query(large) {
+                margin-bottom: $spacer-medium-plus;
+            }
+        }
+    }
+
     // Service page alignment
     .template-service-page & {
         &__intro,

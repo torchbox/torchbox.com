@@ -22,6 +22,7 @@ module.exports = {
             transparent: 'transparent',
             background: 'var(--color--background)',
             heading: 'var(--color--heading)',
+            themePrimary: 'var(--color--theme-primary)',
         },
         screens: {
             sm: '410px',
@@ -38,7 +39,9 @@ module.exports = {
                 spacerMini: '15px',
                 spacerMiniPlus: '20px',
                 spacerSmall: '30px',
+                spacerSmallPlus: '40px',
                 spacerMedium: '60px',
+                spacerMediumPlus: '100px',
                 spacerLarge: '120px',
                 spacer: '160px',
                 spacerHalf: '80px',

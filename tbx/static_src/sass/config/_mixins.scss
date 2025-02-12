@@ -106,19 +106,6 @@
     }
 }
 
-/* ============================================
-    Drop cap - used for heading one, heading one-b and heading two
-*/
-@mixin drop-cap($small-size, $large-size) {
-    @include rem-font-size($small-size);
-    line-height: 1; // Reset line height to 1 to avoid spacing issues
-    font-weight: $weight--semibold;
-
-    @include media-query(large) {
-        @include rem-font-size($large-size);
-    }
-}
-
 @mixin focus-style(
     $color: var(--color--link),
     $shadow: false,
@@ -350,21 +337,23 @@
     }
 }
 
-@mixin ring-one($top: 8px, $color: var(--color--theme-secondary)) {
+@mixin ring-one($top: 4px, $color: var(--color--theme-secondary)) {
     top: $top;
     color: $color;
 }
 
-@mixin ring-two($top: 8px, $color: var(--color--theme-primary)) {
+@mixin ring-two($top: 6px, $color: var(--color--theme-primary)) {
     left: $top;
     color: $color;
 }
 
 @mixin ring-one-hover() {
+    color: var(--color--theme-primary);
     opacity: 1;
 }
 
 @mixin ring-two-hover() {
+    color: var(--color--theme-secondary);
     opacity: 1;
 }
 

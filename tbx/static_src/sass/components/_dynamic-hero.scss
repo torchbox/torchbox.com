@@ -51,11 +51,7 @@
         }
 
         &--prev {
-            transform: rotate(90deg);
-        }
-
-        &--next {
-            transform: rotate(-90deg);
+            transform: rotate(180deg);
         }
 
         &--pause,

@@ -16,27 +16,40 @@
     }
 
     &__nav-item {
-        @include font-size('size-four');
-        @include link-styles(
-            $color: var(--color--heading),
-            $interaction-color: var(--color--heading),
-            $shadow: false
-        );
+        @include font-size('size-six');
         font-weight: $weight--semibold;
         display: flex;
         align-items: center;
-        outline-offset: 10px;
-        margin-bottom: $spacer-small;
+        position: relative;
+        padding: $spacer-mini $spacer-mini-plus;
+        background-color: var(--color--dark-background);
+        border: 1px solid transparent; // prevents layout shift when active
+        border-bottom: 1px solid var(--color--background);
+
+        &:hover {
+            background-color: var(--color--background);
+        }
 
         &:focus {
             @include focus-style(
-                $outline-color: var(--color--theme-primary-muted)
+                $outline-color: var(--color--theme-primary-muted),
+                $keyboard-only: true
             );
         }
 
         &--active {
-            // for high contrast mode
-            outline: 1px solid transparent;
+            border: 1px solid var(--color--text);
+            border-right: none;
+
+            // border extension
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                right: -25px;
+                width: 25px;
+                border-bottom: 1px solid var(--color--text);
+            }
         }
     }
 
@@ -53,7 +66,8 @@
             @include ring-one();
 
             #{$root}__nav-item:focus &,
-            #{$root}__nav-item:hover & {
+            #{$root}__nav-item:hover &,
+            #{$root}__nav-item--active & {
                 @include ring-one-hover();
             }
         }
@@ -62,35 +76,32 @@
             @include ring-two();
 
             #{$root}__nav-item:focus &,
-            #{$root}__nav-item:hover & {
+            #{$root}__nav-item:hover &,
+            #{$root}__nav-item--active & {
                 @include ring-two-hover();
             }
         }
     }
 
     &__nav-text {
-        flex-basis: calc(100% - 182px);
         opacity: 0.8;
 
         #{$root}__nav-item:focus &,
-        #{$root}__nav-item:hover & {
+        #{$root}__nav-item:hover &,
+        #{$root}__nav-item--active & {
             opacity: 1;
         }
     }
 
     &__nav-arrow {
-        flex-basis: 130px;
-        flex-grow: 0;
-        flex-shrink: 0;
-        width: 130px;
-        height: 22px;
+        color: var(--color--text);
+        position: absolute;
+        top: calc(100% - 10px);
+        right: -32px;
+        width: 20px;
+        height: 20px;
         opacity: 0;
         transition: opacity $transition-quick;
-        color: var(--color--text);
-
-        @include reduced-motion() {
-            transition: none;
-        }
 
         #{$root}__nav-item--active & {
             opacity: 1;
@@ -109,6 +120,10 @@
                 display: block;
             }
         }
+    }
+
+    &__panel-headline {
+        color: var(--color--theme-primary);
     }
 
     &__panel-summary {

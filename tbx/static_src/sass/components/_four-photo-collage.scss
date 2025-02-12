@@ -111,11 +111,16 @@
         object-fit: cover;
     }
 
-    &__caption {
+    &__text {
         grid-column: 1 / span 4;
 
         @include media-query(large) {
             grid-column: 1 / span 7;
         }
+    }
+
+    // Override the default rich text font size
+    &__description.rich-text {
+        @include font-size('size-six');
     }
 }
