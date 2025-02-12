@@ -60,9 +60,10 @@ Styles for the secondary navigation at desktop (top level)
     // chevron when menu is closed
     &__icon-closed {
         display: block;
-        width: 10px;
-        height: 6px;
+        width: 16px;
+        height: 11px;
         color: var(--color--text);
+        transform: rotate(90deg);
 
         @include high-contrast-light-mode() {
             color: var(--color--decoration);

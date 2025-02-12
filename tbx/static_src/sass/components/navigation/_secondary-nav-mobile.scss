@@ -77,13 +77,4 @@ Styles for the top level of the navigation at mobile
         color: var(--color--theme-primary);
         margin-left: 10px;
     }
-
-    // indicates the mobile menu has another level
-    &__icon-front {
-        transform: rotate(-90deg);
-        width: 18px;
-        height: 21px;
-        flex-grow: 0;
-        flex-shrink: 0;
-    }
 }

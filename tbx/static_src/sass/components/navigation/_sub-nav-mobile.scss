@@ -98,20 +98,7 @@ Styles for the lower levels of the navigation at mobile
 
     // back icon which sits inside the back link
     &__icon-back {
-        transform: rotate(90deg);
-        width: 18px;
-        height: 21px;
+        transform: rotate(180deg);
         margin-right: $spacer-mini-plus;
-        flex-grow: 0;
-        flex-shrink: 0;
-    }
-
-    // arrow icon which indicates the mobile menu has another level
-    &__icon-front {
-        transform: rotate(-90deg);
-        width: 18px;
-        height: 21px;
-        flex-grow: 0;
-        flex-shrink: 0;
     }
 }

@@ -47,10 +47,13 @@
         <div class="header__bottom grid__header-nav">
             <div class="header__logo">
                 {% include "patterns/atoms/icons/icon.html" with name="logo" classname="logo" %}
-                <span class="logo__label">
-                    {% if page.label %}{{ page.label }}{% endif %}
-                    {% if page.final_division and page.final_division.label %}{{ page.final_division.label }}{% endif %}
-                </span>
+                {% if page.label or page.final_division and page.final_division.label %}
+                    <span class="logo__label">
+                        {% if page.label %}{{ page.label }}{% endif %}
+                        {% if page.final_division and page.final_division.label %}{{ page.final_division.label }}{% endif %}
+                    </span>
+                {% endif %}
+
             </div>
 
             {# Secondary desktop navigation #}
