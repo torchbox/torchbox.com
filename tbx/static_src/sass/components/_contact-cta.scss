@@ -12,7 +12,6 @@
     }
 
     &__text {
-        color: var(--color--white);
         margin-bottom: $spacer-small;
 
         @include media-query(medium) {
@@ -25,8 +24,13 @@
         }
     }
 
+    &__heading {
+        color: var(--color--white);
+    }
+
     &__description {
         @include font-size(size-four);
+        color: var(--color--white);
     }
 
     &__avatar {
@@ -66,6 +70,8 @@
 
     &__button {
         @include font-size('size-five');
+        color: var(--color--white);
+        border: 1px solid var(--color--white);
         align-self: flex-start;
         grid-column: span 1;
 

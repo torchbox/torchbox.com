@@ -9,7 +9,7 @@
     {% with cta=value.call_to_action|first %}
         {# CTA main content #}
         <div class="contact-cta__text">
-            <h2 class="heading heading--two-b">{{ cta.value.text }}</h2>
+            <h2 class="heading heading--two-b contact-cta__heading">{{ cta.value.text }}</h2>
             {% if cta.value.description %}
                 <div class="contact-cta__description">{{ cta.value.description|richtext }}</div>
             {% endif %}

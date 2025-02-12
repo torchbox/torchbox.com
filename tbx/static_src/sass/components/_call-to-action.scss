@@ -23,12 +23,18 @@
         max-width: $streamfield-content-width;
     }
 
+    &__heading {
+        color: var(--color--white);
+    }
+
     &__description {
         @include font-size(size-four);
     }
 
     &__button {
         @include font-size('size-five');
+        color: var(--color--white);
+        border: 1px solid var(--color--white);
         margin-top: $spacer-small;
 
         @include media-query(large) {

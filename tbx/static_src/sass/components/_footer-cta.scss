@@ -8,6 +8,10 @@
         padding: $spacer-half 0;
     }
 
+    &__title {
+        color: var(--color--theme-primary);
+    }
+
     &__subtitle {
         @include font-size('size-four');
         color: var(--color--heading);

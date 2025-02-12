@@ -119,7 +119,7 @@
         flex-direction: column;
         height: 100%;
         margin: $spacer-medium 0 $spacer-mini;
-        color: var(--color--grey-20);
+        color: var(--color--text);
 
         @include media-query(large) {
             justify-content: center;
@@ -157,6 +157,7 @@
     &__carbon-impact-link {
         @include link-styles(
             $color: var(--color--grey-10),
+            $underline-color: var(--color--grey-50),
             $interaction-color: var(--color--white)
         );
     }

@@ -20,14 +20,20 @@
     }
 
     &__card {
+        @include card-hover-style(
+            var(--color--dark-background),
+            var(--color--black)
+        );
         display: flex;
         flex-direction: column;
         width: 100%;
         transition: background-color $transition-quick;
-        background-color: var(--color--dark-background);
 
-        &:has(.button-link:hover) {
-            background-color: var(--color--black);
+        .mode-light & {
+            @include card-hover-style(
+                var(--color--theme-primary-light),
+                var(--color--theme-primary-lighter)
+            );
         }
 
         @include high-contrast-mode() {
@@ -41,7 +47,14 @@
     }
 
     &__heading {
-        color: var(--color--white);
+        color: var(--color--heading);
+        margin-bottom: $spacer-mini;
+        line-height: 1;
+    }
+
+    &__subheading {
+        @include font-size(size-four-b);
+        color: var(--color--theme-primary);
         margin-bottom: $spacer-mini;
     }
 
