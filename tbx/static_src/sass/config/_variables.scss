@@ -42,14 +42,16 @@ $color--grey-20: #ccc;
 $color--grey-50: #808080;
 $color--grey-70: #4d4d4d;
 $color--mid-grey: #282e30; // in figma this colour is created with a very transparent white, but this is used on the cookie banner where it needs to be a solid colour
+$color--eclipse-light: #f7f7f7;
 $color--eclipse: #1d2325;
+$color--eclipse-dark: #14191a;
 $color--black: #000;
 
 // Dark mode by default
 :root,
 .mode-dark {
     // The following base variables do not change with the theme
-    --color--dark-background: #{color.adjust($color--black, $alpha: -0.7)};
+    --color--dark-background: #{$color--eclipse-dark};
     --color--background: #{$color--eclipse};
     --color--light-background-text: #{$color--eclipse};
     --color--heading: #{$color--white};
@@ -61,6 +63,7 @@ $color--black: #000;
     --color--streamfield-background: #{$color--mid-grey};
     --color--decoration: #{$color--grey-50};
     --color--border: #{color.adjust($color--grey-50, $alpha: -0.5)};
+    --color--light-border: #{$color--mid-grey};
     --color--overlay: #{color.adjust($color--black, $alpha: -0.6)};
     --color--background--overlay: #{color.adjust($color--eclipse, $alpha: -1)};
     --color--background-swirls-one: #{$color--black};
@@ -71,7 +74,9 @@ $color--black: #000;
     --color--grey-20: #{$color--grey-20};
     --color--grey-50: #{$color--grey-50};
     --color--grey-70: #{$color--grey-70};
+    --color--eclipse-light: #{$color--eclipse-light};
     --color--eclipse: #{$color--eclipse};
+    --color--eclipse-dark: #{$color--eclipse-dark};
     --color--black: #{$color--black};
     --color--coral: #{$color--coral};
     --color--coral-dark: #{$color--coral-dark};
@@ -140,12 +145,13 @@ $color--black: #000;
 }
 
 .mode-light {
-    // Redeclare any base variables that are different in light mode (these ones don't change with the theme)
-    --color--dark-background: #{color.adjust($color--black, $alpha: -0.97)};
+    // redeclare any base variables that are different in light mode (these ones don't change with the theme)
+    --color--dark-background: #{$color--eclipse-light};
     --color--background: #{$color--white};
     --color--heading: #{$color--eclipse};
     --color--text: #{$color--grey-70};
     --color--decoration: #{$color--eclipse};
+    --color--light-border: #{$color--grey-5};
     --color--link: #{$color--eclipse};
     --color--link-underline: #{color.adjust($color--eclipse, $alpha: -0.5)};
     --color--link-interaction: #{$color--eclipse};
