@@ -9,26 +9,32 @@
 
 {# Section intro #}
 {% if value.intro %}
-    <div class="rich-text">
+    <div class="rich-text mb-spacerMedium">
         {{ value.intro|richtext }}
     </div>
 {% endif %}
 
 {# Blog posts #}
-<ul class="grid__related-posts streamfield__related-posts mb-spacerMedium lg:mb-spacerLarge">
-    {% for blog_page in value.blog_pages %}
-        {% pageurl blog_page.blog_index as blog_index_url %}
-        {% pageurl blog_page as blog_post_url %}
-        {% include "patterns/molecules/listing/listing--avatar.html" with title=blog_page.title name=blog_page.first_author.name job_title=blog_page.first_author.role link=blog_post_url date=blog_page.date reading_time=blog_page.read_time tags=blog_page.tags avatar=blog_page.first_author.image tag_link_base=blog_index_url %}
-    {% endfor %}
-</ul>
+<div class="mb-spacerMedium lg:mb-spacerLarge">
+    <ul class="grid__related-posts streamfield__related-posts mb-spacerMedium lg:mb-spacerLarge">
+        {% for blog_page in value.blog_pages %}
+            {% pageurl blog_page.blog_index as blog_index_url %}
+            {% pageurl blog_page as blog_post_url %}
+            {% include "patterns/molecules/listing/listing--avatar.html" with title=blog_page.title name=blog_page.first_author.name job_title=blog_page.first_author.role link=blog_post_url date=blog_page.date reading_time=blog_page.read_time tags=blog_page.tags avatar=blog_page.first_author.image tag_link_base=blog_index_url %}
+        {% endfor %}
+    </ul>
 
-{# We expect only up to 1 primary button (`max_num=1` is set in the block definition.) #}
-{% for button in value.primary_button %}
-    <a href="{{ button.value.url }}">{{ button.value.text }}</a>
-{% endfor %}
+    {% if value.primary_button or value.secondary_button %}
+        <div class="md:ml-[225px] flex flex-wrap gap-4">
+            {# We expect only up to 1 primary button (`max_num=1` is set in the block definition.) #}
+            {% for button in value.primary_button %}
+                <a class="button" href="{{ button.value.url }}">{{ button.value.text }}</a>
+            {% endfor %}
 
-{# We expect only up to 1 secondary button (`max_num=1` is set in the block definition.) #}
-{% for button in value.secondary_button %}
-    <a href="{{ button.value.url }}">{{ button.value.text }}</a>
-{% endfor %}
+            {# We expect only up to 1 secondary button (`max_num=1` is set in the block definition.) #}
+            {% for button in value.secondary_button %}
+                <a class="button" href="{{ button.value.url }}">{{ button.value.text }}</a>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
