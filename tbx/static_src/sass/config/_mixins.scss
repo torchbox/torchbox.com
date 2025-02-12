@@ -219,6 +219,17 @@
 }
 
 /* ============================================
+    Card hover styles - used for division and services cards
+*/
+@mixin card-hover-style($color, $interaction-color) {
+    background-color: $color;
+
+    &:has(a:hover) {
+        background-color: $interaction-color;
+    }
+}
+
+/* ============================================
     High Contrast mode in dark mode
     prefers-color-scheme: dark + forced-colors: active
 
