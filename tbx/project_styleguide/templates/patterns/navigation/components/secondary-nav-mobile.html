@@ -4,9 +4,11 @@
     <ul class="secondary-nav-mobile__list" data-secondary-nav>
         {% for block in page.navigation_set.navigation %}
             {% if block.block_type == "link" %}
-                <li class="secondary-nav-mobile__item">
-                    <a href="{{ block.value.url }}" class="secondary-nav-mobile__link secondary-nav-mobile__link--no-children">
-                        {{ block.value.text }}
+                <li class="secondary-nav-mobile__item secondary-nav-mobile__item--no-children">
+                    <a href="{{ block.value.url }}" class="secondary-nav-mobile__link secondary-nav-mobile__link--no-children" {% if forloop.last %}data-last-menu-item-mobile{% endif %}>
+                        <span class="secondary-nav-mobile__link-text">
+                            {{ block.value.text }}
+                        </span>
                         {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="secondary-nav-mobile__icon" %}
                     </a>
                 </li>

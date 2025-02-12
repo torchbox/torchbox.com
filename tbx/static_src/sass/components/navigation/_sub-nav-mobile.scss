@@ -57,22 +57,6 @@ Styles for the lower levels of the navigation at mobile
             justify-content: space-between;
         }
 
-        &--no-children {
-            @include link-styles(
-                $color: var(--color--link),
-                $interaction-color: var(--color--theme-primary),
-                $underline-color: var(--color--link)
-            );
-
-            &:hover {
-                transition: color $transition-quick;
-
-                @include reduced-motion() {
-                    transition: none;
-                }
-            }
-        }
-
         &--parent {
             color: var(--color--heading);
             font-weight: $weight--semibold;
@@ -84,6 +68,23 @@ Styles for the lower levels of the navigation at mobile
         &--back {
             @include font-size('size-six');
             padding: 10px $spacer-small;
+        }
+    }
+
+    // 2nd and 3rd level link text for items with no children
+    &__link-text {
+        @include link-styles(
+            $color: var(--color--link),
+            $interaction-color: var(--color--theme-primary),
+            $underline-color: var(--color--link)
+        );
+
+        &:hover {
+            transition: color $transition-quick;
+
+            @include reduced-motion() {
+                transition: none;
+            }
         }
     }
 

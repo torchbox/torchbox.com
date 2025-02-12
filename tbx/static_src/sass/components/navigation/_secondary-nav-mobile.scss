@@ -48,23 +48,28 @@ Styles for the top level of the navigation at mobile
         border-bottom: 2px solid var(--color--light-border);
         color: var(--color--link);
 
+        &:focus {
+            @include focus-style();
+        }
+
         &--has-children {
             justify-content: space-between;
         }
+    }
 
-        &--no-children {
-            @include link-styles(
-                $color: var(--color--link),
-                $interaction-color: var(--color--theme-primary),
-                $underline-color: var(--color--link)
-            );
+    // top level menu link text for items with no children
+    &__link-text {
+        @include link-styles(
+            $color: var(--color--link),
+            $interaction-color: var(--color--theme-primary),
+            $underline-color: var(--color--link)
+        );
 
-            &:hover {
-                transition: color $transition-quick;
+        &:hover {
+            transition: color $transition-quick;
 
-                @include reduced-motion() {
-                    transition: none;
-                }
+            @include reduced-motion() {
+                transition: none;
             }
         }
     }

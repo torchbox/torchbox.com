@@ -17,8 +17,8 @@
         {% for child in links %}
             {% if child.block_type == "link" %}
                 <li class="sub-nav-mobile__item">
-                    <a href="{{ child.value.url }}" class="sub-nav-mobile__link sub-nav-mobile__link--no-children">
-                        {{ child.value.text }}
+                    <a href="{{ child.value.url }}" class="sub-nav-mobile__link">
+                        <span class="sub-nav-mobile__link-text">{{ child.value.text }}</span>
                         {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-mobile__icon" %}
                     </a>
                 </li>
