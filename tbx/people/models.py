@@ -17,9 +17,11 @@ from wagtail.search import index
 from wagtail.signals import page_published
 from wagtail.snippets.models import register_snippet
 
+from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
     ColourThemeMixin,
+    ContactMixin,
     NavigationFields,
     SocialFields,
 )
@@ -124,53 +126,7 @@ class Contact(index.Indexed, models.Model):
     ]
 
 
-class ContactMixin(models.Model):
-    """
-    Provides a `contact` field so that a page can have its own contact
-    in the site-wide footer, instead of the default contact.
-    """
-
-    contact = models.ForeignKey(
-        "people.Contact",
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-        help_text="The contact will be applied to this page's footer and all of its "
-        "descendants.\nIf no contact is selected, it will be derived from "
-        "this page's ancestors, eventually falling back to the default contact.",
-    )
-
-    promote_panels = [FieldPanel("contact")]
-
-    class Meta:
-        abstract = True
-
-    @cached_property
-    def footer_contact(self):
-        """
-        Use the page's own contact if set, otherwise, derive the contact from
-        its ancestors, and finally fall back to the default contact.
-
-        NOTE: if, for some reason, a default contact doesn't exist, this will
-        return None, in which case, we'll not display the block in the footer template.
-        """
-        if contact := self.contact:
-            return contact
-
-        ancestors = (
-            self.get_ancestors().defer_streamfields().specific().order_by("-depth")
-        )
-        for ancestor in ancestors:
-            if getattr(ancestor, "contact_id", None) is not None:
-                return ancestor.contact
-
-        # _in theory_, there should only be one Contact object with default_contact=True.
-        # (see `tbx.people.models.Contact.save()`)
-        return Contact.objects.filter(default_contact=True).first()
-
-
-class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
+class PersonPage(BasePage):
     template = "patterns/pages/team/team_detail.html"
 
     parent_page_types = ["PersonIndexPage"]
@@ -186,12 +142,12 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields,
     )
     related_teams = ParentalManyToManyField("taxonomy.Team", related_name="people")
 
-    search_fields = Page.search_fields + [
+    search_fields = BasePage.search_fields + [
         index.SearchField("intro"),
         index.SearchField("biography"),
     ]
 
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         FieldPanel("role"),
         FieldPanel("intro"),
         FieldPanel("biography"),
@@ -304,30 +260,16 @@ class PersonPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields,
 
 
 # Person index
-class PersonIndexPage(
-    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
-):
+class PersonIndexPage(BasePage):
     strapline = models.CharField(max_length=255)
 
     template = "patterns/pages/team/team_listing.html"
 
     subpage_types = ["PersonPage"]
 
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         FieldPanel("strapline"),
     ]
-
-    promote_panels = (
-        [
-            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ]
-        + NavigationFields.promote_panels
-        + ColourThemeMixin.promote_panels
-        + ContactMixin.promote_panels
-        + [
-            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-        ]
-    )
 
     def __str__(self) -> str:
         return self.title

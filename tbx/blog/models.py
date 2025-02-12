@@ -19,20 +19,18 @@ from wagtail.signals import page_published
 from bs4 import BeautifulSoup
 
 from tbx.core.blocks import StoryBlock
+from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
     ColourThemeMixin,
-    NavigationFields,
+    ContactMixin,
     SocialFields,
 )
 from tbx.images.models import CustomImage
-from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 
 
-class BlogIndexPage(
-    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
-):
+class BlogIndexPage(BasePage):
     template = "patterns/pages/blog/blog_listing.html"
 
     subpage_types = ["BlogPage"]
@@ -119,20 +117,8 @@ class BlogIndexPage(
         )
         return context
 
-    promote_panels = (
-        [
-            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ]
-        + NavigationFields.promote_panels
-        + ColourThemeMixin.promote_panels
-        + ContactMixin.promote_panels
-        + [
-            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-        ]
-    )
 
-
-class BlogPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
+class BlogPage(BasePage):
     template = "patterns/pages/blog/blog_detail.html"
 
     parent_page_types = ["BlogIndexPage"]
@@ -158,7 +144,7 @@ class BlogPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
     related_services = ParentalManyToManyField(
         "taxonomy.Service", related_name="blog_posts"
     )
-    search_fields = Page.search_fields + [
+    search_fields = BasePage.search_fields + [
         index.SearchField("body"),
     ]
 
@@ -243,7 +229,7 @@ class BlogPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
     def type(self):
         return "BLOG POST"
 
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         InlinePanel("authors", label="Author", min_num=1),
         FieldPanel("date"),
         FieldPanel("body"),

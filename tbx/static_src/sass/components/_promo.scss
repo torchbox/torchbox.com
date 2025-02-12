@@ -29,10 +29,6 @@
         color: var(--color--light-background-text);
         margin-bottom: $spacer-mini;
 
-        .motif-heading__drop-cap {
-            background-color: var(--color--light-background-text);
-        }
-
         @include media-query(large) {
             margin-bottom: $spacer-small;
         }
