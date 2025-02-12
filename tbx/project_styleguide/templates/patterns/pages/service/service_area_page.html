@@ -1,15 +1,13 @@
 {% extends "patterns/base_page.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags %}
 
 {% block content %}
-    <div>
-        {# Division #}
-        <p>Division: {{ page.final_division.label }}</p>
+    <div class="grid grid--spacer-large streamfield service-area-page">
 
-        {# Title #}
-        <h1>{{ page.title }}</h1>
-        {# Subtitle #}
-        <p>{{ page.subtitle }}</p>
+        <div class="grid__title">
+            <h1 class="heading heading--mega">{{ page.title }}</h1>
+            <p class="heading heading--two-b heading--light text-themePrimary">{{ page.subtitle }}</p>
+        </div>
 
         {% include_block page.body %}
     </div>
