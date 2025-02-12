@@ -35,6 +35,7 @@
 
     &__icon {
         color: var(--color--grey-50);
+
         &--light {
             width: 16px;
             height: 16px;
@@ -50,6 +51,20 @@
 
             .mode-dark & {
                 color: var(--color--white);
+            }
+        }
+
+        @include high-contrast-light-mode() {
+            &--light {
+                .mode-light & {
+                    color: var(--color--black);
+                }
+            }
+
+            &--dark {
+                .mode-dark & {
+                    color: var(--color--black);
+                }
             }
         }
     }
