@@ -1,7 +1,9 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="grid__link-columns link-columns">
     <div class="link-columns__header">
-        <h2 class="motif-heading link-columns__title">{{ value.title }}</h2>
+        {% if value.title %}
+            <h2 class="motif-heading link-columns__title">{{ value.title }}</h2>
+        {% endif %}
         {% if value.intro %}
             <div class="link-columns__intro rich-text">{{ value.intro|richtext }}</div>
         {% endif %}
