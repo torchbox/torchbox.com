@@ -10,10 +10,6 @@
             margin-top: $spacer-medium;
             grid-column: 2 / span 12;
         }
-
-        &::first-letter {
-            @include drop-cap(72px, 90px);
-        }
     }
 
     &--large-gap {
