@@ -1,15 +1,19 @@
 @use 'config' as *;
 
 .swirls {
-    position: relative;
+    position: absolute;
     display: none;
 
     @include media-query(large) {
+        @include z-index(under);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         display: block;
     }
 
     &__container {
-        @include z-index(under);
         position: absolute;
         width: 100%;
         aspect-ratio: 1512 / 1239;

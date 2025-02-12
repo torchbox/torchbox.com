@@ -4,22 +4,32 @@
     <ul class="sub-nav-mobile__list sub-nav-mobile__list--child">
         <li class="sub-nav-mobile__item sub-nav-mobile__item--back">
             <button data-subnav-back class="sub-nav-mobile__link sub-nav-mobile__link--back">
-                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-mobile__icon-back" %}
-                Back to {{ grandparent.text }}
+                {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="sub-nav-mobile__icon-back" %}
+                Back to {{ block.value.section_heading }}
             </button>
         </li>
         <li class="sub-nav-mobile__item sub-nav-mobile__item--parent">
-            <a class="sub-nav-mobile__link sub-nav-mobile__link--parent" href="{% pageurl parent %}">
-                {{ parent.nav_text }}
-            </a>
+            <span class="sub-nav-mobile__link sub-nav-mobile__link--parent" href="{% if parent.page %}{% pageurl parent.page %}{% elif parent.external_link %}{{ parent.external_link }}{% endif %}">
+                {{ child.value.section_heading }}
+                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-mobile__icon" %}
+            </span>
         </li>
-        {% for page in pages %}
+        {% for gchild in child.value.child_links %}
             <li class="sub-nav-mobile__item">
-                <a class="sub-nav-mobile__link sub-nav-mobile__link--child sub-nav-mobile__link--no-children" href="{% pageurl page %}">
-                    {{ page.nav_text }}
+                <a class="sub-nav-mobile__link" href="{{ gchild.value.url }}">
+                    <span class="sub-nav-mobile__link-text">{{ gchild.value.text }}</span>
+                    {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-mobile__icon" %}
                 </a>
             </li>
         {% endfor %}
+        {% if child.value.section_link %}
+            <li class="sub-nav-mobile__item">
+                <a class="sub-nav-mobile__link" href="{{ child.value.section_link.url }}">
+                    <span class="sub-nav-mobile__link-text">{% firstof child.value.section_link_text child.value.section_link %}</span>
+                    {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-mobile__icon" %}
+                </a>
+            </li>
+        {% endif %}
     </ul>
 </div>
 

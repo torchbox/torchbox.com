@@ -1,0 +1,93 @@
+context:
+  page:
+    navigation_set:
+      name: Charity
+      navigation:
+        - block_type: 'menu'
+          value:
+            section_heading: What we do
+            child_links:
+              - block_type: 'menu'
+                value:
+                  section_heading: 'Services'
+                  section_link: null
+                  section_link_text: ''
+                  child_links:
+                    - block_type: 'link'
+                      value:
+                        text: 'Advocacy, engagement & income'
+                        description: 'Create a movement around your mission'
+                        url: '#'
+                    - block_type: 'link'
+                      value:
+                        text: 'Measure, analyse & optimise'
+                        description: 'Make your data work harder'
+                        url: '#'
+                    - block_type: 'link'
+                      value:
+                        text: 'Scale impact through technology'
+                        description: 'Digital solutions that scale social good'
+                        url: '#'
+                    - block_type: 'link'
+                      value:
+                        text: 'AI transformation'
+                        description: 'Unlock AI&apos;s potential for your organisation'
+                        url: '#'
+              - block_type: 'menu'
+                value:
+                  section_heading: 'Sectors'
+                  section_link:
+                    title: Lorem ipsum
+                    url: '#'
+                  section_link_text: 'All sectors'
+                  child_links:
+                    - block_type: 'link'
+                      value:
+                        text: 'Humanitarian aid'
+                        description: 'Transform emergency response and drive'
+                        url: '#'
+                    - block_type: 'link'
+                      value:
+                        text: 'Mental health'
+                        description: 'Scale digital-first mental health services to'
+                        url: '#'
+                    - block_type: 'link'
+                      value:
+                        text: 'Arts, Culture and Heritage'
+                        description: 'Unlock your collection&apos;s digital potential to'
+                        url: '#'
+              - block_type: 'menu'
+                value:
+                  section_heading: 'Partnerships'
+                  section_link:
+                    title: Lorem ipsum
+                    url: '#'
+                  section_link_text: 'All partnerships'
+                  child_links:
+                    - block_type: 'link'
+                      value:
+                        text: 'Wagtail CMS'
+                        description: 'Smething good content soaring'
+                        url: '#'
+                    - block_type: 'link'
+                      value:
+                        text: 'Bloomreach'
+                        description: 'Wicked personalisation'
+                        url: '#'
+                    - block_type: 'link'
+                      value:
+                        text: 'Google'
+                        description: 'Ad grant stuff'
+                        url: '#'
+        - block_type: 'link'
+          value:
+            text: Case studies
+            url: '#'
+        - block_type: 'link'
+          value:
+            text: Thinking
+            url: '#'
+        - block_type: 'link'
+          value:
+            text: Events
+            url: '#'

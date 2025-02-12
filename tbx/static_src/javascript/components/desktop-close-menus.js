@@ -9,7 +9,7 @@ class DesktopCloseMenus {
             DesktopSubMenu.selector(),
         );
         this.allPrimaryNavs = document.querySelectorAll(
-            '[data-desktop-menu] [data-primary-nav]',
+            '[data-desktop-menu] [data-secondary-nav]',
         );
         this.mobileNav = document.querySelector('[data-mobile-menu]');
         this.mobileNavToggle = document.querySelector(

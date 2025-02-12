@@ -1,5 +1,5 @@
-# Subnav children menu
+# Secondary navigation menu
 
-- Grandchildren of the secondary nav.
+- The top level of the secondary navigation
 - Styles depend on parent elements, and may be hidden by default, so will not display correctly in the pattern library/
 - To view the navigation in the pattern library go to `organisms/header.html`.

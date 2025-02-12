@@ -1,0 +1,99 @@
+@use 'config' as *;
+
+/*
+Styles for the secondary navigation at desktop (top level)
+*/
+
+// The nav element surrounding the whole navigation
+// There are separate nav elements for desktop and mobile
+.secondary-nav-desktop {
+    $root: &;
+
+    // at desktop the top level of the menu is always visible in the header
+    display: none;
+
+    @include media-query(menu) {
+        display: inline-block;
+    }
+
+    // top level menu unordered list
+    &__list {
+        display: flex;
+        gap: 3vw;
+        overflow: visible;
+
+        @include media-query(large) {
+            gap: $spacer-small-plus;
+        }
+    }
+
+    // top level menu list items
+    &__item {
+        position: relative;
+        width: auto;
+    }
+
+    // top level menu links
+    &__link {
+        @include link-styles(
+            $color: var(--color--link),
+            $interaction-color: var(--color--link),
+            $offset: 5px
+        );
+        font-weight: $weight--semibold;
+
+        &:focus {
+            @include focus-style();
+        }
+    }
+
+    // desktop arrows
+    // wrapper ensures the text doesn't move when the icon changes
+    &__icon-wrapper {
+        @include z-index(overlap);
+        width: 13px;
+        position: relative;
+        display: inline-block;
+        margin-left: 8px;
+    }
+
+    // chevron when menu is closed
+    &__icon-closed {
+        display: block;
+        width: 16px;
+        height: 11px;
+        color: var(--color--text);
+        transform: rotate(90deg);
+
+        @include high-contrast-light-mode() {
+            color: var(--color--decoration);
+        }
+
+        .active &,
+        #{$root}__link:hover & {
+            display: none;
+        }
+    }
+
+    // short icon when menu is open
+    &__icon-open {
+        display: none;
+        width: 11px;
+        height: 16px;
+        position: absolute;
+        top: -8px;
+        color: var(--color--heading);
+
+        @include high-contrast-light-mode() {
+            color: var(--color--decoration);
+        }
+
+        #{$root}__link:hover & {
+            display: block;
+        }
+
+        .active & {
+            display: block;
+        }
+    }
+}

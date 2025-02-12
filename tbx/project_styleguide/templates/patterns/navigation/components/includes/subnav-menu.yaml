@@ -1,34 +1,37 @@
 context:
   links:
-    - title: One
-      get_children:
-        live:
-          public:
-            in_menu:
-              specific:
-                - nav_text: 1 A
-                - nav_text: 1 B
-                - nav_text: 1 C
-    - title: Two
-      get_children:
-        live:
-          public:
-            in_menu:
-              specific:
-                - nav_text: 2 A
-                - nav_text: 2 B
-                - nav_text: 2 C
-    - title: Three
-      get_children:
-        live:
-          public:
-            in_menu:
-              specific:
-                - nav_text: 3 A
-                - nav_text: 3 B
-                - nav_text: 3 C
+    - block_type: 'menu'
+      value:
+        section_heading: '1'
+        section_link:
+          url: '#'
+        section_link_text: 'See all in section 1'
+        child_links:
+          - block_type: 'link'
+            value:
+              text: '1A'
+              url: '#'
+              description: '1A description'
+          - block_type: 'link'
+            value:
+              text: '1B'
+              url: '#'
+              description: '1B description'
 
-tags:
-  pageurl:
-    link:
-      raw: '#'
+    - block_type: 'menu'
+      value:
+        section_heading: '2'
+        section_link:
+          url: '#'
+        section_link_text: 'See all in section 2'
+        child_links:
+          - block_type: 'link'
+            value:
+              text: '2A'
+              url: '#'
+              description: '2A description'
+          - block_type: 'link'
+            value:
+              text: '2B'
+              url: '#'
+              description: '2B description'
