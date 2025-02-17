@@ -1,23 +1,25 @@
 {% load wagtailcore_tags %}
 
 {% if work_pages %}
+    <div class="mb-spacerMedium section-title--related-posts">
     {# Section heading #}
-    {% if is_standard_page %}
-        <h2 class="heading heading--two-b heading--light grid__heading mb-spacerMedium">{{ value.featured_work_heading }}</h2>
-    {% else %}
-        <h2 class="motif-heading motif-heading--half-width section-title--related-posts">{{ value.featured_work_heading }}</h2>
-    {% endif %}
+        {% if is_standard_page %}
+            <h2 class="heading heading--two-b heading--light">{{ value.featured_work_heading }}</h2>
+        {% else %}
+            <h2 class="motif-heading motif-heading--half-width">{{ value.featured_work_heading }}</h2>
+        {% endif %}
 
     {# Section intro #}
-    {% if value.intro %}
-        <div class="rich-text mb-spacerMedium">
-            {{ value.intro|richtext }}
-        </div>
-    {% endif %}
+        {% if value.intro %}
+            <div class="rich-text">
+                {{ value.intro|richtext }}
+            </div>
+        {% endif %}
+    </div>
 
     {# Work pages / Case study pages #}
-    <div class="mb-spacerMedium lg:mb-spacerLarge">
-        <ul class="grid__related-posts streamfield__related-posts mb-spacerMedium lg:mb-spacerLarge">
+    <div class="grid__related-posts mb-spacerMedium lg:mb-spacerLarge">
+        <ul class="streamfield__related-posts mb-spacerMedium lg:mb-spacerLarge">
             {% for work_page in work_pages %}
                 {% pageurl work_page.work_index as work_index_url %}
                 {% pageurl work_page as work_page_url %}

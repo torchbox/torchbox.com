@@ -6,7 +6,7 @@
             {% if child.block_type == "link" %}
                 <li class="sub-nav-desktop__item">
                     <a href="{{ child.value.url }}" class="sub-nav-desktop__link">
-                        {{ child.value.text }}
+                        <span class="sub-nav-desktop__link-text">{{ child.value.text }}</span><span class="sub-nav-desktop__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-desktop__arrow" %}</span>
                     </a>
                     {% if child.value.description %}
                         <span class="sub-nav-desktop__description">{{ child.value.description }}</span>
