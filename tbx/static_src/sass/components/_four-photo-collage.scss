@@ -119,7 +119,13 @@
         }
     }
 
-    // Override the default rich text font size
+    // Override the default rich text font sizes
+    &__heading.rich-text {
+        @include font-size('size-three');
+        color: var(--color--heading);
+        font-weight: $weight--light;
+    }
+
     &__description.rich-text {
         @include font-size('size-six');
     }

@@ -1,22 +1,24 @@
 {% load wagtailcore_tags %}
 
+<div class="mb-spacerMedium section-title--related-posts">
 {# Section heading #}
-{% if is_standard_page %}
-    <h2 class="heading heading--two-b heading--light grid__heading mb-spacerMedium">{{ value.featured_blog_heading }}</h2>
-{% else %}
-    <h2 class="motif-heading motif-heading--half-width section-title--related-posts">{{ value.featured_blog_heading }}</h2>
-{% endif %}
+    {% if is_standard_page %}
+        <h2 class="heading heading--two-b heading--light">{{ value.featured_blog_heading }}</h2>
+    {% else %}
+        <h2 class="motif-heading motif-heading--half-width">{{ value.featured_blog_heading }}</h2>
+    {% endif %}
 
 {# Section intro #}
-{% if value.intro %}
-    <div class="rich-text mb-spacerMedium">
-        {{ value.intro|richtext }}
-    </div>
-{% endif %}
+    {% if value.intro %}
+        <div class="rich-text">
+            {{ value.intro|richtext }}
+        </div>
+    {% endif %}
+</div>
 
 {# Blog posts #}
-<div class="mb-spacerMedium lg:mb-spacerLarge">
-    <ul class="grid__related-posts streamfield__related-posts mb-spacerMedium lg:mb-spacerLarge">
+<div class="grid__related-posts mb-spacerMedium lg:mb-spacerLarge">
+    <ul class="streamfield__related-posts mb-spacerMedium lg:mb-spacerLarge">
         {% for blog_page in value.blog_pages %}
             {% pageurl blog_page.blog_index as blog_index_url %}
             {% pageurl blog_page as blog_post_url %}
