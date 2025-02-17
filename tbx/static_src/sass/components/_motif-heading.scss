@@ -5,24 +5,11 @@
     font-weight: $weight--semibold;
     color: transparent;
     background-image: var(--motif-heading);
-    background-clip: text;
-    // background-color is essential here as a fallback for browsers that don't support background-clip
+    background-clip: text; // background-color is essential here as a fallback for browsers that don't support background-clip
     background-color: var(--color--heading);
     background-repeat: no-repeat;
-    background-size: 50%;
-    background-origin: border-box;
-
-    @include media-query('small') {
-        background-size: 40%;
-    }
-
-    @include media-query('medium') {
-        background-size: 30%;
-    }
-
-    @include media-query('large') {
-        background-size: 40%;
-    }
+    background-size: calc(4.4em + 1vw) auto;
+    padding-bottom: 0.1em; // prevents clipping of letters that extend below the baseline
 
     &--half-width {
         @include media-query('large') {

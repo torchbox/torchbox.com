@@ -2,10 +2,16 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
+    <div class="swirls">
+        <div class="swirls__container">
+            {% include "patterns/atoms/icons/background-swirls.html" %}
+        </div>
+    </div>
+
     <div class="grid grid--spacer-large streamfield service-area-page">
 
         <div class="grid__title">
-            <h1 class="heading heading--mega">{{ page.title }}</h1>
+            <h1 class="heading heading--mega mb-spacerSmall">{{ page.title }}</h1>
             <p class="heading heading--two-b heading--light text-themePrimary">{{ page.subtitle }}</p>
         </div>
 
