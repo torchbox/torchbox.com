@@ -1,5 +1,19 @@
 context:
-  pages:
-    - nav_text: One
-    - nav_text: Two
-    - nav_text: Three
+  child:
+    block_type: 'menu'
+    value:
+      section_heading: '1'
+      section_link:
+        url: '#'
+      section_link_text: 'See all in section 1'
+      child_links:
+        - block_type: 'link'
+          value:
+            text: '1A'
+            url: '#'
+            description: '1A description'
+        - block_type: 'link'
+          value:
+            text: '1B'
+            url: '#'
+            description: '1B description'

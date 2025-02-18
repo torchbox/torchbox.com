@@ -1,0 +1,30 @@
+{% load wagtailcore_tags %}
+
+<nav aria-label="Secondary navigation" class="secondary-nav-desktop" data-desktop-menu>
+    <ul class="secondary-nav-desktop__list" data-secondary-nav>
+        {% for block in page.navigation_set.navigation %}
+            {% if block.block_type == "link" %}
+                <li class="secondary-nav-desktop__item">
+                    <a href="{{ block.value.url }}" class="secondary-nav-desktop__link">
+                        {{ block.value.text }}
+                    </a>
+                </li>
+            {% elif block.block_type == "menu" %}
+                <li class="secondary-nav-desktop__item" data-has-subnav>
+                    <button
+                        class="secondary-nav-desktop__link"
+                        data-open-subnav
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                        {{ block.value.section_heading }}
+                        <div class="secondary-nav-desktop__icon-wrapper">
+                            {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="secondary-nav-desktop__icon-closed" only %}
+                            {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="secondary-nav-desktop__icon-open" only %}
+                        </div>
+                    </button>
+                    {% include "patterns/navigation/components/includes/subnav-menu.html" with links=block.value.child_links number=block.value.child_links|length %}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</nav>

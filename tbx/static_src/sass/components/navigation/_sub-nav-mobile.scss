@@ -3,18 +3,23 @@
 
 /*
 Styles for the lower levels of the navigation at mobile
-Note that in the navigation settings we refer to 'level 1 and 2 children'.
-Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'level 3'.
 */
 
-// At mobile, the sub-navigation appears when a top level item is clicked, and also when a second level item is clicked. The second and third levels are shown in separate views
+// At mobile, the sub-navigation appears when a top level item is clicked, and also when a second level item is clicked.
+// The second and third levels are shown in separate views
 
 // div element at levels 2 and 3 of the menu
 .sub-nav-mobile {
     $root: &;
     @include z-index(base);
-    @include nav-fixed-position();
+    @include nav-fixed-position($header-height: 134px);
     background-color: var(--color--background);
+
+    // active state
+    &.is-visible {
+        opacity: 1;
+        visibility: visible;
+    }
 
     // the unordered list containing the level 2 menu items
     // also used for the level 3 menu items
@@ -23,99 +28,78 @@ Here we refer to 'level 1 children' as 'level 2' and 'level 2 children' as 'leve
         flex-direction: column;
     }
 
-    // the list item for each menu item in the 2nd and 3rd levels
+    // 2nd and 3rd level list items
     &__item {
-        font-weight: $weight--semibold;
-        position: relative;
-        width: 100%;
+        &--back {
+            background-color: var(--color--dark-background);
+        }
+
+        &--has-children {
+            background-color: var(--color--dark-background);
+        }
     }
 
-    // The link for each menu item in the 2nd and 3rd level
+    // 2nd and 3rd level menu links
     &__link {
         @include font-size('size-five');
         display: flex;
-        padding: $spacer-small;
-        border-bottom: 1px solid var(--color--border);
-        gap: 18px;
         align-items: center;
+        width: 100%;
+        padding: $spacer-small;
+        border-bottom: 2px solid var(--color--light-border);
+        color: var(--color--link);
 
         &:focus {
             @include focus-style();
         }
 
-        #{$root}__item:last-child & {
-            border-bottom: none;
-        }
-
-        // styles for links with children
         &--has-children {
-            @include font-size('size-seven');
-            color: var(--color--heading);
-            padding: $spacer-mini-plus $spacer-small;
-            font-weight: $weight--semibold;
+            justify-content: space-between;
         }
 
-        // styles for links without children
-        &--no-children {
-            @include link-styles(
-                $color: var(--color--heading),
-                $interaction-color: var(--color--heading),
-                $underline-color: var(--color--heading)
-            );
-            @include font-size('size-seven');
-            padding: $spacer-mini-plus $spacer-small;
-            font-weight: $weight--semibold;
-        }
-
-        // back link which goes one level up in the mobile menu
-        &--back {
-            @include font-size('size-seven');
-            color: var(--color--heading);
-            width: 100%;
-            padding: $spacer-mini-plus $spacer-small;
-            font-weight: $weight--semibold;
-        }
-
-        // parent link which takes you to the parent page for the section being viewed in the mobile menu
         &--parent {
-            @include link-styles(
-                $color: var(--color--heading),
-                $interaction-color: var(--color--heading),
-                $underline-color: var(--color--heading)
-            );
+            color: var(--color--heading);
+            font-weight: $weight--semibold;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 2px;
         }
+
+        &--back {
+            @include font-size('size-six');
+            padding: 10px $spacer-small;
+        }
+    }
+
+    // 2nd and 3rd level link text for items with no children
+    &__link-text {
+        @include link-styles(
+            $color: var(--color--link),
+            $interaction-color: var(--color--theme-primary),
+            $underline-color: var(--color--link)
+        );
+
+        &:hover {
+            transition: color $transition-quick;
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+    }
+
+    &__icon {
+        @include arrow-link-icon-styles(
+            $width: 18px,
+            $interaction-color: var(--color--theme-primary)
+        );
+        color: var(--color--theme-primary);
+        margin-left: 10px;
     }
 
     // back icon which sits inside the back link
     &__icon-back {
         transform: rotate(180deg);
-        width: 18px;
-        height: 21px;
-        flex-grow: 0;
-        flex-shrink: 0;
-        transition: transform $transition-quick;
-
-        #{$root}__link:hover & {
-            transform: rotate(180deg) translateX(10px);
-        }
-    }
-
-    // arrow icon which indicates the mobile menu has another level
-    &__icon-mobile {
-        width: 18px;
-        height: 21px;
-        flex-grow: 0;
-        flex-shrink: 0;
-        transition: transform $transition-quick;
-
-        #{$root}__link:hover & {
-            transform: translateX(10px);
-        }
-    }
-
-    // active state
-    &.is-visible {
-        opacity: 1;
-        visibility: visible;
+        margin-right: $spacer-mini-plus;
     }
 }

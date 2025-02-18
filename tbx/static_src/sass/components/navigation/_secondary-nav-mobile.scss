@@ -1,0 +1,85 @@
+@use 'config' as *;
+
+/*
+Styles for the top level of the navigation at mobile
+*/
+
+// The nav element surrounding the whole navigation
+// There are separate nav elements for desktop and mobile
+.secondary-nav-mobile {
+    $root: &;
+
+    // at mobile the navigation is only revealed when the menu icon is clicked
+    @include z-index(base);
+    @include nav-fixed-position($header-height: 134px);
+    display: block;
+    background-color: var(--color--background);
+
+    @include media-query(menu) {
+        display: none;
+    }
+
+    // active state
+    &.is-visible {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    // top level menu unordered list
+    &__list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    // top level menu list items
+    &__item {
+        &--has-children {
+            background-color: var(--color--dark-background);
+        }
+    }
+
+    // top level menu links
+    &__link {
+        @include font-size('size-five');
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: $spacer-small;
+        border-bottom: 2px solid var(--color--light-border);
+        color: var(--color--link);
+
+        &:focus {
+            @include focus-style();
+        }
+
+        &--has-children {
+            justify-content: space-between;
+        }
+    }
+
+    // top level menu link text for items with no children
+    &__link-text {
+        @include link-styles(
+            $color: var(--color--link),
+            $interaction-color: var(--color--theme-primary),
+            $underline-color: var(--color--link)
+        );
+
+        &:hover {
+            transition: color $transition-quick;
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+    }
+
+    &__icon {
+        @include arrow-link-icon-styles(
+            $width: 18px,
+            $interaction-color: var(--color--theme-primary)
+        );
+        color: var(--color--theme-primary);
+        margin-left: 10px;
+    }
+}

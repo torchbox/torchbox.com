@@ -29,7 +29,7 @@
         </div>
 
         {% if page.author_posts %}
-            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=page.title.split.0|add:"'s thinking" classes="motif-heading--two motif-heading--static section-title--related-posts" %}
+            <h2 class="motif-heading section-title--related-posts">{{ page.title.split.0|add:"'s thinking" }}</h2>
 
             <ul class="grid__related-posts-simple streamfield__related-posts-simple">
                 {% for post in page.author_posts %}
@@ -41,7 +41,7 @@
         {% endif %}
 
         {% if page.related_works %}
-            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=page.title.split.0|add:"'s work" classes="motif-heading--two motif-heading--static section-title--related-posts" %}
+            <h2 class="motif-heading section-title--related-posts">{{ page.title.split.0|add:"'s work" }}</h2>
 
             <ul class="grid__related-posts streamfield__related-posts">
                 {% pageurl page.work_index as work_index_url %}
