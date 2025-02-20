@@ -4,7 +4,11 @@
 
 <svg
     class="icon icon--{{ name }}{% if classname %} {{ classname }}{% endif %}"
-    aria-hidden="true"
+    {% if alt_text %}
+        aria-label="{{ alt_text }}"
+    {% else %}
+        aria-hidden="true"
+    {% endif %}
     focusable="false">
     <use xlink:href="#{{ name }}" href="#{{ name }}"></use>
 </svg>

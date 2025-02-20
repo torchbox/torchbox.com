@@ -47,11 +47,10 @@
     <div class="grid">
         <div class="header__bottom grid__header-nav">
             <div class="header__logo">
-                {% include "patterns/atoms/icons/icon.html" with name="logo" classname="logo" %}
-                {% if page.final_division and page.final_division.label %}
-                    <span class="logo__label">
-                        {{ page.final_division.label }}
-                    </span>
+                {% if page.final_division and page.final_division.logo %}
+                    {% include "patterns/atoms/icons/icon.html" with name=page.final_division.logo alt_text=page.final_division.get_logo_display classname="logo" %}
+                {% else %}
+                    {% include "patterns/atoms/icons/icon.html" with name="logo-torchbox" alt_text="Torchbox" classname="logo" %}
                 {% endif %}
             </div>
 

@@ -14,17 +14,23 @@ class DivisionPage(BasePage):
 
     parent_page_types = ["torchbox.HomePage"]
 
-    label = models.CharField(blank=True, max_length=50)
+    class Logo(models.TextChoices):
+        TORCHBOX = "logo-torchbox", "Torchbox"
+        CHARITY = "logo-charity", "Torchbox Charity"
+        PUBLIC = "logo-public", "Torchbox Public"
+        WAGTAIL = "logo-wagtail", "Torchbox Wagtail"
+
+    logo = models.CharField(choices=Logo.choices, default=Logo.TORCHBOX, max_length=50)
 
     hero = StreamField([("hero", DynamicHeroBlock())], max_num=1, min_num=1)
     body = StreamField(DivisionStoryBlock(), blank=True)
 
     content_panels = BasePage.content_panels + [
         FieldPanel(
-            "label",
-            heading="Division label",
+            "logo",
+            heading="Division logo",
             help_text=(
-                "Label displayed beside the logo for this page and any other pages"
+                "The logo displayed for this page and any other pages"
                 " under this division. (e.g. Charity)"
             ),
         ),
