@@ -15,11 +15,6 @@
         }
     }
 
-    &__title {
-        @include font-size(size-two-b);
-        margin-bottom: $spacer-medium;
-    }
-
     &__logos {
         display: flex;
         flex-wrap: wrap;

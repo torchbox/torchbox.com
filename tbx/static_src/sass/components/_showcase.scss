@@ -5,11 +5,10 @@
     $root: &;
 
     &__title {
-        @include font-size(size-two-b);
         margin-bottom: $spacer-medium;
 
         @include media-query(large) {
-            margin-bottom: $spacer-large;
+            margin-bottom: $spacer-medium-plus;
         }
 
         #{$root}--with-intro & {

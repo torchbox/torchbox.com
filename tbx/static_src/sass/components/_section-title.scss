@@ -12,6 +12,15 @@
         }
     }
 
+    &--partners {
+        margin-bottom: $spacer-medium;
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+    }
+
     &--large-gap {
         @include media-query(large) {
             margin-top: $spacer-x-large;
