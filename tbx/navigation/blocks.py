@@ -138,7 +138,7 @@ class PrimaryNavLinkBlock(LinkBlock):
 
 
 class SecondaryNavInnerMenuBlock(blocks.StructBlock):
-    section_heading = blocks.CharBlock()
+    section_heading = blocks.CharBlock(required=False)
     child_links = blocks.StreamBlock(
         [("link", SecondaryNavLinkBlock(icon="link"))],
         required=False,
