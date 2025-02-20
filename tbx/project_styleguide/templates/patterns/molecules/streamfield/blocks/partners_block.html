@@ -1,9 +1,9 @@
 {% load wagtailimages_tags %}
 
-<div class="partners grid__partners">
-    {% if value.title %}
-        <h2 class="motif-heading partners__title">{{ value.title }}</h2>
-    {% endif %}
+{% if value.title %}
+    <h2 class="motif-heading section-title--partners">{{ value.title }}</h2>
+{% endif %}
 
+<div class="partners grid__partners">
     {% include "patterns/molecules/partner_logos/partner_logos.html" with partner_logos=value.partner_logos %}
 </div>
