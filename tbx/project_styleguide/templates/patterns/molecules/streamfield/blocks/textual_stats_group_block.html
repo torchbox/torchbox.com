@@ -1,0 +1,11 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="grid__stats-group stats-group">
+    {% if value.title %}
+        <h2 class="motif-heading stats-group__heading">{{ value.title }}</h2>
+    {% endif %}
+    {% if value.intro %}
+        <div class="text text--five stats-group__intro">{{ value.intro|richtext }}</div>
+    {% endif %}
+    {# Stats #}
+    {% include "patterns/molecules/streamfield/blocks/stats_textual.html" with value=value.statistics %}
+</div>
