@@ -1,25 +1,49 @@
 @use 'config' as *;
 
 .logo {
-    width: 108px;
-    height: 20px;
     color: var(--color--heading);
-
-    @include media-query(menu) {
-        width: 158px;
-        height: 28px;
-    }
 
     @include high-contrast-light-mode() {
         color: var(--color--decoration);
     }
 
-    &__label {
-        @include font-size(size-four);
-        color: var(--color--theme-primary);
+    &--torchbox {
+        width: 112px;
+        height: 30px;
 
         @include media-query(menu) {
-            @include font-size(size-three);
+            width: 147px;
+            height: 38.964px;
+        }
+    }
+
+    &--logo-charity {
+        width: 189px;
+        height: 30px;
+
+        @include media-query(menu) {
+            width: 251px;
+            height: 38.97px;
+        }
+    }
+
+    &--logo-public {
+        width: 174px;
+        height: 30px;
+
+        @include media-query(menu) {
+            width: 227px;
+            height: 39.044px;
+        }
+    }
+
+    &--logo-wagtail {
+        width: 327px;
+        height: 36px;
+
+        @include media-query(menu) {
+            width: 436px;
+            height: 38.992px;
         }
     }
 }
