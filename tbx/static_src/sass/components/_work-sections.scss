@@ -4,6 +4,7 @@
 .work-sections {
     &__title {
         @include font-size('size-five');
+        color: var(--color--heading);
         font-weight: $weight--semibold;
         display: flex;
         align-items: flex-start;
