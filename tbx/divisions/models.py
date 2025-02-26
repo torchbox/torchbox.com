@@ -20,7 +20,7 @@ class DivisionPage(BasePage):
         PUBLIC = "logo-public", "Torchbox Public"
         WAGTAIL = "logo-wagtail", "Torchbox Wagtail"
 
-    logo = models.CharField(choices=Logo.choices, default=Logo.TORCHBOX, max_length=50)
+    logo = models.CharField(choices=Logo, default=Logo.TORCHBOX, max_length=50)
 
     hero = StreamField([("hero", DynamicHeroBlock())], max_num=1, min_num=1)
     body = StreamField(DivisionStoryBlock(), blank=True)
