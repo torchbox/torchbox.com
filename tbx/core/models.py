@@ -146,6 +146,16 @@ class BasePage(
         ]
     )
 
+    @cached_property
+    def breadcrumbs(self):
+        """
+        Return a a list of the current page's ancestors where the first one is
+        either a division page, or the homepage if no ancestor is a division page.
+        """
+        # The homepage has depth=2
+        min_depth = 2 if self.final_division is None else self.final_division.depth
+        return self.get_ancestors().filter(depth__gte=min_depth)
+
 
 class HomePagePartnerLogo(Orderable):
     page = ParentalKey("torchbox.HomePage", related_name="logos")
