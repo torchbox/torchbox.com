@@ -2,48 +2,57 @@
 
 .logo {
     color: var(--color--heading);
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 
     @include high-contrast-light-mode() {
         color: var(--color--decoration);
     }
 
-    &--torchbox {
-        width: 112px;
+    // define the size for each logo variant explicitly to avoid layout shift
+    &--logo-torchbox {
+        width: 100px;
         height: 30px;
 
-        @include media-query(menu) {
-            width: 147px;
-            height: 38.964px;
+        @include media-query(large) {
+            width: 127px;
+            height: 36px;
         }
     }
 
     &--logo-charity {
-        width: 189px;
+        width: 170px;
         height: 30px;
 
-        @include media-query(menu) {
-            width: 251px;
-            height: 38.97px;
+        @include media-query(large) {
+            width: 217px;
+            height: 36px;
         }
     }
 
     &--logo-public {
-        width: 174px;
+        width: 154px;
         height: 30px;
 
-        @include media-query(menu) {
-            width: 227px;
-            height: 39.044px;
+        @include media-query(large) {
+            width: 198px;
+            height: 36px;
         }
     }
 
     &--logo-wagtail {
-        width: 327px;
-        height: 36px;
+        width: 216px;
+        height: 30px;
 
-        @include media-query(menu) {
-            width: 436px;
-            height: 38.992px;
+        @include media-query(small) {
+            width: 288px;
+            height: 30px;
+        }
+
+        @include media-query(large) {
+            width: 378px;
+            height: 36px;
         }
     }
 }
