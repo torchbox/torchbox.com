@@ -1,6 +1,10 @@
 @use 'config' as *;
 
 .keypoints {
+    &__header {
+        margin-bottom: $spacer-medium;
+    }
+
     &__list {
         display: flex;
         flex-direction: column;
