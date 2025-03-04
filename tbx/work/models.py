@@ -42,7 +42,8 @@ class HistoricalWorkPage(BasePage):
     template = "patterns/pages/work/historical_work_page.html"
 
     # Prevent this page type from being created in Wagtail Admin
-    parent_page_types = []
+    is_creatable = False
+    parent_page_types = ["WorkIndexPage"]
 
     date = models.DateField("Post date", blank=True, null=True)
     body = StreamField(StoryBlock())

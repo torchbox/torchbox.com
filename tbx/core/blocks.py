@@ -1050,11 +1050,21 @@ class NumericStatisticsBlock(blocks.StructBlock):
         label_format = "{headline_number} {description} {further_details}"
 
 
-class NumericStatisticsGroupBlock(blocks.StructBlock):
+class AbstractStatisticsGroupBlock(blocks.StructBlock):
+    """
+    A base class for shared fields between numeric and textual stat blocks.
+    """
+
     title = blocks.CharBlock(max_length=255, required=False)
     intro = blocks.RichTextBlock(
         features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
     )
+
+    class Meta:
+        abstract = True
+
+
+class NumericStatisticsGroupBlock(AbstractStatisticsGroupBlock):
     statistics = blocks.ListBlock(
         NumericStatisticsBlock(),
         max_num=4,
@@ -1086,6 +1096,22 @@ class TextualStatisticsBlock(blocks.StructBlock):
 
     class Meta:
         icon = "info-circle"
+
+
+class TextualStatisticsGroupBlock(AbstractStatisticsGroupBlock):
+    statistics = blocks.ListBlock(
+        TextualStatisticsBlock(),
+        max_num=4,
+        min_num=1,
+    )
+
+    class Meta:
+        group = "Custom"
+        icon = "table"
+        label = "Textual statistics"
+        template = (
+            "patterns/molecules/streamfield/blocks/textual_stats_group_block.html"
+        )
 
 
 class TypedTableBlock(blocks.StructBlock):
