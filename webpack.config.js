@@ -17,6 +17,7 @@ const options = {
         'admin': `./${projectRoot}/static_src/javascript/admin.js`, // prettier-ignore
         'gist': `./${projectRoot}/static_src/sass/vendor/gist.scss`, // prettier-ignore
         'codehilite': `./${projectRoot}/static_src/sass/vendor/codehilite.scss`, // prettier-ignore
+        'division-page': `./${projectRoot}/static_src/javascript/division-page.js`, // prettier-ignore
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],

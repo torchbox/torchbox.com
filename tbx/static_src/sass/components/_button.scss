@@ -8,7 +8,7 @@
     @include z-index(header);
     position: relative;
     display: block;
-    width: 36px;
+    width: 32px;
     height: 24px;
     background: transparent;
     border: 0;
@@ -23,8 +23,8 @@
         position: absolute;
         left: 4px;
         display: block;
-        width: 27px;
-        height: 3px;
+        width: 24px;
+        height: 2.5px;
         background-color: var(--color--heading);
         transform: rotate(0deg);
         transition: top, width, transform, left, $transition;
@@ -39,38 +39,44 @@
         }
 
         &:nth-child(1) {
-            top: 0;
+            top: 50%;
+            transform: translateY(-10px);
 
             .is-open & {
-                top: 10px;
+                top: 50%;
                 left: 50%;
                 width: 0%;
+                transform: translate(-50%, -50%);
             }
         }
 
         &:nth-child(2) {
-            top: 10px;
+            top: 50%;
+            transform: translateY(-2px);
 
             .is-open & {
-                transform: rotate(45deg);
+                transform: translateY(-2px) rotate(45deg);
             }
         }
 
         &:nth-child(3) {
-            top: 10px;
+            top: 50%;
+            transform: translateY(-2px);
 
             .is-open & {
-                transform: rotate(-45deg);
+                transform: translateY(-2px) rotate(-45deg);
             }
         }
 
         &:nth-child(4) {
-            top: 20px;
+            top: 50%;
+            transform: translateY(6px);
 
             .is-open & {
-                top: 10px;
+                top: 50%;
                 left: 50%;
                 width: 0%;
+                transform: translate(-50%, -50%);
             }
         }
     }

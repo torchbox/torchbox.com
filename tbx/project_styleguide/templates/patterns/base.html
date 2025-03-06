@@ -41,6 +41,11 @@
             <link rel="stylesheet" type="text/css" href="{% static 'css/codehilite.css' %}">
         {% endif %}
 
+        {# Load the division page js/css in the pattern library #}
+        {% if pattern_library_rendered_pattern %}
+            <link rel="stylesheet" type="text/css" href="{% static 'css/division-page.css' %}">
+        {% endif %}
+
         {% block extra_css %}{% endblock %}
     </head>
 
@@ -72,6 +77,11 @@
         </script>
 
         <script src="{% static 'js/main.js' %}"></script>
+
+        {# Load the division page js/css in the pattern library #}
+        {% if pattern_library_rendered_pattern %}
+            <script src="{% static 'js/division-page.js' %}"></script>
+        {% endif %}
 
         {% tota11y %}
 

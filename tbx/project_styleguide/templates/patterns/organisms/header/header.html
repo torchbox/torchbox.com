@@ -47,11 +47,12 @@
     <div class="grid">
         <div class="header__bottom grid__header-nav">
             <div class="header__logo">
-                {% include "patterns/atoms/icons/icon.html" with name="logo" classname="logo" %}
-                {% if page.final_division and page.final_division.label %}
-                    <span class="logo__label">
-                        {{ page.final_division.label }}
-                    </span>
+                {% if page.final_division and page.final_division.logo %}
+                    {% with class_name="logo logo--"|add:page.final_division.logo %}
+                        {% include "patterns/atoms/icons/icon.html" with name=page.final_division.logo alt_text=page.final_division.get_logo_display classname=class_name %}
+                    {% endwith %}
+                {% else %}
+                    {% include "patterns/atoms/icons/icon.html" with name="logo-torchbox" alt_text="Torchbox" classname="logo logo--logo-torchbox" %}
                 {% endif %}
             </div>
 
@@ -59,15 +60,18 @@
             {% include "patterns/navigation/components/secondary-nav.html" %}
 
             {# Secondary mobile menu toggle #}
-            <div class="header__secondary-menu-toggle">
-                <span class="sr-only">Menu</span>
-                <button class="button-menu-toggle" data-mobile-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="Mobile menu toggle">
-                    <span class="button-menu-toggle__line"></span>
-                    <span class="button-menu-toggle__line"></span>
-                    <span class="button-menu-toggle__line"></span>
-                    <span class="button-menu-toggle__line"></span>
-                </button>
-            </div>
+            {# Show the mobile menu toggle only if there is a navigation set assigned to the page #}
+            {% if page.navigation_set %}
+                <div class="header__secondary-menu-toggle">
+                    <span class="sr-only">Menu</span>
+                    <button class="button-menu-toggle" data-mobile-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="Mobile menu toggle">
+                        <span class="button-menu-toggle__line"></span>
+                        <span class="button-menu-toggle__line"></span>
+                        <span class="button-menu-toggle__line"></span>
+                        <span class="button-menu-toggle__line"></span>
+                    </button>
+                </div>
+            {% endif %}
 
             {# Secondary mobile navigation #}
             {% include "patterns/navigation/components/secondary-nav-mobile.html" %}

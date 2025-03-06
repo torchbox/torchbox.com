@@ -1,13 +1,11 @@
 context:
   page:
     title: Current page title
-    get_ancestors:
-      - is_root: false
+    breadcrumbs:
+      - depth: 2 # Homepage title is hardcoded in the template
+      - depth: 3
         title: Some category
-      - is_root: false
-        depth: 3
+      - depth: 4
         title: Some sub category
-      - is_root: false
-        depth: 4
+      - depth: 5
         title: We need to go deeper
-        pattern_library_is_parent: True # allows us to set a parent page just in the pattern library
