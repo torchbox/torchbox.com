@@ -51,7 +51,7 @@ Styles for the secondary navigation at desktop (top level)
     // wrapper ensures the text doesn't move when the icon changes
     &__icon-wrapper {
         @include z-index(overlap);
-        width: 13px;
+        width: 12px;
         position: relative;
         display: inline-block;
         margin-left: 8px;
@@ -60,9 +60,9 @@ Styles for the secondary navigation at desktop (top level)
     // chevron when menu is closed
     &__icon-closed {
         display: block;
-        width: 16px;
+        width: 11px;
         height: 11px;
-        color: var(--color--text);
+        color: var(--color--heading);
         transform: rotate(90deg);
 
         @include high-contrast-light-mode() {

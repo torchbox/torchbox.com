@@ -132,6 +132,7 @@ Styles for the lower levels of the navigation at desktop
             $interaction-color: var(--color--theme-primary)
         );
         color: var(--color--theme-primary);
+        vertical-align: text-top;
         opacity: 0;
 
         .active & {
