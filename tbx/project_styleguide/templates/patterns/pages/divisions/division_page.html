@@ -2,7 +2,10 @@
 {% load wagtailcore_tags static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/division-page.css' %}">
+    {# We load the division page js/css in base.html in the pattern library #}
+    {% if not pattern_library_rendered_pattern %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/division-page.css' %}">
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -16,5 +19,8 @@
 {% endblock content %}
 
 {% block extra_js %}
-    <script src="{% static 'js/division-page.js' %}"></script>
+    {# We load the division page js/css in base.html in the pattern library #}
+    {% if not pattern_library_rendered_pattern %}
+        <script src="{% static 'js/division-page.js' %}"></script>
+    {% endif %}
 {% endblock %}
