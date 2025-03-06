@@ -1,5 +1,9 @@
 {% extends "patterns/base_page.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/division-page.css' %}">
+{% endblock %}
 
 {% block content %}
     <div class="grid grid--spacer-large streamfield">
@@ -10,3 +14,7 @@
         {% include_block page.body %}
     </div>
 {% endblock content %}
+
+{% block extra_js %}
+    <script src="{% static 'js/division-page.js' %}"></script>
+{% endblock %}
