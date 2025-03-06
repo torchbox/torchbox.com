@@ -35,12 +35,13 @@
 
             {% pageurl page.blog_index as blog_index_url %}
 
-            <div class="tags tags--with-title">
+            {% Temporarily hide tags %}
+            <!-- <div class="tags tags--with-title">
                 <span class="sr-only">Related post categories</span>
                 {% for tag in page.tags %}
                     {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name tag_link_base=blog_index_url %}
                 {% endfor %}
-            </div>
+            </div> -->
         </div>
 
         <div class="blog-meta">
