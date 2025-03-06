@@ -1,7 +1,9 @@
 context:
   page:
     title: Charity
-    label: Charity
+    final_division:
+      logo: logo-charity
+      get_logo_display: Torchbox Charity
 
 tags:
   include_block:
