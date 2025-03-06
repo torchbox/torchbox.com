@@ -19,8 +19,7 @@
 
     &__logo {
         display: flex;
-        align-items: baseline;
-        gap: 7px;
+        align-self: center;
     }
 
     &__primary-menu-toggle {
