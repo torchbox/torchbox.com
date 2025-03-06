@@ -7,6 +7,9 @@ class MobileMenu {
         this.node = node;
         this.body = document.querySelector('body');
         this.mobileMenu = document.querySelector('[data-mobile-menu]');
+        this.primaryMobileToggle = document.querySelector(
+            '[data-primary-mobile-menu-toggle]',
+        );
         this.lastMenuItem = document.querySelector(
             '[data-last-menu-item-mobile]',
         );
@@ -32,6 +35,15 @@ class MobileMenu {
                 }
             }
         });
+
+        // Close the mobile menu if the primary mobile menu toggle is clicked
+        if (this.primaryMobileToggle) {
+            this.primaryMobileToggle.addEventListener('click', () => {
+                if (this.state.open) {
+                    this.close();
+                }
+            });
+        }
 
         // Close the mobile menu when the focus moves away from the last item in the top level
         if (this.lastMenuItem === null) {
