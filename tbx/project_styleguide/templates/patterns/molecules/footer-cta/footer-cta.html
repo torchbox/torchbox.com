@@ -1,6 +1,10 @@
 <div class="grid__footer-contact-container footer-cta">
     <div class="grid__footer-contact">
-        <h2 class="heading heading--two-b heading--semibold footer-cta__title">{{ contact_heading }}</h2>
+        {% if is_home_page %}
+            <h2 class="heading heading--two heading--semibold">{{ contact_heading }}</h2>
+        {% else %}
+            <h2 class="motif-heading">{{ contact_heading }}</h2>
+        {% endif %}
         <p class="footer-cta__subtitle">{{ contact_text }}</p>
         <div class="footer-cta__container">
             {% include "patterns/atoms/avatar/avatar.html" with avatar=contact_image classes="footer-cta__avatar avatar--cta" %}

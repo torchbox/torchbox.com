@@ -50,7 +50,7 @@
                     {{ link.client }}
                 </span>
                 <span class="featured-case-study__meta">
-                    {% include "patterns/atoms/date_and_reading_time/date_and_reading_time.html" with date=link.date reading_time=link.read_time %}
+                    {% include "patterns/atoms/date_and_reading_time/date_and_reading_time.html" with hide_date=True reading_time=link.read_time %}
                 </span>
             </span>
         </div>

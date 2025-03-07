@@ -35,12 +35,13 @@
 
             {% pageurl page.blog_index as blog_index_url %}
 
-            <div class="tags tags--with-title">
+            {# Temporarily hide tags #}
+            <!-- <div class="tags tags--with-title">
                 <span class="sr-only">Related post categories</span>
                 {% for tag in page.tags %}
                     {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name tag_link_base=blog_index_url %}
                 {% endfor %}
-            </div>
+            </div> -->
         </div>
 
         <div class="blog-meta">
@@ -55,7 +56,7 @@
             <ul class="grid__related-posts streamfield__related-posts">
                 {% for post in page.related_blog_posts %}
                     {% pageurl post as post_url %}
-                    {% include "patterns/molecules/listing/listing--avatar.html" with title=post.title name=post.first_author.name job_title=post.first_author.role link=post_url date=post.date reading_time=post.read_time tags=post.tags avatar=post.first_author.image tag_link_base=blog_index_url %}
+                    {% include "patterns/molecules/listing/listing--avatar.html" with title=post.title name=post.first_author.name job_title=post.first_author.role link=post_url date=post.date reading_time=post.read_time tags=post.tags hide_tags=True avatar=post.first_author.image tag_link_base=blog_index_url %}
                 {% endfor %}
 
                 <li class="mx-auto lg:mx-0 mt-spacerSmall">
