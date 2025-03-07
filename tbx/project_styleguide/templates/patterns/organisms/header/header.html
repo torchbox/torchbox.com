@@ -6,7 +6,7 @@
         <div class="grid">
             <div class="grid__header-nav">
             {# Primary desktop navigation #}
-                <nav aria-label="Main navigation" class="primary-nav-desktop" data-desktop-menu>
+                <nav aria-label="Main navigation" class="primary-nav-desktop">
                     {% wagtailcache 600 "primarynav" current_site.pk is_pattern_library %}
                         <ul class="primary-nav-desktop__list">
                             <li class="primary-nav-desktop__item">

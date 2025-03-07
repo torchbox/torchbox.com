@@ -60,11 +60,14 @@ class TestTaxonomies(WagtailPageTestCase):
         self.assertIn("tags", context)
         self.assertIsNotNone(context.get("tags"))
 
-        # Check that the 'tags' variable corresponds to all services and sectors used in child BlogPages
-        expected_tags = self.sector_names + self.service_names
-        content = response.content.decode("utf-8")
-        for tag in expected_tags:
-            self.assertIn(tag, content)
+        # Check that the 'tags' variable corresponds to
+        # all services and sectors used in child BlogPages
+        # (We've disabled showing the tags in the templates.
+        # Pending a review on keeping/removing it.)
+        # expected_tags = self.sector_names + self.service_names
+        # content = response.content.decode("utf-8")
+        # for tag in expected_tags:
+        #     self.assertIn(tag, content)
 
     def test_blog_post_taxonomies_tags(self):
         """Tests that each blog_post only features the taxonomies associated with that page"""

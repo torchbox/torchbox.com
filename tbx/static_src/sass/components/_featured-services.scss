@@ -60,6 +60,10 @@
 
     // override the rich-text font-size
     &__description.rich-text {
-        @include font-size(size-seven);
+        @include font-size(size-six);
+
+        @include media-query(medium) {
+            @include font-size(size-seven);
+        }
     }
 }

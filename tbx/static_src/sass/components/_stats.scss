@@ -37,13 +37,10 @@
     &__number {
         color: var(--color--theme-primary);
         display: block;
-        font-weight: $weight--semibold;
     }
 
     &__text {
-        @include font-size(size-three);
-        font-weight: $weight--semibold;
-        color: var(--color--heading);
+        color: var(--color--theme-primary);
         display: block;
         margin-bottom: $spacer-small;
     }

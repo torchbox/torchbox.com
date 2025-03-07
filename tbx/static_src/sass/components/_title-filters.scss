@@ -47,6 +47,14 @@
         }
     }
 
+    &--no-tags {
+        #{$root}__title {
+            @include media-query(large) {
+                flex-grow: 1;
+            }
+        }
+    }
+
     &__title {
         margin-bottom: $spacer-small;
 

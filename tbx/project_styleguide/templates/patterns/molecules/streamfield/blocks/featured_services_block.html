@@ -1,9 +1,9 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="grid__featured-services featured-services">
     <div class="featured-services__header">
-        <h2 class="motif-heading featured-services__title">{{ value.title }}</h2>
+        <h2 class="motif-heading motif-heading--half-width">{{ value.title }}</h2>
         {% if value.intro %}
-            <div class="featured-services__intro rich-text">{{ value.intro|richtext }}</div>
+            <div class="rich-text">{{ value.intro|richtext }}</div>
         {% endif %}
     </div>
     <ul class="featured-services__cards">
@@ -22,7 +22,7 @@
                    class="button-link button-link--compact"
                    {% if card.accessible_link_text %}aria-label="{{ card.accessible_link_text }}"{% endif %}
                 >
-                    {{ card.link_text }}&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide-sm" classname="button-link__arrow" %}
+                    {{ card.link_text }}<span class="button-link__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide-sm" classname="button-link__arrow" %}</span>
                 </a>
             </li>
         {% endfor %}

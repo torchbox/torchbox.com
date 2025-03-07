@@ -34,8 +34,9 @@ export default class DynamicHero {
             slidesPerView: 1,
             speed: 1000,
             loop: true,
+            allowTouchMove: false,
             autoplay: {
-                delay: 5000,
+                delay: 2000,
                 enabled: !isReduced,
             },
         });

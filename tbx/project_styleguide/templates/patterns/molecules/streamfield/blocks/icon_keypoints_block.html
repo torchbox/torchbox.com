@@ -1,11 +1,13 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="grid__keypoints keypoints">
-    {% if value.title %}
-        <h2 class="heading heading--two">{{ value.title }}</h2>
-    {% endif %}
-    {% if value.intro %}
-        <div class="text text--five">{{ value.intro|richtext }}</div>
-    {% endif %}
+    <div class="keypoints__header">
+        {% if value.title %}
+            <h2 class="motif-heading motif-heading--half-width">{{ value.title }}</h2>
+        {% endif %}
+        {% if value.intro %}
+            <div class="rich-text">{{ value.intro|richtext }}</div>
+        {% endif %}
+    </div>
 
     <ul class="keypoints__list">
         {% for key_point in value.key_points %}

@@ -1,11 +1,11 @@
 {% load wagtailcore_tags %}
 
-<div class="title-filters">
+<div class="title-filters {% if hide_tags %}title-filters--no-tags{% endif %}">
     <div class="title-filters__title">
         <h1 class="heading heading--mega">{{ item.title }}</h1>
     </div>
 
-    {% if tags %}
+    {% if tags and not hide_tags %}
         <div class="title-filters__tags">
             <div class="tags">
                 <p class="sr-only">Filter by category</p>
