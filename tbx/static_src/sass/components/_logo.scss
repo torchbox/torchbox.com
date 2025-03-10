@@ -12,47 +12,47 @@
 
     // define the size for each logo variant explicitly to avoid layout shift
     &--logo-torchbox {
-        width: 100px;
+        width: 115px;
         height: 30px;
 
         @include media-query(large) {
-            width: 127px;
-            height: 36px;
+            width: 147px;
+            height: 38px;
         }
     }
 
     &--logo-charity {
-        width: 170px;
+        width: 190px;
         height: 30px;
 
         @include media-query(large) {
-            width: 217px;
-            height: 36px;
+            width: 251px;
+            height: 39px;
         }
     }
 
     &--logo-public {
-        width: 154px;
+        width: 174px;
         height: 30px;
 
         @include media-query(large) {
-            width: 198px;
-            height: 36px;
+            width: 227px;
+            height: 41px;
         }
     }
 
     &--logo-wagtail {
-        width: 216px;
+        width: 226px;
         height: 30px;
 
         @include media-query(small) {
-            width: 288px;
+            width: 330px;
             height: 30px;
         }
 
         @include media-query(large) {
-            width: 378px;
-            height: 36px;
+            width: 436px;
+            height: 39px;
         }
     }
 }
