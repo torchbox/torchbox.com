@@ -15,6 +15,7 @@
 
     // compact variant of the button with reduced padding
     &--compact {
+        @include font-size('size-five');
         padding: 13px $spacer-small;
 
         #{$root}__arrow {
@@ -58,6 +59,12 @@
         &:focus {
             @include focus-style($outline-color: var(--color--lagoon));
         }
+    }
+
+    &__tail {
+        // Keep the arrow attached to the last word so it's not orphaned on a new line
+        white-space: nowrap;
+        display: inline;
     }
 
     &__arrow {

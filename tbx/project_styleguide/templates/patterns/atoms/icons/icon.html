@@ -1,12 +1,17 @@
-{% load wagtailcore_tags %}
+{% comment %}
+Use with include, e.g. `{% include "patterns/atoms/icons/icon.html" with name="mybutton" classname="icon--stroke button__icon" %}`
 
-{# Use with include, e.g. `{% include "patterns/atoms/icons/icon.html" with name="mybutton" classname="icon--stroke button__icon" %}` #}
+Accepts the following parameters:
+- name:      what the icon is called in the sprites.html file
+- alt_text:  accessible text for screen readers (if blank, the svg is hidden from screen readers)
+- classname: any additional classes for the svg element
+{% endcomment %}
+{% load wagtailcore_tags %}
 
 <svg
     class="icon icon--{{ name }}{% if classname %} {{ classname }}{% endif %}"
-    aria-hidden="true"
+    {% if not alt_text %}aria-hidden="true"{% endif %}
     focusable="false">
+    {% if alt_text %}<title>{{ alt_text }}</title>{% endif %}
     <use xlink:href="#{{ name }}" href="#{{ name }}"></use>
 </svg>
-
-
