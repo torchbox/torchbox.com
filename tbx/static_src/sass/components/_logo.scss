@@ -1,18 +1,58 @@
 @use 'config' as *;
 
 .logo {
-    width: 105px;
-    height: 31px;
+    color: var(--color--heading);
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 
-    &__text {
-        fill: var(--color--heading);
+    @include high-contrast-light-mode() {
+        color: var(--color--decoration);
+    }
 
-        @include high-contrast-light-mode() {
-            fill: var(--color--decoration);
+    // define the size for each logo variant explicitly to avoid layout shift
+    &--logo-torchbox {
+        width: 115px;
+        height: 30px;
+
+        @include media-query(large) {
+            width: 147px;
+            height: 39px;
         }
     }
 
-    &__flame {
-        fill: var(--color--accent-three);
+    &--logo-charity {
+        width: 190px;
+        height: 30px;
+
+        @include media-query(large) {
+            width: 251px;
+            height: 39px;
+        }
+    }
+
+    &--logo-public {
+        width: 174px;
+        height: 30px;
+
+        @include media-query(large) {
+            width: 227px;
+            height: 41px;
+        }
+    }
+
+    &--logo-wagtail {
+        width: 226px;
+        height: 30px;
+
+        @include media-query(small) {
+            width: 330px;
+            height: 30px;
+        }
+
+        @include media-query(large) {
+            width: 436px;
+            height: 39px;
+        }
     }
 }

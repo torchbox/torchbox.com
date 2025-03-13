@@ -28,7 +28,8 @@
         grid-column: 2 / span 4;
 
         @include media-query(large) {
-            grid-column: 4 / span 9;
+            grid-column: 2 / span 9;
+            margin-bottom: $spacer-small-plus;
         }
     }
 
@@ -41,13 +42,32 @@
         }
     }
 
+    &__dynamic-hero {
+        grid-column: 2 / span 4;
+        margin-bottom: $spacer-medium;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+    }
+
     &__intro {
-        margin-bottom: $spacer-small;
+        margin-bottom: $spacer-medium;
         grid-column: 2 / span 4;
 
         @include media-query(large) {
-            margin-bottom: $spacer-medium;
-            grid-column: 4 / span 7;
+            margin-bottom: $spacer-medium-plus;
+            grid-column: 2 / span 7;
+        }
+    }
+
+    &__intro-with-images {
+        grid-column: 1 / span 5;
+        margin-bottom: $spacer-small-plus;
+
+        @include media-query(large) {
+            margin-bottom: $spacer-large;
+            grid-column: 2 / span 12;
         }
     }
 
@@ -57,27 +77,18 @@
 
         @include media-query(large) {
             margin-bottom: $spacer-large;
-            grid-column: 4 / span 9;
+            grid-column: 2 / span 9;
         }
     }
 
-    &__call-to-action {
-        margin-bottom: $spacer-medium;
-        grid-column: 2 / span 5;
-
-        @include media-query(large) {
-            margin-bottom: $spacer-large;
-            grid-column: 4 / span 12;
-        }
-    }
-
+    &__call-to-action,
     &__contact-cta {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 5;
 
         @include media-query(large) {
             margin-bottom: $spacer-large;
-            grid-column: 4 / span 12;
+            grid-column: 5 / span 12;
         }
     }
 
@@ -90,8 +101,21 @@
     }
 
     &__related-posts-simple,
-    &__team-listing {
+    &__team-listing,
+    &__link-columns,
+    &__stats-group {
         grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+    }
+
+    &__division-signpost,
+    &__featured-services,
+    &__keypoints {
+        grid-column: 2 / span 4;
+        margin-bottom: $spacer;
 
         @include media-query(large) {
             grid-column: 2 / span 12;
@@ -114,7 +138,7 @@
 
         @include media-query(large) {
             margin-bottom: $spacer-large;
-            grid-column: 2 / span 12;
+            grid-column: 3 / span 10;
         }
     }
 
@@ -176,6 +200,16 @@
 
         @include media-query(large) {
             grid-column: 2 / span 11;
+            margin-bottom: $spacer;
+        }
+    }
+
+    &__four-photo-collage {
+        grid-column: 2 / span 5;
+        margin-bottom: $spacer-medium;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
             margin-bottom: $spacer;
         }
     }
@@ -245,11 +279,13 @@
     }
 
     // Footer grid elements
-    &__footer-line {
-        grid-column: 1 / span 4;
+    &__footer-contact-container {
+        grid-column: 1 / span 6;
+        display: grid;
+        grid-template-columns: subgrid;
 
         @include media-query(large) {
-            grid-column: 1 / span 3;
+            grid-column: 1 / span 8;
         }
     }
 
@@ -273,7 +309,7 @@
         grid-column: 2 / span 4;
 
         @include media-query(large) {
-            grid-column: 2 / span 4;
+            grid-column: 2 / span 7;
         }
     }
 
@@ -303,27 +339,12 @@
         }
     }
 
-    // header and navigation grid elements
-    &__header-logo {
-        grid-column: 2 / span 2;
-
-        @include media-query(medium) {
-            grid-column: 2 / span 1;
-        }
-    }
-
     &__header-nav {
-        display: none;
-
-        @include media-query(menu) {
-            display: flex;
-            justify-content: flex-end;
-            grid-column: 3 / span 3;
-            align-items: flex-end;
-        }
+        display: flex;
+        grid-column: 2 / span 4;
 
         @include media-query(large) {
-            grid-column: 3 / span 11;
+            grid-column: 2 / span 12;
         }
     }
 
@@ -401,6 +422,18 @@
         }
     }
 
+    // Service area page adjustments
+    .template-service-area-page & {
+        &__title {
+            margin-bottom: $spacer-medium;
+
+            @include media-query(large) {
+                margin-bottom: $spacer-medium-plus;
+                grid-column: 2 / span 10;
+            }
+        }
+    }
+
     // Service page alignment
     .template-service-page & {
         &__intro,
@@ -455,12 +488,6 @@
                 margin-bottom: $spacer-large;
             }
         }
-
-        &__quote {
-            @include media-query(large) {
-                grid-column: 2 / span 9;
-            }
-        }
     }
 
     .template-historical-work-page & {
@@ -504,21 +531,6 @@
         &__stats {
             @include media-query(large) {
                 grid-column: 2 / span 9;
-            }
-        }
-    }
-
-    // home page adjustments
-    .template-homepage & {
-        &__title {
-            @include media-query(large) {
-                grid-column: 3 / span 9;
-            }
-        }
-
-        &__intro {
-            @include media-query(large) {
-                grid-column: 3 / span 6;
             }
         }
     }
@@ -624,6 +636,14 @@
 
             @include media-query(large) {
                 margin-bottom: $spacer-medium;
+            }
+        }
+    }
+
+    .template-person-page & {
+        &__intro {
+            @include media-query(large) {
+                grid-column: 4 / span 7;
             }
         }
     }

@@ -1,0 +1,26 @@
+{% extends "patterns/base_page.html" %}
+{% load wagtailcore_tags static %}
+
+{% block extra_css %}
+    {# We load the division page js/css in base.html in the pattern library #}
+    {% if not pattern_library_rendered_pattern %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/division-page.css' %}">
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="grid grid--spacer-large streamfield">
+        <h1 class="sr-only">{{ page.title }}</h1>
+
+        <div class="grid__dynamic-hero">{% include_block page.hero %}</div>
+
+        {% include_block page.body %}
+    </div>
+{% endblock content %}
+
+{% block extra_js %}
+    {# We load the division page js/css in base.html in the pattern library #}
+    {% if not pattern_library_rendered_pattern %}
+        <script src="{% static 'js/division-page.js' %}"></script>
+    {% endif %}
+{% endblock %}

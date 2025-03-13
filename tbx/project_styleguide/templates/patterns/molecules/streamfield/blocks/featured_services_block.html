@@ -1,0 +1,30 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="grid__featured-services featured-services">
+    <div class="featured-services__header">
+        <h2 class="motif-heading motif-heading--half-width">{{ value.title }}</h2>
+        {% if value.intro %}
+            <div class="rich-text">{{ value.intro|richtext }}</div>
+        {% endif %}
+    </div>
+    <ul class="featured-services__cards">
+        {% for card in value.cards %}
+            <li class="featured-services__card">
+                {% srcset_image card.image format-webp fill-{750x420,650x420} sizes="(max-width: 750px) 100vw, (min-width: 751px) 650px" alt="" %}
+                <div class="featured-services__text">
+                    <h3 class="featured-services__heading heading heading--two-b">{% firstof card.heading card.page.title %}</h3>
+                    {% if card.subheading %}
+                        <p class="featured-services__subheading">{{ card.subheading }}</p>
+                    {% endif %}
+                    <div class="featured-services__description rich-text">{{ card.description|richtext }}</div>
+                </div>
+                {# The title and icon need to be on the same line with no whitespace to prevent the arrow being orphaned on a new line #}
+                <a href="{% pageurl card.page %}"
+                   class="button-link button-link--compact"
+                   {% if card.accessible_link_text %}aria-label="{{ card.accessible_link_text }}"{% endif %}
+                >
+                    {{ card.link_text }}<span class="button-link__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide-sm" classname="button-link__arrow" %}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

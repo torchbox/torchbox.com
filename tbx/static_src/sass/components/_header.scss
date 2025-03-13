@@ -1,21 +1,53 @@
 @use 'config' as *;
 
 .header {
-    background-color: var(--color--background);
-    padding: 25px 0;
-    align-items: end;
-
-    @include media-query(medium) {
-        padding: 35px 0 $spacer-small-plus;
+    &__top {
+        background-color: var(--color--black);
+        padding: 10px 0;
     }
 
-    &__logo-link {
-        &:focus {
-            @include focus-style();
+    &__bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: $spacer-small 0;
+
+        @include media-query(menu) {
+            padding: $spacer-small-plus 0 $spacer-mini-plus;
         }
     }
 
-    &__menu-toggle {
+    &__logo {
+        display: flex;
+        align-self: center;
+    }
+
+    &__primary-menu-toggle {
+        @include link-styles(
+            $color: var(--color--white),
+            $underline-color: var(--color--white),
+            $interaction-color: var(--color--white)
+        );
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        @include media-query(menu) {
+            display: none;
+        }
+
+        &:focus {
+            @include focus-style($keyboard-only: true);
+        }
+    }
+
+    &__primary-menu-toggle-icon {
+        width: 12px;
+        height: 12px;
+        transform: rotate(90deg);
+    }
+
+    &__secondary-menu-toggle {
         @include z-index(header);
         display: flex;
         width: 100%;

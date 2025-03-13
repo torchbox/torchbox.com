@@ -5,11 +5,10 @@
     $root: &;
 
     &__title {
-        @include font-size(heading-two-c);
         margin-bottom: $spacer-medium;
 
         @include media-query(large) {
-            margin-bottom: $spacer-large;
+            margin-bottom: $spacer-medium-plus;
         }
 
         #{$root}--with-intro & {
@@ -19,7 +18,7 @@
 
     // home page showcase block only
     &__intro {
-        @include font-size('heading-five');
+        @include font-size('size-five');
         margin-bottom: $spacer-medium;
 
         @include media-query(large) {
@@ -111,7 +110,7 @@
     }
 
     &__heading {
-        @include font-size(heading-four);
+        @include font-size(size-four);
         font-weight: $weight--semibold;
         margin-bottom: $spacer-mini;
 
@@ -127,7 +126,7 @@
 
         // home page showcase block only
         &--with-tail {
-            @include font-size(heading-three-b);
+            @include font-size(size-three);
             display: block;
         }
     }
@@ -157,13 +156,13 @@
         }
 
         &--tail {
-            @include arrow-link-icon-styles();
+            @include arrow-link-icon-styles($mobile-hidden: true);
             margin-left: $spacer-mini-plus;
             margin-top: 0;
         }
     }
 
     &__summary {
-        @include font-size(body-one);
+        @include font-size(size-six);
     }
 }

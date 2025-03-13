@@ -9,7 +9,7 @@
     }
 
     &__date {
-        @include font-size('body-one');
+        @include font-size('size-six');
         color: var(--color--heading);
         font-weight: $weight--semibold;
     }

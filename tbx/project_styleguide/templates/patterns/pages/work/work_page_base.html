@@ -27,8 +27,7 @@
 
     <div class="work-hero grid grid--spacer-large">
         <div class="work-hero__left">
-            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading=page.title classes="motif-heading--one-b mb-spacerMini md:mb-spacerSmall" %}
-
+            <h1 class="heading heading--one mb-spacerMini md:mb-spacerSmall">{{ page.title }}</h1>
             {% block intro %}
                 {# intro content goes here - different for work page and historical work page #}
             {% endblock %}
@@ -44,7 +43,7 @@
             </p>
 
             <p class="work-hero__meta">
-                {% include "patterns/atoms/date_and_reading_time/date_and_reading_time.html" with date=page.date reading_time=page.read_time %}
+                {% include "patterns/atoms/date_and_reading_time/date_and_reading_time.html" with hide_date=True reading_time=page.read_time %}
             </p>
 
             <div class="tags">
@@ -82,7 +81,7 @@
         </div>
 
         {% if page.related_works %}
-            {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading="More" aria_label="Related work pages" classes="motif-heading--two motif-heading--static section-title--related-posts section-title--large-gap" %}
+            <h2 class="motif-heading section-title--related-posts section-title--large-gap" aria-label="Related work pages">More</h2>
 
             <ul class="grid__related-posts streamfield__related-posts">
                 {% for work_page in page.related_works %}

@@ -1,0 +1,64 @@
+@use 'config' as *;
+
+.link-columns {
+    &__header {
+        margin-bottom: $spacer-small-plus;
+    }
+
+    &__links {
+        @include media-query(medium) {
+            columns: 2;
+            column-gap: $spacer-large;
+        }
+
+        @include media-query(large) {
+            columns: 3;
+            column-gap: $spacer-half;
+        }
+    }
+
+    &__item {
+        padding: $spacer-mini-plus 0;
+    }
+
+    &__link {
+        font-weight: $weight--semibold;
+        display: block;
+        width: fit-content;
+
+        &:focus {
+            @include focus-style();
+        }
+    }
+
+    &__link-text {
+        @include font-size(size-six);
+        @include link-styles(
+            $color: var(--color--link),
+            $interaction-color: var(--color--theme-primary),
+            $underline-color: var(--color--link)
+        );
+
+        &:hover {
+            transition: color $transition-quick;
+
+            @include reduced-motion() {
+                transition: none;
+            }
+        }
+    }
+
+    &__tail {
+        // Keep the arrow attached to the last word so it's not orphaned on a new line
+        white-space: nowrap;
+        display: inline;
+    }
+
+    &__arrow {
+        @include arrow-link-icon-styles(
+            $width: 18px,
+            $interaction-color: var(--color--theme-primary)
+        );
+        color: var(--color--theme-primary);
+    }
+}

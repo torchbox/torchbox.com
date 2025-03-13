@@ -13,7 +13,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        background-color: var(--color--light-background);
+        background-color: var(--color--theme-primary-light);
         color: var(--color--light-background-text);
         padding: $spacer-small;
         order: 2;
@@ -29,17 +29,13 @@
         color: var(--color--light-background-text);
         margin-bottom: $spacer-mini;
 
-        .motif-heading__drop-cap {
-            background-color: var(--color--light-background-text);
-        }
-
         @include media-query(large) {
             margin-bottom: $spacer-small;
         }
     }
 
     &__description {
-        @include font-size(heading-five);
+        @include font-size(size-five);
         margin-bottom: $spacer-small;
 
         @include media-query(large) {

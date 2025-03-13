@@ -5,13 +5,13 @@
 // If you have both table and typed-tables in your codebase, you can
 // rationalise these to a single file
 .table {
-    @include font-size(body-one);
+    @include font-size(size-six);
     border-collapse: collapse;
     width: 100%;
     min-width: 600px;
 
     &__caption {
-        @include font-size(heading-four);
+        @include font-size(size-four);
         font-weight: $weight--semibold;
         margin-bottom: $grid;
         text-align: left;
@@ -19,13 +19,12 @@
 
     &__cell {
         padding: $spacer-mini-plus;
-        border: 1px solid var(--color--light-background);
+        border: 1px solid var(--color--theme-primary-light);
         text-align: left;
 
         &--heading {
-            @include font-size(heading-five);
-            font-weight: $weight--medium;
-            background-color: var(--color--light-background);
+            @include font-size(size-five);
+            background-color: var(--color--theme-primary-light);
             color: var(--color--light-background-text);
         }
 
@@ -92,7 +91,7 @@
 
     // Button to scroll right
     &__button {
-        @include font-size(heading-five);
+        @include font-size(size-five);
         @include link-styles();
         font-weight: $weight--semibold;
 

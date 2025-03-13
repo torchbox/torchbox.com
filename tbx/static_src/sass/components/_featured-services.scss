@@ -1,0 +1,69 @@
+@use 'config' as *;
+
+.featured-services {
+    &__header {
+        margin-bottom: $spacer-medium;
+    }
+
+    &__cards {
+        display: grid;
+        gap: $spacer-mini-plus;
+        grid-template-columns: repeat(1, 1fr);
+
+        @include media-query(medium) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media-query(x-large) {
+            grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+        }
+    }
+
+    &__card {
+        @include card-hover-style(
+            var(--color--dark-background),
+            var(--color--black)
+        );
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        transition: background-color $transition-quick;
+
+        .mode-light & {
+            @include card-hover-style(
+                var(--color--theme-primary-light),
+                var(--color--theme-primary-lighter)
+            );
+        }
+
+        @include high-contrast-mode() {
+            border: 1px solid var(--color--text);
+        }
+    }
+
+    &__text {
+        padding: $spacer-small-plus $spacer-small $spacer-medium;
+        margin-bottom: auto;
+    }
+
+    &__heading {
+        color: var(--color--heading);
+        margin-bottom: $spacer-mini;
+        line-height: 1;
+    }
+
+    &__subheading {
+        @include font-size(size-four-b);
+        color: var(--color--theme-primary);
+        margin-bottom: $spacer-mini;
+    }
+
+    // override the rich-text font-size
+    &__description.rich-text {
+        @include font-size(size-six);
+
+        @include media-query(medium) {
+            @include font-size(size-seven);
+        }
+    }
+}

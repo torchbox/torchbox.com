@@ -19,21 +19,20 @@ from wagtail.signals import page_published
 from bs4 import BeautifulSoup
 
 from tbx.core.blocks import StoryBlock
+from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
     ColourThemeMixin,
+    ContactMixin,
     NavigationFields,
     SocialFields,
 )
 from tbx.images.models import CustomImage
-from tbx.people.models import ContactMixin
 from tbx.taxonomy.models import Sector, Service
 from tbx.work.blocks import WorkStoryBlock
 
 
-class HistoricalWorkPage(
-    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
-):
+class HistoricalWorkPage(BasePage):
     """
     This represents Work Pages as they were prior to the 2024
     rebuild of the site. It is kept here to display the older
@@ -43,7 +42,8 @@ class HistoricalWorkPage(
     template = "patterns/pages/work/historical_work_page.html"
 
     # Prevent this page type from being created in Wagtail Admin
-    parent_page_types = []
+    is_creatable = False
+    parent_page_types = ["WorkIndexPage"]
 
     date = models.DateField("Post date", blank=True, null=True)
     body = StreamField(StoryBlock())
@@ -156,7 +156,7 @@ class HistoricalWorkPage(
     def type(self):
         return "CASE STUDY"
 
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         FieldPanel("client", classname="client"),
         InlinePanel("authors", label="Author", min_num=1),
         FieldPanel("date"),
@@ -181,7 +181,7 @@ class HistoricalWorkPage(
     )
 
 
-class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page):
+class WorkPage(BasePage):
     template = "patterns/pages/work/work_page.html"
     parent_page_types = ["WorkIndexPage"]
 
@@ -230,7 +230,7 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
         blank=True,
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         FieldPanel("intro"),
         InlinePanel("authors", label="Author", min_num=1),
         FieldPanel("logo"),
@@ -360,9 +360,7 @@ class WorkPage(ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, P
 
 
 # Work index page
-class WorkIndexPage(
-    ColourThemeMixin, ContactMixin, SocialFields, NavigationFields, Page
-):
+class WorkIndexPage(BasePage):
     template = "patterns/pages/work/work_index_page.html"
 
     subpage_types = ["HistoricalWorkPage", "WorkPage"]
@@ -480,18 +478,6 @@ class WorkIndexPage(
         )
 
         return context
-
-    promote_panels = (
-        [
-            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ]
-        + NavigationFields.promote_panels
-        + ColourThemeMixin.promote_panels
-        + ContactMixin.promote_panels
-        + [
-            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-        ]
-    )
 
 
 @receiver(page_published, sender=WorkPage)

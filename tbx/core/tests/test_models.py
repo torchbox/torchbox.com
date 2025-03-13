@@ -1,4 +1,8 @@
-from wagtail.models import Site
+from django.apps import apps
+from django.test import TestCase
+from django.utils.module_loading import import_string, module_has_submodule
+
+from wagtail.models import Page, Site
 from wagtail.test.utils import WagtailPageTestCase
 from wagtail.test.utils.form_data import (
     nested_form_data,
@@ -10,14 +14,38 @@ from tbx.core.factories import HomePageFactory, StandardPageFactory
 from tbx.core.models import HomePage, StandardPage
 
 
-class TestHomePageFactory(WagtailPageTestCase):
-    def test_create(self):
-        HomePageFactory()
+class TestPageFactory(TestCase):
+    """Sanity tests to make sure all pages have a factory."""
 
+    # Exclude these modules from the check.
+    # (They currently don't have factories. Un-exclude once they have factories.)
+    EXCLUDE = ["tbx.events", "tbx.impact_reports"]
 
-class TestStandardPageFactory(WagtailPageTestCase):
-    def test_create(self):
-        StandardPageFactory()
+    def test_pages(self):
+        app_configs = apps.get_app_configs()
+        home_page = HomePageFactory()
+
+        # Create one of every page type using their factory.
+        for app in app_configs:
+            for model in app.models.values():
+                if issubclass(model, Page) and model not in [Page, HomePage]:
+                    if app.name in self.EXCLUDE:
+                        continue
+
+                    with self.subTest(model=model.__name__):
+                        # Get the model's factory
+                        self.assertTrue(
+                            module_has_submodule(app.module, "factories"),
+                            msg=f"App '{app.name}' does not have a factories module.",
+                        )
+
+                        page_factory = import_string(
+                            f"{app.module.__name__}.factories.{model.__name__}Factory"
+                        )
+
+                        page = page_factory(parent=home_page)
+
+                        self.assertIsInstance(page, model)
 
 
 class TestStandardPage(WagtailPageTestCase):

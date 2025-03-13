@@ -67,7 +67,7 @@
     }
 
     &__name {
-        @include font-size(body-one);
+        @include font-size(size-six);
         font-weight: $weight--semibold;
         color: var(--color--heading);
 
@@ -84,7 +84,7 @@
     }
 
     &__role {
-        @include font-size(body-two);
+        @include font-size(size-seven);
         color: var(--color--heading);
 
         .authors-wide & {
@@ -98,7 +98,7 @@
     }
 
     &__read-time {
-        @include font-size(supporting);
+        @include font-size(size-eight);
         margin-top: $spacer-mini-plus;
     }
 }

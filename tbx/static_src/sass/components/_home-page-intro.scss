@@ -1,0 +1,56 @@
+@use 'config' as *;
+
+.home-page-intro {
+    @include font-size(size-five);
+
+    .text-coral,
+    .text-nebuline {
+        @include link-styles(
+            $color: var(--color--heading),
+            $interaction-color: var(--color--heading),
+            $underline-color: var(--color--heading),
+            $underline-hover-color: var(--color--heading)
+        );
+        font-weight: $weight--semibold;
+
+        &:focus {
+            @include focus-style();
+        }
+    }
+
+    .text-coral {
+        @include media-query(large) {
+            @include link-styles(
+                $color: var(--color--coral),
+                $interaction-color: var(--color--coral),
+                $underline-color: var(--color--coral),
+                $underline-hover-color: var(--color--coral)
+            );
+        }
+
+        &:focus {
+            @include focus-style(
+                $color: var(--color--coral),
+                $outline-color: var(--color--coral)
+            );
+        }
+    }
+
+    .text-nebuline {
+        @include media-query(large) {
+            @include link-styles(
+                $color: var(--color--nebuline),
+                $interaction-color: var(--color--nebuline),
+                $underline-color: var(--color--nebuline),
+                $underline-hover-color: var(--color--nebuline)
+            );
+        }
+
+        &:focus {
+            @include focus-style(
+                $color: var(--color--nebuline),
+                $outline-color: var(--color--nebuline)
+            );
+        }
+    }
+}

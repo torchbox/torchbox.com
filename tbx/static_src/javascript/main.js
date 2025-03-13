@@ -1,3 +1,4 @@
+import PrimaryMobileMenu from './components/primary-mobile-menu';
 import MobileMenu from './components/mobile-menu';
 import MobileSubMenu from './components/mobile-sub-menu';
 import DesktopSubMenu from './components/desktop-sub-menu';
@@ -28,6 +29,7 @@ function initComponent(ComponentClass) {
 
 document.addEventListener('DOMContentLoaded', () => {
     /* eslint-disable no-new */
+    initComponent(PrimaryMobileMenu);
     initComponent(MobileMenu);
     initComponent(MobileSubMenu);
     initComponent(DesktopSubMenu);

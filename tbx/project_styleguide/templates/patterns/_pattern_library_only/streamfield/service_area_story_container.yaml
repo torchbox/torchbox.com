@@ -1,0 +1,50 @@
+tags:
+  srcset_image:
+    # blog_chooser_block.yaml & contact_call_to_action.yaml
+    'avatar format-webp fill-{100x100,144x144,286x286} sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" alt="" loading="lazy" class="avatar__image"':
+      raw: |
+        <img alt="" class="avatar__image" height="100" loading="lazy" sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" src="https://picsum.photos/100/100.webp" srcset="https://picsum.photos/100/100.webp 100w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="100">
+    'avatar format-webp fill-{100x100,144x144,286x286} sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" alt="" class="avatar__image"':
+      raw: |
+        <img alt="" class="avatar__image" height="100" sizes="(max-width: 598px) 100px, (min-width: 599px) 145px" src="https://picsum.photos/100/100.webp" srcset="https://picsum.photos/100/100.webp 100w, https://picsum.photos/144/144.webp 144w, https://picsum.photos/286/286.webp 286w" width="100">
+    # four_photo_collage_block.yaml
+    'item.image format-webp loading="lazy" fill-{500x500,600x600} sizes="(max-width: 1022px) 600px, 500px" class="four-photo-collage__image" alt=item.alt_text':
+      raw: |
+        <img alt="" width="500" height="500" loading="lazy" class="four-photo-collage__image" sizes="(max-width: 1022px) 600px, 500px" src="https://picsum.photos/500/500.webp" srcset="https://picsum.photos/500/500.webp 500w, https://picsum.photos/600/600.webp 600w">
+  pageurl:
+    # blog_chooser_block.yaml
+    blog_page.blog_index as blog_index_url:
+      raw: '../../../pages/blog/blog_listing.html'
+    blog_page as blog_post_url:
+      raw: '../../../pages/blog/blog_detail.html'
+    # work_chooser_block.yaml
+    work_page.work_index as work_index_url:
+      raw: '../../../pages/work/work_index_page.html'
+    work_page as work_page_url:
+      raw: '../../../pages/work/work_page.html'
+  image:
+    # pullquote_block.yaml
+    value.logo max-110x70 format-webp class="pullquote__company-logo":
+      raw: |
+        <img src="https://picsum.photos/110/70.webp" width="110" height="70" alt="Some alt" class="pullquote__company-logo">
+    # work_chooser_block.yaml
+    listing_image fill-370x370 format-webp as listing_desktop_image:
+      target_var: listing_desktop_image
+      raw:
+        alt: 'desktop image'
+        url: 'https://picsum.photos/370/370.webp'
+    listing_image fill-740x740 format-webp as listing_desktop_image_retina:
+      target_var: listing_desktop_image_retina
+      raw:
+        alt: 'desktop image retina'
+        url: 'https://picsum.photos/740/740.webp'
+    listing_image fill-370x335 format-webp as listing_mobile_image:
+      target_var: listing_mobile_image
+      raw:
+        alt: 'mobile image'
+        url: 'https://picsum.photos/370/335.webp'
+    listing_image fill-740x670 format-webp as listing_mobile_image_retina:
+      target_var: listing_mobile_image_retina
+      raw:
+        alt: 'mobile image retina'
+        url: 'https://picsum.photos/740/670.webp'

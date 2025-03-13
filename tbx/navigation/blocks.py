@@ -99,6 +99,10 @@ class LinkBlock(LinkValidationMixin, blocks.StructBlock):
         return struct_value
 
 
+class SecondaryNavLinkBlock(LinkBlock):
+    description = blocks.TextBlock(required=False)
+
+
 class FooterLinkBlock(LinkValidationMixin, blocks.StructBlock):
     """
     Used to select links for the footer logos
@@ -130,6 +134,30 @@ class PrimaryNavLinkBlock(LinkBlock):
         help_text="By default, the navigation menu displays the children and "
         "grandchildren of the selected page if their “Show in menus” checkbox "
         " is checked.<br/>You can alter this behaviour here.",
+    )
+
+
+class SecondaryNavInnerMenuBlock(blocks.StructBlock):
+    section_heading = blocks.CharBlock(required=False)
+    child_links = blocks.StreamBlock(
+        [("link", SecondaryNavLinkBlock(icon="link"))],
+        required=False,
+    )
+    section_link = blocks.PageChooserBlock(required=False)
+    section_link_text = blocks.CharBlock(
+        help_text="Leave blank to use the page's own title",
+        required=False,
+    )
+
+
+class SecondaryNavMenuBlock(blocks.StructBlock):
+    section_heading = blocks.CharBlock()
+    child_links = blocks.StreamBlock(
+        [
+            ("link", SecondaryNavLinkBlock(icon="link")),
+            ("menu", SecondaryNavInnerMenuBlock()),
+        ],
+        required=False,
     )
 
 

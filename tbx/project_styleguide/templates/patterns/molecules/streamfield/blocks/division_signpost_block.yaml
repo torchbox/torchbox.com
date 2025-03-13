@@ -1,0 +1,26 @@
+context:
+  value:
+    title: Our divisions
+    intro: We have three divisions, each with a unique focus and expertise
+    cards:
+      - card_colour: 'theme-coral'
+        heading: Charity
+        description: Amplify your impact, reach more supporters and transform your organisation with tailored digital strategies and solutions
+        link_text: Find out more
+        accessible_link_text: Find out more about our charity services
+      - card_colour: 'theme-nebuline'
+        heading: Public
+        description: Navigate complex challenges. Accelerate your mission and transform public services through digital
+        link_text: Find out more
+        accessible_link_text: Find out more about our public sector services
+      - card_colour: 'theme-lagoon'
+        heading: Wagtail
+        description: Empower your editors and developers to do their best work with Wagtail, the world's leading open-source Python CMS.
+        link_text: Find out more
+        accessible_link_text: Find out more about our Wagtail CMS services
+
+tags:
+  srcset_image:
+    'card.image format-webp fill-{540x280,490x280} sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" alt="" loading="lazy"':
+      raw: |
+        <img alt="" loading="lazy" height="280" sizes="(max-width: 598px) 540px, (min-width: 599px) 490px" src="https://picsum.photos/540/280.webp" srcset="https://picsum.photos/540/280.webp 540w, https://picsum.photos/490/280.webp 490w" width="540">

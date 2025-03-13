@@ -2,11 +2,18 @@
 {% load wagtailcore_tags wagtailimages_tags navigation_tags static %}
 
 {% block content %}
+
+    <div class="swirls">
+        <div class="swirls__container">
+            {% include "patterns/atoms/icons/background-swirls.html" %}
+        </div>
+    </div>
+
     <div class="grid streamfield">
         {% include "patterns/molecules/home-page-hero/home-page-hero.html" %}
 
-        <div class="grid__intro heading heading--six">
-            {{ page.introduction }}
+        <div class="grid__intro home-page-intro">
+            {{ hero_introduction|richtext }}
         </div>
 
         <div class="grid__partners">

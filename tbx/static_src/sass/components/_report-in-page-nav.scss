@@ -53,11 +53,11 @@
             $underline-color: var(--color--decoration),
             $underline-hover-color: var(--color--heading)
         );
-        @include font-size('supporting');
+        @include font-size('size-eight');
         padding-top: 20px;
 
         @include media-query(medium) {
-            @include font-size('heading-six');
+            @include font-size('size-six');
         }
 
         @include media-query(large) {
@@ -69,7 +69,7 @@
         width: 11px;
         height: 16px;
         display: inline-block;
-        color: var(--color--accent-three);
+        color: var(--color--theme-primary);
         transform: translateY(-2px);
         margin-left: 7px;
         transition: transform $transition-quick;

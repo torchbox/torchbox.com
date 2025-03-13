@@ -1,26 +1,34 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <div class="contact-cta grid__contact-cta">
-    {% for cta in value.call_to_action %}
-        <h2 class="contact-cta__text heading heading--three">{{ cta.value.text }}</h2>
-    {% endfor %}
-
+    {# Contact person photo #}
     {% if value.person %}
-        {% include "patterns/atoms/avatar/avatar.html" with avatar=value.person.image classes="contact-cta__avatar avatar--small" %}
+        {% include "patterns/atoms/avatar/avatar.html" with avatar=value.person.image classes="contact-cta__avatar avatar--cta" %}
     {% endif %}
 
-    {% if value.person %}
-        <p class="contact-cta__cite">
-            {% if value.person.name %}
-                <span class="contact-cta__name">{{ value.person.name }}</span>
+    {# call_to_action is a required field (streamblock) in the block definition #}
+    {% with cta=value.call_to_action|first %}
+        {# CTA main content #}
+        <div class="contact-cta__text">
+            <h2 class="heading heading--two-b contact-cta__heading">{{ cta.value.text }}</h2>
+            {% if cta.value.description %}
+                <div class="contact-cta__description">{{ cta.value.description|richtext }}</div>
             {% endif %}
+        </div>
 
-            {% if value.person.role %}
-                <span class="contact-cta__role">{{ value.person.role }}</span>
-            {% endif %}
-        </p>
-    {% endif %}
+        {# Contact person #}
+        {% if value.person %}
+            <p class="contact-cta__cite mr-2">
+                {% if value.person.name %}
+                    <span class="contact-cta__name mr-2">{{ value.person.name }}</span>
+                {% endif %}
 
-    {% for cta in value.call_to_action %}
+                {% if value.person.role %}
+                    <span class="contact-cta__role">{{ value.person.role }}</span>
+                {% endif %}
+            </p>
+        {% endif %}
+
+        {# CTA button #}
         {% if cta.value.button_text and cta.value.button_link %}
             <a href="{{ cta.value.get_button_link }}" class="contact-cta__button button">
                 {{ cta.value.button_text }}
@@ -29,5 +37,5 @@
                 {% endif %}
             </a>
         {% endif %}
-    {% endfor %}
+    {% endwith %}
 </div>

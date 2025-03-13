@@ -1,17 +1,43 @@
 {% load wagtailcore_tags %}
 
 {% if work_pages %}
-    {% if is_standard_page %}
-        <h2 class="heading heading--two-b grid__heading mb-spacerMedium">{{ value.featured_work_heading }}</h2>
-    {% else %}
-        {% include "patterns/atoms/motif-heading/motif-heading.html" with heading_level=2 heading=value.featured_work_heading classes="motif-heading--two motif-heading--static  motif-heading--half-width section-title--related-posts" %}
-    {% endif %}
+    <div class="mb-spacerMedium section-title--related-posts">
+    {# Section heading #}
+        {% if is_standard_page %}
+            <h2 class="heading heading--two-b heading--light">{{ value.featured_work_heading }}</h2>
+        {% else %}
+            <h2 class="motif-heading motif-heading--half-width">{{ value.featured_work_heading }}</h2>
+        {% endif %}
 
-    <ul class="grid__related-posts streamfield__related-posts mb-spacerMedium lg:mb-spacerLarge">
-        {% for work_page in work_pages %}
-            {% pageurl work_page.work_index as work_index_url %}
-            {% pageurl work_page as work_page_url %}
-            {% include "patterns/molecules/listing/listing--image.html" with title=work_page.title name=work_page.client link=work_page_url date=work_page.date reading_time=work_page.read_time tags=work_page.tags listing_image=work_page.listing_image tag_link_base=work_index_url tags_screenreader_text="See more work posts in this category" %}
-        {% endfor %}
-    </ul>
+    {# Section intro #}
+        {% if value.intro %}
+            <div class="rich-text">
+                {{ value.intro|richtext }}
+            </div>
+        {% endif %}
+    </div>
+
+    {# Work pages / Case study pages #}
+    <div class="grid__related-posts mb-spacerMedium lg:mb-spacerLarge">
+        <ul class="streamfield__related-posts mb-spacerMedium lg:mb-spacerLarge">
+            {% for work_page in work_pages %}
+                {% pageurl work_page.work_index as work_index_url %}
+                {% pageurl work_page as work_page_url %}
+                {% include "patterns/molecules/listing/listing--image.html" with title=work_page.title name=work_page.client link=work_page_url date=work_page.date reading_time=work_page.read_time tags=work_page.tags listing_image=work_page.listing_image tag_link_base=work_index_url tags_screenreader_text="See more work posts in this category" %}
+            {% endfor %}
+        </ul>
+        {% if value.primary_button or value.secondary_button %}
+            <div class="flex flex-wrap gap-4">
+                {# We expect only up to 1 primary button (`max_num=1` is set in the block definition.) #}
+                {% for button in value.primary_button %}
+                    <a class="button" href="{{ button.value.url }}">{{ button.value.text }}</a>
+                {% endfor %}
+
+                {# We expect only up to 1 secondary button (`max_num=1` is set in the block definition.) #}
+                {% for button in value.secondary_button %}
+                    <a class="button" href="{{ button.value.url }}">{{ button.value.text }}</a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 {% endif %}

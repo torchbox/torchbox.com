@@ -8,13 +8,13 @@ The CSS to set the mode is an html class of either `.mode-dark` or `.mode-light`
 
 An editor has an option to select a theme on each page. Selecting a theme on a page will change it for that page, and all child pages, unless another selection is made further down the page tree.
 
-There are currently 4 themes in use: coral, lagoon, banana and earth. The CSS to set the theme is an html class of either `.theme-coral`, `.theme-lagoon`, `.theme-banana` or `.theme-earth`.
+There are currently 4 themes in use: coral, nebuline, lagoon and green. The CSS to set the theme is an html class of either `.theme-coral`, `.theme-nebuline`, `.theme-lagoon` or `.theme-green`.
 
 ???+ note
 
-    If you are adding a new theme, check the colour contrast for all the new accent colours added, used in the drop-caps (remember to check both dark mode and light mode). They need to pass colour contrast as if the entire drop-cap was filled with that colour.
+    If you are adding a new theme, check the colour contrast for all the new accent colours added, used in the heading motifs (remember to check both dark mode and light mode). They need to pass colour contrast as if the entire heading was filled with that colour.
 
-    The drop-caps svgs use a semi-transparent version of the accent colours, and the contrast of the resulting colour also needs to be checked. The [colour contrast checker](https://chromewebstore.google.com/detail/colour-contrast-checker/nmmjeclfkgjdomacpcflgdkgpphpmnfe?hl=en-GB&utm_source=ext_sidebar) is a useful chrome extension to assist with this.
+    The motifs svgs use a semi-transparent version of the accent colours, and the contrast of the resulting colour also needs to be checked. The [colour contrast checker](https://chromewebstore.google.com/detail/colour-contrast-checker/nmmjeclfkgjdomacpcflgdkgpphpmnfe?hl=en-GB&utm_source=ext_sidebar) is a useful chrome extension to assist with this.
 
 ## Defaults
 

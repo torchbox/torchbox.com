@@ -44,6 +44,69 @@ class NavigationFields(models.Model):
         return self.navigation_text or self.title
 
 
+class NavigationSetMixin(models.Model):
+    override_navigation_set = models.ForeignKey(
+        "navigation.NavigationSet",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+    class Meta:
+        abstract = True
+
+    promote_panels = [
+        FieldPanel("override_navigation_set"),
+    ]
+
+    @cached_property
+    def navigation_set(self):
+        """
+        Returns a NavigationSet.
+
+        If a navigation set field is set on the current page, use that.
+        Or if a division with a navigation set is selected, use that.
+        If not, check the ancestors.
+
+        The closest ancestor that fulfills one of the following will be followed:
+        - the navigation set field is populated, OR
+        - the division field is populated with a DivisionPage that has a navigation set.
+        """
+
+        if self.override_navigation_set:
+            return self.override_navigation_set
+
+        # If a division page with a navigation set is selected, use that.
+        if getattr(self, "division", None) and getattr(
+            self.division, "override_navigation_set", None
+        ):
+            return self.division.override_navigation_set
+
+        try:
+            page = next(
+                p
+                for p in self.get_ancestors()
+                .filter(depth__gt=2)
+                .specific()
+                .defer_streamfields()
+                .order_by("-depth")
+                if (
+                    getattr(p, "override_navigation_set", None)
+                    or (
+                        getattr(p, "division", None)
+                        and getattr(p.division, "override_navigation_set", None)
+                    )
+                )
+            )
+        except StopIteration:
+            page = None
+
+        return page and (
+            page.override_navigation_set or page.division.override_navigation_set
+        )
+
+
 # Generic social fields abstract class to add social image/text to any new content type easily.
 class SocialFields(models.Model):
     social_image = models.ForeignKey(
@@ -91,9 +154,9 @@ class SocialMediaSettings(BaseSiteSetting):
 class ColourTheme(models.TextChoices):
     NONE = "", "None"
     CORAL = "theme-coral", "Coral"
+    NEBULINE = "theme-nebuline", "Nebuline"
     LAGOON = "theme-lagoon", "Lagoon"
-    BANANA = "theme-banana", "Banana"
-    EARTH = "theme-earth", "Earth"
+    GREEN = "theme-green", "Green"
 
 
 class ColourThemeMixin(models.Model):
@@ -105,14 +168,18 @@ class ColourThemeMixin(models.Model):
         max_length=25,
         blank=True,
         choices=ColourTheme.choices,
-        help_text=_(
-            "The theme will be applied to this page and all of its "
-            "descendants. If no theme is selected, it will be derived from "
-            "this page's ancestors."
-        ),
     )
 
-    promote_panels = [FieldPanel("theme")]
+    promote_panels = [
+        FieldPanel(
+            "theme",
+            help_text=_(
+                "The theme will be applied to this page and all of its descendants. "
+                "If no theme is selected, it will be derived from "
+                "this page's ancestors."
+            ),
+        ),
+    ]
 
     class Meta:
         abstract = True
@@ -130,3 +197,112 @@ class ColourThemeMixin(models.Model):
             )
         except StopIteration:
             return ColourTheme.NONE
+
+
+class ContactMixin(models.Model):
+    """
+    Provides a `contact` field so that a page can have its own contact
+    in the site-wide footer, instead of the default contact.
+    """
+
+    contact = models.ForeignKey(
+        "people.Contact",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text="The contact will be applied to this page's footer and all of its "
+        "descendants.\nIf no contact is selected, it will be derived from "
+        "this page's ancestors, eventually falling back to the default contact.",
+    )
+
+    promote_panels = [FieldPanel("contact")]
+
+    class Meta:
+        abstract = True
+
+    @cached_property
+    def footer_contact(self):
+        """
+        Use the page's own contact if set, otherwise, derive the contact from
+        its ancestors, and finally fall back to the default contact.
+
+        NOTE: if, for some reason, a default contact doesn't exist, this will
+        return None, in which case, we'll not display the block in the footer template.
+        """
+        from tbx.people.models import Contact
+
+        if contact := self.contact:
+            return contact
+
+        ancestors = (
+            self.get_ancestors().defer_streamfields().specific().order_by("-depth")
+        )
+        for ancestor in ancestors:
+            if getattr(ancestor, "contact_id", None) is not None:
+                return ancestor.contact
+
+        # _in theory_, there should only be one Contact object with default_contact=True.
+        # (see `tbx.people.models.Contact.save()`)
+        return Contact.objects.filter(default_contact=True).first()
+
+
+class DivisionMixin(models.Model):
+    """
+    Provides a 'division' field to allow pages to be associated to a Division.
+    """
+
+    division = models.ForeignKey(
+        "divisions.DivisionPage",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    promote_panels = [
+        FieldPanel(
+            "division",
+            help_text=_(
+                "The division will be applied to this page and its descendants. "
+                "If no division is selected, it will be derived from "
+                "this page's ancestors. "
+                "If one of the ancestors is a division page, that will be used."
+            ),
+        ),
+    ]
+
+    class Meta:
+        abstract = True
+
+    @cached_property
+    def final_division(self):
+        """
+        Returns a DivisionPage.
+
+        If a division field is set on the current page, use that.
+        If not, check the ancestors.
+
+        The closest ancestor that fulfills one of the following will be followed:
+        - the division field is populated, OR
+        - the ancestor page is a DivisionPage.
+        """
+        from tbx.divisions.models import DivisionPage
+
+        if self.division:
+            return self.division
+
+        if isinstance(self, DivisionPage):
+            return self
+
+        try:
+            return next(
+                getattr(p, "division", None) or p
+                for p in self.get_ancestors()
+                .filter(depth__gt=2)
+                .specific()
+                .defer_streamfields()
+                .order_by("-depth")
+                if isinstance(getattr(p, "division", None) or p, DivisionPage)
+            )
+        except StopIteration:
+            pass

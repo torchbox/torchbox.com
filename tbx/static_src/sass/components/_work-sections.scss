@@ -3,7 +3,8 @@
 // These are used in the body streamfield for the work page
 .work-sections {
     &__title {
-        @include font-size('heading-five');
+        @include font-size('size-five');
+        color: var(--color--heading);
         font-weight: $weight--semibold;
         display: flex;
         align-items: flex-start;
@@ -24,11 +25,11 @@
         @include ring($diameter: 30px, $opacity: 0.75);
 
         &--one {
-            @include ring-one($top: 3px, $color: var(--color--accent-two));
+            @include ring-one($top: 3px, $color: var(--color--theme-secondary));
         }
 
         &--two {
-            @include ring-two($top: 3px, $color: var(--color--accent-three));
+            @include ring-two($top: 3px, $color: var(--color--theme-primary));
         }
     }
 }

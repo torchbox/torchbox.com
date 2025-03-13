@@ -106,30 +106,25 @@
     }
 }
 
-/* ============================================
-    Drop cap - used for heading one, heading one-b and heading two
-*/
-@mixin drop-cap($small-size, $large-size) {
-    @include rem-font-size($small-size);
-    line-height: 1; // Reset line height to 1 to avoid spacing issues
-    font-weight: $weight--medium;
-
-    @include media-query(large) {
-        @include rem-font-size($large-size);
-    }
-}
-
 @mixin focus-style(
     $color: var(--color--link),
     $shadow: false,
-    $underline-hover-color: $color
+    $underline-hover-color: $color,
+    $keyboard-only: false,
+    $outline-color: var(--color--theme-primary)
 ) {
-    outline: $focus-width solid var(--color--focus-ring);
+    outline: $focus-width solid $outline-color;
     text-decoration-thickness: $link-underline-thickness-interaction;
     text-decoration-color: $underline-hover-color;
 
     @if $shadow {
         text-shadow: 0 0 0.4px $color, 0 0 0.4px $color;
+    }
+
+    @if $keyboard-only {
+        &:focus:not(:focus-visible) {
+            outline-color: transparent;
+        }
     }
 }
 
@@ -180,35 +175,57 @@
 }
 
 /* ============================================
-    Arrow icon styles - Hidden below medium breakpoint, shown above
-    Translates on hover
+    Arrow icon styles - Translates on hover
 */
-@mixin arrow-link-icon-styles() {
-    display: none;
+@mixin arrow-link-icon-styles(
+    $mobile-hidden: false,
+    $color: var(--color--decoration),
+    $interaction-color: var(--color--link-interaction),
+    $width: 72px,
+    $height: 22px
+) {
+    // Apply all common styles regardless of mobile-hidden
+    display: inline-block;
+    color: $color;
+    width: $width;
+    height: $height;
+    transition: transform, $transition-quick;
 
-    @include media-query(medium) {
-        display: inline-block;
-        color: var(--color--decoration);
-        width: 72px;
-        height: 22px;
-        transition: transform, $transition-quick;
+    @include reduced-motion() {
+        transition: none;
+    }
+
+    // If mobile-hidden is true, hide on mobile
+    @if $mobile-hidden {
+        display: none;
+
+        @include media-query(medium) {
+            display: inline-block;
+        }
+    }
+
+    a:hover & {
+        color: $interaction-color;
+        transform: translateX(8px);
 
         @include reduced-motion() {
-            transition: none;
+            transform: none;
         }
 
-        a:hover & {
-            color: var(--color--link-interaction);
-            transform: translateX(8px);
-
-            @include reduced-motion() {
-                transform: none;
-            }
-
-            @include high-contrast-mode() {
-                color: var(--color--decoration);
-            }
+        @include high-contrast-mode() {
+            color: var(--color--decoration);
         }
+    }
+}
+
+/* ============================================
+    Card hover styles - used for division and services cards
+*/
+@mixin card-hover-style($color, $interaction-color) {
+    background-color: $color;
+
+    &:has(a:hover) {
+        background-color: $interaction-color;
     }
 }
 
@@ -270,10 +287,7 @@
     Navigaiton mixins
 */
 
-@mixin nav-fixed-position(
-    $header-height: $header-height-mobile,
-    $full-height: true
-) {
+@mixin nav-fixed-position($header-height: $header-height, $full-height: true) {
     width: 100%;
     @if $full-height {
         height: calc(100vh - #{$header-height});
@@ -334,23 +348,23 @@
     }
 }
 
-@mixin ring-one($top: 8px, $color: var(--color--accent-three)) {
+@mixin ring-one($top: 4px, $color: var(--color--theme-secondary)) {
     top: $top;
     color: $color;
 }
 
-@mixin ring-two($top: 8px, $color: var(--color--accent-two)) {
+@mixin ring-two($top: 6px, $color: var(--color--theme-primary)) {
     left: $top;
     color: $color;
 }
 
 @mixin ring-one-hover() {
-    color: var(--color--accent-two);
+    color: var(--color--theme-primary);
     opacity: 1;
 }
 
 @mixin ring-two-hover() {
-    color: var(--color--accent-three);
+    color: var(--color--theme-secondary);
     opacity: 1;
 }
 
@@ -358,6 +372,8 @@
     Button styles
 */
 @mixin button-styles() {
+    @include font-size('size-six');
+    @include high-contrast-text-decoration();
     display: inline-block;
     text-align: center;
     border: 1px solid var(--color--link);
@@ -376,7 +392,9 @@
     &:focus {
         @include focus-style();
     }
+}
 
+@mixin high-contrast-text-decoration() {
     @include high-contrast-mode() {
         text-decoration: underline;
         text-decoration-thickness: $link-underline-thickness;

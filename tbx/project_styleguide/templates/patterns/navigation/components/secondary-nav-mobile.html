@@ -1,0 +1,30 @@
+{% load wagtailcore_tags %}
+
+<nav aria-label="Secondary mobile navigation" class="secondary-nav-mobile" data-mobile-menu>
+    <ul class="secondary-nav-mobile__list" data-secondary-nav>
+        {% for block in page.navigation_set.navigation %}
+            {% if block.block_type == "link" %}
+                <li class="secondary-nav-mobile__item secondary-nav-mobile__item--no-children">
+                    <a href="{{ block.value.url }}" class="secondary-nav-mobile__link secondary-nav-mobile__link--no-children" {% if forloop.last %}data-last-menu-item-mobile{% endif %}>
+                        <span class="secondary-nav-mobile__link-text">
+                            {{ block.value.text }}
+                        </span>
+                        {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="secondary-nav-mobile__icon" %}
+                    </a>
+                </li>
+            {% elif block.block_type == "menu" %}
+                <li class="secondary-nav-mobile__item secondary-nav-mobile__item--has-children" data-has-subnav>
+                    <button
+                        class="secondary-nav-mobile__link secondary-nav-mobile__link--has-children"
+                        data-open-subnav
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                        {{ block.value.section_heading }}
+                        {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="secondary-nav-mobile__icon-front" only %}
+                    </button>
+                    {% include "patterns/navigation/components/includes/subnav-menu-mobile.html" with links=block.value.child_links number=block.value.child_links|length %}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</nav>

@@ -35,30 +35,26 @@
     }
 
     &__number {
-        @include font-size(stat);
-        color: var(--color--heading);
+        color: var(--color--theme-primary);
         display: block;
-        font-weight: $weight--light;
-        line-height: 1;
     }
 
     &__text {
-        @include font-size(stat-text);
-        font-weight: $weight--semibold;
-        color: var(--color--heading);
+        color: var(--color--theme-primary);
         display: block;
         margin-bottom: $spacer-small;
     }
 
     &__description {
-        @include font-size('heading-five');
+        @include font-size('size-four');
+        font-weight: $weight--semibold;
         color: var(--color--heading);
         display: block;
-        margin-bottom: $spacer-mini;
+        line-height: 1;
     }
 
     &__details {
-        @include font-size('supporting');
+        @include font-size('size-seven');
         display: block;
     }
 }
