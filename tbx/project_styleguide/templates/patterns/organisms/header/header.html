@@ -19,9 +19,14 @@
                     {% endwagtailcache %}
                 </nav>
 
-            {# Primary mobile menu toggle #}
-                <button class="header__primary-menu-toggle" data-primary-mobile-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="Mobile menu toggle">
-                    Home
+                {# Primary mobile menu toggle #}
+                <button class="header__primary-menu-toggle" data-primary-mobile-menu-toggle aria-haspopup="true" aria-expanded="false"
+                        aria-label="Mobile menu toggle - currently viewing '{% if page.final_division %}{{ page.final_division }}{% else %}Home{% endif %}'">
+                    {% if page.final_division %}
+                        {{ page.final_division }}
+                    {% else %}
+                        Home
+                    {% endif %}
                     {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="header__primary-menu-toggle-icon" %}
                 </button>
 
