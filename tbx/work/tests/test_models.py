@@ -1,10 +1,15 @@
+from operator import attrgetter
+
 from django.core.paginator import Page as PaginatorPage
 
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import PageViewRestriction
 from wagtail.test.utils import WagtailPageTestCase
 
-from tbx.taxonomy.factories import ServiceFactory
+from wagtail_factories import PageFactory
+
+from tbx.divisions.factories import DivisionPageFactory
+from tbx.taxonomy.factories import SectorFactory, ServiceFactory
 from tbx.work.factories import (
     HistoricalWorkPageFactory,
     WorkIndexPageFactory,
@@ -53,6 +58,36 @@ class TestHistoricalWorkPageFactory(WagtailPageTestCase):
         services = ServiceFactory.create_batch(size=3)
         another_page = HistoricalWorkPageFactory(related_services=list(services))
         self.assertEqual(another_page.related_services.count(), 3)
+
+
+class TestWorkPage(WagtailPageTestCase):
+    def test_related_works(self):
+        sector = SectorFactory.create()
+        # The logic of `final_division` skips ancestors with depth <= 2,
+        # So we create the division page with enough parents to be at depth 3:
+        division = DivisionPageFactory.create(parent=PageFactory(parent=PageFactory()))
+        work_page = WorkPageFactory(division=division, related_sectors=[sector])
+        WorkPageFactory(title="same sector", division=None, related_sectors=[sector])
+        WorkPageFactory(
+            title="same division (direct)", division=division, related_sectors=[]
+        )
+        WorkPageFactory(
+            title="same division (direct) same sector",
+            division=division,
+            related_sectors=[sector],
+        )
+        WorkPageFactory(title="same division (parent)", parent=division)
+
+        self.assertQuerySetEqual(
+            work_page.related_works,
+            [
+                "same division (direct)",
+                "same division (direct) same sector",
+                "same division (parent)",
+            ],
+            transform=attrgetter("title"),
+            ordered=False,
+        )
 
 
 class TestWorkPageFactory(WagtailPageTestCase):

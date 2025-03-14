@@ -169,8 +169,7 @@ class BlogPage(BasePage):
     def tags(self):
         return chain(self.services, self.sectors)
 
-    @cached_property
-    def related_blog_posts(self):
+    def get_related_blog_posts(self):
         prefetch_author_images = models.Prefetch(
             "authors__author__image",
             queryset=CustomImage.objects.prefetch_renditions(
@@ -179,13 +178,8 @@ class BlogPage(BasePage):
                 "format-webp|fill-286x286",
             ),
         )
-
-        return (
-            BlogPage.objects.filter(
-                Q(related_sectors__in=self.sectors)
-                | Q(related_services__in=self.services)
-            )
-            .live()
+        queryset = (
+            BlogPage.objects.live()
             .public()
             .defer_streamfields()
             .prefetch_related(
@@ -196,8 +190,27 @@ class BlogPage(BasePage):
             )
             .distinct()
             .order_by("-date")
-            .exclude(pk=self.pk)[:3]
+            .exclude(pk=self.pk)
         )
+
+        if final_division := getattr(self, "final_division", None):
+            # Ideally this would be implemented at the database-level but it's
+            # very hard to implement the final_division logic at the ORM level
+            def filter_fn(page):
+                return page.final_division == final_division
+
+            queryset = list(filter(filter_fn, queryset))
+        else:
+            queryset = queryset.filter(
+                Q(related_sectors__in=self.sectors)
+                | Q(related_services__in=self.services)
+            )
+
+        return queryset
+
+    @cached_property
+    def related_blog_posts(self):
+        return self.get_related_blog_posts()[:3]
 
     @cached_property
     def blog_index(self):
