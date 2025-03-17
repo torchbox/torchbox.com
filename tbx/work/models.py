@@ -298,8 +298,7 @@ class WorkPage(BasePage):
             return header_alt_text
         return self.header_image.title
 
-    @property
-    def related_works(self):
+    def get_related_works(self):
         prefetch_listing_images = models.Prefetch(
             "header_image",
             queryset=CustomImage.objects.prefetch_renditions(
@@ -310,13 +309,8 @@ class WorkPage(BasePage):
             ),
         )
 
-        # get 3 pages with same services and exclude self page
-        return (
-            WorkPage.objects.filter(
-                Q(related_sectors__in=self.sectors)
-                | Q(related_services__in=self.services)
-            )
-            .live()
+        queryset = (
+            WorkPage.objects.live()
             .public()
             .defer_streamfields()
             .prefetch_related(
@@ -324,8 +318,28 @@ class WorkPage(BasePage):
             )
             .distinct()
             .order_by(F("date").desc(nulls_last=True))
-            .exclude(pk=self.pk)[:3]
+            .exclude(pk=self.pk)
         )
+
+        if final_division := getattr(self, "final_division", None):
+            # Ideally this would be implemented at the database-level but it's
+            # very hard to implement the final_division logic at the ORM level
+            def filter_fn(page):
+                return page.final_division == final_division
+
+            queryset = list(filter(filter_fn, queryset))
+        else:
+            queryset = queryset.filter(
+                Q(related_sectors__in=self.sectors)
+                | Q(related_services__in=self.services)
+            )
+
+        return queryset
+
+    @cached_property
+    def related_works(self):
+        # get 3 pages with same services and exclude self page
+        return self.get_related_works()[:3]
 
     def set_body_word_count(self):
         body_basic_html = self.body.stream_block.render_basic(self.body)
