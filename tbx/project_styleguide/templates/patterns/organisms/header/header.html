@@ -20,13 +20,11 @@
                 </nav>
 
                 {# Primary mobile menu toggle #}
+                {% get_top_level_parent_page as parent_page %} {# Get the top-level parent page #}
+                {% firstof parent_page.title "Home" as parent_title %} {# Get the parent's title, or Home if no parent #}
                 <button class="header__primary-menu-toggle" data-primary-mobile-menu-toggle aria-haspopup="true" aria-expanded="false"
-                        aria-label="Mobile menu toggle - currently viewing '{% if page.final_division %}{{ page.final_division }}{% else %}Home{% endif %}'">
-                    {% if page.final_division %}
-                        {{ page.final_division }}
-                    {% else %}
-                        Home
-                    {% endif %}
+                        aria-label="Mobile menu toggle - currently viewing '{{ parent_title }}'">
+                    {{ parent_title }}
                     {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="header__primary-menu-toggle-icon" %}
                 </button>
 
