@@ -34,6 +34,10 @@ def primarynavmobile(context):
 
 @register.simple_tag(name="get_top_level_parent_page", takes_context=True)
 def get_top_level_parent_page(context):
+    # Exit immediately if there is there's no data available.
+    if "page" not in context or "settings" not in context:
+        return None
+
     # Get all page links from the primary nav.
     primary_nav = [
         block.value["page"]
