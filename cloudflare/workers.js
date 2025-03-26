@@ -5,6 +5,25 @@
 // When any cookie in this list is present in the request, cache will be skipped
 const PRIVATE_COOKIES = ['sessionid', 'csrftoken'];
 
+// Cookies to include in the cache key
+const VARY_COOKIES = ['torchbox-mode'];
+
+// Request headers to include in the cache key.
+// Note: Do not add `cookie` to this list!
+const VARY_HEADERS = [
+    'X-Requested-With',
+
+    // HTMX
+    'HX-Boosted',
+    'HX-Current-URL',
+    'HX-History-Restore-Request',
+    'HX-Prompt',
+    'HX-Request',
+    'HX-Target',
+    'HX-Trigger-Name',
+    'HX-Trigger',
+];
+
 // These querystring keys are stripped from the request as they are generally not
 // needed by the origin.
 const STRIP_QUERYSTRING_KEYS = [
@@ -84,8 +103,9 @@ addEventListener('fetch', (event) => {
 
 async function main(event) {
     const cache = caches.default;
-    let request = event.request;
+    let { request } = event;
     let strippedParams;
+    // eslint-disable-next-line prefer-const
     [request, strippedParams] = stripQuerystring(request);
 
     if (!requestIsCachable(request)) {
@@ -136,18 +156,29 @@ function responseIsCachable(response) {
 
 function getCachingRequest(request) {
     /**
-     * When needed, modify a request for use as the cache key.
+     * Create a new request for use as a cache key.
      *
      * Note: Modifications to this request are not sent upstream.
      */
+
     const cookies = getCookies(request);
 
     const requestURL = new URL(request.url);
 
-    // Cache based on the mode
-    requestURL.searchParams.set(
-        'cookie-torchbox-mode',
-        cookies['torchbox-mode'] || 'dark',
+    // Include specified cookies in cache key
+    VARY_COOKIES.forEach((cookieName) =>
+        requestURL.searchParams.set(
+            `cookie-${cookieName}`,
+            cookies[cookieName] || '',
+        ),
+    );
+
+    // Include specified headers in cache key
+    VARY_HEADERS.forEach((headerName) =>
+        requestURL.searchParams.set(
+            `header-${headerName}`,
+            request.headers.get(headerName) || '',
+        ),
     );
 
     return new Request(requestURL, request);
@@ -167,7 +198,7 @@ function stripQuerystring(request) {
         url.searchParams.has(v),
     );
 
-    let strippedParams = {};
+    const strippedParams = {};
 
     if (stripKeys.length) {
         stripKeys.reduce((acc, key) => {
@@ -179,12 +210,12 @@ function stripQuerystring(request) {
 
     if (STRIP_VALUELESS_QUERYSTRING_KEYS) {
         // Strip query params without values to avoid unnecessary cache misses
-        for (const [key, value] of url.searchParams.entries()) {
+        url.searchParams.entries().forEach(([key, value]) => {
             if (!value) {
                 url.searchParams.delete(key);
                 strippedParams[key] = '';
             }
-        }
+        });
     }
 
     return [new Request(url, request), strippedParams];
@@ -194,20 +225,12 @@ function hasPrivateCookie(request) {
     /*
      * Given a Request, determine if one of the 'private' cookies are present.
      */
-    const cookieHeader = request.headers.get('Cookie');
-    if (!cookieHeader) {
-        return false;
-    }
-
     const allCookies = getCookies(request);
 
     // Check if any of the private cookies are present and have a non-empty value
-    for (const cookieName of PRIVATE_COOKIES) {
-        if (cookieName in allCookies && allCookies[cookieName]) {
-            return true;
-        }
-    }
-    return false;
+    return PRIVATE_COOKIES.some(
+        (cookieName) => cookieName in allCookies && allCookies[cookieName],
+    );
 }
 
 function getCookies(request) {
@@ -236,14 +259,14 @@ function replaceStrippedQsOnRedirectResponse(response, strippedParams) {
      * If it is, add the stripped querystrings to the location header.
      * This allows us to persist tracking querystrings (like UTM) over redirects.
      */
-    response = new Response(response.body, response);
 
     if ([301, 302].includes(response.status)) {
-        const locationHeaderValue = response.headers.get('location');
+        const redirectResponse = new Response(response.body, response);
+        const locationHeaderValue = redirectResponse.headers.get('location');
         let locationUrl;
 
         if (!locationHeaderValue) {
-            return response;
+            return redirectResponse;
         }
 
         const isAbsolute = isUrlAbsolute(locationHeaderValue);
@@ -259,9 +282,9 @@ function replaceStrippedQsOnRedirectResponse(response, strippedParams) {
             locationUrl = new URL(locationHeaderValue);
         }
 
-        for (const [key, value] of Object.entries(strippedParams)) {
-            locationUrl.searchParams.append(key, value);
-        }
+        Object.entries(strippedParams).forEach(([key, value]) =>
+            locationUrl.searchParams.append(key, value),
+        );
 
         let newLocation;
 
@@ -271,7 +294,8 @@ function replaceStrippedQsOnRedirectResponse(response, strippedParams) {
             newLocation = `${locationUrl.pathname}${locationUrl.search}`;
         }
 
-        response.headers.set('location', newLocation);
+        redirectResponse.headers.set('location', newLocation);
+        return redirectResponse;
     }
 
     return response;
