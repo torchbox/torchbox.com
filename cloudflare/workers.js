@@ -3,7 +3,7 @@
 // applied after this worker runs.
 
 // When any cookie in this list is present in the request, cache will be skipped
-const PRIVATE_COOKIES = ['sessionid', 'csrftoken'];
+const PRIVATE_COOKIES = ['sessionid'];
 
 // Cookies to include in the cache key
 const VARY_COOKIES = ['torchbox-mode'];
