@@ -29,7 +29,7 @@ class ImpactReportPage(BasePage):
     hero_caption = models.CharField("caption", max_length=255, blank=True)
     hero_attribution = models.CharField("attribution", max_length=255, blank=True)
 
-    body = StreamField(ImpactReportStoryBlock(), use_json_field=True)
+    body = StreamField(ImpactReportStoryBlock())
 
     content_panels = [
         MultiFieldPanel(
