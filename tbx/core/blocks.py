@@ -607,13 +607,13 @@ class CaseStudyStructValue(blocks.StructValue):
 class NumericResultBlock(blocks.StructBlock):
     label = blocks.CharBlock(
         max_length=255,
-        help_text=mark_safe(  # noqa: S308
+        help_text=mark_safe(
             "Short text to describe the change e.g. <strong>Raised over</strong>"
         ),
     )
     headline_number = blocks.CharBlock(
         max_length=255,
-        help_text=mark_safe("A numerical value e.g. <strong>£600k</strong>"),  # noqa: S308
+        help_text=mark_safe("A numerical value e.g. <strong>£600k</strong>"),
     )
 
 
@@ -1031,16 +1031,16 @@ class EmbedBlock(WagtailEmbedBlock):
 class NumericStatisticsBlock(blocks.StructBlock):
     headline_number = blocks.CharBlock(
         max_length=255,
-        help_text=mark_safe("A numerical value e.g. <strong>30%</strong>"),  # noqa: S308
+        help_text=mark_safe("A numerical value e.g. <strong>30%</strong>"),
     )
     description = blocks.TextBlock(
-        help_text=mark_safe(  # noqa: S308
+        help_text=mark_safe(
             "Text to describe the change e.g. <strong>Reduction in accessibility errors</strong>"
         )
     )
     further_details = blocks.TextBlock(
         required=False,
-        help_text=mark_safe(  # noqa: S308
+        help_text=mark_safe(
             "Text to give more information, e.g. <strong>Over 80% of pages</strong>"
         ),
     )
@@ -1083,13 +1083,13 @@ class NumericStatisticsGroupBlock(AbstractStatisticsGroupBlock):
 class TextualStatisticsBlock(blocks.StructBlock):
     headline_text = blocks.CharBlock(
         max_length=255,
-        help_text=mark_safe(  # noqa: S308
+        help_text=mark_safe(
             "Describe a general improvement, e.g. <strong>Reduction in accessibility issues</strong>"
         ),
     )
     further_details = blocks.TextBlock(
         required=False,
-        help_text=mark_safe(  # noqa: S308
+        help_text=mark_safe(
             "Text to give more information, e.g. <strong>Over 80% of pages</strong>"
         ),
     )
