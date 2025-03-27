@@ -500,6 +500,10 @@ WAGTAILIMAGES_MAX_UPLOAD_SIZE = (
     int(max_upload_size) if max_upload_size else 2 * 1024 * 1024
 )  # 2MB
 
+# The Django default for the maximum number of GET or POST parameters is 1000. For
+# especially large Wagtail pages with many fields, we need to override this. See
+# https://docs.djangoproject.com/en/3.2/ref/settings/#data-upload-max-number-fields
+DATA_UPLOAD_MAX_NUMBER_FIELDS = int(env.get("DATA_UPLOAD_MAX_NUMBER_FIELDS", 10_000))
 
 # Basic auth settings
 if env.get("BASIC_AUTH_ENABLED", "false").lower().strip() == "true":
