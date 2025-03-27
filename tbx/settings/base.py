@@ -424,6 +424,10 @@ SECURE_BROWSER_XSS_FILTER = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#secure-content-type-nosniff
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
+# https://docs.djangoproject.com/en/stable/ref/middleware/#referrer-policy
+SECURE_REFERRER_POLICY = env.get(
+    "SECURE_REFERRER_POLICY", "no-referrer-when-downgrade"
+).strip()
 
 # Content Security policy settings
 # http://django-csp.readthedocs.io/en/latest/configuration.html
