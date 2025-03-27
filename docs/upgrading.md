@@ -74,7 +74,10 @@ As much as possible, we want to use the official releases available on PyPI for 
 
 ### Check these packages for updates
 
-(This list may not be exhaustive)
+**Last checked** Wagtail 6.4 upgrade
 
-- [lite youtube](front-end/lite-youtube.md)
-- [wagtail markdown](front-end/markdown-codehilite.md)
+- wagtail-accessibility
+- [wagtail-lite-youtube-embed](front-end/lite-youtube.md)
+- [wagtail-markdown](front-end/markdown-codehilite.md)
+- wagtailmedia
+- wagtail-purge
