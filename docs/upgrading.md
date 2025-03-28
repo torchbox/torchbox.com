@@ -86,6 +86,6 @@ As much as possible, we want to use the official releases available on PyPI for 
 
 **Last checked** Wagtail 6.4 upgrade
 
-Wagtail core is expected to see an update to prevent the preview panel from scroll at every content update. To prevent this from happening until then, fix has been applied to the `sueryder/project_styleguide/templates/patterns/base.html` template.
+Wagtail core is expected to see an update to prevent the preview panel from scroll at every content update. To prevent this from happening until then, fix has been applied to the `tbx/project_styleguide/templates/patterns/base.html` template.
 
 Further information is available in a MR for Wagtail Kit: https://git.torchbox.com/internal/wagtail-kit/-/merge_requests/973
