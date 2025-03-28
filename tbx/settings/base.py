@@ -476,12 +476,6 @@ PERMISSIONS_POLICY = {
     "usb": [],
 }
 
-# Referrer-policy header settings
-# https://django-referrer-policy.readthedocs.io/en/1.0/
-REFERRER_POLICY = env.get(
-    "SECURE_REFERRER_POLICY", "no-referrer-when-downgrade"
-).strip()
-
 # Wagtail settings
 WAGTAIL_SITE_NAME = "Torchbox"
 
