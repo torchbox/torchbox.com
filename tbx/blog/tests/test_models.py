@@ -3,14 +3,14 @@ from operator import attrgetter
 from django.core.paginator import Page as PaginatorPage
 
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import PageViewRestriction
+from wagtail.models import PageViewRestriction, Site
 from wagtail.test.utils import WagtailPageTestCase
 
 from faker import Faker
-from wagtail_factories import PageFactory
 
 from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
 from tbx.blog.models import BlogPage
+from tbx.core.factories import HomePageFactory
 from tbx.divisions.factories import DivisionPageFactory
 from tbx.taxonomy.factories import SectorFactory, ServiceFactory
 
@@ -64,29 +64,28 @@ class TestBlogPageFactory(WagtailPageTestCase):
         self.assertEqual(another_blog_post.related_services.count(), 3)
         self.assertEqual(another_blog_post.related_sectors.count(), 2)
 
-    def test_related_blog_posts_same_division(self):
-        sector = SectorFactory.create()
-        # The logic of `final_division` skips ancestors with depth <= 2,
-        # So we create the division page with enough parents to be at depth 3:
-        division = DivisionPageFactory.create(parent=PageFactory(parent=PageFactory()))
-        blog_post = BlogPageFactory(division=division, related_sectors=[sector])
-        BlogPageFactory(title="same sector", division=None, related_sectors=[sector])
-        BlogPageFactory(
-            title="same division (direct)", division=division, related_sectors=[]
-        )
-        BlogPageFactory(
-            title="same division (direct) same sector",
-            division=division,
-            related_sectors=[sector],
-        )
-        BlogPageFactory(title="same division (parent)", parent=division)
+
+class TestBlogPage(WagtailPageTestCase):
+    def test_related_blog_posts(self):
+        site = Site.objects.get(is_default_site=True)
+        root = site.root_page.specific
+        homepage = HomePageFactory(parent=root)
+        division = DivisionPageFactory(parent=homepage, title="Charity")
+        blog_index = BlogIndexPageFactory(parent=division)
+
+        other_division = DivisionPageFactory(parent=homepage, title="Public")
+        other_index = BlogIndexPageFactory(parent=other_division)
+        BlogPageFactory(parent=other_index)
+
+        blog_post = BlogPageFactory(parent=blog_index, title="Blog Post 1")
+        BlogPageFactory(parent=blog_index, title="Blog Post 2")
+        BlogPageFactory(parent=blog_index, title="Blog Post 3")
 
         self.assertQuerySetEqual(
             blog_post.related_blog_posts,
             [
-                "same division (direct)",
-                "same division (direct) same sector",
-                "same division (parent)",
+                "Blog Post 2",
+                "Blog Post 3",
             ],
             transform=attrgetter("title"),
             ordered=False,
