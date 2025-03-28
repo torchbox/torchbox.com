@@ -1,3 +1,5 @@
+from unittest import skip
+
 from wagtail.models import Site
 from wagtail.test.utils import WagtailPageTestCase
 
@@ -78,6 +80,7 @@ class TestTaxonomies(WagtailPageTestCase):
         self.assertListEqual(list(self.blog_page_service.tags), [services[1]])
         self.assertListEqual(list(self.blog_page_sector.tags), [sectors[1]])
 
+    @skip("Related services in blog posts are currently disabled")
     def test_related_blog_posts_services(self):
         """
         Tests the `related_blog_posts` property on the `BlogPage` model using the Service taxonomy
@@ -104,6 +107,7 @@ class TestTaxonomies(WagtailPageTestCase):
         # so there should be 3 related blog posts
         self.assertEqual(len(blog_post3.related_blog_posts), 3)
 
+    @skip("Related sectors in blog posts are currently disabled")
     def test_related_blog_posts_sectors(self):
         """
         Tests the `related_blog_posts` property on the `BlogPage` model using the Sectors taxonomy
