@@ -309,32 +309,18 @@ class WorkPage(BasePage):
             ),
         )
 
-        queryset = (
-            WorkPage.objects.live()
+        return (
+            # Assumption that work pages for the same division
+            # will be under the same work index page.
+            WorkPage.objects.sibling_of(self)
+            .live()
             .public()
             .defer_streamfields()
-            .prefetch_related(
-                "related_sectors", "related_services", prefetch_listing_images
-            )
+            .prefetch_related(prefetch_listing_images)
             .distinct()
             .order_by(F("date").desc(nulls_last=True))
             .exclude(pk=self.pk)
         )
-
-        if final_division := getattr(self, "final_division", None):
-            # Ideally this would be implemented at the database-level but it's
-            # very hard to implement the final_division logic at the ORM level
-            def filter_fn(page):
-                return page.final_division == final_division
-
-            queryset = list(filter(filter_fn, queryset))
-        else:
-            queryset = queryset.filter(
-                Q(related_sectors__in=self.sectors)
-                | Q(related_services__in=self.services)
-            )
-
-        return queryset
 
     @cached_property
     def related_works(self):
