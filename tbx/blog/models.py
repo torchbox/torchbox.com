@@ -178,35 +178,18 @@ class BlogPage(BasePage):
                 "format-webp|fill-286x286",
             ),
         )
-        queryset = (
-            BlogPage.objects.live()
+        return (
+            # Assumption that blog posts for the same division
+            # will be under the same blog index page.
+            BlogPage.objects.sibling_of(self)
+            .live()
             .public()
             .defer_streamfields()
-            .prefetch_related(
-                "authors__author",
-                "related_sectors",
-                "related_services",
-                prefetch_author_images,
-            )
+            .prefetch_related("authors__author", prefetch_author_images)
             .distinct()
             .order_by("-date")
             .exclude(pk=self.pk)
         )
-
-        if final_division := getattr(self, "final_division", None):
-            # Ideally this would be implemented at the database-level but it's
-            # very hard to implement the final_division logic at the ORM level
-            def filter_fn(page):
-                return page.final_division == final_division
-
-            queryset = list(filter(filter_fn, queryset))
-        else:
-            queryset = queryset.filter(
-                Q(related_sectors__in=self.sectors)
-                | Q(related_services__in=self.services)
-            )
-
-        return queryset
 
     @cached_property
     def related_blog_posts(self):
