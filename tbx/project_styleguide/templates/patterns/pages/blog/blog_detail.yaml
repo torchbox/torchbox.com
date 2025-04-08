@@ -14,13 +14,6 @@ context:
     date: 07 Aug 2024
     get_verbose_name: Blog page
     read_time: 5
-    tags:
-      - name: Digital products
-        slug: digital-products
-      - name: Wagtail
-        slug: wagtail
-      - name: Digital Marketing
-        slug: digital-marketing
     related_blog_posts:
       - link: '/'
         title: Reimagining our Agile training and ways of working
@@ -29,12 +22,6 @@ context:
           role: Product Director
         date: 05 Sep 23
         read_time: 4
-        tags_screenreader_text: 'Filter blog posts by category'
-        tags:
-          - name: Innovation
-            slug: innovation
-          - name: Culture
-            slug: culture
       - link: '/'
         title: The future of AI in healthcare
         first_author:
@@ -42,12 +29,6 @@ context:
           role: Data Scientist
         date: 05 Sep 23
         read_time: 6
-        tags_screenreader_text: 'Filter blog posts by category'
-        tags:
-          - name: Artificial Intelligence
-            slug: ai
-          - name: Healthcare
-            slug: healthcare
       - link: '/'
         title: The impact of machine learning in finance
         first_author:
@@ -55,12 +36,6 @@ context:
           role: Financial Analyst
         date: 05 Sep 23
         read_time: 8
-        tags_screenreader_text: 'Filter blog posts by category'
-        tags:
-          - name: Machine Learning
-            slug: machine-learning
-          - name: Finance
-            slug: finance
 
 tags:
   include_block:

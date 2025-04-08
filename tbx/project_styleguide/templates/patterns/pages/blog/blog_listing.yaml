@@ -23,11 +23,6 @@ context:
       first_author:
         name: Paul Vetch
         role: Strategy Director
-      tags:
-        - name: Digital products
-          slug: digital-products
-        - name: Wagtail
-          slug: wagtail
 
     - title: Wagtail for Public Sector
       date: 20 Oct 2023
@@ -35,11 +30,6 @@ context:
       first_author:
         name: Paul Vetch
         role: Strategy Director
-      tags:
-        - name: Social Media
-          slug: social-media
-        - name: Culture
-          slug: culture
 
     - title: Explore the potential of AI in content management
       date: 20 Oct 2023
@@ -47,11 +37,6 @@ context:
       first_author:
         name: Paul Vetch
         role: Strategy Director
-      tags:
-        - name: Social Media
-          slug: social-media
-        - name: Culture
-          slug: culture
 
     - title: Wagtail for Public Sector
       date: 20 Oct 2023
@@ -59,11 +44,6 @@ context:
       first_author:
         name: Will Heinemann
         role: New Business Director
-      tags:
-        - name: Digital products
-          slug: digital-products
-        - name: Wagtail
-          slug: wagtail
 
     - title: Explore the potential of AI in content management
       date: 20 Oct 2023
@@ -71,11 +51,6 @@ context:
       first_author:
         name: Will Heinemann
         role: New Business Director
-      tags:
-        - name: Digital products
-          slug: digital-products
-        - name: Wagtail
-          slug: wagtail
 
     - title: Wagtail for Public Sector
       date: 20 Oct 2023
@@ -83,11 +58,6 @@ context:
       first_author:
         name: Will Heinemann
         role: New Business Director
-      tags:
-        - name: Digital products
-          slug: digital-products
-        - name: Wagtail
-          slug: wagtail
 
 tags:
   srcset_image:
