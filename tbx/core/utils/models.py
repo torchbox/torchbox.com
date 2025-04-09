@@ -167,7 +167,7 @@ class ColourThemeMixin(models.Model):
     theme = models.CharField(
         max_length=25,
         blank=True,
-        choices=ColourTheme.choices,
+        choices=ColourTheme,
     )
 
     promote_panels = [
