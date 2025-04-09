@@ -47,9 +47,18 @@
     }
 
     &__heading {
+        @include font-size(size-two-b);
         color: var(--color--heading);
         margin-bottom: $spacer-mini;
-        line-height: 1;
+        word-wrap: break-word;
+        // stylelint-disable-next-line declaration-no-important
+        line-height: 1 !important;
+
+        &--small {
+            @include media-query(x-large) {
+                @include font-size(size-three);
+            }
+        }
     }
 
     &__subheading {

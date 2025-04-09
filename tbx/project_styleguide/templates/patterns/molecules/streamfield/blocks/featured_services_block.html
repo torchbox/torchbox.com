@@ -11,7 +11,7 @@
             <li class="featured-services__card">
                 {% srcset_image card.image format-webp fill-{750x420,650x420} sizes="(max-width: 750px) 100vw, (min-width: 751px) 650px" alt="" %}
                 <div class="featured-services__text">
-                    <h3 class="featured-services__heading heading heading--two-b">{% firstof card.heading card.page.title %}</h3>
+                    <h3 class="featured-services__heading {% if value.cards|length >= 4 %}featured-services__heading--small{% endif %} heading">{% firstof card.heading card.page.title %}</h3>
                     {% if card.subheading %}
                         <p class="featured-services__subheading">{{ card.subheading }}</p>
                     {% endif %}
