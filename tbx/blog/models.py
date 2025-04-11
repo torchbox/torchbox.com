@@ -5,13 +5,18 @@ import string
 from django import forms
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
-from django.db.models import Q
+from django.db.models import Case, Q, When
 from django.dispatch import receiver
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 
-from modelcluster.fields import ParentalManyToManyField
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from wagtail.admin.panels import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+)
 from wagtail.models import Page
 from wagtail.search import index
 from wagtail.signals import page_published
@@ -170,6 +175,17 @@ class BlogPage(BasePage):
         return chain(self.services, self.sectors)
 
     def get_related_blog_posts(self):
+        # Assumption that blog posts for the same division
+        # will be under the same blog index page.
+        base_queryset = BlogPage.objects.sibling_of(self)
+        order_by = ["-date"]
+
+        if related := self.related_posts.values_list("page"):
+            # If some blog posts have been manually selected we show those first
+            base_queryset |= BlogPage.objects.filter(pk__in=related)
+            manual_first = Case(When(pk__in=related, then=1), default=2)
+            order_by.insert(0, manual_first)
+
         prefetch_author_images = models.Prefetch(
             "authors__author__image",
             queryset=CustomImage.objects.prefetch_renditions(
@@ -178,16 +194,14 @@ class BlogPage(BasePage):
                 "format-webp|fill-286x286",
             ),
         )
+
         return (
-            # Assumption that blog posts for the same division
-            # will be under the same blog index page.
-            BlogPage.objects.sibling_of(self)
-            .live()
+            base_queryset.live()
             .public()
             .defer_streamfields()
             .prefetch_related("authors__author", prefetch_author_images)
             .distinct()
-            .order_by("-date")
+            .order_by(*order_by)
             .exclude(pk=self.pk)
         )
 
@@ -248,9 +262,30 @@ class BlogPage(BasePage):
                 ],
                 heading="Taxonomies",
             ),
+            InlinePanel(
+                "related_posts",
+                label="Related posts",
+                help_text=(
+                    "Related posts are always listed by date (most recent first), "
+                    "and will be automatically generated if left blank."
+                ),
+                max_num=3,
+            ),
             MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
         ]
     )
+
+
+class RelatedBlogPage(models.Model):
+    parent = ParentalKey(
+        BlogPage, on_delete=models.CASCADE, related_name="related_posts"
+    )
+    page = models.ForeignKey(BlogPage, on_delete=models.CASCADE, related_name="+")
+
+    def __str__(self):
+        return self.page.title
+
+    panels = [PageChooserPanel("page")]
 
 
 @receiver(page_published, sender=BlogPage)

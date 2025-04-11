@@ -66,27 +66,70 @@ class TestBlogPageFactory(WagtailPageTestCase):
 
 
 class TestBlogPage(WagtailPageTestCase):
-    def test_related_blog_posts(self):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
         site = Site.objects.get(is_default_site=True)
         root = site.root_page.specific
-        homepage = HomePageFactory(parent=root)
-        division = DivisionPageFactory(parent=homepage, title="Charity")
-        blog_index = BlogIndexPageFactory(parent=division)
+        cls.homepage = HomePageFactory(parent=root)
+        cls.division = DivisionPageFactory(parent=cls.homepage, title="Charity")
+        cls.blog_index = BlogIndexPageFactory(parent=cls.division)
+        cls.other_division = DivisionPageFactory(parent=cls.homepage, title="Public")
+        cls.other_index = BlogIndexPageFactory(parent=cls.other_division)
 
-        other_division = DivisionPageFactory(parent=homepage, title="Public")
-        other_index = BlogIndexPageFactory(parent=other_division)
-        BlogPageFactory(parent=other_index)
+    def test_related_blog_posts(self):
+        BlogPageFactory(parent=self.other_index)
 
-        blog_post = BlogPageFactory(parent=blog_index, title="Blog Post 1")
-        BlogPageFactory(parent=blog_index, title="Blog Post 2")
-        BlogPageFactory(parent=blog_index, title="Blog Post 3")
+        blog_post = BlogPageFactory(parent=self.blog_index, title="Blog Post 1")
+        BlogPageFactory(parent=self.blog_index, title="Blog Post 2", date="2025-01-01")
+        BlogPageFactory(parent=self.blog_index, title="Blog Post 3", date="2025-01-02")
 
         self.assertQuerySetEqual(
             blog_post.related_blog_posts,
             [
+                "Blog Post 3",
                 "Blog Post 2",
+            ],
+            transform=attrgetter("title"),
+        )
+
+    def test_related_blog_posts_manually_set(self):
+        blog_post = BlogPageFactory(
+            parent=self.blog_index,
+            title="Blog Post 1",
+        )
+        for i in [2, 3, 4]:
+            blog_post.related_posts.create(
+                page=BlogPageFactory(title=f"Blog Post {i}", date=f"2025-01-{i:02}"),
+            )
+
+        self.assertQuerySetEqual(
+            blog_post.related_blog_posts,
+            [
+                "Blog Post 4",
+                "Blog Post 3",
+                "Blog Post 2",
+            ],
+            transform=attrgetter("title"),
+        )
+
+    def test_related_blog_posts_padded_if_not_enough(self):
+        blog_post = BlogPageFactory(
+            parent=self.blog_index,
+            title="Blog Post 1",
+        )
+        blog_post.related_posts.create(
+            page=BlogPageFactory(title="Blog Post 2", date="2025-01-01")
+        )
+        BlogPageFactory(parent=self.blog_index, title="Blog Post 3", date="2025-01-02")
+        BlogPageFactory(parent=self.blog_index, title="Blog Post 4", date="2025-01-03")
+
+        self.assertQuerySetEqual(
+            blog_post.related_blog_posts,
+            [
+                "Blog Post 2",  # Comes first because selected manually
+                "Blog Post 4",
                 "Blog Post 3",
             ],
             transform=attrgetter("title"),
-            ordered=False,
         )
