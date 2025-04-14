@@ -424,6 +424,10 @@ SECURE_BROWSER_XSS_FILTER = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#secure-content-type-nosniff
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
+# https://docs.djangoproject.com/en/stable/ref/middleware/#referrer-policy
+SECURE_REFERRER_POLICY = env.get(
+    "SECURE_REFERRER_POLICY", "no-referrer-when-downgrade"
+).strip()
 
 # Content Security policy settings
 # http://django-csp.readthedocs.io/en/latest/configuration.html
@@ -472,12 +476,6 @@ PERMISSIONS_POLICY = {
     "usb": [],
 }
 
-# Referrer-policy header settings
-# https://django-referrer-policy.readthedocs.io/en/1.0/
-REFERRER_POLICY = env.get(
-    "SECURE_REFERRER_POLICY", "no-referrer-when-downgrade"
-).strip()
-
 # Wagtail settings
 WAGTAIL_SITE_NAME = "Torchbox"
 
@@ -496,6 +494,10 @@ WAGTAILIMAGES_MAX_UPLOAD_SIZE = (
     int(max_upload_size) if max_upload_size else 2 * 1024 * 1024
 )  # 2MB
 
+# The Django default for the maximum number of GET or POST parameters is 1000. For
+# especially large Wagtail pages with many fields, we need to override this. See
+# https://docs.djangoproject.com/en/3.2/ref/settings/#data-upload-max-number-fields
+DATA_UPLOAD_MAX_NUMBER_FIELDS = int(env.get("DATA_UPLOAD_MAX_NUMBER_FIELDS", 10_000))
 
 # Basic auth settings
 if env.get("BASIC_AUTH_ENABLED", "false").lower().strip() == "true":

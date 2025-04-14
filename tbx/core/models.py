@@ -216,7 +216,7 @@ class HomePage(
                     "hero_introduction",
                     heading="Introduction",
                     # mark_safe needed so the HTML tags aren't escaped
-                    help_text=mark_safe(  # noqa: S308
+                    help_text=mark_safe(
                         "Use bold to mark links as"
                         ' <span style="color:#EE5276">pink</span>,'
                         " and use italics to mark links as"
