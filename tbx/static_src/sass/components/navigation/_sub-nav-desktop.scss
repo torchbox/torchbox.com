@@ -46,10 +46,17 @@ Styles for the lower levels of the navigation at desktop
     // the unordered list containing the level 2 menu items
     // also used for the level 3 menu items
     &__list {
-        display: flex;
-        flex-direction: row;
-        row-gap: $spacer-half;
+        display: grid;
+        row-gap: $spacer-small-plus;
         column-gap: $spacer-medium;
+        grid-template-columns: repeat(4, 1fr);
+
+        #{$root}--2 & {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        #{$root}--3 & {
+            grid-template-columns: repeat(3, 1fr);
+        }
 
         // at desktop the third level is always visible once the subnav is expanded
         // it sits inside each column
@@ -63,22 +70,6 @@ Styles for the lower levels of the navigation at desktop
     &__item {
         display: flex;
         flex-direction: column;
-        // at desktop level 2 these are arranged in columns
-        // which are based on the number of items at that level
-        flex-basis: calc(100% - #{$spacer-small});
-
-        #{$root}--2 &,
-        #{$root}--3 & {
-            flex-basis: calc(33.33% - #{$spacer-small});
-        }
-
-        #{$root}--4 & {
-            flex-basis: calc(50% - #{$spacer-small});
-
-            @include media-query(large) {
-                flex-basis: calc(25% - #{$spacer-small});
-            }
-        }
     }
 
     // the heading for each menu item in the 2nd and 3rd level

@@ -7,7 +7,7 @@
         {% endif %}
         <p class="footer-cta__subtitle">{{ contact_text }}</p>
         <div class="footer-cta__container">
-            {% include "patterns/atoms/avatar/avatar.html" with avatar=contact_image classes="footer-cta__avatar avatar--cta" %}
+            {% include "patterns/atoms/avatar/avatar.html" with avatar=contact_image classes="footer-cta__avatar avatar--cta" lazy_load=True %}
             <div class="footer-cta__content">
                 <div class="footer-cta__text">
                     <p><span class="footer-cta__name">{{ contact_name }} </span>{{ contact_role }}</p>

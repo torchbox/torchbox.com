@@ -49,6 +49,7 @@
     &__heading {
         color: var(--color--heading);
         margin-bottom: $spacer-mini;
+        word-wrap: break-word;
         line-height: 1;
     }
 

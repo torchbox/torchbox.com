@@ -2,7 +2,7 @@
 <div class="contact-cta grid__contact-cta">
     {# Contact person photo #}
     {% if value.person %}
-        {% include "patterns/atoms/avatar/avatar.html" with avatar=value.person.image classes="contact-cta__avatar avatar--cta" %}
+        {% include "patterns/atoms/avatar/avatar.html" with avatar=value.person.image classes="contact-cta__avatar avatar--cta" lazy_load=True %}
     {% endif %}
 
     {# call_to_action is a required field (streamblock) in the block definition #}
