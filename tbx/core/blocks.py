@@ -209,7 +209,10 @@ class VideoBlock(blocks.StructBlock):
 
 class ButtonLinkStructValue(blocks.StructValue):
     def get_button_link_block(self):
-        return self.get("button_link")[0]
+        try:
+            return self.get("button_link")[0]
+        except IndexError:
+            return None
 
     # return an href-ready value for button_link
     def get_button_link(self):
