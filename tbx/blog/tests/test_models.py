@@ -133,3 +133,12 @@ class TestBlogPage(WagtailPageTestCase):
             ],
             transform=attrgetter("title"),
         )
+
+    def test_tags_not_rendered(self):
+        page = BlogPageFactory(
+            parent=self.blog_index,
+            related_services=[ServiceFactory(name="SHOULD_NOT_BE_RENDERED")],
+            related_sectors=[SectorFactory(name="SHOULD_NOT_BE_RENDERED")],
+        )
+        response = self.client.get(page.url)
+        self.assertNotContains(response, "SHOULD_NOT_BE_RENDERED")
