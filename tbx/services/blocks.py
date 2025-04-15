@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from wagtail import blocks
 
 from tbx.core.blocks import (
@@ -13,6 +15,7 @@ from tbx.core.blocks import (
     PromoBlock,
     ShowcaseBlock,
     StoryBlock,
+    StructBlockValidationError,
     TabbedParagraphBlock,
     WorkChooserBlock,
 )
@@ -69,9 +72,31 @@ class ServiceStoryBlock(StoryBlock):
     )
 
 
+class OptionalLinkPromoBlock(PromoBlock):
+    """
+    Identical to PromoBlock in all aspects, except that button_link is optional.
+    """
+
+    button_text = blocks.CharBlock(max_length=55, required=False)
+    button_link = blocks.StreamBlock(
+        PromoBlock.declared_blocks["button_link"].child_blocks.items(),
+        required=False,
+        max_num=1,
+    )
+
+    def clean(self, value):
+        cleaned = super().clean(value)
+        if cleaned.get("button_text") and not cleaned.get("button_link"):
+            raise StructBlockValidationError(
+                {"button_link": ValidationError("This field is required.")},
+            )
+        return cleaned
+
+
 class ServiceAreaStoryBlock(StoryBlock):
     blog_chooser = BlogChooserBlock()
     four_photo_collage = FourPhotoCollageBlock()
     key_points = IconKeyPointsBlock(label="Key points with icons")
     link_columns = LinkColumnsBlock()
+    promo = OptionalLinkPromoBlock()
     work_chooser = WorkChooserBlock()
