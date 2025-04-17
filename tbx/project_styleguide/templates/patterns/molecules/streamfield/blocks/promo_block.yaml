@@ -1,7 +1,11 @@
 context:
   value:
     title: This is the title of this generic promo teaser
-    description: Donec tortor mi, pulvinar non enim et, hendrerit efficitur nisi. Etiam egestas imperdiet purus, faucibus convallis leo pharetra sit amet.
+    description: |
+      Donec tortor mi, pulvinar non enim et, hendrerit efficitur nisi. Etiam egestas imperdiet purus, faucibus convallis leo pharetra sit amet.
+      Sapiente eos et repudiandae amet consequatur.
+
+      Fugiat quia eaque enim itaque cupiditate animi blanditiis. Quas at et id magnam impedit.
     button_text: Call to action
     get_button_link: '/#'
     secondary_link:
