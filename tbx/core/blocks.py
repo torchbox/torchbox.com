@@ -841,7 +841,7 @@ class EventBlock(BaseEventBlock):
 
 class PromoBlock(blocks.StructBlock):
     title = blocks.TextBlock()
-    description = blocks.TextBlock()
+    description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
     image = CustomImageChooserBlock()
     button_text = blocks.CharBlock(max_length=55)
     button_link = blocks.StreamBlock(

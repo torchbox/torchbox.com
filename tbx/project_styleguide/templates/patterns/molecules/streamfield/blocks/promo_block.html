@@ -1,9 +1,9 @@
-{% load wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 <div class="grid__promo promo-block">
     <div class="promo-block__content">
         {% include "patterns/atoms/section-title/section-title.html" with title=value.title classes="promo-block__title" %}
-        <p class="promo-block__description">{{ value.description }}</p>
+        <div class="rich-text promo-block__description">{{ value.description|richtext }}</div>
         {% if value.button_text %}
             <a href="{{ value.get_button_link }}" class="button promo-block__button">{{ value.button_text }}</a>
         {% endif %}
