@@ -1,4 +1,5 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags util_tags %}
+{% check_all_cards_have_images value.cards as show_images %}
 <div class="grid__featured-services featured-services">
     <div class="featured-services__header">
         <h2 class="motif-heading motif-heading--half-width">{{ value.title }}</h2>
@@ -9,7 +10,13 @@
     <ul class="featured-services__cards">
         {% for card in value.cards %}
             <li class="featured-services__card">
-                {% srcset_image card.image format-webp fill-{750x420,650x420} sizes="(max-width: 750px) 100vw, (min-width: 751px) 650px" alt="" %}
+                {# The ServiceAreaFeaturedServicesBlock supports optional image display, other blocks always show images #}
+                {% if value.should_display_images or value.should_display_images is None %}
+                {# Images are optional in the ServiceAreaFeaturedServicesBlock, if one image is not set, do not show for any card #}
+                    {% if show_images %}
+                        {% srcset_image card.image format-webp fill-{750x420,650x420} sizes="(max-width: 750px) 100vw, (min-width: 751px) 650px" alt="" %}
+                    {% endif %}
+                {% endif %}
                 <div class="featured-services__text">
                     <h3 class="featured-services__heading heading heading--two-b{% if value.cards|length >= 4 %} heading--three{% endif %}">{% firstof card.heading card.page.title %}</h3>
                     {% if card.subheading %}

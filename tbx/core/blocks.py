@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import OrderedDict, defaultdict
 from datetime import datetime
 import logging
 
@@ -307,6 +307,10 @@ class FeaturedPageCardBlock(blocks.StructBlock):
         icon = "breadcrumb-expand"
 
 
+class ServiceAreaFeaturedPageCardBlock(FeaturedPageCardBlock):
+    image = ImageChooserBlock(required=False)
+
+
 class FeaturedServicesBlock(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255, required=False)
     intro = blocks.RichTextBlock(
@@ -325,8 +329,24 @@ class FeaturedServicesBlock(blocks.StructBlock):
 
 
 class ServiceAreaFeaturedServicesBlock(FeaturedServicesBlock):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Get all child blocks
+        child_blocks = self.child_blocks
+        # Define the desired order of fields
+        field_order = ['title', 'intro', 'should_display_images', 'cards']
+        # Create new OrderedDict with fields in desired order
+        self.child_blocks = OrderedDict([
+            (name, child_blocks[name]) for name in field_order
+        ])
+        
+    should_display_images = blocks.BooleanBlock(
+        default=True,
+        help_text="Hide images from all cards when unchecked",
+        required=False,
+    )
     cards = blocks.ListBlock(
-        FeaturedPageCardBlock(),
+        ServiceAreaFeaturedPageCardBlock(),
         max_num=8,
         min_num=6,
     )

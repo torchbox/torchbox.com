@@ -86,6 +86,12 @@ def format_date_for_event(start_date, start_time=None, end_date=None, end_time=N
     return formatted_start_date
 
 
+@register.simple_tag
+def check_all_cards_have_images(cards):
+    """Check if all cards have images."""
+    return all(bool(card.get("image", None)) for card in cards)
+
+
 @register.filter(name="ifinlist")
 def ifinlist(value, list):
     # cast to strings before testing as this is used for heading levels 2, 3, 4 etc
