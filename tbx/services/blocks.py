@@ -94,6 +94,7 @@ class OptionalLinkPromoBlock(PromoBlock):
 
 
 class ServiceAreaStoryBlock(StoryBlock):
+    partners_block = PartnersBlock()
     blog_chooser = BlogChooserBlock()
     four_photo_collage = FourPhotoCollageBlock()
     key_points = IconKeyPointsBlock(label="Key points with icons")

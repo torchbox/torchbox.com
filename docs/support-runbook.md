@@ -11,7 +11,8 @@ See also our [incident process](https://intranet.torchbox.com/propositions/desig
 ###Project resources
 
 - [Project repository](https://github.com/torchbox/torchbox.com)
-- [Monday.com project](https://torchbox.monday.com/boards/1192293412/)
+- [Monday.com project (this is being phased out)](https://torchbox.monday.com/boards/1192293412/)
+- [Jira project](https://torchbox.atlassian.net/jira/software/c/projects/TWE/boards/25)
 - [Production site](https://torchbox.com/)
 - [Staging site](https://torchbox-com-staging.torchbox.dev/)
 - Developers slack: `#torchbox-website-dev`
@@ -19,8 +20,8 @@ See also our [incident process](https://intranet.torchbox.com/propositions/desig
 
 ###Monitoring
 
-- [Papertrail production](https://my.papertrailapp.com/systems/torchbox-com-production/events)
-- [Papertrail staging](https://my.papertrailapp.com/systems/torchbox-com-staging/events)
+- Papertrail production - access via the Heroku production site link below - papertrail can be found under the resources tab
+- Papertrail staging - access via the Heroku staging site link below - papertrail can be found under the resources tab
 - [Sentry project](https://torchbox.sentry.io/projects/torchbox-website/?project=1221893)
 - [Scout APM](https://scoutapm.com/apps/371126)
 
@@ -35,7 +36,7 @@ Note that the production site uses 1 professionals dyno rather than 2 standard d
 
 ###Documentation
 
-- See [External documentation](/external-docs)
+- See [External documentation](external-docs.md)
 
 ## Scenarios
 
