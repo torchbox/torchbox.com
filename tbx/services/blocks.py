@@ -6,6 +6,7 @@ from tbx.core.blocks import (
     BlogChooserBlock,
     EventBlock,
     FeaturedCaseStudyBlock,
+    FeaturedServicesBlock,
     FourPhotoCollageBlock,
     IconKeyPointsBlock,
     ImageWithAltTextBlock,
@@ -13,6 +14,7 @@ from tbx.core.blocks import (
     PartnersBlock,
     PhotoCollageBlock,
     PromoBlock,
+    ServiceAreaFeaturedServicesBlock,
     ShowcaseBlock,
     StoryBlock,
     StructBlockValidationError,
@@ -94,6 +96,7 @@ class OptionalLinkPromoBlock(PromoBlock):
 
 
 class ServiceAreaStoryBlock(StoryBlock):
+    featured_services = ServiceAreaFeaturedServicesBlock()
     blog_chooser = BlogChooserBlock()
     four_photo_collage = FourPhotoCollageBlock()
     key_points = IconKeyPointsBlock(label="Key points with icons")

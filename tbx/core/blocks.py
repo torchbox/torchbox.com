@@ -324,6 +324,14 @@ class FeaturedServicesBlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/featured_services_block.html"
 
 
+class ServiceAreaFeaturedServicesBlock(FeaturedServicesBlock):
+    cards = blocks.ListBlock(
+        FeaturedPageCardBlock(),
+        max_num=8,
+        min_num=6,
+    )
+
+
 class FourPhotoCollageBlock(blocks.StructBlock):
     """
     Accepts 4 photos shown as a collage + text below.
