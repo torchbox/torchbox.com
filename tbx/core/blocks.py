@@ -334,12 +334,12 @@ class ServiceAreaFeaturedServicesBlock(FeaturedServicesBlock):
         # Get all child blocks
         child_blocks = self.child_blocks
         # Define the desired order of fields
-        field_order = ['title', 'intro', 'should_display_images', 'cards']
+        field_order = ["title", "intro", "should_display_images", "cards"]
         # Create new OrderedDict with fields in desired order
-        self.child_blocks = OrderedDict([
-            (name, child_blocks[name]) for name in field_order
-        ])
-        
+        self.child_blocks = OrderedDict(
+            [(name, child_blocks[name]) for name in field_order]
+        )
+
     should_display_images = blocks.BooleanBlock(
         default=True,
         help_text="Hide images from all cards when unchecked",

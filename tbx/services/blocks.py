@@ -6,7 +6,6 @@ from tbx.core.blocks import (
     BlogChooserBlock,
     EventBlock,
     FeaturedCaseStudyBlock,
-    FeaturedServicesBlock,
     FourPhotoCollageBlock,
     IconKeyPointsBlock,
     ImageWithAltTextBlock,
