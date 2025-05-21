@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import OrderedDict, defaultdict
 from datetime import datetime
 import logging
 
@@ -307,6 +307,10 @@ class FeaturedPageCardBlock(blocks.StructBlock):
         icon = "breadcrumb-expand"
 
 
+class ServiceAreaFeaturedPageCardBlock(FeaturedPageCardBlock):
+    image = ImageChooserBlock(required=False)
+
+
 class FeaturedServicesBlock(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255, required=False)
     intro = blocks.RichTextBlock(
@@ -322,6 +326,54 @@ class FeaturedServicesBlock(blocks.StructBlock):
         group = "Custom"
         icon = "link"
         template = "patterns/molecules/streamfield/blocks/featured_services_block.html"
+
+
+class ServiceAreaFeaturedServicesBlock(FeaturedServicesBlock):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Get all child blocks
+        child_blocks = self.child_blocks
+        # Define the desired order of fields
+        field_order = ["title", "intro", "is_displaying_card_images", "cards"]
+        # Create new OrderedDict with fields in desired order
+        self.child_blocks = OrderedDict(
+            [(name, child_blocks[name]) for name in field_order]
+        )
+
+    is_displaying_card_images = blocks.BooleanBlock(
+        default=True,
+        help_text="Hide images from all cards when unchecked",
+        label="Display card images?",
+        required=False,
+    )
+    cards = blocks.ListBlock(
+        ServiceAreaFeaturedPageCardBlock(),
+        max_num=8,
+        min_num=6,
+    )
+
+    def clean(self, value):
+        cleaned_data = super().clean(value)
+
+        if cleaned_data.get("is_displaying_card_images"):
+            errors = {}
+
+            for i, card in enumerate(cleaned_data.get("cards", [])):
+                if not card.get("image"):
+                    errors[i] = blocks.StructBlockValidationError(
+                        {
+                            "image": ValidationError(
+                                "Image is required when 'Display images' is selected"
+                            )
+                        }
+                    )
+
+            if errors:
+                raise blocks.StructBlockValidationError(
+                    {"cards": blocks.ListBlockValidationError(errors)}
+                )
+
+        return cleaned_data
 
 
 class FourPhotoCollageBlock(blocks.StructBlock):

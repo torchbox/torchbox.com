@@ -9,7 +9,12 @@
     <ul class="featured-services__cards">
         {% for card in value.cards %}
             <li class="featured-services__card">
-                {% srcset_image card.image format-webp fill-{750x420,650x420} sizes="(max-width: 750px) 100vw, (min-width: 751px) 650px" alt="" %}
+                {# The ServiceAreaFeaturedServicesBlock supports optional image display, other blocks always show images #}
+                {% if value.is_displaying_card_images or value.is_displaying_card_images is None %}
+                    {% if card.image %}
+                        {% srcset_image card.image format-webp fill-{750x420,650x420} sizes="(max-width: 750px) 100vw, (min-width: 751px) 650px" alt="" %}
+                    {% endif %}
+                {% endif %}
                 <div class="featured-services__text">
                     <h3 class="featured-services__heading heading heading--two-b{% if value.cards|length >= 4 %} heading--three{% endif %}">{% firstof card.heading card.page.title %}</h3>
                     {% if card.subheading %}
