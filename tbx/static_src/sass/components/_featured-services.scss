@@ -1,21 +1,27 @@
 @use 'config' as *;
 
 .featured-services {
+    $root: &;
     &__header {
         margin-bottom: $spacer-medium;
     }
 
     &__cards {
-        display: grid;
+        display: flex;
         gap: $spacer-mini-plus;
-        grid-template-columns: repeat(1, 1fr);
+        flex-wrap: wrap;
 
         @include media-query(medium) {
-            grid-template-columns: repeat(2, 1fr);
+            #{$root}__card {
+                flex: 1 1 40%;
+            }
         }
 
         @include media-query(x-large) {
-            grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+            #{$root}__card {
+                flex: 1 1 20%;
+                min-width: 20%;
+            }
         }
     }
 
