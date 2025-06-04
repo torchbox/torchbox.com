@@ -7,36 +7,36 @@ authors = ["Torchbox Ltd"]
 [tool.poetry.dependencies]
 python = "^3.13"
 Django = "~5.2.0"
-wagtail = "~6.4"
-psycopg = "^3.2.6"
+wagtail = "~7.0"
+psycopg = "^3.2.9"
 gunicorn = "^23.0.0"
 whitenoise = "^6.9.0"
-phonenumbers = "^9.0.1"
+phonenumbers = "^9.0.6"
 Wand = "^0.6.10"
 
 # Django packages
 django-basic-auth-ip-whitelist = "^0.8"
 django-birdbath = "^2.0.0"
-django-csp = "^3.8"
+django-csp = "^4.0"
 django-pattern-library = "^1.3.0"
-django-permissions-policy = "^4.25.0"
-django-phonenumber-field = "^8.0.0"
+django-permissions-policy = "^4.26.0"
+django-phonenumber-field = "^8.1.0"
 django-redis = "^5.4.0"
-django-storages = {version = "^1.14.5", extras = ["boto3"]}
-dj-database-url = "^2.3.0"
+django-storages = {version = "^1.14.6", extras = ["boto3"]}
+dj-database-url = "^3.0.0"
 
 # Wagtail packages
 wagtail-accessibility = "^2.0.0"
-wagtail-lite-youtube-embed = "^0.2.0"
+wagtail-lite-youtube-embed = "^0.3.0"
 wagtail-markdown = "^0.12.1"
-wagtailmedia = "^0.15.2"
+wagtailmedia = "^0.16.0"
 wagtail-purge = "^0.4.0"
 
 # Production
-scout-apm = "^3.3.0"
-sentry-sdk = "^2.24.1"
+scout-apm = "^3.4.0"
+sentry-sdk = "^2.29.1"
 html5lib = "^1.1"
-beautifulsoup4 = "^4.13.3"
+beautifulsoup4 = "^4.13.4"
 django-xff = "^1.5.0"
 
 [tool.poetry.group.dev.dependencies]
