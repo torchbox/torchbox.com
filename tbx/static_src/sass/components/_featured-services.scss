@@ -1,6 +1,7 @@
 @use 'config' as *;
 
 .featured-services {
+    $root: &;
     &__header {
         margin-bottom: $spacer-medium;
     }
@@ -11,13 +12,13 @@
         flex-wrap: wrap;
 
         @include media-query(medium) {
-            > * {
+            #{$root}__card {
                 flex: 1 1 40%;
             }
         }
 
         @include media-query(x-large) {
-            > * {
+            #{$root}__card {
                 flex: 1 1 20%;
                 min-width: 20%;
             }
