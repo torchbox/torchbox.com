@@ -17,6 +17,7 @@ from tbx.core.utils.cache import (
     get_default_cache_control_decorator,
     get_default_cache_control_method_decorator,
 )
+from tbx.core.utils.views import page_not_found, server_error
 from tbx.core.views import robots, switch_mode
 
 
@@ -35,7 +36,6 @@ urlpatterns = [
 if settings.DEBUG:
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-    from django.views.generic import TemplateView
 
     # Serve static and media files from development server
     urlpatterns += staticfiles_urlpatterns()
@@ -44,14 +44,8 @@ if settings.DEBUG:
     # Add views for testing 404 and 500 templates
     urlpatterns += [
         # Add views for testing 404 and 500 templates
-        path(
-            "test404/",
-            TemplateView.as_view(template_name="patterns/pages/errors/404.html"),
-        ),
-        path(
-            "test500/",
-            TemplateView.as_view(template_name="patterns/pages/errors/500.html"),
-        ),
+        path("test404/", page_not_found),
+        path("test500/", server_error),
     ]
 
     # Django Debug Toolbar
@@ -104,5 +98,5 @@ urlpatterns = (
 )
 
 # Error handlers
-handler404 = "tbx.core.utils.views.page_not_found"
-handler500 = "tbx.core.utils.views.server_error"
+handler404 = page_not_found
+handler500 = server_error
