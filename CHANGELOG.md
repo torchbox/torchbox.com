@@ -6,6 +6,10 @@ Add your changes to the Unreleased section and move them to the appropriate sect
 
 ## Unreleased
 
+-
+
+## 23-06-2025
+
 - Wagtail 7.0 upgrade [#396](https://github.com/torchbox/torchbox.com/pull/396)
 
 ---
