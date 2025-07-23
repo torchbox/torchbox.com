@@ -8,6 +8,7 @@ import CookieWarning from './components/cookie-message';
 import YouTubeConsentManager from './components/youtube-embed';
 import Tabs from './components/tabs';
 import TableHint from './components/table-hint';
+import Modal from './components/modal';
 import ModeSwitcher from './components/mode-switcher';
 
 // IE11 polyfills
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initComponent(YouTubeConsentManager);
     initComponent(Tabs);
     initComponent(TableHint);
+    initComponent(Modal);
     initComponent(ModeSwitcher);
     new DesktopCloseMenus();
 });
