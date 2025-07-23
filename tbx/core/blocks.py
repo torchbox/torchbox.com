@@ -248,6 +248,7 @@ class CallToActionBlock(blocks.StructBlock):
             ("external_link", blocks.URLBlock()),
             ("email", blocks.EmailBlock()),
             ("document_link", DocumentChooserBlock()),
+            ("pipedrive_link", blocks.URLBlock()),
         ],
         required=True,
         max_num=1,
