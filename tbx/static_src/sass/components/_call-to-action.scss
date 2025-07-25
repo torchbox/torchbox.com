@@ -45,4 +45,13 @@
             @include focus-style($outline-color: var(--color--background));
         }
     }
+
+    &__sticky {
+        @include z-index(sticky);
+        position: sticky;
+        right: 0;
+        
+        background-color: var(--color--theme-primary);
+        padding: $spacer-small;
+    }
 }

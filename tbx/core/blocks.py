@@ -269,6 +269,17 @@ class ContactCTABlock(blocks.StructBlock):
         template = "patterns/molecules/streamfield/blocks/contact_call_to_action.html"
 
 
+class StickyCTABlock(blocks.StructBlock):
+    call_to_action = blocks.StreamBlock(
+        [("call_to_action", CallToActionBlock())], max_num=1
+    )
+    sticky_text = blocks.CharBlock(max_length=40)
+    sticky_subtext = blocks.CharBlock(max_length=55)
+
+    class Meta:
+        template = "patterns/molecules/streamfield/blocks/sticky_call_to_action.html"
+
+
 class DynamicHeroBlock(blocks.StructBlock):
     """
     This block displays text that will be cycled through.
@@ -1232,6 +1243,11 @@ class StoryBlock(blocks.StreamBlock):
     contact_call_to_action = ContactCTABlock(
         label="Contact Call to Action",
         template="patterns/molecules/streamfield/blocks/contact_call_to_action.html",
+        group="Calls to action",
+    )
+    sticky_call_to_action = StickyCTABlock(
+        label="Sticky Call to Action",
+        template="patterns/molecules/streamfield/blocks/sticky_call_to_action.html",
         group="Calls to action",
     )
     pullquote = PullQuoteBlock(

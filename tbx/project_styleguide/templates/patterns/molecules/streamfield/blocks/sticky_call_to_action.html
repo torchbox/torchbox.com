@@ -1,0 +1,76 @@
+{% load wagtailcore_tags %}
+{# call_to_action is a required field (streamblock) in the block definition #}
+{% with cta=value.call_to_action|first %}
+<div class="call-to-action grid__call-to-action" id="{{ value.id }}">
+    <div class="call-to-action__inner">
+        <div class="call-to-action__text">
+            <h2 class="heading heading--two-b call-to-action__heading">{{ cta.value.text }}</h2>
+            {% if cta.value.description %}
+                <div class="call-to-action__description">
+                    {{ cta.value.description|richtext }}
+                </div>
+            {% endif %}
+        </div>
+        {% if cta.value.button_text and cta.value.button_link %}
+            {% if cta.value.get_button_link_block.block_type == "pipedrive_link" %}
+                <button class="call-to-action__button button" data-micromodal-trigger="pipedrive-embed-modal">{{ cta.value.button_text }}</button>
+            {% else %}
+                <a href="{{ cta.value.get_button_link }}" class="call-to-action__button button">
+                    {{ cta.value.button_text }}
+                    {% if cta.value.get_button_link_block.block_type == "document_link" %}
+                        ({{ cta.value.get_button_file_size|filesizeformat }})
+                    {% endif %}
+                </a>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+<!-- Sticky block -->
+<div class="call-to-action__sticky">
+    <div class="call-to-action__inner">
+        {% if cta.value.get_button_link_block.block_type == "pipedrive_link" %}
+            <button class="call-to-action__button button" data-micromodal-trigger="pipedrive-embed-modal">
+                {{ value.sticky_text }}
+                {% if value.sticky_subtext %}
+                    <br>
+                    {{ value.sticky_subtext }}
+                {% endif %}
+            </button>
+        {% else %}
+            <a href="{{ cta.value.get_button_link }}" class="call-to-action__button button">
+                {{ value.sticky_text }}
+                {% if cta.value.get_button_link_block.block_type == "document_link" %}
+                    ({{ cta.value.get_button_file_size|filesizeformat }})
+                {% endif %}
+            {% if value.sticky_subtext %}
+                <br>
+                {{ value.sticky_subtext }}
+            {% endif %}
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modal content -->
+<div class="modal" id="pipedrive-embed-modal" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close></div>
+    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-title" >
+        <header class="modal__header">
+            <h2 class="modal__heading heading heading--two" id="modal-title">Service Enquiry</h2>
+            <div class="modal__close">
+                {% include "patterns/atoms/icon_buttons/icon_button.html" with modifier="close" data="data-micromodal-close" aria='aria-label="Close modal"' %}
+            </div>
+        </header>
+        <main class="modal__content" id="filters-content">
+            <iframe
+                src="{{ cta.value.button_link.0 }}"
+                width="100%"
+                height="650px"
+                frameborder="0"
+                title="Pipedrive Webform">
+            </iframe>
+        </main>
+    </div>
+</div>
+{% endwith %}
