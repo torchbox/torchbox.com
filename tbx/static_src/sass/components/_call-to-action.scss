@@ -48,9 +48,11 @@
 
     &__sticky {
         @include z-index(sticky);
-        position: sticky;
-        right: 0;
-        
+        @include media-query(large) {
+            position: fixed;
+            top: 50%;
+            right: 0;
+        }
         background-color: var(--color--theme-primary);
         padding: $spacer-small;
     }
