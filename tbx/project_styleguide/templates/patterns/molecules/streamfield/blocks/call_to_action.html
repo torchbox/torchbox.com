@@ -14,12 +14,12 @@
             {% if value.get_button_link_block.block_type == "pipedrive_link" %}
                 <button class="call-to-action__button button" data-micromodal-trigger="pipedrive-embed-modal">Open Modal</button>
             {% else %}
-            <a href="{{ value.get_button_link }}" class="call-to-action__button button">
-                {{ value.button_text }}
-                {% if value.get_button_link_block.block_type == "document_link" %}
-                    ({{ value.get_button_file_size|filesizeformat }})
-                {% endif %}
-            </a>
+                <a href="{{ value.get_button_link }}" class="call-to-action__button button">
+                    {{ value.button_text }}
+                    {% if value.get_button_link_block.block_type == "document_link" %}
+                        ({{ value.get_button_file_size|filesizeformat }})
+                    {% endif %}
+                </a>
             {% endif %}
         {% endif %}
     </div>
