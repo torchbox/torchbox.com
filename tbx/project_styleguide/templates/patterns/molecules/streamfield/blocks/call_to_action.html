@@ -11,12 +11,35 @@
             {% endif %}
         </div>
         {% if value.button_text and value.button_link %}
+            {% if value.get_button_link_block.block_type == "pipedrive_link" %}
+                <button class="call-to-action__button button" data-micromodal-trigger="pipedrive-embed-modal">Open Modal</button>
+            {% else %}
             <a href="{{ value.get_button_link }}" class="call-to-action__button button">
                 {{ value.button_text }}
                 {% if value.get_button_link_block.block_type == "document_link" %}
                     ({{ value.get_button_file_size|filesizeformat }})
                 {% endif %}
             </a>
+            {% endif %}
         {% endif %}
+    </div>
+</div>
+
+<!-- Modal content -->
+<div class="modal" id="pipedrive-embed-modal" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close></div>
+    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-title" >
+        <header class="modal__header">
+            <h2 class="modal__heading heading heading--two" id="modal-title">Title</h2>
+            <div class="modal__close">
+                {% include "patterns/atoms/icon_buttons/icon_button.html" with modifier="close" data="data-micromodal-close" aria='aria-label="Close modal"' %}
+            </div>
+        </header>
+        <main class="modal__content" id="filters-content">
+            Content
+        </main>
+        <footer class="modal__footer">
+            <button class="modal__btn" data-micromodal-close>Close</button>
+        </footer>
     </div>
 </div>

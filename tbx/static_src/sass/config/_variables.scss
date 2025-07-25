@@ -63,6 +63,7 @@ $color--black: #000;
     --color--streamfield-background: #{$color--mid-grey};
     --color--decoration: #{$color--grey-50};
     --color--border: #{color.adjust($color--grey-50, $alpha: -0.5)};
+    --color--border--highlight: #{$color--coral};
     --color--light-border: #{$color--mid-grey};
     --color--overlay: #{color.adjust($color--black, $alpha: -0.6)};
     --color--background--overlay: #{color.adjust($color--eclipse, $alpha: -1)};
@@ -370,6 +371,13 @@ $grid: 30px;
 $grid-gutters: $grid;
 $grid-gutters-large: 80px;
 $grid-gutters-x-large: 120px;
+$grid-xs: calc($grid / 4); // 5px
+$grid-s: calc($grid / 2); // 10px
+$grid-s-m: calc($grid * 0.75); // 15px
+$grid-m: calc($grid * 1.5); // 30px
+$grid-l: calc($grid * 2); // 40px
+$grid-xl: calc($grid * 3); // 60px
+$grid-xxl: calc($grid * 4); // 80px
 
 // Vertical spacing
 // Any changes here will also need to be made in tailwind.config.js
