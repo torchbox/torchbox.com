@@ -221,7 +221,7 @@ class ButtonLinkStructValue(blocks.StructValue):
             # Ensure page exists and is live.
             if block.value and block.value.live:
                 return block.value.url
-        elif block_type == "external_link":
+        elif block_type == "external_link" or block_type =="modal_iframe":
             return block.value
         elif block_type == "email":
             return f"mailto:{block.value}"
@@ -248,7 +248,7 @@ class CallToActionBlock(blocks.StructBlock):
             ("external_link", blocks.URLBlock()),
             ("email", blocks.EmailBlock()),
             ("document_link", DocumentChooserBlock()),
-            ("pipedrive_link", blocks.URLBlock()),
+            ("modal_iframe", blocks.URLBlock()),
         ],
         required=True,
         max_num=1,
@@ -270,14 +270,23 @@ class ContactCTABlock(blocks.StructBlock):
 
 
 class StickyCTABlock(blocks.StructBlock):
-    call_to_action = blocks.StreamBlock(
-        [("call_to_action", CallToActionBlock())], max_num=1
-    )
     sticky_text = blocks.CharBlock(max_length=40)
     sticky_subtext = blocks.CharBlock(max_length=55)
+    button_link = blocks.StreamBlock(
+        [
+            ("internal_link", blocks.PageChooserBlock()),
+            ("external_link", blocks.URLBlock()),
+            ("email", blocks.EmailBlock()),
+            ("document_link", DocumentChooserBlock()),
+            ("modal_iframe", blocks.URLBlock()),
+        ],
+        required=True,
+        max_num=1,
+    )
 
     class Meta:
         template = "patterns/molecules/streamfield/blocks/sticky_call_to_action.html"
+        value_class = ButtonLinkStructValue
 
 
 class DynamicHeroBlock(blocks.StructBlock):

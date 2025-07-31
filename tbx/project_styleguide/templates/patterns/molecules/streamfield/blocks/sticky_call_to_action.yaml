@@ -1,12 +1,7 @@
 context:
-  value:
-    call_to_action:
-      - value:
-          text: Get in touch to learn about our journey to becoming employee-owned
-          # description: '<p>Speak to our team to boost regular giving, improve supporter loyalty, or mobilise people behind your cause.</p>'
-          button_text: 'Contact Us'
-          button_link:
-            - pipedrive_link:
-              url: 'https://example.com'
+  value:   
     sticky_text: Get in touch
     sticky_subtext: learn about our journey
+    sticky_link:
+      - modal_iframe:
+        url: 'https://example.com'

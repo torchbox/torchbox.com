@@ -11,8 +11,8 @@
             {% endif %}
         </div>
         {% if value.button_text and value.button_link %}
-            {% if value.get_button_link_block.block_type == "pipedrive_link" %}
-                <button class="call-to-action__button button" data-micromodal-trigger="pipedrive-embed-modal">Open Modal</button>
+            {% if value.get_button_link_block.block_type == "modal_iframe" %}
+                <button class="call-to-action__button button" data-micromodal-trigger="iframe-embed-modal">{{ value.button_text }}</button>
             {% else %}
                 <a href="{{ value.get_button_link }}" class="call-to-action__button button">
                     {{ value.button_text }}
@@ -26,7 +26,7 @@
 </div>
 
 <!-- Modal content -->
-<div class="modal" id="pipedrive-embed-modal" aria-hidden="true">
+<div class="modal" id="iframe-embed-modal" aria-hidden="true">
     <div class="modal__overlay" tabindex="-1" data-micromodal-close></div>
     <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-title" >
         <header class="modal__header">
@@ -37,11 +37,11 @@
         </header>
         <main class="modal__content" id="filters-content">
             <iframe
-                src="{{ cta.value.button_link.0 }}"
+                src="{{ cta.value.get_button_link }}"
                 width="100%"
                 height="650px"
                 frameborder="0"
-                title="Pipedrive Webform">
+                title="Modal Webform">
             </iframe>
         </main>
     </div>

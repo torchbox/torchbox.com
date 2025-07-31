@@ -48,12 +48,17 @@
 
     &__sticky {
         @include z-index(sticky);
-        @include media-query(large) {
-            position: fixed;
-            top: 75%;
-            right: 0;
-        }
+        position: fixed;
+        bottom: $spacer-medium;
+        right: 0;
         background-color: var(--color--theme-primary);
-        padding: $spacer-small;
+        padding: $spacer-mini;
+    }
+
+    &__stickyinner {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: $spacer-mini;
     }
 }
