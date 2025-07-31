@@ -18,10 +18,10 @@
                 {% if value.get_button_link_block.block_type == "document_link" %}
                     ({{ value.get_button_file_size|filesizeformat }})
                 {% endif %}
-            {% if value.sticky_subtext %}
-                <br>
-                {{ value.sticky_subtext }}
-            {% endif %}
+                {% if value.sticky_subtext %}
+                    <br>
+                    {{ value.sticky_subtext }}
+                {% endif %}
             </a>
         {% endif %}
     </div>

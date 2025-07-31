@@ -2,6 +2,6 @@ context:
   value:   
     sticky_text: Get in touch
     sticky_subtext: learn about our journey
-    sticky_link:
-      - modal_iframe:
-        url: 'https://example.com'
+    button_link:
+    - modal_iframe:
+      url: 'https://example.com'

@@ -221,7 +221,7 @@ class ButtonLinkStructValue(blocks.StructValue):
             # Ensure page exists and is live.
             if block.value and block.value.live:
                 return block.value.url
-        elif block_type == "external_link" or block_type =="modal_iframe":
+        elif block_type == "external_link" or block_type == "modal_iframe":
             return block.value
         elif block_type == "email":
             return f"mailto:{block.value}"
