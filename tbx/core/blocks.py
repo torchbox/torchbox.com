@@ -221,7 +221,7 @@ class ButtonLinkStructValue(blocks.StructValue):
             # Ensure page exists and is live.
             if block.value and block.value.live:
                 return block.value.url
-        elif block_type == "external_link":
+        elif block_type == "external_link" or block_type == "modal_iframe":
             return block.value
         elif block_type == "email":
             return f"mailto:{block.value}"
@@ -248,6 +248,7 @@ class CallToActionBlock(blocks.StructBlock):
             ("external_link", blocks.URLBlock()),
             ("email", blocks.EmailBlock()),
             ("document_link", DocumentChooserBlock()),
+            ("modal_iframe", blocks.URLBlock()),
         ],
         required=True,
         max_num=1,
@@ -266,6 +267,26 @@ class ContactCTABlock(blocks.StructBlock):
 
     class Meta:
         template = "patterns/molecules/streamfield/blocks/contact_call_to_action.html"
+
+
+class StickyCTABlock(blocks.StructBlock):
+    sticky_text = blocks.CharBlock(max_length=40)
+    sticky_subtext = blocks.CharBlock(max_length=55)
+    button_link = blocks.StreamBlock(
+        [
+            ("internal_link", blocks.PageChooserBlock()),
+            ("external_link", blocks.URLBlock()),
+            ("email", blocks.EmailBlock()),
+            ("document_link", DocumentChooserBlock()),
+            ("modal_iframe", blocks.URLBlock()),
+        ],
+        required=True,
+        max_num=1,
+    )
+
+    class Meta:
+        template = "patterns/molecules/streamfield/blocks/sticky_call_to_action.html"
+        value_class = ButtonLinkStructValue
 
 
 class DynamicHeroBlock(blocks.StructBlock):
@@ -1231,6 +1252,11 @@ class StoryBlock(blocks.StreamBlock):
     contact_call_to_action = ContactCTABlock(
         label="Contact Call to Action",
         template="patterns/molecules/streamfield/blocks/contact_call_to_action.html",
+        group="Calls to action",
+    )
+    sticky_call_to_action = StickyCTABlock(
+        label="Sticky Call to Action",
+        template="patterns/molecules/streamfield/blocks/sticky_call_to_action.html",
         group="Calls to action",
     )
     pullquote = PullQuoteBlock(
