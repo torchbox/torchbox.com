@@ -3,24 +3,22 @@
 
 <!-- Sticky block -->
 <div class="call-to-action__sticky">
-    <div class="call-to-action__stickyinner">
+    <div class="call-to-action__inner">
         {% if value.get_button_link_block.block_type == "modal_iframe" %}
-            <button class="call-to-action__button button" data-micromodal-trigger="iframe-embed-modal">
-                {{ value.sticky_text }}
+            <button class="call-to-action__stickybutton button" data-micromodal-trigger="iframe-embed-modal">
+                <span class="call-to-action__stickyheading">{{ value.sticky_text }}</span>
                 {% if value.sticky_subtext %}
-                    <br>
-                    {{ value.sticky_subtext }}
+                     <br><span class="call-to-action__stickysubtext">{{ value.sticky_subtext }}</span>
                 {% endif %}
             </button>
         {% else %}
             <a href="{{ value.get_button_link }}" class="call-to-action__button button">
-                {{ value.sticky_text }}
+                <span class="call-to-action__stickyheading">{{ value.sticky_text }}</span>
                 {% if value.get_button_link_block.block_type == "document_link" %}
                     ({{ value.get_button_file_size|filesizeformat }})
                 {% endif %}
                 {% if value.sticky_subtext %}
-                    <br>
-                    {{ value.sticky_subtext }}
+                     <br><span class="call-to-action__stickysubtext">{{ value.sticky_subtext }}</span>
                 {% endif %}
             </a>
         {% endif %}

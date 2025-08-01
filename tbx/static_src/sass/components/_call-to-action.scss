@@ -55,10 +55,22 @@
         padding: $spacer-mini;
     }
 
-    &__stickyinner {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: $spacer-mini;
+    &__stickybutton {
+        @include font-size('size-five');
+        color: var(--color--white);
+        border: 1px solid var(--color--white);
+        margin-top: 0;
+
+        &:focus {
+            @include focus-style($outline-color: var(--color--background));
+        }
     }
+
+    &__stickyheading {
+        font-weight: $weight--semibold;
+    }
+    &__stickysubtext {
+        font-weight: $weight--extralight;
+    }
+
 }
