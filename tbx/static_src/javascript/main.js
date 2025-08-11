@@ -42,4 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initComponent(Modal);
     initComponent(ModeSwitcher);
     new DesktopCloseMenus();
+
+    // Move sticky CTA(s) to the end of the main content for natural tab order
+    const main = document.getElementById('main-content') || document.body;
+    if (main) {
+        document.querySelectorAll('[data-sticky-cta]').forEach((element) => {
+            main.appendChild(element);
+        });
+    }
 });

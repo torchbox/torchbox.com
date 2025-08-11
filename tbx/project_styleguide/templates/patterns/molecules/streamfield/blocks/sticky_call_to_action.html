@@ -1,8 +1,8 @@
 {% load wagtailcore_tags %}
 {# call_to_action is a required field (streamblock) in the block definition #}
 
-<!-- Sticky block -->
-<div class="call-to-action__sticky">
+
+<div class="call-to-action__sticky" data-sticky-cta>
     <div class="call-to-action__inner">
         {% if value.get_button_link_block.block_type == "modal_iframe" %}
             <button class="call-to-action__stickybutton button" data-micromodal-trigger="iframe-embed-modal">
