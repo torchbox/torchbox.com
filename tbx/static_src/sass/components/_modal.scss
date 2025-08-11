@@ -78,6 +78,10 @@
         position: relative;
         background: transparent;
         border: 0;
+
+        button:focus {
+            @include focus-style();
+        }
     }
 
     &__container,

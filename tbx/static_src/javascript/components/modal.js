@@ -52,6 +52,8 @@ class Modal {
             const modalId = trigger.getAttribute('data-micromodal-trigger');
             if (modalId && typeof MicroModal !== 'undefined') {
                 MicroModal.show(modalId);
+                // Ensure tabbing forward from iframes stays within the modal
+                Modal.ensurePostIframeFocusTrap(modalId);
             }
         }
 
@@ -80,6 +82,35 @@ class Modal {
                 }
             }
         }
+    }
+
+    // When a modal contains an iframe, browser-level tabbing inside the iframe
+    // does not bubble key events to the parent, so focus-trap libraries
+    // cannot reliably intercept the Tab press. Add a focus sentinel immediately
+    // after the iframe that redirects focus to the Close button.
+    static ensurePostIframeFocusTrap(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+        const container = modal.querySelector('.modal__container');
+        if (!container) return;
+
+        const iframe = container.querySelector('iframe');
+        if (!iframe) return;
+
+        // Only add once per modal instance
+        if (container.querySelector('.modal__focus-sentinel')) return;
+
+        const sentinel = document.createElement('span');
+        sentinel.tabIndex = 0;
+
+        sentinel.addEventListener('focus', () => {
+            const closeButton = modal.querySelector('[data-micromodal-close]');
+            if (closeButton) {
+                closeButton.focus();
+            }
+        });
+
+        iframe.parentNode.insertBefore(sentinel, iframe.nextSibling);
     }
 }
 
