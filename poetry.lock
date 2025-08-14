@@ -588,24 +588,21 @@ dev = ["django (>=4.2,<5.0)", "pre-commit (>=3.8.0)", "pytest (>=8.3,<9.0)", "py
 
 [[package]]
 name = "django-csp"
-version = "4.0"
+version = "3.8"
 description = "Django Content Security Policy support."
 optional = false
 python-versions = "*"
 files = [
-    {file = "django_csp-4.0-py3-none-any.whl", hash = "sha256:d5a0a05463a6b75a4f1fc1828c58c89af8db9364d09fc6e12f122b4d7f3d00dc"},
-    {file = "django_csp-4.0.tar.gz", hash = "sha256:b27010bb702eb20a3dad329178df2b61a2b82d338b70fbdc13c3a3bd28712833"},
+    {file = "django_csp-3.8-py3-none-any.whl", hash = "sha256:19b2978b03fcd73517d7d67acbc04fbbcaec0facc3e83baa502965892d1e0719"},
+    {file = "django_csp-3.8.tar.gz", hash = "sha256:ef0f1a9f7d8da68ae6e169c02e9ac661c0ecf04db70e0d1d85640512a68471c0"},
 ]
 
 [package.dependencies]
-django = ">=4.2"
-packaging = "*"
+Django = ">=3.2"
 
 [package.extras]
-dev = ["django-stubs[compatible-mypy]", "jinja2 (>=2.9.6)", "mypy", "pre-commit", "pytest", "pytest-cov", "pytest-django", "pytest-ruff", "sphinx", "sphinx-rtd-theme", "tox", "tox-gh-actions", "types-setuptools"]
 jinja2 = ["jinja2 (>=2.9.6)"]
 tests = ["jinja2 (>=2.9.6)", "pytest", "pytest-cov", "pytest-django", "pytest-ruff"]
-typing = ["django-stubs[compatible-mypy]", "jinja2 (>=2.9.6)", "mypy", "pytest", "pytest-django", "types-setuptools"]
 
 [[package]]
 name = "django-debug-toolbar"
@@ -2639,4 +2636,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.13"
-content-hash = "a68b134b895fc2d50c10b6582f71d3e67589d7e517a5c5f50bf0e438f4ff314c"
+content-hash = "372665b860476bc249e2f675b35e9191ac044701aab507535ddd9f2427f23a6b"

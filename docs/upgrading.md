@@ -82,6 +82,14 @@ As much as possible, we want to use the official releases available on PyPI for 
 - wagtailmedia
 - wagtail-purge
 
+## django-csp
+
+**Last tested for wagtail 7.0.1 upgrade** The current version of django-csp is ~3.8
+
+v4.0 has breaking changes, so we are using the latest version of v3.x.
+
+See the django-csp upgrade notes <https://github.com/mozilla/django-csp/blob/main/CHANGES.md#40>
+
 ## Custom wagtail admin templates
 
 **Last checked** Wagtail 7.0 upgrade
