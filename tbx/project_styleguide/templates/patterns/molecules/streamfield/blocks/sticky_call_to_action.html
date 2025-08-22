@@ -1,7 +1,6 @@
 {% load wagtailcore_tags %}
 {# call_to_action is a required field (streamblock) in the block definition #}
 
-
 <div class="call-to-action__sticky" data-sticky-cta>
     <div class="call-to-action__inner">
         {% if value.get_button_link_block.block_type == "modal_iframe" %}
@@ -26,25 +25,5 @@
 </div>
 
 {% if value.get_button_link_block.block_type == "modal_iframe" %}
-    <!-- Modal content -->
-    <div class="modal" id="iframe-embed-modal" aria-hidden="true">
-        <div class="modal__overlay" data-micromodal-close></div>
-        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-title" >
-            <header class="modal__header">
-                <h2 class="modal__heading heading heading--two" id="modal-title">Service Enquiry</h2>
-                <div class="modal__close">
-                    {% include "patterns/atoms/icon_buttons/icon_button.html" with modifier="close" data="data-micromodal-close" aria='aria-label="Close modal"' %}
-                </div>
-            </header>
-            <main class="modal__content" id="filters-content">
-                <iframe
-                    src="{{ value.get_button_link }}"
-                    width="100%"
-                    height="650px"
-                    frameborder="0"
-                    title="Modal Webform">
-                </iframe>
-            </main>
-        </div>
-    </div>
+    {% include "patterns/molecules/iframe_modal/iframe_modal.html" with iframe_src=value.get_button_link %}
 {% endif %}
