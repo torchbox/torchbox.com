@@ -1,11 +1,14 @@
+from itertools import chain
 import math
 import string
 
 from django import forms
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
+from django.db.models import Case, Q, When
 from django.dispatch import receiver
 from django.utils.functional import cached_property
+from django.utils.http import urlencode
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.admin.panels import (
@@ -75,11 +78,25 @@ class BlogIndexPage(BasePage):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
+        # Get blog_posts
+        blog_posts = self.blog_posts
+
+        # Filter by related_service slug
+        slug_filter = request.GET.get("filter")
+        extra_url_params = {}
+
+        if slug_filter and slug_filter in self.taxonomy_slugs:
+            blog_posts = blog_posts.filter(
+                Q(related_sectors__slug=slug_filter)
+                | Q(related_services__slug=slug_filter)
+            )
+            extra_url_params["filter"] = slug_filter
+
         # use page to filter
         page = request.GET.get("page", 1)
 
         # Pagination
-        paginator = Paginator(self.blog_posts, 10)  # Show 10 blog_posts per page
+        paginator = Paginator(blog_posts, 10)  # Show 10 blog_posts per page
 
         try:
             blog_posts = paginator.page(page)
@@ -88,8 +105,20 @@ class BlogIndexPage(BasePage):
         except EmptyPage:
             blog_posts = paginator.page(paginator.num_pages)
 
+        # Only show Sectors and Services that have been used
+        related_sectors = Sector.objects.filter(
+            pk__in=models.Subquery(self.blog_posts.values("related_sectors"))
+        )
+
+        related_services = Service.objects.filter(
+            pk__in=models.Subquery(self.blog_posts.values("related_services"))
+        )
+        tags = chain(related_services, related_sectors)
+
         context.update(
             blog_posts=blog_posts,
+            tags=tags,
+            extra_url_params=urlencode(extra_url_params),
         )
         return context
 
@@ -133,6 +162,18 @@ class BlogPage(BasePage):
         ).split()
         self.body_word_count = len(body_words)
 
+    @cached_property
+    def sectors(self):
+        return self.related_sectors.all()
+
+    @cached_property
+    def services(self):
+        return self.related_services.all()
+
+    @property
+    def tags(self):
+        return chain(self.services, self.sectors)
+
     def get_related_blog_posts(self):
         # Assumption that blog posts for the same division
         # will be under the same blog index page.
@@ -142,7 +183,7 @@ class BlogPage(BasePage):
         if related := self.related_posts.values_list("page"):
             # If some blog posts have been manually selected we show those first
             base_queryset |= BlogPage.objects.filter(pk__in=related)
-            manual_first = models.Case(models.When(pk__in=related, then=1), default=2)
+            manual_first = Case(When(pk__in=related, then=1), default=2)
             order_by.insert(0, manual_first)
 
         prefetch_author_images = models.Prefetch(
@@ -220,7 +261,6 @@ class BlogPage(BasePage):
                     FieldPanel("related_services", widget=forms.CheckboxSelectMultiple),
                 ],
                 heading="Taxonomies",
-                help_text="For internal use only, will not be rendered on the final page.",
             ),
             InlinePanel(
                 "related_posts",
