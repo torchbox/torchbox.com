@@ -30,40 +30,12 @@
 
         {# CTA button #}
         {% if cta.value.button_text and cta.value.button_link %}
-            {% if cta.value.get_button_link_block.block_type == "modal_iframe" %}
-                <button class="contact-cta__button button" data-micromodal-trigger="iframe-embed-modal">{{ cta.value.button_text }}</button>
-            {% else %}
-                <a href="{{ cta.value.get_button_link }}" class="contact-cta__button button">
-                    {{ cta.value.button_text }}
-                    {% if cta.value.get_button_link_block.block_type == "document_link" %}
-                        ({{ cta.value.get_button_file_size|filesizeformat }})
-                    {% endif %}
-                </a>
-            {% endif %}
-        {% endif %}
-        </div>
-        {% if cta.value.get_button_link_block.block_type == "modal_iframe" %}
-        <!-- Modal content -->
-            <div class="modal" id="iframe-embed-modal" aria-hidden="true">
-                <div class="modal__overlay" data-micromodal-close></div>
-                <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-title" >
-                    <header class="modal__header">
-                        <h2 class="modal__heading heading heading--two" id="modal-title">Service Enquiry</h2>
-                        <div class="modal__close">
-                            {% include "patterns/atoms/icon_buttons/icon_button.html" with modifier="close" data="data-micromodal-close" aria='aria-label="Close modal"' %}
-                        </div>
-                    </header>
-                    <main class="modal__content" id="filters-content">
-                        <iframe
-                            src="{{ cta.value.get_button_link }}"
-                            width="100%"
-                            height="650px"
-                            frameborder="0"
-                            title="Modal Webform">
-                        </iframe>
-                    </main>
-                </div>
-            </div>
+            <a href="{{ cta.value.get_button_link }}" class="contact-cta__button button">
+                {{ cta.value.button_text }}
+                {% if cta.value.get_button_link_block.block_type == "document_link" %}
+                    ({{ cta.value.get_button_file_size|filesizeformat }})
+                {% endif %}
+            </a>
         {% endif %}
     {% endwith %}
 </div>
