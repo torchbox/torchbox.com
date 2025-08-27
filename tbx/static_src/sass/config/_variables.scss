@@ -371,13 +371,6 @@ $grid: 30px;
 $grid-gutters: $grid;
 $grid-gutters-large: 80px;
 $grid-gutters-x-large: 120px;
-$grid-xs: calc($grid / 4); // 5px
-$grid-s: calc($grid / 2); // 10px
-$grid-s-m: calc($grid * 0.75); // 15px
-$grid-m: calc($grid * 1.5); // 30px
-$grid-l: calc($grid * 2); // 40px
-$grid-xl: calc($grid * 3); // 60px
-$grid-xxl: calc($grid * 4); // 80px
 
 // Vertical spacing
 // Any changes here will also need to be made in tailwind.config.js

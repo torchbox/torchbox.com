@@ -248,7 +248,6 @@ class CallToActionBlock(blocks.StructBlock):
             ("external_link", blocks.URLBlock()),
             ("email", blocks.EmailBlock()),
             ("document_link", DocumentChooserBlock()),
-            ("modal_iframe", blocks.URLBlock()),
         ],
         required=True,
         max_num=1,
