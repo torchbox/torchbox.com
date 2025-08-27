@@ -1,0 +1,29 @@
+{% load wagtailcore_tags %}
+{# call_to_action is a required field (streamblock) in the block definition #}
+
+<div class="call-to-action__sticky" data-sticky-cta>
+    <div class="call-to-action__inner">
+        {% if value.get_button_link_block.block_type == "modal_iframe" %}
+            <button class="call-to-action__stickybutton button" data-micromodal-trigger="iframe-embed-modal">
+                <span class="call-to-action__stickyheading">{{ value.sticky_text }}</span>
+                {% if value.sticky_subtext %}
+                    <br><span class="call-to-action__stickysubtext">{{ value.sticky_subtext }}</span>
+                {% endif %}
+            </button>
+        {% else %}
+            <a href="{{ value.get_button_link }}" class="call-to-action__button button">
+                <span class="call-to-action__stickyheading">{{ value.sticky_text }}</span>
+                {% if value.get_button_link_block.block_type == "document_link" %}
+                    ({{ value.get_button_file_size|filesizeformat }})
+                {% endif %}
+                {% if value.sticky_subtext %}
+                    <br><span class="call-to-action__stickysubtext">{{ value.sticky_subtext }}</span>
+                {% endif %}
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+{% if value.get_button_link_block.block_type == "modal_iframe" %}
+    {% include "patterns/molecules/iframe_modal/iframe_modal.html" with iframe_src=value.get_button_link %}
+{% endif %}
