@@ -74,7 +74,7 @@ As much as possible, we want to use the official releases available on PyPI for 
 
 ### Check these packages for updates
 
-**Last checked** Wagtail 7.0 upgrade
+**Last checked** Wagtail 7.1 upgrade
 
 - wagtail-accessibility
 - [wagtail-lite-youtube-embed](front-end/lite-youtube.md)
@@ -84,6 +84,6 @@ As much as possible, we want to use the official releases available on PyPI for 
 
 ## Custom wagtail admin templates
 
-**Last checked** Wagtail 7.0 upgrade
+**Last checked** Wagtail 7.1 upgrade
 
 Add references to any custom templates that override the Wagtail admin templates. These should be checked to ensure they still work as expected after the upgrade.

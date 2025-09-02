@@ -6,6 +6,8 @@ Add your changes to the Unreleased section and move them to the appropriate sect
 
 ## Unreleased
 
+- Wagtail 7.1 upgrade [#404]https://github.com/torchbox/torchbox.com/pull/404
+
 -
 
 ## 23-06-2025
