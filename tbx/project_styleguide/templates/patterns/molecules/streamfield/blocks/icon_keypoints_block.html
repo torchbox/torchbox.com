@@ -16,10 +16,14 @@
                     <p class="keypoints__label">{{ key_point.icon_label }}</p>
                     {% include "patterns/atoms/icons/icon.html" with name=key_point.icon classname="keypoints__icon" %}
                 </div>
-                    {# header title is optional, so heading here may be h2 #}
-                <{% if value.title %}h3{% else %}h2{% endif %} class="keypoints__heading">
-                {{ key_point.heading }}
-                {% if value.title %}</h3>{% else %}</h2>{% endif %}
+                {% if key_point.heading %}
+                        {# header title is optional, so heading here may be h2 #}
+                    {% with value.title|yesno:"h3,h2" as HTAG %}
+                        <{{ HTAG }} class="keypoints__heading">
+                        {{ key_point.heading }}
+                        </{{ HTAG }}>
+                    {% endwith %}
+                {% endif %}
                 <div class="keypoints__description">{{ key_point.description|richtext }}</div>
             </li>
         {% endfor %}

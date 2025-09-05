@@ -441,7 +441,7 @@ class IconKeyPointBlock(blocks.StructBlock):
         max_length=32,
     )
     icon_label = blocks.CharBlock()
-    heading = blocks.CharBlock()
+    heading = blocks.CharBlock(required=False)
     description = blocks.RichTextBlock(features=settings.NO_HEADING_RICH_TEXT_FEATURES)
 
     class Meta:
