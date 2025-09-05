@@ -7,6 +7,9 @@ context:
         icon_label: Grow sustainable income
         heading: Future-proof your funding streams.
         description: '<p>We help develop reliable income streams through giving, legacy and events, while creating innovative digital products that engage new audiences.</p>'
+      - icon: 'key-lightbulb'
+        icon_label: A point without a heading
+        description: '<p>This key point has no heading but should still render correctly.</p>'
       - icon: 'key-bullseye'
         icon_label: Drive digital growth
         heading: Expand your reach.
