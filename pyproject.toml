@@ -7,12 +7,13 @@ authors = ["Torchbox Ltd"]
 [tool.poetry.dependencies]
 python = "^3.13"
 Django = "~5.2.0"
-wagtail = "~7.0"
+wagtail = "~7.1"
 psycopg = "^3.2.9"
 gunicorn = "^23.0.0"
 whitenoise = "^6.9.0"
 phonenumbers = "^9.0.6"
 Wand = "^0.6.10"
+urllib3 = "2.5.0"
 
 # Django packages
 django-basic-auth-ip-whitelist = "^0.8"
@@ -29,7 +30,7 @@ dj-database-url = "^3.0.0"
 wagtail-accessibility = "^2.0.0"
 wagtail-lite-youtube-embed = "^0.3.0"
 wagtail-markdown = "^0.12.1"
-wagtailmedia = "^0.16.0"
+wagtailmedia = "^0.17.0"
 wagtail-purge = "^0.4.0"
 
 # Production
@@ -62,6 +63,7 @@ pymdown-extensions = "^10.15"
 factory-boy = "^3.3.3"
 faker = "^37.3.0"
 wagtail-factories = "^4.2.1"
+tblib = "^3.1.0"
 
 
 [build-system]
