@@ -10,12 +10,12 @@
 
 {% block content %}
     <div class="grid grid--spacer-large">
-        {% include "patterns/molecules/title-filters/title-filters.html" with item=page hide_tags=True %}
+        {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=tags %}
 
         <ul class="page-listing page-listing--blog">
             {% for post in blog_posts %}
                 {% pageurl post as link %}
-                {% include "patterns/molecules/listing/listing--avatar.html" with link=link avatar=post.first_author.image title=post.title name=post.first_author.name job_title=post.first_author.role date=post.date reading_time=post.read_time hide_tags=True tag_link_base=blog_index_url base_class="page-listing__item" %}
+                {% include "patterns/molecules/listing/listing--avatar.html" with link=link avatar=post.first_author.image title=post.title name=post.first_author.name job_title=post.first_author.role date=post.date reading_time=post.read_time tags=post.tags tag_link_base=blog_index_url base_class="page-listing__item" %}
             {% endfor %}
         </ul>
 
