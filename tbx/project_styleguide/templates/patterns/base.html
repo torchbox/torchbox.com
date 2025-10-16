@@ -29,6 +29,8 @@
 
         {% block meta_tags %}{% endblock %}
 
+        {% include "patterns/navigation/components/breadcrumbs-jsonld.html" %}
+
         {% block extra_jsonld %}{% endblock %}
 
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
