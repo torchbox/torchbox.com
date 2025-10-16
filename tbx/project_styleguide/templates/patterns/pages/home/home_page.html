@@ -1,6 +1,23 @@
 {% extends "patterns/base_page.html" %}
 {% load wagtailcore_tags wagtailimages_tags navigation_tags static %}
 
+{% block extra_jsonld %}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Torchbox",
+            "url": "https://torchbox.com/",
+            "logo": "https://torchbox.com/apple-touch-icon.png",
+            "sameAs": [
+                "https://bsky.app/profile/torchbox.com",
+                "https://www.linkedin.com/company/torchbox",
+                "https://www.instagram.com/torchboxltd/"
+            ]
+        }
+    </script>
+{% endblock extra_jsonld %}
+
 {% block content %}
 
     <div class="swirls">
