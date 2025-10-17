@@ -9,6 +9,7 @@ import YouTubeConsentManager from './components/youtube-embed';
 import Tabs from './components/tabs';
 import TableHint from './components/table-hint';
 import ModeSwitcher from './components/mode-switcher';
+import VWOLoader from './components/vwo-loader';
 
 // IE11 polyfills
 import foreachPolyfill from './polyfills/foreach-polyfill';
@@ -40,4 +41,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initComponent(TableHint);
     initComponent(ModeSwitcher);
     new DesktopCloseMenus();
+    new VWOLoader();
 });
