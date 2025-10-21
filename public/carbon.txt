@@ -3,7 +3,7 @@ disclosures = [
     { doc_type="sustainability-page", url="https://torchbox.com/sustainability-policy/", domain="torchbox.com"  },
     { doc_type="annual-report", url="https://torchbox.com/about/impact-report-2024/#sustainability", domain="torchbox.com" },
     { doc_type="annual-report", url="https://torchbox.com/about/impact-report-2023/#sustainability", domain="torchbox.com" },
-    { doc_type="web-page", url="https://torchbox.com/news/announcing-our-digital-emissions-methodologies/", domain="torchbox.com" }
+    { doc_type="web-page", url="https://torchbox.com/news/announcing-our-digital-emissions-methodologies/", domain="torchbox.com" },
     { doc_type="web-page", url="https://torchbox.com/about/digital-emissions/", domain="torchbox.com" }
 ]
 
