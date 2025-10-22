@@ -22,7 +22,7 @@ class CookieWarning {
         this.activeClass = 'active';
         this.inactiveClass = 'inactive';
         
-        this.template = document.querySelector(CookieWarning.vwoSelector())
+        this.template = document.querySelector(CookieWarning.vwoSelector());
         this.templateInitiated = false;
 
         this.checkCookie();
@@ -59,7 +59,7 @@ class CookieWarning {
             }
         } else {
             window.VWO.init(3);
-            window.VWO.push(['optOutVisitor'])
+            window.VWO.push(['optOutVisitor']);
         }
     }
 
