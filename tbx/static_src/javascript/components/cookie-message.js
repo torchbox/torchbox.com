@@ -17,7 +17,7 @@ class CookieWarning {
         this.optOutButton = this.messageContainer.querySelector(
             '[data-cookie-opt-out]',
         );
-        this.cookieName = 'torchbox-cookie';
+        this.cookieName = 'torchbox_cookie';
         this.cookieDuration = 365;
         this.activeClass = 'active';
         this.inactiveClass = 'inactive';
