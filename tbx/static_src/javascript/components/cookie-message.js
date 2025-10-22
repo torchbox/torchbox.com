@@ -49,6 +49,7 @@ class CookieWarning {
         Cookies.set(this.cookieName, cookieValue, {
             expires: this.cookieDuration,
         });
+        // Only allow VWO to be enabled if cookies have been accepted
         if (cookieValue) {
             window.VWO.init(1);
             window.VWO.push(['optInVisitor']);
