@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.AddField(
             model_name="blogindexpage",
             name="introduction",
             field=models.TextField(blank=True),
