@@ -37,8 +37,15 @@ from tbx.taxonomy.models import Sector, Service
 
 class BlogIndexPage(BasePage):
     template = "patterns/pages/blog/blog_listing.html"
-
     subpage_types = ["BlogPage"]
+
+    introduction = models.TextField(
+        blank=True,
+    )
+
+    content_panels = BasePage.content_panels + [
+        FieldPanel("introduction"),
+    ]
 
     @cached_property
     def taxonomy_slugs(self):
