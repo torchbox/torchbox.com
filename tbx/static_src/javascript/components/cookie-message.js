@@ -21,7 +21,6 @@ class CookieWarning {
         this.cookieDuration = 365;
         this.activeClass = 'active';
         this.inactiveClass = 'inactive';
-        
         this.template = document.querySelector(CookieWarning.vwoSelector());
         this.templateInitiated = false;
 
