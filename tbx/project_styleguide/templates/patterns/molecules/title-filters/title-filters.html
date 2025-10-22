@@ -11,6 +11,14 @@
         </div>
     {% endif %}
 
+    {% if page_links %}
+        <div class="styled-page-links">
+            {% for block in page_links %}
+                {% include_block block %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     {% if tags and not hide_tags %}
         <div class="title-filters__tags">
             <div class="tags">

@@ -1,0 +1,9 @@
+{% load wagtailcore_tags %}
+
+<a href="{% pageurl value.page %}" class="contact-cta__button button styled-page-link--{{ value.style }}">
+    {% if value.title %}
+        {{ value.title }}
+    {% else %}
+        {{ value.page.title }}
+    {% endif %}
+</a>
