@@ -23,7 +23,7 @@ from wagtail.signals import page_published
 
 from bs4 import BeautifulSoup
 
-from tbx.core.blocks import StoryBlock
+from tbx.core.blocks import StoryBlock, StyledPageLinkBlock
 from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
@@ -43,8 +43,18 @@ class BlogIndexPage(BasePage):
         blank=True,
     )
 
+    page_links = StreamField(
+        [
+            ("styled_page_link", StyledPageLinkBlock()),
+        ],
+        blank=True,
+        max_num=3,
+        help_text="Add up to 3 styled page links.",
+    )
+
     content_panels = BasePage.content_panels + [
         FieldPanel("introduction"),
+        FieldPanel("page_links"),
     ]
 
     @cached_property

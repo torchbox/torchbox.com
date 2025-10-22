@@ -1,0 +1,40 @@
+@use 'config' as *;
+
+.styled-page-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacer-mini;
+    margin-bottom: $spacer-small;
+
+    @include media-query(large) {
+        margin-bottom: $spacer-medium;
+    }
+}
+
+// Style variations for the contact-cta__button button
+.styled-page-link--charity {
+    &:hover,
+    &:focus {
+        background-color: $color--coral;
+        color: var(--color--background);
+        border-color: $color--coral;
+    }
+}
+
+.styled-page-link--public {
+    &:hover,
+    &:focus {
+        background-color: $color--nebuline;
+        color: var(--color--background);
+        border-color: $color--nebuline;
+    }
+}
+
+.styled-page-link--wagtail {
+    &:hover,
+    &:focus {
+        background-color: $color--lagoon;
+        color: var(--color--background);
+        border-color: $color--lagoon;
+    }
+}

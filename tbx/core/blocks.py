@@ -48,6 +48,33 @@ class LinkStructValue(blocks.StructValue):
             return page.title
 
 
+class StyledPageLinkBlock(blocks.StructBlock):
+    """
+    A styled page link block with optional title and style choices.
+    """
+
+    class StyleChoice(models.TextChoices):
+        CHARITY = "charity", "Charity"
+        PUBLIC = "public", "Public"
+        WAGTAIL = "wagtail", "Wagtail"
+
+    page = blocks.PageChooserBlock()
+    title = blocks.CharBlock(
+        required=False,
+        help_text="Optional custom title. If not provided, the page title will be used.",
+    )
+    style = blocks.ChoiceBlock(
+        choices=StyleChoice.choices,
+        default=StyleChoice.CHARITY,
+        help_text="Choose the visual style for this link.",
+    )
+
+    class Meta:
+        icon = "link"
+        label = "Styled Page Link"
+        template = "patterns/molecules/streamfield/blocks/styled_page_link_block.html"
+
+
 class InternalLinkBlock(blocks.StructBlock):
     page = blocks.PageChooserBlock()
     link_text = blocks.CharBlock(required=False)
