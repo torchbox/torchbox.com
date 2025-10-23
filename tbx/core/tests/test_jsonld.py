@@ -1,7 +1,9 @@
 import json
 
+from django.template.loader import get_template, render_to_string
 from django.test import RequestFactory
 
+from wagtail.contrib.settings.context_processors import settings as settings_processor
 from wagtail.models import Site
 from wagtail.test.utils import WagtailPageTestCase
 
@@ -23,17 +25,18 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
             hero_heading_2="Torchbox",
         )
 
-    def test_organization_jsonld_renders(self):
-        """Test that Organization JSON-LD is rendered on the homepage."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
-        # Create a mock request for the template
+    def _get_template_context(self, page):
+        """Helper method to create proper template context with settings."""
         factory = RequestFactory()
         request = factory.get("/")
+        settings_context = settings_processor(request)
 
+        return {"page": page, "request": request, **settings_context}
+
+    def test_organization_jsonld_renders(self):
+        """Test that Organization JSON-LD is rendered on the homepage."""
         # Render the homepage template directly
-        context = {"page": self.homepage, "request": request}
+        context = self._get_template_context(self.homepage)
         content = render_to_string("patterns/pages/home/home_page.html", context)
 
         # Check that the JSON-LD content is valid
@@ -42,15 +45,8 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
 
     def test_organization_jsonld_structure(self):
         """Test that Organization JSON-LD contains all required fields."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
-        # Create a mock request for the template
-        factory = RequestFactory()
-        request = factory.get("/")
-
         # Render the homepage template directly
-        context = {"page": self.homepage, "request": request}
+        context = self._get_template_context(self.homepage)
         content = render_to_string("patterns/pages/home/home_page.html", context)
 
         # Extract Organization JSON-LD from the response
@@ -110,15 +106,8 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
 
     def test_organization_jsonld_social_links(self):
         """Test that Organization JSON-LD includes correct social media links."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
-        # Create a mock request for the template
-        factory = RequestFactory()
-        request = factory.get("/")
-
         # Render the homepage template directly
-        context = {"page": self.homepage, "request": request}
+        context = self._get_template_context(self.homepage)
         content = render_to_string("patterns/pages/home/home_page.html", context)
 
         # Extract Organization JSON-LD
@@ -156,15 +145,8 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
 
     def test_organization_jsonld_logo_url(self):
         """Test that Organization JSON-LD includes correct logo URL."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
-        # Create a mock request for the template
-        factory = RequestFactory()
-        request = factory.get("/")
-
         # Render the homepage template directly
-        context = {"page": self.homepage, "request": request}
+        context = self._get_template_context(self.homepage)
         content = render_to_string("patterns/pages/home/home_page.html", context)
 
         # Extract Organization JSON-LD
@@ -211,17 +193,18 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
         cls.blog_index = BlogIndexPageFactory(parent=cls.division, title="Blog")
         cls.blog_post = BlogPageFactory(parent=cls.blog_index, title="Test Blog Post")
 
-    def test_base_template_includes_jsonld_block(self):
-        """Test that the base template includes the extra_jsonld block."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
-        # Create a mock request for the template
+    def _get_template_context(self, page):
+        """Helper method to create proper template context with settings."""
         factory = RequestFactory()
         request = factory.get("/")
+        settings_context = settings_processor(request)
 
+        return {"page": page, "request": request, **settings_context}
+
+    def test_base_template_includes_jsonld_block(self):
+        """Test that the base template includes the extra_jsonld block."""
         # Render the homepage template directly
-        context = {"page": self.homepage, "request": request}
+        context = self._get_template_context(self.homepage)
         content = render_to_string("patterns/pages/home/home_page.html", context)
 
         # Check that JSON-LD content is present (which means the block is working)
@@ -230,15 +213,8 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
 
     def test_breadcrumb_template_included(self):
         """Test that breadcrumb JSON-LD template is included."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
-        # Create a mock request for the template
-        factory = RequestFactory()
-        request = factory.get("/")
-
         # Render the breadcrumb JSON-LD template directly
-        context = {"page": self.blog_post, "request": request}
+        context = {"page": self.blog_post, "request": RequestFactory().get("/")}
         content = render_to_string(
             "patterns/navigation/components/breadcrumbs-jsonld.html", context
         )
@@ -251,8 +227,6 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
         """Test that blog posting JSON-LD template is included for blog pages."""
         # This test would need to be run on an actual blog page
         # For now, we'll just verify the template exists
-        from django.template.loader import get_template
-
         try:
             template = get_template("patterns/pages/blog/blog-posting-jsonld.html")
             self.assertIsNotNone(template)
@@ -261,8 +235,6 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
 
     def test_breadcrumb_template_exists(self):
         """Test that breadcrumb JSON-LD template exists."""
-        from django.template.loader import get_template
-
         try:
             template = get_template(
                 "patterns/navigation/components/breadcrumbs-jsonld.html"
@@ -273,15 +245,8 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
 
     def test_jsonld_script_tags_present(self):
         """Test that JSON-LD script tags are present in the rendered HTML."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
-        # Create a mock request for the template
-        factory = RequestFactory()
-        request = factory.get("/")
-
         # Render the homepage template directly
-        context = {"page": self.homepage, "request": request}
+        context = self._get_template_context(self.homepage)
         content = render_to_string("patterns/pages/home/home_page.html", context)
 
         # Check for JSON-LD script tags
@@ -290,15 +255,8 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
 
     def test_multiple_jsonld_scripts(self):
         """Test that multiple JSON-LD scripts can be present on a page."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
-        # Create a mock request for the template
-        factory = RequestFactory()
-        request = factory.get("/")
-
         # Render the homepage template directly
-        context = {"page": self.homepage, "request": request}
+        context = self._get_template_context(self.homepage)
         content = render_to_string("patterns/pages/home/home_page.html", context)
 
         # Count JSON-LD script tags
