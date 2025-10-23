@@ -89,7 +89,9 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
 
         # Test logo
         self.assertIn("logo", org_data)
-        self.assertEqual(org_data["logo"], "https://torchbox.com/apple-touch-icon.png")
+        self.assertEqual(
+            org_data["logo"], "https://torchbox.com/android-chrome-512x512.png"
+        )
 
         # Test social media links
         self.assertIn("sameAs", org_data)
@@ -192,7 +194,7 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
         logo_url = org_data["logo"]
 
         # Test that logo URL is correct
-        self.assertEqual(logo_url, "https://torchbox.com/apple-touch-icon.png")
+        self.assertEqual(logo_url, "https://torchbox.com/android-chrome-512x512.png")
         self.assertTrue(logo_url.startswith("https://"), "Logo URL should be HTTPS")
 
 
