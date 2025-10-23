@@ -5,6 +5,20 @@
         <h1 class="heading heading--mega">{{ item.title }}</h1>
     </div>
 
+    {% if introduction %}
+        <div class="">
+            <p>{{ introduction|linebreaksbr }}</p>
+        </div>
+    {% endif %}
+
+    {% if page_links %}
+        <div class="styled-page-links">
+            {% for block in page_links %}
+                {% include_block block %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     {% if tags and not hide_tags %}
         <div class="title-filters__tags">
             <div class="tags">
