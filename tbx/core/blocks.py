@@ -32,6 +32,12 @@ from tbx.images.models import CustomImage
 logger = logging.getLogger(__name__)
 
 
+class ColourTheme(models.TextChoices):
+    CORAL = "theme-coral", "Coral"
+    NEBULINE = "theme-nebuline", "Nebuline"
+    LAGOON = "theme-lagoon", "Lagoon"
+
+
 class LinkStructValue(blocks.StructValue):
     @cached_property
     def url(self):
@@ -53,19 +59,14 @@ class StyledPageLinkBlock(blocks.StructBlock):
     A styled page link block with optional title and style choices.
     """
 
-    class StyleChoice(models.TextChoices):
-        CHARITY = "charity", "Charity"
-        PUBLIC = "public", "Public"
-        WAGTAIL = "wagtail", "Wagtail"
-
     page = blocks.PageChooserBlock()
     title = blocks.CharBlock(
         required=False,
         help_text="Optional custom title. If not provided, the page title will be used.",
     )
     style = blocks.ChoiceBlock(
-        choices=StyleChoice.choices,
-        default=StyleChoice.CHARITY,
+        choices=ColourTheme.choices,
+        default=ColourTheme.CORAL,
         help_text="Choose the visual style for this link.",
     )
 
@@ -580,11 +581,6 @@ class IconChoice(models.TextChoices):
 
 
 class DivisionSignpostCardBlock(blocks.StructBlock):
-    class ColourTheme(models.TextChoices):
-        CORAL = "theme-coral", "Coral"
-        NEBULINE = "theme-nebuline", "Nebuline"
-        LAGOON = "theme-lagoon", "Lagoon"
-
     card_colour = blocks.ChoiceBlock(
         choices=ColourTheme.choices, default=ColourTheme.CORAL, max_length=20
     )
