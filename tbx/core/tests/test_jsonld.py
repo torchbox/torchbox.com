@@ -33,27 +33,11 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
 
         return {"page": page, "request": request, **settings_context}
 
-    def test_organization_jsonld_renders(self):
-        """Test that Organization JSON-LD is rendered on the homepage."""
-        # Render the homepage template directly
-        context = self._get_template_context(self.homepage)
-        content = render_to_string("patterns/pages/home/home_page.html", context)
-
-        # Check that the JSON-LD content is valid
-        self.assertIn("application/ld+json", content)
-        self.assertIn("Organization", content)
-
-    def test_organization_jsonld_structure(self):
-        """Test that Organization JSON-LD contains all required fields."""
-        # Render the homepage template directly
-        context = self._get_template_context(self.homepage)
-        content = render_to_string("patterns/pages/home/home_page.html", context)
-
-        # Extract Organization JSON-LD from the response
+    def _extract_jsonld_by_type(self, content, jsonld_type):
+        """Helper method to extract JSON-LD by type from rendered content."""
         start_marker = '<script type="application/ld+json">'
         end_marker = "</script>"
 
-        # Find all JSON-LD scripts and look for the organization one
         json_scripts = []
         start_idx = 0
         while True:
@@ -67,15 +51,30 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
             json_content = content[start_idx + len(start_marker) : end_idx].strip()
             try:
                 json_data = json.loads(json_content)
-                if json_data.get("@type") == "Organization":
+                if json_data.get("@type") == jsonld_type:
                     json_scripts.append(json_data)
             except json.JSONDecodeError:
                 pass
             start_idx = end_idx + len(end_marker)
 
-        self.assertGreater(len(json_scripts), 0, "Organization JSON-LD not found")
+        return json_scripts
 
-        org_data = json_scripts[0]
+    def _get_organization_jsonld(self):
+        """Helper method to get Organization JSON-LD from homepage."""
+        context = self._get_template_context(self.homepage)
+        content = render_to_string("patterns/pages/home/home_page.html", context)
+        json_scripts = self._extract_jsonld_by_type(content, "Organization")
+        self.assertGreater(len(json_scripts), 0, "Organization JSON-LD not found")
+        return json_scripts[0]
+
+    def test_organization_jsonld_renders(self):
+        """Test that Organization JSON-LD is rendered on the homepage."""
+        org_data = self._get_organization_jsonld()
+        self.assertEqual(org_data["@type"], "Organization")
+
+    def test_organization_jsonld_structure(self):
+        """Test that Organization JSON-LD contains all required fields."""
+        org_data = self._get_organization_jsonld()
 
         # Test required fields
         self.assertEqual(org_data["@context"], "https://schema.org")
@@ -106,34 +105,7 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
 
     def test_organization_jsonld_social_links(self):
         """Test that Organization JSON-LD includes correct social media links."""
-        # Render the homepage template directly
-        context = self._get_template_context(self.homepage)
-        content = render_to_string("patterns/pages/home/home_page.html", context)
-
-        # Extract Organization JSON-LD
-        start_marker = '<script type="application/ld+json">'
-        end_marker = "</script>"
-
-        json_scripts = []
-        start_idx = 0
-        while True:
-            start_idx = content.find(start_marker, start_idx)
-            if start_idx == -1:
-                break
-            end_idx = content.find(end_marker, start_idx)
-            if end_idx == -1:
-                break
-
-            json_content = content[start_idx + len(start_marker) : end_idx].strip()
-            try:
-                json_data = json.loads(json_content)
-                if json_data.get("@type") == "Organization":
-                    json_scripts.append(json_data)
-            except json.JSONDecodeError:
-                pass
-            start_idx = end_idx + len(end_marker)
-
-        org_data = json_scripts[0]
+        org_data = self._get_organization_jsonld()
         same_as = org_data["sameAs"]
 
         # Test that all social links are valid URLs
@@ -145,34 +117,7 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
 
     def test_organization_jsonld_logo_url(self):
         """Test that Organization JSON-LD includes correct logo URL."""
-        # Render the homepage template directly
-        context = self._get_template_context(self.homepage)
-        content = render_to_string("patterns/pages/home/home_page.html", context)
-
-        # Extract Organization JSON-LD
-        start_marker = '<script type="application/ld+json">'
-        end_marker = "</script>"
-
-        json_scripts = []
-        start_idx = 0
-        while True:
-            start_idx = content.find(start_marker, start_idx)
-            if start_idx == -1:
-                break
-            end_idx = content.find(end_marker, start_idx)
-            if end_idx == -1:
-                break
-
-            json_content = content[start_idx + len(start_marker) : end_idx].strip()
-            try:
-                json_data = json.loads(json_content)
-                if json_data.get("@type") == "Organization":
-                    json_scripts.append(json_data)
-            except json.JSONDecodeError:
-                pass
-            start_idx = end_idx + len(end_marker)
-
-        org_data = json_scripts[0]
+        org_data = self._get_organization_jsonld()
         logo_url = org_data["logo"]
 
         # Test that logo URL is correct
@@ -201,15 +146,44 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
 
         return {"page": page, "request": request, **settings_context}
 
-    def test_base_template_includes_jsonld_block(self):
-        """Test that the base template includes the extra_jsonld block."""
-        # Render the homepage template directly
+    def _extract_jsonld_by_type(self, content, jsonld_type):
+        """Helper method to extract JSON-LD by type from rendered content."""
+        start_marker = '<script type="application/ld+json">'
+        end_marker = "</script>"
+
+        json_scripts = []
+        start_idx = 0
+        while True:
+            start_idx = content.find(start_marker, start_idx)
+            if start_idx == -1:
+                break
+            end_idx = content.find(end_marker, start_idx)
+            if end_idx == -1:
+                break
+
+            json_content = content[start_idx + len(start_marker) : end_idx].strip()
+            try:
+                json_data = json.loads(json_content)
+                if json_data.get("@type") == jsonld_type:
+                    json_scripts.append(json_data)
+            except json.JSONDecodeError:
+                pass
+            start_idx = end_idx + len(end_marker)
+
+        return json_scripts
+
+    def _get_organization_jsonld(self):
+        """Helper method to get Organization JSON-LD from homepage."""
         context = self._get_template_context(self.homepage)
         content = render_to_string("patterns/pages/home/home_page.html", context)
+        json_scripts = self._extract_jsonld_by_type(content, "Organization")
+        self.assertGreater(len(json_scripts), 0, "Organization JSON-LD not found")
+        return json_scripts[0]
 
-        # Check that JSON-LD content is present (which means the block is working)
-        self.assertIn("application/ld+json", content)
-        self.assertIn("Organization", content)
+    def test_base_template_includes_jsonld_block(self):
+        """Test that the base template includes the extra_jsonld block."""
+        org_data = self._get_organization_jsonld()
+        self.assertEqual(org_data["@type"], "Organization")
 
     def test_breadcrumb_template_included(self):
         """Test that breadcrumb JSON-LD template is included."""
@@ -245,23 +219,10 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
 
     def test_jsonld_script_tags_present(self):
         """Test that JSON-LD script tags are present in the rendered HTML."""
-        # Render the homepage template directly
-        context = self._get_template_context(self.homepage)
-        content = render_to_string("patterns/pages/home/home_page.html", context)
-
-        # Check for JSON-LD script tags
-        self.assertIn('<script type="application/ld+json">', content)
-        self.assertIn("</script>", content)
+        org_data = self._get_organization_jsonld()
+        self.assertIsNotNone(org_data)
 
     def test_multiple_jsonld_scripts(self):
         """Test that multiple JSON-LD scripts can be present on a page."""
-        # Render the homepage template directly
-        context = self._get_template_context(self.homepage)
-        content = render_to_string("patterns/pages/home/home_page.html", context)
-
-        # Count JSON-LD script tags
-        script_count = content.count('<script type="application/ld+json">')
-        self.assertGreater(script_count, 0, "No JSON-LD scripts found")
-
-        # Should have at least the organization schema
-        self.assertIn("Organization", content)
+        org_data = self._get_organization_jsonld()
+        self.assertEqual(org_data["@type"], "Organization")
