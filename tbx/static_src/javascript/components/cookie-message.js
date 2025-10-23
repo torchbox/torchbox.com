@@ -5,6 +5,10 @@ class CookieWarning {
         return '[data-cookie-message]';
     }
 
+    static vwoSelector() {
+        return '[data-vwo-loader]';
+    }
+
     constructor(node) {
         this.messageContainer = node;
         this.optInButton = this.messageContainer.querySelector(
@@ -13,10 +17,12 @@ class CookieWarning {
         this.optOutButton = this.messageContainer.querySelector(
             '[data-cookie-opt-out]',
         );
-        this.cookieName = 'torchbox-cookie';
+        this.cookieName = 'torchbox_cookie';
         this.cookieDuration = 365;
         this.activeClass = 'active';
         this.inactiveClass = 'inactive';
+        this.template = document.querySelector(CookieWarning.vwoSelector());
+        this.templateInitiated = false;
 
         this.checkCookie();
         this.bindEvents();
@@ -43,6 +49,18 @@ class CookieWarning {
         Cookies.set(this.cookieName, cookieValue, {
             expires: this.cookieDuration,
         });
+        // Only allow VWO to be enabled if cookies have been accepted
+        if (cookieValue) {
+            window.VWO.init(1);
+            window.VWO.push(['optInVisitor']);
+            if (!this.templateInitiated) {
+                this.templateInitiated = true;
+                this.template.after(this.template.content.cloneNode(true));
+            }
+        } else {
+            window.VWO.init(3);
+            window.VWO.push(['optOutVisitor']);
+        }
     }
 
     bindEvents() {
