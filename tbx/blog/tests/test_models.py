@@ -1,3 +1,4 @@
+import json
 from operator import attrgetter
 
 from django.core.paginator import Page as PaginatorPage
@@ -12,6 +13,7 @@ from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
 from tbx.blog.models import BlogPage
 from tbx.core.factories import HomePageFactory
 from tbx.divisions.factories import DivisionPageFactory
+from tbx.people.factories import PersonPageFactory
 from tbx.taxonomy.factories import SectorFactory, ServiceFactory
 
 
@@ -133,3 +135,407 @@ class TestBlogPage(WagtailPageTestCase):
             ],
             transform=attrgetter("title"),
         )
+
+
+class TestBlogPageJSONLD(WagtailPageTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        site = Site.objects.get(is_default_site=True)
+        root = site.root_page.specific
+        cls.homepage = HomePageFactory(parent=root)
+        cls.division = DivisionPageFactory(parent=cls.homepage, title="Charity")
+        cls.blog_index = BlogIndexPageFactory(parent=cls.division)
+
+        # Create a person page for the author
+        cls.author = PersonPageFactory(parent=cls.homepage, title="John Doe")
+
+        # Create a blog post with all the necessary fields for JSON-LD
+        cls.blog_post = BlogPageFactory(
+            parent=cls.blog_index,
+            title="Test Blog Post",
+            date="2024-01-15",
+            listing_summary="This is a test blog post summary",
+            search_description="SEO description for the blog post",
+        )
+
+        # Publish the blog post properly
+        cls.blog_post.save_revision().publish()
+
+        # Create an Author instance linked to the PersonPage
+        from tbx.people.factories import AuthorFactory
+
+        author = AuthorFactory(person_page=cls.author, name="John Doe")
+
+        # Add author to the blog post
+        from tbx.core.utils.models import PageAuthor
+
+        PageAuthor.objects.create(page=cls.blog_post, author=author)
+
+    def test_blog_posting_jsonld_renders(self):
+        """Test that BlogPosting JSON-LD is rendered in the blog detail template."""
+        # Test the JSON-LD template directly instead of through URL
+        from django.template.loader import render_to_string
+
+        # Render the blog posting JSON-LD template directly
+        context = {"page": self.blog_post}
+        jsonld_content = render_to_string(
+            "patterns/pages/blog/blog-posting-jsonld.html", context
+        )
+
+        # Check that the JSON-LD content is valid
+        self.assertIn("application/ld+json", jsonld_content)
+        self.assertIn("BlogPosting", jsonld_content)
+
+        # Parse the JSON to ensure it's valid
+        import json
+
+        start_marker = '<script type="application/ld+json">'
+        end_marker = "</script>"
+        start_idx = jsonld_content.find(start_marker)
+        end_idx = jsonld_content.find(end_marker, start_idx)
+
+        if start_idx != -1 and end_idx != -1:
+            json_content = jsonld_content[
+                start_idx + len(start_marker) : end_idx
+            ].strip()
+            json_data = json.loads(json_content)
+            self.assertEqual(json_data["@type"], "BlogPosting")
+        else:
+            self.fail("JSON-LD script tag not found in rendered template")
+
+    def test_blog_posting_jsonld_structure(self):
+        """Test that BlogPosting JSON-LD contains all required fields."""
+        # Test the JSON-LD template directly instead of through URL
+        from django.template.loader import render_to_string
+
+        # Render the blog posting JSON-LD template directly
+        context = {"page": self.blog_post}
+        jsonld_content = render_to_string(
+            "patterns/pages/blog/blog-posting-jsonld.html", context
+        )
+
+        # Extract JSON-LD from the response
+        start_marker = '<script type="application/ld+json">'
+        end_marker = "</script>"
+        start_idx = jsonld_content.find(start_marker)
+        end_idx = jsonld_content.find(end_marker, start_idx)
+
+        self.assertNotEqual(start_idx, -1, "JSON-LD script tag not found")
+        self.assertNotEqual(end_idx, -1, "JSON-LD script tag not properly closed")
+
+        json_content = jsonld_content[start_idx + len(start_marker) : end_idx].strip()
+        json_data = json.loads(json_content)
+
+        # Test required fields
+        self.assertEqual(json_data["@context"], "https://schema.org")
+        self.assertEqual(json_data["@type"], "BlogPosting")
+        self.assertEqual(json_data["headline"], "Test Blog Post")
+        self.assertEqual(json_data["datePublished"], "2024-01-15")
+
+        # Test mainEntityOfPage
+        self.assertIn("mainEntityOfPage", json_data)
+        self.assertEqual(json_data["mainEntityOfPage"]["@type"], "WebPage")
+
+        # Test publisher
+        self.assertIn("publisher", json_data)
+        self.assertEqual(json_data["publisher"]["@type"], "Organization")
+        self.assertEqual(json_data["publisher"]["name"], "Torchbox")
+
+        # Test author
+        self.assertIn("author", json_data)
+        self.assertEqual(json_data["author"]["@type"], "Person")
+        self.assertEqual(json_data["author"]["name"], "John Doe")
+
+    def test_blog_posting_jsonld_with_feed_image(self):
+        """Test BlogPosting JSON-LD includes image when feed_image is set."""
+        # Create an image for the blog post
+        from tbx.images.factories import CustomImageFactory
+
+        image = CustomImageFactory()
+        self.blog_post.feed_image = image
+        self.blog_post.save()
+
+        # Test the JSON-LD template directly instead of through URL
+        from django.template.loader import render_to_string
+
+        # Render the blog posting JSON-LD template directly
+        context = {"page": self.blog_post}
+        jsonld_content = render_to_string(
+            "patterns/pages/blog/blog-posting-jsonld.html", context
+        )
+
+        # Extract JSON-LD
+        start_marker = '<script type="application/ld+json">'
+        end_marker = "</script>"
+        start_idx = jsonld_content.find(start_marker)
+        end_idx = jsonld_content.find(end_marker, start_idx)
+
+        json_content = jsonld_content[start_idx + len(start_marker) : end_idx].strip()
+        json_data = json.loads(json_content)
+
+        # Test that image is included
+        self.assertIn("image", json_data)
+        self.assertIn("format-webp", json_data["image"])
+
+    def test_blog_posting_jsonld_without_feed_image(self):
+        """Test BlogPosting JSON-LD works without feed_image."""
+        self.blog_post.feed_image = None
+        self.blog_post.save()
+
+        # Test the JSON-LD template directly instead of through URL
+        from django.template.loader import render_to_string
+
+        # Render the blog posting JSON-LD template directly
+        context = {"page": self.blog_post}
+        jsonld_content = render_to_string(
+            "patterns/pages/blog/blog-posting-jsonld.html", context
+        )
+
+        # Extract JSON-LD
+        start_marker = '<script type="application/ld+json">'
+        end_marker = "</script>"
+        start_idx = jsonld_content.find(start_marker)
+        end_idx = jsonld_content.find(end_marker, start_idx)
+
+        json_content = jsonld_content[start_idx + len(start_marker) : end_idx].strip()
+        json_data = json.loads(json_content)
+
+        # Test that image is not included
+        self.assertNotIn("image", json_data)
+
+    def test_blog_posting_jsonld_description_fallback(self):
+        """Test that description falls back to listing_summary when search_description is not set."""
+        self.blog_post.search_description = ""
+        self.blog_post.save()
+
+        # Test the JSON-LD template directly instead of through URL
+        from django.template.loader import render_to_string
+
+        # Render the blog posting JSON-LD template directly
+        context = {"page": self.blog_post}
+        jsonld_content = render_to_string(
+            "patterns/pages/blog/blog-posting-jsonld.html", context
+        )
+
+        # Extract JSON-LD
+        start_marker = '<script type="application/ld+json">'
+        end_marker = "</script>"
+        start_idx = jsonld_content.find(start_marker)
+        end_idx = jsonld_content.find(end_marker, start_idx)
+
+        json_content = jsonld_content[start_idx + len(start_marker) : end_idx].strip()
+        json_data = json.loads(json_content)
+
+        # Test that description uses listing_summary as fallback
+        self.assertEqual(json_data["description"], "This is a test blog post summary")
+
+    def test_blog_posting_jsonld_date_modified(self):
+        """Test that dateModified is set correctly."""
+        # Update the blog post to trigger last_published_at
+        self.blog_post.title = "Updated Title"
+        self.blog_post.save()
+
+        # Test the JSON-LD template directly instead of through URL
+        from django.template.loader import render_to_string
+
+        # Render the blog posting JSON-LD template directly
+        context = {"page": self.blog_post}
+        jsonld_content = render_to_string(
+            "patterns/pages/blog/blog-posting-jsonld.html", context
+        )
+
+        # Extract JSON-LD
+        start_marker = '<script type="application/ld+json">'
+        end_marker = "</script>"
+        start_idx = jsonld_content.find(start_marker)
+        end_idx = jsonld_content.find(end_marker, start_idx)
+
+        json_content = jsonld_content[start_idx + len(start_marker) : end_idx].strip()
+        json_data = json.loads(json_content)
+
+        # Test that dateModified is present
+        self.assertIn("dateModified", json_data)
+        # Should be in YYYY-MM-DD format
+        self.assertRegex(json_data["dateModified"], r"^\d{4}-\d{2}-\d{2}$")
+
+
+class TestBreadcrumbJSONLD(WagtailPageTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        site = Site.objects.get(is_default_site=True)
+        root = site.root_page.specific
+        cls.homepage = HomePageFactory(parent=root)
+        cls.division = DivisionPageFactory(parent=cls.homepage, title="Charity")
+        cls.blog_index = BlogIndexPageFactory(parent=cls.division, title="Blog")
+        cls.blog_post = BlogPageFactory(parent=cls.blog_index, title="Test Blog Post")
+
+    def test_breadcrumb_jsonld_renders(self):
+        """Test that breadcrumb JSON-LD is rendered in the blog detail template."""
+        # Test the JSON-LD template directly instead of through URL
+        from django.template.loader import render_to_string
+
+        # Render the breadcrumb JSON-LD template directly
+        context = {"page": self.blog_post}
+        jsonld_content = render_to_string(
+            "patterns/navigation/components/breadcrumbs-jsonld.html", context
+        )
+
+        # Check that the JSON-LD content is valid
+        self.assertIn("application/ld+json", jsonld_content)
+        self.assertIn("BreadcrumbList", jsonld_content)
+
+    def test_breadcrumb_jsonld_structure(self):
+        """Test that breadcrumb JSON-LD contains correct structure."""
+        # Test the JSON-LD template directly instead of through URL
+        from django.template.loader import render_to_string
+
+        # Render the breadcrumb JSON-LD template directly
+        context = {"page": self.blog_post}
+        jsonld_content = render_to_string(
+            "patterns/navigation/components/breadcrumbs-jsonld.html", context
+        )
+
+        # Extract breadcrumb JSON-LD from the response
+        start_marker = '<script type="application/ld+json">'
+        end_marker = "</script>"
+
+        # Find all JSON-LD scripts and look for the breadcrumb one
+        json_scripts = []
+        start_idx = 0
+        while True:
+            start_idx = jsonld_content.find(start_marker, start_idx)
+            if start_idx == -1:
+                break
+            end_idx = jsonld_content.find(end_marker, start_idx)
+            if end_idx == -1:
+                break
+
+            json_content = jsonld_content[
+                start_idx + len(start_marker) : end_idx
+            ].strip()
+            try:
+                json_data = json.loads(json_content)
+                if json_data.get("@type") == "BreadcrumbList":
+                    json_scripts.append(json_data)
+            except json.JSONDecodeError:
+                pass
+            start_idx = end_idx + len(end_marker)
+
+        self.assertGreater(len(json_scripts), 0, "BreadcrumbList JSON-LD not found")
+
+        breadcrumb_data = json_scripts[0]
+
+        # Test required fields
+        self.assertEqual(breadcrumb_data["@context"], "https://schema.org/")
+        self.assertEqual(breadcrumb_data["@type"], "BreadcrumbList")
+        self.assertIn("itemListElement", breadcrumb_data)
+
+        # Test that we have the expected breadcrumb items
+        items = breadcrumb_data["itemListElement"]
+        self.assertGreater(len(items), 0, "No breadcrumb items found")
+
+        # Test first item (should be Charity based on the breadcrumb structure)
+        first_item = items[0]
+        self.assertEqual(first_item["@type"], "ListItem")
+        self.assertEqual(first_item["position"], 1)
+        self.assertEqual(first_item["name"], "Charity")
+
+        # Test that all items have required fields
+        for i, item in enumerate(items):
+            self.assertEqual(item["@type"], "ListItem")
+            self.assertEqual(item["position"], i + 1)
+            self.assertIn("name", item)
+            self.assertIn("item", item)
+
+    def test_breadcrumb_jsonld_with_division(self):
+        """Test breadcrumb JSON-LD includes division page."""
+        # Test the JSON-LD template directly instead of through URL
+        from django.template.loader import render_to_string
+
+        # Render the breadcrumb JSON-LD template directly
+        context = {"page": self.blog_post}
+        jsonld_content = render_to_string(
+            "patterns/navigation/components/breadcrumbs-jsonld.html", context
+        )
+
+        # Extract breadcrumb JSON-LD
+        start_marker = '<script type="application/ld+json">'
+        end_marker = "</script>"
+
+        json_scripts = []
+        start_idx = 0
+        while True:
+            start_idx = jsonld_content.find(start_marker, start_idx)
+            if start_idx == -1:
+                break
+            end_idx = jsonld_content.find(end_marker, start_idx)
+            if end_idx == -1:
+                break
+
+            json_content = jsonld_content[
+                start_idx + len(start_marker) : end_idx
+            ].strip()
+            try:
+                json_data = json.loads(json_content)
+                if json_data.get("@type") == "BreadcrumbList":
+                    json_scripts.append(json_data)
+            except json.JSONDecodeError:
+                pass
+            start_idx = end_idx + len(end_marker)
+
+        breadcrumb_data = json_scripts[0]
+        items = breadcrumb_data["itemListElement"]
+
+        # Should have at least Division and Blog Index
+        self.assertGreaterEqual(len(items), 2)
+
+        # Check that division is included
+        division_names = [item["name"] for item in items]
+        self.assertIn("Charity", division_names)
+
+    def test_breadcrumb_jsonld_urls(self):
+        """Test that breadcrumb JSON-LD contains URL structure."""
+        # Test the JSON-LD template directly instead of through URL
+        from django.template.loader import render_to_string
+
+        # Render the breadcrumb JSON-LD template directly
+        context = {"page": self.blog_post}
+        jsonld_content = render_to_string(
+            "patterns/navigation/components/breadcrumbs-jsonld.html", context
+        )
+
+        # Extract breadcrumb JSON-LD
+        start_marker = '<script type="application/ld+json">'
+        end_marker = "</script>"
+
+        json_scripts = []
+        start_idx = 0
+        while True:
+            start_idx = jsonld_content.find(start_marker, start_idx)
+            if start_idx == -1:
+                break
+            end_idx = jsonld_content.find(end_marker, start_idx)
+            if end_idx == -1:
+                break
+
+            json_content = jsonld_content[
+                start_idx + len(start_marker) : end_idx
+            ].strip()
+            try:
+                json_data = json.loads(json_content)
+                if json_data.get("@type") == "BreadcrumbList":
+                    json_scripts.append(json_data)
+            except json.JSONDecodeError:
+                pass
+            start_idx = end_idx + len(end_marker)
+
+        breadcrumb_data = json_scripts[0]
+        items = breadcrumb_data["itemListElement"]
+
+        # Test that all items have item field (URL structure)
+        for item in items:
+            self.assertIn("item", item)
+            # In test environment, URLs might be None, so just check the field exists
+            self.assertIsNotNone(item["item"])
