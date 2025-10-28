@@ -4,37 +4,30 @@
     display: flex;
     flex-wrap: wrap;
     gap: $spacer-mini;
-    margin-bottom: $spacer-small;
 
-    @include media-query(large) {
-        margin-bottom: $spacer-medium;
-    }
-}
+    &__button {
+        &--theme-coral {
+            &:focus,
+            &:hover {
+                background-color: var(--color--coral);
+                color: var(--color--white);
+            }
+        }
 
-// Style variations for the contact-cta__button button
-.styled-page-link--charity {
-    &:hover,
-    &:focus {
-        background-color: $color--coral;
-        color: var(--color--background);
-        border-color: $color--coral;
-    }
-}
+        &--theme-nebuline {
+            &:focus,
+            &:hover {
+                background-color: var(--color--nebuline);
+                color: var(--color--white);
+            }
+        }
 
-.styled-page-link--public {
-    &:hover,
-    &:focus {
-        background-color: $color--nebuline;
-        color: var(--color--background);
-        border-color: $color--nebuline;
-    }
-}
-
-.styled-page-link--wagtail {
-    &:hover,
-    &:focus {
-        background-color: $color--lagoon;
-        color: var(--color--background);
-        border-color: $color--lagoon;
+        &--theme-lagoon {
+            &:focus,
+            &:hover {
+                background-color: var(--color--lagoon);
+                color: var(--color--white);
+            }
+        }
     }
 }
