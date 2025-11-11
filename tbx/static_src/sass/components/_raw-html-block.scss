@@ -1,0 +1,13 @@
+@use 'config' as *;
+
+.grid__raw-html {
+    blockquote {
+        @include font-size(size-five);
+
+        h3 {
+            @include font-size(size-five);
+            color: var(--color--heading);
+            font-style: italic;
+        }
+    }
+}
