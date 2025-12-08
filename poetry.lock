@@ -864,6 +864,20 @@ files = [
 Django = ">=3.2"
 
 [[package]]
+name = "django-upgrade"
+version = "1.29.1"
+description = "Automatically upgrade your Django project code."
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "django_upgrade-1.29.1-py3-none-any.whl", hash = "sha256:39a4d71365189ce8a5ccab534b2d1f0ed69c71bea7f1ef4c46041918d5247e64"},
+    {file = "django_upgrade-1.29.1.tar.gz", hash = "sha256:8c53b6bcd326a638a5dc908a707f26d71593bad5789b33775c90a8dc8a76afd5"},
+]
+
+[package.dependencies]
+tokenize-rt = ">=4.1"
+
+[[package]]
 name = "django-xff"
 version = "1.5.0"
 description = "Django X-Forwarded-For Properly"
@@ -1876,6 +1890,20 @@ files = [
 six = ">=1.5"
 
 [[package]]
+name = "pyupgrade"
+version = "3.21.2"
+description = "A tool to automatically upgrade syntax for newer versions."
+optional = false
+python-versions = ">=3.10"
+files = [
+    {file = "pyupgrade-3.21.2-py2.py3-none-any.whl", hash = "sha256:2ac7b95cbd176475041e4dfe8ef81298bd4654a244f957167bd68af37d52be9f"},
+    {file = "pyupgrade-3.21.2.tar.gz", hash = "sha256:1a361bea39deda78d1460f65d9dd548d3a36ff8171d2482298539b9dc11c9c06"},
+]
+
+[package.dependencies]
+tokenize-rt = ">=6.1.0"
+
+[[package]]
 name = "pyyaml"
 version = "6.0.2"
 description = "YAML parser and emitter for Python"
@@ -2228,6 +2256,17 @@ files = [
 
 [package.extras]
 docs = ["mkdocs (>=1.1,<1.2)", "mkdocs-material (>=6.2,<6.3)"]
+
+[[package]]
+name = "tokenize-rt"
+version = "6.2.0"
+description = "A wrapper around the stdlib `tokenize` which roundtrips."
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "tokenize_rt-6.2.0-py2.py3-none-any.whl", hash = "sha256:a152bf4f249c847a66497a4a95f63376ed68ac6abf092a2f7cfb29d044ecff44"},
+    {file = "tokenize_rt-6.2.0.tar.gz", hash = "sha256:8439c042b330c553fdbe1758e4a05c0ed460dbbbb24a606f11f0dee75da4cad6"},
+]
 
 [[package]]
 name = "typing-extensions"
@@ -2695,4 +2734,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.13"
-content-hash = "04774def6f5c29160cf0c9a3dc42776e7fa73c0b1a52e3274a0cccf2d6d5ffcb"
+content-hash = "7bc19f00a27372208b014df9e746e4c9958f48c694a42dc73008e66b2de5e5ee"

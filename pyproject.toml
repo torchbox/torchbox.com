@@ -50,9 +50,11 @@ honcho = "^2.0.0"
 
 # Linters etc.
 detect-secrets = "^1.5.0"
-djhtml = "^3.0.10" # update pre-commit-config.yaml too
-ruff = "^0.14.8"   # update pre-commit-config.yaml too
+django-upgrade = "^1.29.1"  # update pre-commit-config.yaml too
+djhtml = "^3.0.10"          # update pre-commit-config.yaml too
+pyupgrade = "^3.21.2"       # update pre-commit-config.yaml too
 pre-commit = "^4.2.0"
+ruff = "^0.14.8"            # update pre-commit-config.yaml too
 
 # Documentation
 mkdocs = "^1.6.1"
