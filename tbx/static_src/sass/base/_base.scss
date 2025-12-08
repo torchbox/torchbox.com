@@ -1,5 +1,5 @@
 // Base styles. Some reset rules that would usually be here are now set by Preflight (see tailwind.config.js).
-@use 'config' as *;
+@use '../config' as *;
 @use 'sass:color';
 
 // Prevent text size change on orientation change.

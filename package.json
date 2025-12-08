@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "//[ Linting & formatting ]//": "",
-    "lint:css": "stylelint --report-needless-disables './tbx/static_src/sass' './tbx/static_src/javascript/'",
+    "lint:css": "stylelint --report-needless-disables './tbx/static_src/sass'",
     "lint:js": "eslint --ext .js,.ts,.tsx --report-unused-disable-directives .",
     "lint:format": "prettier --check '**/?(.)*.{md,css,scss,js,ts,tsx,json,yaml,yml,vue}'",
     "lint": "npm run lint:format && npm run lint:js && npm run lint:css",

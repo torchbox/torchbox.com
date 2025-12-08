@@ -93,7 +93,7 @@
     $large-size: nth($large-values, 1);
     $large-line-height: nth($large-values, 2);
 
-    @if $small-size == null or $large-size == null {
+    @if not $small-size or not $large-size {
         @warn 'Font size `#{$keyword}` does not exist in the map.';
     } @else {
         @include rem-font-size($small-size);

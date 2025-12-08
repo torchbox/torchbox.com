@@ -1,4 +1,5 @@
-@use 'config' as *;
+@use '../config' as *;
+
 .markdown-block {
     // This needs to be focusable for keyboard users to be able to scroll
     &__scroller {
