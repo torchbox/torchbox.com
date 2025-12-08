@@ -1,4 +1,4 @@
-FROM node:20 AS frontend
+FROM node:22 AS frontend
 
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true
@@ -109,7 +109,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 USER tbx
 
 # Install nvm and node/npm
-ARG NVM_VERSION=0.39.5
+ARG NVM_VERSION=0.40.3
 COPY --chown=tbx .nvmrc ./
 RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash \
     && bash --login -c "nvm install --no-progress && nvm alias default $(nvm run --silent --version)"
