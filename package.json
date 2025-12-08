@@ -64,8 +64,8 @@
     "typescript": "^4.6.2",
     "url-loader": "^3.0.0",
     "webpack": "^5.103.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
     "js-cookie": "^3.0.5",
