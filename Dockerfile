@@ -17,7 +17,7 @@ RUN npm run build:prod
 # all useful packages required for image manipulation out of the box. They
 # however weight a lot, approx. up to 1.5GiB per built image.
 # Pinned to a particlar version as requested by support team 6/10/25
-FROM python:3.13-bookworm as production
+FROM python:3.13-bookworm AS production
 
 ARG POETRY_INSTALL_ARGS="--no-dev"
 
