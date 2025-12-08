@@ -51,7 +51,7 @@ honcho = "^2.0.0"
 # Linters etc.
 detect-secrets = "^1.5.0"
 djhtml = "^3.0.10" # update pre-commit-config.yaml too
-ruff = "^0.11.12"  # update pre-commit-config.yaml too
+ruff = "^0.14.8"   # update pre-commit-config.yaml too
 pre-commit = "^4.2.0"
 
 # Documentation
