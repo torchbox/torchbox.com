@@ -1796,20 +1796,21 @@ test = ["anyio (>=4.0)", "mypy (>=1.19.0)", "pproxy (>=2.7)", "pytest (>=6.2.5)"
 
 [[package]]
 name = "pudb"
-version = "2025.1"
+version = "2025.1.5"
 description = "A full-screen, console-based Python debugger"
 optional = false
 python-versions = "~=3.8"
 files = [
-    {file = "pudb-2025.1-py3-none-any.whl", hash = "sha256:f642d42e6054c992b43c463742650aa879fe290d7d7ffdeb21f7d00dc4587a21"},
-    {file = "pudb-2025.1.tar.gz", hash = "sha256:a528b29c69ce8b182a337872c5f046071f6d68d3415c6d7bf53bd27c264f58d0"},
+    {file = "pudb-2025.1.5-py3-none-any.whl", hash = "sha256:e40c69f102d534cc7b86020c0217e3d424ee81b14a229d068ac122089c301f59"},
+    {file = "pudb-2025.1.5.tar.gz", hash = "sha256:e6dedb81fc3c8cdcd66cf62e86337cb913570ebb2c994c9ab52012d059e086ad"},
 ]
 
 [package.dependencies]
 jedi = ">=0.18,<1"
 packaging = ">=20.0"
-pygments = ">=2.7.4"
-urwid = {version = ">=2.4", markers = "python_version >= \"3.9\""}
+pygments = ">=2.19"
+typing-extensions = ">=4.13"
+urwid = ">=2.5.1"
 urwid-readline = "*"
 
 [package.extras]
