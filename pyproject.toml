@@ -42,7 +42,7 @@ django-xff = "^1.5.0"
 
 [tool.poetry.group.dev.dependencies]
 Werkzeug = "^3.1.1"
-django-debug-toolbar = "^5.2.0"
+django-debug-toolbar = "^6.1.0"
 django-extensions = "^4.1"
 fabric = "^3.2.2"
 pudb = "^2025.1"
