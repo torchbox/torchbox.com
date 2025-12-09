@@ -13,7 +13,7 @@ gunicorn = "^23.0.0"
 whitenoise = "^6.9.0"
 phonenumbers = "^9.0.6"
 Wand = "^0.6.10"
-urllib3 = "2.5.0"
+urllib3 = "~2.6.1"
 
 # Django packages
 django-basic-auth-ip-whitelist = "^0.8"
