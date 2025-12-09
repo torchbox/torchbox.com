@@ -2491,13 +2491,13 @@ wagtail = ">=5.2"
 
 [[package]]
 name = "wagtailmedia"
-version = "0.17.0"
+version = "0.17.2"
 description = "A Wagtail module for audio and video files."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "wagtailmedia-0.17.0-py3-none-any.whl", hash = "sha256:705ac19babb2a70b6df422a3033a29a98bf7c40b9ab599a66f2c2a68e1d03a6d"},
-    {file = "wagtailmedia-0.17.0.tar.gz", hash = "sha256:993c073cfc561d7f852517ff3cedc2e50a8d9a65e1bb8976ab6cb9191a23e06e"},
+    {file = "wagtailmedia-0.17.2-py3-none-any.whl", hash = "sha256:abe10c6341fbc41ebc30d2955fff00abf6160bc473a5f9f1106d69111045c202"},
+    {file = "wagtailmedia-0.17.2.tar.gz", hash = "sha256:4457e267fc53d8db4c9eb9a48d27f4b47b0823a9f7d0820f2dd98f1ba5d58600"},
 ]
 
 [package.dependencies]
