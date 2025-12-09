@@ -34,7 +34,7 @@ wagtailmedia = "^0.17.0"
 wagtail-purge = "^0.4.0"
 
 # Production
-scout-apm = "^3.4.0"
+scout-apm = "^3.5.0"
 sentry-sdk = "^2.47.0"
 html5lib = "^1.1"
 beautifulsoup4 = "^4.13.4"
