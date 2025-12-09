@@ -83,15 +83,15 @@
 */
 @mixin font-size($keyword) {
     // Assuming each value in the font-size maps is a list of (size, line-height)
-    $small-values: map-get($small-font-sizes, $keyword);
-    $large-values: map-get($large-font-sizes, $keyword);
+    $small-values: map.get($small-font-sizes, $keyword);
+    $large-values: map.get($large-font-sizes, $keyword);
 
     // Access the font size and line height from the list
-    $small-size: nth($small-values, 1);
-    $small-line-height: nth($small-values, 2);
+    $small-size: list.nth($small-values, 1);
+    $small-line-height: list.nth($small-values, 2);
 
-    $large-size: nth($large-values, 1);
-    $large-line-height: nth($large-values, 2);
+    $large-size: list.nth($large-values, 1);
+    $large-line-height: list.nth($large-values, 2);
 
     @if not $small-size or not $large-size {
         @warn 'Font size `#{$keyword}` does not exist in the map.';
