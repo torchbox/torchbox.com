@@ -35,7 +35,7 @@ wagtail-purge = "^0.4.0"
 
 # Production
 scout-apm = "^3.4.0"
-sentry-sdk = "^2.29.1"
+sentry-sdk = "^2.47.0"
 html5lib = "^1.1"
 beautifulsoup4 = "^4.13.4"
 django-xff = "^1.5.0"
