@@ -70,6 +70,6 @@
     "js-cookie": "^3.0.5",
     "lite-youtube-embed": "^0.3.4",
     "micromodal": "^0.6.1",
-    "swiper": "^11.2.1"
+    "swiper": "^12.0.3"
   }
 }
