@@ -57,19 +57,20 @@ $color--black: #000;
     --color--heading: #{$color--white};
     --color--text: #{$color--grey-20};
     --color--link: #{$color--white};
-    --color--link-underline: #{color.adjust(#{$color--white}, $alpha: -0.5)};
+    // stylelint-disable-next-line scss/dollar-variable-no-missing-interpolation
+    --color--link-underline: #{color.adjust($color--white, $alpha: -0.5)};
     --color--link-interaction: #{$color--white};
     --color--button-link-interaction: #{$color--eclipse};
     --color--streamfield-background: #{$color--mid-grey};
     --color--decoration: #{$color--grey-50};
-    --color--border: #{color.adjust(#{$color--grey-50}, $alpha: -0.5)};
+    // stylelint-disable-next-line scss/dollar-variable-no-missing-interpolation
+    --color--border: #{color.adjust($color--grey-50, $alpha: -0.5)};
     --color--border--highlight: #{$color--coral};
     --color--light-border: #{$color--mid-grey};
-    --color--overlay: #{color.adjust(#{$color--black}, $alpha: -0.6)};
-    --color--background--overlay: #{color.adjust(
-            #{$color--eclipse},
-            $alpha: -1
-        )};
+    // stylelint-disable-next-line scss/dollar-variable-no-missing-interpolation
+    --color--overlay: #{color.adjust($color--black, $alpha: -0.6)};
+    // stylelint-disable-next-line scss/dollar-variable-no-missing-interpolation
+    --color--background--overlay: #{color.adjust($color--eclipse, $alpha: -1)};
     --color--background-swirls-one: #{$color--black};
     --color--background-swirls-two: #{$color--white};
     // The following base variables do not change with either theme or mode
@@ -95,10 +96,8 @@ $color--black: #000;
 :root,
 .theme-coral.mode-dark {
     --color--theme-primary: #{$color--coral};
-    --color--theme-primary-muted: #{color.adjust(
-            #{$color--coral},
-            $alpha: -0.5
-        )};
+    // stylelint-disable-next-line scss/dollar-variable-no-missing-interpolation
+    --color--theme-primary-muted: #{color.adjust($color--coral, $alpha: -0.5)};
     --color--theme-primary-dark: #{$color--coral-dark};
     --color--theme-primary-light: #{$color--coral-light};
     --color--theme-secondary: #{$color--sky};
@@ -112,8 +111,9 @@ $color--black: #000;
 // Nebuline theme, dark mode
 .theme-nebuline.mode-dark {
     --color--theme-primary: #{$color--nebuline};
+    // stylelint-disable-next-line scss/dollar-variable-no-missing-interpolation
     --color--theme-primary-muted: #{color.adjust(
-            #{$color--nebuline},
+            $color--nebuline,
             $alpha: -0.5
         )};
     --color--theme-primary-dark: #{$color--nebuline-dark};
@@ -129,10 +129,8 @@ $color--black: #000;
 // Lagoon theme, dark mode
 .theme-lagoon.mode-dark {
     --color--theme-primary: #{$color--lagoon};
-    --color--theme-primary-muted: #{color.adjust(
-            #{$color--lagoon},
-            $alpha: -0.5
-        )};
+    // stylelint-disable-next-line scss/dollar-variable-no-missing-interpolation
+    --color--theme-primary-muted: #{color.adjust($color--lagoon, $alpha: -0.5)};
     --color--theme-primary-dark: #{$color--lagoon-dark};
     --color--theme-primary-light: #{$color--lagoon-light};
     --color--theme-secondary: #{$color--coolmint};
@@ -146,10 +144,8 @@ $color--black: #000;
 // Green theme, dark mode
 .theme-green.mode-dark {
     --color--theme-primary: #{$color--green};
-    --color--theme-primary-muted: #{color.adjust(
-            #{$color--green},
-            $alpha: -0.5
-        )};
+    // stylelint-disable-next-line scss/dollar-variable-no-missing-interpolation
+    --color--theme-primary-muted: #{color.adjust($color--green, $alpha: -0.5)};
     --color--theme-primary-dark: #{$color--green-dark};
     --color--theme-primary-light: #{$color--green-light};
     --color--theme-secondary: #{$color--banana};
@@ -169,7 +165,8 @@ $color--black: #000;
     --color--decoration: #{$color--eclipse};
     --color--light-border: #{$color--grey-5};
     --color--link: #{$color--eclipse};
-    --color--link-underline: #{color.adjust(#{$color--eclipse}, $alpha: -0.5)};
+    // stylelint-disable-next-line scss/dollar-variable-no-missing-interpolation
+    --color--link-underline: #{color.adjust($color--eclipse, $alpha: -0.5)};
     --color--link-interaction: #{$color--eclipse};
     --color--button-link-interaction: #{$color--white};
     --color--streamfield-background: #{$color--grey-5};
@@ -186,10 +183,8 @@ $color--black: #000;
 .mode-light,
 .theme-coral.mode-light {
     --color--theme-primary: #{$color--coral};
-    --color--theme-primary-muted: #{color.adjust(
-            #{$color--coral},
-            $alpha: -0.5
-        )};
+    // stylelint-disable-next-line scss/dollar-variable-no-missing-interpolation
+    --color--theme-primary-muted: #{color.adjust($color--coral, $alpha: -0.5)};
     --color--theme-primary-dark: #{$color--coral-dark};
     --color--theme-primary-light: #{$color--coral-light};
     --color--theme-primary-lighter: #{$color--coral-lighter};
@@ -203,8 +198,9 @@ $color--black: #000;
 // Nebuline theme, light mode
 .theme-nebuline.mode-light {
     --color--theme-primary: #{$color--nebuline};
+    // stylelint-disable-next-line scss/dollar-variable-no-missing-interpolation
     --color--theme-primary-muted: #{color.adjust(
-            #{$color--nebuline},
+            $color--nebuline,
             $alpha: -0.5
         )};
     --color--theme-primary-dark: #{$color--nebuline-dark};
@@ -220,10 +216,8 @@ $color--black: #000;
 // Lagoon theme, light mode
 .theme-lagoon.mode-light {
     --color--theme-primary: #{$color--lagoon};
-    --color--theme-primary-muted: #{color.adjust(
-            #{$color--lagoon},
-            $alpha: -0.5
-        )};
+    // stylelint-disable-next-line scss/dollar-variable-no-missing-interpolation
+    --color--theme-primary-muted: #{color.adjust($color--lagoon, $alpha: -0.5)};
     --color--theme-primary-dark: #{$color--lagoon-dark};
     --color--theme-primary-light: #{$color--lagoon-light};
     --color--theme-primary-lighter: #{$color--lagoon-lighter};
@@ -237,10 +231,8 @@ $color--black: #000;
 // Green theme, light mode
 .theme-green.mode-light {
     --color--theme-primary: #{$color--green};
-    --color--theme-primary-muted: #{color.adjust(
-            #{$color--green},
-            $alpha: -0.5
-        )};
+    // stylelint-disable-next-line scss/dollar-variable-no-missing-interpolation
+    --color--theme-primary-muted: #{color.adjust($color--green, $alpha: -0.5)};
     --color--theme-primary-dark: #{$color--green-dark};
     --color--theme-primary-light: #{$color--green-light};
     --color--theme-primary-lighter: #{$color--green-lighter};
