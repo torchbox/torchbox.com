@@ -2458,19 +2458,19 @@ dev = ["coverage", "ruff"]
 
 [[package]]
 name = "wagtail-markdown"
-version = "0.12.1"
+version = "0.13.0"
 description = "Markdown support for Wagtail"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "wagtail_markdown-0.12.1-py3-none-any.whl", hash = "sha256:bb5f02b6bdfef74b50a74e7aa3f255c7bc9787cec8d03dae50fc9404a0097dba"},
-    {file = "wagtail_markdown-0.12.1.tar.gz", hash = "sha256:54f1ba375348e86e03f4eca7d2ac3d33245ead9f854028d7ee9c479448f1e678"},
+    {file = "wagtail_markdown-0.13.0-py3-none-any.whl", hash = "sha256:e35c2d36ac06d74203ba02127edb9bebe1ff026ba5363dbbc101da1c81740b57"},
+    {file = "wagtail_markdown-0.13.0.tar.gz", hash = "sha256:7631d702358df59318d3b5f225762c5ab28b93a9d40f4b39bb531f9bf8e3ce60"},
 ]
 
 [package.dependencies]
 bleach = ">=3.3,<5"
 Markdown = ">=3.3,<4"
-Wagtail = ">=5.2"
+Wagtail = ">=6.3"
 
 [package.extras]
 testing = ["coverage (>=7.0,<8.0)", "tox (>=4.6.4,<5)"]
@@ -2734,4 +2734,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.13"
-content-hash = "7bc19f00a27372208b014df9e746e4c9958f48c694a42dc73008e66b2de5e5ee"
+content-hash = "233f0687bc518faa5edef2a2c017f107efc830ebfe603f50c6e5164cec09cad8"
