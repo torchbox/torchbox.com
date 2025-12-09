@@ -43,6 +43,6 @@ Add your changes to the Unreleased section and move them to the appropriate sect
 
 ---
 
-## 2025 (pre-changelog 04-06-2025)
+## 2025 (pre-changelog 2025-06-04)
 
-This changelog was started on 04-06-2025. Before that date, changes were not documented here.
+This changelog was started on 2025-06-04. Before that date, changes were not documented here.
