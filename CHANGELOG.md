@@ -33,7 +33,7 @@ Add your changes to the Unreleased section and move them to the appropriate sect
     - `cssnano` upgrade (v6 → v7)
     - `lite-youtube-embed` update
 
-## 2025-09-00
+## 2025-09-09
 
 - Wagtail 7.1 upgrade [#404]https://github.com/torchbox/torchbox.com/pull/404
 
