@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const sass = require('sass');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const projectRoot = 'tbx';
 
@@ -26,6 +25,7 @@ const options = {
         path: path.resolve(`./${projectRoot}/static_compiled/`),
         // based on entry name, e.g. main.js
         filename: 'js/[name].js', // based on entry name, e.g. main.js
+        clean: true,
     },
     plugins: [
         new CopyPlugin({
@@ -56,8 +56,6 @@ const options = {
             emitWarning: true,
             extensions: ['scss'],
         }),
-        //  Automatically remove all unused webpack assets on rebuild
-        new CleanWebpackPlugin(),
     ],
     module: {
         rules: [
@@ -103,37 +101,43 @@ const options = {
                             sourceMap: true,
                             implementation: sass,
                             sassOptions: {
-                                outputStyle: 'compressed',
+                                style: 'compressed',
                             },
                         },
                     },
                 ],
             },
             {
-                // sync font files referenced by the css to the fonts directory
-                // the publicPath matches the path from the compiled css to the font file
-                // only looks in the fonts folder so pngs in the images folder won't get put in the fonts folder
+                // Copies font files referenced by CSS/JS to the fonts
+                // directory.
+                // Only files located in the static_src/fonts directory can be
+                // referenced in CSS/JS. Trying to reference a font outside of
+                // this directory will result in a build error. Make sure to
+                // store all fonts in this directory.
                 test: /\.(woff|woff2)$/,
-                include: /fonts/,
+                include: path.resolve(`./${projectRoot}/static_src/fonts/`),
                 type: 'asset/resource',
+                generator: {
+                    filename: 'fonts/[name][ext]',
+                },
             },
             {
                 // Handles CSS background images in the cssBackgrounds folder
-                // Those less than 1024 bytes are automatically encoded in the CSS - see `_test-background-images.scss`
-                // the publicPath matches the path from the compiled css to the cssBackgrounds file
+                // Files smaller than 1024 bytes are automatically encoded in
+                // the CSS - see `_test-background-images.scss`. Otherwise, the
+                // image is copied to the images/cssBackgrounds directory.
                 test: /\.(svg|jpg|png)$/,
                 include: path.resolve(
                     `./${projectRoot}/static_src/images/cssBackgrounds/`,
                 ),
-                use: {
-                    loader: 'url-loader',
-                    options: {
-                        fallback: 'file-loader',
-                        name: '[name].[ext]',
-                        outputPath: 'images/cssBackgrounds/',
-                        publicPath: '../images/cssBackgrounds/',
-                        limit: 1024,
+                type: 'asset',
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 1024,
                     },
+                },
+                generator: {
+                    filename: 'images/cssBackgrounds/[name][ext]',
                 },
             },
         ],
@@ -194,10 +198,12 @@ const webpackConfig = (environment, argv) => {
             // When set to 'auto' this option always allows localhost, host, and client.webSocketURL.hostname
             allowedHosts: 'auto',
             port: 3000,
-            proxy: {
-                context: () => true,
-                target: 'http://localhost:8000',
-            },
+            proxy: [
+                {
+                    context: () => true,
+                    target: 'http://localhost:8000',
+                },
+            ],
             client: {
                 // Shows a full-screen overlay in the browser when there are compiler errors.
                 overlay: true,

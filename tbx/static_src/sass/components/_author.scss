@@ -1,4 +1,4 @@
-@use 'config' as *;
+@use '../config' as *;
 
 .authors {
     grid-column: 2 / span 4;
@@ -51,6 +51,7 @@
         @include media-query(large) {
             margin-bottom: $spacer-small;
         }
+
         .authors-wide & {
             @include media-query(large) {
                 margin-bottom: 0;

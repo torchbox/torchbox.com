@@ -1,5 +1,5 @@
 // Grid setup - update any changes here in the grid.md docs file too
-@use 'config' as *;
+@use '../config' as *;
 
 .grid {
     display: grid;
@@ -8,11 +8,15 @@
     margin: 0 auto;
 
     @include media-query(large) {
-        grid-template-columns: $grid-gutters-large repeat(12, 1fr) $grid-gutters-large;
+        grid-template-columns:
+            $grid-gutters-large repeat(12, 1fr)
+            $grid-gutters-large;
     }
 
     @include media-query(x-large) {
-        grid-template-columns: $grid-gutters-x-large repeat(12, 1fr) $grid-gutters-x-large;
+        grid-template-columns:
+            $grid-gutters-x-large repeat(12, 1fr)
+            $grid-gutters-x-large;
     }
 
     &--spacer-large {
@@ -610,7 +614,6 @@
         }
 
         // targets last div in a set of .small-image-with-text divs
-        /* stylelint-disable selector-max-specificity */
         .small-image-with-text:not(:has(~ .small-image-with-text)) {
             margin-bottom: $spacer-medium;
 
@@ -618,7 +621,6 @@
                 margin-bottom: $spacer-large;
             }
         }
-        /* stylelint-enable selector-max-specificity */
 
         // tighten space between paragraph and instagram block on the impact report page
 

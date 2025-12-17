@@ -1,7 +1,7 @@
 // at mobile the tabbed paragraph block uses different markup as it becomes an accordion
 // using the details and summary elements
 
-@use 'config' as *;
+@use '../config' as *;
 
 .tabs-mobile {
     $root: &;

@@ -1,4 +1,4 @@
-@use 'config' as *;
+@use '../config' as *;
 
 .pagination {
     $root: &;
@@ -85,9 +85,7 @@
         transition: $transition-quick;
 
         @include high-contrast-mode() {
-            /* stylelint-disable value-keyword-case  */
             fill: LinkText;
-            /* stylelint-enable value-keyword-case  */
         }
     }
 

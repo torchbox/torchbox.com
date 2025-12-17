@@ -1,4 +1,4 @@
-@use 'config' as *;
+@use '../config' as *;
 
 .modal {
     $root: &;
@@ -32,7 +32,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(55, 55, 55, 0.6);
+        background: rgb(55, 55, 55, 0.6);
         backdrop-filter: blur(10px);
         will-change: opacity;
         opacity: 0;

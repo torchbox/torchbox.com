@@ -1,4 +1,4 @@
-@use 'config' as *;
+@use '../config' as *;
 
 .link {
     $root: &;
@@ -14,7 +14,9 @@
         column-gap: $spacer-mini;
 
         #{$root}__icon {
-            transition: transform $transition-quick, fill $transition-quick;
+            transition:
+                transform $transition-quick,
+                fill $transition-quick;
             transform: translate3d(0, 0, 0);
 
             // Hide the arrow in high-contrast mode as

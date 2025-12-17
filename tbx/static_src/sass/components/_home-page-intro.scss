@@ -1,4 +1,4 @@
-@use 'config' as *;
+@use '../config' as *;
 
 .home-page-intro {
     @include font-size(size-five);
