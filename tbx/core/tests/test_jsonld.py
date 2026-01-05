@@ -64,18 +64,14 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
 
         # Test social media links
         self.assertIn("sameAs", org_data)
-        same_as = org_data["sameAs"]
-        self.assertIsInstance(same_as, list)
-        self.assertGreater(len(same_as), 0)
-
-        # Check for expected social media links
-        expected_links = [
-            "https://bsky.app/profile/torchbox.com",
-            "https://www.linkedin.com/company/torchbox",
-            "https://www.instagram.com/torchboxltd/",
-        ]
-        for link in expected_links:
-            self.assertIn(link, same_as)
+        self.assertCountEqual(
+            org_data["sameAs"],
+            [
+                "https://bsky.app/profile/torchbox.com",
+                "https://www.linkedin.com/company/torchbox",
+                "https://www.instagram.com/torchboxltd/",
+            ],
+        )
 
     def test_organization_jsonld_social_links(self):
         """Test that Organization JSON-LD includes correct social media links."""
