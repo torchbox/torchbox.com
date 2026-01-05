@@ -76,11 +76,9 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
     def test_organization_jsonld_logo_url(self):
         """Test that Organization JSON-LD includes correct logo URL."""
         org_data = self._get_organization_jsonld()
-        logo_url = org_data["logo"]
-
-        # Test that logo URL is correct
-        self.assertEqual(logo_url, "https://torchbox.com/android-chrome-512x512.png")
-        self.assertTrue(logo_url.startswith("https://"), "Logo URL should be HTTPS")
+        self.assertEqual(
+            org_data["logo"], "https://torchbox.com/android-chrome-512x512.png"
+        )
 
 
 class TestJSONLDTemplateInclusion(WagtailPageTestCase):
@@ -115,7 +113,7 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
     def test_base_template_includes_jsonld_block(self):
         """Test that the base template includes the extra_jsonld block."""
         org_data = self._get_organization_jsonld()
-        self.assertEqual(org_data["@type"], "Organization")
+        self.assertEqual(org_data["name"], "Torchbox")
 
     def test_breadcrumb_template_included(self):
         """Test that breadcrumb JSON-LD template is included."""
