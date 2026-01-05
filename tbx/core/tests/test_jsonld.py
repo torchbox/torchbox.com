@@ -118,10 +118,10 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
     def test_breadcrumb_template_included(self):
         """Test that breadcrumb JSON-LD template is included."""
         response = self.client.get(self.blog_post.url)
+        breadcrumbs = self._extract_jsonld_by_type(response.content, "BreadcrumbList")
 
-        # Check that breadcrumb JSON-LD content is present
-        self.assertIn(b"application/ld+json", response.content)
-        self.assertIn(b"BreadcrumbList", response.content)
+        self.assertGreater(len(breadcrumbs), 0, "BreadcrumbList JSON-LD not found")
+        self.assertIn("itemListElement", breadcrumbs[0])
 
     def test_blog_posting_template_included(self):
         """Test that blog posting JSON-LD template is included for blog pages."""
