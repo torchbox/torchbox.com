@@ -125,13 +125,11 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
 
     def test_blog_posting_template_included(self):
         """Test that blog posting JSON-LD template is included for blog pages."""
-        # This test would need to be run on an actual blog page
-        # For now, we'll just verify the template exists
-        try:
-            template = get_template("patterns/pages/blog/blog-posting-jsonld.html")
-            self.assertIsNotNone(template)
-        except Exception as e:
-            self.fail(f"Blog posting JSON-LD template not found: {e}")
+        response = self.client.get(self.blog_post.url)
+        schema = self._extract_jsonld_by_type(response.content, "BlogPosting")
+
+        self.assertGreater(len(schema), 0, "BlogPosting JSON-LD not found")
+        self.assertEqual(schema[0]["headline"], "Test Blog Post")
 
     def test_breadcrumb_template_exists(self):
         """Test that breadcrumb JSON-LD template exists."""
