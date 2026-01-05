@@ -7,6 +7,8 @@ from wagtail.contrib.settings.context_processors import settings as settings_pro
 from wagtail.models import Site
 from wagtail.test.utils import WagtailPageTestCase
 
+from bs4 import BeautifulSoup
+
 from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
 from tbx.core.factories import HomePageFactory
 from tbx.divisions.factories import DivisionPageFactory
@@ -35,29 +37,12 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
 
     def _extract_jsonld_by_type(self, content, jsonld_type):
         """Helper method to extract JSON-LD by type from rendered content."""
-        start_marker = '<script type="application/ld+json">'
-        end_marker = "</script>"
-
-        json_scripts = []
-        start_idx = 0
-        while True:
-            start_idx = content.find(start_marker, start_idx)
-            if start_idx == -1:
-                break
-            end_idx = content.find(end_marker, start_idx)
-            if end_idx == -1:
-                break
-
-            json_content = content[start_idx + len(start_marker) : end_idx].strip()
-            try:
-                json_data = json.loads(json_content)
-                if json_data.get("@type") == jsonld_type:
-                    json_scripts.append(json_data)
-            except json.JSONDecodeError:
-                pass
-            start_idx = end_idx + len(end_marker)
-
-        return json_scripts
+        soup = BeautifulSoup(content, "html.parser")
+        scripts = [
+            json.loads(tag.string)
+            for tag in soup.find_all("script", type="application/ld+json")
+        ]
+        return [script for script in scripts if script["@type"] == jsonld_type]
 
     def _get_organization_jsonld(self):
         """Helper method to get Organization JSON-LD from homepage."""
@@ -148,29 +133,12 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
 
     def _extract_jsonld_by_type(self, content, jsonld_type):
         """Helper method to extract JSON-LD by type from rendered content."""
-        start_marker = '<script type="application/ld+json">'
-        end_marker = "</script>"
-
-        json_scripts = []
-        start_idx = 0
-        while True:
-            start_idx = content.find(start_marker, start_idx)
-            if start_idx == -1:
-                break
-            end_idx = content.find(end_marker, start_idx)
-            if end_idx == -1:
-                break
-
-            json_content = content[start_idx + len(start_marker) : end_idx].strip()
-            try:
-                json_data = json.loads(json_content)
-                if json_data.get("@type") == jsonld_type:
-                    json_scripts.append(json_data)
-            except json.JSONDecodeError:
-                pass
-            start_idx = end_idx + len(end_marker)
-
-        return json_scripts
+        soup = BeautifulSoup(content, "html.parser")
+        scripts = [
+            json.loads(tag.string)
+            for tag in soup.find_all("script", type="application/ld+json")
+        ]
+        return [script for script in scripts if script["@type"] == jsonld_type]
 
     def _get_organization_jsonld(self):
         """Helper method to get Organization JSON-LD from homepage."""

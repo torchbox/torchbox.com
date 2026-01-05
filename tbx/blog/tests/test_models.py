@@ -8,6 +8,7 @@ from wagtail.coreutils import get_dummy_request
 from wagtail.models import PageViewRestriction, Site
 from wagtail.test.utils import WagtailPageTestCase
 
+from bs4 import BeautifulSoup
 from faker import Faker
 
 from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
@@ -171,6 +172,12 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
         # Add author to the blog post
         PageAuthor.objects.create(page=cls.blog_post, author=author)
 
+    def _extract_jsonld(self, content):
+        """Helper method to extract JSON-LD from rendered content."""
+        soup = BeautifulSoup(content, "html.parser")
+        scripts = soup.find_all("script", type="application/ld+json")
+        return [json.loads(tag.string) for tag in scripts]
+
     def test_blog_posting_jsonld_renders(self):
         """Test that BlogPosting JSON-LD is rendered in the blog detail template."""
         # Render the blog posting JSON-LD template directly
@@ -184,19 +191,9 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
         self.assertIn("BlogPosting", jsonld_content)
 
         # Parse the JSON to ensure it's valid
-        start_marker = '<script type="application/ld+json">'
-        end_marker = "</script>"
-        start_idx = jsonld_content.find(start_marker)
-        end_idx = jsonld_content.find(end_marker, start_idx)
-
-        if start_idx != -1 and end_idx != -1:
-            json_content = jsonld_content[
-                start_idx + len(start_marker) : end_idx
-            ].strip()
-            json_data = json.loads(json_content)
-            self.assertEqual(json_data["@type"], "BlogPosting")
-        else:
-            self.fail("JSON-LD script tag not found in rendered template")
+        scripts = self._extract_jsonld(jsonld_content)
+        self.assertGreater(len(scripts), 0, "JSON-LD script tag not found")
+        self.assertEqual(scripts[0]["@type"], "BlogPosting")
 
     def test_blog_posting_jsonld_structure(self):
         """Test that BlogPosting JSON-LD contains all required fields."""
@@ -207,16 +204,9 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
         )
 
         # Extract JSON-LD from the response
-        start_marker = '<script type="application/ld+json">'
-        end_marker = "</script>"
-        start_idx = jsonld_content.find(start_marker)
-        end_idx = jsonld_content.find(end_marker, start_idx)
-
-        self.assertNotEqual(start_idx, -1, "JSON-LD script tag not found")
-        self.assertNotEqual(end_idx, -1, "JSON-LD script tag not properly closed")
-
-        json_content = jsonld_content[start_idx + len(start_marker) : end_idx].strip()
-        json_data = json.loads(json_content)
+        scripts = self._extract_jsonld(jsonld_content)
+        self.assertGreater(len(scripts), 0, "JSON-LD script tag not found")
+        json_data = scripts[0]
 
         # Test required fields
         self.assertEqual(json_data["@context"], "https://schema.org")
@@ -252,13 +242,8 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
         )
 
         # Extract JSON-LD
-        start_marker = '<script type="application/ld+json">'
-        end_marker = "</script>"
-        start_idx = jsonld_content.find(start_marker)
-        end_idx = jsonld_content.find(end_marker, start_idx)
-
-        json_content = jsonld_content[start_idx + len(start_marker) : end_idx].strip()
-        json_data = json.loads(json_content)
+        scripts = self._extract_jsonld(jsonld_content)
+        json_data = scripts[0]
 
         # Test that image is included
         self.assertIn("image", json_data)
@@ -276,13 +261,8 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
         )
 
         # Extract JSON-LD
-        start_marker = '<script type="application/ld+json">'
-        end_marker = "</script>"
-        start_idx = jsonld_content.find(start_marker)
-        end_idx = jsonld_content.find(end_marker, start_idx)
-
-        json_content = jsonld_content[start_idx + len(start_marker) : end_idx].strip()
-        json_data = json.loads(json_content)
+        scripts = self._extract_jsonld(jsonld_content)
+        json_data = scripts[0]
 
         # Test that image is not included
         self.assertNotIn("image", json_data)
@@ -299,13 +279,8 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
         )
 
         # Extract JSON-LD
-        start_marker = '<script type="application/ld+json">'
-        end_marker = "</script>"
-        start_idx = jsonld_content.find(start_marker)
-        end_idx = jsonld_content.find(end_marker, start_idx)
-
-        json_content = jsonld_content[start_idx + len(start_marker) : end_idx].strip()
-        json_data = json.loads(json_content)
+        scripts = self._extract_jsonld(jsonld_content)
+        json_data = scripts[0]
 
         # Test that description uses listing_summary as fallback
         self.assertEqual(json_data["description"], "This is a test blog post summary")
@@ -323,13 +298,8 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
         )
 
         # Extract JSON-LD
-        start_marker = '<script type="application/ld+json">'
-        end_marker = "</script>"
-        start_idx = jsonld_content.find(start_marker)
-        end_idx = jsonld_content.find(end_marker, start_idx)
-
-        json_content = jsonld_content[start_idx + len(start_marker) : end_idx].strip()
-        json_data = json.loads(json_content)
+        scripts = self._extract_jsonld(jsonld_content)
+        json_data = scripts[0]
 
         # Test that dateModified is present
         self.assertIn("dateModified", json_data)
@@ -347,6 +317,15 @@ class TestBreadcrumbJSONLD(WagtailPageTestCase):
         cls.division = DivisionPageFactory(parent=cls.homepage, title="Charity")
         cls.blog_index = BlogIndexPageFactory(parent=cls.division, title="Blog")
         cls.blog_post = BlogPageFactory(parent=cls.blog_index, title="Test Blog Post")
+
+    def _extract_jsonld_by_type(self, content, jsonld_type):
+        """Helper method to extract JSON-LD by type from rendered content."""
+        soup = BeautifulSoup(content, "html.parser")
+        scripts = [
+            json.loads(tag.string)
+            for tag in soup.find_all("script", type="application/ld+json")
+        ]
+        return [script for script in scripts if script["@type"] == jsonld_type]
 
     def test_breadcrumb_jsonld_renders(self):
         """Test that breadcrumb JSON-LD is rendered in the blog detail template."""
@@ -369,31 +348,7 @@ class TestBreadcrumbJSONLD(WagtailPageTestCase):
         )
 
         # Extract breadcrumb JSON-LD from the response
-        start_marker = '<script type="application/ld+json">'
-        end_marker = "</script>"
-
-        # Find all JSON-LD scripts and look for the breadcrumb one
-        json_scripts = []
-        start_idx = 0
-        while True:
-            start_idx = jsonld_content.find(start_marker, start_idx)
-            if start_idx == -1:
-                break
-            end_idx = jsonld_content.find(end_marker, start_idx)
-            if end_idx == -1:
-                break
-
-            json_content = jsonld_content[
-                start_idx + len(start_marker) : end_idx
-            ].strip()
-            try:
-                json_data = json.loads(json_content)
-                if json_data.get("@type") == "BreadcrumbList":
-                    json_scripts.append(json_data)
-            except json.JSONDecodeError:
-                pass
-            start_idx = end_idx + len(end_marker)
-
+        json_scripts = self._extract_jsonld_by_type(jsonld_content, "BreadcrumbList")
         self.assertGreater(len(json_scripts), 0, "BreadcrumbList JSON-LD not found")
 
         breadcrumb_data = json_scripts[0]
@@ -429,30 +384,7 @@ class TestBreadcrumbJSONLD(WagtailPageTestCase):
         )
 
         # Extract breadcrumb JSON-LD
-        start_marker = '<script type="application/ld+json">'
-        end_marker = "</script>"
-
-        json_scripts = []
-        start_idx = 0
-        while True:
-            start_idx = jsonld_content.find(start_marker, start_idx)
-            if start_idx == -1:
-                break
-            end_idx = jsonld_content.find(end_marker, start_idx)
-            if end_idx == -1:
-                break
-
-            json_content = jsonld_content[
-                start_idx + len(start_marker) : end_idx
-            ].strip()
-            try:
-                json_data = json.loads(json_content)
-                if json_data.get("@type") == "BreadcrumbList":
-                    json_scripts.append(json_data)
-            except json.JSONDecodeError:
-                pass
-            start_idx = end_idx + len(end_marker)
-
+        json_scripts = self._extract_jsonld_by_type(jsonld_content, "BreadcrumbList")
         breadcrumb_data = json_scripts[0]
         items = breadcrumb_data["itemListElement"]
 
@@ -472,30 +404,7 @@ class TestBreadcrumbJSONLD(WagtailPageTestCase):
         )
 
         # Extract breadcrumb JSON-LD
-        start_marker = '<script type="application/ld+json">'
-        end_marker = "</script>"
-
-        json_scripts = []
-        start_idx = 0
-        while True:
-            start_idx = jsonld_content.find(start_marker, start_idx)
-            if start_idx == -1:
-                break
-            end_idx = jsonld_content.find(end_marker, start_idx)
-            if end_idx == -1:
-                break
-
-            json_content = jsonld_content[
-                start_idx + len(start_marker) : end_idx
-            ].strip()
-            try:
-                json_data = json.loads(json_content)
-                if json_data.get("@type") == "BreadcrumbList":
-                    json_scripts.append(json_data)
-            except json.JSONDecodeError:
-                pass
-            start_idx = end_idx + len(end_marker)
-
+        json_scripts = self._extract_jsonld_by_type(jsonld_content, "BreadcrumbList")
         breadcrumb_data = json_scripts[0]
         items = breadcrumb_data["itemListElement"]
 
