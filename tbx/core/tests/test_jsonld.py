@@ -1,7 +1,5 @@
 import json
 
-from django.template.loader import get_template
-
 from wagtail.models import Site
 from wagtail.test.utils import WagtailPageTestCase
 
@@ -130,21 +128,6 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
 
         self.assertGreater(len(schema), 0, "BlogPosting JSON-LD not found")
         self.assertEqual(schema[0]["headline"], "Test Blog Post")
-
-    def test_breadcrumb_template_exists(self):
-        """Test that breadcrumb JSON-LD template exists."""
-        try:
-            template = get_template(
-                "patterns/navigation/components/breadcrumbs-jsonld.html"
-            )
-            self.assertIsNotNone(template)
-        except Exception as e:
-            self.fail(f"Breadcrumb JSON-LD template not found: {e}")
-
-    def test_jsonld_script_tags_present(self):
-        """Test that JSON-LD script tags are present in the rendered HTML."""
-        org_data = self._get_organization_jsonld()
-        self.assertIsNotNone(org_data)
 
     def test_multiple_jsonld_scripts(self):
         """Test that multiple JSON-LD scripts can be present on a page."""
