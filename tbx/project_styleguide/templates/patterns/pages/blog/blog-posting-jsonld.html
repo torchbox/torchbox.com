@@ -1,29 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load blog_tags %}
 <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "{% fullpageurl page %}"
-        },
-        "headline": "{{ page.title|escapejs }}",
-        "description": "{% if page.search_description %}{{ page.search_description|escapejs }}{% elif page.listing_summary %}{{ page.listing_summary|escapejs }}{% endif %}"{% if page.feed_image %},
-            "image": "{% image page.feed_image format-webp width-1200 as blog_image %}{{ blog_image.url }}"{% endif %}{% if page.first_author %},
-                "author": {
-                    "@type": "Person",
-                    "name": "{{ page.first_author.name|escapejs }}"{% if page.first_author.person_page %},
-                        "url": "{% fullpageurl page.first_author.person_page %}"{% endif %}
-                }{% endif %},
-        "publisher": {
-            "@type": "Organization",
-            "name": "Torchbox",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "{% wagtail_site as current_site %}{{ current_site.root_url }}/apple-touch-icon.png"
-            }
-        },
-        "datePublished": "{{ page.date|date:'Y-m-d' }}",
-        "dateModified": "{% if page.last_published_at %}{{ page.last_published_at|date:'Y-m-d' }}{% else %}{{ page.date|date:'Y-m-d' }}{% endif %}"
-    }
+    {% blog_posting_jsonld %}
 </script>
