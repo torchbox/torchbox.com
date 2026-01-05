@@ -1,9 +1,7 @@
 import json
 
-from django.template.loader import get_template, render_to_string
-from django.test import RequestFactory
+from django.template.loader import get_template
 
-from wagtail.contrib.settings.context_processors import settings as settings_processor
 from wagtail.models import Site
 from wagtail.test.utils import WagtailPageTestCase
 
@@ -27,14 +25,6 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
             hero_heading_2="Torchbox",
         )
 
-    def _get_template_context(self, page):
-        """Helper method to create proper template context with settings."""
-        factory = RequestFactory()
-        request = factory.get("/")
-        settings_context = settings_processor(request)
-
-        return {"page": page, "request": request, **settings_context}
-
     def _extract_jsonld_by_type(self, content, jsonld_type):
         """Helper method to extract JSON-LD by type from rendered content."""
         soup = BeautifulSoup(content, "html.parser")
@@ -46,9 +36,8 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
 
     def _get_organization_jsonld(self):
         """Helper method to get Organization JSON-LD from homepage."""
-        context = self._get_template_context(self.homepage)
-        content = render_to_string("patterns/pages/home/home_page.html", context)
-        json_scripts = self._extract_jsonld_by_type(content, "Organization")
+        response = self.client.get(self.homepage.url)
+        json_scripts = self._extract_jsonld_by_type(response.content, "Organization")
         self.assertGreater(len(json_scripts), 0, "Organization JSON-LD not found")
         return json_scripts[0]
 
@@ -123,14 +112,6 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
         cls.blog_index = BlogIndexPageFactory(parent=cls.division, title="Blog")
         cls.blog_post = BlogPageFactory(parent=cls.blog_index, title="Test Blog Post")
 
-    def _get_template_context(self, page):
-        """Helper method to create proper template context with settings."""
-        factory = RequestFactory()
-        request = factory.get("/")
-        settings_context = settings_processor(request)
-
-        return {"page": page, "request": request, **settings_context}
-
     def _extract_jsonld_by_type(self, content, jsonld_type):
         """Helper method to extract JSON-LD by type from rendered content."""
         soup = BeautifulSoup(content, "html.parser")
@@ -142,9 +123,8 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
 
     def _get_organization_jsonld(self):
         """Helper method to get Organization JSON-LD from homepage."""
-        context = self._get_template_context(self.homepage)
-        content = render_to_string("patterns/pages/home/home_page.html", context)
-        json_scripts = self._extract_jsonld_by_type(content, "Organization")
+        response = self.client.get(self.homepage.url)
+        json_scripts = self._extract_jsonld_by_type(response.content, "Organization")
         self.assertGreater(len(json_scripts), 0, "Organization JSON-LD not found")
         return json_scripts[0]
 
@@ -155,15 +135,11 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
 
     def test_breadcrumb_template_included(self):
         """Test that breadcrumb JSON-LD template is included."""
-        # Render the breadcrumb JSON-LD template directly
-        context = {"page": self.blog_post, "request": RequestFactory().get("/")}
-        content = render_to_string(
-            "patterns/navigation/components/breadcrumbs-jsonld.html", context
-        )
+        response = self.client.get(self.blog_post.url)
 
         # Check that breadcrumb JSON-LD content is present
-        self.assertIn("application/ld+json", content)
-        self.assertIn("BreadcrumbList", content)
+        self.assertIn(b"application/ld+json", response.content)
+        self.assertIn(b"BreadcrumbList", response.content)
 
     def test_blog_posting_template_included(self):
         """Test that blog posting JSON-LD template is included for blog pages."""
