@@ -2,6 +2,7 @@ import json
 from operator import attrgetter
 
 from django.core.paginator import Page as PaginatorPage
+from django.template.loader import render_to_string
 
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import PageViewRestriction, Site
@@ -12,8 +13,10 @@ from faker import Faker
 from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
 from tbx.blog.models import BlogPage
 from tbx.core.factories import HomePageFactory
+from tbx.core.utils.models import PageAuthor
 from tbx.divisions.factories import DivisionPageFactory
-from tbx.people.factories import PersonPageFactory
+from tbx.images.factories import CustomImageFactory
+from tbx.people.factories import AuthorFactory, PersonPageFactory
 from tbx.taxonomy.factories import SectorFactory, ServiceFactory
 
 
@@ -163,20 +166,13 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
         cls.blog_post.save_revision().publish()
 
         # Create an Author instance linked to the PersonPage
-        from tbx.people.factories import AuthorFactory
-
         author = AuthorFactory(person_page=cls.author, name="John Doe")
 
         # Add author to the blog post
-        from tbx.core.utils.models import PageAuthor
-
         PageAuthor.objects.create(page=cls.blog_post, author=author)
 
     def test_blog_posting_jsonld_renders(self):
         """Test that BlogPosting JSON-LD is rendered in the blog detail template."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
         # Render the blog posting JSON-LD template directly
         context = {"page": self.blog_post}
         jsonld_content = render_to_string(
@@ -188,8 +184,6 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
         self.assertIn("BlogPosting", jsonld_content)
 
         # Parse the JSON to ensure it's valid
-        import json
-
         start_marker = '<script type="application/ld+json">'
         end_marker = "</script>"
         start_idx = jsonld_content.find(start_marker)
@@ -206,9 +200,6 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
 
     def test_blog_posting_jsonld_structure(self):
         """Test that BlogPosting JSON-LD contains all required fields."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
         # Render the blog posting JSON-LD template directly
         context = {"page": self.blog_post}
         jsonld_content = render_to_string(
@@ -250,14 +241,9 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
     def test_blog_posting_jsonld_with_feed_image(self):
         """Test BlogPosting JSON-LD includes image when feed_image is set."""
         # Create an image for the blog post
-        from tbx.images.factories import CustomImageFactory
-
         image = CustomImageFactory()
         self.blog_post.feed_image = image
         self.blog_post.save()
-
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
 
         # Render the blog posting JSON-LD template directly
         context = {"page": self.blog_post}
@@ -283,9 +269,6 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
         self.blog_post.feed_image = None
         self.blog_post.save()
 
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
         # Render the blog posting JSON-LD template directly
         context = {"page": self.blog_post}
         jsonld_content = render_to_string(
@@ -308,9 +291,6 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
         """Test that description falls back to listing_summary when search_description is not set."""
         self.blog_post.search_description = ""
         self.blog_post.save()
-
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
 
         # Render the blog posting JSON-LD template directly
         context = {"page": self.blog_post}
@@ -335,9 +315,6 @@ class TestBlogPageJSONLD(WagtailPageTestCase):
         # Update the blog post to trigger last_published_at
         self.blog_post.title = "Updated Title"
         self.blog_post.save()
-
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
 
         # Render the blog posting JSON-LD template directly
         context = {"page": self.blog_post}
@@ -373,9 +350,6 @@ class TestBreadcrumbJSONLD(WagtailPageTestCase):
 
     def test_breadcrumb_jsonld_renders(self):
         """Test that breadcrumb JSON-LD is rendered in the blog detail template."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
         # Render the breadcrumb JSON-LD template directly
         context = {"page": self.blog_post}
         jsonld_content = render_to_string(
@@ -388,9 +362,6 @@ class TestBreadcrumbJSONLD(WagtailPageTestCase):
 
     def test_breadcrumb_jsonld_structure(self):
         """Test that breadcrumb JSON-LD contains correct structure."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
         # Render the breadcrumb JSON-LD template directly
         context = {"page": self.blog_post}
         jsonld_content = render_to_string(
@@ -451,9 +422,6 @@ class TestBreadcrumbJSONLD(WagtailPageTestCase):
 
     def test_breadcrumb_jsonld_with_division(self):
         """Test breadcrumb JSON-LD includes division page."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
         # Render the breadcrumb JSON-LD template directly
         context = {"page": self.blog_post}
         jsonld_content = render_to_string(
@@ -497,9 +465,6 @@ class TestBreadcrumbJSONLD(WagtailPageTestCase):
 
     def test_breadcrumb_jsonld_urls(self):
         """Test that breadcrumb JSON-LD contains URL structure."""
-        # Test the JSON-LD template directly instead of through URL
-        from django.template.loader import render_to_string
-
         # Render the breadcrumb JSON-LD template directly
         context = {"page": self.blog_post}
         jsonld_content = render_to_string(
