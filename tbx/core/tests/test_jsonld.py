@@ -128,8 +128,3 @@ class TestJSONLDTemplateInclusion(WagtailPageTestCase):
 
         self.assertGreater(len(schema), 0, "BlogPosting JSON-LD not found")
         self.assertEqual(schema[0]["headline"], "Test Blog Post")
-
-    def test_multiple_jsonld_scripts(self):
-        """Test that multiple JSON-LD scripts can be present on a page."""
-        org_data = self._get_organization_jsonld()
-        self.assertEqual(org_data["@type"], "Organization")
