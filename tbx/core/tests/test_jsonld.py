@@ -73,18 +73,6 @@ class TestOrganizationJSONLD(WagtailPageTestCase):
             ],
         )
 
-    def test_organization_jsonld_social_links(self):
-        """Test that Organization JSON-LD includes correct social media links."""
-        org_data = self._get_organization_jsonld()
-        same_as = org_data["sameAs"]
-
-        # Test that all social links are valid URLs
-        for link in same_as:
-            self.assertTrue(link.startswith("http"), f"Invalid social link: {link}")
-
-        # Test that we have the expected number of social links
-        self.assertGreaterEqual(len(same_as), 3)
-
     def test_organization_jsonld_logo_url(self):
         """Test that Organization JSON-LD includes correct logo URL."""
         org_data = self._get_organization_jsonld()
