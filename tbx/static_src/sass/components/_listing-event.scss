@@ -1,6 +1,6 @@
 // styles specific to listings with event details
 
-@use 'config' as *;
+@use '../config' as *;
 
 .listing-event {
     &__calendar {

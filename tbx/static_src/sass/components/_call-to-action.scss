@@ -1,4 +1,4 @@
-@use 'config' as *;
+@use '../config' as *;
 
 .call-to-action {
     background-color: var(--color--theme-primary);
@@ -69,6 +69,7 @@
     &__stickyheading {
         font-weight: $weight--semibold;
     }
+
     &__stickysubtext {
         font-weight: $weight--extralight;
     }

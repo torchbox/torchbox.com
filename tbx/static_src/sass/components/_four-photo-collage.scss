@@ -1,4 +1,4 @@
-@use 'config' as *;
+@use '../config' as *;
 
 .four-photo-collage {
     display: grid;
@@ -44,10 +44,9 @@
             grid-template-columns:
                 minmax(100px, 200px) minmax(60px, 120px) minmax(210px, 420px)
                 minmax(320px, 640px);
-            grid-template-rows: minmax(180px, 360px) minmax(230px, 460px) minmax(
-                    40px,
-                    80px
-                );
+            grid-template-rows:
+                minmax(180px, 360px) minmax(230px, 460px)
+                minmax(40px, 80px);
             gap: $spacer-mini-plus;
             // ensures the individual images remain at the correct aspect ratio
             aspect-ratio: 7 / 4;

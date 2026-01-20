@@ -1,7 +1,8 @@
-@use 'config' as *;
+@use '../config' as *;
 
 .featured-services {
     $root: &;
+
     &__header {
         margin-bottom: $spacer-medium;
     }
@@ -55,7 +56,7 @@
     &__heading {
         color: var(--color--heading);
         margin-bottom: $spacer-mini;
-        word-wrap: break-word;
+        overflow-wrap: break-word;
         line-height: 1;
     }
 

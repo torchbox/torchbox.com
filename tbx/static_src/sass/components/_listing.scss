@@ -1,6 +1,6 @@
 // common styles used across multiple listings
 
-@use 'config' as *;
+@use '../config' as *;
 
 .listing {
     $root: &;

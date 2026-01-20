@@ -1,11 +1,11 @@
-@use 'config' as *;
+@use '../config' as *;
 
 .event-block {
     $root: &;
 
     display: grid;
     grid-template-columns: 1fr;
-    background-color: rgba(var(--color--heading), 0.04);
+    background-color: rgb(var(--color--heading), 0.04);
     color: var(--color--heading);
 
     @include media-query(large) {
@@ -105,7 +105,7 @@
 
     &__divider {
         margin: $spacer-small 0;
-        color: rgba(var(--color--heading), 0.2);
+        color: rgb(var(--color--heading), 0.2);
 
         @include media-query(large) {
             margin: $spacer-medium 0 $spacer-small;
