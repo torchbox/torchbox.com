@@ -1,8 +1,11 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<div class="image grid__image">
+<div class="{% if value.is_screenshot %}screenshot-image{% else %}image{% endif %} grid__image">
     {% if value.image.is_gif %}
         {% image value.image width-800 %}
+    {% elif value.is_screenshot %}
+        {# Keep original size for screenshots #}
+        {% image value.image format-webp original %}
     {% else %}
         {% if value.image_is_decorative %}
             {% srcset_image value.image format-webp width-{400,900,1800} sizes="(max-width: 1022px) 90vw, (max-width: 1879px) 50vw, (min-width: 1880px) 910px" loading="lazy" alt="" %}
