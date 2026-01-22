@@ -143,6 +143,20 @@ class ImageBlock(ImageWithAltTextBlock):
     )
     caption = blocks.CharBlock(required=False)
     attribution = blocks.CharBlock(required=False)
+    is_screenshot = blocks.BooleanBlock(
+        required=False,
+        default=False,
+        help_text="""
+            If checked, this will remove extra padding and add a subtle
+            border to add contrast with the background,
+            especially in light mode.
+            The image will not be scaled up to fill the width of the container,
+            and caption and attribution will be left aligned.
+            There is tighter spacing between the image and any
+            paragraph text above.
+            """,
+        label="This image is a screenshot",
+    )
 
 
 class ImageWithLinkBlock(blocks.StructBlock):

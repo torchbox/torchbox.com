@@ -1,7 +1,8 @@
 @use '../config' as *;
 
 .image,
-.wide-image {
+.wide-image,
+.screenshot-image {
     $root: &;
 
     img {
@@ -47,5 +48,22 @@
         @include media-query(xxx-large) {
             margin-right: 0;
         }
+    }
+}
+
+// Screenshot images don't have padding, and have a subtle border in case they need contrast
+// with the background, especially in light mode
+// Because they fill their natural width, the caption and attribution are aligned to the left.
+.screenshot-image {
+    img {
+        padding: 0;
+        border: 1px solid var(--color--light-border);
+        width: auto;
+    }
+
+    .image__caption,
+    .image__attribution {
+        text-align: left;
+        margin-right: 0;
     }
 }
