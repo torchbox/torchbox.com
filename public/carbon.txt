@@ -1,10 +1,13 @@
+version="0.4"
+last_updated="2026-01-08"
+
 [org]
 disclosures = [
-    { doc_type="sustainability-page", url="https://torchbox.com/sustainability-policy/", domain="torchbox.com"  },
-    { doc_type="annual-report", url="https://torchbox.com/about/impact-report-2024/#sustainability", domain="torchbox.com" },
-    { doc_type="annual-report", url="https://torchbox.com/about/impact-report-2023/#sustainability", domain="torchbox.com" },
-    { doc_type="web-page", url="https://torchbox.com/news/announcing-our-digital-emissions-methodologies/", domain="torchbox.com" },
-    { doc_type="web-page", url="https://torchbox.com/about/digital-emissions/", domain="torchbox.com" }
+    { doc_type="sustainability-page", url="https://torchbox.com/sustainability-policy/", domain="torchbox.com", title="Torchbox sustainability policy" },
+    { doc_type="annual-report", url="https://torchbox.com/about/impact-report-2024/#sustainability", domain="torchbox.com", valid_until="2024-12-31", title="Torchbox 2024 impact report" },
+    { doc_type="annual-report", url="https://torchbox.com/about/impact-report-2023/#sustainability", domain="torchbox.com", valid_until="2023-12-31", title="Torchbox 2023 impact report" },
+    { doc_type="web-page", url="https://torchbox.com/news/announcing-our-digital-emissions-methodologies/", domain="torchbox.com", title="Torchbox digital emissions methodologies" },
+    { doc_type="web-page", url="https://torchbox.com/about/digital-emissions/", domain="torchbox.com", title="How Torchbox measures digital emissions" }
 ]
 
 [upstream]
