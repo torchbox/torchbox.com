@@ -143,6 +143,9 @@ class ImageBlock(ImageWithAltTextBlock):
     )
     caption = blocks.CharBlock(required=False)
     attribution = blocks.CharBlock(required=False)
+
+
+class ImageBlockWithScreenshotOption(ImageBlock):
     is_screenshot = blocks.BooleanBlock(
         required=False,
         default=False,
@@ -1249,7 +1252,7 @@ class StoryBlock(blocks.StreamBlock):
         template="patterns/molecules/streamfield/blocks/paragraph_block.html",
         group="Basics",
     )
-    image = ImageBlock(
+    image = ImageBlockWithScreenshotOption(
         template="patterns/molecules/streamfield/blocks/image_block.html",
         group="Media and images",
     )

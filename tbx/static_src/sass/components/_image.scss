@@ -3,8 +3,6 @@
 .image,
 .wide-image,
 .screenshot-image {
-    $root: &;
-
     img {
         padding: $spacer-mini-plus;
         background-color: var(--color--streamfield-background);
