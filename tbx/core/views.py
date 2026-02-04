@@ -14,6 +14,7 @@ import requests
 
 from tbx.core.errors import UnauthorizedHTTPError
 from tbx.core.forms import ModeSwitcherForm
+from tbx.core.models import Page
 
 
 logger = logging.getLogger(__name__)
@@ -52,10 +53,12 @@ class SecurityView(TemplateView):
     content_type = "text/plain"
 
     expires = timedelta(days=7)
+    policy = Page.objects.get(slug="security-policy").full_url
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["security_txt"] = self.request.build_absolute_uri(self.request.path)
+        context["policy"] = self.policy or "Unavailable"
         context["expires"] = (
             (timezone.now() + self.expires).replace(microsecond=0).isoformat()
         )
