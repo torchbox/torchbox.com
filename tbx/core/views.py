@@ -6,7 +6,6 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.utils.decorators import method_decorator
-from django.utils.functional import cached_property
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
@@ -55,17 +54,16 @@ class SecurityView(TemplateView):
 
     expires = timedelta(days=7)
 
-    @cached_property
     def policy(self):
         try:
-            return Page.objects.get(slug="security-policy").full_url
+            return Page.objects.get(slug="security-policy").get_full_url(self.request)
         except Page.DoesNotExist:
             return "Unavailable"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["security_txt"] = self.request.build_absolute_uri(self.request.path)
-        context["policy"] = self.policy
+        context["policy"] = self.policy()
         context["expires"] = (
             (timezone.now() + self.expires).replace(microsecond=0).isoformat()
         )
