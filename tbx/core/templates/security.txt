@@ -1,4 +1,5 @@
 Contact: mailto:security@torchbox.com
+Policy: {{ policy }}
 Canonical: {{ security_txt }}
 Expires: {{ expires }}
 Preferred-Languages: en
