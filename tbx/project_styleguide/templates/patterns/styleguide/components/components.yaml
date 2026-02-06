@@ -16,6 +16,14 @@ context:
           url: '#'
           text: Book a free 1-hour call with Michael
 
+  # Screenshot image
+  screenshot_data:
+    is_screenshot: True
+    alt_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    image_is_decorative: False
+    caption: Effortlessly blending innovation with functionality - the future of sustainable design.
+    attribution: Jeth Ordeniza, Torchbox
+
   # for title-filters.html
   item:
     title: Example title
