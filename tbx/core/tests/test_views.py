@@ -107,3 +107,21 @@ class TestModeSwitcherView(TestCase):
         # check theme is set on new site
         resp = self.client.get(f"http://{new_site.hostname}/")
         self.assertEqual(resp.context["MODE"], mode)
+
+
+class PageNotFoundTestCase(TestCase):
+    def test_page_not_found(self) -> None:
+        response = self.client.get("/does-not-exist/")
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(
+            response.headers["Cache-Control"],
+            "s-maxage=600, stale-while-revalidate=60, public",
+        )
+
+    def test_test_404(self) -> None:
+        response = self.client.get("/test404/")
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(
+            response.headers["Cache-Control"],
+            "s-maxage=600, stale-while-revalidate=60, public",
+        )

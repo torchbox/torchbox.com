@@ -22,6 +22,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 # Basic settings
 DEBUG = False
+TEST = False
 
 APP_NAME = env.get("APP_NAME", "torchbox")
 
@@ -549,13 +550,13 @@ elif "FRONTEND_CACHE_CLOUDFLARE_TOKEN" in env:
 # Set s-max-age header that is used by reverse proxy/front end cache. See
 # urls.py
 with contextlib.suppress(ValueError):
-    CACHE_CONTROL_S_MAXAGE = int(env.get("CACHE_CONTROL_S_MAXAGE", 600))
+    CACHE_CONTROL_S_MAXAGE = int(env.get("CACHE_CONTROL_S_MAXAGE", 14400))
 
 
-# Give front-end cache 30 second to revalidate the cache to avoid hitting the
+# Give front-end cache 60 second to revalidate the cache to avoid hitting the
 # backend. See urls.py
 CACHE_CONTROL_STALE_WHILE_REVALIDATE = int(
-    env.get("CACHE_CONTROL_STALE_WHILE_REVALIDATE", 30)
+    env.get("CACHE_CONTROL_STALE_WHILE_REVALIDATE", 60)
 )
 
 # Embeds
