@@ -1,0 +1,9 @@
+{% load wagtailcore_tags %}
+
+<a href="{% pageurl value.page %}" class="button styled-page-links__button styled-page-links__button--{{ value.style }}">
+    {% if value.title %}
+        {{ value.title }}
+    {% else %}
+        {{ value.page.title }}
+    {% endif %}
+</a>

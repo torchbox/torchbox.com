@@ -1,11 +1,29 @@
 {% load wagtailcore_tags %}
 
-<div class="title-filters {% if hide_tags %}title-filters--no-tags{% endif %}">
+<div class="title-filters {% if introduction or page_links %}title-filters--no-tags{% endif %}">
     <div class="title-filters__title">
         <h1 class="heading heading--mega">{{ item.title }}</h1>
     </div>
 
-    {% if tags and not hide_tags %}
+    {% if introduction or page_links %}
+        <div class="title-filters__info">
+            {% if introduction %}
+                <div class="title-filters__introduction">
+                    <p>{{ introduction|linebreaksbr }}</p>
+                </div>
+            {% endif %}
+
+            {% if page_links %}
+                <div class="title-filters__styled-page-links styled-page-links">
+                    {% for block in page_links %}
+                        {% include_block block %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if tags and not introduction and not page_links %}
         <div class="title-filters__tags">
             <div class="tags">
                 <p class="sr-only">Filter by category</p>

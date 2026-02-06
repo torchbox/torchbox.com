@@ -1,0 +1,12 @@
+context:
+  value:
+    page:
+      title: Charity
+      url: '#'
+    title: Charity
+    style: charity
+
+tags:
+  pageurl:
+    value.page:
+      raw: '#'
