@@ -1,0 +1,17 @@
+{% load wagtailcore_tags %}
+{% if page.breadcrumbs %}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org/",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{% for crumb in page.breadcrumbs %}
+                {
+                    "@type": "ListItem",
+                    "position": {{ forloop.counter }},
+                    "name": "{% if crumb.depth == 2 %}Home{% else %}{{ crumb.title|escapejs }}{% endif %}",
+                    "item": "{% fullpageurl crumb %}"
+                }{% if not forloop.last %},{% endif %}{% endfor %}
+            ]
+        }
+    </script>
+{% endif %}

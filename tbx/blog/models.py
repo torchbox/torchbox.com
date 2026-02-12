@@ -228,6 +228,53 @@ class BlogPage(BasePage):
             return author.author
         return None
 
+    def get_blog_posting_jsonld(self, request=None):
+        """Build the BlogPosting JSON-LD structured data as a dict."""
+        # Get site for URLs - prefer from request, fall back to page's site
+        site = getattr(request, "site", None) if request else None
+        if not site:
+            site = self.get_site()
+        root_url = site.root_url if site else ""
+
+        data = {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": self.get_full_url(request),
+            },
+            "headline": self.title,
+            "description": self.search_description or self.listing_summary or "",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Torchbox",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": f"{root_url}/apple-touch-icon.png",
+                },
+            },
+            "datePublished": self.date.isoformat(),
+            "dateModified": (
+                self.last_published_at.date().isoformat()
+                if self.last_published_at
+                else self.date.isoformat()
+            ),
+        }
+
+        if self.feed_image:
+            data["image"] = self.feed_image.get_rendition("width-1200|format-webp").url
+
+        if self.first_author:
+            author_data = {
+                "@type": "Person",
+                "name": self.first_author.name,
+            }
+            if self.first_author.person_page:
+                author_data["url"] = self.first_author.person_page.get_full_url(request)
+            data["author"] = author_data
+
+        return data
+
     @property
     def read_time(self):
         if self.body_word_count:
