@@ -3,9 +3,7 @@
 <div class="instagram-gallery grid__instagram-gallery">
     {% for post in value.items %}
         <a class="instagram-post" href="{{ post.link|default:'https://www.instagram.com/torchboxltd/'}}">
-            {% if post.image_is_decorative %}
-                {% srcset_image post.image format-webp fill-{250x250,500x500} sizes="(max-width: 598px) 50vw, (max-width: 1021px) 25vw, (min-width: 1022px) 250px" class="instagram-post__image" loading="lazy" alt="" %}
-            {% elif post.alt_text %}
+            {% if post.alt_text %}
                 {% srcset_image post.image format-webp fill-{250x250,500x500} sizes="(max-width: 598px) 50vw, (max-width: 1021px) 25vw, (min-width: 1022px) 250px" class="instagram-post__image" loading="lazy" alt=post.alt_text %}
             {% else %}
                 {% srcset_image post.image format-webp fill-{250x250,500x500} sizes="(max-width: 598px) 50vw, (max-width: 1021px) 25vw, (min-width: 1022px) 250px" class="instagram-post__image" loading="lazy" %}
