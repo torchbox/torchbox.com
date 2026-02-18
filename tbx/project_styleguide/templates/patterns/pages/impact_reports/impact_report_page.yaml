@@ -17,6 +17,7 @@ context:
     hero_image: true
     hero_caption: Caption for image
     hero_attribution: By David Bloggs
+    hero_alt_text: Custom hero alt text
     first_author:
       name: Juan dela Cruz
       role: Director

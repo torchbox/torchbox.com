@@ -28,6 +28,17 @@ class ImpactReportPage(BasePage):
 
     hero_caption = models.CharField("caption", max_length=255, blank=True)
     hero_attribution = models.CharField("attribution", max_length=255, blank=True)
+    hero_alt_text = models.CharField(
+        "alt text",
+        blank=True,
+        help_text="By default the image title (shown above) is used as the alt text. "
+        "Use this field to provide more specific alt text if required.",
+    )
+    hero_image_is_decorative = models.BooleanField(
+        "is decorative",
+        default=False,
+        help_text="If checked, this will make the alt text empty.",
+    )
 
     body = StreamField(ImpactReportStoryBlock())
 
@@ -38,6 +49,8 @@ class ImpactReportPage(BasePage):
                 FieldPanel("hero_image"),
                 FieldPanel("hero_caption"),
                 FieldPanel("hero_attribution"),
+                FieldPanel("hero_alt_text"),
+                FieldPanel("hero_image_is_decorative"),
             ],
             heading="Hero",
         ),
