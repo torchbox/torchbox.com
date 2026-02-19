@@ -15,9 +15,8 @@ class DesktopSubMenu {
             '[data-desktop-menu] [data-has-subnav]',
         );
         this.activeClass = 'active';
-        this.lastMenuItems = document.querySelectorAll(
-            '[data-last-menu-item-desktop]',
-        );
+        this.lastMenuItems = this.toggleNode.querySelectorAll('a');
+        this.lastMenuItem = this.lastMenuItems[this.lastMenuItems.length - 1];
         this.bindEventListeners();
     }
 
@@ -64,10 +63,8 @@ class DesktopSubMenu {
         });
 
         // Close the desktop menu when the focus moves away from the last item
-        this.lastMenuItems.forEach((item) => {
-            item.addEventListener('focusout', () => {
-                this.close();
-            });
+        this.lastMenuItem.addEventListener('focusout', () => {
+            this.close();
         });
     }
 }
