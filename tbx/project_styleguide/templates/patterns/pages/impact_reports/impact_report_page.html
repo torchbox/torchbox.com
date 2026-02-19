@@ -38,10 +38,8 @@
                     src="{{ desktop_image.url }}"
                     {% if page.hero_image_is_decorative %}
                         alt=""
-                    {% elif page.hero_alt_text %}
-                        alt="{{ page.hero_alt_text }}"
                     {% else %}
-                        alt="{{ desktop_image.alt }}"
+                        alt="{% firstof page.hero_alt_text desktop_image.alt %}"
                     {% endif %}
                 />
             </picture>
