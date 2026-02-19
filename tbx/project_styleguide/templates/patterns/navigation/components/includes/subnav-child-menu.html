@@ -13,7 +13,7 @@
             </li>
         {% endfor %}
         {% if child.value.section_link %}
-            <li class="sub-nav-desktop__item" {% if forloop.last %}data-last-menu-item-desktop{% endif %}>
+            <li class="sub-nav-desktop__item">
                 <a href="{{ child.value.section_link.url }}" class="sub-nav-desktop__link sub-nav-desktop__link--no-description">
                     <span class="sub-nav-desktop__link-text">{% firstof child.value.section_link_text child.value.section_link %}</span><span class="sub-nav-desktop__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow" classname="sub-nav-desktop__arrow" %}</span>
                 </a>
