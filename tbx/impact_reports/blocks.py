@@ -48,6 +48,12 @@ class InstagramGalleryItemBlock(StructBlock):
     link = URLBlock(
         required=False,
     )
+    alt_text = CharBlock(
+        required=False,
+        help_text="By default the image title (shown above) is used as the alt text. "
+        "Use this field to provide more specific alt text if required."
+        "The image has no option to be decorative as it provides the text for the link.",
+    )
 
     class Meta:
         icon = "image"
