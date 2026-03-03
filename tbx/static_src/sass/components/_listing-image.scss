@@ -7,7 +7,7 @@
     flex-direction: column;
     gap: $spacer-mini;
 
-    @include media-query(medium) {
+    @include media-query(x-large) {
         flex-direction: row;
         gap: $spacer-half;
         align-items: flex-end;
@@ -23,7 +23,7 @@
         max-height: 340px;
         object-fit: cover;
 
-        @include media-query(medium) {
+        @include media-query(x-large) {
             width: 370px;
             max-height: none;
         }
