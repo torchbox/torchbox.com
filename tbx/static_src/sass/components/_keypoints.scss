@@ -36,6 +36,10 @@
             grid-column: 1 / span 3;
             grid-row: span 2;
         }
+
+        @include media-query(large) {
+            grid-column: 1 / span 3;
+        }
     }
 
     &__label {
@@ -54,8 +58,13 @@
 
         @include media-query(medium) {
             padding-top: 0;
-            grid-column: 4 / span 6;
+            grid-column: 5 / span 5;
             grid-row: 1;
+        }
+
+        @include media-query(large) {
+            padding-top: 0;
+            grid-column: 4 / span 6;
         }
     }
 
@@ -67,8 +76,12 @@
         grid-column: 1 / span 12;
 
         @include media-query(medium) {
-            grid-column: 4 / span 8;
+            grid-column: 5 / span 7;
             padding-top: $spacer-mini-plus;
+        }
+
+        @include media-query(large) {
+            grid-column: 4 / span 8;
         }
 
         &.rich-text {
