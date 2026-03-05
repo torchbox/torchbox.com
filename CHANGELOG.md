@@ -1,10 +1,22 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. This project doesn’t follow any versioning scheme.
+All notable changes to this project will be documented in this file. This project doesn't follow any versioning scheme.
 
 Add your changes to the Unreleased section and move them to the appropriate section when they are merged.
 
-## Unreleased
+## 2026-03-05
+
+- [TWE-684](https://torchbox.atlassian.net/browse/TWE-684) - Security update: Wagtail 7.2.3, Django 5.2.12
+
+## 2026-02-09
+
+- Add support for screenshot images ([#414](https://github.com/torchbox/torchbox.com/pull/414))
+
+## 2026-02-05
+
+- Add Policy to security.txt ([#415](https://github.com/torchbox/torchbox.com/pull/415))
+
+## 2026-01-20
 
 - Several upgrades via [#412](https://github.com/torchbox/torchbox.com/pull/412)
   - Wagtail 7.1 → 7.2
@@ -33,9 +45,30 @@ Add your changes to the Unreleased section and move them to the appropriate sect
     - `cssnano` upgrade (v6 → v7)
     - `lite-youtube-embed` update
 
+## 2026-01-13
+
+- Update carbon.txt to v0.4 ([#413](https://github.com/torchbox/torchbox.com/pull/413))
+
+## 2025-10-23
+
+- Add VWO code to base page ([#401](https://github.com/torchbox/torchbox.com/pull/401))
+
+## 2025-10-21
+
+- Add carbon.txt ([#407](https://github.com/torchbox/torchbox.com/pull/407))
+- Fix carbon.txt file ([#409](https://github.com/torchbox/torchbox.com/pull/409))
+
+## 2025-10-06
+
+- Pin Python version ([#406](https://github.com/torchbox/torchbox.com/pull/406))
+
+## 2025-09-15
+
+- Restore tags on BlogPage and BlogIndexPage ([#403](https://github.com/torchbox/torchbox.com/pull/403))
+
 ## 2025-09-09
 
-- Wagtail 7.1 upgrade [#404]https://github.com/torchbox/torchbox.com/pull/404
+- Wagtail 7.1 upgrade ([#404](https://github.com/torchbox/torchbox.com/pull/404))
 
 ## 2025-06-23
 
