@@ -70,5 +70,10 @@
             grid-column: 4 / span 8;
             padding-top: $spacer-mini-plus;
         }
+
+        &.rich-text {
+            @include font-size(size-four);
+            font-weight: $weight--light;
+        }
     }
 }
