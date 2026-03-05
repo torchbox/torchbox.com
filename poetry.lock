@@ -556,13 +556,13 @@ Django = ">=4.2"
 
 [[package]]
 name = "django"
-version = "5.2.5"
+version = "5.2.12"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "django-5.2.5-py3-none-any.whl", hash = "sha256:2b2ada0ee8a5ff743a40e2b9820d1f8e24c11bac9ae6469cd548f0057ea6ddcd"},
-    {file = "django-5.2.5.tar.gz", hash = "sha256:0745b25681b129a77aae3d4f6549b62d3913d74407831abaa0d9021a03954bae"},
+    {file = "django-5.2.12-py3-none-any.whl", hash = "sha256:4853482f395c3a151937f6991272540fcbf531464f254a347bf7c89f53c8cff7"},
+    {file = "django-5.2.12.tar.gz", hash = "sha256:6b809af7165c73eff5ce1c87fdae75d4da6520d6667f86401ecf55b681eb1eeb"},
 ]
 
 [package.dependencies]
@@ -2385,13 +2385,13 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 
 [[package]]
 name = "wagtail"
-version = "7.2.1"
+version = "7.2.3"
 description = "A Django content management system."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "wagtail-7.2.1-py3-none-any.whl", hash = "sha256:b29f9fc226fadf744cf6fd5a24ee1c2b7a00ade5f801c72069af8b453d6a1241"},
-    {file = "wagtail-7.2.1.tar.gz", hash = "sha256:388bb42c4818c081a4ddf36e6f4529bfbc54ed262a91b65b0e5f951476f2cf74"},
+    {file = "wagtail-7.2.3-py3-none-any.whl", hash = "sha256:3c13304a69b8f2b457b3fd5f1b8951588338c936589df745dd2a82a0a4fddd21"},
+    {file = "wagtail-7.2.3.tar.gz", hash = "sha256:2f602e17f7932af88de8c83420849c31a062a40290e4a045357bb4a56a1dee60"},
 ]
 
 [package.dependencies]
@@ -2416,7 +2416,7 @@ Willow = {version = ">=1.11.0,<2", extras = ["heif"]}
 
 [package.extras]
 docs = ["Sphinx (>=7.3)", "myst_parser (==2.0.0)", "pyenchant (>=3.1.1,<4)", "sphinx-autobuild (>=0.6.0)", "sphinx-wagtail-theme (==6.5.0)", "sphinxcontrib-spelling (>=7,<8)"]
-testing = ["Jinja2 (>=3.0,<3.2)", "azure-mgmt-cdn (>=12.0,<13.0)", "azure-mgmt-frontdoor (>=1.0,<1.1)", "boto3 (>=1.28,<2)", "coverage (>=3.7.0)", "curlylint (==0.13.1)", "django-pattern-library (>=0.7)", "djhtml (==3.0.6)", "doc8 (==1.1.2)", "factory-boy (>=3.2)", "freezegun (>=0.3.8)", "polib (>=1.1,<2.0)", "python-dateutil (>=2.7)", "responses (>=0.25,<1)", "ruff (==0.9.6)", "semgrep (==1.132.0)", "tblib (>=2.0,<3.0)"]
+testing = ["Jinja2 (>=3.0,<3.2)", "azure-mgmt-cdn (>=12.0,<13.0)", "azure-mgmt-frontdoor (>=1.0,<1.1)", "boto3 (>=1.28,<2)", "coverage (>=3.7.0)", "curlylint (==0.13.1)", "django-pattern-library (>=0.7)", "djhtml (==3.0.6)", "doc8 (==1.1.2)", "factory-boy (>=3.2)", "freezegun (>=0.3.8)", "polib (>=1.1,<2.0)", "python-dateutil (>=2.7)", "responses (>=0.25,<1)", "ruff (==0.9.6)", "semgrep (==1.150.0)", "tblib (>=2.0,<3.0)"]
 
 [[package]]
 name = "wagtail-accessibility"
