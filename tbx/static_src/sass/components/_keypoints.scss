@@ -36,10 +36,6 @@
             grid-column: 1 / span 3;
             grid-row: span 2;
         }
-
-        @include media-query(large) {
-            grid-column: 1 / span 3;
-        }
     }
 
     &__label {
