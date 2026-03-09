@@ -60,18 +60,28 @@
     }
 
     &__name {
-        color: var(--color--white);
+        color: var(--color--black);
         font-weight: $weight--semibold;
+
+        .theme-nebuline &,
+        .theme-green & {
+            color: var(--color--white);
+        }
     }
 
     &__role {
         color: var(--color--black);
+
+        .theme-nebuline &,
+        .theme-green & {
+            color: var(--color--white);
+        }
     }
 
     &__button {
         @include font-size('size-five');
-        color: var(--color--white);
-        border: 1px solid var(--color--white);
+        color: var(--color--black);
+        border: 1px solid var(--color--black);
         align-self: flex-start;
         grid-column: span 1;
 
@@ -83,6 +93,16 @@
 
         &:focus {
             @include focus-style($outline-color: var(--color--background));
+        }
+
+        .theme-nebuline &,
+        .theme-green & {
+            color: var(--color--white);
+            border: 1px solid var(--color--white);
+
+            &:hover {
+                color: var(--color--background);
+            }
         }
     }
 }
