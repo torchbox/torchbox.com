@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. This projec
 
 Add your changes to the Unreleased section and move them to the appropriate section when they are merged.
 
+## Unreleased
+
+- [TWE-682](https://torchbox.atlassian.net/browse/TWE-682) - Upgrade Wagtail to 7.3
+
 ## 2026-03-05
 
 - [TWE-684](https://torchbox.atlassian.net/browse/TWE-684) - Security update: Wagtail 7.2.3, Django 5.2.12
