@@ -3,7 +3,7 @@ default_language_version:
   python: python3.13
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.14.8' # keep in sync with pyproject.toml
+    rev: 'v0.15.5' # keep in sync with pyproject.toml
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
@@ -51,7 +51,7 @@ repos:
         files: ^pyproject.toml$
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: '1.29.1' # update with latest tag on GitHub
+    rev: '1.30.0' # update with latest tag on GitHub
     hooks:
       - id: django-upgrade
         args: [--target-version, '5.2'] # Django version used in this site
