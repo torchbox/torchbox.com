@@ -33,6 +33,7 @@
 
     &__button {
         @include font-size('size-five');
+        // Default to black here as the coral background is used when no theme is set
         color: var(--color--black);
         border: 1px solid var(--color--black);
         margin-top: $spacer-small;
