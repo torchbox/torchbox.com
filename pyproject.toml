@@ -6,14 +6,14 @@ authors = ["Torchbox Ltd"]
 
 [tool.poetry.dependencies]
 python = "^3.13"
-Django = "~5.2.0"
+Django = "~5.2.12"
 wagtail = "~7.3"
 psycopg = "^3.3.2"
 gunicorn = "^23.0.0"
 whitenoise = "^6.9.0"
 phonenumbers = "^9.0.6"
 Wand = "^0.6.10"
-urllib3 = "~2.6.1"
+urllib3 = "~2.6.3"
 
 # Django packages
 django-basic-auth-ip-whitelist = "^0.8"
@@ -41,7 +41,7 @@ beautifulsoup4 = "^4.13.4"
 django-xff = "^1.5.0"
 
 [tool.poetry.group.dev.dependencies]
-Werkzeug = "^3.1.1"
+Werkzeug = "^3.1.6"
 django-debug-toolbar = "^6.1.0"
 django-extensions = "^4.1"
 fabric = "^3.2.2"
