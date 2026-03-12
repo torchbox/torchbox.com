@@ -13,10 +13,19 @@
     transition: background-color $transition-quick;
     background-color: var(--color--theme-primary);
 
-    // compact variant of the button with reduced padding
+    // compact variant of the button with reduced padding and smaller font size
+    // The smaller font size means we can't use white text for some themes due to contrast issues
+    // This isn't a problem for the larger font size in the default variant
     &--compact {
         @include font-size('size-five');
         padding: 13px $spacer-small;
+        // Default to black here as the coral background is used when no theme is set
+        color: var(--color--black);
+
+        .theme-nebuline &,
+        .theme-green & {
+            color: var(--color--white);
+        }
 
         #{$root}__arrow {
             margin-left: 0;
