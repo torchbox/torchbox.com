@@ -33,8 +33,9 @@
 
     &__button {
         @include font-size('size-five');
-        color: var(--color--white);
-        border: 1px solid var(--color--white);
+        // Default to black here as the coral background is used when no theme is set
+        color: var(--color--black);
+        border: 1px solid var(--color--black);
         margin-top: $spacer-small;
 
         @include media-query(large) {
@@ -43,6 +44,16 @@
 
         &:focus {
             @include focus-style($outline-color: var(--color--background));
+        }
+
+        .theme-nebuline &,
+        .theme-green & {
+            color: var(--color--white);
+            border: 1px solid var(--color--white);
+
+            &:hover {
+                color: var(--color--background);
+            }
         }
     }
 
