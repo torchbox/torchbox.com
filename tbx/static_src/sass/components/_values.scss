@@ -74,7 +74,7 @@
     }
 
     &__strapline {
-        // Note that this is the minimum font size that will pass for all themes and modes
+        // Note that this is the minimum font size that will pass colour contrast for all themes and modes
         @include font-size('size-four');
         color: var(--color--theme-primary);
         font-weight: $weight--semibold;
