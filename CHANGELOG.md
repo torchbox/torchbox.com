@@ -4,7 +4,19 @@ All notable changes to this project will be documented in this file. This projec
 
 Add your changes to the Unreleased section and move them to the appropriate section when they are merged.
 
-## Unreleased
+## 2026-03-05
+
+- [TWE-684](https://torchbox.atlassian.net/browse/TWE-684) - Security update: Wagtail 7.2.3, Django 5.2.12
+
+## 2026-02-09
+
+- Add support for screenshot images ([#414](https://github.com/torchbox/torchbox.com/pull/414))
+
+## 2026-02-05
+
+- Add Policy to security.txt ([#415](https://github.com/torchbox/torchbox.com/pull/415))
+
+## 2026-01-20
 
 - [TWE-684](https://torchbox.atlassian.net/browse/TWE-684) - Security update: Wagtail 7.2.3, Django 5.2.12
 

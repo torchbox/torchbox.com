@@ -48,8 +48,12 @@ Styles for the lower levels of the navigation at desktop
     &__list {
         display: grid;
         row-gap: $spacer-small-plus;
-        column-gap: $spacer-medium;
+        column-gap: $spacer-mini-plus;
         grid-template-columns: repeat(4, 1fr);
+
+        @include media-query(large) {
+            column-gap: $spacer-medium;
+        }
 
         #{$root}--2 & {
             grid-template-columns: repeat(2, 1fr);
