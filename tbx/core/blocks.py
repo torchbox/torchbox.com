@@ -349,7 +349,7 @@ class ServiceAreaFeaturedPageCardBlock(FeaturedPageCardBlock):
 
 
 class FeaturedServicesBlock(blocks.StructBlock):
-    title = blocks.CharBlock(max_length=255, required=False)
+    title = blocks.CharBlock(max_length=255, required=True)
     intro = blocks.RichTextBlock(
         features=settings.NO_HEADING_RICH_TEXT_FEATURES, required=False
     )
