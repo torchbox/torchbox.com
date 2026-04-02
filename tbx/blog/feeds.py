@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 class BlogFeed(Feed):
     title = "The Torchbox Blog"
-    link = "/blog/"
+    link = "/news/"
     description = "The latest news and views from Torchbox on the work we do, the web and the wider world"
     request: Optional["HttpRequest"] = None
 
@@ -63,9 +63,19 @@ class BlogFeed(Feed):
 
     def item_enclosure_mime_type(self, item: BlogPage) -> str | None:
         if item.feed_image:
-            image_format = filetype.guess_extension(item.feed_image.file)
-            return f"image/{image_format}"
+            try:
+                if image_format := filetype.guess_extension(item.feed_image.file):
+                    return f"image/{image_format}"
+            except (AttributeError, OSError, TypeError):
+                pass
+
+        return None
 
     def item_enclosure_length(self, item: BlogPage) -> str | None:
         if item.feed_image:
-            return item.feed_image.file.size
+            try:
+                return str(item.feed_image.file.size)
+            except (AttributeError, OSError, TypeError):
+                pass
+
+        return None
