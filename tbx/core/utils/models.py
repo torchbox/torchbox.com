@@ -151,6 +151,20 @@ class SocialMediaSettings(BaseSiteSetting):
     )
 
 
+@register_setting(icon="view")
+class Tracking(BaseSiteSetting):
+    google_tag_manager_id = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Your Google Tag Manager ID.",
+    )
+    google_tag_manager_secondary_id = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Experimental: Your Second Google Tag Manager ID.",
+    )
+
+
 class ColourTheme(models.TextChoices):
     NONE = "", "None"
     CORAL = "theme-coral", "Coral"

@@ -611,10 +611,6 @@ PATTERN_LIBRARY = {
     "BASE_TEMPLATE_NAMES": ["patterns/base_page.html"],
 }
 
-
-# Google Tag Manager ID from env
-GOOGLE_TAG_MANAGER_ID = env.get("GOOGLE_TAG_MANAGER_ID")
-
 # Trial Hotjar tracking for the CMS admin.
 ADMIN_HOTJAR_SITE_ID = env.get("ADMIN_HOTJAR_SITE_ID")
 
