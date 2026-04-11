@@ -99,7 +99,8 @@ urlpatterns = (
     + [
         # Add Wagtail URLs at the end.
         # Wagtail cache-control is set on the page models's serve methods.
-        path("", include(wagtail_urls))
+        path("chat/", include("tbx.chat.urls")),
+        path("", include(wagtail_urls)),
     ]
 )
 

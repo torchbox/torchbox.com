@@ -18,6 +18,9 @@ services:
       STATIC_URL: /static/
       HEROKU_APP_NAME: 'local-dev' # for birdbath HerokuAnonymisationAllowedCheck
       ALLOWS_ANONYMISATION: 'local-dev'
+    env_file:
+      - path: .env
+        required: false
     command: tail -f /dev/null # do nothing forever - exec commands elsewhere
     ports:
       - 8000:8000 # runserver
@@ -58,7 +61,7 @@ services:
       - redis
 
   db:
-    image: postgres:15.5
+    image: pgvector/pgvector:pg15
     expose:
       - 5432
     environment:

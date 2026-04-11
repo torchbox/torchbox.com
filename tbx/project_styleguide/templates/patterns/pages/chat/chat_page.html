@@ -1,0 +1,332 @@
+{% extends "patterns/base_page.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="grid grid--spacer-large streamfield">
+        <div class="grid__title">
+            <h1 class="heading heading--mega" id="ask-a-question-label">Ask a question</h1>
+        </div>
+        <div class="grid__title">
+            <div
+                {# fmt:off #}
+                x-data="
+                    {
+                        query: '{{ prefill_query|default:''|escapejs }}',
+                        currentQuestion: '',
+                        response: '',
+                        responseHtml: '',
+                        messageHistory: [],
+                        sources: [],
+                        loading: false,
+                        error: '',
+                        suggestedQuestions: [],
+                        suggestedLoading: false,
+                        popularQuestions: [
+                            'What work have you done in the public sector?',
+                            'What work have you done in the charity sector?',
+                        ],
+                        fetchSuggestions() {
+                            try {
+                            // Use current question and response
+                            const payload = {
+                                question: this.currentQuestion || '',
+                                response: this.response || '',
+                                conversation_history: this.messageHistory
+                            };
+                            this.suggestedLoading = true;
+                            fetch('/chat/suggested-questions/', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json', 'X-CSRFTOKEN': document.querySelector('[name=csrfmiddlewaretoken]').value },
+                                body: JSON.stringify(payload),
+                            })
+                            .then(r => r.json())
+                            .then(data => { this.suggestedQuestions = data.questions || []; })
+                            .catch(() => {})
+                            .finally(() => { this.suggestedLoading = false; });
+                        } catch (e) {
+                            // swallow errors in demo
+                            }
+                        },
+                        toHtml(markdown) {
+                            // Convert markdown to HTML for display
+                            const converter = new showdown.Converter();
+                            return converter.makeHtml(markdown || '');
+                        },
+                        getHistoryPairs() {
+                            // Group messages into Q&A pairs in reverse chronological order
+                            const pairs = [];
+                            for (let i = this.messageHistory.length - 2; i >= 0; i -= 2) {
+                                pairs.push([this.messageHistory[i], this.messageHistory[i + 1]]);
+                            }
+                            return pairs;
+                        },
+                        clearConversation() {
+                            fetch('/chat/clear-conversation/', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRFTOKEN': document.querySelector('[name=csrfmiddlewaretoken]').value
+                                },
+                            });
+
+                            // Reset all UI state
+                            this.query = '';
+                            this.currentQuestion = '';
+                            this.response = '';
+                            this.responseHtml = '';
+                            this.messageHistory = [];
+                            this.sources = [];
+                            this.error = '';
+                            this.suggestedQuestions = [];
+
+                            this.$nextTick(() => {
+                                this.$refs.textarea.focus();
+                            });
+                        },
+                        askQuestion(questionText, focusResponse) {
+                            const self = this;
+                            const converter = new showdown.Converter();
+                            if (focusResponse) {
+                                // first focus on text area in order to avoid issues with
+                                // the response area not existing yet. Avoids the button being focussed
+                                // when it is removed from the dom and a screen reader announcement of
+                                // 'no action available'
+                                self.$refs.textarea.focus();
+                            }
+
+                            // If there's a previous Q&A visible, move it to history
+                            if (self.currentQuestion && self.response) {
+                                self.messageHistory.push(
+                                    {role: 'user', content: self.currentQuestion},
+                                    {role: 'assistant', content: self.response}
+                                );
+                            }
+
+                            self.query = questionText;
+                            self.currentQuestion = questionText;
+                            self.loading = true;
+                            self.error = '';
+                            self.response = '';
+                            self.responseHtml = '';
+                            self.sources = [];
+                            self.suggestedQuestions = [];
+                            // Focus onto the responseRegion once it is available
+                            // so the screen reader has focus in the correct place to read the answer
+                            if (focusResponse) {
+                                self.$nextTick(function() {
+                                    var el = self.$refs.responseRegion;
+                                    if (el) { setTimeout(function() { el.focus(); }, 0); }
+                                });
+                            }
+
+                            // Store question in cookie
+                            console.log('Attempting to store question:', questionText);
+                            console.log('CookieManager available:', !!window.cookieManager);
+                            if (window.cookieManager && questionText && questionText.trim()) {
+                                console.log('Adding question to cookie:', questionText.trim());
+                                window.cookieManager.addQuestion(questionText.trim());
+                            } else {
+                                console.error('Cannot store question - CookieManager not available or empty question');
+                            }
+
+                            const eventSource = new EventSource(`/chat/stream/?query=${encodeURIComponent(self.query)}`);
+
+                            eventSource.addEventListener('chat', (event) => {
+                                const chunk = decodeURIComponent(event.data);
+                                self.response += chunk;
+                                // Convert markdown to HTML
+                                self.responseHtml = converter.makeHtml(self.response);
+                            });
+
+                            eventSource.addEventListener('source', (event) => {
+                                const s = JSON.parse(event.data);
+                                self.sources.push(s);
+                            });
+
+                            eventSource.addEventListener('end', () => {
+                                eventSource.close();
+
+                                self.fetchSuggestions();
+
+                                self.query = '';
+                                self.loading = false;
+                            });
+
+                            eventSource.addEventListener('server-error', () => {
+                                self.error = 'An error occurred. Please try again.';
+                                eventSource.close();
+                                self.loading = false;
+                            });
+                        },
+                    }
+                "
+                x-init="
+                    // If prefilled, auto-submit once (after Alpine is fully initialized)
+                    const self = this;
+                    if (this.query && this.query.trim()) {
+                        $nextTick(() => {
+                            const converter = new showdown.Converter();
+                            const questionText = self.query.trim();
+
+                            // Store question in cookie for prefilled queries too
+                            if (window.cookieManager) {
+                                window.cookieManager.addQuestion(questionText);
+                            }
+
+                            self.currentQuestion = questionText;
+                            const eventSource = new EventSource(`/chat/stream/?query=${encodeURIComponent(self.query)}`);
+                            self.loading = true;
+                            self.error = '';
+                            self.response = '';
+                            self.responseHtml = '';
+                            self.sources = [];
+                            self.suggestedQuestions = [];
+                            eventSource.addEventListener('chat', (event) => {
+                                const chunk = decodeURIComponent(event.data);
+                                self.response += chunk;
+                                // Convert markdown to HTML
+                                self.responseHtml = converter.makeHtml(self.response);
+                            });
+                            eventSource.addEventListener('source', (event) => {
+                                const s = JSON.parse(event.data);
+                                self.sources.push(s);
+                            });
+                            eventSource.addEventListener('end', () => {
+                                eventSource.close();
+
+                                self.fetchSuggestions();
+
+                                self.query = '';
+                                self.loading = false;
+                            });
+                            eventSource.addEventListener('server-error', () => {
+                                self.error = 'An error occurred. Please try again.';
+                                eventSource.close();
+                                self.loading = false;
+                            });
+                        }); // end $nextTick
+                    }
+                "
+                {# fmt:on #}
+            >
+
+                <form class="form" @submit.prevent="if (!loading && query.trim()) askQuestion(query)">
+                    {% csrf_token %}
+                    <div>
+                        {# Note: the heading 1 provides the label for the textarea, via the aria-labelledby attribute and a custom id on the heading 1 #}
+                        <textarea x-model="query" x-ref="textarea" rows="4" class="" placeholder="e.g., what are service charges?" @keydown.enter.prevent="if (!loading && query.trim()) askQuestion(query)" aria-labelledby="ask-a-question-label"></textarea>
+                        <div>
+                            {# TODO: Replace inline styles with proper disabled state classes when available in design system #}
+                            <button type="submit" :aria-disabled="(loading || !query.trim()) ? 'true' : 'false'" class="button" :style="(loading || !query.trim()) ? '' : ''">
+                                <span x-show="!loading">
+                                    Ask
+                                </span>
+                                <span x-show="loading" class="">
+                                    <span class=""></span>
+                                    Asking...
+                                </span>
+                            </button>
+                            <button x-show="currentQuestion || messageHistory.length > 0" type="button" @click="clearConversation()" class="button button--primary-outline">
+                                New conversation
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                {# Popular questions - show only when no conversation started #}
+                <div x-show="messageHistory.length === 0 && !response && !loading" aria-live="polite">
+                    <h2 class="heading heading--two">Popular questions:</h2>
+                    <div class="">
+                        <template x-for="question in popularQuestions" :key="question">
+                            <button @click="askQuestion(question, true)" class="button" x-text="question"></button>
+                        </template>
+                    </div>
+                </div>
+
+                <p x-show="error" class="response errorlist" x-text="error"></p>
+
+                {# Loading indicator #}
+                <div x-show="loading && !response" class="">
+                    <span class=""></span>
+                    Generating response...
+                </div>
+
+                <div
+                    x-show="response || sources.length > 0 || messageHistory.length > 0 || loading"
+                    class=""
+                >
+                    {# Response Column (2/3 width on large screens) #}
+                    <div class="" x-ref="responseRegion" tabindex="-1" role="region" aria-label="Response">
+                        {# Current Q&A (most recent) #}
+                        <div x-show="currentQuestion && response" class="pb-scale-xl" aria-live="polite">
+                            <h2 class="heading-3 pb-scale-md">Response</h2>
+                            <div class="pb-scale-lg">
+                                <p class="font-bold">You:</p>
+                                <p class="text-scale-md" x-text="currentQuestion"></p>
+                            </div>
+                            <div>
+                                <p class="font-bold">Assistant:</p>
+                                <div x-html="responseHtml" class="prose prose-leading-large max-w-content"></div>
+                            </div>
+                        </div>
+
+                        {# Suggested questions - shown after response completes #}
+                        <div x-show="!loading && suggestedQuestions.length > 0" class="pb-scale-2xl" aria-live="polite">
+                            <h2 class="heading-3 pb-scale-md">You might also want to ask:</h2>
+                            <div class="flex flex-wrap gap-scale-md">
+                                <template x-for="(q, idx) in suggestedQuestions" :key="idx">
+                                    <button @click="askQuestion(q, true)" class="button button--primary-outline text-left lg:text-center" x-text="q"></button>
+                                </template>
+                            </div>
+                        </div>
+
+                        {# Message History - Q&A pairs in reverse chronological order (oldest at bottom) #}
+                        <div x-show="messageHistory.length > 0" class="pb-scale-2xl">
+                            <template x-for="(pair, pairIdx) in getHistoryPairs()" :key="pairIdx">
+                                <div class="mb-scale-lg p-scale-lg border border-solid border-stroke-strong rounded-md bg-surface">
+                                    {# User question first #}
+                                    <div class="pb-scale-lg">
+                                        <p class="font-bold">You:</p>
+                                        <p class="prose prose-leading-large text-scale-md" x-text="pair[0].content"></p>
+                                    </div>
+                                    {# Assistant response second #}
+                                    <div>
+                                        <p class="font-bold">Assistant:</p>
+                                        <div class="prose prose-leading-large max-w-content" x-html="toHtml(pair[1].content)"></div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    {# Sources Column (1/3 width on large screens) #}
+                    <div x-show="sources.length > 0 || loading" class="">
+                        <h2 class="heading heading--three">Sources</h2>
+
+                        {# Sources are loading #}
+                        <div x-show="sources.length === 0 && loading" class="">
+                            <span class=""></span>
+                            Finding sources...
+                        </div>
+
+                        <ul x-show="sources.length > 0">
+                            <template x-for="source in sources" :key="source.url">
+                                <li class="">
+                                    <a :href="source.url" x-text="source.title + ' - ' + source.parent_title" class=""></a>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {# TODO #}
+    {# Move to js toolchain in package.json #}
+    {# cdn.min.js currently giving a console error #}
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+{% endblock %}

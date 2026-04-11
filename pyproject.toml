@@ -39,6 +39,9 @@ sentry-sdk = "^2.54.0"
 html5lib = "^1.1"
 beautifulsoup4 = "^4.13.4"
 django-xff = "^1.5.0"
+django-ai-core = "^0.1.5"
+pgvector = "^0.4.2"
+litellm = "^1.83.4"
 
 [tool.poetry.group.dev.dependencies]
 Werkzeug = "^3.1.6"

@@ -16,7 +16,8 @@
     }
 
     input[type='text'],
-    input[type='password'] {
+    input[type='password'],
+    textarea {
         border: 1px solid var(--color--border);
         background-color: var(--color--streamfield-background);
         color: var(--color--text);
@@ -24,6 +25,10 @@
         padding: 10px $spacer-mini;
         text-indent: 0;
         display: block;
+    }
+
+    textarea {
+        width: 100%;
     }
 
     input[type='submit'] {

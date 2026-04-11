@@ -41,6 +41,7 @@ if "ALLOWED_HOSTS" in env:
 INSTALLED_APPS = [
     "scout_apm.django",
     "tbx.blog",
+    "tbx.chat",
     "tbx.core.apps.TorchboxCoreAppConfig",
     "tbx.divisions",
     "tbx.events",
@@ -75,6 +76,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
+    "django_ai_core",
+    "django_ai_core.contrib.index",
+    "django_ai_core.contrib.index.storage.pgvector",
     "wagtail.contrib.settings",
     "pattern_library",
     "tbx.project_styleguide.apps.ProjectStyleguideConfig",
@@ -668,3 +672,17 @@ ALLOWED_MODES = ["light", "dark"]
 BASE_DOMAIN = env.get(
     "BASE_DOMAIN", ""
 )  # this is used for sharing cookies across subdomains
+
+DJANGO_AI_CORE_COMPLETION_PROVIDER = "openai"
+DJANGO_AI_CORE_COMPLETION_MODEL = "gpt-4o-mini"
+DJANGO_AI_CORE_EMBEDDING_PROVIDER = "openai"
+DJANGO_AI_CORE_EMBEDDING_MODEL = "text-embedding-3-small"
+LITELLM_COMPLETION_MODEL = "openai/gpt-4o"
+
+ASK_APP_QUERY_PROMPT = """You are a helpful assistant for the Torchbox.com website.
+Use simple British English suitable for a UK public audience.
+Use the provided context and conversation history to answer the question.
+Don't mention the context or conversation history in your answer.
+Follow-up questions may reference previous messages (e.g., "them", "it", "how can I tell") - use the conversation history to understand what they're asking about.
+The conversation must stay relevant to the context provided, and the topics in the website. Otherwise, reply: 'Sorry, I can only help with questions based on the information available to me in the Torchbox.com website.'.
+"""
