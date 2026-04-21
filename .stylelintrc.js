@@ -20,5 +20,6 @@ module.exports = {
                 ignoreAtRules: ['container'],
             },
         ],
+        'scss/dollar-variable-no-missing-interpolation': null,
     },
 };
