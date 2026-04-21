@@ -1,4 +1,4 @@
-from wagtail.models import Page, PageViewRestriction, Site
+from wagtail.models import PageViewRestriction, Site
 from wagtail.test.utils import WagtailPageTestCase
 
 from tbx.core.factories import HomePageFactory, StandardPageFactory

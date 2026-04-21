@@ -33,9 +33,6 @@
     }
 
     &__link {
-        @include link-styles(
-            var(--color--text),
-            var(--color--text),
-        );
+        @include link-styles(var(--color--text), var(--color--text));
     }
 }

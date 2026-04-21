@@ -118,9 +118,7 @@
     text-decoration-color: $underline-hover-color;
 
     @if $shadow {
-        text-shadow:
-            0 0 0.4px $color,
-            0 0 0.4px $color;
+        text-shadow: 0 0 0.4px $color, 0 0 0.4px $color;
     }
 
     @if $keyboard-only {
@@ -163,9 +161,7 @@
         text-decoration-color: $underline-hover-color;
 
         @if $shadow {
-            text-shadow:
-                0 0 0.4px $color,
-                0 0 0.4px $color;
+            text-shadow: 0 0 0.4px $color, 0 0 0.4px $color;
         }
     }
 
@@ -310,9 +306,7 @@
     left: 0;
     overflow: hidden;
     overflow-y: visible; // allow scrolling within the nav
-    transition:
-        visibility 0ms ease-out 50ms,
-        opacity 250ms ease-out 50ms;
+    transition: visibility 0ms ease-out 50ms, opacity 250ms ease-out 50ms;
 
     @include reduced-motion() {
         transition: none;
@@ -347,9 +341,7 @@
     width: $diameter;
     height: $diameter;
     opacity: $opacity;
-    transition:
-        color $transition-quick,
-        opacity $transition-quick;
+    transition: color $transition-quick, opacity $transition-quick;
 
     @include reduced-motion() {
         transition: none;
@@ -388,9 +380,7 @@
     color: var(--color--link);
     background-color: transparent;
     padding: 12px $spacer-small-plus;
-    transition:
-        color $transition-quick,
-        background-color $transition-quick;
+    transition: color $transition-quick, background-color $transition-quick;
     font-weight: $weight--semibold;
 
     &:focus,

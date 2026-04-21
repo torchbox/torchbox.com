@@ -8,5 +8,17 @@ module.exports = {
                 ignoreUnits: ['dvh'],
             },
         ],
+        'property-no-unknown': [
+            true,
+            {
+                ignoreProperties: ['container-type'],
+            },
+        ],
+        'scss/at-rule-no-unknown': [
+            true,
+            {
+                ignoreAtRules: ['container'],
+            },
+        ],
     },
 };

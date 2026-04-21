@@ -60,9 +60,7 @@ class SitemapPage(BasePage):
         super().clean()
         self.slug = "sitemap"
         if SitemapPage.objects.exclude(pk=self.pk).exists():
-            raise ValidationError(
-                "A Sitemap page already exists. Only one is allowed."
-            )
+            raise ValidationError("A Sitemap page already exists. Only one is allowed.")
 
     @cached_property
     def sections(self):
