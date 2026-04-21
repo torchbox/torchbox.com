@@ -1,0 +1,23 @@
+{# tbx/project_styleguide/templates/patterns/pages/sitemap/sitemap_page.html #}
+{% extends "patterns/base_page.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+    <div class="grid grid--spacer-large">
+        <div class="grid__title">
+            <h1 class="heading heading--three">{{ page.title }}</h1>
+        </div>
+        <div class="grid__link-columns">
+            {% for item in sections %}
+                <section class="sitemap__section">
+                    <h2 class="heading heading--four sitemap__section-heading">
+                        <a href="{% pageurl item.section %}" class="sitemap__link">{{ item.section.title }}</a>
+                    </h2>
+                    {% if item.pages %}
+                        {% include "patterns/pages/sitemap/sitemap_tree.html" with items=item.pages %}
+                    {% endif %}
+                </section>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

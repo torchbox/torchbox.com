@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "tbx.images",
     "tbx.users",
     "tbx.services",
+    "tbx.sitemap",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
