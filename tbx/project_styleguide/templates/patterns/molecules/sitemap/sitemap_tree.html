@@ -4,7 +4,7 @@
         <li class="sitemap__link-item">
             <a href="{% pageurl item.page %}" class="sitemap__link">{{ item.page.title }}</a>
             {% if item.children %}
-                {% include "patterns/pages/sitemap/sitemap_tree.html" with items=item.children %}
+                {% include "patterns/molecules/sitemap/sitemap_tree.html" with items=item.children %}
             {% endif %}
         </li>
     {% endfor %}

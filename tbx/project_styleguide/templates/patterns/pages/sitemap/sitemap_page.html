@@ -14,7 +14,7 @@
                         <a href="{% pageurl item.section %}" class="sitemap__link">{{ item.section.title }}</a>
                     </h2>
                     {% if item.pages %}
-                        {% include "patterns/pages/sitemap/sitemap_tree.html" with items=item.pages %}
+                        {% include "patterns/molecules/sitemap/sitemap_tree.html" with items=item.pages %}
                     {% endif %}
                 </section>
             {% endfor %}
