@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from wagtail.models import PageViewRestriction, Site
 from wagtail.test.utils import WagtailPageTestCase
 
@@ -56,12 +58,16 @@ class TestSitemapPageSections(WagtailPageTestCase):
 
     def test_slug_is_always_sitemap(self):
         page = SitemapPage(title="My Sitemap", slug="wrong-slug")
-        page.full_clean()
+        # clean() sets slug before the uniqueness check. A SitemapPage already
+        # exists in the test DB so the uniqueness error fires — but slug
+        # coercion still happens first. full_clean() can't be used here as it
+        # also validates path/depth which treebeard only sets on save.
+        with self.assertRaises(ValidationError) as ctx:
+            page.clean()
+        self.assertIn("already exists", str(ctx.exception))
         self.assertEqual(page.slug, "sitemap")
 
     def test_duplicate_sitemap_page_raises_validation_error(self):
-        from django.core.exceptions import ValidationError
-
         duplicate = SitemapPage(title="Another Sitemap", slug="sitemap")
         with self.assertRaises(ValidationError):
             duplicate.full_clean()
