@@ -615,7 +615,6 @@
         }
 
         // targets last div in a set of .small-image-with-text divs
-        // stylelint-disable-next-line selector-max-specificity
         .small-image-with-text:not(:has(~ .small-image-with-text)) {
             margin-bottom: $spacer-medium;
 
