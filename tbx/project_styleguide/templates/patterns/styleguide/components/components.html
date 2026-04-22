@@ -245,6 +245,11 @@
         </div>
 
         <div>
+            <h2 class="underline mt-8 mb-2">Sitemap tree</h2>
+            {% include "patterns/molecules/sitemap/sitemap_tree.html" with items=sitemap_items %}
+        </div>
+
+        <div>
             <h2 class="underline mt-8 mb-2">Footer links</h2>
             {% footerlinks  %}
         </div>
