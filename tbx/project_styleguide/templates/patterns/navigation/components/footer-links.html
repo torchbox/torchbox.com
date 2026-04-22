@@ -7,9 +7,7 @@
             </a>
         {% endwith %}
     {% endfor %}
-    {# Hardcoded so editors cannot remove it via the CMS and so it renders on  #}
-    {# fresh installs before a SitemapPage exists. Do NOT refactor to           #}
-    {# {% pageurl %} — that would require a live SitemapPage and break on new  #}
-    {# environments.                                                             #}
-    <a href="/sitemap/" class="footerlinks-nav__link">Sitemap</a>
+    {% if sitemap_page %}
+        <a href="/sitemap/" class="footerlinks-nav__link">Sitemap</a>
+    {% endif %}
 </nav>

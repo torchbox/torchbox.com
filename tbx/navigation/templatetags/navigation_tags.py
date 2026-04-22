@@ -1,5 +1,7 @@
 from django import template
 
+from tbx.sitemap.models import SitemapPage
+
 
 register = template.Library()
 
@@ -73,5 +75,6 @@ def footerlinks(context):
         "footerlinks": context["settings"]["navigation"][
             "NavigationSettings"
         ].footer_links,
+        "sitemap_page": SitemapPage.objects.filter(live=True).first(),
         "request": request,
     }
