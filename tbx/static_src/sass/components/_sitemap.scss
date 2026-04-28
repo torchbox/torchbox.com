@@ -1,0 +1,38 @@
+@use '../config' as *;
+
+.sitemap {
+    &__section {
+        margin-bottom: $spacer-medium;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__section-heading {
+        margin-bottom: $spacer-small;
+    }
+
+    &__links {
+        list-style: none;
+        padding: 0 0 0 $spacer-small;
+        margin: 0;
+    }
+
+    &__link-item {
+        padding-bottom: $spacer-mini-plus;
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+
+        // Nested lists gain top spacing to separate them from the parent item.
+        > .sitemap__links {
+            margin-top: $spacer-mini-plus;
+        }
+    }
+
+    &__link {
+        @include link-styles(var(--color--text), var(--color--text));
+    }
+}

@@ -29,3 +29,8 @@ WAGTAILADMIN_BASE_URL = "http://localhost:8000"
 
 # Ignore proxy count in tests
 XFF_ALWAYS_PROXY = False
+
+# Use simple static files storage in tests — no manifest required
+STORAGES["staticfiles"] = {  # noqa: F405
+    "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
+}

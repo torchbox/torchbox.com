@@ -86,7 +86,8 @@
         transition: $transition-quick;
 
         @include high-contrast-mode() {
-            fill: LinkText;
+            // stylelint-disable-next-line scale-unlimited/declaration-strict-value
+            fill: linktext;
         }
     }
 

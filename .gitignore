@@ -18,3 +18,4 @@ node_modules*
 /.vscode/*
 !/.vscode/launch.json
 /database_dumps/
+.planning/
