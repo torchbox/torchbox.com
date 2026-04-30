@@ -1,0 +1,19 @@
+context:
+  items:
+    - page:
+        title: Our Work
+      children:
+        - page:
+            title: Case Study One
+          children: []
+        - page:
+            title: Case Study Two
+          children: []
+    - page:
+        title: Strategy & Design
+      children: []
+
+tags:
+  pageurl:
+    item.page:
+      raw: '#'

@@ -1,0 +1,46 @@
+context:
+  page:
+    title: Sitemap
+    get_verbose_name: sitemap page
+
+  sections:
+    - section:
+        title: Work
+      pages:
+        - page:
+            title: Our Work
+          children:
+            - page:
+                title: Case Study One
+              children: []
+            - page:
+                title: Case Study Two
+              children: []
+        - page:
+            title: Strategy & Design
+          children: []
+    - section:
+        title: Charity
+      pages:
+        - page:
+            title: Digital for charities
+          children: []
+        - page:
+            title: Fundraising technology
+          children: []
+    - section:
+        title: Blog
+      pages:
+        - page:
+            title: All Posts
+          children: []
+
+tags:
+  pageurl:
+    item.section:
+      raw: '#'
+    item.page:
+      raw: '#'
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'

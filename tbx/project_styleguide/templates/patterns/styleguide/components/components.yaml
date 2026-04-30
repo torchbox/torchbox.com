@@ -74,11 +74,28 @@ context:
   # Markdown block
   markdown: '<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"something"</span><span class="p">&gt;</span>test<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span><span class="p">&lt;/</span><span</code></pre></div>'
 
+  sitemap_items:
+    - page:
+        title: Our Work
+      children:
+        - page:
+            title: Case Study One
+          children: []
+        - page:
+            title: Case Study Two
+          children: []
+    - page:
+        title: Strategy & Design
+      children: []
+
 tags:
   pageurl:
     # for title-filters.html
     item as index:
       target_var: index
+      raw: '#'
+    # for sitemap_tree.html
+    item.page:
       raw: '#'
     # for featured_case_study.html
     link:

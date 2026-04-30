@@ -1,0 +1,11 @@
+{% load wagtailcore_tags %}
+<ul class="sitemap__links">
+    {% for item in items %}
+        <li class="sitemap__link-item">
+            <a href="{% pageurl item.page %}" class="sitemap__link">{{ item.page.title }}</a>
+            {% if item.children %}
+                {% include "patterns/molecules/sitemap/sitemap_tree.html" with items=item.children %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
