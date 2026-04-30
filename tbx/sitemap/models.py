@@ -6,28 +6,6 @@ from wagtail.models import Page, Site
 from tbx.core.models import BasePage
 
 
-def _build_tree(pages):
-    """
-    Convert a flat, path-ordered list of pages into a nested tree.
-    Each node is {"page": <Page>, "children": [...]}.
-    Pages must be ordered by treebeard path so ancestors always appear
-    before their descendants.
-    """
-    root = []
-    stack = []  # [(node, absolute_depth)]
-    for page in pages:
-        node = {"page": page, "children": []}
-        depth = page.depth
-        while stack and stack[-1][1] >= depth:
-            stack.pop()
-        if stack:
-            stack[-1][0]["children"].append(node)
-        else:
-            root.append(node)
-        stack.append((node, depth))
-    return root
-
-
 class SitemapPage(BasePage):
     """
     A Wagtail page that renders all live, public pages grouped by top-level
@@ -40,10 +18,6 @@ class SitemapPage(BasePage):
     tbx/project_styleguide/templates/patterns/base.html for the canonical noindex
     rule). BasePage has no custom noindex field, so this slug check is the only
     per-page exclusion required.
-
-    The /search/ path is disallowed in robots.txt but maps to a Django view
-    (tbx/core/views.py), not a Wagtail page, so it cannot appear in the tree
-    and requires no explicit filter.
     """
 
     template = "patterns/pages/sitemap/sitemap_page.html"
@@ -66,23 +40,20 @@ class SitemapPage(BasePage):
         """
         Return a list of dicts, one per top-level section under the site root.
         Each dict has:
-          - 'section': the top-level Page (specific), with .title and .url
-          - 'pages':   list of live, public descendant pages (specific),
-                       ordered by path (tree order), NOT including the section
-                       root itself (the section heading renders it separately).
+          - 'section': the top-level Page, with .title and .url
+          - 'pages':   nested list of {"page": ..., "children": [...]} nodes
 
         Request-scoped caching:
           `@cached_property` is safe here. In Wagtail, Page.serve() fetches a
           fresh page instance from the database per HTTP request, so this cache
-          is scoped to a single request-response cycle. The next request after
-          a CMS publish/unpublish sees a new instance and re-runs this method
-          against the updated tree.
+          is scoped to a single request-response cycle.
 
-        Query strategy (constant-query count, avoids N+1):
-          1 query for top-level children (with `.exclude(slug='incident')`).
-          1 query for ALL descendants of the site root (inclusive=False),
-          filtered by live/public, excluding slug='incident' recursively (path
-          prefix match), grouped in Python into per-section buckets.
+        Query strategy (single query, O(n) assembly):
+          One path-filtered query fetches all live, public pages at or below
+          section depth. Pages are indexed by Treebeard path; each page's parent
+          is found in O(1) by slicing path[:-Page.steplen]. Pages whose parent
+          is not in the index are top-level sections (their parent is the
+          homepage, which is excluded from the query by depth filter).
         """
         try:
             site = Site.objects.get(is_default_site=True)
@@ -92,55 +63,41 @@ class SitemapPage(BasePage):
 
         root = site.root_page
 
-        # Step 1: top-level sections (one query).
+        # Fetch all live, public pages from section depth downward.
+        # path__startswith scopes to this site's tree without assuming depth.
+        # depth__gte=root.depth+1 skips root itself; the homepage (root.depth)
+        # is deliberately absent so section pages fall into the else branch below.
         # Exclusions (see class docstring for reasoning):
         #   - .live().public()          — unpublished + password-protected pages
         #   - .exclude(slug='incident') — mirrors base.html noindex rule
         #   - .not_type(SitemapPage)    — /sitemap/ must not list itself
-        sections_list = list(
-            root.get_children()
+        pages = list(
+            Page.objects.filter(
+                path__startswith=root.path,
+                depth__gte=root.depth + 1,
+            )
             .live()
             .public()
             .exclude(slug="incident")
             .not_type(SitemapPage)
             .order_by("path")
-            .specific(defer=True)
-        )
-        if not sections_list:
-            return []
-
-        # Step 2: all descendants below the site root in one query, then group
-        # by top-level ancestor in Python. `descendant_of(root)` uses a single
-        # indexed path-range scan (treebeard/MPTT). defer_streamfields() avoids
-        # loading StreamField payloads we never render.
-        all_descendants = (
-            Page.objects.descendant_of(root, inclusive=False)
-            .live()
-            .public()
-            .exclude(slug="incident")
-            .order_by("path")
             .defer_streamfields()
         )
 
-        # Build a lookup: section.path -> list of pages whose path starts with
-        # that section's path but is not equal to it (i.e. strict descendants).
-        buckets = {section.path: [] for section in sections_list}
-        section_paths = sorted(buckets.keys(), key=len, reverse=True)
-        for descendant in all_descendants:
-            for section_path in section_paths:
-                # Treebeard paths are fixed-width segments; a strict descendant
-                # has a path that STARTS WITH the ancestor path and is longer.
-                if (
-                    descendant.path.startswith(section_path)
-                    and descendant.path != section_path
-                ):
-                    buckets[section_path].append(descendant)
-                    break
+        # Index nodes by path for O(1) parent lookup.
+        # Insertion order is path order, so parents always precede children.
+        nodes = {page.path: {"page": page, "children": []} for page in pages}
 
-        return [
-            {"section": section, "pages": _build_tree(buckets[section.path])}
-            for section in sections_list
-        ]
+        sections = []
+        for path, node in nodes.items():
+            parent_path = path[: -Page.steplen]
+            if parent_path in nodes:
+                nodes[parent_path]["children"].append(node)
+            else:
+                # Parent not in index → this page's parent is the homepage.
+                sections.append({"section": node["page"], "pages": node["children"]})
+
+        return sections
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
