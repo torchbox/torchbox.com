@@ -75,6 +75,6 @@ def footerlinks(context):
         "footerlinks": context["settings"]["navigation"][
             "NavigationSettings"
         ].footer_links,
-        "sitemap_page": SitemapPage.objects.filter(live=True).first(),
+        "sitemap_page": SitemapPage.objects.live().first(),
         "request": request,
     }
