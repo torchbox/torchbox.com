@@ -4,6 +4,7 @@ from wagtail.models import PageViewRestriction, Site
 from wagtail.test.utils import WagtailPageTestCase
 
 from tbx.core.factories import HomePageFactory, StandardPageFactory
+from tbx.core.models import HomePage
 from tbx.sitemap.factories import SitemapPageFactory
 from tbx.sitemap.models import SitemapPage
 
@@ -101,6 +102,9 @@ class TestSitemapPageSections(WagtailPageTestCase):
         page = SitemapPage.objects.get(pk=self.sitemap_page.pk)
         section_pks = [s["section"].pk for s in page.sections]
         self.assertNotIn(incident.pk, section_pks)
+
+    def test_only_allowed_under_home_page(self):
+        self.assertAllowedParentPageTypes(SitemapPage, [HomePage])
 
     def test_sections_reflect_cms_state_across_requests(self):
         """
