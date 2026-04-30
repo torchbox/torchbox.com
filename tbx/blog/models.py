@@ -223,8 +223,7 @@ class BlogPage(BasePage):
     @cached_property
     def first_author(self):
         """Safely return the first author if one exists."""
-        author = self.authors.first()
-        if author:
+        if author := self.authors.first():
             return author.author
         return None
 
