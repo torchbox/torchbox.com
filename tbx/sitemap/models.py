@@ -48,10 +48,9 @@ class SitemapPage(BasePage):
 
     template = "patterns/pages/sitemap/sitemap_page.html"
 
-    # SitemapPage should only ever be created once, under the site root.
-    parent_page_types = ["wagtailcore.Page", "torchbox.HomePage"]
-    # No child pages allowed — this is a terminal content page.
+    parent_page_types = ["torchbox.HomePage"]
     subpage_types = []
+    max_count = 1
 
     class Meta:
         verbose_name = "Sitemap page"
@@ -95,19 +94,18 @@ class SitemapPage(BasePage):
 
         # Step 1: top-level sections (one query).
         # Exclusions (see class docstring for reasoning):
-        #   - .live().public()     — unpublished + password-protected pages
+        #   - .live().public()          — unpublished + password-protected pages
         #   - .exclude(slug='incident') — mirrors base.html noindex rule
-        #   - exclude SitemapPage itself so /sitemap/ doesn't appear as its
-        #     own section heading
-        top_level = (
+        #   - .not_type(SitemapPage)    — /sitemap/ must not list itself
+        sections_list = list(
             root.get_children()
             .live()
             .public()
             .exclude(slug="incident")
+            .not_type(SitemapPage)
             .order_by("path")
-            .specific()
+            .specific(defer=True)
         )
-        sections_list = [p for p in top_level if not isinstance(p, SitemapPage)]
         if not sections_list:
             return []
 

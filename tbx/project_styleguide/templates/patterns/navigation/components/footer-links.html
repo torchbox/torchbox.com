@@ -8,6 +8,7 @@
         {% endwith %}
     {% endfor %}
     {% if sitemap_page %}
+        {# /sitemap/ is hardcoded because SitemapPage.clean() forces slug="sitemap". #}
         <a href="/sitemap/" class="footerlinks-nav__link">Sitemap</a>
     {% endif %}
 </nav>
