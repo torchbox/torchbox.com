@@ -23,7 +23,7 @@
                     <div class="featured-services__description rich-text">{{ card.description|richtext }}</div>
                 </div>
                 {# The title and icon need to be on the same line with no whitespace to prevent the arrow being orphaned on a new line #}
-                <a href="{% pageurl card.page %}"
+                <a href="{% if card.page %}{% pageurl card.page %}{% endif %}"
                    class="button-link button-link--compact"
                    {% if card.accessible_link_text %}aria-label="{{ card.accessible_link_text }}"{% endif %}
                 >

@@ -748,6 +748,25 @@ class FeaturedCaseStudyBlock(blocks.StructBlock):
         return struct_value
 
 
+def _resolve_chooser_pages(raw_pages, prefetch_related=None):
+    """Resolve a raw block page list to live, public, specific pages in order.
+
+    Silently drops None values (deleted pages from PageChooserBlock.to_python).
+    """
+    page_ids = [p.pk for p in raw_pages if p is not None]
+    qs = (
+        Page.objects.filter(pk__in=page_ids)
+        .live()
+        .public()
+        .defer_streamfields()
+        .specific()
+    )
+    if prefetch_related:
+        qs = qs.prefetch_related(prefetch_related)
+    pages = qs.in_bulk()
+    return [pages[_id] for _id in page_ids if _id in pages]
+
+
 class BlogChooserBlock(blocks.StructBlock):
     featured_blog_heading = blocks.CharBlock(max_length=255)
     intro = blocks.RichTextBlock(
@@ -764,6 +783,7 @@ class BlogChooserBlock(blocks.StructBlock):
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
         context["is_standard_page"] = False
+        context["blog_pages"] = _resolve_chooser_pages(value["blog_pages"])
         return context
 
     class Meta:
@@ -805,20 +825,9 @@ class WorkChooserBlock(blocks.StructBlock):
             ),
         )
 
-        work_page_ids = [page.pk for page in value["work_pages"]]
-        work_pages = (
-            Page.objects.filter(pk__in=work_page_ids)
-            .live()
-            .public()
-            .defer_streamfields()
-            .prefetch_related(prefetch_listing_images)
-            .specific()
-            .in_bulk()
+        context["work_pages"] = _resolve_chooser_pages(
+            value["work_pages"], prefetch_related=prefetch_listing_images
         )
-        # Keeps the ordering the same as in values.
-        context["work_pages"] = [
-            work_pages[_id] for _id in work_page_ids if _id in work_pages
-        ]
         context["is_standard_page"] = False
         return context
 
