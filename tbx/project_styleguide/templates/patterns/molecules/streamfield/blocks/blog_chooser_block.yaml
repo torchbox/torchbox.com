@@ -10,40 +10,40 @@ context:
       - value:
           text: Secondary button
           url: '#'
-    blog_pages:
-      - title: Explore the potential of AI in content management
-        date: 20 Oct 2023
-        read_time: '5'
-        first_author:
-          name: Will Heinemann
-          role: New Business Director
-        tags:
-          - name: Digital products
-            slug: digital-products
-          - name: Wagtail
-            slug: wagtail
-      - title: Explore the potential of AI in content management
-        date: 20 Oct 2023
-        read_time: '5'
-        first_author:
-          name: Will Heinemann
-          role: New Business Director
-        tags:
-          - name: Digital products
-            slug: digital-products
-          - name: Wagtail
-            slug: wagtail
-      - title: Explore the potential of AI in content management
-        date: 20 Oct 2023
-        read_time: '5'
-        first_author:
-          name: Will Heinemann
-          role: New Business Director
-        tags:
-          - name: Digital products
-            slug: digital-products
-          - name: Wagtail
-            slug: wagtail
+  blog_pages:
+    - title: Explore the potential of AI in content management
+      date: 20 Oct 2023
+      read_time: '5'
+      first_author:
+        name: Will Heinemann
+        role: New Business Director
+      tags:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
+    - title: Explore the potential of AI in content management
+      date: 20 Oct 2023
+      read_time: '5'
+      first_author:
+        name: Will Heinemann
+        role: New Business Director
+      tags:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
+    - title: Explore the potential of AI in content management
+      date: 20 Oct 2023
+      read_time: '5'
+      first_author:
+        name: Will Heinemann
+        role: New Business Director
+      tags:
+        - name: Digital products
+          slug: digital-products
+        - name: Wagtail
+          slug: wagtail
 
 tags:
   pageurl:
