@@ -1,0 +1,33 @@
+@use 'config' as *;
+
+.styled-page-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacer-mini;
+
+    &__button {
+        &--theme-coral {
+            &:focus,
+            &:hover {
+                background-color: var(--color--coral);
+                color: var(--color--white);
+            }
+        }
+
+        &--theme-nebuline {
+            &:focus,
+            &:hover {
+                background-color: var(--color--nebuline);
+                color: var(--color--white);
+            }
+        }
+
+        &--theme-lagoon {
+            &:focus,
+            &:hover {
+                background-color: var(--color--lagoon);
+                color: var(--color--white);
+            }
+        }
+    }
+}
