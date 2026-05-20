@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file. This projec
 
 Add your changes to the Unreleased section and move them to the appropriate section when they are merged.
 
-## Unreleased
+## 2026-05-13
+
+- Fix 500 error on pages where a referenced page in a chooser block has been deleted
+
+## 2026-03-26
 
 - [TWE-682](https://torchbox.atlassian.net/browse/TWE-682) - Upgrade Wagtail to 7.3
 - Fix 500 error on pages where a referenced page in a chooser block has been deleted
