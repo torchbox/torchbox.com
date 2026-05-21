@@ -276,6 +276,9 @@ class BlogPage(BasePage):
 
 
 class RelatedBlogPage(models.Model):
+    # Prevent DoesNotExist in update_reference_index_task; BlogPage's own update captures these references.
+    wagtail_reference_index_ignore = True
+
     parent = ParentalKey(
         BlogPage, on_delete=models.CASCADE, related_name="related_posts"
     )
