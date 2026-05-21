@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. This projec
 
 Add your changes to the Unreleased section and move them to the appropriate section when they are merged.
 
+## 2026-05-21
+
+- [TWE-711](https://torchbox.atlassian.net/browse/TWE-711) - Fix RelatedBlog error edge case
+
 ## 2026-05-13
 
 - Fix 500 error on pages where a referenced page in a chooser block has been deleted
