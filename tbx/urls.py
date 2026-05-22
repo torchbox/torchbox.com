@@ -18,6 +18,7 @@ from tbx.core.utils.cache import (
     get_default_cache_control_method_decorator,
 )
 from tbx.core.views import robots, switch_mode
+from tbx.search import views as search_views
 
 
 private_urlpatterns = [
@@ -98,8 +99,9 @@ urlpatterns = (
     + urlpatterns
     + [
         # Add Wagtail URLs at the end.
-        # Wagtail cache-control is set on the page models's serve methods.
-        path("", include(wagtail_urls))
+        # Wagtail cache-control is set on the page models' serve methods.
+        path("search/", search_views.search, name="search"),
+        path("", include(wagtail_urls)),
     ]
 )
 

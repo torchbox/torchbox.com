@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "tbx.impact_reports",
     "tbx.navigation",
     "tbx.people",
+    "tbx.search",
     "tbx.taxonomy",
     "tbx.work",
     "tbx.images",
@@ -665,3 +666,6 @@ ALLOWED_MODES = ["light", "dark"]
 BASE_DOMAIN = env.get(
     "BASE_DOMAIN", ""
 )  # this is used for sharing cookies across subdomains
+
+
+DEFAULT_PER_PAGE = 10
