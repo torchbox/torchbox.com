@@ -1,0 +1,7 @@
+name: Search result
+context:
+  result:
+    title: Page title
+    listing_title: Listing title
+    listing_summary: Listing summary
+    search_description: Search description
