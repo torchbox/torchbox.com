@@ -3,6 +3,11 @@
 
 {% block body_class %}template-searchresults{% endblock %}
 
+{% block meta_tags %}
+    {{ block.super }}
+    <meta name="robots" content="noindex">
+{% endblock %}
+
 {% block title %}{% if search_query %}Search results for &ldquo;{{ search_query }}&rdquo;{% else %}Search{% endif %}{% endblock %}
 
 {% block content %}
