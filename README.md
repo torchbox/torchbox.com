@@ -10,7 +10,7 @@ Please do have a read through of the documentation before starting any work on t
 
 This project contains technical documentation written in Markdown in the `/docs` folder. This covers, among others:
 
-- our general apporach and principles for the build
+- our general approach and principles for the build
 - lots of front-end details specific to this build
 - continuous integration
 - deployment
@@ -25,7 +25,7 @@ mkdocs serve
 
 The documentation will be available at: <http://localhost:8001/>
 
-It is also available via github pages at https://torchbox.github.io/torchbox.com/
+It is also available via GitHub pages at https://torchbox.github.io/torchbox.com/
 
 ## Setting up a local build
 
@@ -44,15 +44,15 @@ The following are required to run the local environment. The minimum versions sp
 if you have older versions already installed they _may_ work, but are not guaranteed to do so.
 
 - [Docker](https://www.docker.com/), version 19.0.0 or up
-  - [Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac) installer OR [Orbstack](https://docs.orbstack.dev/install)
+  - [Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac) installer OR [OrbStack](https://docs.orbstack.dev/install)
   - [Docker Engine for Linux](https://hub.docker.com/search?q=&type=edition&offering=community&sort=updated_at&order=desc&operating_system=linux) installers
 - [Docker Compose](https://docs.docker.com/compose/), version 1.24.0 or up
-  - [Install instructions](https://docs.docker.com/compose/install/) (Linux-only: Compose is already installed for Mac users as part of Docker Desktop or Orbstack.)
+  - [Install instructions](https://docs.docker.com/compose/install/) (Linux-only: Compose is already installed for Mac users as part of Docker Desktop or OrbStack.)
 - [Fabric](https://www.fabfile.org/), version 2.4.0 or up
   - [Install instructions](https://www.fabfile.org/installing.html)
 - Python, version 3.6.9 or up
 
-Note that on Mac OS, if you have an older version of fabric installed, you may need to uninstall the old one and then install the new version with pip3:
+Note that on macOS, if you have an older version of fabric installed, you may need to uninstall the old one and then install the new version with pip3:
 
 ```bash
 pip uninstall fabric
@@ -135,7 +135,7 @@ poetry install --no-root
 
 To deploy, merge your feature branch to `main` or `staging` branch. Once CI pipelines have passed, it will be deployed to the respective Heroku site automatically.
 
-This is done via [Heroku Github integration](https://devcenter.heroku.com/articles/github-integration).
+This is done via [Heroku GitHub integration](https://devcenter.heroku.com/articles/github-integration).
 
 ## Database snapshots during development
 
