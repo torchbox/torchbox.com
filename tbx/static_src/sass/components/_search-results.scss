@@ -1,0 +1,8 @@
+@use '../config' as *;
+
+.search-results {
+    &__count {
+        grid-column: 4 / span 8;
+        margin-bottom: $spacer-medium;
+    }
+}

@@ -1,0 +1,31 @@
+@use '../config' as *;
+
+.search-header {
+    margin-bottom: $spacer-half;
+
+    h1 {
+        grid-column: 2 / span 12;
+    }
+
+    form {
+        grid-column: 4 / span 8;
+    }
+
+    form button {
+        margin-left: 2rem;
+    }
+
+    &__form {
+        input[type='text'],
+        button {
+            display: inline-block;
+        }
+
+        input[type='text'] {
+        }
+
+        button {
+            margin-left: 2rem;
+        }
+    }
+}
