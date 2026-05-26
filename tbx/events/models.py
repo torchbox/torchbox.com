@@ -70,7 +70,7 @@ class EventIndexPage(BasePage):
         # Pagination
         paginator = Paginator(
             events, settings.DEFAULT_PER_PAGE
-        )  # Show 10 events per page
+        )
         paged_events = paginator.get_page(page)
 
         extra_url_params = {}

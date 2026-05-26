@@ -449,7 +449,7 @@ class WorkIndexPage(BasePage):
         # Pagination
         paginator = Paginator(
             works, settings.DEFAULT_PER_PAGE
-        )  # Show 10 works per page
+        )
 
         try:
             works = paginator.page(page)
