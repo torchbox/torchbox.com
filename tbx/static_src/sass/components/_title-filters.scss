@@ -63,6 +63,7 @@
 
         &::before {
             @include media-query(large) {
+                width: 100px;
                 grid-column: 1;
                 grid-row: 1;
             }
