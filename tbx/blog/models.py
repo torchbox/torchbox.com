@@ -229,11 +229,6 @@ class BlogPage(BasePage):
 
     def get_blog_posting_jsonld(self, request=None):
         """Build the BlogPosting JSON-LD structured data as a dict."""
-        # Get site for URLs - prefer from request, fall back to page's site
-        site = getattr(request, "site", None) if request else None
-        if not site:
-            site = self.get_site()
-        root_url = site.root_url if site else ""
 
         data = {
             "@context": "https://schema.org",
