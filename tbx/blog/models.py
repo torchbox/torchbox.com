@@ -249,7 +249,7 @@ class BlogPage(BasePage):
                 "name": "Torchbox",
                 "logo": {
                     "@type": "ImageObject",
-                    "url": f"{root_url}/apple-touch-icon.png",
+                    "url": "https://torchbox.com/android-chrome-512x512.png",
                 },
             },
             "datePublished": self.date.isoformat(),
