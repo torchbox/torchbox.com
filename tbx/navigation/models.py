@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 from modelcluster.models import ClusterableModel
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, HelpPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.models import RevisionMixin
 from wagtail.snippets.models import register_snippet
@@ -64,7 +64,10 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
     carbon_impact_figure = models.FloatField(
         blank=True,
         null=True,
-        help_text=("Estimated carbon emitted (in grams) when loading the home page."),
+        help_text=(
+            "Estimated carbon emitted (in grams) when loading the home page. "
+            "Updates here should be reflected in our Digital emissions page."
+        ),
     )
 
     panels = [
@@ -78,7 +81,18 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
             ],
             heading="Footer newsletter CTA",
         ),
-        FieldPanel("carbon_impact_figure"),
+        MultiFieldPanel(
+            [
+                HelpPanel(
+                    content="Any changes made here should be reflected in the Carbon "
+                    "emissions page, which is set in the "
+                    "<a href='/admin/settings/torchbox/importantpagesettings/'>"
+                    "Important Page Settings</a>."
+                ),
+                FieldPanel("carbon_impact_figure"),
+            ],
+            heading="Carbon impact",
+        ),
     ]
 
     def save(self, **kwargs):
