@@ -86,6 +86,10 @@
             </div>
         </div>
     </div>
-    {% include "patterns/molecules/carbon-impact/carbon-impact.html" %}
+    {% with settings.navigation.NavigationSettings as global_settings %}
+        {% if global_settings.carbon_impact_figure %}
+            {% include "patterns/molecules/carbon-impact/carbon-impact.html" with carbon_impact_figure=global_settings.carbon_impact_figure %}
+        {% endif %}
+    {% endwith %}
     {% include "patterns/molecules/cookie-message/cookie-message.html" %}
 </footer>
