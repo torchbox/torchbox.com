@@ -64,10 +64,7 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
     carbon_impact_figure = models.FloatField(
         blank=True,
         null=True,
-        help_text=(
-            "Estimated carbon emitted (in grams) when loading the home page. "
-            "Updates here should be reflected in our Digital emissions page."
-        ),
+        help_text=("Estimated carbon emitted (in grams) when loading the home page."),
     )
 
     panels = [
