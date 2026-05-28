@@ -1,0 +1,43 @@
+context:
+  search_query: Example search
+  search_results:
+    - specific:
+        title: Page title
+        listing_title: Listing title
+        listing_summary: Listing summary
+        search_description: Search description
+        depth: 6
+        get_ancestors:
+          - is_root: false
+            depth: 3
+            title: Some category
+          - is_root: false
+            depth: 4
+            title: Some sub category
+          - is_root: false
+            depth: 5
+            title: We need to go deeper
+    - specific:
+        title: Page title
+        listing_title: Listing title
+        listing_summary: Listing summary
+        search_description: Search description
+        depth: 6
+        get_ancestors:
+          - is_root: false
+            depth: 3
+            title: Some category
+          - is_root: false
+            depth: 4
+            title: Some sub category
+          - is_root: false
+            depth: 5
+            title: We need to go deeper
+
+tags:
+  footerlinks:
+    '':
+      template_name: 'patterns/navigation/components/footer-links.html'
+  pageurl:
+    result as link:
+      raw: '#'

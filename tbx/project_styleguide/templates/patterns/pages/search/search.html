@@ -1,0 +1,50 @@
+{% extends "patterns/base_page.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-searchresults{% endblock %}
+
+{% block meta_tags %}
+    {{ block.super }}
+    <meta name="robots" content="noindex">
+{% endblock %}
+
+{% block title %}{% if search_query %}Search results for &ldquo;{{ search_query }}&rdquo;{% else %}Search{% endif %}{% endblock %}
+
+{% block content %}
+    <div class="grid search-header mt-spacerMedium">
+        <h1 class="heading heading--mega grid__title">
+            {% if search_query %}Search results for &ldquo;{{ search_query }}&rdquo;{% else %}Search{% endif %}
+        </h1>
+
+        <form action="{% url 'search' %}" method="get" role="search" class="form search-header__form">
+            <input type="text" name="query" aria-labelledby="search-button" placeholder="Search&hellip;"{% if search_query %} value="{{ search_query }}"{% endif %}>
+
+            <button type="submit" id="search-button" class="button">Search</button>
+        </form>
+    </div>
+
+    <div class="grid search-results">
+        {% if search_results %}
+            {% if is_pattern_library %}
+                <p class="search-results__count">12 results found.</p>
+            {% else %}
+                {% with count=search_results.paginator.count %}
+                    <p class="search-results__count">{{ count }} result{{ count|pluralize }} found.</p>
+                {% endwith %}
+            {% endif %}
+            <ul class="page-listing">
+                {% for result in search_results %}
+                    {% include "patterns/molecules/search-result/search-result.html" with result=result.specific %}
+                {% endfor %}
+            </ul>
+
+            <div class="page-listing__pagination">
+                {% include "patterns/molecules/pagination/pagination.html" with pages=search_results %}
+            </div>
+
+        {% elif search_query %}
+            <p class="search-results__count">No results found.</p>
+        {% endif %}
+
+    </div>
+{% endblock %}

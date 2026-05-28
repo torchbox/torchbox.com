@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.utils.http import urlencode
@@ -67,7 +68,7 @@ class EventIndexPage(BasePage):
         page = request.GET.get("page", 1)
 
         # Pagination
-        paginator = Paginator(events, 10)  # Show 10 events per page
+        paginator = Paginator(events, settings.DEFAULT_PER_PAGE)
         paged_events = paginator.get_page(page)
 
         extra_url_params = {}
