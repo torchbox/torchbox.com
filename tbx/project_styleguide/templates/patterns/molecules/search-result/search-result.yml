@@ -5,3 +5,7 @@ context:
     listing_title: Listing title
     listing_summary: Listing summary
     search_description: Search description
+tags:
+  pageurl:
+    result as link:
+      raw: '#'
