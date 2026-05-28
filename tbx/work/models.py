@@ -447,9 +447,7 @@ class WorkIndexPage(BasePage):
         page = request.GET.get("page", 1)
 
         # Pagination
-        paginator = Paginator(
-            works, settings.DEFAULT_PER_PAGE
-        )
+        paginator = Paginator(works, settings.DEFAULT_PER_PAGE)
 
         try:
             works = paginator.page(page)

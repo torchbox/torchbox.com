@@ -68,9 +68,7 @@ class EventIndexPage(BasePage):
         page = request.GET.get("page", 1)
 
         # Pagination
-        paginator = Paginator(
-            events, settings.DEFAULT_PER_PAGE
-        )
+        paginator = Paginator(events, settings.DEFAULT_PER_PAGE)
         paged_events = paginator.get_page(page)
 
         extra_url_params = {}
