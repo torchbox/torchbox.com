@@ -100,6 +100,7 @@ MIDDLEWARE = [
     # Clickjacking prevention. Default: X_FRAME_OPTIONS = 'DENY'
     # See https://docs.djangoproject.com/en/dev/ref/clickjacking/#preventing-clickjacking
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "tbx.core.utils.middleware.URLCaseNormalizeMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
