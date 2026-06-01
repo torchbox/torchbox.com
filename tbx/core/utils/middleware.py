@@ -53,9 +53,13 @@ class URLCaseNormalizeMiddleware:
             return response
 
         if page := self.get_page_for_path(request, request.path.lower()):
+            url = page.get_url(request=request)
+
+            if url is None:
+                return response
+
             query_string = f"?{request.GET.urlencode()}" if request.GET else ""
-            return HttpResponsePermanentRedirect(
-                page.get_url(request=request) + query_string
-            )
+
+            return HttpResponsePermanentRedirect(url + query_string)
 
         return response
