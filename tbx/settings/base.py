@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "tbx.users",
     "tbx.services",
     "tbx.sitemap",
+    "wagtail_ai",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -482,6 +483,20 @@ WAGTAIL_SITE_NAME = "Torchbox"
 
 if "PRIMARY_HOST" in env:
     WAGTAILADMIN_BASE_URL = "https://{}".format(env["PRIMARY_HOST"])
+
+# Wagtail AI
+# https://wagtail-ai.readthedocs.io/latest/installation/
+# WAGTAIL_AI_PROVIDER: any-llm provider name (e.g. "openai", "anthropic", "mistral")
+# WAGTAIL_AI_MODEL: model identifier for the chosen provider
+# The corresponding API key env var is provider-specific (e.g. OPENAI_API_KEY, ANTHROPIC_API_KEY)
+WAGTAIL_AI = {
+    "PROVIDERS": {
+        "default": {
+            "provider": env.get("WAGTAIL_AI_PROVIDER", "openai"),
+            "model": env.get("WAGTAIL_AI_MODEL", "gpt-4.1-mini"),
+        },
+    }
+}
 
 
 # Override the Image class used by wagtailimages with a custom one

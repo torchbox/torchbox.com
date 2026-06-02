@@ -28,6 +28,7 @@ dj-database-url = "^3.1.2"
 
 # Wagtail packages
 wagtail-accessibility = "^2.0.0"
+wagtail-ai = "^3.1.0"
 wagtail-lite-youtube-embed = "^0.3.0"
 wagtail-markdown = "^0.14.0"
 wagtailmedia = "^0.17.0"
