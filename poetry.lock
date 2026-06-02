@@ -1001,17 +1001,20 @@ doc = ["Sphinx", "sphinx-rtd-theme", "sphinxcontrib-spelling"]
 
 [[package]]
 name = "faker"
-version = "38.2.0"
+version = "40.20.0"
 description = "Faker is a Python package that generates fake data for you."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "faker-38.2.0-py3-none-any.whl", hash = "sha256:35fe4a0a79dee0dc4103a6083ee9224941e7d3594811a50e3969e547b0d2ee65"},
-    {file = "faker-38.2.0.tar.gz", hash = "sha256:20672803db9c7cb97f9b56c18c54b915b6f1d8991f63d1d673642dc43f5ce7ab"},
+    {file = "faker-40.20.0-py3-none-any.whl", hash = "sha256:d66c65751b70e179515c163bfb3e3fb89139395bb9f0eb78bfdf8c6c81aa9c8c"},
+    {file = "faker-40.20.0.tar.gz", hash = "sha256:0305002eb7441dbbc774b48ec95f4794188fcedf1f4697d205cb59a38db8d6ee"},
 ]
 
 [package.dependencies]
-tzdata = "*"
+tzdata = {version = "*", markers = "platform_system == \"Windows\""}
+
+[package.extras]
+tzdata = ["tzdata"]
 
 [[package]]
 name = "filelock"
@@ -1054,24 +1057,25 @@ dev = ["flake8", "markdown", "twine", "wheel"]
 
 [[package]]
 name = "gunicorn"
-version = "23.0.0"
+version = "26.0.0"
 description = "WSGI HTTP Server for UNIX"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.10"
 files = [
-    {file = "gunicorn-23.0.0-py3-none-any.whl", hash = "sha256:ec400d38950de4dfd418cff8328b2c8faed0edb0d517d3394e457c317908ca4d"},
-    {file = "gunicorn-23.0.0.tar.gz", hash = "sha256:f014447a0101dc57e294f6c18ca6b40227a4c90e9bdb586042628030cba004ec"},
+    {file = "gunicorn-26.0.0-py3-none-any.whl", hash = "sha256:40233d26a5f0d1872916188c276e21641155111c2853f0c2cd55260aec0d24fc"},
+    {file = "gunicorn-26.0.0.tar.gz", hash = "sha256:ca9346f85e3a4aeeb64d491045c16b9a35647abd37ea15efe53080eb8b090baf"},
 ]
 
 [package.dependencies]
 packaging = "*"
 
 [package.extras]
-eventlet = ["eventlet (>=0.24.1,!=0.36.0)"]
-gevent = ["gevent (>=1.4.0)"]
+fast = ["gunicorn_h1c (>=0.6.5)"]
+gevent = ["gevent (>=24.10.1)"]
+http2 = ["h2 (>=4.1.0)"]
 setproctitle = ["setproctitle"]
-testing = ["coverage", "eventlet", "gevent", "pytest", "pytest-cov"]
-tornado = ["tornado (>=0.2)"]
+testing = ["coverage", "gevent (>=24.10.1)", "h2 (>=4.1.0)", "httpx[http2]", "pytest", "pytest-asyncio", "pytest-cov", "uvloop (>=0.19.0)"]
+tornado = ["tornado (>=6.5.0)"]
 
 [[package]]
 name = "honcho"
@@ -2805,4 +2809,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.13"
-content-hash = "e8422aaf59cf316901e4ccb8c0b98ba1186d577b27b86dd1381229c536f74c07"
+content-hash = "8e28e201cc59aa2f0c6a55503df1add674ee547f381a8dfa4f885f63ff17791b"
