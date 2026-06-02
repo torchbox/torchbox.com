@@ -1,4 +1,3 @@
-from unittest.mock import MagicMock, patch
 from urllib.parse import urlsplit
 
 from wagtail.contrib.redirects.models import Redirect
@@ -7,7 +6,6 @@ from wagtail.test.utils import WagtailPageTestCase
 
 from tbx.blog.factories import BlogIndexPageFactory
 from tbx.core.factories import HomePageFactory
-from tbx.core.utils.middleware import URLCaseNormalizeMiddleware
 from tbx.divisions.factories import DivisionPageFactory
 
 
@@ -61,15 +59,6 @@ class TestMiddleware(WagtailPageTestCase):
         )
         response = self.client.get("/A-redirect/")
         self.assertEqual(response.status_code, 301)
-
-    def test_returns_404_when_page_url_is_none(self):
-        mock_page = MagicMock()
-        mock_page.get_url.return_value = None
-        with patch.object(
-            URLCaseNormalizeMiddleware, "get_page_for_path", return_value=mock_page
-        ):
-            response = self.client.get("/DOES-NOT-EXIST/")
-        self.assertEqual(response.status_code, 404)
 
     def test_double_slashed_url_for_missing_page(self):
         response = self.client.get(
