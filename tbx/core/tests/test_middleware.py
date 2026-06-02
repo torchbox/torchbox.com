@@ -73,6 +73,6 @@ class TestMiddleware(WagtailPageTestCase):
 
     def test_double_slashed_url_for_missing_page(self):
         response = self.client.get(
-            "http://testserver//evil.com"  # Must be a fully-qualified, as parsing it bypasses the issue we're testing
+            "http://testserver//evil.com"  # Must be a fully-qualified url, as parsing it bypasses the issue we're testing
         )
         self.assertEqual(response.status_code, 404)
