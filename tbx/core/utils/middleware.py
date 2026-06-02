@@ -20,11 +20,12 @@ class URLCaseNormalizeMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
-    def get_page_for_path(self, request: "HttpRequest", path: str) -> Optional["Page"]:
+    def get_page_for_path(
+        self, site: Site, request: "HttpRequest", path: str
+    ) -> Optional["Page"]:
         """
         Implementation lifted from `wagtail.views.serve`.
         """
-        site = Site.find_for_request(request)
 
         path_components = [component for component in path.split("/") if component]
 
@@ -52,7 +53,7 @@ class URLCaseNormalizeMiddleware:
         if not site:
             return response
 
-        if page := self.get_page_for_path(request, request.path.lower()):
+        if page := self.get_page_for_path(site, request, request.path.lower()):
             url = page.get_url(request=request)
 
             if url is None:
