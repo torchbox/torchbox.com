@@ -44,7 +44,7 @@ class URLCaseNormalizeMiddleware:
             return response
 
         # If the path is already lower-case, do nothing.
-        if request.path.islower():
+        if request.path == request.path.lower():
             return response
 
         # Pre-confirm there's a site for this URL
