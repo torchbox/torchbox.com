@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, Optional
 
-from django.http import Http404, HttpResponsePermanentRedirect
+from django.http import Http404, HttpResponseRedirect
 
 from wagtail.models import Site
 
@@ -55,6 +55,6 @@ class URLCaseNormalizeMiddleware:
 
         if self.get_page_for_path(site, request, request.path.lower()):
             query_string = f"?{request.GET.urlencode()}" if request.GET else ""
-            return HttpResponsePermanentRedirect(request.path.lower() + query_string)
+            return HttpResponseRedirect(request.path.lower() + query_string)
 
         return response

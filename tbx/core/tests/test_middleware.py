@@ -40,13 +40,13 @@ class TestMiddleware(WagtailPageTestCase):
 
     def test_redirects_to_lowercase_page(self):
         response = self.client.get(self.blog_page.url.upper())
-        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, self.blog_page.url)
 
     def test_maintains_querystring(self):
         response = self.client.get(self.blog_page.url.upper(), {"foo": "BAR"})
         split_result = urlsplit(response.url)
-        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(split_result.query, "foo=BAR")
 
     def test_404(self):
