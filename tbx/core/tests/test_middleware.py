@@ -53,12 +53,13 @@ class TestMiddleware(WagtailPageTestCase):
         response = self.client.get("/does-NOT-exist/")
         self.assertEqual(response.status_code, 404)
 
-    def test_redirect(self):
+    def test_existing_redirect_not_intercepted(self):
         Redirect.objects.create(
             old_path="/A-redirect", redirect_link="/destination", site=None
         )
         response = self.client.get("/A-redirect/")
         self.assertEqual(response.status_code, 301)
+        self.assertEqual(response.url, "/destination")
 
     def test_double_slashed_url_for_missing_page(self):
         response = self.client.get(
