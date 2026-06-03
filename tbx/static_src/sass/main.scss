@@ -93,7 +93,15 @@
 
 // Layout
 
-@import 'tailwindcss';
+// `source(none)` disables Tailwind 4's automatic source detection, which
+// otherwise scans from the current working directory — that is `/` inside the
+// Docker build stage (no WORKDIR), so it tries to ingest the whole container
+// filesystem and OOM-hangs the build. We instead load the JS config and list
+// the source globs explicitly (paths are relative to this file).
+@import 'tailwindcss' source(none);
+@config '../../../tailwind.config.js';
+@source '../../**/*.{py,html}';
+@source '../**/*.{js,ts,tsx,vue}';
 
 @utility container {
     margin-inline: auto;
