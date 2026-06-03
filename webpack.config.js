@@ -87,8 +87,7 @@ const options = {
                             sourceMap: true,
                             postcssOptions: {
                                 plugins: [
-                                    'tailwindcss',
-                                    'autoprefixer',
+                                    '@tailwindcss/postcss',
                                     'postcss-custom-properties',
                                     ['cssnano', { preset: 'default' }],
                                 ],

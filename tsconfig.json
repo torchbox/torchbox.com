@@ -18,7 +18,10 @@
     "isolatedModules": true,
     "sourceMap": true,
     "jsx": "react",
-    "moduleResolution": "node"
+    "moduleResolution": "bundler",
+    "types": ["jest"],
+    "ignoreDeprecations": "6.0",
+    "rootDir": "tbx/static_src"
   },
   "include": ["tbx/static_src"],
   "exclude": ["node_modules", "tbx/static_compiled"]

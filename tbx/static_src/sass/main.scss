@@ -93,6 +93,13 @@
 
 // Layout
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@utility container {
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+
+    @media (min-width: 410px) {
+        padding-inline: 2.5rem;
+    }
+}
