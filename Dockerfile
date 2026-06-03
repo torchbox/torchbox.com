@@ -5,7 +5,7 @@ ARG CI=true
 
 # Install front-end dependencies.
 COPY package.json package-lock.json tsconfig.json webpack.config.js tailwind.config.js  ./
-RUN npm ci --no-optional --no-audit --progress=false
+RUN npm ci --no-audit --progress=false
 
 # Compile static files
 COPY ./tbx/ ./tbx/
