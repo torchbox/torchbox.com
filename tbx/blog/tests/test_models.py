@@ -362,11 +362,11 @@ class TestBreadcrumbJSONLD(WagtailPageTestCase):
         items = breadcrumb_data["itemListElement"]
         self.assertGreater(len(items), 0, "No breadcrumb items found")
 
-        # Test first item (should be Charity based on the breadcrumb structure)
+        # Test first item (should always be Home based on the breadcrumb structure)
         first_item = items[0]
         self.assertEqual(first_item["@type"], "ListItem")
         self.assertEqual(first_item["position"], 1)
-        self.assertEqual(first_item["name"], "Charity")
+        self.assertEqual(first_item["name"], "Home")
 
         # Test that all items have required fields
         for i, item in enumerate(items):
@@ -374,26 +374,6 @@ class TestBreadcrumbJSONLD(WagtailPageTestCase):
             self.assertEqual(item["position"], i + 1)
             self.assertIn("name", item)
             self.assertIn("item", item)
-
-    def test_breadcrumb_jsonld_with_division(self):
-        """Test breadcrumb JSON-LD includes division page."""
-        # Render the breadcrumb JSON-LD template directly
-        context = {"page": self.blog_post}
-        jsonld_content = render_to_string(
-            "patterns/navigation/components/breadcrumbs-jsonld.html", context
-        )
-
-        # Extract breadcrumb JSON-LD
-        json_scripts = self._extract_jsonld_by_type(jsonld_content, "BreadcrumbList")
-        breadcrumb_data = json_scripts[0]
-        items = breadcrumb_data["itemListElement"]
-
-        # Should have at least Division and Blog Index
-        self.assertGreaterEqual(len(items), 2)
-
-        # Check that division is included
-        division_names = [item["name"] for item in items]
-        self.assertIn("Charity", division_names)
 
     def test_breadcrumb_jsonld_urls(self):
         """Test that breadcrumb JSON-LD contains URL structure."""

@@ -1,15 +1,25 @@
 {% load wagtailcore_tags %}
-{% if page.breadcrumbs %}
+{% comment %}
+    Guard uses get_ancestors rather than page.breadcrumbs because breadcrumbs
+    returns empty for division pages.
+{% endcomment %}
+{% if page.get_ancestors|length > 1 %}
+    {% comment%}
+        slice:'1:' skips the root page (depth=1) to start from the homepage (depth=2).
+        page.breadcrumbs is intentionally avoided here as it starts from the division page
+        for division subtrees, which would omit the homepage from the JSON-LD trail.
+        JSON-LD breadcrumbs always need the full path from homepage for correct structured data.
+    {% endcomment %}
     <script type="application/ld+json">
         {
             "@context": "https://schema.org/",
             "@type": "BreadcrumbList",
-            "itemListElement": [{% for crumb in page.breadcrumbs %}
+            "itemListElement": [{% for ancestor_page in page.get_ancestors|slice:'1:' %}
                 {
                     "@type": "ListItem",
                     "position": {{ forloop.counter }},
-                    "name": "{% if crumb.depth == 2 %}Home{% else %}{{ crumb.title|escapejs }}{% endif %}",
-                    "item": "{% fullpageurl crumb %}"
+                    "name": "{% if ancestor_page.depth == 2 %}Home{% else %}{{ ancestor_page.title|escapejs }}{% endif %}",
+                    "item": "{% fullpageurl ancestor_page %}"
                 }{% if not forloop.last %},{% endif %}{% endfor %}
             ]
         }
