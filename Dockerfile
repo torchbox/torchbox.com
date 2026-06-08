@@ -3,6 +3,8 @@ FROM node:24-slim AS frontend-deps
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true
 
+WORKDIR /app
+
 # Install front-end dependencies.
 COPY package.json package-lock.json tsconfig.json webpack.config.js tailwind.config.js  ./
 RUN npm ci --no-audit --progress=false
@@ -79,7 +81,7 @@ RUN pip install --no-cache --upgrade pip && poetry install ${POETRY_INSTALL_ARGS
 
 FROM python-base AS production
 
-COPY --chown=tbx --from=frontend ./tbx/static_compiled ./tbx/static_compiled
+COPY --chown=tbx --from=frontend /app/tbx/static_compiled ./tbx/static_compiled
 
 # Copy application code.
 COPY --chown=tbx . .
@@ -116,6 +118,9 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 # Restore user
 USER tbx
 
+# Load shortcuts
+COPY ./docker/bashrc.sh /home/tbx/.bashrc
+
 # Install nvm and node/npm
 ARG NVM_VERSION=0.40.3
 COPY --chown=tbx .nvmrc ./
@@ -123,7 +128,7 @@ RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh
     && bash --login -c "nvm install --no-progress && nvm alias default $(nvm run --silent --version)"
 
 # Pull in the node modules for the frontend (from deps-only stage, no build needed)
-COPY --chown=tbx --from=frontend-deps ./node_modules ./node_modules
+COPY --chown=tbx --from=frontend-deps /app/node_modules ./node_modules
 
 # do nothing forever - exec commands elsewhere
 CMD ["tail", "-f", "/dev/null"]
