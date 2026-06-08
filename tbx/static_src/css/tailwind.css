@@ -1,11 +1,9 @@
 /* Tailwind 4 directives — kept in a pure CSS file so that Dart Sass cannot
-   hoist the @import away from the adjacent @config/@source directives (which
-   would prevent @tailwindcss/postcss from associating them and generating
-   utilities). Paths are relative to this file. */
-@import 'tailwindcss' source(none);
+   hoist the @import away from the adjacent @config directive (which would
+   prevent @tailwindcss/postcss from associating them and generating utilities).
+   Auto-detection scans from WORKDIR /app (set in Dockerfile). */
+@import 'tailwindcss';
 @config '../../../tailwind.config.js';
-@source '../../**/*.{py,html}';
-@source '../**/*.{js,ts,tsx,vue}';
 
 @utility container {
     margin-inline: auto;
