@@ -99,9 +99,6 @@ const options = {
                         options: {
                             sourceMap: true,
                             implementation: sass,
-                            sassOptions: {
-                                style: 'compressed',
-                            },
                         },
                     },
                 ],

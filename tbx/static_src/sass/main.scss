@@ -1,113 +1,107 @@
-// CSS from external vendors (available as npm)
-@use '../../../node_modules/lite-youtube-embed/src/lite-yt-embed.css';
+@use 'sass:meta';
+
+// Tailwind directives live in css/tailwind.css (a pure CSS file, not SCSS).
+// Dart Sass hoists CSS @import to the top of the output, which would separate
+// @import 'tailwindcss' from the adjacent @config/@source directives that must
+// follow it — causing @tailwindcss/postcss to skip utility generation.
 
 // Base
-@use 'base/base';
-@use 'base/typography';
-@use 'base/fonts';
+@layer base {
+    @include meta.load-css('base/base');
+    @include meta.load-css('base/typography');
+    @include meta.load-css('base/fonts');
+}
 
 // Components
-@use 'components/icon'; // Icon at the top to be able to override
-@use 'components/animated-icon';
-@use 'components/author';
-@use 'components/authors-wide';
-@use 'components/avatar';
-@use 'components/button';
-@use 'components/button-link';
-@use 'components/blog-meta';
-@use 'components/call-to-action';
-@use 'components/contact-cta';
-@use 'components/cookie-message';
-@use 'components/division-signpost';
-@use 'components/dynamic-hero';
-@use 'components/employee-owned-icon';
-@use 'components/event-block';
-@use 'components/featured-case-study';
-@use 'components/featured-services';
-@use 'components/footer';
-@use 'components/footer-cta';
-@use 'components/form';
-@use 'components/four-photo-collage';
-@use 'components/grid';
-@use 'components/header';
-@use 'components/home-page-hero';
-@use 'components/home-page-intro';
-@use 'components/image';
-@use 'components/instagram-gallery';
-@use 'components/intro-with-images';
-@use 'components/keypoints';
-@use 'components/link-columns';
-@use 'components/link';
-@use 'components/listing';
-@use 'components/listing-avatar';
-@use 'components/listing-event';
-@use 'components/listing-image';
-@use 'components/logo';
-@use 'components/mailchimp';
-@use 'components/markdown-block';
-@use 'components/modal';
-@use 'components/mode-switcher';
-@use 'components/motif-heading';
-@use 'components/stats-group';
-@use 'components/pagination';
-@use 'components/partners';
-@use 'components/photo-collage';
-@use 'components/pullquote';
-@use 'components/responsive-object';
-@use 'components/report-in-page-nav';
-@use 'components/report-section';
-@use 'components/rich-text';
-@use 'components/page-listing';
-@use 'components/promo';
-@use 'components/section-title';
-@use 'components/showcase';
-@use 'components/sitemap';
-@use 'components/skip-link';
-@use 'components/small-image-with-text';
-@use 'components/sprites-preview-icons';
-@use 'components/stats';
-@use 'components/streamfield';
-@use 'components/swirls';
-@use 'components/team-page-meta';
-@use 'components/tabbed-paragraph';
-@use 'components/table';
-@use 'components/tabs';
-@use 'components/tabs-mobile';
-@use 'components/tag';
-@use 'components/team-listing';
-@use 'components/title-filters';
-@use 'components/values';
-@use 'components/work-hero';
-@use 'components/work-sections';
-@use 'components/youtube-embed';
+@layer components {
+    // CSS from external vendors (available as npm)
+    @include meta.load-css(
+        '../../../node_modules/lite-youtube-embed/src/lite-yt-embed.css'
+    );
 
-// Navigation
-@use 'components/navigation/breadcrumbs-nav';
-@use 'components/navigation/footerlinks-nav';
-@use 'components/navigation/primary-nav-desktop';
-@use 'components/navigation/primary-nav-mobile';
-@use 'components/navigation/secondary-nav-desktop';
-@use 'components/navigation/secondary-nav-mobile';
-@use 'components/navigation/sub-nav-desktop';
-@use 'components/navigation/sub-nav-mobile';
+    @include meta.load-css(
+        'components/icon'
+    ); // Icon at the top to be able to override
+    @include meta.load-css('components/animated-icon');
+    @include meta.load-css('components/author');
+    @include meta.load-css('components/authors-wide');
+    @include meta.load-css('components/avatar');
+    @include meta.load-css('components/button');
+    @include meta.load-css('components/button-link');
+    @include meta.load-css('components/blog-meta');
+    @include meta.load-css('components/call-to-action');
+    @include meta.load-css('components/contact-cta');
+    @include meta.load-css('components/cookie-message');
+    @include meta.load-css('components/division-signpost');
+    @include meta.load-css('components/dynamic-hero');
+    @include meta.load-css('components/employee-owned-icon');
+    @include meta.load-css('components/event-block');
+    @include meta.load-css('components/featured-case-study');
+    @include meta.load-css('components/featured-services');
+    @include meta.load-css('components/footer');
+    @include meta.load-css('components/footer-cta');
+    @include meta.load-css('components/form');
+    @include meta.load-css('components/four-photo-collage');
+    @include meta.load-css('components/grid');
+    @include meta.load-css('components/header');
+    @include meta.load-css('components/home-page-hero');
+    @include meta.load-css('components/home-page-intro');
+    @include meta.load-css('components/image');
+    @include meta.load-css('components/instagram-gallery');
+    @include meta.load-css('components/intro-with-images');
+    @include meta.load-css('components/keypoints');
+    @include meta.load-css('components/link-columns');
+    @include meta.load-css('components/link');
+    @include meta.load-css('components/listing');
+    @include meta.load-css('components/listing-avatar');
+    @include meta.load-css('components/listing-event');
+    @include meta.load-css('components/listing-image');
+    @include meta.load-css('components/logo');
+    @include meta.load-css('components/mailchimp');
+    @include meta.load-css('components/markdown-block');
+    @include meta.load-css('components/modal');
+    @include meta.load-css('components/mode-switcher');
+    @include meta.load-css('components/motif-heading');
+    @include meta.load-css('components/stats-group');
+    @include meta.load-css('components/pagination');
+    @include meta.load-css('components/partners');
+    @include meta.load-css('components/photo-collage');
+    @include meta.load-css('components/pullquote');
+    @include meta.load-css('components/responsive-object');
+    @include meta.load-css('components/report-in-page-nav');
+    @include meta.load-css('components/report-section');
+    @include meta.load-css('components/rich-text');
+    @include meta.load-css('components/page-listing');
+    @include meta.load-css('components/promo');
+    @include meta.load-css('components/section-title');
+    @include meta.load-css('components/showcase');
+    @include meta.load-css('components/sitemap');
+    @include meta.load-css('components/skip-link');
+    @include meta.load-css('components/small-image-with-text');
+    @include meta.load-css('components/sprites-preview-icons');
+    @include meta.load-css('components/stats');
+    @include meta.load-css('components/streamfield');
+    @include meta.load-css('components/swirls');
+    @include meta.load-css('components/team-page-meta');
+    @include meta.load-css('components/tabbed-paragraph');
+    @include meta.load-css('components/table');
+    @include meta.load-css('components/tabs');
+    @include meta.load-css('components/tabs-mobile');
+    @include meta.load-css('components/tag');
+    @include meta.load-css('components/team-listing');
+    @include meta.load-css('components/title-filters');
+    @include meta.load-css('components/values');
+    @include meta.load-css('components/work-hero');
+    @include meta.load-css('components/work-sections');
+    @include meta.load-css('components/youtube-embed');
 
-// Layout
-
-// `source(none)` disables Tailwind 4's automatic source detection, which
-// otherwise scans from the current working directory — that is `/` inside the
-// Docker build stage (no WORKDIR), so it tries to ingest the whole container
-// filesystem and OOM-hangs the build. We instead load the JS config and list
-// the source globs explicitly (paths are relative to this file).
-@import 'tailwindcss' source(none);
-@config '../../../tailwind.config.js';
-@source '../../**/*.{py,html}';
-@source '../**/*.{js,ts,tsx,vue}';
-
-@utility container {
-    margin-inline: auto;
-    padding-inline: 1.25rem;
-
-    @media (min-width: 410px) {
-        padding-inline: 2.5rem;
-    }
+    // Navigation
+    @include meta.load-css('components/navigation/breadcrumbs-nav');
+    @include meta.load-css('components/navigation/footerlinks-nav');
+    @include meta.load-css('components/navigation/primary-nav-desktop');
+    @include meta.load-css('components/navigation/primary-nav-mobile');
+    @include meta.load-css('components/navigation/secondary-nav-desktop');
+    @include meta.load-css('components/navigation/secondary-nav-mobile');
+    @include meta.load-css('components/navigation/sub-nav-desktop');
+    @include meta.load-css('components/navigation/sub-nav-mobile');
 }
