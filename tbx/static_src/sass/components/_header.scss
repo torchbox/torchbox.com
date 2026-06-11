@@ -1,7 +1,5 @@
 @use '../config' as *;
 
-$header-action-height: 46px;
-
 .header {
     @include z-index(header);
     position: relative;
@@ -77,11 +75,6 @@ $header-action-height: 46px;
         display: flex;
         align-items: center;
         gap: $spacer-small;
-    }
-
-    &__action {
-        box-sizing: border-box;
-        min-height: $header-action-height;
     }
 
     &__cta {
