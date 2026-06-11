@@ -3,7 +3,7 @@ import logging
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.http import url_has_allowed_host_and_scheme
@@ -11,11 +11,10 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
 
 import requests
-from wagtail.contrib.search_promotions.models import Query
-from wagtail.models import Page, Site
 
 from tbx.core.errors import UnauthorizedHTTPError
 from tbx.core.forms import ModeSwitcherForm
+from tbx.core.models import Page
 
 
 logger = logging.getLogger(__name__)
@@ -46,28 +45,6 @@ def robots(request):
         ]
     )
     return HttpResponse(content, content_type="text/plain")
-
-
-def search(request):
-    site = Site.find_for_request(request)
-    page = site.root_page.specific if site else None
-
-    search_query = request.GET.get("query", "").strip()
-    if search_query:
-        search_results = Page.objects.live().public().search(search_query)
-        Query.get(search_query).add_hit()
-    else:
-        search_results = Page.objects.none()
-
-    return render(
-        request,
-        "patterns/pages/search/search.html",
-        {
-            "page": page,
-            "search_query": search_query,
-            "search_results": search_results,
-        },
-    )
 
 
 @method_decorator(never_cache, name="dispatch")

@@ -72,7 +72,12 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
     def save(self, **kwargs):
         super().save(**kwargs)
 
-        fragment_keys = ["primarynav", "primarynavmobile", "footerlinks", "headeractions"]
+        fragment_keys = [
+            "primarynav",
+            "primarynavmobile",
+            "footerlinks",
+            "headeractions",
+        ]
 
         # The fragment cache varies on:
         # the current site pk, whether used in the pattern library

@@ -29,18 +29,8 @@
                 {% endwagtailcache %}
             </nav>
 
-            {# Mobile search and menu #}
+            {# Mobile menu #}
             <div class="header__mobile-controls">
-                <button
-                    type="button"
-                    class="header__action header__search-toggle"
-                    data-header-search-toggle
-                    aria-expanded="false"
-                    aria-controls="header-search-overlay"
-                    aria-label="Search site"
-                >
-                    {% include "patterns/atoms/icons/icon.html" with name="search" classname="header__search-icon" %}
-                </button>
                 <div class="header__primary-menu-toggle-wrapper">
                     <span class="sr-only">Menu</span>
                     <button
@@ -77,7 +67,7 @@
             </nav>
 
             <div class="header__end">
-                {# Header CTA and search #}
+                {# Header CTA #}
                 {% wagtailcache 600 headeractions current_site.pk is_pattern_library %}
                     {% headeractions %}
                 {% endwagtailcache %}
@@ -90,4 +80,3 @@
         </div>
     </div>
 </header>
-{% include "patterns/navigation/components/header-search-overlay.html" %}

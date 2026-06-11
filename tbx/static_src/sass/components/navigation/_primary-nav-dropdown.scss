@@ -7,7 +7,10 @@ Styles for primary navigation dropdown panels at desktop
 .primary-nav-dropdown {
     $root: &;
     @include z-index(nav);
-    @include nav-fixed-position($header-height: $header-full-height, $full-height: false);
+    @include nav-fixed-position(
+        $header-height: $header-full-height,
+        $full-height: false
+    );
     background-color: var(--color--dark-background);
     border: 1px solid transparent;
     padding: $spacer-half $grid-gutters;

@@ -4,6 +4,7 @@ import json
 
 from django.db import migrations
 
+
 CHILD_DISPLAY_MIGRATION = {
     "hide_children": {
         "dropdown_style": "none",
@@ -24,7 +25,6 @@ CHILD_DISPLAY_MIGRATION = {
 
 def migrate_primary_navigation(apps, schema_editor):
     NavigationSettings = apps.get_model("navigation", "NavigationSettings")
-    table = NavigationSettings._meta.db_table
 
     for settings in NavigationSettings.objects.all().iterator():
         stream_data = settings.primary_navigation

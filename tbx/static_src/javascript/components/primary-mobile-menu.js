@@ -31,7 +31,9 @@ class PrimaryMobileMenu {
             .forEach((button) => {
                 button.setAttribute('aria-expanded', 'false');
             });
-        this.primaryMobileMenu.classList.remove('primary-nav-mobile--subnav-open');
+        this.primaryMobileMenu.classList.remove(
+            'primary-nav-mobile--subnav-open',
+        );
     }
 
     bindEventListeners() {
@@ -68,12 +70,6 @@ class PrimaryMobileMenu {
         });
 
         document.addEventListener('onMenuOpen', () => {
-            if (this.state.open) {
-                this.close();
-            }
-        });
-
-        document.addEventListener('onSearchOpen', () => {
             if (this.state.open) {
                 this.close();
             }

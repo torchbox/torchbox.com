@@ -8,69 +8,65 @@ Configure navigation in **Settings → Navigation settings**.
 
 Each item in the primary navigation stream supports:
 
-| Field | Purpose |
-| --- | --- |
-| **Page / External link** | Top-level destination. One is required. |
-| **Navigation text** | Label shown in the header. Defaults to the page title. |
-| **Dropdown style** | Layout for the dropdown panel (desktop). Choose “No dropdown” for a plain link. |
-| **Content source** | Where dropdown links come from. Manual link fields are only used when this is “Manual links”. |
-| **Secondary / Promoted heading** | Optional column headings in the dropdown. |
-| **Secondary links** | Manual main-column links (with description, tags, accent colour). |
-| **Promoted links** | Manual featured links (with description). |
-| **Page children depth** | Only used with “Auto-generate from page children”. Respects “Show in menus” on child pages. |
+| Field                            | Purpose                                                                                       |
+| -------------------------------- | --------------------------------------------------------------------------------------------- |
+| **Page / External link**         | Top-level destination. One is required.                                                       |
+| **Navigation text**              | Label shown in the header. Defaults to the page title.                                        |
+| **Dropdown style**               | Layout for the dropdown panel (desktop). Choose “No dropdown” for a plain link.               |
+| **Content source**               | Where dropdown links come from. Manual link fields are only used when this is “Manual links”. |
+| **Secondary / Promoted heading** | Optional column headings in the dropdown.                                                     |
+| **Secondary links**              | Manual main-column links (with description, tags, accent colour).                             |
+| **Promoted links**               | Manual featured links (with description).                                                     |
+| **Page children depth**          | Only used with “Auto-generate from page children”. Respects “Show in menus” on child pages.   |
 
 ### Dropdown styles
 
-| Style | Best for | Renders |
-| --- | --- | --- |
-| **Teaser grid / card list** | Division pages, visual cards | Main column as a card grid; promoted column as a featured list when present |
-| **Mixed list + featured links** | Services, Thinking, About | Two-column list with descriptions |
-| **Taxonomy index** | Work filtered by sector/service | Sector list + compact service grid |
-| **No dropdown** | Simple top-level links | Plain header link |
+| Style                           | Best for                        | Renders                                                                     |
+| ------------------------------- | ------------------------------- | --------------------------------------------------------------------------- |
+| **Teaser grid / card list**     | Division pages, visual cards    | Main column as a card grid; promoted column as a featured list when present |
+| **Mixed list + featured links** | Services, Thinking, About       | Two-column list with descriptions                                           |
+| **Taxonomy index**              | Work filtered by sector/service | Sector list + compact service grid                                          |
+| **No dropdown**                 | Simple top-level links          | Plain header link                                                           |
 
 On mobile, all dropdown styles use the same drill-down panel (flat list with optional promoted section).
 
 ### Content sources
 
-| Source | Populates |
-| --- | --- |
-| **Manual links** | Secondary and promoted link streams edited below |
-| **Auto-generate from division pages** | All live division pages (uses nav text, search description, theme) |
+| Source                                 | Populates                                                                                                                                        |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Manual links**                       | Secondary and promoted link streams edited below                                                                                                 |
+| **Auto-generate from division pages**  | All live division pages (uses nav text, search description, theme)                                                                               |
 | **Auto-generate sectors and services** | Sectors in the main column, services in the promoted column (links to work index with `?filter=`). Default headings: “By sector” / “By service”. |
-| **Auto-generate from page children** | Children (and optionally grandchildren) of the selected page with “Show in menus” enabled |
+| **Auto-generate from page children**   | Children (and optionally grandchildren) of the selected page with “Show in menus” enabled                                                        |
 
 If a dropdown style is set but no links can be resolved, the item renders as a plain link (no chevron).
 
 ### Suggested configuration
 
-| Item | Dropdown style | Content source |
-| --- | --- | --- |
-| Sectors | Teaser grid | Auto-generate from division pages |
-| Services | Mixed list + featured links | Manual |
-| Work | Taxonomy index | Auto-generate sectors and services |
-| Thinking | Mixed list + featured links | Manual |
-| About | Mixed list + featured links | Manual |
+| Item     | Dropdown style              | Content source                     |
+| -------- | --------------------------- | ---------------------------------- |
+| Sectors  | Teaser grid                 | Auto-generate from division pages  |
+| Services | Mixed list + featured links | Manual                             |
+| Work     | Taxonomy index              | Auto-generate sectors and services |
+| Thinking | Mixed list + featured links | Manual                             |
+| About    | Mixed list + featured links | Manual                             |
 
 ## Header actions
 
-| Field | Purpose |
-| --- | --- |
+| Field               | Purpose                                    |
+| ------------------- | ------------------------------------------ |
 | **Header CTA page** | Page linked from the “Get in touch” button |
-| **Header CTA text** | Button label (defaults to “Get in touch”) |
+| **Header CTA text** | Button label (defaults to “Get in touch”)  |
 
-If no CTA page is set, the default contact snippet is used. Search always links to `/search/`.
+If no CTA page is set, the default contact snippet is used.
 
 ## Footer settings
 
-| Field | Purpose |
-| --- | --- |
-| **Footer links** | Link list at the base of the page |
-| **Footer logos** | Logo strip above the footer contact box |
+| Field                     | Purpose                                   |
+| ------------------------- | ----------------------------------------- |
+| **Footer links**          | Link list at the base of the page         |
+| **Footer logos**          | Logo strip above the footer contact box   |
 | **Footer newsletter CTA** | External newsletter signup link and label |
-
-## Search
-
-Site search is available at `/search/` using Wagtail's database search backend.
 
 ## Caching
 

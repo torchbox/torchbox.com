@@ -23,7 +23,10 @@ Styles for the primary navigation at mobile (top level)
     }
 
     &--subnav-open {
-        .primary-nav-mobile__list > .primary-nav-mobile__item:not(.primary-nav-mobile__item--mode-switcher) {
+        .primary-nav-mobile__list
+            > .primary-nav-mobile__item:not(
+                .primary-nav-mobile__item--mode-switcher
+            ) {
             visibility: hidden;
         }
     }

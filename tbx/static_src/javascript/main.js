@@ -1,4 +1,3 @@
-import HeaderSearch from './components/header-search';
 import PrimaryMobileMenu from './components/primary-mobile-menu';
 import PrimaryMobileSubMenu from './components/primary-mobile-sub-menu';
 import PrimaryDesktopSubMenu from './components/primary-desktop-sub-menu';
@@ -30,7 +29,6 @@ function initComponent(ComponentClass) {
 
 document.addEventListener('DOMContentLoaded', () => {
     /* eslint-disable no-new */
-    initComponent(HeaderSearch);
     initComponent(PrimaryMobileMenu);
     initComponent(PrimaryMobileSubMenu);
     initComponent(PrimaryDesktopSubMenu);

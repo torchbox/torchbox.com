@@ -1,5 +1,4 @@
 from django import template
-from django.urls import reverse
 
 from tbx.navigation.utils import (
     item_has_dropdown,
@@ -25,7 +24,9 @@ def _build_primary_nav_context(context):
     items = []
     for block in nav_settings.primary_navigation:
         link = block.value
-        dropdown = resolve_primary_nav_dropdown(link) if item_has_dropdown(link) else None
+        dropdown = (
+            resolve_primary_nav_dropdown(link) if item_has_dropdown(link) else None
+        )
         items.append(
             {
                 "link": link,
@@ -47,7 +48,6 @@ def _build_primary_nav_context(context):
         "nav_items": items,
         "header_cta_url": header_cta_url,
         "header_cta_text": header_cta_text,
-        "header_search_url": reverse("search"),
         "request": request,
     }
 

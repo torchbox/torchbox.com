@@ -3,9 +3,9 @@
 $header-action-height: 46px;
 
 .header {
+    @include z-index(header);
     position: relative;
     background-color: var(--color--black);
-    @include z-index(header);
 
     &__bar {
         display: flex;
@@ -89,125 +89,5 @@ $header-action-height: 46px;
         align-items: center;
         justify-content: center;
         white-space: nowrap;
-    }
-
-    &__search-toggle {
-        @include high-contrast-text-decoration();
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: $header-action-height;
-        padding: 0;
-        color: var(--color--grey-20);
-        background: transparent;
-        border: 1px solid var(--color--eclipse);
-        cursor: pointer;
-        transition:
-            color $transition-quick,
-            border-color $transition-quick,
-            background-color $transition-quick;
-
-        @include reduced-motion() {
-            transition: none;
-        }
-
-        &:hover,
-        &:focus-visible,
-        &.is-active {
-            color: var(--color--white);
-            border-color: var(--color--white);
-        }
-
-        &:focus-visible {
-            @include focus-style();
-        }
-    }
-
-    &__search-icon {
-        width: 18px;
-        height: 18px;
-    }
-}
-
-.header-search-overlay {
-    @include z-index(modal);
-    position: fixed;
-    inset: 0;
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-    transition:
-        visibility 0ms ease-out 200ms,
-        opacity 200ms ease-out;
-
-    @include reduced-motion() {
-        transition: none;
-    }
-
-    &.is-visible {
-        visibility: visible;
-        opacity: 1;
-        pointer-events: auto;
-        transition:
-            visibility 0ms ease-out,
-            opacity 200ms ease-out;
-    }
-
-    &__backdrop {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        padding: 0;
-        border: 0;
-        background: var(--color--overlay);
-        cursor: pointer;
-    }
-
-    &__panel {
-        position: relative;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        width: 100%;
-        max-width: 100%;
-        margin: $header-height auto 0;
-        padding: $spacer-medium $grid-gutters;
-
-        @include media-query(large) {
-            padding: $spacer-large $grid-gutters-large;
-        }
-    }
-
-    &__form {
-        display: flex;
-        flex-direction: column;
-        gap: $spacer-small;
-        width: 100%;
-        max-width: 720px;
-
-        @include media-query(menu) {
-            flex-direction: row;
-            align-items: stretch;
-        }
-    }
-
-    &__input {
-        @include font-size('size-four');
-        width: 100%;
-        min-height: $header-action-height;
-        padding: $spacer-mini $spacer-small;
-        color: var(--color--heading);
-        background-color: var(--color--background);
-        border: 1px solid var(--color--border);
-
-        &:focus {
-            @include focus-style();
-        }
-    }
-
-    &__submit {
-        flex-shrink: 0;
-        min-height: $header-action-height;
     }
 }

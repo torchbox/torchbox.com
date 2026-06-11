@@ -6,20 +6,6 @@ from wagtail.models import Site
 from tbx.core.factories import HomePageFactory
 
 
-class SearchViewTestCase(TestCase):
-    url = reverse("search")
-
-    def test_search_page_renders(self):
-        response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Search the site")
-
-    def test_search_with_query(self):
-        response = self.client.get(self.url, {"query": "example search"})
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'value="example search"')
-
-
 class SecurityViewTestCase(TestCase):
     url = reverse("security-txt")
 

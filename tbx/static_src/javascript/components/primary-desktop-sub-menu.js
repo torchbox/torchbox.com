@@ -35,9 +35,9 @@ class PrimaryDesktopSubMenu {
             this.allToggleNodes.forEach((item) => {
                 if (item !== this.toggleNode) {
                     item.classList.remove(this.activeClass);
-                    item
-                        .querySelector('[data-open-primary-subnav]')
-                        .setAttribute('aria-expanded', 'false');
+                    item.querySelector(
+                        '[data-open-primary-subnav]',
+                    ).setAttribute('aria-expanded', 'false');
                 }
             });
 

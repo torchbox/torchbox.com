@@ -43,7 +43,12 @@ class NavigationSettingsCacheTestCase(WagtailPageTestCase):
     def test_save_clears_nav_fragment_cache(self):
         site = Site.objects.get(is_default_site=True)
         nav_settings = NavigationSettings.for_site(site)
-        fragment_keys = ["primarynav", "primarynavmobile", "footerlinks", "headeractions"]
+        fragment_keys = [
+            "primarynav",
+            "primarynavmobile",
+            "footerlinks",
+            "headeractions",
+        ]
 
         for fragment_name in fragment_keys:
             for is_pattern_library in [True, "", False]:

@@ -18,11 +18,7 @@ class ResolvedNavLink:
 def format_nav_tags(tags: str) -> str:
     if not tags:
         return ""
-    parts = [
-        part.strip()
-        for part in tags.replace("·", ",").split(",")
-        if part.strip()
-    ]
+    parts = [part.strip() for part in tags.replace("·", ",").split(",") if part.strip()]
     return " · ".join(parts)
 
 
@@ -115,7 +111,9 @@ def _page_child_links(page, max_depth: int) -> list[ResolvedNavLink]:
     def add_children(parent_page, depth: int):
         if depth > max_depth:
             return
-        for child in parent_page.get_children().live().public().filter(show_in_menus=True):
+        for child in (
+            parent_page.get_children().live().public().filter(show_in_menus=True)
+        ):
             specific = child.specific
             links.append(
                 ResolvedNavLink(
