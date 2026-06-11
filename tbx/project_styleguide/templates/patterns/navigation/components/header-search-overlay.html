@@ -1,0 +1,42 @@
+{% load wagtailcore_tags %}
+
+<div
+    id="header-search-overlay"
+    class="header-search-overlay"
+    data-header-search-overlay
+    aria-hidden="true"
+>
+    <button
+        type="button"
+        class="header-search-overlay__backdrop"
+        data-header-search-close
+        aria-label="Close search"
+        tabindex="-1"
+    ></button>
+    <div
+        class="header-search-overlay__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search the site"
+    >
+        <form
+            class="header-search-overlay__form"
+            action="{% url 'search' %}"
+            method="get"
+            role="search"
+        >
+            <label class="sr-only" for="header-search-input">Search the site</label>
+            <input
+                type="search"
+                id="header-search-input"
+                class="header-search-overlay__input"
+                name="query"
+                data-header-search-input
+                required
+            />
+            <button type="submit" class="button header-search-overlay__submit">
+                Search
+            </button>
+        </form>
+    </div>
+</div>

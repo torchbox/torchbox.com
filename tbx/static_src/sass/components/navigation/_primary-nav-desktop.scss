@@ -4,23 +4,22 @@
 Styles for the primary navigation at desktop (top level)
 */
 
-// The nav element surrounding the whole navigation
-// There are separate nav elements for desktop and mobile
 .primary-nav-desktop {
     $root: &;
 
-    // At desktop the top level of the menu is always visible in the header
     display: none;
+    flex: 1;
 
     @include media-query(menu) {
-        display: inline-block;
+        display: block;
     }
 
     &__list {
         display: flex;
         flex-direction: row;
-        justify-content: flex-end;
-        gap: 4vw;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: $spacer-small;
         overflow: visible;
 
         @include media-query(large) {
@@ -31,11 +30,27 @@ Styles for the primary navigation at desktop (top level)
     &__item {
         position: relative;
         width: auto;
+
+        &.active {
+            #{$root}__link::after {
+                background-color: var(--color--theme-primary);
+            }
+        }
     }
 
     &__link {
         @include high-contrast-text-decoration();
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         color: var(--color--grey-20);
+        background: transparent;
+        border: 0;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        text-decoration: none;
 
         &::after {
             content: '';
@@ -46,9 +61,14 @@ Styles for the primary navigation at desktop (top level)
             height: 1.5px;
             background-color: transparent;
             transition: background-color $transition;
+
+            @include reduced-motion() {
+                transition: none;
+            }
         }
 
-        &:hover {
+        &:hover,
+        &:focus-visible {
             color: var(--color--white);
 
             &::after {
@@ -58,6 +78,46 @@ Styles for the primary navigation at desktop (top level)
 
         &:focus-visible {
             @include focus-style();
+        }
+
+        &--has-children {
+            .active & {
+                color: var(--color--white);
+            }
+        }
+    }
+
+    &__icon-wrapper {
+        @include z-index(overlap);
+        width: 12px;
+        position: relative;
+        display: inline-block;
+    }
+
+    &__icon-closed {
+        display: block;
+        width: 11px;
+        height: 11px;
+        color: var(--color--grey-20);
+        transform: rotate(90deg);
+
+        .active &,
+        #{$root}__link:hover & {
+            display: none;
+        }
+    }
+
+    &__icon-open {
+        display: none;
+        width: 11px;
+        height: 16px;
+        position: absolute;
+        top: -8px;
+        color: var(--color--white);
+
+        #{$root}__link:hover &,
+        .active & {
+            display: block;
         }
     }
 }

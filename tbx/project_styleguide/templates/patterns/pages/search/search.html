@@ -1,0 +1,44 @@
+{% extends "patterns/base_page.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}Search{% endblock %}
+
+{% block html_class %}template-search-page{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+    <div class="grid mb-spacerLarge mt-spacerSmall streamfield md:mt-spacerMedium">
+        <div class="grid__title">
+            <h1 class="heading heading--mega">Search</h1>
+        </div>
+        <div class="grid__paragraph">
+            <form action="{% url 'search' %}" method="get" role="search">
+                <label for="search-query">Search the site</label>
+                <input
+                    type="search"
+                    id="search-query"
+                    name="query"
+                    value="{{ search_query }}"
+                    required
+                />
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        {% if search_query %}
+            <div class="grid__paragraph">
+                {% if search_results %}
+                    <ul>
+                        {% for result in search_results %}
+                            <li>
+                                <a href="{% pageurl result %}">{{ result.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No results found for “{{ search_query }}”.</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

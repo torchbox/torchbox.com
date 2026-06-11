@@ -20,63 +20,90 @@ class PrimaryMobileMenu {
         this.bindEventListeners();
     }
 
+    closeSubMenus() {
+        this.primaryMobileMenu
+            .querySelectorAll('[data-primary-subnav]')
+            .forEach((subnav) => {
+                subnav.classList.remove('is-visible');
+            });
+        this.primaryMobileMenu
+            .querySelectorAll('[data-open-primary-subnav]')
+            .forEach((button) => {
+                button.setAttribute('aria-expanded', 'false');
+            });
+        this.primaryMobileMenu.classList.remove('primary-nav-mobile--subnav-open');
+    }
+
     bindEventListeners() {
         this.node.addEventListener('click', () => {
-            this.open();
-        });
-
-        // Close mobile dropdown with escape key for improved accessibility
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                if (this.state.open) {
-                    this.close();
-                    this.state.open = false;
-                }
-            }
-        });
-
-        // Close mobile dropdown when clicking outside of the menu
-        document.addEventListener('click', (event) => {
-            if (this.state.open && !this.node.contains(event.target)) {
-                this.close();
-                this.state.open = false;
-            }
-        });
-
-        // Close the mobile menu when the focus moves away from the last item in the top level
-        if (this.lastMenuItem === null) {
-            return;
-        }
-
-        this.lastMenuItem.addEventListener('focusout', () => {
             if (this.state.open) {
                 this.close();
-                this.state.open = false;
+            } else {
+                this.open();
             }
         });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && this.state.open) {
+                if (
+                    this.primaryMobileMenu.querySelector(
+                        '[data-primary-subnav].is-visible',
+                    )
+                ) {
+                    this.closeSubMenus();
+                    return;
+                }
+                this.close();
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            const clickedInsideMenu =
+                this.primaryMobileMenu.contains(event.target) ||
+                this.node.contains(event.target);
+
+            if (this.state.open && !clickedInsideMenu) {
+                this.close();
+            }
+        });
+
+        document.addEventListener('onMenuOpen', () => {
+            if (this.state.open) {
+                this.close();
+            }
+        });
+
+        document.addEventListener('onSearchOpen', () => {
+            if (this.state.open) {
+                this.close();
+            }
+        });
+
+        if (this.lastMenuItem) {
+            this.lastMenuItem.addEventListener('focusout', () => {
+                if (this.state.open) {
+                    this.close();
+                }
+            });
+        }
     }
 
     open() {
-        // Fire a custom event which is useful if we need any other items such as
-        // a search box to close when the mobile menu opens
-        // Can be listened to with
-        // document.addEventListener('onMenuOpen', () => {
-        //     // do stuff here...;
-        // });
         const menuOpenEvent = new Event('onMenuOpen');
         document.dispatchEvent(menuOpenEvent);
         this.node.setAttribute('aria-expanded', 'true');
+        this.node.classList.add('is-open');
         this.body.classList.add('no-scroll');
         this.primaryMobileMenu.classList.add('is-visible');
-
         this.state.open = true;
     }
 
     close() {
+        this.closeSubMenus();
         this.node.setAttribute('aria-expanded', 'false');
+        this.node.classList.remove('is-open');
         this.body.classList.remove('no-scroll');
         this.primaryMobileMenu.classList.remove('is-visible');
-
         this.state.open = false;
     }
 }

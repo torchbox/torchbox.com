@@ -1,4 +1,3 @@
-from django.contrib.contenttypes.fields import GenericRelation
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 from django.core.exceptions import ValidationError
@@ -7,39 +6,13 @@ from django.db import models
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
-from wagtail.models import RevisionMixin
-from wagtail.snippets.models import register_snippet
 
 from tbx.core.utils.fields import StreamField
 from tbx.navigation.blocks import (
     FooterLogoBlock,
     LinkBlock,
     PrimaryNavLinkBlock,
-    SecondaryNavMenuBlock,
 )
-
-
-@register_snippet
-class NavigationSet(RevisionMixin, models.Model):
-    name = models.CharField(max_length=255)
-    navigation = StreamField(
-        [
-            ("link", LinkBlock(icon="link")),
-            ("menu", SecondaryNavMenuBlock()),
-        ],
-    )
-
-    # This will let us do revision.navigation_set
-    _revisions = GenericRelation(
-        "wagtailcore.Revision", related_query_name="navigation_set"
-    )
-
-    def __str__(self):
-        return self.name
-
-    @property
-    def revisions(self):
-        return self._revisions
 
 
 @register_setting(icon="list-ul")
@@ -61,9 +34,30 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
     )
     footer_newsletter_cta_url = models.URLField(blank=True)
     footer_newsletter_cta_text = models.CharField(blank=True, max_length=255)
+    header_cta_page = models.ForeignKey(
+        "wagtailcore.Page",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text="Page linked from the header “Get in touch” button.",
+    )
+    header_cta_text = models.CharField(
+        blank=True,
+        max_length=255,
+        default="Get in touch",
+        help_text="Text for the header “Get in touch” button.",
+    )
 
     panels = [
         FieldPanel("primary_navigation"),
+        MultiFieldPanel(
+            [
+                FieldPanel("header_cta_page"),
+                FieldPanel("header_cta_text"),
+            ],
+            heading="Header actions",
+        ),
         FieldPanel("footer_links"),
         FieldPanel("footer_logos"),
         MultiFieldPanel(
@@ -78,14 +72,14 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
     def save(self, **kwargs):
         super().save(**kwargs)
 
-        fragment_keys = ["primarynav", "primarynavmobile", "footerlinks"]
+        fragment_keys = ["primarynav", "primarynavmobile", "footerlinks", "headeractions"]
 
         # The fragment cache varies on:
         # the current site pk, whether used in the pattern library
 
-        # NOTE: `is_pattern_library` returns True if pattern is being rendered in the pattern library,
-        # but it doesn't return False if otherwise, hence the empty string instead of False
-        is_pattern_library_options = [True, ""]
+        # NOTE: `is_pattern_library` is True in the pattern library and otherwise
+        # absent from context (resolved as an empty string in the cache tag).
+        is_pattern_library_options = [True, "", False]
 
         keys = [
             make_template_fragment_key(key, vary_on=(self.site.pk, is_pattern_library))

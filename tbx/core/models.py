@@ -4,7 +4,6 @@ from django.utils.safestring import mark_safe
 
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.blocks import PageChooserBlock, StreamBlock, StructBlock
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page
@@ -21,7 +20,6 @@ from tbx.core.utils.models import (
     ContactMixin,
     DivisionMixin,
     NavigationFields,
-    NavigationSetMixin,
     SocialFields,
 )
 
@@ -125,7 +123,6 @@ class BasePage(
     ContactMixin,
     DivisionMixin,
     NavigationFields,
-    NavigationSetMixin,
     SocialFields,
     Page,
 ):
@@ -137,7 +134,6 @@ class BasePage(
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + NavigationFields.promote_panels
-        + NavigationSetMixin.promote_panels
         + ColourThemeMixin.promote_panels
         + DivisionMixin.promote_panels
         + ContactMixin.promote_panels
@@ -177,7 +173,6 @@ class HomePage(
     ColourThemeMixin,
     ContactMixin,
     NavigationFields,
-    NavigationSetMixin,
     SocialFields,
     Page,
 ):
@@ -240,7 +235,6 @@ class HomePage(
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + NavigationFields.promote_panels
-        + NavigationSetMixin.promote_panels
         + ColourThemeMixin.promote_panels
         + ContactMixin.promote_panels
         + [
@@ -275,32 +269,6 @@ class StandardPage(BasePage):
 # No longer in use but kept for migration history
 class Tag(models.Model):  # noqa: DJ008
     pass
-
-
-class SubMenuItemBlock(StreamBlock):
-    # subitem = PageChooserBlock()
-    related_listing_page = PageChooserBlock()
-
-
-class MenuItemBlock(StructBlock):
-    page = PageChooserBlock()
-    subitems = SubMenuItemBlock(blank=True, null=True)
-
-    class Meta:
-        template = "torchbox/includes/menu_item.html"
-
-
-class MenuBlock(StreamBlock):
-    items = MenuItemBlock()
-
-
-@register_setting
-class MainMenu(BaseSiteSetting):
-    menu = StreamField(MenuBlock(), blank=True)
-
-    panels = [
-        FieldPanel("menu"),
-    ]
 
 
 @register_setting

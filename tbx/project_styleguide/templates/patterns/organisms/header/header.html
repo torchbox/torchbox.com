@@ -2,87 +2,92 @@
 {% wagtail_site as current_site %}
 <header class="header">
     {% include "patterns/atoms/skip-link/skip-link.html" %}
-    <div class="header__top">
-        <div class="grid">
-            <div class="grid__header-nav">
-            {# Primary desktop navigation #}
-                <nav aria-label="Main navigation" class="primary-nav-desktop">
-                    {% wagtailcache 600 "primarynav" current_site.pk is_pattern_library %}
-                        <ul class="primary-nav-desktop__list">
-                            <li class="primary-nav-desktop__item">
-                                <a href="/" aria-label="Homepage link" class="primary-nav-desktop__link">
-                                    <span class="primary-nav-desktop__text">Home</span>
-                                </a>
-                            </li>
-                            {% primarynav %}
-                        </ul>
-                    {% endwagtailcache %}
-                </nav>
-
-                {# Primary mobile menu toggle #}
-                {% get_top_level_parent_page as parent_page %} {# Get the top-level parent page #}
-                {% firstof parent_page.title "Home" as parent_title %} {# Get the parent's title, or Home if no parent #}
-                <button
-                    aria-expanded="false"
-                    aria-haspopup="true"
-                    aria-label="Mobile menu toggle - currently viewing '{{ parent_title }}' or pages below it"
-                    class="header__primary-menu-toggle"
-                    data-primary-mobile-menu-toggle
-                >
-                    {{ parent_title }}
-                    {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="header__primary-menu-toggle-icon" %}
-                </button>
-
-            {# Primary mobile navigation #}
-                <nav aria-label="Main navigation"  class="primary-nav-mobile" data-primary-mobile-menu>
-                    {% wagtailcache 600 "primarynavmobile" current_site.pk is_pattern_library %}
-                        <ul class="primary-nav-mobile__list">
-                            <li class="primary-nav-mobile__item">
-                                <a href="/" aria-label="Homepage link" class="primary-nav-mobile__link">
-                                    <span class="primary-nav-mobile__text">Home</span>
-                                </a>
-                            </li>
-                            {% primarynavmobile %}
-                        </ul>
-                    {% endwagtailcache %}
-                </nav>
-
-            {# Mode switcher desktop #}
-                {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
-            </div>
-        </div>
-    </div>
     <div class="grid">
-        <div class="header__bottom grid__header-nav">
+        <div class="grid__header-nav header__bar">
             <div class="header__logo">
-                {% if page.final_division and page.final_division.logo %}
-                    {% with class_name="logo logo--"|add:page.final_division.logo %}
-                        {% include "patterns/atoms/icons/icon.html" with name=page.final_division.logo alt_text=page.final_division.get_logo_display classname=class_name %}
-                    {% endwith %}
-                {% else %}
-                    {% include "patterns/atoms/icons/icon.html" with name="logo-torchbox" alt_text="Torchbox" classname="logo logo--logo-torchbox" %}
-                {% endif %}
+                <a
+                    href="{% pageurl current_site.root_page %}"
+                    class="header__logo-link"
+                    aria-label="Homepage"
+                >
+                    {% if page.final_division and page.final_division.logo %}
+                        {% with class_name="logo logo--"|add:page.final_division.logo %}
+                            {% include "patterns/atoms/icons/icon.html" with name=page.final_division.logo classname=class_name %}
+                        {% endwith %}
+                    {% else %}
+                        {% include "patterns/atoms/icons/icon.html" with name="logo-torchbox" classname="logo logo--logo-torchbox" %}
+                    {% endif %}
+                </a>
             </div>
 
-            {# Secondary desktop navigation #}
-            {% include "patterns/navigation/components/secondary-nav.html" %}
+            {# Primary desktop navigation #}
+            <nav aria-label="Main navigation" class="primary-nav-desktop" data-primary-desktop-menu>
+                {% wagtailcache 600 primarynav current_site.pk is_pattern_library %}
+                    <ul class="primary-nav-desktop__list">
+                        {% primarynav %}
+                    </ul>
+                {% endwagtailcache %}
+            </nav>
 
-            {# Secondary mobile menu toggle #}
-            {# Show the mobile menu toggle only if there is a navigation set assigned to the page #}
-            {% if page.navigation_set %}
-                <div class="header__secondary-menu-toggle">
+            {# Mobile search and menu #}
+            <div class="header__mobile-controls">
+                <button
+                    type="button"
+                    class="header__action header__search-toggle"
+                    data-header-search-toggle
+                    aria-expanded="false"
+                    aria-controls="header-search-overlay"
+                    aria-label="Search site"
+                >
+                    {% include "patterns/atoms/icons/icon.html" with name="search" classname="header__search-icon" %}
+                </button>
+                <div class="header__primary-menu-toggle-wrapper">
                     <span class="sr-only">Menu</span>
-                    <button class="button-menu-toggle" data-mobile-menu-toggle aria-haspopup="true" aria-expanded="false" aria-label="Mobile menu toggle">
+                    <button
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        aria-controls="primary-mobile-menu"
+                        aria-label="Open main menu"
+                        class="button-menu-toggle"
+                        data-primary-mobile-menu-toggle
+                    >
                         <span class="button-menu-toggle__line"></span>
                         <span class="button-menu-toggle__line"></span>
                         <span class="button-menu-toggle__line"></span>
                         <span class="button-menu-toggle__line"></span>
                     </button>
                 </div>
-            {% endif %}
+            </div>
 
-            {# Secondary mobile navigation #}
-            {% include "patterns/navigation/components/secondary-nav-mobile.html" %}
+            {# Primary mobile navigation #}
+            <nav
+                aria-label="Main navigation"
+                class="primary-nav-mobile"
+                data-primary-mobile-menu
+                id="primary-mobile-menu"
+            >
+                {% wagtailcache 600 primarynavmobile current_site.pk is_pattern_library %}
+                    <ul class="primary-nav-mobile__list">
+                        {% primarynavmobile %}
+                        <li class="primary-nav-mobile__item primary-nav-mobile__item--mode-switcher">
+                            {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
+                        </li>
+                    </ul>
+                {% endwagtailcache %}
+            </nav>
+
+            <div class="header__end">
+                {# Header CTA and search #}
+                {% wagtailcache 600 headeractions current_site.pk is_pattern_library %}
+                    {% headeractions %}
+                {% endwagtailcache %}
+
+                {# Mode switcher desktop #}
+                <div class="header__mode-switcher">
+                    {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
+                </div>
+            </div>
         </div>
     </div>
 </header>
+{% include "patterns/navigation/components/header-search-overlay.html" %}

@@ -1,16 +1,28 @@
 {% load wagtailcore_tags %}
 
-{% for item in primarynav %}
-    <li class="primary-nav-mobile__item">
-        {% with link=item.value %}
-            <a
-                class="primary-nav-mobile__link"
-                href="{% if link.page %}{% pageurl link.page %}{% elif link.external_link %}{{ link.external_link }}{% endif %}"
-                {% if forloop.last %}data-last-menu-item-primary-mobile{% endif %}
-            >
-                <span class="primary-nav-mobile__text">{{ link.text }}</span>
-            </a>
-        {% endwith %}
-    </li>
+{% for item in nav_items %}
+    {% with link=item.link dropdown=item.dropdown %}
+        <li class="primary-nav-mobile__item{% if dropdown %} primary-nav-mobile__item--has-children{% endif %}{% if item.is_current %} primary-nav-mobile__item--current{% endif %}"{% if dropdown %} data-has-subnav{% endif %}>
+            {% if dropdown %}
+                <button
+                    class="primary-nav-mobile__link primary-nav-mobile__link--has-children"
+                    data-open-primary-subnav
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                >
+                    <span class="primary-nav-mobile__text">{{ link.text }}</span>
+                    {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="primary-nav-mobile__icon-front" only %}
+                </button>
+                {% include "patterns/navigation/components/includes/primary-nav-dropdown-mobile.html" with dropdown=dropdown parent=link %}
+            {% else %}
+                <a
+                    class="primary-nav-mobile__link"
+                    href="{% if link.page %}{% pageurl link.page %}{% elif link.external_link %}{{ link.external_link }}{% endif %}"
+                    {% if item.is_current %}aria-current="page"{% endif %}
+                >
+                    <span class="primary-nav-mobile__text">{{ link.text }}</span>
+                </a>
+            {% endif %}
+        </li>
+    {% endwith %}
 {% endfor %}
-

@@ -100,6 +100,8 @@ class LinkBlock(LinkValidationMixin, blocks.StructBlock):
 
 
 class SecondaryNavLinkBlock(LinkBlock):
+    """Dropdown promoted/featured link with optional description."""
+
     description = blocks.TextBlock(required=False)
 
 
@@ -115,49 +117,83 @@ class FooterLinkBlock(LinkValidationMixin, blocks.StructBlock):
         value_class = LinkBlockStructValue
 
 
-class PrimaryNavLinkBlock(LinkBlock):
-    class ChildDisplay(models.TextChoices):
-        HIDE = "hide_children", "Do not show child pages"
-        SHOW_UP_TO_LEVEL1 = (
-            "show_up_to_level1",
-            "Show child pages up to level 1 (children)",
-        )
-        SHOW_UP_TO_LEVEL2 = (
-            "show_up_to_level2",
-            "Show child pages up to level 2 (grandchildren)",
-        )
+ACCENT_COLOUR_CHOICES = [
+    ("theme-coral", "Coral"),
+    ("theme-nebuline", "Nebuline"),
+    ("theme-lagoon", "Lagoon"),
+    ("theme-green", "Green"),
+    ("theme-earth", "Earth"),
+]
 
-    child_display_behaviour = blocks.ChoiceBlock(
-        choices=ChildDisplay.choices,
-        default=ChildDisplay.SHOW_UP_TO_LEVEL2,
-        icon="collapse-down",
-        help_text="By default, the navigation menu displays the children and "
-        "grandchildren of the selected page if their “Show in menus” checkbox "
-        " is checked.<br/>You can alter this behaviour here.",
+
+class NavTeaserLinkBlock(SecondaryNavLinkBlock):
+    tags = blocks.CharBlock(
+        required=False,
+        help_text="Optional sub-items, separated by middle dots when displayed",
+    )
+    accent_colour = blocks.ChoiceBlock(
+        choices=ACCENT_COLOUR_CHOICES,
+        required=False,
+        label="Accent colour",
     )
 
 
-class SecondaryNavInnerMenuBlock(blocks.StructBlock):
-    section_heading = blocks.CharBlock(required=False)
-    child_links = blocks.StreamBlock(
+class PrimaryNavLinkBlock(LinkBlock):
+    class DropdownStyle(models.TextChoices):
+        NONE = "none", "No dropdown"
+        TEASER_GRID = "teaser_grid", "Teaser grid / card list"
+        MIXED_LIST = "mixed_list", "Mixed list + featured links"
+        TAXONOMY_INDEX = "taxonomy_index", "Taxonomy index"
+
+    class ContentSource(models.TextChoices):
+        MANUAL = "manual", "Manual links"
+        AUTO_DIVISIONS = "auto_divisions", "Auto-generate from division pages"
+        AUTO_TAXONOMY = "auto_taxonomy", "Auto-generate sectors and services"
+        PAGE_CHILDREN = "page_children", "Auto-generate from page children"
+
+    class PageChildrenDepth(models.TextChoices):
+        LEVEL1 = "1", "Children only"
+        LEVEL2 = "2", "Children and grandchildren"
+
+    dropdown_style = blocks.ChoiceBlock(
+        choices=DropdownStyle.choices,
+        default=DropdownStyle.NONE,
+        icon="list-ul",
+        help_text="Choose how this item's dropdown is displayed.",
+    )
+    content_source = blocks.ChoiceBlock(
+        choices=ContentSource.choices,
+        default=ContentSource.MANUAL,
+        icon="cogs",
+        help_text="Choose whether dropdown links are edited manually or generated "
+        "from site content. Manual link fields below are only used when this is set "
+        "to “Manual links”.",
+    )
+    secondary_heading = blocks.CharBlock(
+        required=False,
+        help_text="Heading for the main column of dropdown links.",
+    )
+    promoted_heading = blocks.CharBlock(
+        required=False,
+        help_text="Heading for featured or promoted dropdown links.",
+    )
+    secondary_links = blocks.StreamBlock(
+        [("link", NavTeaserLinkBlock(icon="link"))],
+        required=False,
+        help_text="Main dropdown links. Only used when content source is “Manual links”.",
+    )
+    promoted_links = blocks.StreamBlock(
         [("link", SecondaryNavLinkBlock(icon="link"))],
         required=False,
+        help_text="Featured dropdown links. Only used when content source is “Manual links”.",
     )
-    section_link = blocks.PageChooserBlock(required=False)
-    section_link_text = blocks.CharBlock(
-        help_text="Leave blank to use the page's own title",
+    page_children_depth = blocks.ChoiceBlock(
+        choices=PageChildrenDepth.choices,
+        default=PageChildrenDepth.LEVEL2,
         required=False,
-    )
-
-
-class SecondaryNavMenuBlock(blocks.StructBlock):
-    section_heading = blocks.CharBlock()
-    child_links = blocks.StreamBlock(
-        [
-            ("link", SecondaryNavLinkBlock(icon="link")),
-            ("menu", SecondaryNavInnerMenuBlock()),
-        ],
-        required=False,
+        icon="collapse-down",
+        help_text="Only used when content source is “Auto-generate from page children”. "
+        "Includes child pages with “Show in menus” enabled.",
     )
 
 

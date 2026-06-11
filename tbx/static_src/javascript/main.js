@@ -1,7 +1,7 @@
+import HeaderSearch from './components/header-search';
 import PrimaryMobileMenu from './components/primary-mobile-menu';
-import MobileMenu from './components/mobile-menu';
-import MobileSubMenu from './components/mobile-sub-menu';
-import DesktopSubMenu from './components/desktop-sub-menu';
+import PrimaryMobileSubMenu from './components/primary-mobile-sub-menu';
+import PrimaryDesktopSubMenu from './components/primary-desktop-sub-menu';
 import DesktopCloseMenus from './components/desktop-close-menus';
 import SkipLink from './components/skip-link';
 import CookieWarning from './components/cookie-message';
@@ -30,10 +30,10 @@ function initComponent(ComponentClass) {
 
 document.addEventListener('DOMContentLoaded', () => {
     /* eslint-disable no-new */
+    initComponent(HeaderSearch);
     initComponent(PrimaryMobileMenu);
-    initComponent(MobileMenu);
-    initComponent(MobileSubMenu);
-    initComponent(DesktopSubMenu);
+    initComponent(PrimaryMobileSubMenu);
+    initComponent(PrimaryDesktopSubMenu);
     initComponent(SkipLink);
     initComponent(CookieWarning);
     initComponent(YouTubeConsentManager);

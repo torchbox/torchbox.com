@@ -1,35 +1,90 @@
 # Navigation
 
-At the top level, the main navigation links are determined by the primary navigation settings.
+Site information architecture is exposed through **primary navigation** dropdowns in the header. There is no separate secondary navigation layer.
 
-In these settings there is a dropdown to allow configuration of how many children to show - one of:
+Configure navigation in **Settings → Navigation settings**.
 
-- 'Do not show child pages',
-- 'Show child pages up to level 1 (children)',
-- 'Show child pages up to level 2 (grandchildren)'.
+## Primary navigation fields
 
-If the 'Do not show child pages' option is chosen, then there will be no drop down at desktop - this is useful for 'work' and 'thinking' sections where there are many child pages.
+Each item in the primary navigation stream supports:
 
-If 'Show child pages up to level 1 (children)' is selected, then a small dropdown will show at desktop, with just one level of child pages.
+| Field | Purpose |
+| --- | --- |
+| **Page / External link** | Top-level destination. One is required. |
+| **Navigation text** | Label shown in the header. Defaults to the page title. |
+| **Dropdown style** | Layout for the dropdown panel (desktop). Choose “No dropdown” for a plain link. |
+| **Content source** | Where dropdown links come from. Manual link fields are only used when this is “Manual links”. |
+| **Secondary / Promoted heading** | Optional column headings in the dropdown. |
+| **Secondary links** | Manual main-column links (with description, tags, accent colour). |
+| **Promoted links** | Manual featured links (with description). |
+| **Page children depth** | Only used with “Auto-generate from page children”. Respects “Show in menus” on child pages. |
 
-If 'Show child pages up to level 2 (grandchildren)' is selected, then a mega dropdown appears at desktop showing children and grandchildren.
+### Dropdown styles
 
-Whether lower level navigation links are displayed or not determined by whether a given page has 'show in menu' selected. The navigation shows up to the grandchildren of the primary navigation items, and no lower.
+| Style | Best for | Renders |
+| --- | --- | --- |
+| **Teaser grid / card list** | Division pages, visual cards | Main column as a card grid; promoted column as a featured list when present |
+| **Mixed list + featured links** | Services, Thinking, About | Two-column list with descriptions |
+| **Taxonomy index** | Work filtered by sector/service | Sector list + compact service grid |
+| **No dropdown** | Simple top-level links | Plain header link |
 
-The desktop and mobile menus have two separate sets of markup in the html, and separate mobile and desktop CSS to make them easier to maintain. The smaller (level 1 only) desktop menu also has its own separate markup and CSS.
+On mobile, all dropdown styles use the same drill-down panel (flat list with optional promoted section).
 
-On the front-end, at desktop, the primary navigation links (the ones at the top level) display across the top of the page in the header. The lower levels are revealed when clicking on one of the primary links. This functionality is controlled by `desktop-sub-menu.js`.
+### Content sources
 
-At mobile, the primary links are hidden by default. They appear in a drop-down menu when the menu toggle is clicked - controlled by `mobile-menu.js`. When a parent primary menu item is clicked, the sub-navigation menu is opened, and then if a sub-navigation item with children is clicked, a third level is revealed. The second and third levels are controlled by `mobile-sub-menu.js`.
+| Source | Populates |
+| --- | --- |
+| **Manual links** | Secondary and promoted link streams edited below |
+| **Auto-generate from division pages** | All live division pages (uses nav text, search description, theme) |
+| **Auto-generate sectors and services** | Sectors in the main column, services in the promoted column (links to work index with `?filter=`). Default headings: “By sector” / “By service”. |
+| **Auto-generate from page children** | Children (and optionally grandchildren) of the selected page with “Show in menus” enabled |
 
-## Overriding the text used in the navigaiton menu
+If a dropdown style is set but no links can be resolved, the item renders as a plain link (no chevron).
 
-By default the navigation will display the page title, but it is possible to override this.
+### Suggested configuration
 
-In the primary navigation settings, where the top level nav items are set, there is a "navigation text" field.
+| Item | Dropdown style | Content source |
+| --- | --- | --- |
+| Sectors | Teaser grid | Auto-generate from division pages |
+| Services | Mixed list + featured links | Manual |
+| Work | Taxonomy index | Auto-generate sectors and services |
+| Thinking | Mixed list + featured links | Manual |
+| About | Mixed list + featured links | Manual |
 
-At lower levels of the navigation, there is a "navigation text" field under the "promote" tab.
+## Header actions
+
+| Field | Purpose |
+| --- | --- |
+| **Header CTA page** | Page linked from the “Get in touch” button |
+| **Header CTA text** | Button label (defaults to “Get in touch”) |
+
+If no CTA page is set, the default contact snippet is used. Search always links to `/search/`.
+
+## Footer settings
+
+| Field | Purpose |
+| --- | --- |
+| **Footer links** | Link list at the base of the page |
+| **Footer logos** | Logo strip above the footer contact box |
+| **Footer newsletter CTA** | External newsletter signup link and label |
+
+## Search
+
+Site search is available at `/search/` using Wagtail's database search backend.
 
 ## Caching
 
-The navigation is cached for 10 minutes (see `header.html`), both for the mobile and desktop versions. The cache is invalidated for preview and when viewing in the pattern library.
+Primary navigation and header actions are cached for 10 minutes. Cache is cleared automatically when navigation settings are saved.
+
+## Overriding navigation text
+
+By default the navigation displays the page title. Override this with the “Navigation text” field on primary nav items, or the navigation text field under the Promote tab on individual pages.
+
+## Front-end behaviour
+
+- **Desktop**: items with children open dropdown panels on click. Escape and click-outside close open panels.
+- **Mobile**: the menu toggle opens the primary nav. Items with children drill down to a second panel with a back button and a link to the parent section.
+
+## Legacy note
+
+The old **Navigation sets** snippet and per-page “Override navigation set” field have been removed. All site IA now lives in **Settings → Navigation settings → Primary navigation**.

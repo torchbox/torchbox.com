@@ -1,14 +1,32 @@
 {% load wagtailcore_tags %}
 
-{% for item in primarynav %}
-    <li class="primary-nav-desktop__item">
-        {% with link=item.value %}
-            <a
-                class="primary-nav-desktop__link"
-                href="{% if link.page %}{% pageurl link.page %}{% elif link.external_link %}{{ link.external_link }}{% endif %}"
-            >
-                {{ link.text }}
-            </a>
-        {% endwith %}
-    </li>
+{% for item in nav_items %}
+    {% with link=item.link dropdown=item.dropdown %}
+        <li class="primary-nav-desktop__item{% if dropdown %} primary-nav-desktop__item--has-children{% endif %}{% if item.is_current %} primary-nav-desktop__item--current{% endif %}"{% if dropdown %} data-has-subnav{% endif %}>
+            {% if dropdown %}
+                <button
+                    class="primary-nav-desktop__link primary-nav-desktop__link--has-children"
+                    data-open-primary-subnav
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-controls="primary-nav-dropdown-{{ forloop.counter }}"
+                >
+                    <span class="primary-nav-desktop__text">{{ link.text }}</span>
+                    <span class="primary-nav-desktop__icon-wrapper" aria-hidden="true">
+                        {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="primary-nav-desktop__icon-closed" only %}
+                        {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="primary-nav-desktop__icon-open" only %}
+                    </span>
+                </button>
+                {% include "patterns/navigation/components/includes/primary-nav-dropdown.html" with dropdown=dropdown dropdown_id=forloop.counter %}
+            {% else %}
+                <a
+                    class="primary-nav-desktop__link"
+                    href="{% if link.page %}{% pageurl link.page %}{% elif link.external_link %}{{ link.external_link }}{% endif %}"
+                    {% if item.is_current %}aria-current="page"{% endif %}
+                >
+                    <span class="primary-nav-desktop__text">{{ link.text }}</span>
+                </a>
+            {% endif %}
+        </li>
+    {% endwith %}
 {% endfor %}

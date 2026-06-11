@@ -85,11 +85,8 @@
 @use 'components/navigation/breadcrumbs-nav';
 @use 'components/navigation/footerlinks-nav';
 @use 'components/navigation/primary-nav-desktop';
+@use 'components/navigation/primary-nav-dropdown';
 @use 'components/navigation/primary-nav-mobile';
-@use 'components/navigation/secondary-nav-desktop';
-@use 'components/navigation/secondary-nav-mobile';
-@use 'components/navigation/sub-nav-desktop';
-@use 'components/navigation/sub-nav-mobile';
 
 // Layout
 

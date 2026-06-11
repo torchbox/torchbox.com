@@ -44,69 +44,6 @@ class NavigationFields(models.Model):
         return self.navigation_text or self.title
 
 
-class NavigationSetMixin(models.Model):
-    override_navigation_set = models.ForeignKey(
-        "navigation.NavigationSet",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
-    class Meta:
-        abstract = True
-
-    promote_panels = [
-        FieldPanel("override_navigation_set"),
-    ]
-
-    @cached_property
-    def navigation_set(self):
-        """
-        Returns a NavigationSet.
-
-        If a navigation set field is set on the current page, use that.
-        Or if a division with a navigation set is selected, use that.
-        If not, check the ancestors.
-
-        The closest ancestor that fulfills one of the following will be followed:
-        - the navigation set field is populated, OR
-        - the division field is populated with a DivisionPage that has a navigation set.
-        """
-
-        if self.override_navigation_set:
-            return self.override_navigation_set
-
-        # If a division page with a navigation set is selected, use that.
-        if getattr(self, "division", None) and getattr(
-            self.division, "override_navigation_set", None
-        ):
-            return self.division.override_navigation_set
-
-        try:
-            page = next(
-                p
-                for p in self.get_ancestors()
-                .filter(depth__gt=2)
-                .specific()
-                .defer_streamfields()
-                .order_by("-depth")
-                if (
-                    getattr(p, "override_navigation_set", None)
-                    or (
-                        getattr(p, "division", None)
-                        and getattr(p.division, "override_navigation_set", None)
-                    )
-                )
-            )
-        except StopIteration:
-            page = None
-
-        return page and (
-            page.override_navigation_set or page.division.override_navigation_set
-        )
-
-
 # Generic social fields abstract class to add social image/text to any new content type easily.
 class SocialFields(models.Model):
     social_image = models.ForeignKey(

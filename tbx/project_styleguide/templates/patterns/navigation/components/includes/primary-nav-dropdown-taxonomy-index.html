@@ -1,0 +1,43 @@
+<div
+    class="primary-nav-dropdown primary-nav-dropdown--taxonomy-index"
+    id="primary-nav-dropdown-{{ dropdown_id }}"
+    data-primary-subnav
+>
+    <div class="primary-nav-dropdown__inner primary-nav-dropdown__columns">
+        {% if dropdown.secondary_items %}
+            <div class="primary-nav-dropdown__column">
+                {% if dropdown.secondary_heading %}
+                    <p class="primary-nav-dropdown__heading">{{ dropdown.secondary_heading }}</p>
+                {% endif %}
+                <ul class="primary-nav-dropdown__taxonomy-list">
+                    {% for child in dropdown.secondary_items %}
+                        <li class="primary-nav-dropdown__taxonomy-item{% if child.accent_colour %} primary-nav-dropdown__taxonomy-item--{{ child.accent_colour }}{% endif %}">
+                            <a href="{{ child.url }}" class="primary-nav-dropdown__taxonomy-link">
+                                <span class="primary-nav-dropdown__taxonomy-title">{{ child.text }}</span>
+                                {% if child.tags %}
+                                    <span class="primary-nav-dropdown__taxonomy-tags">{{ child.tags }}</span>
+                                {% endif %}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% if dropdown.promoted_items %}
+            <div class="primary-nav-dropdown__column">
+                {% if dropdown.promoted_heading %}
+                    <p class="primary-nav-dropdown__heading">{{ dropdown.promoted_heading }}</p>
+                {% endif %}
+                <ul class="primary-nav-dropdown__taxonomy-grid">
+                    {% for child in dropdown.promoted_items %}
+                        <li class="primary-nav-dropdown__taxonomy-grid-item">
+                            <a href="{{ child.url }}" class="primary-nav-dropdown__link primary-nav-dropdown__link--compact">
+                                {{ child.text }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</div>

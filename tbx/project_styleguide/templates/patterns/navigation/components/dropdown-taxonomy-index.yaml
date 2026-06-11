@@ -1,0 +1,37 @@
+context:
+  dropdown:
+    style: taxonomy_index
+    secondary_heading: By sector
+    promoted_heading: By service
+    secondary_items:
+      - text: Charities & non-profits
+        url: '#'
+        tags: Health charities · International development · Human rights
+        accent_colour: theme-coral
+      - text: Public sector
+        url: '#'
+        tags: Local government · NHS
+        accent_colour: theme-nebuline
+      - text: Higher education
+        url: '#'
+        tags: Student recruitment · Research
+        accent_colour: theme-lagoon
+    promoted_items:
+      - text: Websites & platforms
+        url: '#'
+      - text: Research & design
+        url: '#'
+      - text: SEO
+        url: '#'
+      - text: PPC
+        url: '#'
+      - text: Email marketing
+        url: '#'
+      - text: Wagtail CMS
+        url: '#'
+      - text: Digital products
+        url: '#'
+      - text: Innovation
+        url: '#'
+    parent_url: '#'
+    parent_text: Work

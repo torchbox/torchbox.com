@@ -1,0 +1,47 @@
+<div
+    class="primary-nav-dropdown primary-nav-dropdown--mixed-list"
+    id="primary-nav-dropdown-{{ dropdown_id }}"
+    data-primary-subnav
+>
+    <div class="primary-nav-dropdown__inner primary-nav-dropdown__columns">
+        {% if dropdown.secondary_items %}
+            <div class="primary-nav-dropdown__column">
+                {% if dropdown.secondary_heading %}
+                    <p class="primary-nav-dropdown__heading">{{ dropdown.secondary_heading }}</p>
+                {% endif %}
+                <ul class="primary-nav-dropdown__link-list">
+                    {% for child in dropdown.secondary_items %}
+                        <li class="primary-nav-dropdown__link-item">
+                            <a href="{{ child.url }}" class="primary-nav-dropdown__link">
+                                <span class="primary-nav-dropdown__link-text">{{ child.text }}</span>
+                                <span class="primary-nav-dropdown__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown__arrow" %}</span>
+                            </a>
+                            {% if child.description %}
+                                <span class="primary-nav-dropdown__description">{{ child.description }}</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% if dropdown.promoted_items %}
+            <div class="primary-nav-dropdown__column primary-nav-dropdown__column--promoted">
+                {% if dropdown.promoted_heading %}
+                    <p class="primary-nav-dropdown__heading">{{ dropdown.promoted_heading }}</p>
+                {% endif %}
+                <ul class="primary-nav-dropdown__promoted-list">
+                    {% for child in dropdown.promoted_items %}
+                        <li class="primary-nav-dropdown__promoted-item">
+                            <a href="{{ child.url }}" class="primary-nav-dropdown__promoted-link">
+                                <span class="primary-nav-dropdown__promoted-title">{{ child.text }}</span>
+                                {% if child.description %}
+                                    <span class="primary-nav-dropdown__promoted-description">{{ child.description }}</span>
+                                {% endif %}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</div>

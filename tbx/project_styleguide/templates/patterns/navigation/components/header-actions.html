@@ -1,0 +1,19 @@
+{% load wagtailcore_tags %}
+
+<div class="header__actions">
+    {% if header_cta_url %}
+        <a href="{{ header_cta_url }}" class="button header__action header__cta">
+            {{ header_cta_text }}
+        </a>
+    {% endif %}
+    <button
+        type="button"
+        class="header__action header__search-toggle"
+        data-header-search-toggle
+        aria-expanded="false"
+        aria-controls="header-search-overlay"
+        aria-label="Search site"
+    >
+        {% include "patterns/atoms/icons/icon.html" with name="search" classname="header__search-icon" %}
+    </button>
+</div>
