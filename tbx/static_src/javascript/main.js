@@ -15,6 +15,7 @@ import ModeSwitcher from './components/mode-switcher';
 import foreachPolyfill from './polyfills/foreach-polyfill';
 import closestPolyfill from './polyfills/closest-polyfill';
 
+import '../css/tailwind.css';
 import '../sass/main.scss';
 
 // Third party imports

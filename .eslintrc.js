@@ -6,4 +6,8 @@ module.exports = {
         // This is actually because we don't have react in this project
         react: { version: '18.2.0' },
     },
+    rules: {
+        // tailwindcss@4 uses package.json exports which eslint-import-resolver-node doesn't support.
+        'import/no-unresolved': ['error', { ignore: ['^tailwindcss'] }],
+    },
 };

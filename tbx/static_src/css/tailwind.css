@@ -1,0 +1,15 @@
+/* Tailwind 4 directives — kept in a pure CSS file so that Dart Sass cannot
+   hoist the @import away from the adjacent @config directive (which would
+   prevent @tailwindcss/postcss from associating them and generating utilities).
+   Auto-detection scans from WORKDIR /app (set in Dockerfile). */
+@import 'tailwindcss';
+@config '../../../tailwind.config.js';
+
+@utility container {
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+
+    @media (min-width: 410px) {
+        padding-inline: 2.5rem;
+    }
+}

@@ -51,6 +51,8 @@ services:
       - ./.stylelintrc.js:/app/.stylelintrc.js:rw
       - ./package-lock.json:/app/package-lock.json:rw
       - ./package.json:/app/package.json:rw
+      - ./tailwind.config.js:/app/tailwind.config.js:rw
+      - ./tsconfig.json:/app/tsconfig.json:rw
       - ./webpack.config.js:/app/webpack.config.js:rw
 
     depends_on:
