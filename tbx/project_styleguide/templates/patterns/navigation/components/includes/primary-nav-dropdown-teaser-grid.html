@@ -3,13 +3,13 @@
     id="primary-nav-dropdown-{{ dropdown_id }}"
     data-primary-subnav
 >
-    <div class="primary-nav-dropdown__inner{% if dropdown.promoted_items %} primary-nav-dropdown__columns{% endif %}">
+    <div class="primary-nav-dropdown__inner{% if dropdown.supporting_items %} primary-nav-dropdown__columns{% endif %}">
         <div class="primary-nav-dropdown__column">
-            {% if dropdown.secondary_heading %}
-                <p class="primary-nav-dropdown__heading">{{ dropdown.secondary_heading }}</p>
+            {% if dropdown.main_heading %}
+                <p class="primary-nav-dropdown__heading">{{ dropdown.main_heading }}</p>
             {% endif %}
             <ul class="primary-nav-dropdown__teaser-grid">
-                {% for child in dropdown.secondary_items %}
+                {% for child in dropdown.main_items %}
                     <li class="primary-nav-dropdown__teaser-item{% if child.accent_colour %} primary-nav-dropdown__teaser-item--{{ child.accent_colour }}{% endif %}">
                         <a href="{{ child.url }}" class="primary-nav-dropdown__teaser-link">
                             <span class="primary-nav-dropdown__teaser-title">{{ child.text }}</span>
@@ -24,18 +24,18 @@
                 {% endfor %}
             </ul>
         </div>
-        {% if dropdown.promoted_items %}
-            <div class="primary-nav-dropdown__column primary-nav-dropdown__column--promoted">
-                {% if dropdown.promoted_heading %}
-                    <p class="primary-nav-dropdown__heading">{{ dropdown.promoted_heading }}</p>
+        {% if dropdown.supporting_items %}
+            <div class="primary-nav-dropdown__column primary-nav-dropdown__column--supporting">
+                {% if dropdown.supporting_heading %}
+                    <p class="primary-nav-dropdown__heading">{{ dropdown.supporting_heading }}</p>
                 {% endif %}
-                <ul class="primary-nav-dropdown__promoted-list">
-                    {% for child in dropdown.promoted_items %}
-                        <li class="primary-nav-dropdown__promoted-item">
-                            <a href="{{ child.url }}" class="primary-nav-dropdown__promoted-link">
-                                <span class="primary-nav-dropdown__promoted-title">{{ child.text }}</span>
+                <ul class="primary-nav-dropdown__supporting-list">
+                    {% for child in dropdown.supporting_items %}
+                        <li class="primary-nav-dropdown__supporting-item">
+                            <a href="{{ child.url }}" class="primary-nav-dropdown__supporting-link">
+                                <span class="primary-nav-dropdown__supporting-title">{{ child.text }}</span>
                                 {% if child.description %}
-                                    <span class="primary-nav-dropdown__promoted-description">{{ child.description }}</span>
+                                    <span class="primary-nav-dropdown__supporting-description">{{ child.description }}</span>
                                 {% endif %}
                             </a>
                         </li>

@@ -28,6 +28,53 @@ class TestResolvePrimaryNavDropdown(TestCase):
                 "title": "Services",
                 "dropdown_style": "mixed_list",
                 "content_source": "manual",
+                "main_heading": "Core services",
+                "supporting_heading": "Quick start",
+                "main_links": [
+                    {
+                        "type": "link",
+                        "value": {
+                            "page": self.home_page.pk,
+                            "external_link": "",
+                            "title": "Websites",
+                            "description": "Platforms and websites",
+                            "tags": "",
+                            "accent_colour": "",
+                        },
+                    }
+                ],
+                "supporting_links": [
+                    {
+                        "type": "link",
+                        "value": {
+                            "page": self.home_page.pk,
+                            "external_link": "",
+                            "title": "Website audit",
+                            "description": "A full review",
+                        },
+                    }
+                ],
+                "page_children_depth": "2",
+            }
+        )
+
+        dropdown = resolve_primary_nav_dropdown(value)
+        self.assertEqual(dropdown["style"], "mixed_list")
+        self.assertEqual(dropdown["main_heading"], "Core services")
+        self.assertEqual(len(dropdown["main_items"]), 1)
+        self.assertEqual(dropdown["main_items"][0].text, "Websites")
+        self.assertEqual(len(dropdown["supporting_items"]), 1)
+        self.assertTrue(item_has_dropdown(value))
+
+    def test_legacy_streamfield_keys(self):
+        """Existing saved nav data uses secondary/promoted keys until re-saved."""
+        value = self.block.to_python(
+            {
+                "page": self.home_page.pk,
+                "external_link": "",
+                "title": "Services",
+                "dropdown_style": "mixed_list",
+                "content_source": "manual",
                 "secondary_heading": "Core services",
                 "promoted_heading": "Quick start",
                 "secondary_links": [
@@ -59,12 +106,10 @@ class TestResolvePrimaryNavDropdown(TestCase):
         )
 
         dropdown = resolve_primary_nav_dropdown(value)
-        self.assertEqual(dropdown["style"], "mixed_list")
-        self.assertEqual(dropdown["secondary_heading"], "Core services")
-        self.assertEqual(len(dropdown["secondary_items"]), 1)
-        self.assertEqual(dropdown["secondary_items"][0].text, "Websites")
-        self.assertEqual(len(dropdown["promoted_items"]), 1)
-        self.assertTrue(item_has_dropdown(value))
+        self.assertEqual(dropdown["main_heading"], "Core services")
+        self.assertEqual(dropdown["supporting_heading"], "Quick start")
+        self.assertEqual(len(dropdown["main_items"]), 1)
+        self.assertEqual(len(dropdown["supporting_items"]), 1)
 
     def test_auto_taxonomy_dropdown(self):
         SectorFactory(name="Charities", slug="charities", sort_order=1)
@@ -77,21 +122,21 @@ class TestResolvePrimaryNavDropdown(TestCase):
                 "title": "Work",
                 "dropdown_style": "taxonomy_index",
                 "content_source": "auto_taxonomy",
-                "secondary_heading": "",
-                "promoted_heading": "",
-                "secondary_links": [],
-                "promoted_links": [],
+                "main_heading": "",
+                "supporting_heading": "",
+                "main_links": [],
+                "supporting_links": [],
                 "page_children_depth": "2",
             }
         )
 
         dropdown = resolve_primary_nav_dropdown(value)
         self.assertEqual(dropdown["style"], "taxonomy_index")
-        self.assertEqual(dropdown["secondary_heading"], "By sector")
-        self.assertEqual(dropdown["promoted_heading"], "By service")
-        self.assertEqual(len(dropdown["secondary_items"]), 1)
-        self.assertIn("filter=charities", dropdown["secondary_items"][0].url)
-        self.assertIn("filter=seo", dropdown["promoted_items"][0].url)
+        self.assertEqual(dropdown["main_heading"], "By sector")
+        self.assertEqual(dropdown["supporting_heading"], "By service")
+        self.assertEqual(len(dropdown["main_items"]), 1)
+        self.assertIn("filter=charities", dropdown["main_items"][0].url)
+        self.assertIn("filter=seo", dropdown["supporting_items"][0].url)
 
     def test_page_children_dropdown(self):
         child = HomePageFactory(parent=self.home_page, title="Child page")
@@ -105,10 +150,10 @@ class TestResolvePrimaryNavDropdown(TestCase):
                 "title": "About",
                 "dropdown_style": "mixed_list",
                 "content_source": "page_children",
-                "secondary_heading": "",
-                "promoted_heading": "",
-                "secondary_links": [],
-                "promoted_links": [],
+                "main_heading": "",
+                "supporting_heading": "",
+                "main_links": [],
+                "supporting_links": [],
                 "page_children_depth": "1",
             }
         )
@@ -116,8 +161,75 @@ class TestResolvePrimaryNavDropdown(TestCase):
         dropdown = resolve_primary_nav_dropdown(value)
         self.assertIsNotNone(dropdown)
         self.assertEqual(dropdown["style"], "mixed_list")
-        self.assertEqual(len(dropdown["secondary_items"]), 1)
-        self.assertEqual(dropdown["secondary_items"][0].text, "Child page")
+        self.assertEqual(len(dropdown["main_items"]), 1)
+        self.assertEqual(dropdown["main_items"][0].text, "Child page")
+
+    def test_page_children_with_manual_supporting_links(self):
+        child = HomePageFactory(parent=self.home_page, title="Child page")
+        child.show_in_menus = True
+        child.save()
+
+        value = self.block.to_python(
+            {
+                "page": self.home_page.pk,
+                "external_link": "",
+                "title": "Thinking",
+                "dropdown_style": "mixed_list",
+                "content_source": "page_children",
+                "main_heading": "Thinking",
+                "supporting_heading": "Latest insights",
+                "main_links": [],
+                "supporting_links": [
+                    {
+                        "type": "link",
+                        "value": {
+                            "page": self.home_page.pk,
+                            "external_link": "",
+                            "title": "Featured article",
+                            "description": "Standfirst text",
+                        },
+                    }
+                ],
+                "page_children_depth": "1",
+            }
+        )
+
+        dropdown = resolve_primary_nav_dropdown(value)
+        self.assertEqual(len(dropdown["main_items"]), 1)
+        self.assertEqual(dropdown["main_items"][0].text, "Child page")
+        self.assertEqual(len(dropdown["supporting_items"]), 1)
+        self.assertEqual(dropdown["supporting_items"][0].text, "Featured article")
+
+    def test_auto_divisions_with_manual_supporting_links(self):
+        value = self.block.to_python(
+            {
+                "page": self.home_page.pk,
+                "external_link": "",
+                "title": "Sectors",
+                "dropdown_style": "teaser_grid",
+                "content_source": "auto_divisions",
+                "main_heading": "Sectors we support",
+                "supporting_heading": "Our domains",
+                "main_links": [],
+                "supporting_links": [
+                    {
+                        "type": "link",
+                        "value": {
+                            "page": self.home_page.pk,
+                            "external_link": "",
+                            "title": "Wagtail",
+                            "description": "CMS specialists",
+                        },
+                    }
+                ],
+                "page_children_depth": "2",
+            }
+        )
+
+        dropdown = resolve_primary_nav_dropdown(value)
+        self.assertIsNotNone(dropdown)
+        self.assertEqual(len(dropdown["supporting_items"]), 1)
+        self.assertEqual(dropdown["supporting_items"][0].text, "Wagtail")
 
     def test_no_dropdown_when_style_none(self):
         value = self.block.to_python(
@@ -127,10 +239,10 @@ class TestResolvePrimaryNavDropdown(TestCase):
                 "title": "Home",
                 "dropdown_style": "none",
                 "content_source": "manual",
-                "secondary_heading": "",
-                "promoted_heading": "",
-                "secondary_links": [],
-                "promoted_links": [],
+                "main_heading": "",
+                "supporting_heading": "",
+                "main_links": [],
+                "supporting_links": [],
                 "page_children_depth": "2",
             }
         )

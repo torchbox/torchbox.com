@@ -14,12 +14,12 @@
                 <span class="primary-nav-dropdown-mobile__link-text">{{ dropdown.parent_text }}</span>
             </a>
         </li>
-        {% if dropdown.secondary_heading %}
+        {% if dropdown.main_heading %}
             <li class="primary-nav-dropdown-mobile__item primary-nav-dropdown-mobile__item--heading">
-                <span class="primary-nav-dropdown-mobile__heading">{{ dropdown.secondary_heading }}</span>
+                <span class="primary-nav-dropdown-mobile__heading">{{ dropdown.main_heading }}</span>
             </li>
         {% endif %}
-        {% for child in dropdown.secondary_items %}
+        {% for child in dropdown.main_items %}
             <li class="primary-nav-dropdown-mobile__item">
                 <a href="{{ child.url }}" class="primary-nav-dropdown-mobile__link">
                     <span class="primary-nav-dropdown-mobile__link-text">{{ child.text }}</span>
@@ -30,14 +30,14 @@
                 {% endif %}
             </li>
         {% endfor %}
-        {% if dropdown.promoted_heading %}
+        {% if dropdown.supporting_heading %}
             <li class="primary-nav-dropdown-mobile__item primary-nav-dropdown-mobile__item--heading">
-                <span class="primary-nav-dropdown-mobile__heading">{{ dropdown.promoted_heading }}</span>
+                <span class="primary-nav-dropdown-mobile__heading">{{ dropdown.supporting_heading }}</span>
             </li>
         {% endif %}
-        {% for child in dropdown.promoted_items %}
-            <li class="primary-nav-dropdown-mobile__item primary-nav-dropdown-mobile__item--promoted">
-                <a href="{{ child.url }}" class="primary-nav-dropdown-mobile__link primary-nav-dropdown-mobile__link--promoted">
+        {% for child in dropdown.supporting_items %}
+            <li class="primary-nav-dropdown-mobile__item primary-nav-dropdown-mobile__item--supporting">
+                <a href="{{ child.url }}" class="primary-nav-dropdown-mobile__link primary-nav-dropdown-mobile__link--supporting">
                     <span class="primary-nav-dropdown-mobile__link-text">{{ child.text }}</span>
                     {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown-mobile__icon" %}
                 </a>

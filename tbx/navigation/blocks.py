@@ -99,8 +99,8 @@ class LinkBlock(LinkValidationMixin, blocks.StructBlock):
         return struct_value
 
 
-class SecondaryNavLinkBlock(LinkBlock):
-    """Dropdown promoted/featured link with optional description."""
+class SupportingNavLinkBlock(LinkBlock):
+    """Dropdown supporting-column link with optional description."""
 
     description = blocks.TextBlock(required=False)
 
@@ -126,7 +126,7 @@ ACCENT_COLOUR_CHOICES = [
 ]
 
 
-class NavTeaserLinkBlock(SecondaryNavLinkBlock):
+class MainNavLinkBlock(SupportingNavLinkBlock):
     tags = blocks.CharBlock(
         required=False,
         help_text="Optional sub-items, separated by middle dots when displayed",
@@ -142,7 +142,7 @@ class PrimaryNavLinkBlock(LinkBlock):
     class DropdownStyle(models.TextChoices):
         NONE = "none", "No dropdown"
         TEASER_GRID = "teaser_grid", "Teaser grid / card list"
-        MIXED_LIST = "mixed_list", "Mixed list + featured links"
+        MIXED_LIST = "mixed_list", "Mixed list + supporting links"
         TAXONOMY_INDEX = "taxonomy_index", "Taxonomy index"
 
     class ContentSource(models.TextChoices):
@@ -165,27 +165,28 @@ class PrimaryNavLinkBlock(LinkBlock):
         choices=ContentSource.choices,
         default=ContentSource.MANUAL,
         icon="cogs",
-        help_text="Choose whether dropdown links are edited manually or generated "
-        "from site content. Manual link fields below are only used when this is set "
-        "to “Manual links”.",
+        help_text="Choose whether the main column is edited manually or generated "
+        "from site content. Main links below are only used when this is set "
+        "to “Manual links”. Supporting links can always be added manually.",
     )
-    secondary_heading = blocks.CharBlock(
+    main_heading = blocks.CharBlock(
         required=False,
         help_text="Heading for the main column of dropdown links.",
     )
-    promoted_heading = blocks.CharBlock(
+    supporting_heading = blocks.CharBlock(
         required=False,
-        help_text="Heading for featured or promoted dropdown links.",
+        help_text="Heading for the supporting column of dropdown links.",
     )
-    secondary_links = blocks.StreamBlock(
-        [("link", NavTeaserLinkBlock(icon="link"))],
+    main_links = blocks.StreamBlock(
+        [("link", MainNavLinkBlock(icon="link"))],
         required=False,
-        help_text="Main dropdown links. Only used when content source is “Manual links”.",
+        help_text="Main column links. Only used when content source is “Manual links”.",
     )
-    promoted_links = blocks.StreamBlock(
-        [("link", SecondaryNavLinkBlock(icon="link"))],
+    supporting_links = blocks.StreamBlock(
+        [("link", SupportingNavLinkBlock(icon="link"))],
         required=False,
-        help_text="Featured dropdown links. Only used when content source is “Manual links”.",
+        help_text="Supporting column links. Used for manual and mixed dropdowns "
+        "(e.g. auto page children with a curated supporting column).",
     )
     page_children_depth = blocks.ChoiceBlock(
         choices=PageChildrenDepth.choices,
@@ -195,6 +196,26 @@ class PrimaryNavLinkBlock(LinkBlock):
         help_text="Only used when content source is “Auto-generate from page children”. "
         "Includes child pages with “Show in menus” enabled.",
     )
+
+    _LEGACY_FIELD_RENAMES = {
+        "secondary_heading": "main_heading",
+        "promoted_heading": "supporting_heading",
+        "secondary_links": "main_links",
+        "promoted_links": "supporting_links",
+    }
+
+    @classmethod
+    def _migrate_legacy_value(cls, value):
+        if not isinstance(value, dict):
+            return value
+        value = value.copy()
+        for old_key, new_key in cls._LEGACY_FIELD_RENAMES.items():
+            if old_key in value and new_key not in value:
+                value[new_key] = value.pop(old_key)
+        return value
+
+    def to_python(self, value):
+        return super().to_python(self._migrate_legacy_value(value))
 
 
 class FooterLogoBlock(blocks.StructBlock):

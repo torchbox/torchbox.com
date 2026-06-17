@@ -129,6 +129,34 @@ def _page_child_links(page, max_depth: int) -> list[ResolvedNavLink]:
     return links
 
 
+_LEGACY_NAV_FIELDS = {
+    "main_heading": "secondary_heading",
+    "supporting_heading": "promoted_heading",
+    "main_links": "secondary_links",
+    "supporting_links": "promoted_links",
+}
+
+
+def _nav_field(item: Any, key: str, default: str = "") -> str:
+    """Read a nav setting, falling back to legacy StreamField keys."""
+    if key in item:
+        return item.get(key) or default
+    legacy_key = _LEGACY_NAV_FIELDS.get(key)
+    if legacy_key and legacy_key in item:
+        return item.get(legacy_key) or default
+    return default
+
+
+def _nav_stream(item: Any, key: str):
+    """Read a nav link stream, falling back to legacy StreamField keys."""
+    if key in item:
+        return item.get(key)
+    legacy_key = _LEGACY_NAV_FIELDS.get(key)
+    if legacy_key:
+        return item.get(legacy_key)
+    return None
+
+
 def resolve_primary_nav_dropdown(item: Any) -> dict | None:
     """
     Resolve dropdown content for a primary navigation item.
@@ -141,39 +169,41 @@ def resolve_primary_nav_dropdown(item: Any) -> dict | None:
         return None
 
     content_source = item.get("content_source", "manual")
-    secondary_heading = item.get("secondary_heading", "")
-    promoted_heading = item.get("promoted_heading", "")
+    main_heading = _nav_field(item, "main_heading")
+    supporting_heading = _nav_field(item, "supporting_heading")
 
-    secondary_items: list[ResolvedNavLink] = []
-    promoted_items: list[ResolvedNavLink] = []
+    main_items: list[ResolvedNavLink] = []
+    supporting_items: list[ResolvedNavLink] = []
 
     if content_source == "auto_divisions":
-        secondary_items = _auto_division_links()
+        main_items = _auto_division_links()
     elif content_source == "auto_taxonomy":
-        secondary_items = _auto_taxonomy_sectors()
-        promoted_items = _auto_taxonomy_services()
-        if not secondary_heading:
-            secondary_heading = "By sector"
-        if not promoted_heading:
-            promoted_heading = "By service"
+        main_items = _auto_taxonomy_sectors()
+        supporting_items = _auto_taxonomy_services()
+        if not main_heading:
+            main_heading = "By sector"
+        if not supporting_heading:
+            supporting_heading = "By service"
     elif content_source == "page_children":
         page = item.get("page")
         if page:
             max_depth = int(item.get("page_children_depth", "2"))
-            secondary_items = _page_child_links(page, max_depth)
+            main_items = _page_child_links(page, max_depth)
     else:
-        secondary_items = _links_from_stream(item.get("secondary_links"))
-        promoted_items = _links_from_stream(item.get("promoted_links"))
+        main_items = _links_from_stream(_nav_stream(item, "main_links"))
 
-    if not secondary_items and not promoted_items:
+    if content_source in ("manual", "auto_divisions", "page_children"):
+        supporting_items = _links_from_stream(_nav_stream(item, "supporting_links"))
+
+    if not main_items and not supporting_items:
         return None
 
     return {
         "style": dropdown_style,
-        "secondary_heading": secondary_heading,
-        "promoted_heading": promoted_heading,
-        "secondary_items": secondary_items,
-        "promoted_items": promoted_items,
+        "main_heading": main_heading,
+        "supporting_heading": supporting_heading,
+        "main_items": main_items,
+        "supporting_items": supporting_items,
         "parent_url": item.url(),
         "parent_text": item.text(),
     }

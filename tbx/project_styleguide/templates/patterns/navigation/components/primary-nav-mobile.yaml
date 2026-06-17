@@ -5,14 +5,14 @@ context:
         external_link: '#'
       dropdown:
         style: teaser_grid
-        secondary_heading: Sectors we support
-        secondary_items:
+        main_heading: Sectors we support
+        main_items:
           - text: Charities
             url: '#'
             description: Growing income, extending reach, and expanding real-world impact for non-profits.
             tags: ''
             accent_colour: theme-coral
-        promoted_items: []
+        supporting_items: []
         parent_url: '#'
         parent_text: Sectors
       is_current: false
@@ -21,15 +21,15 @@ context:
         external_link: '#'
       dropdown:
         style: mixed_list
-        secondary_heading: Core services
-        promoted_heading: Quick-start engagements
-        secondary_items:
+        main_heading: Core services
+        supporting_heading: Quick-start engagements
+        main_items:
           - text: Websites & platforms
             url: '#'
             description: ''
             tags: ''
             accent_colour: ''
-        promoted_items:
+        supporting_items:
           - text: Website audit
             url: '#'
             description: Performance, accessibility, SEO and content reviewed in full.

@@ -5,8 +5,8 @@ context:
         external_link: '#'
       dropdown:
         style: teaser_grid
-        secondary_heading: Sectors we support
-        secondary_items:
+        main_heading: Sectors we support
+        main_items:
           - text: Charities
             url: '#'
             description: Growing income, extending reach, and expanding real-world impact for non-profits.
@@ -17,7 +17,7 @@ context:
             description: Improving patient outcomes and supporting care delivery with accessible health services.
             tags: ''
             accent_colour: theme-lagoon
-        promoted_items: []
+        supporting_items: []
         parent_url: '#'
         parent_text: Sectors
       is_current: false
@@ -26,9 +26,9 @@ context:
         external_link: '#'
       dropdown:
         style: mixed_list
-        secondary_heading: Core services
-        promoted_heading: Quick-start engagements
-        secondary_items:
+        main_heading: Core services
+        supporting_heading: Quick-start engagements
+        main_items:
           - text: Websites & platforms
             url: '#'
             description: ''
@@ -39,7 +39,7 @@ context:
             description: ''
             tags: ''
             accent_colour: ''
-        promoted_items:
+        supporting_items:
           - text: Website audit
             url: '#'
             description: Performance, accessibility, SEO and content reviewed in full.
@@ -53,15 +53,15 @@ context:
         external_link: '#'
       dropdown:
         style: taxonomy_index
-        secondary_heading: By sector
-        promoted_heading: By service
-        secondary_items:
+        main_heading: By sector
+        supporting_heading: By service
+        main_items:
           - text: Charities
             url: '#'
             description: ''
             tags: Health charities · International development · Human rights
             accent_colour: theme-coral
-        promoted_items:
+        supporting_items:
           - text: Websites & platforms
             url: '#'
             description: ''
@@ -75,9 +75,9 @@ context:
         external_link: '#'
       dropdown:
         style: mixed_list
-        secondary_heading: Thinking
-        promoted_heading: Latest insights
-        secondary_items:
+        main_heading: Thinking
+        supporting_heading: Latest insights
+        main_items:
           - text: News
             url: '#'
             description: The latest updates and company announcements from Torchbox.
@@ -88,7 +88,7 @@ context:
             description: In-depth perspectives, deep dives, and expert tutorials.
             tags: ''
             accent_colour: ''
-        promoted_items:
+        supporting_items:
           - text: EEAT for Charities
             url: '#'
             description: How non-profits can demonstrate search credibility and authority.
@@ -102,9 +102,9 @@ context:
         external_link: '#'
       dropdown:
         style: mixed_list
-        secondary_heading: About us
-        promoted_heading: ''
-        secondary_items:
+        main_heading: About us
+        supporting_heading: ''
+        main_items:
           - text: Careers
             url: '#'
             description: Join our employee-owned agency and do work that matters.
@@ -115,7 +115,7 @@ context:
             description: Meet the designers, engineers, and strategists at Torchbox.
             tags: ''
             accent_colour: ''
-        promoted_items:
+        supporting_items:
           - text: 100% Employee owned
             url: '#'
             description: We are proudly employee-owned, putting our clients and values first.

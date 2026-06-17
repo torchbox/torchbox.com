@@ -53,7 +53,7 @@ Styles for primary navigation dropdown panels at desktop
         }
     }
 
-    &__column--promoted {
+    &__column--supporting {
         border-left: 1px solid var(--color--border);
         padding-left: $spacer-medium;
     }
@@ -134,14 +134,14 @@ Styles for primary navigation dropdown panels at desktop
     }
 
     &__link-list,
-    &__promoted-list,
+    &__supporting-list,
     &__taxonomy-list {
         display: grid;
         gap: $spacer-small-plus;
     }
 
     &__link-item,
-    &__promoted-item,
+    &__supporting-item,
     &__taxonomy-item {
         display: flex;
         flex-direction: column;
@@ -195,13 +195,13 @@ Styles for primary navigation dropdown panels at desktop
     }
 
     &__description,
-    &__promoted-description {
+    &__supporting-description {
         @include font-size('size-six');
         color: var(--color--text);
         margin-top: $spacer-mini;
     }
 
-    &__promoted-link {
+    &__supporting-link {
         display: block;
         padding: $spacer-small;
         border: 1px solid var(--color--border);
@@ -218,7 +218,7 @@ Styles for primary navigation dropdown panels at desktop
         }
     }
 
-    &__promoted-title {
+    &__supporting-title {
         @include font-size('size-five-b');
         display: block;
         font-weight: $weight--semibold;
@@ -300,7 +300,7 @@ Styles for primary navigation dropdown panels at desktop
             padding-top: $spacer-mini;
         }
 
-        &--promoted {
+        &--supporting {
             border-top: 1px solid var(--color--eclipse);
 
             .mode-light & {

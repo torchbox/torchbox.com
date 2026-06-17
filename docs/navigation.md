@@ -14,9 +14,9 @@ Each item in the primary navigation stream supports:
 | **Navigation text**              | Label shown in the header. Defaults to the page title.                                        |
 | **Dropdown style**               | Layout for the dropdown panel (desktop). Choose “No dropdown” for a plain link.               |
 | **Content source**               | Where dropdown links come from. Manual link fields are only used when this is “Manual links”. |
-| **Secondary / Promoted heading** | Optional column headings in the dropdown.                                                     |
-| **Secondary links**              | Manual main-column links (with description, tags, accent colour).                             |
-| **Promoted links**               | Manual featured links (with description).                                                     |
+| **Main / Supporting heading**    | Optional column headings in the dropdown.                                                     |
+| **Main links**                   | Manual main-column links (with description, tags, accent colour).                             |
+| **Supporting links**             | Manual supporting-column links (with description).                                           |
 | **Page children depth**          | Only used with “Auto-generate from page children”. Respects “Show in menus” on child pages.   |
 
 If a dropdown style is set but no links can be resolved, the item renders as a plain link (no chevron).
@@ -25,12 +25,12 @@ If a dropdown style is set but no links can be resolved, the item renders as a p
 
 ## Dropdown styles
 
-There are three dropdown layouts (plus “No dropdown” for plain header links). On mobile, all dropdown styles use the same drill-down panel (flat list with optional promoted section).
+There are three dropdown layouts (plus “No dropdown” for plain header links). On mobile, all dropdown styles use the same drill-down panel (flat list with optional supporting section).
 
 | Style                           | Best for                        | Desktop layout                                                                 |
 | ------------------------------- | ------------------------------- | ------------------------------------------------------------------------------ |
-| **Teaser grid / card list**     | Division pages, visual cards    | Main column as a card grid; optional promoted column as a featured list         |
-| **Mixed list + featured links** | Services, Thinking, About     | Left: links with descriptions and arrows; right: bordered featured cards       |
+| **Teaser grid / card list**     | Division pages, visual cards    | Main column as a card grid; optional supporting column as a link list         |
+| **Mixed list + supporting links** | Services, Thinking, About     | Left: links with descriptions and arrows; right: bordered supporting cards       |
 | **Taxonomy index**              | Work filtered by sector/service | Left: sector list (title + optional tags); right: compact service link grid    |
 | **No dropdown**                 | Simple top-level links          | Plain header link (no chevron)                                                 |
 
@@ -39,7 +39,7 @@ There are three dropdown layouts (plus “No dropdown” for plain header links)
 | Dropdown style              | Desktop template                         |
 | --------------------------- | ---------------------------------------- |
 | Teaser grid / card list     | `primary-nav-dropdown-teaser-grid.html`  |
-| Mixed list + featured links | `primary-nav-dropdown-mixed-list.html`   |
+| Mixed list + supporting links | `primary-nav-dropdown-mixed-list.html`   |
 | Taxonomy index              | `primary-nav-dropdown-taxonomy-index.html` |
 
 ---
@@ -48,10 +48,10 @@ There are three dropdown layouts (plus “No dropdown” for plain header links)
 
 | Source                                 | Populates                                                                                                                                        |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Manual links**                       | Secondary and promoted link streams edited in Navigation settings                                                                                |
-| **Auto-generate from division pages**  | All live `DivisionPage` records (nav text, search description, theme accent)                                                                     |
-| **Auto-generate sectors and services** | `Sector` snippets in the main column; `Service` snippets in the promoted column (links to work index with `?filter=`)                            |
-| **Auto-generate from page children**   | Children (and optionally grandchildren) of the selected top-level page with **Show in menus** enabled                                            |
+| **Manual links**                       | Main and supporting link streams edited in Navigation settings                                                                                |
+| **Auto-generate from division pages**  | Main column from live `DivisionPage` records; supporting column from manual **Supporting links** if added                                      |
+| **Auto-generate sectors and services** | `Sector` snippets in the main column; `Service` snippets in the supporting column (links to work index with `?filter=`)                            |
+| **Auto-generate from page children**   | Main column from child pages with **Show in menus** enabled; supporting column from manual **Supporting links** if added                         |
 
 ### What each auto source reads
 
@@ -62,7 +62,7 @@ There are three dropdown layouts (plus “No dropdown” for plain header links)
 | Services            | Snippet **Name**       | —                                    | —             | —                 | `/work/?filter={slug}` |
 | Page children       | Child **Navigation text** | Child **Search description**    | —             | —                 | Child page URL         |
 
-Manual **secondary links** support description, tags (middle-dot separated), and accent colour. Manual **promoted links** support description only.
+Manual **main links** support description, tags (middle-dot separated), and accent colour. Manual **supporting links** support description only.
 
 ---
 
@@ -73,10 +73,10 @@ The new IA prototype defines five primary nav items. Each maps to one dropdown s
 | Prototype item | Dropdown style              | Content source                     | Prototype layout                                                                 |
 | -------------- | --------------------------- | ---------------------------------- | -------------------------------------------------------------------------------- |
 | **Sectors**    | Teaser grid / card list     | Auto-generate from division pages  | 2×2 card grid: Charities, Health, Public sector, GLAM with accent bars           |
-| **Services**   | Mixed list + featured links | Manual links                       | Left: core services list; right: quick-start engagement cards                    |
+| **Services**   | Mixed list + supporting links | Manual links                       | Left: core services list; right: quick-start engagement cards                    |
 | **Work**       | Taxonomy index              | Auto-generate sectors and services | Left: by sector (with sub-labels); right: by service (compact grid)             |
-| **Thinking**   | Mixed list + featured links | Page children + manual promoted    | Left: News, Insights, Events; right: latest insight cards                        |
-| **About**      | Mixed list + featured links | Page children + manual promoted    | Left: Careers, Culture, Team; right: employee ownership / values cards           |
+| **Thinking**   | Mixed list + supporting links | Page children + manual supporting    | Left: News, Insights, Events; right: latest insight cards                        |
+| **About**      | Mixed list + supporting links | Page children + manual supporting    | Left: Careers, Culture, Team; right: employee ownership / values cards           |
 
 **Sectors vs Work:** both show similar sector names but serve different purposes. **Sectors** links to division landing pages. **Work** links to filtered views on the work index (`/work/?filter=…`).
 
@@ -94,10 +94,10 @@ Configure in **Settings → Navigation settings → Primary navigation**. Add on
 | Navigation text     | `Sectors`                                  |
 | Dropdown style      | **Teaser grid / card list**                |
 | Content source      | **Auto-generate from division pages**    |
-| Secondary heading   | `Sectors we support`                       |
-| Promoted heading    | Leave blank unless using a promoted column |
-| Secondary links     | Leave empty (auto-generated)               |
-| Promoted links      | Leave empty unless adding a promoted column manually |
+| Main heading        | `Sectors we support`                       |
+| Supporting heading  | Leave blank unless using a supporting column |
+| Main links          | Leave empty (auto-generated)               |
+| Supporting links    | Leave empty unless adding a supporting column manually |
 
 **Prerequisites:**
 
@@ -115,12 +115,12 @@ Configure in **Settings → Navigation settings → Primary navigation**. Add on
 | ------------------- | ------------------------------------------ |
 | Page                | Services index page                        |
 | Navigation text     | `Services`                                 |
-| Dropdown style      | **Mixed list + featured links**            |
+| Dropdown style      | **Mixed list + supporting links**            |
 | Content source      | **Manual links**                           |
-| Secondary heading   | `Core services`                            |
-| Promoted heading    | `Quick-start engagements`                  |
+| Main heading        | `Core services`                            |
+| Supporting heading  | `Quick-start engagements`                  |
 
-**Secondary links** (main column — link text, page/URL, description):
+**Main links** (main column — link text, page/URL, description):
 
 | Link text              | Typical destination        |
 | ---------------------- | -------------------------- |
@@ -132,7 +132,7 @@ Configure in **Settings → Navigation settings → Primary navigation**. Add on
 | SEO & AEO              | Service landing page       |
 | Websites & platforms   | Service landing page       |
 
-**Promoted links** (featured column — link text, page/URL, description):
+**Supporting links** (supporting column — link text, page/URL, description):
 
 | Link text              | Description (example)                                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------- |
@@ -154,10 +154,10 @@ All content is edited in Navigation settings; no automatic sync with the page tr
 | Navigation text     | `Work`                                     |
 | Dropdown style      | **Taxonomy index**                         |
 | Content source      | **Auto-generate sectors and services**     |
-| Secondary heading   | `By sector` (default if left blank)        |
-| Promoted heading    | `By service` (default if left blank)       |
-| Secondary links     | Leave empty (auto-generated)               |
-| Promoted links      | Leave empty (auto-generated)               |
+| Main heading        | `By sector` (default if left blank)        |
+| Supporting heading  | `By service` (default if left blank)       |
+| Main links          | Leave empty (auto-generated)               |
+| Supporting links    | Leave empty (auto-generated)               |
 
 **Prerequisites:**
 
@@ -167,7 +167,7 @@ All content is edited in Navigation settings; no automatic sync with the page tr
 
 Links resolve to `{work_index_url}?filter={slug}`.
 
-**Sector sub-labels (prototype):** the taxonomy index template supports **tags**, but auto-generated sector links do not populate them. Use manual secondary links for tagged sector rows, or extend `_auto_taxonomy_sectors` in `tbx/navigation/utils.py`.
+**Sector sub-labels (prototype):** the taxonomy index template supports **tags**, but auto-generated sector links do not populate them. Use manual main links for tagged sector rows, or extend `_auto_taxonomy_sectors` in `tbx/navigation/utils.py`.
 
 ---
 
@@ -177,18 +177,18 @@ Links resolve to `{work_index_url}?filter={slug}`.
 | ------------------- | ------------------------------------------ |
 | Page                | Thinking / blog index page                 |
 | Navigation text     | `Thinking`                                 |
-| Dropdown style      | **Mixed list + featured links**            |
+| Dropdown style      | **Mixed list + supporting links**            |
 | Content source      | **Auto-generate from page children**       |
 | Page children depth | **Children only**                          |
-| Secondary heading   | `Thinking`                                 |
-| Promoted heading    | `Latest insights`                          |
+| Main heading        | `Thinking`                                 |
+| Supporting heading  | `Latest insights`                          |
 
 **Prerequisites (left column — auto):**
 
 - Child pages under the Thinking index with **Show in menus** enabled, e.g. News, Insights, Events index pages.
 - Each child has a **Search description** for the dropdown blurb.
 
-**Promoted links (right column — manual):**
+**Supporting links (right column — manual):**
 
 Curate 2–3 featured articles. These do **not** update automatically when new posts are published.
 
@@ -208,18 +208,18 @@ Curate 2–3 featured articles. These do **not** update automatically when new p
 | ------------------- | ------------------------------------------ |
 | Page                | About index page                           |
 | Navigation text     | `About`                                    |
-| Dropdown style      | **Mixed list + featured links**            |
+| Dropdown style      | **Mixed list + supporting links**            |
 | Content source      | **Auto-generate from page children**       |
 | Page children depth | **Children only**                          |
-| Secondary heading   | `About us`                                 |
-| Promoted heading    | Leave blank, or use a heading if desired   |
+| Main heading        | `About us`                                 |
+| Supporting heading  | Leave blank, or use a heading if desired   |
 
 **Prerequisites (left column — auto):**
 
 - Child pages with **Show in menus** enabled, e.g. Careers, Culture, Team.
 - **Search description** on each child for the dropdown blurb.
 
-**Promoted links (right column — manual):**
+**Supporting links (right column — manual):**
 
 | Link text (example)     | Typical destination              |
 | ----------------------- | -------------------------------- |
@@ -253,7 +253,7 @@ Use this when setting up or reviewing Navigation settings:
 - [ ] **Sector** and **Service** snippets populated (Work)
 - [ ] **Work index page** live (Work filter URLs)
 - [ ] Thinking and About **child pages** have **Show in menus** and search descriptions
-- [ ] Services, Thinking promoted, and About promoted **manual links** entered
+- [ ] Services, Thinking supporting, and About supporting **manual links** entered
 - [ ] Header CTA page and text set
 - [ ] Save settings (clears navigation fragment cache)
 
@@ -264,9 +264,9 @@ Use this when setting up or reviewing Navigation settings:
 | Prototype feature                         | Current behaviour                                      | Workaround                                      |
 | ----------------------------------------- | ------------------------------------------------------ | ----------------------------------------------- |
 | Tags on Sectors teaser cards              | Not auto-filled from division pages                    | Manual links with **tags** field                |
-| Tags on Work sector rows                  | Not auto-filled from Sector snippets                   | Manual secondary links with **tags**            |
-| “Latest insights” auto-updating           | Promoted links are static                              | Re-save Navigation settings when curating       |
-| “Our domains” promoted column on Sectors  | Optional; no auto source                               | Manual promoted links, or leave column empty    |
+| Tags on Work sector rows                  | Not auto-filled from Sector snippets                   | Manual main links with **tags**            |
+| “Latest insights” auto-updating           | Supporting links are static                              | Re-save Navigation settings when curating       |
+| “Our domains” supporting column on Sectors  | Optional; no auto source                               | Manual supporting links, or leave column empty    |
 | Service descriptions in Work grid         | Auto services only output name (no description in grid)| Expected for compact grid layout                |
 
 ---
@@ -312,6 +312,8 @@ By default the navigation displays the page title. Override this with the **Navi
 ## Legacy note
 
 The old **Navigation sets** snippet and per-page “Override navigation set” field have been removed. All site IA now lives in **Settings → Navigation settings → Primary navigation**.
+
+Existing saved navigation data may still use the old StreamField keys (`secondary_heading`, `promoted_heading`, `secondary_links`, `promoted_links`). These are mapped to **main** / **supporting** on read; re-saving Navigation settings writes the new keys.
 
 ---
 

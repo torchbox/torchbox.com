@@ -1,9 +1,9 @@
 context:
   dropdown:
     style: taxonomy_index
-    secondary_heading: By sector
-    promoted_heading: By service
-    secondary_items:
+    main_heading: By sector
+    supporting_heading: By service
+    main_items:
       - text: Charities & non-profits
         url: '#'
         tags: Health charities · International development · Human rights
@@ -16,7 +16,7 @@ context:
         url: '#'
         tags: Student recruitment · Research
         accent_colour: theme-lagoon
-    promoted_items:
+    supporting_items:
       - text: Websites & platforms
         url: '#'
       - text: Research & design

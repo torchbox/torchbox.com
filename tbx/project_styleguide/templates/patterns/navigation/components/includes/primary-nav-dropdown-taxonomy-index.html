@@ -4,13 +4,13 @@
     data-primary-subnav
 >
     <div class="primary-nav-dropdown__inner primary-nav-dropdown__columns">
-        {% if dropdown.secondary_items %}
+        {% if dropdown.main_items %}
             <div class="primary-nav-dropdown__column">
-                {% if dropdown.secondary_heading %}
-                    <p class="primary-nav-dropdown__heading">{{ dropdown.secondary_heading }}</p>
+                {% if dropdown.main_heading %}
+                    <p class="primary-nav-dropdown__heading">{{ dropdown.main_heading }}</p>
                 {% endif %}
                 <ul class="primary-nav-dropdown__taxonomy-list">
-                    {% for child in dropdown.secondary_items %}
+                    {% for child in dropdown.main_items %}
                         <li class="primary-nav-dropdown__taxonomy-item{% if child.accent_colour %} primary-nav-dropdown__taxonomy-item--{{ child.accent_colour }}{% endif %}">
                             <a href="{{ child.url }}" class="primary-nav-dropdown__taxonomy-link">
                                 <span class="primary-nav-dropdown__taxonomy-title">{{ child.text }}</span>
@@ -23,13 +23,13 @@
                 </ul>
             </div>
         {% endif %}
-        {% if dropdown.promoted_items %}
+        {% if dropdown.supporting_items %}
             <div class="primary-nav-dropdown__column">
-                {% if dropdown.promoted_heading %}
-                    <p class="primary-nav-dropdown__heading">{{ dropdown.promoted_heading }}</p>
+                {% if dropdown.supporting_heading %}
+                    <p class="primary-nav-dropdown__heading">{{ dropdown.supporting_heading }}</p>
                 {% endif %}
                 <ul class="primary-nav-dropdown__taxonomy-grid">
-                    {% for child in dropdown.promoted_items %}
+                    {% for child in dropdown.supporting_items %}
                         <li class="primary-nav-dropdown__taxonomy-grid-item">
                             <a href="{{ child.url }}" class="primary-nav-dropdown__link primary-nav-dropdown__link--compact">
                                 {{ child.text }}
