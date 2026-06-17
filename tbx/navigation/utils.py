@@ -223,6 +223,11 @@ def primary_nav_item_is_current(item: Any, current_page) -> bool:
     if current_page.pk == page.pk:
         return True
 
-    page_url = page.url.rstrip("/")
-    current_url = current_page.url.rstrip("/")
+    page_url = page.url
+    current_url = current_page.url
+    if not page_url or not current_url:
+        return False
+
+    page_url = page_url.rstrip("/")
+    current_url = current_url.rstrip("/")
     return current_url.startswith(page_url + "/")

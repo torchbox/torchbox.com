@@ -7,6 +7,7 @@ from tbx.navigation.blocks import PrimaryNavLinkBlock
 from tbx.navigation.utils import (
     format_nav_tags,
     item_has_dropdown,
+    primary_nav_item_is_current,
     resolve_primary_nav_dropdown,
 )
 from tbx.taxonomy.factories import SectorFactory, ServiceFactory
@@ -138,6 +139,39 @@ class TestResolvePrimaryNavDropdown(TestCase):
         self.assertIn("filter=charities", dropdown["main_items"][0].url)
         self.assertIn("filter=seo", dropdown["supporting_items"][0].url)
 
+    def test_auto_taxonomy_ignores_manual_supporting_links(self):
+        SectorFactory(name="Charities", slug="charities", sort_order=1)
+        ServiceFactory(name="SEO", slug="seo", sort_order=1)
+
+        value = self.block.to_python(
+            {
+                "page": self.work_index.pk,
+                "external_link": "",
+                "title": "Work",
+                "dropdown_style": "taxonomy_index",
+                "content_source": "auto_taxonomy",
+                "main_heading": "",
+                "supporting_heading": "",
+                "main_links": [],
+                "supporting_links": [
+                    {
+                        "type": "link",
+                        "value": {
+                            "page": self.home_page.pk,
+                            "external_link": "",
+                            "title": "Should be ignored",
+                            "description": "Manual override",
+                        },
+                    }
+                ],
+                "page_children_depth": "2",
+            }
+        )
+
+        dropdown = resolve_primary_nav_dropdown(value)
+        self.assertEqual(len(dropdown["supporting_items"]), 1)
+        self.assertEqual(dropdown["supporting_items"][0].text, "SEO")
+
     def test_page_children_dropdown(self):
         child = HomePageFactory(parent=self.home_page, title="Child page")
         child.show_in_menus = True
@@ -254,3 +288,33 @@ class TestResolvePrimaryNavDropdown(TestCase):
         self.assertEqual(format_nav_tags("SEO, PPC"), "SEO · PPC")
         self.assertEqual(format_nav_tags("SEO · PPC"), "SEO · PPC")
         self.assertEqual(format_nav_tags(""), "")
+
+
+class TestPrimaryNavItemIsCurrent(TestCase):
+    def setUp(self):
+        root_page = wagtail_factories.PageFactory(parent=None)
+        self.home_page = HomePageFactory(parent=root_page)
+        self.block = PrimaryNavLinkBlock()
+
+    def test_returns_false_when_nav_page_has_no_url(self):
+        draft_page = HomePageFactory(parent=self.home_page, title="Draft section")
+        draft_page.live = False
+        draft_page.save()
+
+        value = self.block.to_python(
+            {
+                "page": draft_page.pk,
+                "external_link": "",
+                "title": "Draft",
+                "dropdown_style": "none",
+                "content_source": "manual",
+                "main_heading": "",
+                "supporting_heading": "",
+                "main_links": [],
+                "supporting_links": [],
+                "page_children_depth": "2",
+            }
+        )
+
+        self.assertIsNone(draft_page.url)
+        self.assertFalse(primary_nav_item_is_current(value, self.home_page))
