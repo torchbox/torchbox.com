@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '../../config' as *;
 
 /*
@@ -6,6 +7,23 @@ Styles for primary navigation dropdown panels at desktop
 
 $nav-dropdown-blur: 20px;
 $nav-dropdown-header-gap: 40px;
+$nav-dropdown-item-hover-bg: rgb(255 255 255 / 0.08);
+$nav-dropdown-item-hover-bg-light: var(--color--grey-5);
+
+@mixin nav-dropdown-item-hover-bg() {
+    background-color: $nav-dropdown-item-hover-bg;
+
+    .mode-light & {
+        background-color: $nav-dropdown-item-hover-bg-light;
+    }
+}
+
+@mixin nav-dropdown-item-hover-underline() {
+    text-decoration: underline;
+    text-decoration-thickness: $link-underline-thickness-interaction;
+    text-underline-offset: 2px;
+    text-decoration-color: var(--color--theme-primary);
+}
 
 .primary-nav-dropdown-backdrop {
     display: none;
@@ -22,7 +40,7 @@ $nav-dropdown-header-gap: 40px;
         visibility: hidden;
         pointer-events: none;
         transition:
-            opacity 250ms ease-out 50ms,
+            opacity $transition ease-out 50ms,
             visibility 0ms ease-out 300ms;
 
         @include reduced-motion() {
@@ -41,7 +59,7 @@ $nav-dropdown-header-gap: 40px;
             visibility: visible;
             pointer-events: auto;
             transition:
-                opacity 250ms ease-out 50ms,
+                opacity $transition ease-out 50ms,
                 visibility 0ms ease-out 0ms;
         }
     }
@@ -106,7 +124,7 @@ body:has(.primary-nav-desktop__item.active) {
         // Match grid__header-nav: columns 2–13, excluding outer gutter tracks.
         grid-column: 2 / span 4;
         padding: $spacer-small-plus $spacer-small;
-        background-color: rgb(29 35 37 / 0.94);
+        background-color: color.adjust($color--eclipse, $alpha: -0.06);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         box-shadow: 0 8px 32px rgb(0 0 0 / 0.15);
@@ -118,7 +136,7 @@ body:has(.primary-nav-desktop__item.active) {
         }
 
         .mode-light & {
-            background-color: rgb(255 255 255 / 0.94);
+            background-color: color.adjust($color--white, $alpha: -0.06);
             box-shadow: 0 8px 32px rgb(0 0 0 / 0.08);
         }
 
@@ -211,7 +229,12 @@ body:has(.primary-nav-desktop__item.active) {
 
         &:hover,
         &:focus-visible {
-            background-color: var(--color--theme-primary-light);
+            @include nav-dropdown-item-hover-bg();
+        }
+
+        &:hover #{$root}__row-title,
+        &:focus-visible #{$root}__row-title {
+            @include nav-dropdown-item-hover-underline();
         }
 
         &:focus-visible {
@@ -225,11 +248,17 @@ body:has(.primary-nav-desktop__item.active) {
             #{$root}__row-title {
                 @include font-size('size-six');
                 font-weight: $weight--regular;
-                @include link-styles(
-                    $color: var(--color--link),
-                    $interaction-color: var(--color--theme-primary),
-                    $underline-color: var(--color--link)
-                );
+                color: var(--color--link);
+                text-decoration: underline;
+                text-decoration-thickness: $link-underline-thickness;
+                text-underline-offset: 2px;
+                text-decoration-color: var(--color--link);
+            }
+
+            // Interaction styles live on the anchor so padding and text share one hover state.
+            &:hover #{$root}__row-title,
+            &:focus-visible #{$root}__row-title {
+                color: var(--color--theme-primary);
             }
         }
     }
@@ -334,8 +363,13 @@ body:has(.primary-nav-desktop__item.active) {
 
         &:has(#{$root}__card-link:hover),
         &:has(#{$root}__card-link:focus-visible) {
-            background-color: var(--color--theme-primary-light);
+            @include nav-dropdown-item-hover-bg();
         }
+    }
+
+    &__card-link:hover &__card-title,
+    &__card-link:focus-visible &__card-title {
+        @include nav-dropdown-item-hover-underline();
     }
 
     &__card-title {
@@ -368,7 +402,6 @@ body:has(.primary-nav-desktop__item.active) {
         display: inline-flex;
         align-items: center;
         font-weight: $weight--semibold;
-        text-decoration: none;
         width: fit-content;
 
         &:focus-visible {
