@@ -1,3 +1,5 @@
+from types import SimpleNamespace
+
 from django.test import TestCase
 
 import wagtail_factories
@@ -291,30 +293,31 @@ class TestResolvePrimaryNavDropdown(TestCase):
 
 
 class TestPrimaryNavItemIsCurrent(TestCase):
-    def setUp(self):
-        root_page = wagtail_factories.PageFactory(parent=None)
-        self.home_page = HomePageFactory(parent=root_page)
-        self.block = PrimaryNavLinkBlock()
-
-    def test_returns_false_when_nav_page_has_no_url(self):
-        draft_page = HomePageFactory(parent=self.home_page, title="Draft section")
-        draft_page.live = False
-        draft_page.save()
-
-        value = self.block.to_python(
-            {
-                "page": draft_page.pk,
-                "external_link": "",
-                "title": "Draft",
-                "dropdown_style": "none",
-                "content_source": "manual",
-                "main_heading": "",
-                "supporting_heading": "",
-                "main_links": [],
-                "supporting_links": [],
-                "page_children_depth": "2",
-            }
+    def _nav_item(self, page):
+        return SimpleNamespace(
+            get=lambda key, default=None: page if key == "page" else default
         )
 
-        self.assertIsNone(draft_page.url)
-        self.assertFalse(primary_nav_item_is_current(value, self.home_page))
+    def test_returns_true_for_matching_page(self):
+        page = SimpleNamespace(pk=1, url="/about/")
+        self.assertTrue(primary_nav_item_is_current(self._nav_item(page), page))
+
+    def test_returns_true_for_descendant_page(self):
+        section = SimpleNamespace(pk=1, url="/about/")
+        child = SimpleNamespace(pk=2, url="/about/team/")
+        self.assertTrue(primary_nav_item_is_current(self._nav_item(section), child))
+
+    def test_returns_false_when_nav_page_has_no_url(self):
+        section = SimpleNamespace(pk=1, url=None)
+        current = SimpleNamespace(pk=2, url="/home/")
+        self.assertFalse(primary_nav_item_is_current(self._nav_item(section), current))
+
+    def test_returns_false_when_current_page_has_no_url(self):
+        section = SimpleNamespace(pk=1, url="/about/")
+        current = SimpleNamespace(pk=2, url=None)
+        self.assertFalse(primary_nav_item_is_current(self._nav_item(section), current))
+
+    def test_returns_false_when_no_nav_page(self):
+        current = SimpleNamespace(pk=1, url="/home/")
+        item = SimpleNamespace(get=lambda key, default=None: default)
+        self.assertFalse(primary_nav_item_is_current(item, current))

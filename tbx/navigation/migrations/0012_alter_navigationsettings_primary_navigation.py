@@ -5,15 +5,18 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('navigation', '0011_delete_navigationset'),
+        ("navigation", "0011_delete_navigationset"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='navigationsettings',
-            name='primary_navigation',
-            field=tbx.core.utils.fields.StreamField(blank=True, block_lookup={}, help_text='Main site navigation. See docs/navigation.md for IA mapping, dropdown styles, content sources, and per-item configuration.'),
+            model_name="navigationsettings",
+            name="primary_navigation",
+            field=tbx.core.utils.fields.StreamField(
+                blank=True,
+                block_lookup={},
+                help_text="Main site navigation. See docs/navigation.md for IA mapping, dropdown styles, content sources, and per-item configuration.",
+            ),
         ),
     ]
