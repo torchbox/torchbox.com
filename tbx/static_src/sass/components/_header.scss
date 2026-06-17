@@ -4,6 +4,12 @@
     @include z-index(header);
     position: relative;
     background-color: var(--color--black);
+    border-bottom: 1px solid transparent;
+
+    .mode-light & {
+        background-color: var(--color--background);
+        border-bottom-color: var(--color--light-border);
+    }
 
     &__bar {
         display: flex;
@@ -27,7 +33,11 @@
     &__logo-link {
         @include high-contrast-text-decoration();
         display: inline-flex;
-        color: inherit;
+        color: var(--color--heading);
+
+        .logo {
+            color: var(--color--heading);
+        }
 
         &:focus-visible {
             @include focus-style();
@@ -48,9 +58,14 @@
 
     &__mode-switcher {
         display: none;
+        flex-shrink: 0;
 
         @include media-query(menu) {
             display: block;
+        }
+
+        .mode-switcher {
+            margin-left: 0;
         }
     }
 
@@ -78,9 +93,24 @@
     }
 
     &__cta {
+        @include font-size('size-seven');
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        padding: 6px $spacer-mini-plus;
+        line-height: 1.2;
         white-space: nowrap;
+        border-color: var(--color--link);
+        color: var(--color--link);
+
+        &:hover,
+        &:focus {
+            color: var(--color--background);
+            background-color: var(--color--link);
+        }
+
+        &:focus {
+            @include focus-style();
+        }
     }
 }

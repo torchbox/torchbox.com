@@ -44,7 +44,7 @@ Styles for the primary navigation at desktop (top level)
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        color: var(--color--grey-20);
+        color: var(--color--text);
         background: transparent;
         border: 0;
         padding: 0;
@@ -69,7 +69,7 @@ Styles for the primary navigation at desktop (top level)
 
         &:hover,
         &:focus-visible {
-            color: var(--color--white);
+            color: var(--color--heading);
 
             &::after {
                 background-color: var(--color--theme-primary);
@@ -82,7 +82,7 @@ Styles for the primary navigation at desktop (top level)
 
         &--has-children {
             .active & {
-                color: var(--color--white);
+                color: var(--color--heading);
             }
         }
     }
@@ -98,7 +98,7 @@ Styles for the primary navigation at desktop (top level)
         display: block;
         width: 11px;
         height: 11px;
-        color: var(--color--grey-20);
+        color: var(--color--text);
         transform: rotate(90deg);
 
         .active &,
@@ -113,7 +113,7 @@ Styles for the primary navigation at desktop (top level)
         height: 16px;
         position: absolute;
         top: -8px;
-        color: var(--color--white);
+        color: var(--color--heading);
 
         #{$root}__link:hover &,
         .active & {

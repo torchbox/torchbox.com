@@ -57,25 +57,27 @@
                 id="primary-mobile-menu"
             >
                 {% wagtailcache 600 primarynavmobile current_site.pk is_pattern_library %}
-                    <ul class="primary-nav-mobile__list">
-                        {% primarynavmobile %}
-                        <li class="primary-nav-mobile__item primary-nav-mobile__item--mode-switcher">
-                            {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
-                        </li>
-                    </ul>
+                    <div class="primary-nav-mobile__scroll">
+                        <ul class="primary-nav-mobile__list">
+                            {% primarynavmobile %}
+                        </ul>
+                    </div>
+                    <div class="primary-nav-mobile__footer">
+                        {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
+                    </div>
                 {% endwagtailcache %}
             </nav>
 
             <div class="header__end">
-                {# Header CTA #}
-                {% wagtailcache 600 headeractions current_site.pk is_pattern_library %}
-                    {% headeractions %}
-                {% endwagtailcache %}
-
                 {# Mode switcher desktop #}
                 <div class="header__mode-switcher">
                     {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
                 </div>
+
+                {# Header CTA #}
+                {% wagtailcache 600 headeractions current_site.pk is_pattern_library %}
+                    {% headeractions %}
+                {% endwagtailcache %}
             </div>
         </div>
     </div>

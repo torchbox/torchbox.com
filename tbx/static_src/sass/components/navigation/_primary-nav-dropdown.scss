@@ -268,6 +268,10 @@ Styles for primary navigation dropdown panels at desktop
     width: 100%;
     padding: $spacer-mini-plus 0;
 
+    .mode-light & {
+        background-color: var(--color--background);
+    }
+
     &.is-visible {
         visibility: visible;
         opacity: 1;
@@ -287,6 +291,10 @@ Styles for primary navigation dropdown panels at desktop
 
         &--promoted {
             border-top: 1px solid var(--color--eclipse);
+
+            .mode-light & {
+                border-top-color: var(--color--light-border);
+            }
         }
     }
 
@@ -301,8 +309,8 @@ Styles for primary navigation dropdown panels at desktop
     &__link {
         @include font-size('size-six');
         @include link-styles(
-            $color: var(--color--grey-20),
-            $interaction-color: var(--color--white)
+            $color: var(--color--text),
+            $interaction-color: var(--color--heading)
         );
         @include high-contrast-text-decoration();
         display: flex;
@@ -322,7 +330,7 @@ Styles for primary navigation dropdown panels at desktop
 
         &--back {
             justify-content: flex-start;
-            color: var(--color--grey-20);
+            color: var(--color--text);
         }
 
         &--parent {

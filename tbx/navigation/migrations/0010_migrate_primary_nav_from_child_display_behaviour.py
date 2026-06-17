@@ -1,5 +1,6 @@
 # Generated manually
 
+import copy
 import json
 
 from django.db import migrations
@@ -23,16 +24,34 @@ CHILD_DISPLAY_MIGRATION = {
 }
 
 
+def get_raw_stream_data(value):
+    if not value:
+        return None
+    if isinstance(value, list):
+        return value
+    if isinstance(value, str):
+        return json.loads(value)
+    raw_data = getattr(value, "raw_data", None) or getattr(value, "_raw_data", None)
+    if raw_data is not None:
+        return raw_data
+    raise TypeError(f"Cannot read stream data from {type(value)!r}")
+
+
 def migrate_primary_navigation(apps, schema_editor):
     NavigationSettings = apps.get_model("navigation", "NavigationSettings")
+    table = NavigationSettings._meta.db_table
+    quoted_table = schema_editor.quote_name(table)
 
-    for settings in NavigationSettings.objects.all().iterator():
-        stream_data = settings.primary_navigation
-        if isinstance(stream_data, str):
-            stream_data = json.loads(stream_data)
+    with schema_editor.connection.cursor() as cursor:
+        cursor.execute(f"SELECT id, primary_navigation FROM {quoted_table}")
+        rows = list(cursor.fetchall())
+
+    for pk, stream_data in rows:
+        stream_data = get_raw_stream_data(stream_data)
         if not stream_data:
             continue
 
+        stream_data = copy.deepcopy(stream_data)
         updated = False
         for block in stream_data:
             if block.get("type") != "link":
@@ -50,7 +69,7 @@ def migrate_primary_navigation(apps, schema_editor):
                 updated = True
 
         if updated:
-            NavigationSettings.objects.filter(pk=settings.pk).update(
+            NavigationSettings.objects.filter(pk=pk).update(
                 primary_navigation=stream_data
             )
 

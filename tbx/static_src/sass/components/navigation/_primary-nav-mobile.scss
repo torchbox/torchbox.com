@@ -9,9 +9,17 @@ Styles for the primary navigation at mobile (top level)
 
     @include z-index(base);
     @include nav-fixed-position($header-height: $header-height);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     background-color: var(--color--black);
     border-top: 1px solid var(--color--eclipse);
-    padding: $spacer-mini-plus 0;
+    padding: $spacer-mini-plus 0 0;
+
+    .mode-light & {
+        background-color: var(--color--background);
+        border-top-color: var(--color--light-border);
+    }
 
     @include media-query(menu) {
         display: none;
@@ -23,41 +31,46 @@ Styles for the primary navigation at mobile (top level)
     }
 
     &--subnav-open {
-        .primary-nav-mobile__list
-            > .primary-nav-mobile__item:not(
-                .primary-nav-mobile__item--mode-switcher
-            ) {
+        .primary-nav-mobile__list > .primary-nav-mobile__item {
             visibility: hidden;
         }
+    }
+
+    &__scroll {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
     }
 
     &__list {
         display: flex;
         flex-direction: column;
-        min-height: calc(100dvh - #{$header-height});
-        min-height: calc(100vh - #{$header-height});
+    }
+
+    &__footer {
+        flex-shrink: 0;
+        padding: $spacer-small;
+        border-top: 1px solid var(--color--eclipse);
+
+        .mode-light & {
+            border-top-color: var(--color--light-border);
+        }
+
+        .mode-switcher__label {
+            color: var(--color--text);
+        }
     }
 
     &__item {
         position: relative;
         width: 100%;
-
-        &--mode-switcher {
-            margin-top: auto;
-            padding: $spacer-small;
-            border-top: 1px solid var(--color--eclipse);
-
-            .mode-switcher__label {
-                color: var(--color--grey-20);
-            }
-        }
     }
 
     &__link {
         @include font-size('size-six');
         @include link-styles(
-            $color: var(--color--grey-20),
-            $interaction-color: var(--color--white)
+            $color: var(--color--text),
+            $interaction-color: var(--color--heading)
         );
         @include high-contrast-text-decoration();
         display: flex;
