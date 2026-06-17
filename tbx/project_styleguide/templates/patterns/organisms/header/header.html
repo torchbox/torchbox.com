@@ -22,11 +22,9 @@
 
             {# Primary desktop navigation #}
             <nav aria-label="Main navigation" class="primary-nav-desktop" data-primary-desktop-menu>
-                {% wagtailcache 600 primarynav current_site.pk is_pattern_library %}
-                    <ul class="primary-nav-desktop__list">
-                        {% primarynav %}
-                    </ul>
-                {% endwagtailcache %}
+                <ul class="primary-nav-desktop__list">
+                    {% primarynav %}
+                </ul>
             </nav>
 
             {# Mobile menu #}
@@ -56,16 +54,14 @@
                 data-primary-mobile-menu
                 id="primary-mobile-menu"
             >
-                {% wagtailcache 600 primarynavmobile current_site.pk is_pattern_library %}
-                    <div class="primary-nav-mobile__scroll">
-                        <ul class="primary-nav-mobile__list">
-                            {% primarynavmobile %}
-                        </ul>
-                    </div>
-                    <div class="primary-nav-mobile__footer">
-                        {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
-                    </div>
-                {% endwagtailcache %}
+                <div class="primary-nav-mobile__scroll">
+                    <ul class="primary-nav-mobile__list">
+                        {% primarynavmobile %}
+                    </ul>
+                </div>
+                <div class="primary-nav-mobile__footer">
+                    {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
+                </div>
             </nav>
 
             <div class="header__end">

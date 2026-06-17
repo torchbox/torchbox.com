@@ -43,7 +43,7 @@ def migrate_primary_navigation(apps, schema_editor):
     quoted_table = schema_editor.quote_name(table)
 
     with schema_editor.connection.cursor() as cursor:
-        cursor.execute(f"SELECT id, primary_navigation FROM {quoted_table}")
+        cursor.execute(f"SELECT id, primary_navigation FROM {quoted_table}")  # noqa: S608
         rows = list(cursor.fetchall())
 
     for pk, stream_data in rows:

@@ -9,9 +9,6 @@ class PrimaryMobileMenu {
         this.primaryMobileMenu = document.querySelector(
             '[data-primary-mobile-menu]',
         );
-        this.lastMenuItem = document.querySelector(
-            '[data-last-menu-item-primary-mobile]',
-        );
 
         this.state = {
             open: false,
@@ -74,14 +71,6 @@ class PrimaryMobileMenu {
                 this.close();
             }
         });
-
-        if (this.lastMenuItem) {
-            this.lastMenuItem.addEventListener('focusout', () => {
-                if (this.state.open) {
-                    this.close();
-                }
-            });
-        }
     }
 
     open() {

@@ -1,7 +1,6 @@
 from django import template
 
 from tbx.navigation.utils import (
-    item_has_dropdown,
     primary_nav_item_is_current,
     resolve_primary_nav_dropdown,
 )
@@ -24,9 +23,7 @@ def _build_primary_nav_context(context):
     items = []
     for block in nav_settings.primary_navigation:
         link = block.value
-        dropdown = (
-            resolve_primary_nav_dropdown(link) if item_has_dropdown(link) else None
-        )
+        dropdown = resolve_primary_nav_dropdown(link)
         items.append(
             {
                 "link": link,
@@ -34,6 +31,16 @@ def _build_primary_nav_context(context):
                 "is_current": primary_nav_item_is_current(link, current_page),
             }
         )
+
+    return {
+        "nav_items": items,
+        "request": request,
+    }
+
+
+def _build_header_actions_context(context):
+    request = context["request"]
+    nav_settings = _navigation_settings(context)
 
     header_cta_url = ""
     header_cta_text = nav_settings.header_cta_text or "Get in touch"
@@ -45,7 +52,6 @@ def _build_primary_nav_context(context):
             header_cta_text = default_contact.button_text
 
     return {
-        "nav_items": items,
         "header_cta_url": header_cta_url,
         "header_cta_text": header_cta_text,
         "request": request,
@@ -72,7 +78,7 @@ def primarynavmobile(context):
     "patterns/navigation/components/header-actions.html", takes_context=True
 )
 def headeractions(context):
-    return _build_primary_nav_context(context)
+    return _build_header_actions_context(context)
 
 
 # Footer nav snippets

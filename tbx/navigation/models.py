@@ -73,8 +73,6 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
         super().save(**kwargs)
 
         fragment_keys = [
-            "primarynav",
-            "primarynavmobile",
             "footerlinks",
             "headeractions",
         ]

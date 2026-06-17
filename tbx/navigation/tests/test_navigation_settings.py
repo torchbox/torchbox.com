@@ -44,8 +44,6 @@ class NavigationSettingsCacheTestCase(WagtailPageTestCase):
         site = Site.objects.get(is_default_site=True)
         nav_settings = NavigationSettings.for_site(site)
         fragment_keys = [
-            "primarynav",
-            "primarynavmobile",
             "footerlinks",
             "headeractions",
         ]
