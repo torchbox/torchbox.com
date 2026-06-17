@@ -13,6 +13,11 @@ Styles for the primary navigation at desktop (top level)
     @include media-query(menu) {
         display: flex;
         align-items: stretch;
+        margin-left: $spacer-small;
+    }
+
+    @include media-query(large) {
+        margin-left: $spacer-medium;
     }
 
     &__list {
@@ -60,6 +65,7 @@ Styles for the primary navigation at desktop (top level)
         border: 0;
         padding: 0;
         font: inherit;
+        font-weight: $weight--semibold;
         cursor: pointer;
         text-decoration: none;
 
@@ -119,10 +125,18 @@ Styles for the primary navigation at desktop (top level)
         height: 11px;
         color: var(--color--text);
         transform: rotate(90deg);
+        transition: color $transition;
 
-        .active &,
-        #{$root}__link:hover & {
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        #{$root}__item:not(.active) #{$root}__link:hover & {
             display: none;
+        }
+
+        .active & {
+            color: var(--color--heading);
         }
     }
 
@@ -134,8 +148,7 @@ Styles for the primary navigation at desktop (top level)
         top: -8px;
         color: var(--color--heading);
 
-        #{$root}__link:hover &,
-        .active & {
+        #{$root}__item:not(.active) #{$root}__link:hover & {
             display: block;
         }
     }

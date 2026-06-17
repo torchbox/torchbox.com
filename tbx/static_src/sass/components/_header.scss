@@ -3,12 +3,18 @@
 .header {
     @include z-index(header);
     position: relative;
-    background-color: var(--color--black);
+    background-color: var(--color--header-background);
     border-bottom: 1px solid transparent;
 
     .mode-light & {
-        background-color: var(--color--background);
         border-bottom-color: var(--color--light-border);
+    }
+
+    body.primary-nav-dropdown-open &,
+    body:has(.primary-nav-desktop__item.active) & {
+        @include media-query(menu) {
+            @include z-index(header-controls);
+        }
     }
 
     &--mobile-menu-open {
@@ -31,6 +37,8 @@
         gap: $spacer-small;
         padding: 10px 0;
         flex-wrap: nowrap;
+        position: relative;
+        z-index: 2;
 
         @include media-query(menu) {
             align-items: stretch;

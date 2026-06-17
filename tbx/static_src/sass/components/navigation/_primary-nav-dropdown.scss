@@ -4,6 +4,76 @@
 Styles for primary navigation dropdown panels at desktop
 */
 
+$nav-dropdown-blur: 20px;
+$nav-dropdown-header-gap: 40px;
+
+.primary-nav-dropdown-backdrop {
+    display: none;
+
+    @include media-query(menu) {
+        @include z-index(nav-backdrop);
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgb(0 0 0 / 0.22);
+        backdrop-filter: blur($nav-dropdown-blur);
+        -webkit-backdrop-filter: blur($nav-dropdown-blur);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            opacity 250ms ease-out 50ms,
+            visibility 0ms ease-out 300ms;
+
+        @include reduced-motion() {
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            transition: none;
+        }
+
+        .mode-light & {
+            background: rgb(255 255 255 / 0.45);
+        }
+
+        body.primary-nav-dropdown-open &,
+        body:has(.primary-nav-desktop__item.active) & {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transition:
+                opacity 250ms ease-out 50ms,
+                visibility 0ms ease-out 0ms;
+        }
+    }
+}
+
+// Blur page content when a desktop dropdown is open. The dropdown shell is
+// transparent so this remains visible; the backdrop adds a tint on top.
+@include media-query(menu) {
+    .breadcrumbs-nav,
+    main {
+        transition: filter $transition;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+    }
+}
+
+body.primary-nav-dropdown-open,
+body:has(.primary-nav-desktop__item.active) {
+    @include media-query(menu) {
+        .breadcrumbs-nav,
+        main {
+            filter: blur($nav-dropdown-blur);
+
+            @include reduced-motion() {
+                filter: none;
+            }
+        }
+    }
+}
+
 .primary-nav-dropdown {
     $root: &;
     @include z-index(nav);
@@ -11,19 +81,20 @@ Styles for primary navigation dropdown panels at desktop
         $header-height: $header-full-height,
         $full-height: false
     );
-    background-color: var(--color--dark-background);
-    border: 1px solid transparent;
-    padding: $spacer-half $grid-gutters;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+
+    @include media-query(menu) {
+        padding-top: $nav-dropdown-header-gap;
+        max-height: calc(100vh - #{$header-full-height} - #{$nav-dropdown-header-gap});
+        max-height: calc(100dvh - #{$header-full-height} - #{$nav-dropdown-header-gap});
+    }
 
     @include media-query(large) {
         top: $header-full-height-large;
-        max-height: calc(100vh - #{$header-full-height-large});
-        max-height: calc(100dvh - #{$header-full-height-large});
-        padding: $spacer-small-plus $grid-gutters-large;
-    }
-
-    @include media-query(x-large) {
-        padding: $spacer-half $grid-gutters-x-large;
+        max-height: calc(100vh - #{$header-full-height-large} - #{$nav-dropdown-header-gap});
+        max-height: calc(100dvh - #{$header-full-height-large} - #{$nav-dropdown-header-gap});
     }
 
     .primary-nav-desktop__item.active & {
@@ -32,7 +103,33 @@ Styles for primary navigation dropdown panels at desktop
     }
 
     &__inner {
-        width: 100%;
+        // Match grid__header-nav: columns 2–13, excluding outer gutter tracks.
+        grid-column: 2 / span 4;
+        padding: $spacer-small-plus $spacer-small;
+        background-color: rgb(29 35 37 / 0.94);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 8px 32px rgb(0 0 0 / 0.15);
+        transform: translate3d(0, -#{$nav-dropdown-header-gap * 0.5}, 0);
+        transition: transform $transition;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+
+        .mode-light & {
+            background-color: rgb(255 255 255 / 0.94);
+            box-shadow: 0 8px 32px rgb(0 0 0 / 0.08);
+        }
+
+        @include reduced-motion() {
+            transform: none;
+            transition: none;
+        }
+
+        .primary-nav-desktop__item.active & {
+            transform: translate3d(0, 0, 0);
+        }
     }
 
     &__heading {
@@ -41,225 +138,256 @@ Styles for primary navigation dropdown panels at desktop
         font-weight: $weight--semibold;
         text-transform: uppercase;
         letter-spacing: 0.04em;
-        margin-bottom: $spacer-small;
+        margin-bottom: $spacer-mini;
     }
 
     &__columns {
         display: grid;
-        gap: $spacer-medium;
+        gap: $spacer-small-plus;
 
         @include media-query(medium) {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.15fr 1fr;
+        }
+
+        #{$root}__footer {
+            grid-column: 1 / -1;
         }
     }
 
     &__column--supporting {
         border-left: 1px solid var(--color--border);
-        padding-left: $spacer-medium;
+        padding-left: $spacer-small-plus;
     }
 
-    &__teaser-grid {
-        display: grid;
-        gap: $spacer-small-plus;
-        grid-template-columns: 1fr;
+    &__row-list {
+        display: flex;
+        flex-direction: column;
+        gap: $spacer-mini;
+        list-style: none;
+        margin: 0;
+        padding: 0;
 
-        @include media-query(medium) {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    &__teaser-item {
-        border: 1px solid var(--color--border);
-        border-left-width: 4px;
-        border-left-color: var(--color--theme-primary);
-
-        &--theme-coral {
-            border-left-color: var(--color--coral);
+        &--compact {
+            gap: 0;
         }
 
-        &--theme-nebuline {
-            border-left-color: var(--color--nebuline);
+        &--two-columns {
+            @include media-query(medium) {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: $spacer-small;
+                row-gap: $spacer-mini;
+            }
         }
 
-        &--theme-lagoon {
-            border-left-color: var(--color--lagoon);
-        }
-
-        &--theme-green {
-            border-left-color: var(--color--green);
-        }
-
-        &--theme-earth {
-            border-left-color: var(--color--earth);
+        &--grid {
+            @include media-query(medium) {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: $spacer-small-plus;
+                row-gap: 0;
+            }
         }
     }
 
-    &__teaser-link {
-        display: block;
-        padding: $spacer-small;
-        color: inherit;
+    &__row-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: $spacer-mini;
+        width: 100%;
+        padding: $spacer-mini;
+        border-left: 3px solid transparent;
+        border-radius: 4px;
         text-decoration: none;
+        color: inherit;
+        transition:
+            background-color $transition,
+            border-color $transition;
+
+        @include reduced-motion() {
+            transition: none;
+        }
 
         &:hover,
         &:focus-visible {
-            background-color: var(--color--background);
+            background-color: var(--color--theme-primary-light);
         }
-
-        &:focus-visible {
-            @include focus-style();
-        }
-    }
-
-    &__teaser-title {
-        @include font-size('size-five-b');
-        display: block;
-        font-weight: $weight--semibold;
-        color: var(--color--heading);
-        margin-bottom: $spacer-mini;
-    }
-
-    &__teaser-tags {
-        @include font-size('size-six');
-        display: block;
-        color: var(--color--grey-50);
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
-        margin-bottom: $spacer-mini;
-    }
-
-    &__teaser-description {
-        @include font-size('size-six');
-        display: block;
-        color: var(--color--text);
-    }
-
-    &__link-list,
-    &__supporting-list,
-    &__taxonomy-list {
-        display: grid;
-        gap: $spacer-small-plus;
-    }
-
-    &__link-item,
-    &__supporting-item,
-    &__taxonomy-item {
-        display: flex;
-        flex-direction: column;
-    }
-
-    &__link {
-        font-weight: $weight--semibold;
-        display: block;
-        width: fit-content;
 
         &:focus-visible {
             @include focus-style();
         }
 
         &--compact {
-            @include link-styles(
-                $color: var(--color--link),
-                $interaction-color: var(--color--theme-primary),
-                $underline-color: var(--color--link)
-            );
-            font-weight: $weight--regular;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            #{$root}__row-title {
+                @include font-size('size-six');
+                font-weight: $weight--regular;
+                @include link-styles(
+                    $color: var(--color--link),
+                    $interaction-color: var(--color--theme-primary),
+                    $underline-color: var(--color--link)
+                );
+            }
         }
     }
 
-    &__link-text {
-        @include font-size('size-five-b');
+    &__row-item {
+        &--theme-coral #{$root}__row-link {
+            border-left-color: var(--color--coral);
+        }
+
+        &--theme-nebuline #{$root}__row-link {
+            border-left-color: var(--color--nebuline);
+        }
+
+        &--theme-lagoon #{$root}__row-link {
+            border-left-color: var(--color--lagoon);
+        }
+
+        &--theme-green #{$root}__row-link {
+            border-left-color: var(--color--green);
+        }
+
+        &--theme-earth #{$root}__row-link {
+            border-left-color: var(--color--earth);
+        }
+    }
+
+    &__row-body {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+    }
+
+    &__row-title {
+        @include font-size('size-six');
+        display: block;
+        font-weight: $weight--semibold;
+        color: var(--color--heading);
+    }
+
+    &__row-meta {
+        @include font-size('size-eight');
+        display: block;
+        color: var(--color--grey-50);
+    }
+
+    &__row-description {
+        @include font-size('size-seven');
+        display: block;
+        color: var(--color--text);
+    }
+
+    &__row-arrow {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        color: var(--color--grey-50);
+        transition:
+            color $transition,
+            transform $transition;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        #{$root}__row-link:hover &,
+        #{$root}__row-link:focus-visible & {
+            color: var(--color--theme-primary);
+            transform: translate3d(2px, 0, 0);
+        }
+    }
+
+    &__card-list {
+        display: flex;
+        flex-direction: column;
+        gap: $spacer-mini;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__card-link {
+        display: block;
+        padding: $spacer-mini;
+        text-decoration: none;
+        color: inherit;
+
+        &:focus-visible {
+            @include focus-style();
+        }
+    }
+
+    &__card-item {
+        border: 0;
+        border-radius: 4px;
+        background-color: var(--color--streamfield-background);
+        transition: background-color $transition;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        &:has(#{$root}__card-link:hover),
+        &:has(#{$root}__card-link:focus-visible) {
+            background-color: var(--color--theme-primary-light);
+        }
+    }
+
+    &__card-title {
+        @include font-size('size-six');
+        display: block;
+        font-weight: $weight--semibold;
+        color: var(--color--heading);
+        margin-bottom: 4px;
+    }
+
+    &__card-description {
+        @include font-size('size-seven');
+        display: block;
+        color: var(--color--text);
+    }
+
+    &__footer {
+        margin-top: $spacer-mini-plus;
+        padding-top: $spacer-mini-plus;
+        border-top: 1px solid var(--color--border);
+    }
+
+    &__footer-link {
+        @include font-size('size-six');
         @include link-styles(
             $color: var(--color--link),
             $interaction-color: var(--color--theme-primary),
             $underline-color: var(--color--link)
         );
+        display: inline-flex;
+        align-items: center;
+        font-weight: $weight--semibold;
+        text-decoration: none;
+        width: fit-content;
+
+        &:focus-visible {
+            @include focus-style();
+        }
     }
 
-    &__tail {
+    &__footer-tail {
         white-space: nowrap;
         display: inline;
     }
 
-    &__arrow {
+    &__footer-arrow {
         @include arrow-link-icon-styles(
-            $width: 18px,
+            $width: 14px,
             $interaction-color: var(--color--theme-primary)
         );
         color: var(--color--theme-primary);
         vertical-align: text-top;
-        opacity: 0;
-
-        .primary-nav-desktop__item.active & {
-            opacity: 1;
-        }
-    }
-
-    &__description,
-    &__supporting-description {
-        @include font-size('size-six');
-        color: var(--color--text);
-        margin-top: $spacer-mini;
-    }
-
-    &__supporting-link {
-        display: block;
-        padding: $spacer-small;
-        border: 1px solid var(--color--border);
-        text-decoration: none;
-        color: inherit;
-
-        &:hover,
-        &:focus-visible {
-            border-color: var(--color--theme-primary);
-        }
-
-        &:focus-visible {
-            @include focus-style();
-        }
-    }
-
-    &__supporting-title {
-        @include font-size('size-five-b');
-        display: block;
-        font-weight: $weight--semibold;
-        color: var(--color--heading);
-        margin-bottom: $spacer-mini;
-    }
-
-    &__taxonomy-link {
-        display: block;
-        padding-left: $spacer-mini;
-        border-left: 3px solid var(--color--theme-primary);
-        text-decoration: none;
-        color: inherit;
-
-        &:focus-visible {
-            @include focus-style();
-        }
-    }
-
-    &__taxonomy-title {
-        @include font-size('size-five-b');
-        display: block;
-        font-weight: $weight--semibold;
-        color: var(--color--heading);
-    }
-
-    &__taxonomy-tags {
-        @include font-size('size-six');
-        display: block;
-        color: var(--color--grey-50);
-        margin-top: $spacer-mini;
-    }
-
-    &__taxonomy-grid {
-        display: grid;
-        gap: $spacer-small;
-        grid-template-columns: 1fr;
-
-        @include media-query(medium) {
-            grid-template-columns: repeat(2, 1fr);
-        }
     }
 }
 
@@ -390,5 +518,9 @@ Styles for primary navigation dropdown panels at desktop
         visibility: visible;
         opacity: 1;
         width: 100%;
+
+        &__inner {
+            transform: none;
+        }
     }
 }

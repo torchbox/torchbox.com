@@ -15,6 +15,8 @@ class DesktopCloseMenus {
             '[data-primary-mobile-menu]',
         );
         this.body = document.querySelector('body');
+        this.openBodyClass = 'primary-nav-dropdown-open';
+        this.backdrop = document.querySelector('.primary-nav-dropdown-backdrop');
         this.bindEvents();
     }
 
@@ -25,6 +27,11 @@ class DesktopCloseMenus {
         });
 
         this.body.classList.remove('no-scroll');
+        this.body.classList.remove(this.openBodyClass);
+
+        if (this.backdrop) {
+            this.backdrop.setAttribute('aria-hidden', 'true');
+        }
     }
 
     // Close desktop menus when clicking on document

@@ -11,6 +11,8 @@ class PrimaryDesktopSubMenu {
             '[data-primary-desktop-menu] [data-has-subnav]',
         );
         this.activeClass = 'active';
+        this.openBodyClass = 'primary-nav-dropdown-open';
+        this.backdrop = document.querySelector('.primary-nav-dropdown-backdrop');
         this.bindEventListeners();
     }
 
@@ -18,6 +20,11 @@ class PrimaryDesktopSubMenu {
         this.toggleNode.classList.remove(this.activeClass);
         this.node.setAttribute('aria-expanded', 'false');
         this.body.classList.remove('no-scroll');
+        this.body.classList.remove(this.openBodyClass);
+
+        if (this.backdrop) {
+            this.backdrop.setAttribute('aria-hidden', 'true');
+        }
     }
 
     open() {
@@ -26,6 +33,11 @@ class PrimaryDesktopSubMenu {
         this.toggleNode.classList.add(this.activeClass);
         this.node.setAttribute('aria-expanded', 'true');
         this.body.classList.add('no-scroll');
+        this.body.classList.add(this.openBodyClass);
+
+        if (this.backdrop) {
+            this.backdrop.setAttribute('aria-hidden', 'false');
+        }
     }
 
     bindEventListeners() {
