@@ -9,11 +9,12 @@
                     data-open-primary-subnav
                     aria-haspopup="true"
                     aria-expanded="false"
+                    aria-controls="primary-nav-mobile-dropdown-{{ forloop.counter }}"
                 >
                     <span class="primary-nav-mobile__text">{{ link.text }}</span>
-                    {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="primary-nav-mobile__icon-front" only %}
+                    {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="primary-nav-mobile__icon-chevron" only %}
                 </button>
-                {% include "patterns/navigation/components/includes/primary-nav-dropdown-mobile.html" with dropdown=dropdown parent=link %}
+                {% include "patterns/navigation/components/includes/primary-nav-dropdown-mobile.html" with dropdown=dropdown parent=link dropdown_id=forloop.counter %}
             {% else %}
                 <a
                     class="primary-nav-mobile__link"

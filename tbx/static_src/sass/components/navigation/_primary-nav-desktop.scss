@@ -11,7 +11,8 @@ Styles for the primary navigation at desktop (top level)
     flex: 1;
 
     @include media-query(menu) {
-        display: block;
+        display: flex;
+        align-items: stretch;
     }
 
     &__list {
@@ -22,6 +23,11 @@ Styles for the primary navigation at desktop (top level)
         gap: $spacer-small;
         overflow: visible;
 
+        @include media-query(menu) {
+            height: 100%;
+            align-items: stretch;
+        }
+
         @include media-query(large) {
             gap: $spacer-small-plus;
         }
@@ -30,6 +36,11 @@ Styles for the primary navigation at desktop (top level)
     &__item {
         position: relative;
         width: auto;
+
+        @include media-query(menu) {
+            display: flex;
+            align-items: center;
+        }
 
         &.active {
             #{$root}__link::after {
@@ -52,6 +63,10 @@ Styles for the primary navigation at desktop (top level)
         cursor: pointer;
         text-decoration: none;
 
+        @include media-query(menu) {
+            height: 100%;
+        }
+
         &::after {
             content: '';
             position: absolute;
@@ -61,6 +76,10 @@ Styles for the primary navigation at desktop (top level)
             height: 1.5px;
             background-color: transparent;
             transition: background-color $transition;
+
+            @include media-query(menu) {
+                bottom: calc(-1 * #{$spacer-small});
+            }
 
             @include reduced-motion() {
                 transition: none;

@@ -27,12 +27,14 @@ class PrimaryMobileSubMenu {
         this.subnav.classList.add('is-visible');
         this.node.setAttribute('aria-expanded', 'true');
         this.mobileMenu.classList.add('primary-nav-mobile--subnav-open');
+        this.backLink.focus();
     }
 
     close() {
         this.subnav.classList.remove('is-visible');
         this.node.setAttribute('aria-expanded', 'false');
         this.mobileMenu.classList.remove('primary-nav-mobile--subnav-open');
+        this.node.focus();
     }
 }
 

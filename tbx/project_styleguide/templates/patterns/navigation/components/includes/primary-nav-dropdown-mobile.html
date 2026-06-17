@@ -1,9 +1,9 @@
-<div class="primary-nav-dropdown-mobile" data-primary-subnav>
+<div class="primary-nav-dropdown-mobile" id="primary-nav-mobile-dropdown-{{ dropdown_id }}" data-primary-subnav>
     <ul class="primary-nav-dropdown-mobile__list">
         <li class="primary-nav-dropdown-mobile__item primary-nav-dropdown-mobile__item--back">
             <button data-primary-subnav-back class="primary-nav-dropdown-mobile__link primary-nav-dropdown-mobile__link--back">
                 {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="primary-nav-dropdown-mobile__icon-back" %}
-                Back to main menu
+                Back
             </button>
         </li>
         <li class="primary-nav-dropdown-mobile__item primary-nav-dropdown-mobile__item--parent">
@@ -12,7 +12,6 @@
                 href="{{ dropdown.parent_url }}"
             >
                 <span class="primary-nav-dropdown-mobile__link-text">{{ dropdown.parent_text }}</span>
-                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown-mobile__icon" %}
             </a>
         </li>
         {% if dropdown.secondary_heading %}

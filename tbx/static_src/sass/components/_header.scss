@@ -11,6 +11,20 @@
         border-bottom-color: var(--color--light-border);
     }
 
+    &--mobile-menu-open {
+        border-bottom-color: var(--color--eclipse);
+
+        .mode-light & {
+            border-bottom-color: var(--color--light-border);
+        }
+    }
+
+    &--mobile-menu-open &__logo,
+    &--mobile-menu-open &__mobile-controls {
+        @include z-index(header-controls);
+        position: relative;
+    }
+
     &__bar {
         display: flex;
         align-items: center;
@@ -19,6 +33,7 @@
         flex-wrap: nowrap;
 
         @include media-query(menu) {
+            align-items: stretch;
             gap: $spacer-small-plus;
             padding: $spacer-small 0;
         }
@@ -53,6 +68,7 @@
 
         @include media-query(menu) {
             display: flex;
+            align-self: center;
         }
     }
 

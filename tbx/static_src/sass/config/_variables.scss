@@ -408,6 +408,7 @@ $z-index: (
     header: 30,
     footer: 40,
     nav: 50,
+    header-controls: 55,
     cookie-message: 100,
     sticky: 110,
     modal: 120,
@@ -427,5 +428,8 @@ $avatar-size-100: 100px;
 $avatar-size-72: 72px;
 $avatar-size-80: 80px;
 
-$header-height: 56px;
-$header-full-height: 72px;
+$header-height: 50px; // mobile bar: 10px padding + 30px logo + 10px padding
+$header-full-height: (
+    $spacer-small * 2 + 30px
+); // desktop: padding + logo + padding
+$header-full-height-large: ($spacer-small * 2 + 39px);

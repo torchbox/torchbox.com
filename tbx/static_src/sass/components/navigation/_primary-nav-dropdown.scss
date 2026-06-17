@@ -16,6 +16,9 @@ Styles for primary navigation dropdown panels at desktop
     padding: $spacer-half $grid-gutters;
 
     @include media-query(large) {
+        top: $header-full-height-large;
+        max-height: calc(100vh - #{$header-full-height-large});
+        max-height: calc(100dvh - #{$header-full-height-large});
         padding: $spacer-small-plus $grid-gutters-large;
     }
 
@@ -263,10 +266,14 @@ Styles for primary navigation dropdown panels at desktop
 .primary-nav-dropdown-mobile {
     @include z-index(nav);
     @include nav-fixed-position($header-height: $header-height);
+    top: 0;
+    height: 100vh;
+    height: 100dvh;
     background-color: var(--color--black);
     left: 0;
     width: 100%;
-    padding: $spacer-mini-plus 0;
+    padding-top: $header-height;
+    padding-bottom: 0;
 
     .mode-light & {
         background-color: var(--color--background);
@@ -287,6 +294,10 @@ Styles for primary navigation dropdown panels at desktop
 
         &--heading {
             padding: $spacer-mini $spacer-small;
+        }
+
+        &--parent {
+            padding-top: $spacer-mini;
         }
 
         &--promoted {
@@ -334,7 +345,9 @@ Styles for primary navigation dropdown panels at desktop
         }
 
         &--parent {
+            @include font-size('size-four');
             font-weight: $weight--semibold;
+            color: var(--color--heading);
         }
     }
 

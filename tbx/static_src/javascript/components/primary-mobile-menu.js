@@ -9,6 +9,7 @@ class PrimaryMobileMenu {
         this.primaryMobileMenu = document.querySelector(
             '[data-primary-mobile-menu]',
         );
+        this.header = this.node.closest('.header');
 
         this.state = {
             open: false,
@@ -80,6 +81,9 @@ class PrimaryMobileMenu {
         this.node.classList.add('is-open');
         this.body.classList.add('no-scroll');
         this.primaryMobileMenu.classList.add('is-visible');
+        if (this.header) {
+            this.header.classList.add('header--mobile-menu-open');
+        }
         this.state.open = true;
     }
 
@@ -89,6 +93,9 @@ class PrimaryMobileMenu {
         this.node.classList.remove('is-open');
         this.body.classList.remove('no-scroll');
         this.primaryMobileMenu.classList.remove('is-visible');
+        if (this.header) {
+            this.header.classList.remove('header--mobile-menu-open');
+        }
         this.state.open = false;
     }
 }
