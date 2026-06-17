@@ -105,14 +105,22 @@ body:has(.primary-nav-desktop__item.active) {
 
     @include media-query(menu) {
         padding-top: $nav-dropdown-header-gap;
-        max-height: calc(100vh - #{$header-full-height} - #{$nav-dropdown-header-gap});
-        max-height: calc(100dvh - #{$header-full-height} - #{$nav-dropdown-header-gap});
+        max-height: calc(
+            100vh - #{$header-full-height} - #{$nav-dropdown-header-gap}
+        );
+        max-height: calc(
+            100dvh - #{$header-full-height} - #{$nav-dropdown-header-gap}
+        );
     }
 
     @include media-query(large) {
         top: $header-full-height-large;
-        max-height: calc(100vh - #{$header-full-height-large} - #{$nav-dropdown-header-gap});
-        max-height: calc(100dvh - #{$header-full-height-large} - #{$nav-dropdown-header-gap});
+        max-height: calc(
+            100vh - #{$header-full-height-large} - #{$nav-dropdown-header-gap}
+        );
+        max-height: calc(
+            100dvh - #{$header-full-height-large} - #{$nav-dropdown-header-gap}
+        );
     }
 
     .primary-nav-desktop__item.active & {

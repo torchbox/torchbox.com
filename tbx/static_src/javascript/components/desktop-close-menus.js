@@ -16,7 +16,9 @@ class DesktopCloseMenus {
         );
         this.body = document.querySelector('body');
         this.openBodyClass = 'primary-nav-dropdown-open';
-        this.backdrop = document.querySelector('.primary-nav-dropdown-backdrop');
+        this.backdrop = document.querySelector(
+            '.primary-nav-dropdown-backdrop',
+        );
         this.bindEvents();
     }
 
