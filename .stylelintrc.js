@@ -17,7 +17,19 @@ module.exports = {
         'scss/at-rule-no-unknown': [
             true,
             {
-                ignoreAtRules: ['container'],
+                ignoreAtRules: [
+                    'container',
+                    'config',
+                    'source',
+                    'utility',
+                    'theme',
+                ],
+            },
+        ],
+        'no-invalid-position-declaration': [
+            true,
+            {
+                ignoreAtRules: ['utility'],
             },
         ],
         'scss/dollar-variable-no-missing-interpolation': null,

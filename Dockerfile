@@ -1,11 +1,15 @@
-FROM node:24 AS frontend
+FROM node:24-slim AS frontend-deps
 
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true
 
+WORKDIR /app
+
 # Install front-end dependencies.
 COPY package.json package-lock.json tsconfig.json webpack.config.js tailwind.config.js  ./
-RUN npm ci --no-optional --no-audit --progress=false
+RUN npm ci --no-audit --progress=false
+
+FROM frontend-deps AS frontend
 
 # Compile static files
 COPY ./tbx/ ./tbx/
@@ -17,7 +21,7 @@ RUN npm run build:prod
 # all useful packages required for image manipulation out of the box. They
 # however weight a lot, approx. up to 1.5GiB per built image.
 # Pinned to a particlar version as requested by support team 6/10/25
-FROM python:3.13-bookworm AS production
+FROM python:3.13-trixie AS python-base
 
 ARG POETRY_INSTALL_ARGS="--no-dev"
 
@@ -74,7 +78,10 @@ RUN python -m venv $VIRTUAL_ENV
 COPY --chown=tbx pyproject.toml poetry.lock ./
 RUN pip install --no-cache --upgrade pip && poetry install ${POETRY_INSTALL_ARGS} --no-root && rm -rf $HOME/.cache
 
-COPY --chown=tbx --from=frontend ./tbx/static_compiled ./tbx/static_compiled
+
+FROM python-base AS production
+
+COPY --chown=tbx --from=frontend /app/tbx/static_compiled ./tbx/static_compiled
 
 # Copy application code.
 COPY --chown=tbx . .
@@ -94,8 +101,11 @@ COPY ./docker/bashrc.sh /home/tbx/.bashrc
 # environment variable hence we don't specify a lot options below.
 CMD ["gunicorn", "tbx.wsgi:application"]
 
-# These steps won't be run on production
-FROM production AS dev
+# These steps won't be run on production.
+# This stage branches from python-base (not production) so that local dev builds
+# do not require the memory-intensive frontend webpack build — static files are
+# served from the volume-mounted ./tbx directory at runtime anyway.
+FROM python-base AS dev
 
 # Swap user, so the following tasks can be run as root
 USER root
@@ -108,14 +118,17 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 # Restore user
 USER tbx
 
+# Load shortcuts
+COPY ./docker/bashrc.sh /home/tbx/.bashrc
+
 # Install nvm and node/npm
 ARG NVM_VERSION=0.40.3
 COPY --chown=tbx .nvmrc ./
 RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash \
     && bash --login -c "nvm install --no-progress && nvm alias default $(nvm run --silent --version)"
 
-# Pull in the node modules for the frontend
-COPY --chown=tbx --from=frontend ./node_modules ./node_modules
+# Pull in the node modules for the frontend (from deps-only stage, no build needed)
+COPY --chown=tbx --from=frontend-deps /app/node_modules ./node_modules
 
 # do nothing forever - exec commands elsewhere
 CMD ["tail", "-f", "/dev/null"]

@@ -87,8 +87,7 @@ const options = {
                             sourceMap: true,
                             postcssOptions: {
                                 plugins: [
-                                    'tailwindcss',
-                                    'autoprefixer',
+                                    '@tailwindcss/postcss',
                                     'postcss-custom-properties',
                                     ['cssnano', { preset: 'default' }],
                                 ],
@@ -100,9 +99,6 @@ const options = {
                         options: {
                             sourceMap: true,
                             implementation: sass,
-                            sassOptions: {
-                                style: 'compressed',
-                            },
                         },
                     },
                 ],
