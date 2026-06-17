@@ -20,7 +20,10 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
     primary_navigation = StreamField(
         [("link", PrimaryNavLinkBlock())],
         blank=True,
-        help_text="Main site navigation",
+        help_text=(
+            "Main site navigation. See docs/navigation.md for IA mapping, "
+            "dropdown styles, content sources, and per-item configuration."
+        ),
     )
     footer_links = StreamField(
         [("link", LinkBlock())],
