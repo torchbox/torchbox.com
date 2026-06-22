@@ -5,12 +5,8 @@
     method="get"
     action="{{ listing_base_url }}"
     data-listing-filters
-    hx-get="{{ listing_base_url }}"
-    hx-target=".listing-panel__results"
-    hx-select=".listing-panel__results"
-    hx-swap="innerHTML"
-    hx-push-url="true"
-    hx-trigger="change delay:200ms from:input"
+    data-listing-filters-url="{{ listing_base_url }}"
+    {% if culture_service_slugs %}data-listing-culture-service-slugs="{{ culture_service_slugs|join:',' }}"{% endif %}
 >
     <fieldset class="listing-filters__groups">
         <legend class="sr-only">Filter {{ item.title }}</legend>

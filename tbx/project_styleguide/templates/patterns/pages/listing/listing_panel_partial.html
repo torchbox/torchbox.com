@@ -1,3 +1,8 @@
 {% include "patterns/pages/listing/includes/listing_meta_oob.html" %}
 {% include "patterns/pages/listing/includes/listing_active_filters_oob.html" %}
+{% if listing_filters.sectors is not None %}
+    {% include "patterns/pages/listing/includes/listing_taxonomy_filter_options_oob.html" %}
+{% elif listing_filters.timings is not None %}
+    {% include "patterns/pages/listing/includes/listing_events_filter_options_oob.html" %}
+{% endif %}
 {% include "patterns/pages/listing/listing_panel_inner.html" %}

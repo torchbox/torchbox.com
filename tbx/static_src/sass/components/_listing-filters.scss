@@ -160,6 +160,10 @@
         scrollbar-width: thin;
         scrollbar-color: var(--color--border) transparent;
 
+        &[aria-hidden='true'] {
+            visibility: hidden;
+        }
+
         @media (prefers-reduced-motion: no-preference) {
             transition:
                 opacity 0.2s ease,

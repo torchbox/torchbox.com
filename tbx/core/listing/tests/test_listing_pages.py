@@ -112,6 +112,42 @@ class BlogListingFilterTests(WagtailPageTestCase):
         blog_posts = response.context["blog_posts"]
         self.assertEqual(list(blog_posts), [self.matching_post])
 
+    def test_service_options_narrow_when_sector_selected(self):
+        other_sector = SectorFactory(name="Arts", slug="arts")
+        wagtail = ServiceFactory(name="Wagtail", slug="wagtail")
+        BlogPageFactory(
+            parent=self.blog_index,
+            title="Arts wagtail post",
+            related_sectors=[other_sector],
+            related_services=[wagtail],
+        )
+
+        response = self.client.get(
+            self.blog_index.url,
+            {"sector": "public-sector"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context["listing_filters"]["services"],
+            [{"value": "ai", "label": "AI"}],
+        )
+        self.assertNotIn(
+            "wagtail",
+            {option["value"] for option in response.context["listing_filters"]["services"]},
+        )
+
+    def test_htmx_response_includes_filter_options_oob(self):
+        response = self.client.get(
+            self.blog_index.url,
+            {"sector": "public-sector"},
+            headers={"hx-request": "true"},
+        )
+        content = response.content.decode()
+        self.assertIn('id="listing-filter-service-options"', content)
+        self.assertIn('hx-swap-oob="innerHTML"', content)
+        self.assertIn('value="ai"', content)
+        self.assertNotIn('value="wagtail"', content)
+
     def test_seo_title_for_single_filter(self):
         response = self.client.get(
             self.blog_index.url,

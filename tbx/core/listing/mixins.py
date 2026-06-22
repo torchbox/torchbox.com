@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 from tbx.core.listing.filters import (
+    CULTURE_SERVICE_SLUGS,
     TaxonomyFilterState,
     apply_taxonomy_filters,
     apply_work_page_filters,
     build_filter_remove_url,
     build_listing_seo_context,
+    filter_state_for_facet,
     get_listing_paths,
+    merge_selected_filter_options,
     paginate_queryset,
     split_service_filter_options,
     split_service_filter_slugs,
@@ -49,14 +52,64 @@ def _service_labels_for_state(filter_state: TaxonomyFilterState) -> dict[str, st
     )
 
 
-def _service_listing_filters(services) -> dict[str, list[dict[str, str]]]:
-    service_options, culture_options = split_service_filter_options(
-        _format_filter_options(services, label_attr="name")
+def _build_facet_taxonomy_listing_filters(
+    *,
+    base_queryset,
+    filter_state: TaxonomyFilterState,
+    apply_filters,
+    get_used_sectors,
+    get_used_services,
+) -> tuple[dict[str, list[dict[str, str]]], dict[str, str], dict[str, str]]:
+    sector_qs = apply_filters(
+        base_queryset, filter_state_for_facet(filter_state, "sector")
     )
-    return {
-        "services": service_options,
-        "culture": culture_options,
+    service_qs = apply_filters(
+        base_queryset, filter_state_for_facet(filter_state, "service")
+    )
+    culture_qs = apply_filters(
+        base_queryset, filter_state_for_facet(filter_state, "culture")
+    )
+
+    sectors = get_used_sectors(sector_qs)
+    services = get_used_services(service_qs)
+    culture_services = get_used_services(culture_qs)
+
+    selected_services, selected_culture = split_service_filter_slugs(
+        filter_state.services
+    )
+
+    sector_labels = {
+        **{sector.slug: sector.name for sector in sectors},
+        **_sector_labels_for_state(filter_state),
     }
+    service_labels = {
+        **{service.slug: service.name for service in services},
+        **{service.slug: service.name for service in culture_services},
+        **_service_labels_for_state(filter_state),
+    }
+
+    listing_filters = {
+        "sectors": merge_selected_filter_options(
+            _format_filter_options(sectors, label_attr="name"),
+            filter_state.sectors,
+            sector_labels,
+        ),
+        "services": merge_selected_filter_options(
+            split_service_filter_options(
+                _format_filter_options(services, label_attr="name")
+            )[0],
+            selected_services,
+            service_labels,
+        ),
+        "culture": merge_selected_filter_options(
+            split_service_filter_options(
+                _format_filter_options(culture_services, label_attr="name")
+            )[1],
+            selected_culture,
+            service_labels,
+        ),
+    }
+    return listing_filters, sector_labels, service_labels
 
 
 def _selected_service_filters(
@@ -114,6 +167,38 @@ class TaxonomyListingMixin(HtmxListingMixin):
             pk__in=queryset.values("related_services")
         ).order_by("sort_order", "name")
 
+    def get_used_sectors_for_work(self, queryset):
+        from django.db import models
+
+        return Sector.objects.filter(
+            models.Q(
+                pk__in=models.Subquery(
+                    queryset.values("workpage__related_sectors")
+                )
+            )
+            | models.Q(
+                pk__in=models.Subquery(
+                    queryset.values("historicalworkpage__related_sectors")
+                )
+            )
+        ).order_by("sort_order", "name")
+
+    def get_used_services_for_work(self, queryset):
+        from django.db import models
+
+        return Service.objects.filter(
+            models.Q(
+                pk__in=models.Subquery(
+                    queryset.values("workpage__related_services")
+                )
+            )
+            | models.Q(
+                pk__in=models.Subquery(
+                    queryset.values("historicalworkpage__related_services")
+                )
+            )
+        ).order_by("sort_order", "name")
+
     def get_used_divisions(self, queryset):
         division_ids = set(
             queryset.exclude(division__isnull=True).values_list(
@@ -167,17 +252,15 @@ class TaxonomyListingMixin(HtmxListingMixin):
         page_number = request.GET.get("page", 1)
         paginated_results = paginate_queryset(queryset, page_number, page_size)
 
-        sectors = self.get_used_sectors(self.get_base_queryset())
-        services = self.get_used_services(self.get_base_queryset())
-
-        sector_labels = {
-            **{sector.slug: sector.name for sector in sectors},
-            **_sector_labels_for_state(filter_state),
-        }
-        service_labels = {
-            **{service.slug: service.name for service in services},
-            **_service_labels_for_state(filter_state),
-        }
+        listing_filters, sector_labels, service_labels = (
+            _build_facet_taxonomy_listing_filters(
+                base_queryset=self.get_base_queryset(),
+                filter_state=filter_state,
+                apply_filters=apply_filters or apply_taxonomy_filters,
+                get_used_sectors=self.get_used_sectors,
+                get_used_services=self.get_used_services,
+            )
+        )
         division_labels = _division_labels_for_state(filter_state)
 
         listing_path, absolute_base_url, current_absolute_url = (
@@ -221,10 +304,8 @@ class TaxonomyListingMixin(HtmxListingMixin):
         return {
             results_context_key: paginated_results,
             "filter_state": filter_state,
-            "listing_filters": {
-                "sectors": _format_filter_options(sectors, label_attr="name"),
-                **_service_listing_filters(services),
-            },
+            "listing_filters": listing_filters,
+            "culture_service_slugs": sorted(CULTURE_SERVICE_SLUGS),
             **_selected_service_filters(filter_state),
             "selected_filters": selected_filters,
             "filter_remove_urls": remove_urls,
@@ -257,42 +338,15 @@ class TaxonomyListingMixin(HtmxListingMixin):
         page_number = request.GET.get("page", 1)
         paginated_works = paginate_queryset(works, page_number, 10)
 
-        from django.db import models
-
-        base_queryset = self.works
-        sectors = Sector.objects.filter(
-            models.Q(
-                pk__in=models.Subquery(
-                    base_queryset.values("workpage__related_sectors")
-                )
+        listing_filters, sector_labels, service_labels = (
+            _build_facet_taxonomy_listing_filters(
+                base_queryset=self.works,
+                filter_state=filter_state,
+                apply_filters=apply_work_page_filters,
+                get_used_sectors=self.get_used_sectors_for_work,
+                get_used_services=self.get_used_services_for_work,
             )
-            | models.Q(
-                pk__in=models.Subquery(
-                    base_queryset.values("historicalworkpage__related_sectors")
-                )
-            )
-        ).order_by("sort_order", "name")
-        services = Service.objects.filter(
-            models.Q(
-                pk__in=models.Subquery(
-                    base_queryset.values("workpage__related_services")
-                )
-            )
-            | models.Q(
-                pk__in=models.Subquery(
-                    base_queryset.values("historicalworkpage__related_services")
-                )
-            )
-        ).order_by("sort_order", "name")
-
-        sector_labels = {
-            **{sector.slug: sector.name for sector in sectors},
-            **_sector_labels_for_state(filter_state),
-        }
-        service_labels = {
-            **{service.slug: service.name for service in services},
-            **_service_labels_for_state(filter_state),
-        }
+        )
         division_labels = _division_labels_for_state(filter_state)
 
         listing_path, absolute_base_url, current_absolute_url = (
@@ -336,10 +390,8 @@ class TaxonomyListingMixin(HtmxListingMixin):
         return {
             "works": paginated_works,
             "filter_state": filter_state,
-            "listing_filters": {
-                "sectors": _format_filter_options(sectors, label_attr="name"),
-                **_service_listing_filters(services),
-            },
+            "listing_filters": listing_filters,
+            "culture_service_slugs": sorted(CULTURE_SERVICE_SLUGS),
             **_selected_service_filters(filter_state),
             "selected_filters": selected_filters,
             "filter_remove_urls": remove_urls,

@@ -5,18 +5,17 @@
     method="get"
     action="{{ listing_base_url }}"
     data-listing-filters
-    hx-get="{{ listing_base_url }}"
-    hx-target=".listing-panel__results"
-    hx-select=".listing-panel__results"
-    hx-swap="innerHTML"
-    hx-push-url="true"
-    hx-trigger="change delay:200ms from:input"
+    data-listing-filters-url="{{ listing_base_url }}"
 >
     <fieldset class="listing-filters__groups">
         <legend class="sr-only">Filter {{ item.title }}</legend>
 
         {% if listing_filters.timings %}
-            <div class="listing-filters__dropdown" data-listing-filter-dropdown>
+            <div
+                class="listing-filters__dropdown"
+                id="listing-filter-dropdown-timing"
+                data-listing-filter-dropdown
+            >
                 <button
                     type="button"
                     class="listing-filters__dropdown-toggle"
@@ -37,28 +36,18 @@
                     role="listbox"
                     aria-labelledby="listing-filter-toggle-timing"
                     data-listing-filter-panel
-                    hidden
                 >
-                    <ul class="listing-filters__options">
-                        {% for option in listing_filters.timings %}
-                            <li class="listing-filters__option" role="presentation">
-                                <label class="listing-filters__option-label">
-                                    <input
-                                        type="radio"
-                                        name="timing"
-                                        value="{{ option.value }}"
-                                        {% if filter_state.timing == option.value or not filter_state.timing and option.value == "upcoming" %}checked{% endif %}
-                                    >
-                                    <span>{{ option.label }}</span>
-                                </label>
-                            </li>
-                        {% endfor %}
+                    <ul
+                        class="listing-filters__options"
+                        id="listing-filter-timing-options"
+                    >
+                        {% include "patterns/molecules/listing-filters/includes/filter-timing-options.html" %}
                     </ul>
                 </div>
             </div>
         {% endif %}
 
-        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Event type" param="type" options=listing_filters.types selected=filter_state.types selected_count=filter_state.types|length %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Event type" param="type" id_param="type" options=listing_filters.types selected=filter_state.types selected_count=filter_state.types|length %}
     </fieldset>
 
     <div id="listing-active-filters">

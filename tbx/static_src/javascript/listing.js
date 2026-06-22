@@ -2,8 +2,9 @@ import htmx from 'htmx.org';
 import {
     LISTING_PANEL_SELECTOR,
     bindListingFilterDelegation,
+    bindListingFilterHtmxConfig,
+    handleListingFilterSettle,
     initListingFilters,
-    syncFilterFormFromUrl,
 } from './components/listing-filters';
 
 window.htmx = htmx;
@@ -28,6 +29,7 @@ function wasListingPaginationRequest(event) {
 
 function initListingPage() {
     bindListingFilterDelegation();
+    bindListingFilterHtmxConfig();
     htmx.process(document.body);
 
     const panel = document.querySelector(LISTING_PANEL_SELECTOR);
@@ -43,33 +45,17 @@ if (document.readyState === 'loading') {
 }
 
 document.body.addEventListener('htmx:afterSwap', (event) => {
-    const isPanel = event.target.id === 'listing-panel';
     const isResults = event.target.classList.contains('listing-panel__results');
-    const isActiveFilters = event.target.id === 'listing-active-filters';
 
-    if (!isPanel && !isResults && !isActiveFilters) {
+    if (!isResults) {
         return;
     }
 
-    const panel = isPanel
-        ? event.target
-        : event.target.closest('#listing-panel');
-    if (!panel) {
-        return;
-    }
-
-    if (isPanel) {
-        htmx.process(event.target);
-    }
-
-    const form = panel.querySelector('[data-listing-filters]');
-    if (isResults || isActiveFilters) {
-        syncFilterFormFromUrl(form);
-    }
-
-    if (isResults && wasListingPaginationRequest(event)) {
+    if (wasListingPaginationRequest(event)) {
         scrollToListingResults(event.target);
     }
+});
 
-    initListingFilters(panel);
+document.body.addEventListener('htmx:afterSettle', (event) => {
+    handleListingFilterSettle(event);
 });

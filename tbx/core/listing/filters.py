@@ -45,6 +45,51 @@ def split_service_filter_slugs(
     return services, culture
 
 
+def filter_state_for_facet(
+    filter_state: TaxonomyFilterState,
+    facet: str,
+) -> TaxonomyFilterState:
+    """Return filter state for computing one facet, excluding that facet's own values."""
+    if facet == "sector":
+        return TaxonomyFilterState(
+            sectors=(),
+            services=filter_state.services,
+            divisions=filter_state.divisions,
+        )
+    if facet == "service":
+        culture_services = tuple(
+            slug for slug in filter_state.services if slug in CULTURE_SERVICE_SLUGS
+        )
+        return TaxonomyFilterState(
+            sectors=filter_state.sectors,
+            services=culture_services,
+            divisions=filter_state.divisions,
+        )
+    if facet == "culture":
+        main_services = tuple(
+            slug for slug in filter_state.services if slug not in CULTURE_SERVICE_SLUGS
+        )
+        return TaxonomyFilterState(
+            sectors=filter_state.sectors,
+            services=main_services,
+            divisions=filter_state.divisions,
+        )
+    raise ValueError(f"Unknown taxonomy facet: {facet}")
+
+
+def merge_selected_filter_options(
+    options: list[dict[str, str]],
+    selected_slugs: tuple[str, ...],
+    labels: dict[str, str],
+) -> list[dict[str, str]]:
+    """Keep selected slugs visible even when they have no matching results."""
+    merged = {option["value"]: option for option in options}
+    for slug in selected_slugs:
+        if slug not in merged:
+            merged[slug] = {"value": slug, "label": labels.get(slug, slug)}
+    return sorted(merged.values(), key=lambda item: item["label"].lower())
+
+
 @dataclass(frozen=True)
 class TaxonomyFilterState:
     sectors: tuple[str, ...] = ()

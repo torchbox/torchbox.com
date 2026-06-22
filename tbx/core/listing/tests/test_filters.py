@@ -5,7 +5,9 @@ from tbx.core.listing.filters import (
     EventFilterState,
     TaxonomyFilterState,
     build_listing_seo_context,
+    filter_state_for_facet,
     get_listing_paths,
+    merge_selected_filter_options,
     split_service_filter_options,
     split_service_filter_slugs,
 )
@@ -121,6 +123,38 @@ class SplitServiceFilterOptionsTests(SimpleTestCase):
         services, culture = split_service_filter_slugs(("ai", "culture", "wagtail"))
         self.assertEqual(services, ("ai", "wagtail"))
         self.assertEqual(culture, ("culture",))
+
+
+class FacetFilterTests(SimpleTestCase):
+    def test_filter_state_for_service_facet_keeps_culture_selections(self):
+        state = TaxonomyFilterState(
+            sectors=("public-sector",),
+            services=("ai", "culture"),
+        )
+        facet_state = filter_state_for_facet(state, "service")
+        self.assertEqual(facet_state.sectors, ("public-sector",))
+        self.assertEqual(facet_state.services, ("culture",))
+
+    def test_filter_state_for_culture_facet_keeps_main_service_selections(self):
+        state = TaxonomyFilterState(
+            sectors=("public-sector",),
+            services=("ai", "culture"),
+        )
+        facet_state = filter_state_for_facet(state, "culture")
+        self.assertEqual(facet_state.sectors, ("public-sector",))
+        self.assertEqual(facet_state.services, ("ai",))
+
+    def test_merge_selected_filter_options_keeps_selected_slug(self):
+        options = [{"value": "ai", "label": "AI"}]
+        merged = merge_selected_filter_options(
+            options,
+            ("wagtail",),
+            {"wagtail": "Wagtail"},
+        )
+        self.assertEqual(
+            merged,
+            [{"value": "ai", "label": "AI"}, {"value": "wagtail", "label": "Wagtail"}],
+        )
 
 
 class EventFilterStateTests(SimpleTestCase):
