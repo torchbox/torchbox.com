@@ -102,47 +102,44 @@ body:has(.primary-nav-desktop__item.active) {
     padding: 0;
 
     @include media-query(menu) {
-        padding-top: $nav-dropdown-header-gap;
-        max-height: calc(
-            100vh - #{$header-full-height} - #{$nav-dropdown-header-gap}
-        );
-        max-height: calc(
-            100dvh - #{$header-full-height} - #{$nav-dropdown-header-gap}
-        );
+        max-height: calc(100vh - #{$header-full-height});
+        max-height: calc(100dvh - #{$header-full-height});
     }
 
     @include media-query(large) {
         top: $header-full-height-large;
-        max-height: calc(
-            100vh - #{$header-full-height-large} - #{$nav-dropdown-header-gap}
-        );
-        max-height: calc(
-            100dvh - #{$header-full-height-large} - #{$nav-dropdown-header-gap}
-        );
+        max-height: calc(100vh - #{$header-full-height-large});
+        max-height: calc(100dvh - #{$header-full-height-large});
+    }
+
+    > .grid {
+        max-width: $site-width;
+        width: 100%;
+        margin: 0 auto;
     }
 
     .primary-nav-desktop__item.active & {
         opacity: 1;
         visibility: visible;
+        background-color: color.adjust($color--eclipse, $alpha: -0.06);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 8px 32px rgb(0 0 0 / 0.15);
+
+        .mode-light & {
+            background-color: color.adjust($color--white, $alpha: -0.06);
+            box-shadow: 0 8px 32px rgb(0 0 0 / 0.08);
+        }
     }
 
     &__inner {
         // Match grid__header-nav: columns 2–13, excluding outer gutter tracks.
         grid-column: 2 / span 4;
-        padding: $spacer-small-plus $spacer-small;
-        background-color: color.adjust($color--eclipse, $alpha: -0.06);
-        backdrop-filter: blur(16px);
-        box-shadow: 0 8px 32px rgb(0 0 0 / 0.15);
-        transform: translate3d(0, -#{$nav-dropdown-header-gap * 0.5}, 0);
+        padding: $spacer-small-plus 0;
+        transform: translate3d(0, -#{$nav-dropdown-header-gap}, 0);
         transition: transform $transition;
 
         @include media-query(large) {
             grid-column: 2 / span 12;
-        }
-
-        .mode-light & {
-            background-color: color.adjust($color--white, $alpha: -0.06);
-            box-shadow: 0 8px 32px rgb(0 0 0 / 0.08);
         }
 
         @include reduced-motion() {
@@ -556,6 +553,11 @@ body:has(.primary-nav-desktop__item.active) {
         visibility: visible;
         opacity: 1;
         width: 100%;
+        background-color: color.adjust($color--eclipse, $alpha: -0.06);
+
+        .mode-light & {
+            background-color: color.adjust($color--white, $alpha: -0.06);
+        }
 
         &__inner {
             transform: none;
