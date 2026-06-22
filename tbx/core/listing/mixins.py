@@ -172,9 +172,7 @@ class TaxonomyListingMixin(HtmxListingMixin):
 
         return Sector.objects.filter(
             models.Q(
-                pk__in=models.Subquery(
-                    queryset.values("workpage__related_sectors")
-                )
+                pk__in=models.Subquery(queryset.values("workpage__related_sectors"))
             )
             | models.Q(
                 pk__in=models.Subquery(
@@ -188,9 +186,7 @@ class TaxonomyListingMixin(HtmxListingMixin):
 
         return Service.objects.filter(
             models.Q(
-                pk__in=models.Subquery(
-                    queryset.values("workpage__related_services")
-                )
+                pk__in=models.Subquery(queryset.values("workpage__related_services"))
             )
             | models.Q(
                 pk__in=models.Subquery(

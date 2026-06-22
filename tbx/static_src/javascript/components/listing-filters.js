@@ -49,6 +49,7 @@ function closeDropdownPanel(dropdown, { immediate = false } = {}) {
         return;
     }
 
+    let fallbackTimer;
     const finishClose = (event) => {
         if (event.target !== panel || event.propertyName !== 'opacity') {
             return;
@@ -58,7 +59,7 @@ function closeDropdownPanel(dropdown, { immediate = false } = {}) {
     };
 
     panel.addEventListener('transitionend', finishClose);
-    const fallbackTimer = setTimeout(() => {
+    fallbackTimer = setTimeout(() => {
         panel.removeEventListener('transitionend', finishClose);
     }, 300);
 }
@@ -107,9 +108,8 @@ function countFromUrl(dropdownId, params, cultureSlugs) {
     }
 
     if (dropdownId === 'listing-filter-dropdown-culture') {
-        return params
-            .getAll('service')
-            .filter((slug) => cultureSlugs.has(slug)).length;
+        return params.getAll('service').filter((slug) => cultureSlugs.has(slug))
+            .length;
     }
 
     if (dropdownId === 'listing-filter-dropdown-type') {
@@ -401,16 +401,16 @@ function isListingPanelHtmxEvent(event) {
         return true;
     }
 
-    const target = event.detail.target;
+    const { target } = event.detail;
     if (!(target instanceof Element)) {
         return false;
     }
 
     return (
-        Boolean(target.closest('#listing-panel'))
-        || target.classList.contains('listing-panel__results')
-        || target.id === 'listing-active-filters'
-        || target.classList.contains('listing-filters__options')
+        Boolean(target.closest('#listing-panel')) ||
+        target.classList.contains('listing-panel__results') ||
+        target.id === 'listing-active-filters' ||
+        target.classList.contains('listing-filters__options')
     );
 }
 
@@ -446,14 +446,14 @@ function handleListingFilterSwap(event) {
         return;
     }
 
-    const target = event.detail.target;
+    const { target } = event.detail;
     if (!(target instanceof Element)) {
         return;
     }
 
     const shouldSyncForm =
-        target.id === 'listing-active-filters'
-        || target.classList.contains('listing-filters__options');
+        target.id === 'listing-active-filters' ||
+        target.classList.contains('listing-filters__options');
 
     if (!shouldSyncForm) {
         return;

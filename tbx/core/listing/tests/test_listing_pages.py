@@ -133,7 +133,10 @@ class BlogListingFilterTests(WagtailPageTestCase):
         )
         self.assertNotIn(
             "wagtail",
-            {option["value"] for option in response.context["listing_filters"]["services"]},
+            {
+                option["value"]
+                for option in response.context["listing_filters"]["services"]
+            },
         )
 
     def test_htmx_response_includes_filter_options_oob(self):
@@ -186,7 +189,7 @@ class BlogListingFilterTests(WagtailPageTestCase):
         response = self.client.get(
             self.blog_index.url,
             {"sector": "public-sector", "service": "ai"},
-            headers={"hx-request": "true"}
+            headers={"hx-request": "true"},
         )
         self.assertEqual(len(response.context["selected_filters"]), 2)
 
@@ -204,7 +207,7 @@ class BlogListingFilterTests(WagtailPageTestCase):
         response = self.client.get(
             self.blog_index.url,
             {"sector": "public-sector", "service": "ai"},
-            headers={"hx-request": "true"}
+            headers={"hx-request": "true"},
         )
         clear_url = response.context["clear_filters_url"]
         response = self.client.get(clear_url, headers={"hx-request": "true"})
@@ -215,9 +218,7 @@ class BlogListingFilterTests(WagtailPageTestCase):
 
     def test_htmx_request_returns_partial_template(self):
         response = self.client.get(
-            self.blog_index.url,
-            {"service": "ai"},
-            headers={"hx-request": "true"}
+            self.blog_index.url, {"service": "ai"}, headers={"hx-request": "true"}
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(

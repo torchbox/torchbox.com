@@ -77,9 +77,7 @@ def get_available_event_timings(events, filter_state: EventFilterState, *, today
 
     available = []
     for value, label in TIMING_OPTIONS:
-        if value == "upcoming" and has_upcoming:
-            available.append({"value": value, "label": label})
-        elif value == "past" and has_past:
+        if (value == "upcoming" and has_upcoming) or (value == "past" and has_past):
             available.append({"value": value, "label": label})
 
     if filter_state.timing:

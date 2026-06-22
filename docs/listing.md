@@ -103,11 +103,11 @@ Multiple values for the same param use repeated keys (`?sector=a&sector=b`).
 
 Filtering uses **AND between dimensions** and **OR within a dimension**:
 
-| Scope | Logic | Example |
-| ----- | ----- | ------- |
-| **Different params** (sector, service, division, timing, type) | **AND** — item must match all active dimensions | `?sector=public-sector&service=ai` → posts in that sector **and** tagged with AI |
-| **Multiple values for the same param** | **OR** — item may match any selected value | `?sector=a&sector=b` → posts in sector A **or** sector B |
-| **Service + Culture** (both `service`) | Values are combined in one param; OR within `service`, AND with `sector` / `division` | `?sector=x&service=ai&service=culture` → sector X **and** (AI **or** culture) |
+| Scope                                                          | Logic                                                                                 | Example                                                                          |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **Different params** (sector, service, division, timing, type) | **AND** — item must match all active dimensions                                       | `?sector=public-sector&service=ai` → posts in that sector **and** tagged with AI |
+| **Multiple values for the same param**                         | **OR** — item may match any selected value                                            | `?sector=a&sector=b` → posts in sector A **or** sector B                         |
+| **Service + Culture** (both `service`)                         | Values are combined in one param; OR within `service`, AND with `sector` / `division` | `?sector=x&service=ai&service=culture` → sector X **and** (AI **or** culture)    |
 
 Implementation: `apply_taxonomy_filters` / `apply_work_page_filters` in `tbx/core/listing/filters.py` chain `.filter(...__slug__in=...)` per dimension (`__in` is OR). Events use the same pattern in `filter_events` (`events.py`): timing narrows the list, then any selected `type` matches via OR.
 
@@ -115,13 +115,13 @@ Implementation: `apply_taxonomy_filters` / `apply_work_page_filters` in `tbx/cor
 
 Dropdown options are **narrowed by other active filters** so only values that would return results are shown (zero-result options are hidden).
 
-| Facet computed | Other filters applied |
-| -------------- | --------------------- |
-| Sector options | service, division, culture selections |
-| Service options | sector, division, culture selections |
-| Culture options | sector, division, main service selections |
-| Event type options | timing |
-| Event timing options | type |
+| Facet computed       | Other filters applied                     |
+| -------------------- | ----------------------------------------- |
+| Sector options       | service, division, culture selections     |
+| Service options      | sector, division, culture selections      |
+| Culture options      | sector, division, main service selections |
+| Event type options   | timing                                    |
+| Event timing options | type                                      |
 
 Selected values remain visible even when they would otherwise have no matches (`merge_selected_filter_options` in `filters.py`). Facet helpers: `filter_state_for_facet`, `_build_facet_taxonomy_listing_filters` in `mixins.py`, `get_available_event_timings` / `get_available_event_types` in `events.py`.
 
@@ -149,10 +149,10 @@ JavaScript is enabled when `listing.js` is loaded on the listing page. Filter ch
 
 ### What updates when
 
-| User action               | Swap target               | Also updated (OOB)                                      |
-| ------------------------- | ------------------------- | ------------------------------------------------------- |
+| User action               | Swap target               | Also updated (OOB)                                        |
+| ------------------------- | ------------------------- | --------------------------------------------------------- |
 | Checkbox / radio change   | `.listing-panel__results` | Active filter pills, dropdown option lists, document meta |
-| Pagination link           | `.listing-panel__results` | Document meta                                           |
+| Pagination link           | `.listing-panel__results` | Document meta                                             |
 | Remove single filter pill | `.listing-panel__results` | Active filter pills, dropdown option lists, document meta |
 | Clear all filters         | `.listing-panel__results` | Active filter pills, dropdown option lists, document meta |
 
