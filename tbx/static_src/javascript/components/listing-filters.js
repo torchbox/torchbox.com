@@ -1,14 +1,59 @@
 const LISTING_PANEL_SELECTOR = '#listing-panel';
+const DROPDOWN_PANEL_OPEN_CLASS = 'listing-filters__dropdown-panel--open';
 
-function closeDropdown(dropdown) {
+function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function openDropdownPanel(dropdown) {
     const toggle = dropdown.querySelector('[data-listing-filter-toggle]');
     const panel = dropdown.querySelector('[data-listing-filter-panel]');
-    if (toggle) {
-        toggle.setAttribute('aria-expanded', 'false');
+    if (!toggle || !panel) {
+        return;
     }
-    if (panel) {
+
+    toggle.setAttribute('aria-expanded', 'true');
+    panel.hidden = false;
+    requestAnimationFrame(() => {
+        panel.classList.add(DROPDOWN_PANEL_OPEN_CLASS);
+    });
+}
+
+function closeDropdownPanel(dropdown, { immediate = false } = {}) {
+    const toggle = dropdown.querySelector('[data-listing-filter-toggle]');
+    const panel = dropdown.querySelector('[data-listing-filter-panel]');
+    if (!toggle || !panel || panel.hidden) {
+        return;
+    }
+
+    toggle.setAttribute('aria-expanded', 'false');
+    panel.classList.remove(DROPDOWN_PANEL_OPEN_CLASS);
+
+    if (immediate || prefersReducedMotion()) {
         panel.hidden = true;
+        return;
     }
+
+    const finishClose = (event) => {
+        if (event.target !== panel || event.propertyName !== 'opacity') {
+            return;
+        }
+        panel.hidden = true;
+        panel.removeEventListener('transitionend', finishClose);
+        clearTimeout(fallbackTimer);
+    };
+
+    panel.addEventListener('transitionend', finishClose);
+    const fallbackTimer = setTimeout(() => {
+        if (!panel.classList.contains(DROPDOWN_PANEL_OPEN_CLASS) && !panel.hidden) {
+            panel.hidden = true;
+            panel.removeEventListener('transitionend', finishClose);
+        }
+    }, 300);
+}
+
+function closeDropdown(dropdown, options) {
+    closeDropdownPanel(dropdown, options);
 }
 
 function closeAllDropdowns(container) {
@@ -98,11 +143,7 @@ function bindListingFilterDelegation() {
             const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
             closeAllDropdowns(panel);
             if (!isExpanded) {
-                toggle.setAttribute('aria-expanded', 'true');
-                const dropdownPanel = dropdown.querySelector('[data-listing-filter-panel]');
-                if (dropdownPanel) {
-                    dropdownPanel.hidden = false;
-                }
+                openDropdownPanel(dropdown);
             }
             return;
         }
