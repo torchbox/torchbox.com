@@ -1,5 +1,5 @@
 {% if pages.paginator.num_pages > 1 %}
-    <nav aria-label="Pagination" class="pagination">
+    <nav aria-label="Pagination" class="pagination"{% if listing_htmx_enabled %} data-listing-pagination{% endif %}>
         <ul class="pagination__list">
             {% if pages.has_previous %}
                 <li class="pagination__page">

@@ -8,6 +8,21 @@ import {
 
 window.htmx = htmx;
 
+function scrollToListingResults(resultsElement) {
+    if (!resultsElement) {
+        return;
+    }
+
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? 'auto'
+        : 'smooth';
+    resultsElement.scrollIntoView({ behavior, block: 'start' });
+}
+
+function wasListingPaginationRequest(event) {
+    return Boolean(event.detail.requestConfig?.elt?.closest('[data-listing-pagination]'));
+}
+
 function initListingPage() {
     bindListingFilterDelegation();
     htmx.process(document.body);
@@ -45,6 +60,10 @@ document.body.addEventListener('htmx:afterSwap', (event) => {
     const form = panel.querySelector('[data-listing-filters]');
     if (isResults || isActiveFilters) {
         syncFilterFormFromUrl(form);
+    }
+
+    if (isResults && wasListingPaginationRequest(event)) {
+        scrollToListingResults(event.target);
     }
 
     initListingFilters(panel);

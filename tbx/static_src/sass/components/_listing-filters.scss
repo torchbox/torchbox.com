@@ -302,3 +302,7 @@
         grid-column: 2 / span 12;
     }
 }
+
+.listing-panel__results {
+    scroll-margin-top: $spacer-small;
+}
