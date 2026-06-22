@@ -31,6 +31,66 @@ class BlogListingFilterTests(WagtailPageTestCase):
         )
         BlogPageFactory(parent=cls.blog_index, title="Other post")
 
+    def test_culture_services_split_in_listing_filters(self):
+        culture_service = ServiceFactory(name="Culture", slug="culture")
+        BlogPageFactory(
+            parent=self.blog_index,
+            title="Culture post",
+            related_services=[culture_service],
+        )
+        BlogPageFactory(
+            parent=self.blog_index,
+            title="AI post",
+            related_services=[self.service],
+        )
+
+        response = self.client.get(self.blog_index.url)
+        listing_filters = response.context["listing_filters"]
+
+        self.assertEqual(
+            listing_filters["services"],
+            [{"value": "ai", "label": "AI"}],
+        )
+        self.assertEqual(
+            listing_filters["culture"],
+            [{"value": "culture", "label": "Culture"}],
+        )
+        self.assertEqual(response.context["selected_services"], ())
+        self.assertEqual(response.context["selected_culture"], ())
+        self.assertNotIn("divisions", listing_filters)
+        self.assertContains(response, 'id="listing-filter-toggle-service"', count=1)
+        self.assertContains(response, 'id="listing-filter-service"', count=1)
+        self.assertContains(response, 'id="listing-filter-toggle-culture"', count=1)
+        self.assertContains(response, 'id="listing-filter-culture"', count=1)
+
+    def test_valid_but_unused_sector_filter_does_not_error(self):
+        SectorFactory(name="Unused sector", slug="unused-sector")
+        response = self.client.get(
+            self.blog_index.url,
+            {"sector": "unused-sector"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(list(response.context["blog_posts"]), [])
+        self.assertEqual(
+            response.context["selected_filters"][0]["label"],
+            "Unused sector",
+        )
+
+    def test_valid_but_unused_service_filter_does_not_error(self):
+        ServiceFactory(name="Unused service", slug="unused-service")
+        response = self.client.get(
+            self.blog_index.url,
+            {"service": "unused-service"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(list(response.context["blog_posts"]), [])
+        self.assertEqual(
+            response.context["selected_filters"][0]["label"],
+            "Unused service",
+        )
+
     def test_single_filter_limits_results(self):
         response = self.client.get(
             self.blog_index.url,
@@ -83,6 +143,35 @@ class BlogListingFilterTests(WagtailPageTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "sector=public-sector")
         self.assertIsNone(response.context.get("listing_robots_content"))
+
+    def test_htmx_remove_single_filter_preserves_others(self):
+        response = self.client.get(
+            self.blog_index.url,
+            {"sector": "public-sector", "service": "ai"},
+            HTTP_HX_REQUEST="true",
+        )
+        self.assertEqual(len(response.context["selected_filters"]), 2)
+
+        remove_url = response.context["selected_filters"][0]["remove_url"]
+        response = self.client.get(remove_url, HTTP_HX_REQUEST="true")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["selected_filters"]), 1)
+        self.assertEqual(response.context["selected_filters"][0]["param"], "service")
+        self.assertEqual(response.content.decode().count("listing-filters__active-item"), 2)
+
+    def test_htmx_clear_filters_removes_active_pills(self):
+        response = self.client.get(
+            self.blog_index.url,
+            {"sector": "public-sector", "service": "ai"},
+            HTTP_HX_REQUEST="true",
+        )
+        clear_url = response.context["clear_filters_url"]
+        response = self.client.get(clear_url, HTTP_HX_REQUEST="true")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["selected_filters"], [])
+        self.assertNotContains(response, "listing-filters__active-item")
 
     def test_htmx_request_returns_partial_template(self):
         response = self.client.get(

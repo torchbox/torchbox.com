@@ -165,7 +165,7 @@ All content is edited in Navigation settings; no automatic sync with the page tr
 - **Snippets → Sectors** populated (name, slug, description, sort order).
 - **Snippets → Services** populated (name, slug, sort order).
 
-Links resolve to `{work_index_url}?filter={slug}`.
+Links resolve to `{work_index_url}?filter={slug}` (legacy) or `{work_index_url}?sector={slug}` / `?service={slug}` (listing filters). See [Listing filters](listing.md) for full query param behaviour.
 
 **Sector sub-labels (prototype):** the taxonomy index template supports **tags**, but auto-generated sector links do not populate them. Switch content source to **Manual links** and enter tagged rows in **Main links**, or extend `_auto_taxonomy_sectors` in `tbx/navigation/utils.py`.
 

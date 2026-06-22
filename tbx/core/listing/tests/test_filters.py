@@ -6,6 +6,8 @@ from tbx.core.listing.filters import (
     TaxonomyFilterState,
     build_listing_seo_context,
     get_listing_paths,
+    split_service_filter_options,
+    split_service_filter_slugs,
 )
 
 
@@ -67,6 +69,20 @@ class TaxonomyFilterStateTests(SimpleTestCase):
         self.assertEqual(updated.services, ("wagtail",))
         self.assertEqual(updated.sectors, ("public",))
 
+    def test_selected_labels_falls_back_to_slug_for_missing_label(self):
+        state = TaxonomyFilterState(sectors=("unused-sector",), services=("unused-service",))
+        self.assertEqual(
+            state.selected_labels(
+                sector_labels={},
+                service_labels={},
+                division_labels={},
+            ),
+            [
+                ("sector", "unused-sector", "unused-sector"),
+                ("service", "unused-service", "unused-service"),
+            ],
+        )
+
     def _request(self, params):
         class Request:
             GET = QueryDict("", mutable=True)
@@ -76,6 +92,33 @@ class TaxonomyFilterStateTests(SimpleTestCase):
             for value in values:
                 request.GET.appendlist(key, value)
         return request
+
+
+class SplitServiceFilterOptionsTests(SimpleTestCase):
+    def test_splits_culture_services_from_main_services(self):
+        options = [
+            {"value": "ai", "label": "AI"},
+            {"value": "culture", "label": "Culture"},
+            {"value": "wagtail", "label": "Wagtail"},
+            {"value": "sustainability", "label": "Sustainability"},
+        ]
+        services, culture = split_service_filter_options(options)
+        self.assertEqual(
+            services,
+            [{"value": "ai", "label": "AI"}, {"value": "wagtail", "label": "Wagtail"}],
+        )
+        self.assertEqual(
+            culture,
+            [
+                {"value": "culture", "label": "Culture"},
+                {"value": "sustainability", "label": "Sustainability"},
+            ],
+        )
+
+    def test_splits_selected_culture_slugs_from_main_service_slugs(self):
+        services, culture = split_service_filter_slugs(("ai", "culture", "wagtail"))
+        self.assertEqual(services, ("ai", "wagtail"))
+        self.assertEqual(culture, ("culture",))
 
 
 class EventFilterStateTests(SimpleTestCase):

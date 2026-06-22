@@ -79,6 +79,7 @@ nav:
       - front-end/facebook-app-id.md
       - front-end/incident-form.md
   - 'Navigation': 'navigation.md'
+  - 'Listing filters': 'listing.md'
   - 'Custom features':
       - 'Contact': 'custom-features/contact.md'
       - 'Division': 'custom-features/divisions.md'

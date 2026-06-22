@@ -9,7 +9,7 @@ The following areas of functionality are critical paths for the site which don't
 ### 1. Content Management
 
 - **Creating, editing, and publishing pages**: Test the functionality of creating new pages, editing existing content, and publishing changes.
-- **Content organization and navigation**: Verify that the site's content hierarchy and navigation structure are maintained correctly after the upgrade. See also the [docs on the navigation](navigation.md).
+- **Content organization and navigation**: Verify that the site's content hierarchy and navigation structure are maintained correctly after the upgrade. See also the [docs on the navigation](navigation.md) and [listing filters](listing.md).
 - **Media management**: Check the uploading, storage, and retrieval of media files, such as images and documents.
 
 ### 2. Templates and Styling
