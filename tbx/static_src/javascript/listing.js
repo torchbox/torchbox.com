@@ -3,6 +3,7 @@ import {
     LISTING_PANEL_SELECTOR,
     bindListingFilterDelegation,
     initListingFilters,
+    syncFilterFormFromUrl,
 } from './components/listing-filters';
 
 window.htmx = htmx;
@@ -26,8 +27,9 @@ if (document.readyState === 'loading') {
 document.body.addEventListener('htmx:afterSwap', (event) => {
     const isPanel = event.target.id === 'listing-panel';
     const isResults = event.target.classList.contains('listing-panel__results');
+    const isActiveFilters = event.target.id === 'listing-active-filters';
 
-    if (!isPanel && !isResults) {
+    if (!isPanel && !isResults && !isActiveFilters) {
         return;
     }
 
@@ -38,6 +40,11 @@ document.body.addEventListener('htmx:afterSwap', (event) => {
 
     if (isPanel) {
         htmx.process(event.target);
+    }
+
+    const form = panel.querySelector('[data-listing-filters]');
+    if (isResults || isActiveFilters) {
+        syncFilterFormFromUrl(form);
     }
 
     initListingFilters(panel);

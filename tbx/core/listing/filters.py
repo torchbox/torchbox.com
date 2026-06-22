@@ -5,11 +5,42 @@ from urllib.parse import urlencode
 
 from django.db.models import Q
 from django.http import QueryDict
-from django.utils.http import urlencode as django_urlencode
+
 
 TAXONOMY_FILTER_PARAMS = ("sector", "service", "division")
 EVENT_FILTER_PARAMS = ("timing", "type")
 LEGACY_FILTER_PARAM = "filter"
+
+# Service slugs shown in the Culture listing dropdown (UI-only split for now).
+# Both groups still filter via the `service` query param. Replace with a dedicated
+# taxonomy when content modelling catches up.
+CULTURE_SERVICE_SLUGS = frozenset(
+    {
+        "culture",
+        "sustainability",
+        "diversity-inclusion",
+        "employee-ownership",
+        "eot",
+    }
+)
+
+
+def split_service_filter_options(
+    options: list[dict[str, str]],
+) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
+    """Split formatted service options into main services and culture topics."""
+    culture = [option for option in options if option["value"] in CULTURE_SERVICE_SLUGS]
+    services = [option for option in options if option["value"] not in CULTURE_SERVICE_SLUGS]
+    return services, culture
+
+
+def split_service_filter_slugs(
+    slugs: tuple[str, ...],
+) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    """Split selected service slugs into main services and culture topics."""
+    culture = tuple(slug for slug in slugs if slug in CULTURE_SERVICE_SLUGS)
+    services = tuple(slug for slug in slugs if slug not in CULTURE_SERVICE_SLUGS)
+    return services, culture
 
 
 @dataclass(frozen=True)
@@ -116,11 +147,11 @@ class TaxonomyFilterState:
         """Return (param_name, slug, label) tuples in display order."""
         selected: list[tuple[str, str, str]] = []
         for slug in self.sectors:
-            selected.append(("sector", slug, sector_labels[slug]))
+            selected.append(("sector", slug, sector_labels.get(slug, slug)))
         for slug in self.services:
-            selected.append(("service", slug, service_labels[slug]))
+            selected.append(("service", slug, service_labels.get(slug, slug)))
         for slug in self.divisions:
-            selected.append(("division", slug, division_labels[slug]))
+            selected.append(("division", slug, division_labels.get(slug, slug)))
         return selected
 
 

@@ -7,9 +7,11 @@
                     class="listing-filters__active-item"
                     href="{{ active_filter.remove_url }}"
                     hx-get="{{ active_filter.remove_url }}"
-                    hx-target="#listing-panel"
+                    hx-target=".listing-panel__results"
+                    hx-select=".listing-panel__results"
                     hx-swap="innerHTML"
                     hx-push-url="true"
+                    hx-params="none"
                 >
                     <span>{{ active_filter.label }}</span>
                     <span class="sr-only">Remove {{ active_filter.label }} filter</span>
@@ -22,9 +24,11 @@
         class="listing-filters__clear"
         href="{{ clear_filters_url }}"
         hx-get="{{ clear_filters_url }}"
-        hx-target="#listing-panel"
+        hx-target=".listing-panel__results"
+        hx-select=".listing-panel__results"
         hx-swap="innerHTML"
         hx-push-url="true"
+        hx-params="none"
     >
         Clear all filters
     </a>

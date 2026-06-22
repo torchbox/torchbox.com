@@ -8,6 +8,8 @@ from tbx.core.listing.filters import (
     build_listing_seo_context,
     get_listing_paths,
     paginate_queryset,
+    split_service_filter_options,
+    split_service_filter_slugs,
 )
 from tbx.divisions.models import DivisionPage
 from tbx.taxonomy.models import Sector, Service
@@ -18,6 +20,54 @@ def _format_filter_options(queryset, *, label_attr: str) -> list[dict[str, str]]
         {"value": item.slug, "label": getattr(item, label_attr)}
         for item in queryset
     ]
+
+
+def _division_labels_for_state(filter_state: TaxonomyFilterState) -> dict[str, str]:
+    if not filter_state.divisions:
+        return {}
+    return dict(
+        DivisionPage.objects.filter(slug__in=filter_state.divisions).values_list(
+            "slug", "title"
+        )
+    )
+
+
+def _sector_labels_for_state(filter_state: TaxonomyFilterState) -> dict[str, str]:
+    if not filter_state.sectors:
+        return {}
+    return dict(
+        Sector.objects.filter(slug__in=filter_state.sectors).values_list(
+            "slug", "name"
+        )
+    )
+
+
+def _service_labels_for_state(filter_state: TaxonomyFilterState) -> dict[str, str]:
+    if not filter_state.services:
+        return {}
+    return dict(
+        Service.objects.filter(slug__in=filter_state.services).values_list(
+            "slug", "name"
+        )
+    )
+
+
+def _service_listing_filters(services) -> dict[str, list[dict[str, str]]]:
+    service_options, culture_options = split_service_filter_options(
+        _format_filter_options(services, label_attr="name")
+    )
+    return {
+        "services": service_options,
+        "culture": culture_options,
+    }
+
+
+def _selected_service_filters(filter_state: TaxonomyFilterState) -> dict[str, tuple[str, ...]]:
+    selected_services, selected_culture = split_service_filter_slugs(filter_state.services)
+    return {
+        "selected_services": selected_services,
+        "selected_culture": selected_culture,
+    }
 
 
 class HtmxListingMixin:
@@ -114,11 +164,16 @@ class TaxonomyListingMixin(HtmxListingMixin):
 
         sectors = self.get_used_sectors(self.get_base_queryset())
         services = self.get_used_services(self.get_base_queryset())
-        divisions = self.get_used_divisions(self.get_base_queryset())
 
-        sector_labels = {sector.slug: sector.name for sector in sectors}
-        service_labels = {service.slug: service.name for service in services}
-        division_labels = {division.slug: division.title for division in divisions}
+        sector_labels = {
+            **{sector.slug: sector.name for sector in sectors},
+            **_sector_labels_for_state(filter_state),
+        }
+        service_labels = {
+            **{service.slug: service.name for service in services},
+            **_service_labels_for_state(filter_state),
+        }
+        division_labels = _division_labels_for_state(filter_state)
 
         listing_path, absolute_base_url, current_absolute_url = self._listing_url_context(
             request, filter_state, page_number
@@ -163,9 +218,9 @@ class TaxonomyListingMixin(HtmxListingMixin):
             "filter_state": filter_state,
             "listing_filters": {
                 "sectors": _format_filter_options(sectors, label_attr="name"),
-                "services": _format_filter_options(services, label_attr="name"),
-                "divisions": _format_filter_options(divisions, label_attr="title"),
+                **_service_listing_filters(services),
             },
+            **_selected_service_filters(filter_state),
             "selected_filters": selected_filters,
             "filter_remove_urls": remove_urls,
             "clear_filters_url": listing_path,
@@ -224,11 +279,16 @@ class TaxonomyListingMixin(HtmxListingMixin):
                 )
             )
         ).order_by("sort_order", "name")
-        divisions = self.get_used_divisions_for_pages(base_queryset)
 
-        sector_labels = {sector.slug: sector.name for sector in sectors}
-        service_labels = {service.slug: service.name for service in services}
-        division_labels = {division.slug: division.title for division in divisions}
+        sector_labels = {
+            **{sector.slug: sector.name for sector in sectors},
+            **_sector_labels_for_state(filter_state),
+        }
+        service_labels = {
+            **{service.slug: service.name for service in services},
+            **_service_labels_for_state(filter_state),
+        }
+        division_labels = _division_labels_for_state(filter_state)
 
         listing_path, absolute_base_url, current_absolute_url = self._listing_url_context(
             request, filter_state, page_number
@@ -273,9 +333,9 @@ class TaxonomyListingMixin(HtmxListingMixin):
             "filter_state": filter_state,
             "listing_filters": {
                 "sectors": _format_filter_options(sectors, label_attr="name"),
-                "services": _format_filter_options(services, label_attr="name"),
-                "divisions": _format_filter_options(divisions, label_attr="title"),
+                **_service_listing_filters(services),
             },
+            **_selected_service_filters(filter_state),
             "selected_filters": selected_filters,
             "filter_remove_urls": remove_urls,
             "clear_filters_url": listing_path,

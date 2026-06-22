@@ -15,6 +15,7 @@
     <fieldset class="listing-filters__groups">
         <legend class="sr-only">Filter {{ item.title }}</legend>
 
+        {% if listing_filters.timings %}
         <div class="listing-filters__dropdown" data-listing-filter-dropdown>
             <button
                 type="button"
@@ -26,7 +27,9 @@
                 id="listing-filter-toggle-timing"
             >
                 <span class="listing-filters__dropdown-label">When</span>
-                {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="listing-filters__dropdown-icon" %}
+                <span class="listing-filters__dropdown-indicator">
+                    {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="listing-filters__dropdown-icon" %}
+                </span>
             </button>
             <div
                 class="listing-filters__dropdown-panel"
@@ -53,8 +56,9 @@
                 </ul>
             </div>
         </div>
+        {% endif %}
 
-        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Event type" param="type" options=listing_filters.types selected=filter_state.types %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Event type" param="type" options=listing_filters.types selected=filter_state.types selected_count=filter_state.types|length %}
     </fieldset>
 
     <div id="listing-active-filters">
