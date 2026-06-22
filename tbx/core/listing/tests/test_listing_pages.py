@@ -117,7 +117,7 @@ class BlogListingFilterTests(WagtailPageTestCase):
             self.blog_index.url,
             {"service": "ai"},
         )
-        self.assertContains(response, "<title id=\"document-title\">News filtered by AI")
+        self.assertContains(response, '<title id="document-title">News filtered by AI')
         self.assertIsNone(response.context["listing_robots_content"])
 
     def test_multi_filter_is_noindex(self):
@@ -125,7 +125,9 @@ class BlogListingFilterTests(WagtailPageTestCase):
             self.blog_index.url,
             {"sector": "public-sector", "service": "ai"},
         )
-        self.assertEqual(response.context["listing_robots_content"], "noindex, nofollow")
+        self.assertEqual(
+            response.context["listing_robots_content"], "noindex, nofollow"
+        )
         self.assertContains(response, 'content="noindex, nofollow"')
 
     def test_pagination_preserves_filters(self):
@@ -148,26 +150,28 @@ class BlogListingFilterTests(WagtailPageTestCase):
         response = self.client.get(
             self.blog_index.url,
             {"sector": "public-sector", "service": "ai"},
-            HTTP_HX_REQUEST="true",
+            headers={"hx-request": "true"}
         )
         self.assertEqual(len(response.context["selected_filters"]), 2)
 
         remove_url = response.context["selected_filters"][0]["remove_url"]
-        response = self.client.get(remove_url, HTTP_HX_REQUEST="true")
+        response = self.client.get(remove_url, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["selected_filters"]), 1)
         self.assertEqual(response.context["selected_filters"][0]["param"], "service")
-        self.assertEqual(response.content.decode().count("listing-filters__active-item"), 2)
+        self.assertEqual(
+            response.content.decode().count("listing-filters__active-item"), 2
+        )
 
     def test_htmx_clear_filters_removes_active_pills(self):
         response = self.client.get(
             self.blog_index.url,
             {"sector": "public-sector", "service": "ai"},
-            HTTP_HX_REQUEST="true",
+            headers={"hx-request": "true"}
         )
         clear_url = response.context["clear_filters_url"]
-        response = self.client.get(clear_url, HTTP_HX_REQUEST="true")
+        response = self.client.get(clear_url, headers={"hx-request": "true"})
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["selected_filters"], [])
@@ -177,7 +181,7 @@ class BlogListingFilterTests(WagtailPageTestCase):
         response = self.client.get(
             self.blog_index.url,
             {"service": "ai"},
-            HTTP_HX_REQUEST="true",
+            headers={"hx-request": "true"}
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(

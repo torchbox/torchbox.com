@@ -17,6 +17,7 @@ from wagtail.signals import page_published
 from bs4 import BeautifulSoup
 
 from tbx.core.blocks import StoryBlock
+from tbx.core.listing.mixins import TaxonomyListingMixin
 from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
@@ -26,8 +27,6 @@ from tbx.core.utils.models import (
     SocialFields,
 )
 from tbx.images.models import CustomImage
-from tbx.core.listing.mixins import TaxonomyListingMixin
-from tbx.taxonomy.models import Sector, Service
 from tbx.work.blocks import WorkStoryBlock
 
 
@@ -409,7 +408,9 @@ class WorkIndexPage(TaxonomyListingMixin, BasePage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context.update(self.build_work_listing_context(request, works_queryset=self.works))
+        context.update(
+            self.build_work_listing_context(request, works_queryset=self.works)
+        )
         return context
 
 

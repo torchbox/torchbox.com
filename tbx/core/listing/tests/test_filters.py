@@ -70,7 +70,9 @@ class TaxonomyFilterStateTests(SimpleTestCase):
         self.assertEqual(updated.sectors, ("public",))
 
     def test_selected_labels_falls_back_to_slug_for_missing_label(self):
-        state = TaxonomyFilterState(sectors=("unused-sector",), services=("unused-service",))
+        state = TaxonomyFilterState(
+            sectors=("unused-sector",), services=("unused-service",)
+        )
         self.assertEqual(
             state.selected_labels(
                 sector_labels={},
@@ -151,7 +153,9 @@ class ListingSeoContextTests(SimpleTestCase):
             current_url="https://torchbox.com/work/?sector=public",
             has_page_param=False,
         )
-        self.assertEqual(context["listing_document_title"], "Work filtered by Public sector")
+        self.assertEqual(
+            context["listing_document_title"], "Work filtered by Public sector"
+        )
         self.assertIsNone(context["listing_robots_content"])
         self.assertEqual(
             context["listing_canonical_url"],

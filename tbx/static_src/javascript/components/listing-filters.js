@@ -45,7 +45,10 @@ function closeDropdownPanel(dropdown, { immediate = false } = {}) {
 
     panel.addEventListener('transitionend', finishClose);
     const fallbackTimer = setTimeout(() => {
-        if (!panel.classList.contains(DROPDOWN_PANEL_OPEN_CLASS) && !panel.hidden) {
+        if (
+            !panel.classList.contains(DROPDOWN_PANEL_OPEN_CLASS) &&
+            !panel.hidden
+        ) {
             panel.hidden = true;
             panel.removeEventListener('transitionend', finishClose);
         }
@@ -57,21 +60,25 @@ function closeDropdown(dropdown, options) {
 }
 
 function closeAllDropdowns(container) {
-    container.querySelectorAll('[data-listing-filter-dropdown]').forEach((dropdown) => {
-        closeDropdown(dropdown);
-    });
+    container
+        .querySelectorAll('[data-listing-filter-dropdown]')
+        .forEach((dropdown) => {
+            closeDropdown(dropdown);
+        });
 }
 
 function updateDropdownCounts(form) {
-    form.querySelectorAll('[data-listing-filter-dropdown]').forEach((dropdown) => {
-        const count = dropdown.querySelector('[data-listing-filter-count]');
-        const checked = dropdown.querySelectorAll('input:checked').length;
-        if (!count) {
-            return;
-        }
-        count.textContent = String(checked);
-        count.hidden = checked === 0;
-    });
+    form.querySelectorAll('[data-listing-filter-dropdown]').forEach(
+        (dropdown) => {
+            const count = dropdown.querySelector('[data-listing-filter-count]');
+            const checked = dropdown.querySelectorAll('input:checked').length;
+            if (!count) {
+                return;
+            }
+            count.textContent = String(checked);
+            count.hidden = checked === 0;
+        },
+    );
 }
 
 function syncFilterFormFromUrl(form) {
@@ -88,7 +95,9 @@ function syncFilterFormFromUrl(form) {
         input.checked = params.getAll(input.name).includes(input.value);
     });
 
-    const timingInputs = form.querySelectorAll('input[type="radio"][name="timing"]');
+    const timingInputs = form.querySelectorAll(
+        'input[type="radio"][name="timing"]',
+    );
     if (timingInputs.length) {
         const timing = params.get('timing');
         timingInputs.forEach((input) => {
@@ -100,12 +109,14 @@ function syncFilterFormFromUrl(form) {
         });
     }
 
-    form.querySelectorAll('input[type="radio"][name="type"]').forEach((input) => {
-        if (!input.name) {
-            return;
-        }
-        input.checked = params.getAll(input.name).includes(input.value);
-    });
+    form.querySelectorAll('input[type="radio"][name="type"]').forEach(
+        (input) => {
+            if (!input.name) {
+                return;
+            }
+            input.checked = params.getAll(input.name).includes(input.value);
+        },
+    );
 
     updateDropdownCounts(form);
 }
@@ -170,9 +181,11 @@ function initListingFilters(panel) {
         updateDropdownCounts(form);
     });
 
-    panel.querySelectorAll('[data-listing-filters-submit]').forEach((button) => {
-        button.hidden = true;
-    });
+    panel
+        .querySelectorAll('[data-listing-filters-submit]')
+        .forEach((button) => {
+            button.hidden = true;
+        });
 }
 
 export {

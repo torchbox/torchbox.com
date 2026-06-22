@@ -1,4 +1,3 @@
-from django.core.paginator import Paginator
 from django.utils import timezone
 
 from wagtail.admin.panels import FieldPanel
@@ -48,9 +47,6 @@ class EventIndexPage(HtmxListingMixin, BasePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        all_events = [
-            event.value
-            for event in self.events
-        ]
+        all_events = [event.value for event in self.events]
         context.update(build_events_listing_context(self, request, all_events))
         return context

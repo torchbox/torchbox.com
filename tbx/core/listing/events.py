@@ -63,9 +63,12 @@ def build_events_listing_context(page, request, events):
     event_types = EventType.objects.order_by("name")
     type_labels = {event_type.slug: event_type.name for event_type in event_types}
     timing_labels = dict(TIMING_OPTIONS)
-    timing_options = [{"value": value, "label": label} for value, label in TIMING_OPTIONS]
+    timing_options = [
+        {"value": value, "label": label} for value, label in TIMING_OPTIONS
+    ]
     type_options = [
-        {"value": event_type.slug, "label": event_type.name} for event_type in event_types
+        {"value": event_type.slug, "label": event_type.name}
+        for event_type in event_types
     ]
 
     listing_path, absolute_base_url = get_listing_paths(page, request)
@@ -102,7 +105,8 @@ def build_events_listing_context(page, request, events):
     )
 
     remove_urls = {
-        f"{item['param']}:{item['slug']}": item["remove_url"] for item in selected_filters
+        f"{item['param']}:{item['slug']}": item["remove_url"]
+        for item in selected_filters
     }
 
     return {

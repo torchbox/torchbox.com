@@ -8,11 +8,11 @@ Configure the underlying taxonomy in **Snippets → Sectors** and **Snippets →
 
 ## Listing pages
 
-| Page type            | Model / mixin                         | Filter template                                      | Results template                              |
-| -------------------- | ------------------------------------- | ---------------------------------------------------- | --------------------------------------------- |
-| **Work index**       | `WorkIndexPage` → `build_work_listing_context` | `listing-filters--taxonomy.html`                     | `listing_results--work.html`                  |
-| **Blog / News index**| `BlogIndexPage` → `build_blog_listing_context` | `listing-filters--taxonomy.html`                     | `listing_results--taxonomy.html`              |
-| **Events index**     | `EventIndexPage` → `build_events_listing_context` | `listing-filters--events.html`                       | `listing_results--events.html`                |
+| Page type             | Model / mixin                                     | Filter template                  | Results template                 |
+| --------------------- | ------------------------------------------------- | -------------------------------- | -------------------------------- |
+| **Work index**        | `WorkIndexPage` → `build_work_listing_context`    | `listing-filters--taxonomy.html` | `listing_results--work.html`     |
+| **Blog / News index** | `BlogIndexPage` → `build_blog_listing_context`    | `listing-filters--taxonomy.html` | `listing_results--taxonomy.html` |
+| **Events index**      | `EventIndexPage` → `build_events_listing_context` | `listing-filters--events.html`   | `listing_results--events.html`   |
 
 Each page renders:
 
@@ -26,11 +26,11 @@ Each page renders:
 
 Three dropdowns are shown when each has at least one option used on that listing:
 
-| Dropdown   | Source                          | Query param | Notes                                                                 |
-| ---------- | ------------------------------- | ----------- | --------------------------------------------------------------------- |
-| **Sector** | `Sector` snippets in use        | `sector`    | Repeatable; AND logic across params                                   |
-| **Service**| `Service` snippets (non-culture)  | `service`   | Repeatable; excludes culture slugs (see below)                        |
-| **Culture**| `Service` snippets (culture set)  | `service`   | UI-only split; same param as Service; badge counts culture selections |
+| Dropdown    | Source                           | Query param | Notes                                                                 |
+| ----------- | -------------------------------- | ----------- | --------------------------------------------------------------------- |
+| **Sector**  | `Sector` snippets in use         | `sector`    | Repeatable; AND logic across params                                   |
+| **Service** | `Service` snippets (non-culture) | `service`   | Repeatable; excludes culture slugs (see below)                        |
+| **Culture** | `Service` snippets (culture set) | `service`   | UI-only split; same param as Service; badge counts culture selections |
 
 **Division** is not shown in the listing UI. Division filtering via `?division=` still works in the backend for legacy URLs. For how divisions relate to site structure and theming, see [Division](custom-features/divisions.md).
 
@@ -38,9 +38,9 @@ Three dropdowns are shown when each has at least one option used on that listing
 
 Culture topics (EOT, sustainability, D&I, etc.) are modelled as ordinary **Service** snippets. A curated slug list in code splits services into two dropdowns:
 
-| Constant                 | Location                         |
-| ------------------------ | -------------------------------- |
-| `CULTURE_SERVICE_SLUGS`  | `tbx/core/listing/filters.py`    |
+| Constant                | Location                      |
+| ----------------------- | ----------------------------- |
+| `CULTURE_SERVICE_SLUGS` | `tbx/core/listing/filters.py` |
 
 Default slugs:
 
@@ -63,10 +63,10 @@ If production slugs differ, update `CULTURE_SERVICE_SLUGS` in code.
 
 ## Filter dropdowns (Events)
 
-| Dropdown       | Source              | Query param | Notes                                      |
-| -------------- | ------------------- | ----------- | ------------------------------------------ |
-| **When**       | Fixed timing options| `timing`    | `upcoming` (default) or `past`; radio      |
-| **Event type** | `EventType` snippets| `type`      | Repeatable checkboxes                      |
+| Dropdown       | Source               | Query param | Notes                                 |
+| -------------- | -------------------- | ----------- | ------------------------------------- |
+| **When**       | Fixed timing options | `timing`    | `upcoming` (default) or `past`; radio |
+| **Event type** | `EventType` snippets | `type`      | Repeatable checkboxes                 |
 
 The **When** dropdown is hidden if `listing_filters.timings` is empty (normally always populated).
 
@@ -76,12 +76,12 @@ The **When** dropdown is hidden if `listing_filters.timings` is empty (normally 
 
 ### Work and News
 
-| Param      | Repeatable | Example                    |
-| ---------- | ---------- | -------------------------- |
-| `sector`   | Yes        | `?sector=public-sector`    |
+| Param      | Repeatable | Example                       |
+| ---------- | ---------- | ----------------------------- |
+| `sector`   | Yes        | `?sector=public-sector`       |
 | `service`  | Yes        | `?service=ai&service=culture` |
-| `division` | Yes        | Legacy; not exposed in UI  |
-| `page`     | No         | `?page=2`                  |
+| `division` | Yes        | Legacy; not exposed in UI     |
+| `page`     | No         | `?page=2`                     |
 
 Multiple values for the same param use repeated keys (`?sector=a&sector=b`).
 
@@ -89,11 +89,11 @@ Multiple values for the same param use repeated keys (`?sector=a&sector=b`).
 
 ### Events
 
-| Param    | Repeatable | Example              |
-| -------- | ---------- | -------------------- |
-| `timing` | No         | `?timing=past`       |
-| `type`   | Yes        | `?type=webinar`      |
-| `page`   | No         | `?page=2`            |
+| Param    | Repeatable | Example         |
+| -------- | ---------- | --------------- |
+| `timing` | No         | `?timing=past`  |
+| `type`   | Yes        | `?type=webinar` |
+| `page`   | No         | `?page=2`       |
 
 **Legacy:** `?filter=upcoming` or `?filter=past` maps to timing.
 
@@ -108,11 +108,11 @@ Multiple values for the same param use repeated keys (`?sector=a&sector=b`).
 
 Rules are implemented in `build_listing_seo_context` (`tbx/core/listing/filters.py`).
 
-| Active filters | `<title>`                                      | `robots`           | Canonical                          |
-| -------------- | ---------------------------------------------- | ------------------ | ---------------------------------- |
-| 0              | Page title                                     | (default)          | Base URL if `?page=` present; else page default |
-| 1              | `{title} filtered by {label}`                  | indexable          | Current filtered URL               |
-| 2+             | `{title} filtered by {a}, {b}, …`             | `noindex, nofollow`| Base listing URL                   |
+| Active filters | `<title>`                         | `robots`            | Canonical                                       |
+| -------------- | --------------------------------- | ------------------- | ----------------------------------------------- |
+| 0              | Page title                        | (default)           | Base URL if `?page=` present; else page default |
+| 1              | `{title} filtered by {label}`     | indexable           | Current filtered URL                            |
+| 2+             | `{title} filtered by {a}, {b}, …` | `noindex, nofollow` | Base listing URL                                |
 
 Meta tags are always rendered with stable ids (`#document-robots`, `#document-canonical`) so htmx out-of-band swaps can update them without console errors.
 
@@ -126,12 +126,12 @@ JavaScript is enabled when `listing.js` is loaded on the listing page. The filte
 
 ### What updates when
 
-| User action              | Swap target                  | Also updated (OOB)                    |
-| ------------------------ | ---------------------------- | ------------------------------------- |
-| Checkbox / radio change  | `.listing-panel__results`    | Active filter pills, document meta    |
-| Pagination link          | `.listing-panel__results`    | Document meta                         |
-| Remove single filter pill| `.listing-panel__results`    | Active filter pills, document meta    |
-| Clear all filters        | `.listing-panel__results`    | Active filter pills, document meta    |
+| User action               | Swap target               | Also updated (OOB)                 |
+| ------------------------- | ------------------------- | ---------------------------------- |
+| Checkbox / radio change   | `.listing-panel__results` | Active filter pills, document meta |
+| Pagination link           | `.listing-panel__results` | Document meta                      |
+| Remove single filter pill | `.listing-panel__results` | Active filter pills, document meta |
+| Clear all filters         | `.listing-panel__results` | Active filter pills, document meta |
 
 The filter form and open dropdown stay in the DOM when only results swap, so the dropdown can remain open while results and pills update.
 
@@ -167,12 +167,12 @@ With JavaScript, the Apply button is hidden and changes apply automatically (deb
 
 ### Work and News
 
-| Task | Where |
-| ---- | ----- |
-| Manage sector labels and slugs | **Snippets → Sectors** |
-| Manage service labels and slugs | **Snippets → Services** |
-| Tag blog posts | Blog page → **Related sectors** / **Related services** |
-| Tag work pages | Work page → **Related sectors** / **Related services** |
+| Task                            | Where                                                  |
+| ------------------------------- | ------------------------------------------------------ |
+| Manage sector labels and slugs  | **Snippets → Sectors**                                 |
+| Manage service labels and slugs | **Snippets → Services**                                |
+| Tag blog posts                  | Blog page → **Related sectors** / **Related services** |
+| Tag work pages                  | Work page → **Related sectors** / **Related services** |
 
 Dropdown options are **derived from the listing’s content**: only sectors and services that appear on at least one item in the index queryset are shown.
 
@@ -180,10 +180,10 @@ Dropdown options are **derived from the listing’s content**: only sectors and 
 
 ### Events
 
-| Task | Where |
-| ---- | ----- |
-| Manage event types | **Snippets → Event types** (requires `slug` field) |
-| Event timing | Fixed in code (`upcoming` / `past`); not edited in admin |
+| Task               | Where                                                    |
+| ------------------ | -------------------------------------------------------- |
+| Manage event types | **Snippets → Event types** (requires `slug` field)       |
+| Event timing       | Fixed in code (`upcoming` / `past`); not edited in admin |
 
 ---
 
@@ -225,31 +225,31 @@ The **Work** item in primary navigation can link to filtered views using the leg
 
 ## Known limitations
 
-| Topic | Current behaviour | Workaround / future |
-| ----- | ----------------- | ------------------- |
-| Culture grouping | Hard-coded slug list in Python | Add dedicated taxonomy or snippet flag when content model is ready |
-| Division filter | Backend only; not in listing UI | Use `?division=` if needed; or re-expose dropdown |
-| Culture vs Service | Same `service` param; two dropdowns | Intentional for now |
-| Events listing | Python list filtering, not ORM queryset | Acceptable for current event volume |
-| Nav `?filter=` links | Still supported via legacy param | Prefer explicit `?sector=` / `?service=` in new links |
+| Topic                | Current behaviour                       | Workaround / future                                                |
+| -------------------- | --------------------------------------- | ------------------------------------------------------------------ |
+| Culture grouping     | Hard-coded slug list in Python          | Add dedicated taxonomy or snippet flag when content model is ready |
+| Division filter      | Backend only; not in listing UI         | Use `?division=` if needed; or re-expose dropdown                  |
+| Culture vs Service   | Same `service` param; two dropdowns     | Intentional for now                                                |
+| Events listing       | Python list filtering, not ORM queryset | Acceptable for current event volume                                |
+| Nav `?filter=` links | Still supported via legacy param        | Prefer explicit `?sector=` / `?service=` in new links              |
 
 ---
 
 ## Related code
 
-| Concern | Location |
-| ------- | -------- |
-| Filter state, SEO, culture split | `tbx/core/listing/filters.py` |
-| Work / blog listing context | `tbx/core/listing/mixins.py` |
-| Events listing context | `tbx/core/listing/events.py` |
-| Blog index integration | `tbx/blog/models.py` → `BlogIndexPageMixin` |
-| Work index integration | `tbx/work/models.py` |
-| Events index integration | `tbx/events/models.py` |
-| Taxonomy models | `tbx/taxonomy/models.py` |
-| Filter templates | `tbx/project_styleguide/templates/patterns/molecules/listing-filters/` |
-| Page / partial templates | `tbx/project_styleguide/templates/patterns/pages/listing/` |
-| Pagination htmx attrs | `tbx/project_styleguide/templates/patterns/molecules/pagination/pagination.html` |
-| Unit / integration tests | `tbx/core/listing/tests/` |
+| Concern                          | Location                                                                         |
+| -------------------------------- | -------------------------------------------------------------------------------- |
+| Filter state, SEO, culture split | `tbx/core/listing/filters.py`                                                    |
+| Work / blog listing context      | `tbx/core/listing/mixins.py`                                                     |
+| Events listing context           | `tbx/core/listing/events.py`                                                     |
+| Blog index integration           | `tbx/blog/models.py` → `BlogIndexPageMixin`                                      |
+| Work index integration           | `tbx/work/models.py`                                                             |
+| Events index integration         | `tbx/events/models.py`                                                           |
+| Taxonomy models                  | `tbx/taxonomy/models.py`                                                         |
+| Filter templates                 | `tbx/project_styleguide/templates/patterns/molecules/listing-filters/`           |
+| Page / partial templates         | `tbx/project_styleguide/templates/patterns/pages/listing/`                       |
+| Pagination htmx attrs            | `tbx/project_styleguide/templates/patterns/molecules/pagination/pagination.html` |
+| Unit / integration tests         | `tbx/core/listing/tests/`                                                        |
 
 Run tests:
 

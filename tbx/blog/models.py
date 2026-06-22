@@ -4,7 +4,7 @@ import string
 
 from django import forms
 from django.db import models
-from django.db.models import Case, Q, When
+from django.db.models import Case, When
 from django.dispatch import receiver
 from django.utils.functional import cached_property
 
@@ -22,6 +22,7 @@ from wagtail.signals import page_published
 from bs4 import BeautifulSoup
 
 from tbx.core.blocks import StoryBlock
+from tbx.core.listing.mixins import BlogIndexPageMixin
 from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
@@ -30,7 +31,6 @@ from tbx.core.utils.models import (
     SocialFields,
 )
 from tbx.images.models import CustomImage
-from tbx.core.listing.mixins import BlogIndexPageMixin
 from tbx.taxonomy.models import Sector, Service
 
 

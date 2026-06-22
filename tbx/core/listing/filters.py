@@ -30,7 +30,9 @@ def split_service_filter_options(
 ) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
     """Split formatted service options into main services and culture topics."""
     culture = [option for option in options if option["value"] in CULTURE_SERVICE_SLUGS]
-    services = [option for option in options if option["value"] not in CULTURE_SERVICE_SLUGS]
+    services = [
+        option for option in options if option["value"] not in CULTURE_SERVICE_SLUGS
+    ]
     return services, culture
 
 
@@ -128,7 +130,9 @@ class TaxonomyFilterState:
 
     def without(self, *, param: str, slug: str) -> TaxonomyFilterState:
         return TaxonomyFilterState(
-            sectors=tuple(s for s in self.sectors if not (param == "sector" and s == slug)),
+            sectors=tuple(
+                s for s in self.sectors if not (param == "sector" and s == slug)
+            ),
             services=tuple(
                 s for s in self.services if not (param == "service" and s == slug)
             ),
@@ -272,7 +276,9 @@ def _apply_division_filter(queryset, division_slugs: tuple[str, ...]):
     from tbx.divisions.models import DivisionPage
 
     division_paths = list(
-        DivisionPage.objects.filter(slug__in=division_slugs).values_list("path", flat=True)
+        DivisionPage.objects.filter(slug__in=division_slugs).values_list(
+            "path", flat=True
+        )
     )
     if not division_paths:
         return queryset.none()
@@ -287,7 +293,9 @@ def _apply_page_division_filter(queryset, division_slugs: tuple[str, ...]):
     from tbx.divisions.models import DivisionPage
 
     division_paths = list(
-        DivisionPage.objects.filter(slug__in=division_slugs).values_list("path", flat=True)
+        DivisionPage.objects.filter(slug__in=division_slugs).values_list(
+            "path", flat=True
+        )
     )
     if not division_paths:
         return queryset.none()

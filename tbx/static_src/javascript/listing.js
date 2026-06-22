@@ -13,14 +13,17 @@ function scrollToListingResults(resultsElement) {
         return;
     }
 
-    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)')
+        .matches
         ? 'auto'
         : 'smooth';
     resultsElement.scrollIntoView({ behavior, block: 'start' });
 }
 
 function wasListingPaginationRequest(event) {
-    return Boolean(event.detail.requestConfig?.elt?.closest('[data-listing-pagination]'));
+    return Boolean(
+        event.detail.requestConfig?.elt?.closest('[data-listing-pagination]'),
+    );
 }
 
 function initListingPage() {
@@ -48,7 +51,9 @@ document.body.addEventListener('htmx:afterSwap', (event) => {
         return;
     }
 
-    const panel = isPanel ? event.target : event.target.closest('#listing-panel');
+    const panel = isPanel
+        ? event.target
+        : event.target.closest('#listing-panel');
     if (!panel) {
         return;
     }

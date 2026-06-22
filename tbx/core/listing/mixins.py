@@ -17,8 +17,7 @@ from tbx.taxonomy.models import Sector, Service
 
 def _format_filter_options(queryset, *, label_attr: str) -> list[dict[str, str]]:
     return [
-        {"value": item.slug, "label": getattr(item, label_attr)}
-        for item in queryset
+        {"value": item.slug, "label": getattr(item, label_attr)} for item in queryset
     ]
 
 
@@ -36,9 +35,7 @@ def _sector_labels_for_state(filter_state: TaxonomyFilterState) -> dict[str, str
     if not filter_state.sectors:
         return {}
     return dict(
-        Sector.objects.filter(slug__in=filter_state.sectors).values_list(
-            "slug", "name"
-        )
+        Sector.objects.filter(slug__in=filter_state.sectors).values_list("slug", "name")
     )
 
 
@@ -62,8 +59,12 @@ def _service_listing_filters(services) -> dict[str, list[dict[str, str]]]:
     }
 
 
-def _selected_service_filters(filter_state: TaxonomyFilterState) -> dict[str, tuple[str, ...]]:
-    selected_services, selected_culture = split_service_filter_slugs(filter_state.services)
+def _selected_service_filters(
+    filter_state: TaxonomyFilterState,
+) -> dict[str, tuple[str, ...]]:
+    selected_services, selected_culture = split_service_filter_slugs(
+        filter_state.services
+    )
     return {
         "selected_services": selected_services,
         "selected_culture": selected_culture,
@@ -89,7 +90,9 @@ class TaxonomyListingMixin(HtmxListingMixin):
         return {
             "sector": set(Sector.objects.values_list("slug", flat=True)),
             "service": set(Service.objects.values_list("slug", flat=True)),
-            "division": set(DivisionPage.objects.live().public().values_list("slug", flat=True)),
+            "division": set(
+                DivisionPage.objects.live().public().values_list("slug", flat=True)
+            ),
         }
 
     def get_filter_state(self, request) -> TaxonomyFilterState:
@@ -113,7 +116,9 @@ class TaxonomyListingMixin(HtmxListingMixin):
 
     def get_used_divisions(self, queryset):
         division_ids = set(
-            queryset.exclude(division__isnull=True).values_list("division_id", flat=True)
+            queryset.exclude(division__isnull=True).values_list(
+                "division_id", flat=True
+            )
         )
         post_paths = list(queryset.values_list("path", flat=True))
         for division in DivisionPage.objects.live().public().only("pk", "path"):
@@ -175,8 +180,8 @@ class TaxonomyListingMixin(HtmxListingMixin):
         }
         division_labels = _division_labels_for_state(filter_state)
 
-        listing_path, absolute_base_url, current_absolute_url = self._listing_url_context(
-            request, filter_state, page_number
+        listing_path, absolute_base_url, current_absolute_url = (
+            self._listing_url_context(request, filter_state, page_number)
         )
 
         selected_filters = [
@@ -290,8 +295,8 @@ class TaxonomyListingMixin(HtmxListingMixin):
         }
         division_labels = _division_labels_for_state(filter_state)
 
-        listing_path, absolute_base_url, current_absolute_url = self._listing_url_context(
-            request, filter_state, page_number
+        listing_path, absolute_base_url, current_absolute_url = (
+            self._listing_url_context(request, filter_state, page_number)
         )
 
         selected_filters = [
@@ -349,6 +354,7 @@ class TaxonomyListingMixin(HtmxListingMixin):
 
     def get_base_queryset(self):
         raise NotImplementedError
+
 
 class BlogIndexPageMixin(TaxonomyListingMixin):
     def get_base_queryset(self):
