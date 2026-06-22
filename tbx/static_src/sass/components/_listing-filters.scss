@@ -1,0 +1,213 @@
+@use '../config' as *;
+
+.listing-header {
+    grid-column: 2 / span 4;
+
+    @include media-query(large) {
+        grid-column: 2 / span 12;
+    }
+
+    &__strapline {
+        @include font-size('size-four');
+        font-weight: $weight--light;
+        color: var(--color--heading);
+        margin-top: $spacer-small-plus;
+    }
+}
+
+.listing-filters {
+    grid-column: 2 / span 4;
+    margin-bottom: $spacer;
+
+    @include media-query(large) {
+        grid-column: 2 / span 12;
+        margin-bottom: $spacer-large;
+    }
+
+    &__groups {
+        display: flex;
+        flex-direction: column;
+        gap: $spacer-small;
+        border: 0;
+        margin: 0;
+        padding: 0;
+
+        @include media-query(medium) {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: $spacer-mini;
+        }
+    }
+
+    &__dropdown {
+        position: relative;
+        min-width: 220px;
+    }
+
+    &__dropdown-toggle {
+        @include font-size('size-five');
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: $spacer-mini;
+        width: 100%;
+        padding: 12px $spacer-mini;
+        border: 1px solid var(--color--border);
+        border-radius: 999px;
+        background-color: var(--color--background);
+        color: var(--color--heading);
+        cursor: pointer;
+
+        &:hover,
+        &[aria-expanded='true'] {
+            border-color: var(--color--heading);
+        }
+
+        &:focus {
+            @include focus-style(var(--color--heading), $shadow: true);
+        }
+    }
+
+    &__dropdown-count {
+        @include font-size('size-eight');
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 1.5rem;
+        min-height: 1.5rem;
+        padding: 0 6px;
+        border-radius: 999px;
+        background-color: var(--color--heading);
+        color: var(--color--background);
+    }
+
+    &__dropdown-icon {
+        width: 12px;
+        height: 12px;
+        transform: rotate(90deg);
+        transition: transform 0.2s ease;
+    }
+
+    &__dropdown-toggle[aria-expanded='true'] &__dropdown-icon {
+        transform: rotate(-90deg);
+    }
+
+    &__dropdown-panel {
+        position: absolute;
+        z-index: 5;
+        top: calc(100% + 8px);
+        left: 0;
+        min-width: 100%;
+        max-height: 280px;
+        overflow: auto;
+        border: 1px solid var(--color--border);
+        border-radius: 12px;
+        background-color: var(--color--background);
+        box-shadow: 0 12px 32px rgb(0 0 0 / 0.12);
+    }
+
+    &__options {
+        list-style: none;
+        margin: 0;
+        padding: $spacer-mini;
+    }
+
+    &__option {
+        margin: 0;
+    }
+
+    &__option--empty {
+        @include font-size('size-six');
+        padding: $spacer-mini;
+        color: var(--color--text);
+    }
+
+    &__option-label {
+        @include font-size('size-six');
+        display: flex;
+        align-items: flex-start;
+        gap: $spacer-mini;
+        padding: 10px $spacer-mini;
+        border-radius: 8px;
+        color: var(--color--text);
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--color--streamfield-background);
+        }
+
+        input {
+            margin-top: 3px;
+        }
+    }
+
+    &__active {
+        margin-top: $spacer-small;
+    }
+
+    &__active-label {
+        @include font-size('size-seven');
+        margin-bottom: $spacer-mini;
+        color: var(--color--text);
+    }
+
+    &__active-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacer-mini;
+        list-style: none;
+        margin: 0 0 $spacer-mini;
+        padding: 0;
+    }
+
+    &__active-item {
+        @include font-size('size-eight');
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px $spacer-mini;
+        border-radius: 999px;
+        border: 1px solid var(--color--border);
+        background-color: var(--color--background);
+        color: var(--color--heading);
+
+        &:hover,
+        &:focus {
+            border-color: var(--color--heading);
+            background-color: var(--color--heading);
+            color: var(--color--background);
+        }
+
+        &:focus {
+            @include focus-style(var(--color--heading), $shadow: true);
+        }
+    }
+
+    &__remove-icon {
+        width: 12px;
+        height: 12px;
+    }
+
+    &__clear {
+        @include font-size('size-seven');
+        color: var(--color--heading);
+        text-decoration: underline;
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+        }
+    }
+
+    &__submit {
+        margin-top: $spacer-small;
+    }
+}
+
+#listing-panel {
+    grid-column: 2 / span 4;
+
+    @include media-query(large) {
+        grid-column: 2 / span 12;
+    }
+}

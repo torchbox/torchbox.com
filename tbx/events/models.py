@@ -1,16 +1,17 @@
 from django.core.paginator import Paginator
 from django.utils import timezone
-from django.utils.http import urlencode
 
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 
+from tbx.core.listing.events import build_events_listing_context
+from tbx.core.listing.mixins import HtmxListingMixin
 from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
 from tbx.events.blocks import EventItemBlock
 
 
-class EventIndexPage(BasePage):
+class EventIndexPage(HtmxListingMixin, BasePage):
     template = "patterns/pages/events/events_listing.html"
     no_events_message = RichTextField(
         features=["bold", "italic", "link", "superscript", "subscript"],
@@ -47,36 +48,9 @@ class EventIndexPage(BasePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-
-        # Used for the purposes of defining the filterable tags
-        tags = [
-            {
-                "name": "Upcoming events",
-                "slug": "upcoming",
-            },
-            {
-                "name": "Past events",
-                "slug": "past",
-            },
+        all_events = [
+            event.value
+            for event in self.events
         ]
-
-        slug_filter = request.GET.get("filter")
-        events = self.get_events(slug_filter)
-
-        # Use `page` to filter.
-        page = request.GET.get("page", 1)
-
-        # Pagination
-        paginator = Paginator(events, 10)  # Show 10 events per page
-        paged_events = paginator.get_page(page)
-
-        extra_url_params = {}
-        if slug_filter:
-            extra_url_params["filter"] = slug_filter
-
-        context.update(
-            events=paged_events,
-            extra_url_params=urlencode(extra_url_params),
-            tags=tags,
-        )
+        context.update(build_events_listing_context(self, request, all_events))
         return context

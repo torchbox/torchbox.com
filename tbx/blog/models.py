@@ -3,12 +3,10 @@ import math
 import string
 
 from django import forms
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.db.models import Case, Q, When
 from django.dispatch import receiver
 from django.utils.functional import cached_property
-from django.utils.http import urlencode
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.admin.panels import (
@@ -32,10 +30,11 @@ from tbx.core.utils.models import (
     SocialFields,
 )
 from tbx.images.models import CustomImage
+from tbx.core.listing.mixins import BlogIndexPageMixin
 from tbx.taxonomy.models import Sector, Service
 
 
-class BlogIndexPage(BasePage):
+class BlogIndexPage(BlogIndexPageMixin, BasePage):
     template = "patterns/pages/blog/blog_listing.html"
 
     subpage_types = ["BlogPage"]
@@ -77,49 +76,7 @@ class BlogIndexPage(BasePage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-
-        # Get blog_posts
-        blog_posts = self.blog_posts
-
-        # Filter by related_service slug
-        slug_filter = request.GET.get("filter")
-        extra_url_params = {}
-
-        if slug_filter and slug_filter in self.taxonomy_slugs:
-            blog_posts = blog_posts.filter(
-                Q(related_sectors__slug=slug_filter)
-                | Q(related_services__slug=slug_filter)
-            )
-            extra_url_params["filter"] = slug_filter
-
-        # use page to filter
-        page = request.GET.get("page", 1)
-
-        # Pagination
-        paginator = Paginator(blog_posts, 10)  # Show 10 blog_posts per page
-
-        try:
-            blog_posts = paginator.page(page)
-        except PageNotAnInteger:
-            blog_posts = paginator.page(1)
-        except EmptyPage:
-            blog_posts = paginator.page(paginator.num_pages)
-
-        # Only show Sectors and Services that have been used
-        related_sectors = Sector.objects.filter(
-            pk__in=models.Subquery(self.blog_posts.values("related_sectors"))
-        )
-
-        related_services = Service.objects.filter(
-            pk__in=models.Subquery(self.blog_posts.values("related_services"))
-        )
-        tags = chain(related_services, related_sectors)
-
-        context.update(
-            blog_posts=blog_posts,
-            tags=tags,
-            extra_url_params=urlencode(extra_url_params),
-        )
+        context.update(self.build_blog_listing_context(request))
         return context
 
 

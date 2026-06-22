@@ -1,0 +1,31 @@
+<div class="listing-filters__active">
+    <p class="listing-filters__active-label" id="listing-active-filters-label">Active filters</p>
+    <ul class="listing-filters__active-list" aria-labelledby="listing-active-filters-label">
+        {% for active_filter in selected_filters %}
+            <li>
+                <a
+                    class="listing-filters__active-item"
+                    href="{{ active_filter.remove_url }}"
+                    hx-get="{{ active_filter.remove_url }}"
+                    hx-target="#listing-panel"
+                    hx-swap="innerHTML"
+                    hx-push-url="true"
+                >
+                    <span>{{ active_filter.label }}</span>
+                    <span class="sr-only">Remove {{ active_filter.label }} filter</span>
+                    {% include "patterns/atoms/icons/icon.html" with name="close" classname="listing-filters__remove-icon" %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a
+        class="listing-filters__clear"
+        href="{{ clear_filters_url }}"
+        hx-get="{{ clear_filters_url }}"
+        hx-target="#listing-panel"
+        hx-swap="innerHTML"
+        hx-push-url="true"
+    >
+        Clear all filters
+    </a>
+</div>

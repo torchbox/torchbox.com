@@ -68,6 +68,7 @@
     "webpack-dev-server": "^5.2.4"
   },
   "dependencies": {
+    "htmx.org": "^2.0.10",
     "js-cookie": "^3.0.8",
     "lite-youtube-embed": "^0.3.4",
     "micromodal": "^0.6.2",

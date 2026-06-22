@@ -1,0 +1,302 @@
+from __future__ import annotations
+
+from tbx.core.listing.filters import (
+    TaxonomyFilterState,
+    apply_taxonomy_filters,
+    apply_work_page_filters,
+    build_filter_remove_url,
+    build_listing_seo_context,
+    get_listing_paths,
+    paginate_queryset,
+)
+from tbx.divisions.models import DivisionPage
+from tbx.taxonomy.models import Sector, Service
+
+
+def _format_filter_options(queryset, *, label_attr: str) -> list[dict[str, str]]:
+    return [
+        {"value": item.slug, "label": getattr(item, label_attr)}
+        for item in queryset
+    ]
+
+
+class HtmxListingMixin:
+    partial_template_name = "patterns/pages/listing/listing_panel_partial.html"
+
+    def get_template(self, request, *args, **kwargs):
+        if request.headers.get("HX-Request"):
+            return self.partial_template_name
+        return self.template
+
+    def is_htmx_request(self, request) -> bool:
+        return request.headers.get("HX-Request") == "true"
+
+
+class TaxonomyListingMixin(HtmxListingMixin):
+    listing_results_template = "patterns/pages/listing/listing_results--taxonomy.html"
+
+    def get_taxonomy_filter_slugs(self):
+        return {
+            "sector": set(Sector.objects.values_list("slug", flat=True)),
+            "service": set(Service.objects.values_list("slug", flat=True)),
+            "division": set(DivisionPage.objects.live().public().values_list("slug", flat=True)),
+        }
+
+    def get_filter_state(self, request) -> TaxonomyFilterState:
+        slugs = self.get_taxonomy_filter_slugs()
+        return TaxonomyFilterState.from_request(
+            request,
+            valid_sector_slugs=slugs["sector"],
+            valid_service_slugs=slugs["service"],
+            valid_division_slugs=slugs["division"],
+        )
+
+    def get_used_sectors(self, queryset):
+        return Sector.objects.filter(
+            pk__in=queryset.values("related_sectors")
+        ).order_by("sort_order", "name")
+
+    def get_used_services(self, queryset):
+        return Service.objects.filter(
+            pk__in=queryset.values("related_services")
+        ).order_by("sort_order", "name")
+
+    def get_used_divisions(self, queryset):
+        division_ids = set(
+            queryset.exclude(division__isnull=True).values_list("division_id", flat=True)
+        )
+        post_paths = list(queryset.values_list("path", flat=True))
+        for division in DivisionPage.objects.live().public().only("pk", "path"):
+            if any(path.startswith(division.path) for path in post_paths):
+                division_ids.add(division.pk)
+        return DivisionPage.objects.filter(pk__in=division_ids).order_by("title")
+
+    def get_used_divisions_for_pages(self, queryset):
+        division_ids = set(
+            queryset.filter(workpage__division__isnull=False).values_list(
+                "workpage__division_id", flat=True
+            )
+        ) | set(
+            queryset.filter(historicalworkpage__division__isnull=False).values_list(
+                "historicalworkpage__division_id", flat=True
+            )
+        )
+        page_paths = list(queryset.values_list("path", flat=True))
+        for division in DivisionPage.objects.live().public().only("pk", "path"):
+            if any(path.startswith(division.path) for path in page_paths):
+                division_ids.add(division.pk)
+        return DivisionPage.objects.filter(pk__in=division_ids).order_by("title")
+
+    def _listing_url_context(self, request, filter_state, page_number):
+        listing_path, absolute_base_url = get_listing_paths(self, request)
+        current_absolute_url = absolute_base_url
+        if query := filter_state.urlencode(page=page_number):
+            current_absolute_url = f"{absolute_base_url}?{query}"
+        return listing_path, absolute_base_url, current_absolute_url
+
+    def build_taxonomy_listing_context(
+        self,
+        request,
+        *,
+        queryset,
+        results_context_key: str,
+        page_size: int = 10,
+        apply_filters=None,
+    ):
+        filter_state = self.get_filter_state(request)
+        if apply_filters:
+            queryset = apply_filters(queryset, filter_state)
+        else:
+            queryset = apply_taxonomy_filters(queryset, filter_state)
+
+        page_number = request.GET.get("page", 1)
+        paginated_results = paginate_queryset(queryset, page_number, page_size)
+
+        sectors = self.get_used_sectors(self.get_base_queryset())
+        services = self.get_used_services(self.get_base_queryset())
+        divisions = self.get_used_divisions(self.get_base_queryset())
+
+        sector_labels = {sector.slug: sector.name for sector in sectors}
+        service_labels = {service.slug: service.name for service in services}
+        division_labels = {division.slug: division.title for division in divisions}
+
+        listing_path, absolute_base_url, current_absolute_url = self._listing_url_context(
+            request, filter_state, page_number
+        )
+
+        selected_filters = [
+            {
+                "param": param,
+                "slug": slug,
+                "label": label,
+                "remove_url": build_filter_remove_url(
+                    listing_path,
+                    filter_state,
+                    param=param,
+                    slug=slug,
+                ),
+            }
+            for param, slug, label in filter_state.selected_labels(
+                sector_labels=sector_labels,
+                service_labels=service_labels,
+                division_labels=division_labels,
+            )
+        ]
+        filter_labels = [item["label"] for item in selected_filters]
+
+        seo_context = build_listing_seo_context(
+            page_title=self.title,
+            filter_labels=filter_labels,
+            active_filter_count=filter_state.active_filter_count,
+            base_url=absolute_base_url,
+            current_url=current_absolute_url,
+            has_page_param="page" in request.GET,
+        )
+
+        remove_urls = {
+            f"{item['param']}:{item['slug']}": item["remove_url"]
+            for item in selected_filters
+        }
+
+        return {
+            results_context_key: paginated_results,
+            "filter_state": filter_state,
+            "listing_filters": {
+                "sectors": _format_filter_options(sectors, label_attr="name"),
+                "services": _format_filter_options(services, label_attr="name"),
+                "divisions": _format_filter_options(divisions, label_attr="title"),
+            },
+            "selected_filters": selected_filters,
+            "filter_remove_urls": remove_urls,
+            "clear_filters_url": listing_path,
+            "extra_url_params": filter_state.urlencode(),
+            "listing_base_url": listing_path,
+            "listing_htmx_enabled": True,
+            "listing_filters_template": "patterns/molecules/listing-filters/listing-filters--taxonomy.html",
+            "listing_results_template": self.listing_results_template,
+            **seo_context,
+        }
+
+    def build_work_listing_context(self, request, *, works_queryset):
+        filter_state = self.get_filter_state(request)
+        works_queryset = apply_work_page_filters(works_queryset, filter_state)
+
+        works = [
+            {
+                "title": work.title,
+                "client": work.client,
+                "url": work.url,
+                "author": work.first_author,
+                "date": work.date,
+                "read_time": work.read_time,
+                "listing_image": work.listing_image,
+            }
+            for work in works_queryset
+        ]
+
+        page_number = request.GET.get("page", 1)
+        paginated_works = paginate_queryset(works, page_number, 10)
+
+        from django.db import models
+
+        base_queryset = self.works
+        sectors = Sector.objects.filter(
+            models.Q(
+                pk__in=models.Subquery(
+                    base_queryset.values("workpage__related_sectors")
+                )
+            )
+            | models.Q(
+                pk__in=models.Subquery(
+                    base_queryset.values("historicalworkpage__related_sectors")
+                )
+            )
+        ).order_by("sort_order", "name")
+        services = Service.objects.filter(
+            models.Q(
+                pk__in=models.Subquery(
+                    base_queryset.values("workpage__related_services")
+                )
+            )
+            | models.Q(
+                pk__in=models.Subquery(
+                    base_queryset.values("historicalworkpage__related_services")
+                )
+            )
+        ).order_by("sort_order", "name")
+        divisions = self.get_used_divisions_for_pages(base_queryset)
+
+        sector_labels = {sector.slug: sector.name for sector in sectors}
+        service_labels = {service.slug: service.name for service in services}
+        division_labels = {division.slug: division.title for division in divisions}
+
+        listing_path, absolute_base_url, current_absolute_url = self._listing_url_context(
+            request, filter_state, page_number
+        )
+
+        selected_filters = [
+            {
+                "param": param,
+                "slug": slug,
+                "label": label,
+                "remove_url": build_filter_remove_url(
+                    listing_path,
+                    filter_state,
+                    param=param,
+                    slug=slug,
+                ),
+            }
+            for param, slug, label in filter_state.selected_labels(
+                sector_labels=sector_labels,
+                service_labels=service_labels,
+                division_labels=division_labels,
+            )
+        ]
+        filter_labels = [item["label"] for item in selected_filters]
+
+        seo_context = build_listing_seo_context(
+            page_title=self.title,
+            filter_labels=filter_labels,
+            active_filter_count=filter_state.active_filter_count,
+            base_url=absolute_base_url,
+            current_url=current_absolute_url,
+            has_page_param="page" in request.GET,
+        )
+
+        remove_urls = {
+            f"{item['param']}:{item['slug']}": item["remove_url"]
+            for item in selected_filters
+        }
+
+        return {
+            "works": paginated_works,
+            "filter_state": filter_state,
+            "listing_filters": {
+                "sectors": _format_filter_options(sectors, label_attr="name"),
+                "services": _format_filter_options(services, label_attr="name"),
+                "divisions": _format_filter_options(divisions, label_attr="title"),
+            },
+            "selected_filters": selected_filters,
+            "filter_remove_urls": remove_urls,
+            "clear_filters_url": listing_path,
+            "extra_url_params": filter_state.urlencode(),
+            "listing_base_url": listing_path,
+            "listing_htmx_enabled": True,
+            "listing_filters_template": "patterns/molecules/listing-filters/listing-filters--taxonomy.html",
+            "listing_results_template": "patterns/pages/listing/listing_results--work.html",
+            **seo_context,
+        }
+
+    def get_base_queryset(self):
+        raise NotImplementedError
+
+class BlogIndexPageMixin(TaxonomyListingMixin):
+    def get_base_queryset(self):
+        return self.blog_posts
+
+    def build_blog_listing_context(self, request):
+        return self.build_taxonomy_listing_context(
+            request,
+            queryset=self.blog_posts,
+            results_context_key="blog_posts",
+        )

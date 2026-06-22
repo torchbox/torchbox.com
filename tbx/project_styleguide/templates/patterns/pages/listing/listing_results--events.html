@@ -1,0 +1,21 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<ul class="page-listing page-listing--events">
+    {% for event in events %}
+        {% include "patterns/molecules/listing/listing--event.html" with base_class="page-listing__item" end_date=event.end_date end_time=event.end_time link=event.get_button_link listing_image=event.image location=event.location start_date=event.start_date start_time=event.start_time title=event.title type=event.type %}
+    {% empty %}
+        <li class="grid__paragraph rich-text">
+            {% if filter_state.timing == "past" %}
+                <p>There are no past events.</p>
+            {% else %}
+                {{ page.no_events_message|richtext }}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+{% if events.paginator %}
+    <div class="page-listing__pagination">
+        {% include "patterns/molecules/pagination/pagination.html" with extra_url_params=extra_url_params pages=events listing_htmx_enabled=listing_htmx_enabled listing_base_url=listing_base_url %}
+    </div>
+{% endif %}

@@ -3,12 +3,10 @@ import math
 import string
 
 from django import forms
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.db.models import Case, DateField, F, Q, When
 from django.dispatch import receiver
 from django.utils.functional import cached_property
-from django.utils.http import urlencode
 
 from modelcluster.fields import ParentalManyToManyField
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -28,6 +26,7 @@ from tbx.core.utils.models import (
     SocialFields,
 )
 from tbx.images.models import CustomImage
+from tbx.core.listing.mixins import TaxonomyListingMixin
 from tbx.taxonomy.models import Sector, Service
 from tbx.work.blocks import WorkStoryBlock
 
@@ -360,7 +359,7 @@ class WorkPage(BasePage):
 
 
 # Work index page
-class WorkIndexPage(BasePage):
+class WorkIndexPage(TaxonomyListingMixin, BasePage):
     template = "patterns/pages/work/work_index_page.html"
 
     subpage_types = ["HistoricalWorkPage", "WorkPage"]
@@ -410,73 +409,7 @@ class WorkIndexPage(BasePage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-
-        # Get work pages
-        works = self.works
-
-        # for pagination
-        extra_url_params = {}
-
-        # Filter by related_service slug
-        if slug_filter := request.GET.get("filter"):
-            works = works.filter(
-                Q(workpage__related_services__slug=slug_filter)
-                | Q(historicalworkpage__related_services__slug=slug_filter)
-                | Q(workpage__related_sectors__slug=slug_filter)
-                | Q(historicalworkpage__related_sectors__slug=slug_filter),
-            )
-            extra_url_params["filter"] = slug_filter
-
-        # format for template
-        works = [
-            {
-                "title": work.title,
-                "client": work.client,
-                "url": work.url,
-                "author": work.first_author,
-                "date": work.date,
-                "tags": work.tags,
-                "read_time": work.read_time,
-                "listing_image": work.listing_image,
-            }
-            for work in works
-        ]
-
-        # use page to filter
-        page = request.GET.get("page", 1)
-
-        # Pagination
-        paginator = Paginator(works, 10)  # Show 10 works per page
-
-        try:
-            works = paginator.page(page)
-        except PageNotAnInteger:
-            works = paginator.page(1)
-        except EmptyPage:
-            works = paginator.page(paginator.num_pages)
-
-        # Only show Sectors and Services that have been used
-        related_sectors = Sector.objects.filter(
-            pk__in=models.Subquery(self.works.values("workpage__related_sectors"))
-        )
-        related_services = Service.objects.filter(
-            Q(pk__in=models.Subquery(self.works.values("workpage__related_services")))
-            | Q(
-                pk__in=models.Subquery(
-                    self.works.values("historicalworkpage__related_services")
-                )
-            )
-        )
-
-        # Used for the purposes of defining the filterable tags
-        tags = chain(related_services, related_sectors)
-
-        context.update(
-            works=works,
-            tags=tags,
-            extra_url_params=urlencode(extra_url_params),
-        )
-
+        context.update(self.build_work_listing_context(request, works_queryset=self.works))
         return context
 
 

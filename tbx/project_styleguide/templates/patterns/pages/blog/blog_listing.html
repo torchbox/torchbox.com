@@ -1,26 +1,23 @@
 {% extends "patterns/base_page.html" %}
-{% load wagtailcore_tags wagtailimages_tags static %}
+{% load wagtailcore_tags static %}
+
+{% block title %}{{ listing_document_title|default:page.title }}{% endblock %}
 
 {% block meta_tags %}
     {{ block.super }}
-    {% if 'filter' in request.GET or 'page' in request.GET %}
-        <link rel="canonical" href="{% fullpageurl self %}">
-    {% endif %}
+    {% include "patterns/pages/listing/includes/listing_meta.html" %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/listing.js' %}"></script>
 {% endblock %}
 
 {% block content %}
     <div class="grid grid--spacer-large">
-        {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=tags %}
+        {% include "patterns/molecules/listing-filters/listing-header.html" with item=page %}
 
-        <ul class="page-listing page-listing--blog">
-            {% for post in blog_posts %}
-                {% pageurl post as link %}
-                {% include "patterns/molecules/listing/listing--avatar.html" with link=link avatar=post.first_author.image title=post.title name=post.first_author.name job_title=post.first_author.role date=post.date reading_time=post.read_time tags=post.tags tag_link_base=blog_index_url base_class="page-listing__item" %}
-            {% endfor %}
-        </ul>
-
-        <div class="page-listing__pagination">
-            {% include "patterns/molecules/pagination/pagination.html" with pages=blog_posts %}
+        <div id="listing-panel">
+            {% include "patterns/pages/listing/listing_panel_inner.html" %}
         </div>
     </div>
 {% endblock %}

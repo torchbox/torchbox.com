@@ -52,6 +52,7 @@
     @include meta.load-css('components/keypoints');
     @include meta.load-css('components/link-columns');
     @include meta.load-css('components/link');
+    @include meta.load-css('components/listing-filters');
     @include meta.load-css('components/listing');
     @include meta.load-css('components/listing-avatar');
     @include meta.load-css('components/listing-event');

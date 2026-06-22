@@ -1,0 +1,8 @@
+{% load wagtailcore_tags %}
+
+<div class="listing-header">
+    <h1 class="heading heading--mega">{{ item.title }}</h1>
+    {% if strapline %}
+        <p class="listing-header__strapline">{{ strapline }}</p>
+    {% endif %}
+</div>

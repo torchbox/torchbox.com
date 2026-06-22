@@ -1,0 +1,36 @@
+{% load util_tags %}
+
+<div class="listing-filters__dropdown" data-listing-filter-dropdown>
+    <button
+        type="button"
+        class="listing-filters__dropdown-toggle"
+        data-listing-filter-toggle
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="listing-filter-{{ param }}"
+        id="listing-filter-toggle-{{ param }}"
+    >
+        <span class="listing-filters__dropdown-label">{{ label }}</span>
+        <span class="listing-filters__dropdown-count" data-listing-filter-count{% if not selected %} hidden{% endif %}>
+            {{ selected|length }}
+        </span>
+        {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="listing-filters__dropdown-icon" %}
+    </button>
+    <div
+        class="listing-filters__dropdown-panel"
+        id="listing-filter-{{ param }}"
+        role="listbox"
+        aria-labelledby="listing-filter-toggle-{{ param }}"
+        aria-multiselectable="true"
+        data-listing-filter-panel
+        hidden
+    >
+        <ul class="listing-filters__options">
+            {% for option in options %}
+                {% include "patterns/molecules/listing-filters/includes/filter-option.html" with value=option.value label=option.label %}
+            {% empty %}
+                <li class="listing-filters__option listing-filters__option--empty">No options available</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

@@ -1,25 +1,23 @@
 {% extends "patterns/base_page.html" %}
-{% load wagtailcore_tags wagtailimages_tags static %}
+{% load wagtailcore_tags static %}
+
+{% block title %}{{ listing_document_title|default:page.title }}{% endblock %}
 
 {% block meta_tags %}
     {{ block.super }}
-    {% if 'filter' in request.GET or 'page' in request.GET %}
-        <link rel="canonical" href="{% fullpageurl self %}">
-    {% endif %}
+    {% include "patterns/pages/listing/includes/listing_meta.html" %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/listing.js' %}"></script>
 {% endblock %}
 
 {% block content %}
     <div class="grid grid--spacer-large">
-        {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=tags %}
+        {% include "patterns/molecules/listing-filters/listing-header.html" with item=page %}
 
-        <ul class="page-listing page-listing--work">
-            {% for post in works %}
-                {% include "patterns/molecules/listing/listing--image.html" with title=post.title name=post.client link=post.url date=post.date reading_time=post.read_time tags=post.tags listing_image=post.listing_image tag_link_base="." tags_screenreader_text="See more work posts in this category" base_class="page-listing__item" %}
-            {% endfor %}
-        </ul>
-
-        <div class="page-listing__pagination">
-            {% include "patterns/molecules/pagination/pagination.html" with pages=works %}
+        <div id="listing-panel">
+            {% include "patterns/pages/listing/listing_panel_inner.html" %}
         </div>
     </div>
 {% endblock %}

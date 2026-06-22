@@ -1,0 +1,13 @@
+{% load wagtailcore_tags %}
+
+{# Always present so htmx OOB swaps can target these elements. #}
+{% if listing_robots_content %}
+    <meta id="document-robots" name="robots" content="{{ listing_robots_content }}">
+{% else %}
+    <meta id="document-robots" data-inactive="true">
+{% endif %}
+<link
+    id="document-canonical"
+    rel="canonical"
+    href="{% if listing_canonical_url %}{{ listing_canonical_url }}{% else %}{% fullpageurl page %}{% endif %}"
+>

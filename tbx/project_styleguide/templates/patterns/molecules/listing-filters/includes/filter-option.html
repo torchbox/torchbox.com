@@ -1,0 +1,13 @@
+{% load util_tags %}
+
+<li class="listing-filters__option" role="presentation">
+    <label class="listing-filters__option-label">
+        <input
+            type="checkbox"
+            name="{{ param }}"
+            value="{{ value }}"
+            {% if value|ifinlist:selected %}checked{% endif %}
+        >
+        <span>{{ label }}</span>
+    </label>
+</li>

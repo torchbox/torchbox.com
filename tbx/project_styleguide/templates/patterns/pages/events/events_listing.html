@@ -1,39 +1,24 @@
 {% extends "patterns/base_page.html" %}
+{% load wagtailcore_tags static %}
 
-{% load wagtailcore_tags wagtailimages_tags %}
+{% block title %}{{ listing_document_title|default:page.title }}{% endblock %}
 
 {% block meta_tags %}
     {{ block.super }}
-    {% if 'filter' in request.GET or 'page' in request.GET %}
-        <link rel="canonical" href="{% fullpageurl self %}">
-    {% endif %}
+    {% include "patterns/pages/listing/includes/listing_meta.html" %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/listing.js' %}"></script>
 {% endblock %}
 
 {% block content %}
     <div class="grid grid--spacer-large">
-        {# Title and Filters #}
-        {% include "patterns/molecules/title-filters/title-filters--event.html" with item=page tags=tags %}
+        {% include "patterns/molecules/listing-filters/listing-header.html" with item=page %}
 
-        {# Events #}
-        <ul class="page-listing page-listing--events">
-            {% for event in events %}
-                {% include "patterns/molecules/listing/listing--event.html" with base_class="page-listing__item" end_date=event.end_date end_time=event.end_time link=event.get_button_link listing_image=event.image location=event.location start_date=event.start_date start_time=event.start_time title=event.title type=event.type %}
-            {% empty %}
-                <li class="grid__paragraph rich-text">
-                    {% if request.GET.filter == "past" %}
-                        <p>There are no past events.</p>
-                    {% else %}
-                        {{ page.no_events_message|richtext }}
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-
-        {% if events.paginator %}
-            <div class="page-listing__pagination">
-                {% include "patterns/molecules/pagination/pagination.html" with extra_url_params=extra_url_params pages=events %}
-            </div>
-        {% endif %}
+        <div id="listing-panel">
+            {% include "patterns/pages/listing/listing_panel_inner.html" %}
+        </div>
 
         {% include_block page.call_to_action %}
     </div>

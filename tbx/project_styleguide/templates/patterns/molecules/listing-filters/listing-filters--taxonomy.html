@@ -1,0 +1,30 @@
+{% load wagtailcore_tags util_tags %}
+
+<form
+    class="listing-filters"
+    method="get"
+    action="{{ listing_base_url }}"
+    data-listing-filters
+    hx-get="{{ listing_base_url }}"
+    hx-target=".listing-panel__results"
+    hx-select=".listing-panel__results"
+    hx-swap="innerHTML"
+    hx-push-url="true"
+    hx-trigger="change delay:200ms from:input"
+>
+    <fieldset class="listing-filters__groups">
+        <legend class="sr-only">Filter {{ item.title }}</legend>
+
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Sector" param="sector" options=listing_filters.sectors option_label="name" option_value="slug" selected=filter_state.sectors %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Service" param="service" options=listing_filters.services option_label="name" option_value="slug" selected=filter_state.services %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Division" param="division" options=listing_filters.divisions option_label="title" option_value="slug" selected=filter_state.divisions %}
+    </fieldset>
+
+    <div id="listing-active-filters">
+        {% if selected_filters %}
+            {% include "patterns/molecules/listing-filters/includes/listing_active_filters_inner.html" %}
+        {% endif %}
+    </div>
+
+    <button type="submit" class="listing-filters__submit button" data-listing-filters-submit>Apply filters</button>
+</form>
