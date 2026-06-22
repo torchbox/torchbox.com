@@ -10,7 +10,6 @@
         type="button"
         class="listing-filters__dropdown-toggle"
         data-listing-filter-toggle
-        aria-haspopup="listbox"
         aria-expanded="false"
         aria-controls="listing-filter-{{ id_param|default:param }}"
         id="listing-filter-toggle-{{ id_param|default:param }}"
@@ -26,9 +25,7 @@
     <div
         class="listing-filters__dropdown-panel"
         id="listing-filter-{{ id_param|default:param }}"
-        role="listbox"
         aria-labelledby="listing-filter-toggle-{{ id_param|default:param }}"
-        aria-multiselectable="true"
         data-listing-filter-panel
     >
         <ul

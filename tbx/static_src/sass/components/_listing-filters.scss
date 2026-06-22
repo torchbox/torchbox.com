@@ -2,10 +2,11 @@
 
 .listing-header {
     grid-column: 2 / span 4;
-    margin-bottom: $spacer-small;
+    margin-bottom: $spacer-small-plus;
 
     @include media-query(large) {
         grid-column: 2 / span 12;
+        margin-bottom: $spacer-medium;
     }
 
     &__strapline {
@@ -18,7 +19,11 @@
 
 .listing-filters {
     grid-column: 2 / span 4;
-    margin-bottom: $spacer;
+    margin-bottom: $spacer-small;
+
+    @include media-query(medium) {
+        margin-bottom: $spacer-medium;
+    }
 
     @include media-query(large) {
         grid-column: 2 / span 12;
@@ -28,7 +33,7 @@
     &__groups {
         display: flex;
         flex-direction: column;
-        gap: $spacer-small;
+        gap: $spacer-mini;
         border: 0;
         margin: 0;
         padding: 0;

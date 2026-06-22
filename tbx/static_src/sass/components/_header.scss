@@ -10,10 +10,17 @@
         border-bottom-color: var(--color--light-border);
     }
 
-    body.primary-nav-dropdown-open &,
-    body:has(.primary-nav-desktop__item.active) & {
+    body.primary-nav-dropdown-open & {
         @include media-query(menu) {
             @include z-index(header-controls);
+        }
+    }
+
+    @supports selector(body:has(.primary-nav-desktop__item.active)) {
+        body:has(.primary-nav-desktop__item.active) & {
+            @include media-query(menu) {
+                @include z-index(header-controls);
+            }
         }
     }
 

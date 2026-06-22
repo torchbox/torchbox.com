@@ -51,8 +51,7 @@ $nav-dropdown-item-hover-bg-light: var(--color--grey-5);
             background: rgb(255 255 255 / 0.45);
         }
 
-        body.primary-nav-dropdown-open &,
-        body:has(.primary-nav-desktop__item.active) & {
+        body.primary-nav-dropdown-open & {
             opacity: 1;
             visibility: visible;
             pointer-events: auto;
@@ -60,15 +59,26 @@ $nav-dropdown-item-hover-bg-light: var(--color--grey-5);
                 opacity $transition ease-out 50ms,
                 visibility 0ms ease-out 0ms;
         }
+
+        @supports selector(body:has(.primary-nav-desktop__item.active)) {
+            body:has(.primary-nav-desktop__item.active) & {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                transition:
+                    opacity $transition ease-out 50ms,
+                    visibility 0ms ease-out 0ms;
+            }
+        }
     }
 }
 
-// Blur page content when a desktop dropdown is open. The dropdown shell is
-// transparent so this remains visible; the backdrop adds a tint on top.
+// Keep page content visually behind the dropdown without applying a full-page
+// filter on every menu open.
 @include media-query(menu) {
     .breadcrumbs-nav,
     main {
-        transition: filter $transition;
+        transition: opacity $transition;
 
         @include reduced-motion() {
             transition: none;
@@ -76,15 +86,21 @@ $nav-dropdown-item-hover-bg-light: var(--color--grey-5);
     }
 }
 
-body.primary-nav-dropdown-open,
-body:has(.primary-nav-desktop__item.active) {
+body.primary-nav-dropdown-open {
     @include media-query(menu) {
         .breadcrumbs-nav,
         main {
-            filter: blur($nav-dropdown-blur);
+            opacity: 0.88;
+        }
+    }
+}
 
-            @include reduced-motion() {
-                filter: none;
+@supports selector(body:has(.primary-nav-desktop__item.active)) {
+    body:has(.primary-nav-desktop__item.active) {
+        @include media-query(menu) {
+            .breadcrumbs-nav,
+            main {
+                opacity: 0.88;
             }
         }
     }
