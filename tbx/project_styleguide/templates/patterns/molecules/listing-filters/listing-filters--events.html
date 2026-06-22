@@ -10,11 +10,12 @@
     <fieldset class="listing-filters__groups">
         <legend class="sr-only">Filter {{ item.title }}</legend>
 
-        {% if listing_filters.timings %}
+        {% if listing_filters.timings or filter_state.has_filters %}
             <div
                 class="listing-filters__dropdown"
                 id="listing-filter-dropdown-timing"
                 data-listing-filter-dropdown
+                {% if not listing_filters.timings and not filter_state.has_filters %}hidden{% endif %}
             >
                 <button
                     type="button"

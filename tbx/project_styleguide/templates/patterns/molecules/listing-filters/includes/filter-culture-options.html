@@ -1,3 +1,5 @@
 {% for option in listing_filters.culture %}
     {% include "patterns/molecules/listing-filters/includes/filter-option.html" with param="service" value=option.value label=option.label selected=selected_culture %}
+{% empty %}
+    {% include "patterns/molecules/listing-filters/includes/filter-options-empty.html" %}
 {% endfor %}

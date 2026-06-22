@@ -4,6 +4,7 @@
     class="listing-filters__dropdown"
     id="listing-filter-dropdown-{{ id_param|default:param }}"
     data-listing-filter-dropdown
+    {% if not options and not selected_count %}hidden{% endif %}
 >
     <button
         type="button"
@@ -37,7 +38,7 @@
             {% for option in options %}
                 {% include "patterns/molecules/listing-filters/includes/filter-option.html" with param=param value=option.value label=option.label selected=selected %}
             {% empty %}
-                <li class="listing-filters__option--empty" role="presentation">No matching options</li>
+                {% include "patterns/molecules/listing-filters/includes/filter-options-empty.html" %}
             {% endfor %}
         </ul>
     </div>

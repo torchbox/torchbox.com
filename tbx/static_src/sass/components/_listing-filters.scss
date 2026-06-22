@@ -199,9 +199,11 @@
     }
 
     &__option--empty {
-        @include font-size('size-six');
-        padding: $spacer-mini $spacer-small;
+        @include font-size('size-seven');
+        padding: 8px var(--listing-filter-option-padding-x, 12px);
+        line-height: 1.35;
         color: var(--color--text);
+        text-wrap: balance;
     }
 
     &__option-label {

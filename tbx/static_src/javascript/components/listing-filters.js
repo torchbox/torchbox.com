@@ -87,16 +87,98 @@ function restoreOpenDropdown(panel) {
     }
 }
 
-function updateDropdownCounts(form) {
+function getCultureServiceSlugs(form) {
+    const value = form?.dataset.listingCultureServiceSlugs;
+    if (!value) {
+        return new Set();
+    }
+    return new Set(value.split(',').filter(Boolean));
+}
+
+function countFromUrl(dropdownId, params, cultureSlugs) {
+    if (dropdownId === 'listing-filter-dropdown-sector') {
+        return params.getAll('sector').length;
+    }
+
+    if (dropdownId === 'listing-filter-dropdown-service') {
+        return params
+            .getAll('service')
+            .filter((slug) => !cultureSlugs.has(slug)).length;
+    }
+
+    if (dropdownId === 'listing-filter-dropdown-culture') {
+        return params
+            .getAll('service')
+            .filter((slug) => cultureSlugs.has(slug)).length;
+    }
+
+    if (dropdownId === 'listing-filter-dropdown-type') {
+        return params.getAll('type').length;
+    }
+
+    return 0;
+}
+
+function parametersToSearchParams(parameters) {
+    const params = new URLSearchParams();
+    Object.entries(parameters).forEach(([key, values]) => {
+        const normalised = Array.isArray(values) ? values : [values];
+        normalised.forEach((value) => {
+            if (value) {
+                params.append(key, value);
+            }
+        });
+    });
+    return params;
+}
+
+function dropdownHasFilterInputs(dropdown) {
+    return Boolean(
+        dropdown.querySelector(
+            '.listing-filters__options input[type="checkbox"], .listing-filters__options input[type="radio"]',
+        ),
+    );
+}
+
+function updateDropdownCounts(form, { parameters = null } = {}) {
+    const cultureSlugs = getCultureServiceSlugs(form);
+    const params = parameters
+        ? parametersToSearchParams(parameters)
+        : new URLSearchParams(window.location.search);
+
     form.querySelectorAll('[data-listing-filter-dropdown]').forEach(
         (dropdown) => {
             const count = dropdown.querySelector('[data-listing-filter-count]');
-            const checked = dropdown.querySelectorAll('input:checked').length;
             if (!count) {
                 return;
             }
+            const checked = countFromUrl(dropdown.id, params, cultureSlugs);
             count.textContent = String(checked);
             count.hidden = checked === 0;
+        },
+    );
+}
+
+function updateDropdownVisibility(form) {
+    if (!form) {
+        return;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const cultureSlugs = getCultureServiceSlugs(form);
+
+    form.querySelectorAll('[data-listing-filter-dropdown]').forEach(
+        (dropdown) => {
+            const hasInputs = dropdownHasFilterInputs(dropdown);
+            const selectedCount = countFromUrl(
+                dropdown.id,
+                params,
+                cultureSlugs,
+            );
+            dropdown.hidden = !hasInputs && selectedCount === 0;
+            if (dropdown.hidden) {
+                closeDropdown(dropdown, { immediate: true });
+            }
         },
     );
 }
@@ -136,11 +218,17 @@ function collectListingFilterParameters(form) {
     return parameters;
 }
 
-function refreshListingFilterChrome(form) {
+function refreshListingFilterChrome(
+    form,
+    { parameters = null, skipVisibility = false } = {},
+) {
     if (!form) {
         return;
     }
-    updateDropdownCounts(form);
+    updateDropdownCounts(form, { parameters });
+    if (!skipVisibility) {
+        updateDropdownVisibility(form);
+    }
 }
 
 function syncFilterFormFromUrl(form) {
@@ -239,7 +327,10 @@ function bindListingFilterDelegation() {
         if (!form) {
             return;
         }
-        refreshListingFilterChrome(form);
+        refreshListingFilterChrome(form, {
+            parameters: collectListingFilterParameters(form),
+            skipVisibility: true,
+        });
         scheduleListingFilterRequest(form);
     });
 
@@ -300,13 +391,31 @@ function initListingFilters(panel) {
             },
         );
 
-        refreshListingFilterChrome(form);
+        syncFilterFormFromUrl(form);
     });
 }
 
-function handleListingFilterSettle(event) {
+function isListingPanelHtmxEvent(event) {
     const requestElement = event.detail.requestConfig?.elt;
-    if (!requestElement?.closest?.('#listing-panel')) {
+    if (requestElement?.closest?.('#listing-panel')) {
+        return true;
+    }
+
+    const target = event.detail.target;
+    if (!(target instanceof Element)) {
+        return false;
+    }
+
+    return (
+        Boolean(target.closest('#listing-panel'))
+        || target.classList.contains('listing-panel__results')
+        || target.id === 'listing-active-filters'
+        || target.classList.contains('listing-filters__options')
+    );
+}
+
+function handleListingFilterSettle(event) {
+    if (!isListingPanelHtmxEvent(event)) {
         return;
     }
 
@@ -317,12 +426,13 @@ function handleListingFilterSettle(event) {
 
     const form = panel.querySelector('[data-listing-filters]');
     const results = panel.querySelector('.listing-panel__results');
+    const requestElement = event.detail.requestConfig?.elt;
 
     if (results) {
         window.htmx.process(results);
     }
 
-    refreshListingFilterChrome(form);
+    syncFilterFormFromUrl(form);
 
     if (requestElement?.matches?.('[data-listing-filters]')) {
         restoreOpenDropdown(panel);
@@ -331,11 +441,35 @@ function handleListingFilterSettle(event) {
     }
 }
 
+function handleListingFilterSwap(event) {
+    if (!isListingPanelHtmxEvent(event)) {
+        return;
+    }
+
+    const target = event.detail.target;
+    if (!(target instanceof Element)) {
+        return;
+    }
+
+    const shouldSyncForm =
+        target.id === 'listing-active-filters'
+        || target.classList.contains('listing-filters__options');
+
+    if (!shouldSyncForm) {
+        return;
+    }
+
+    const panel = document.querySelector(LISTING_PANEL_SELECTOR);
+    const form = panel?.querySelector('[data-listing-filters]');
+    syncFilterFormFromUrl(form);
+}
+
 export {
     LISTING_PANEL_SELECTOR,
     bindListingFilterDelegation,
     bindListingFilterHtmxConfig,
     handleListingFilterSettle,
+    handleListingFilterSwap,
     initListingFilters,
     refreshListingFilterChrome,
     restoreOpenDropdown,

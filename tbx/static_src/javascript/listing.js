@@ -4,6 +4,7 @@ import {
     bindListingFilterDelegation,
     bindListingFilterHtmxConfig,
     handleListingFilterSettle,
+    handleListingFilterSwap,
     initListingFilters,
 } from './components/listing-filters';
 
@@ -54,6 +55,10 @@ document.body.addEventListener('htmx:afterSwap', (event) => {
     if (wasListingPaginationRequest(event)) {
         scrollToListingResults(event.target);
     }
+});
+
+document.body.addEventListener('htmx:afterSwap', (event) => {
+    handleListingFilterSwap(event);
 });
 
 document.body.addEventListener('htmx:afterSettle', (event) => {
