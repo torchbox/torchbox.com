@@ -4,8 +4,8 @@ from django.utils import timezone
 
 from tbx.core.listing.filters import (
     EventFilterState,
-    build_filter_remove_url,
-    build_listing_seo_context,
+    build_listing_urls_context,
+    build_selected_filter_items,
     get_listing_paths,
     merge_selected_filter_options,
     paginate_queryset,
@@ -117,6 +117,24 @@ def get_available_event_types(events, filter_state: EventFilterState, *, today=N
     )
 
 
+def _event_listing_filter_visibility(
+    events,
+    filter_state: EventFilterState,
+    listing_filters: dict,
+) -> dict[str, bool]:
+    """Whether each events dropdown should be shown (baseline options or active selection)."""
+    if filter_state.has_filters:
+        listing_filters = {
+            "timings": get_available_event_timings(events, EventFilterState()),
+            "types": get_available_event_types(events, EventFilterState()),
+        }
+
+    return {
+        "timing": bool(listing_filters["timings"]) or bool(filter_state.timing),
+        "type": bool(listing_filters["types"]) or bool(filter_state.types),
+    }
+
+
 def build_events_listing_context(page, request, events):
     filter_state = get_event_filter_state(request)
     filtered_events = filter_events(events, filter_state)
@@ -129,59 +147,44 @@ def build_events_listing_context(page, request, events):
     timing_labels = dict(TIMING_OPTIONS)
     timing_options = get_available_event_timings(events, filter_state)
     type_options = get_available_event_types(events, filter_state)
+    listing_filters = {
+        "timings": timing_options,
+        "types": type_options,
+    }
 
     listing_path, absolute_base_url = get_listing_paths(page, request)
     current_absolute_url = absolute_base_url
     if query := filter_state.urlencode(page=page_number):
         current_absolute_url = f"{absolute_base_url}?{query}"
 
-    selected_filters = [
-        {
-            "param": param,
-            "slug": slug,
-            "label": label,
-            "remove_url": build_filter_remove_url(
-                listing_path,
-                filter_state,
-                param=param,
-                slug=slug,
-            ),
-        }
-        for param, slug, label in filter_state.selected_labels(
+    selected_filters = build_selected_filter_items(
+        listing_path,
+        filter_state,
+        filter_state.selected_labels(
             type_labels=type_labels,
             timing_labels=timing_labels,
-        )
-    ]
-    filter_labels = [item["label"] for item in selected_filters]
-
-    seo_context = build_listing_seo_context(
-        page_title=page.title,
-        filter_labels=filter_labels,
-        active_filter_count=filter_state.active_filter_count,
-        base_url=absolute_base_url,
-        current_url=current_absolute_url,
-        has_page_param="page" in request.GET,
+        ),
     )
-
-    remove_urls = {
-        f"{item['param']}:{item['slug']}": item["remove_url"]
-        for item in selected_filters
-    }
 
     return {
         "events": paginated_events,
         "filter_state": filter_state,
-        "listing_filters": {
-            "timings": timing_options,
-            "types": type_options,
-        },
-        "selected_filters": selected_filters,
-        "filter_remove_urls": remove_urls,
-        "clear_filters_url": listing_path,
-        "extra_url_params": filter_state.urlencode(),
-        "listing_base_url": listing_path,
+        "listing_filters": listing_filters,
+        "listing_filter_visibility": _event_listing_filter_visibility(
+            events,
+            filter_state,
+            listing_filters,
+        ),
+        **build_listing_urls_context(
+            listing_path=listing_path,
+            filter_state=filter_state,
+            selected_filters=selected_filters,
+            page_title=page.title,
+            absolute_base_url=absolute_base_url,
+            current_absolute_url=current_absolute_url,
+            has_page_param="page" in request.GET,
+        ),
         "listing_htmx_enabled": True,
         "listing_filters_template": "patterns/molecules/listing-filters/listing-filters--events.html",
         "listing_results_template": "patterns/pages/listing/listing_results--events.html",
-        **seo_context,
     }

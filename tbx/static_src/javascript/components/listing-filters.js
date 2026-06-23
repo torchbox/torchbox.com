@@ -132,14 +132,6 @@ function parametersToSearchParams(parameters) {
     return params;
 }
 
-function dropdownHasFilterInputs(dropdown) {
-    return Boolean(
-        dropdown.querySelector(
-            '.listing-filters__options input[type="checkbox"], .listing-filters__options input[type="radio"]',
-        ),
-    );
-}
-
 function updateDropdownCounts(form, { parameters = null } = {}) {
     const cultureSlugs = getCultureServiceSlugs(form);
     const params = parameters
@@ -155,30 +147,6 @@ function updateDropdownCounts(form, { parameters = null } = {}) {
             const checked = countFromUrl(dropdown.id, params, cultureSlugs);
             count.textContent = String(checked);
             count.hidden = checked === 0;
-        },
-    );
-}
-
-function updateDropdownVisibility(form) {
-    if (!form) {
-        return;
-    }
-
-    const params = new URLSearchParams(window.location.search);
-    const cultureSlugs = getCultureServiceSlugs(form);
-
-    form.querySelectorAll('[data-listing-filter-dropdown]').forEach(
-        (dropdown) => {
-            const hasInputs = dropdownHasFilterInputs(dropdown);
-            const selectedCount = countFromUrl(
-                dropdown.id,
-                params,
-                cultureSlugs,
-            );
-            dropdown.hidden = !hasInputs && selectedCount === 0;
-            if (dropdown.hidden) {
-                closeDropdown(dropdown, { immediate: true });
-            }
         },
     );
 }
@@ -218,19 +186,6 @@ function collectListingFilterParameters(form) {
     return parameters;
 }
 
-function refreshListingFilterChrome(
-    form,
-    { parameters = null, skipVisibility = false } = {},
-) {
-    if (!form) {
-        return;
-    }
-    updateDropdownCounts(form, { parameters });
-    if (!skipVisibility) {
-        updateDropdownVisibility(form);
-    }
-}
-
 function syncFilterFormFromUrl(form) {
     if (!form) {
         return;
@@ -268,7 +223,7 @@ function syncFilterFormFromUrl(form) {
         },
     );
 
-    refreshListingFilterChrome(form);
+    updateDropdownCounts(form);
 }
 
 function submitListingFilters(form) {
@@ -327,9 +282,8 @@ function bindListingFilterDelegation() {
         if (!form) {
             return;
         }
-        refreshListingFilterChrome(form, {
+        updateDropdownCounts(form, {
             parameters: collectListingFilterParameters(form),
-            skipVisibility: true,
         });
         scheduleListingFilterRequest(form);
     });
@@ -471,7 +425,6 @@ export {
     handleListingFilterSettle,
     handleListingFilterSwap,
     initListingFilters,
-    refreshListingFilterChrome,
     restoreOpenDropdown,
     syncFilterFormFromUrl,
 };

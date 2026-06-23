@@ -5,8 +5,8 @@ from tbx.core.listing.filters import (
     TaxonomyFilterState,
     apply_taxonomy_filters,
     apply_work_page_filters,
-    build_filter_remove_url,
-    build_listing_seo_context,
+    build_listing_urls_context,
+    build_selected_filter_items,
     filter_state_for_facet,
     get_listing_paths,
     merge_selected_filter_options,
@@ -50,6 +50,35 @@ def _service_labels_for_state(filter_state: TaxonomyFilterState) -> dict[str, st
             "slug", "name"
         )
     )
+
+
+def _taxonomy_listing_filter_visibility(
+    *,
+    base_queryset,
+    filter_state: TaxonomyFilterState,
+    listing_filters: dict,
+    apply_filters,
+    get_used_sectors,
+    get_used_services,
+) -> dict[str, bool]:
+    """Whether each taxonomy dropdown should be shown (baseline options or active selection)."""
+    if filter_state.has_filters:
+        listing_filters, _, _ = _build_facet_taxonomy_listing_filters(
+            base_queryset=base_queryset,
+            filter_state=TaxonomyFilterState(),
+            apply_filters=apply_filters,
+            get_used_sectors=get_used_sectors,
+            get_used_services=get_used_services,
+        )
+
+    selected_services, selected_culture = split_service_filter_slugs(
+        filter_state.services
+    )
+    return {
+        "sector": bool(listing_filters["sectors"]) or bool(filter_state.sectors),
+        "service": bool(listing_filters["services"]) or bool(selected_services),
+        "culture": bool(listing_filters["culture"]) or bool(selected_culture),
+    }
 
 
 def _build_facet_taxonomy_listing_filters(
@@ -263,55 +292,42 @@ class TaxonomyListingMixin(HtmxListingMixin):
             self._listing_url_context(request, filter_state, page_number)
         )
 
-        selected_filters = [
-            {
-                "param": param,
-                "slug": slug,
-                "label": label,
-                "remove_url": build_filter_remove_url(
-                    listing_path,
-                    filter_state,
-                    param=param,
-                    slug=slug,
-                ),
-            }
-            for param, slug, label in filter_state.selected_labels(
+        selected_filters = build_selected_filter_items(
+            listing_path,
+            filter_state,
+            filter_state.selected_labels(
                 sector_labels=sector_labels,
                 service_labels=service_labels,
                 division_labels=division_labels,
-            )
-        ]
-        filter_labels = [item["label"] for item in selected_filters]
-
-        seo_context = build_listing_seo_context(
-            page_title=self.title,
-            filter_labels=filter_labels,
-            active_filter_count=filter_state.active_filter_count,
-            base_url=absolute_base_url,
-            current_url=current_absolute_url,
-            has_page_param="page" in request.GET,
+            ),
         )
-
-        remove_urls = {
-            f"{item['param']}:{item['slug']}": item["remove_url"]
-            for item in selected_filters
-        }
 
         return {
             results_context_key: paginated_results,
             "filter_state": filter_state,
             "listing_filters": listing_filters,
+            "listing_filter_visibility": _taxonomy_listing_filter_visibility(
+                base_queryset=self.get_base_queryset(),
+                filter_state=filter_state,
+                listing_filters=listing_filters,
+                apply_filters=apply_filters or apply_taxonomy_filters,
+                get_used_sectors=self.get_used_sectors,
+                get_used_services=self.get_used_services,
+            ),
             "culture_service_slugs": sorted(CULTURE_SERVICE_SLUGS),
             **_selected_service_filters(filter_state),
-            "selected_filters": selected_filters,
-            "filter_remove_urls": remove_urls,
-            "clear_filters_url": listing_path,
-            "extra_url_params": filter_state.urlencode(),
-            "listing_base_url": listing_path,
+            **build_listing_urls_context(
+                listing_path=listing_path,
+                filter_state=filter_state,
+                selected_filters=selected_filters,
+                page_title=self.title,
+                absolute_base_url=absolute_base_url,
+                current_absolute_url=current_absolute_url,
+                has_page_param="page" in request.GET,
+            ),
             "listing_htmx_enabled": True,
             "listing_filters_template": "patterns/molecules/listing-filters/listing-filters--taxonomy.html",
             "listing_results_template": self.listing_results_template,
-            **seo_context,
         }
 
     def build_work_listing_context(self, request, *, works_queryset):
@@ -349,55 +365,42 @@ class TaxonomyListingMixin(HtmxListingMixin):
             self._listing_url_context(request, filter_state, page_number)
         )
 
-        selected_filters = [
-            {
-                "param": param,
-                "slug": slug,
-                "label": label,
-                "remove_url": build_filter_remove_url(
-                    listing_path,
-                    filter_state,
-                    param=param,
-                    slug=slug,
-                ),
-            }
-            for param, slug, label in filter_state.selected_labels(
+        selected_filters = build_selected_filter_items(
+            listing_path,
+            filter_state,
+            filter_state.selected_labels(
                 sector_labels=sector_labels,
                 service_labels=service_labels,
                 division_labels=division_labels,
-            )
-        ]
-        filter_labels = [item["label"] for item in selected_filters]
-
-        seo_context = build_listing_seo_context(
-            page_title=self.title,
-            filter_labels=filter_labels,
-            active_filter_count=filter_state.active_filter_count,
-            base_url=absolute_base_url,
-            current_url=current_absolute_url,
-            has_page_param="page" in request.GET,
+            ),
         )
-
-        remove_urls = {
-            f"{item['param']}:{item['slug']}": item["remove_url"]
-            for item in selected_filters
-        }
 
         return {
             "works": paginated_works,
             "filter_state": filter_state,
             "listing_filters": listing_filters,
+            "listing_filter_visibility": _taxonomy_listing_filter_visibility(
+                base_queryset=self.works,
+                filter_state=filter_state,
+                listing_filters=listing_filters,
+                apply_filters=apply_work_page_filters,
+                get_used_sectors=self.get_used_sectors_for_work,
+                get_used_services=self.get_used_services_for_work,
+            ),
             "culture_service_slugs": sorted(CULTURE_SERVICE_SLUGS),
             **_selected_service_filters(filter_state),
-            "selected_filters": selected_filters,
-            "filter_remove_urls": remove_urls,
-            "clear_filters_url": listing_path,
-            "extra_url_params": filter_state.urlencode(),
-            "listing_base_url": listing_path,
+            **build_listing_urls_context(
+                listing_path=listing_path,
+                filter_state=filter_state,
+                selected_filters=selected_filters,
+                page_title=self.title,
+                absolute_base_url=absolute_base_url,
+                current_absolute_url=current_absolute_url,
+                has_page_param="page" in request.GET,
+            ),
             "listing_htmx_enabled": True,
             "listing_filters_template": "patterns/molecules/listing-filters/listing-filters--taxonomy.html",
             "listing_results_template": "patterns/pages/listing/listing_results--work.html",
-            **seo_context,
         }
 
     def get_base_queryset(self):

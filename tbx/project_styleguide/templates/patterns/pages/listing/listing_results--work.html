@@ -3,6 +3,8 @@
 <ul class="page-listing page-listing--work">
     {% for post in works %}
         {% include "patterns/molecules/listing/listing--image.html" with title=post.title name=post.client link=post.url date=post.date reading_time=post.read_time listing_image=post.listing_image base_class="page-listing__item" %}
+    {% empty %}
+        {% include "patterns/pages/listing/includes/listing_no_results.html" %}
     {% endfor %}
 </ul>
 

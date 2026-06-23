@@ -1,5 +1,3 @@
-{% load wagtailcore_tags util_tags %}
-
 <form
     class="listing-filters"
     method="get"
@@ -11,9 +9,9 @@
     <fieldset class="listing-filters__groups">
         <legend class="sr-only">Filter {{ item.title }}</legend>
 
-        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Sector" param="sector" options=listing_filters.sectors option_label="name" option_value="slug" selected=filter_state.sectors selected_count=filter_state.sectors|length %}
-        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Service" param="service" id_param="service" options=listing_filters.services option_label="name" option_value="slug" selected=selected_services selected_count=selected_services|length %}
-        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Culture" param="service" id_param="culture" options=listing_filters.culture option_label="name" option_value="slug" selected=selected_culture selected_count=selected_culture|length %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Sector" param="sector" options=listing_filters.sectors selected=filter_state.sectors selected_count=filter_state.sectors|length show_dropdown=listing_filter_visibility.sector %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Service" param="service" id_param="service" options=listing_filters.services selected=selected_services selected_count=selected_services|length show_dropdown=listing_filter_visibility.service %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Culture" param="service" id_param="culture" options=listing_filters.culture selected=selected_culture selected_count=selected_culture|length show_dropdown=listing_filter_visibility.culture %}
     </fieldset>
 
     <div id="listing-active-filters">

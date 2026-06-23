@@ -1,5 +1,3 @@
-{% load util_tags %}
-
 <form
     class="listing-filters"
     method="get"
@@ -10,43 +8,9 @@
     <fieldset class="listing-filters__groups">
         <legend class="sr-only">Filter {{ item.title }}</legend>
 
-        {% if listing_filters.timings or filter_state.has_filters %}
-            <div
-                class="listing-filters__dropdown"
-                id="listing-filter-dropdown-timing"
-                data-listing-filter-dropdown
-                {% if not listing_filters.timings and not filter_state.has_filters %}hidden{% endif %}
-            >
-                <button
-                    type="button"
-                    class="listing-filters__dropdown-toggle"
-                    data-listing-filter-toggle
-                    aria-expanded="false"
-                    aria-controls="listing-filter-timing"
-                    id="listing-filter-toggle-timing"
-                >
-                    <span class="listing-filters__dropdown-label">When</span>
-                    <span class="listing-filters__dropdown-indicator">
-                        {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="listing-filters__dropdown-icon" %}
-                    </span>
-                </button>
-                <div
-                    class="listing-filters__dropdown-panel"
-                    id="listing-filter-timing"
-                    aria-labelledby="listing-filter-toggle-timing"
-                    data-listing-filter-panel
-                >
-                    <ul
-                        class="listing-filters__options"
-                        id="listing-filter-timing-options"
-                    >
-                        {% include "patterns/molecules/listing-filters/includes/filter-timing-options.html" %}
-                    </ul>
-                </div>
-            </div>
-        {% endif %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="When" param="timing" id_param="timing" options_include="patterns/molecules/listing-filters/includes/filter-timing-options.html" show_dropdown=listing_filter_visibility.timing %}
 
-        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Event type" param="type" id_param="type" options=listing_filters.types selected=filter_state.types selected_count=filter_state.types|length %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Event type" param="type" id_param="type" options=listing_filters.types selected=filter_state.types selected_count=filter_state.types|length show_dropdown=listing_filter_visibility.type %}
     </fieldset>
 
     <div id="listing-active-filters">

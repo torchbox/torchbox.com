@@ -76,6 +76,29 @@ class BlogListingFilterTests(WagtailPageTestCase):
             response.context["selected_filters"][0]["label"],
             "Unused sector",
         )
+        self.assertContains(response, "No results match your filters")
+        self.assertContains(response, 'id="listing-filter-toggle-sector"', count=1)
+
+    def test_dropdown_stays_visible_when_facet_narrowing_empties_options(self):
+        other_sector = SectorFactory(name="Arts", slug="arts")
+        wagtail = ServiceFactory(name="Wagtail", slug="wagtail")
+        BlogPageFactory(
+            parent=self.blog_index,
+            title="Arts wagtail post",
+            related_sectors=[other_sector],
+            related_services=[wagtail],
+        )
+
+        response = self.client.get(
+            self.blog_index.url,
+            {"sector": "public-sector", "service": "wagtail"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(list(response.context["blog_posts"]), [])
+        self.assertContains(response, "No results match your filters")
+        self.assertContains(response, 'id="listing-filter-toggle-service"', count=1)
+        self.assertContains(response, 'id="listing-filter-toggle-sector"', count=1)
 
     def test_valid_but_unused_service_filter_does_not_error(self):
         ServiceFactory(name="Unused service", slug="unused-service")

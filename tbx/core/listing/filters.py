@@ -416,8 +416,56 @@ def build_filter_remove_url(
     return base_url
 
 
-def build_clear_filters_url(base_url: str) -> str:
-    return base_url
+def build_selected_filter_items(
+    listing_path: str,
+    filter_state: TaxonomyFilterState | EventFilterState,
+    selected_labels: list[tuple[str, str, str]],
+) -> list[dict[str, str]]:
+    return [
+        {
+            "param": param,
+            "slug": slug,
+            "label": label,
+            "remove_url": build_filter_remove_url(
+                listing_path,
+                filter_state,
+                param=param,
+                slug=slug,
+            ),
+        }
+        for param, slug, label in selected_labels
+    ]
+
+
+def build_listing_urls_context(
+    *,
+    listing_path: str,
+    filter_state: TaxonomyFilterState | EventFilterState,
+    selected_filters: list[dict[str, str]],
+    page_title: str,
+    absolute_base_url: str,
+    current_absolute_url: str,
+    has_page_param: bool,
+) -> dict:
+    filter_labels = [item["label"] for item in selected_filters]
+    return {
+        "selected_filters": selected_filters,
+        "filter_remove_urls": {
+            f"{item['param']}:{item['slug']}": item["remove_url"]
+            for item in selected_filters
+        },
+        "clear_filters_url": listing_path,
+        "extra_url_params": filter_state.urlencode(),
+        "listing_base_url": listing_path,
+        **build_listing_seo_context(
+            page_title=page_title,
+            filter_labels=filter_labels,
+            active_filter_count=filter_state.active_filter_count,
+            base_url=absolute_base_url,
+            current_url=current_absolute_url,
+            has_page_param=has_page_param,
+        ),
+    }
 
 
 def get_listing_paths(page, request) -> tuple[str, str]:

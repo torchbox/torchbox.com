@@ -1,10 +1,8 @@
-{% load util_tags %}
-
 <div
     class="listing-filters__dropdown"
     id="listing-filter-dropdown-{{ id_param|default:param }}"
     data-listing-filter-dropdown
-    {% if not options and not selected_count %}hidden{% endif %}
+    {% if not show_dropdown %}hidden{% endif %}
 >
     <button
         type="button"
@@ -32,11 +30,15 @@
             class="listing-filters__options"
             id="listing-filter-{{ id_param|default:param }}-options"
         >
-            {% for option in options %}
-                {% include "patterns/molecules/listing-filters/includes/filter-option.html" with param=param value=option.value label=option.label selected=selected %}
-            {% empty %}
-                {% include "patterns/molecules/listing-filters/includes/filter-options-empty.html" %}
-            {% endfor %}
+            {% if options_include %}
+                {% include options_include %}
+            {% else %}
+                {% for option in options %}
+                    {% include "patterns/molecules/listing-filters/includes/filter-option.html" with param=param value=option.value label=option.label selected=selected %}
+                {% empty %}
+                    {% include "patterns/molecules/listing-filters/includes/filter-options-empty.html" %}
+                {% endfor %}
+            {% endif %}
         </ul>
     </div>
 </div>

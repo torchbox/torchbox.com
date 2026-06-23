@@ -24,7 +24,7 @@ Each page renders:
 
 ## Filter dropdowns (Work and News)
 
-Three dropdowns are shown when each has at least one option used on that listing:
+Three dropdowns may be shown when each has at least one option on the **unfiltered** listing (or when that dimension has an active selection — see [Dropdown visibility](#dropdown-visibility)):
 
 | Dropdown    | Source                           | Query param | Notes                                                                 |
 | ----------- | -------------------------------- | ----------- | --------------------------------------------------------------------- |
@@ -32,7 +32,7 @@ Three dropdowns are shown when each has at least one option used on that listing
 | **Service** | `Service` snippets (non-culture) | `service`   | Repeatable; excludes culture slugs (see below)                        |
 | **Culture** | `Service` snippets (culture set) | `service`   | UI-only split; same param as Service; badge counts culture selections |
 
-Dropdowns with **no options and no active selection** in that dimension are hidden and stay hidden when other filters are applied.
+Dropdowns with **no options on the unfiltered listing** and **no active selection** in that dimension are hidden (for example, Culture on Work when no culture-tagged work exists). Dropdown visibility is fixed at page load and does not change when facet narrowing removes options after other filters are applied.
 
 **Division** is not shown in the listing UI. Division filtering via `?division=` still works in the backend for legacy URLs. For how divisions relate to site structure and theming, see [Division](custom-features/divisions.md).
 
@@ -70,7 +70,7 @@ If production slugs differ, update `CULTURE_SERVICE_SLUGS` in code.
 | **When**       | Fixed timing options | `timing`    | `upcoming` (default) or `past`; radio |
 | **Event type** | `EventType` snippets | `type`      | Repeatable checkboxes                 |
 
-The **When** dropdown is hidden if `listing_filters.timings` is empty (normally always populated).
+Both dropdowns use `filter-dropdown.html`. The **When** dropdown passes `options_include` to render radio options from `filter-timing-options.html`. Visibility follows the same baseline rules as Work and News (see [Dropdown visibility](#dropdown-visibility)).
 
 ---
 
@@ -113,7 +113,7 @@ Implementation: `apply_taxonomy_filters` / `apply_work_page_filters` in `tbx/cor
 
 ### Faceted (cross-filter) options
 
-Dropdown options are **narrowed by other active filters** so only values that would return results are shown (zero-result options are hidden).
+Dropdown **options** are narrowed by other active filters so only values that would return results are shown (zero-result options are hidden from the list). This is separate from **dropdown visibility** — a dropdown stays visible even when facet narrowing leaves it with no checkbox options.
 
 | Facet computed       | Other filters applied                     |
 | -------------------- | ----------------------------------------- |
@@ -124,6 +124,34 @@ Dropdown options are **narrowed by other active filters** so only values that wo
 | Event timing options | type                                      |
 
 Selected values remain visible even when they would otherwise have no matches (`merge_selected_filter_options` in `filters.py`). Facet helpers: `filter_state_for_facet`, `_build_facet_taxonomy_listing_filters` in `mixins.py`, `get_available_event_timings` / `get_available_event_types` in `events.py`.
+
+When facet narrowing leaves a dropdown with no options, `filter-options-empty.html` shows an in-dropdown message. When the filtered **results** list is empty, the listing shows a no-results message (see [No results](#no-results)).
+
+### Dropdown visibility
+
+Whether a whole dropdown is shown is computed server-side as `listing_filter_visibility` and passed to `filter-dropdown.html` via `show_dropdown`. A dropdown is visible when:
+
+1. The **unfiltered** listing has at least one option in that dimension, **or**
+2. There is an **active selection** in that dimension (including valid-but-unused legacy URL params).
+
+Implementation:
+
+| Listing type | Helper                                | Location                     |
+| ------------ | ------------------------------------- | ---------------------------- |
+| Work / News  | `_taxonomy_listing_filter_visibility` | `tbx/core/listing/mixins.py` |
+| Events       | `_event_listing_filter_visibility`    | `tbx/core/listing/events.py` |
+
+When filters are active, visibility uses options from the unfiltered listing (empty `TaxonomyFilterState` / `EventFilterState`), not the facet-narrowed option lists. JavaScript does not hide or show dropdowns after htmx swaps — only badge counts are updated client-side.
+
+### No results
+
+| Listing | Template                         | Message when filters active | Message when unfiltered                                                    |
+| ------- | -------------------------------- | --------------------------- | -------------------------------------------------------------------------- |
+| Work    | `listing_results--work.html`     | `listing_no_results.html`   | `listing_no_results.html`                                                  |
+| News    | `listing_results--taxonomy.html` | `listing_no_results.html`   | `listing_no_results.html`                                                  |
+| Events  | `listing_results--events.html`   | `listing_no_results.html`   | Page `no_events_message` or “There are no past events.” for `?timing=past` |
+
+Filtered no-results copy: _“No results match your filters. Try adjusting or clearing your filters.”_
 
 ---
 
@@ -160,7 +188,7 @@ The filter form and dropdown chrome stay in the DOM when only results swap, so a
 
 Remove/clear links use `hx-params="none"` so checked form values are not merged into the request URL.
 
-After swaps, `syncFilterFormFromUrl()` aligns checkbox/radio state and badge counts with the browser URL. Badge counts are derived from URL parameters (or pending form values while a change is debounced), not from unchecked DOM state.
+After swaps, `syncFilterFormFromUrl()` aligns checkbox/radio state and badge counts with the browser URL. Badge counts are derived from URL parameters (or pending form values while a change is debounced), not from unchecked DOM state. Dropdown visibility is not updated client-side.
 
 **Pagination:** clicking a pagination link scrolls the viewport to the top of `.listing-panel__results` on all htmx-enabled listings (Work, News, Events). Links are marked with `data-listing-pagination` in `pagination.html`.
 
@@ -224,7 +252,8 @@ Use when setting up or reviewing listing filters:
 - [ ] Event types have unique slugs
 - [ ] Filtered URLs checked: single filter indexable, multiple filters `noindex`
 - [ ] Faceted options narrow correctly when combining sector / service filters
-- [ ] Empty dropdowns (e.g. Culture on Work) stay hidden after applying other filters
+- [ ] Empty baseline dropdowns (e.g. Culture on Work) stay hidden; dropdowns do not hide when facet narrowing empties options after filtering
+- [ ] No-results message shown when filters return zero items
 - [ ] Pagination scrolls to results on Work, News, and Events (with JS enabled)
 - [ ] Listing pages load `listing.js` (see page templates under `patterns/pages/work/`, `blog/`, `events/`)
 - [ ] Non-JS form submission tested (Apply filters)
@@ -234,7 +263,7 @@ Use when setting up or reviewing listing filters:
 ## Front-end behaviour
 
 - **Dropdowns:** click toggle to open; click outside or press Escape to close; only one open at a time. Panels are hidden with CSS when closed (not the `hidden` attribute), so closed checkboxes are still submitted correctly.
-- **Visibility:** a dropdown is shown only when it has at least one option **or** at least one active selection in that dimension. Empty dropdowns are not revealed when other filters are applied.
+- **Visibility:** controlled by `listing_filter_visibility` / `show_dropdown` at page render. A dropdown is shown when the unfiltered listing has at least one option in that dimension, or when there is an active selection. Visibility does not change after filtering or htmx swaps.
 - **Counts:** badge on the chevron shows selected count per dropdown (from URL); hidden when zero. Service and Culture badges split counts by `CULTURE_SERVICE_SLUGS` (exposed on the form as `data-listing-culture-service-slugs`).
 - **Active filters:** label, pills, and “Clear all filters” below the dropdown row; pills wrap on narrow viewports.
 - **Spacing:** mobile uses tighter gaps between stacked dropdowns and between the filter block and results (`_listing-filters.scss`).
@@ -268,21 +297,26 @@ The **Work** item in primary navigation can link to filtered views using the leg
 
 ## Related code
 
-| Concern                          | Location                                                                         |
-| -------------------------------- | -------------------------------------------------------------------------------- |
-| Filter state, SEO, culture split | `tbx/core/listing/filters.py`                                                    |
-| Facet option narrowing           | `tbx/core/listing/mixins.py` (`_build_facet_taxonomy_listing_filters`)           |
-| Work / blog listing context      | `tbx/core/listing/mixins.py`                                                     |
-| Events listing context           | `tbx/core/listing/events.py`                                                     |
-| Blog index integration           | `tbx/blog/models.py` → `BlogIndexPageMixin`                                      |
-| Work index integration           | `tbx/work/models.py`                                                             |
-| Events index integration         | `tbx/events/models.py`                                                           |
-| Taxonomy models                  | `tbx/taxonomy/models.py`                                                         |
-| Filter templates                 | `tbx/project_styleguide/templates/patterns/molecules/listing-filters/`           |
-| OOB partials                     | `tbx/project_styleguide/templates/patterns/pages/listing/includes/`              |
-| Page / partial templates         | `tbx/project_styleguide/templates/patterns/pages/listing/`                       |
-| Pagination htmx attrs            | `tbx/project_styleguide/templates/patterns/molecules/pagination/pagination.html` |
-| Unit / integration tests         | `tbx/core/listing/tests/`                                                        |
+| Concern                             | Location                                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------------------------- |
+| Filter state, SEO, culture split    | `tbx/core/listing/filters.py`                                                               |
+| Selected filters, URLs, SEO context | `tbx/core/listing/filters.py` (`build_selected_filter_items`, `build_listing_urls_context`) |
+| Facet option narrowing              | `tbx/core/listing/mixins.py` (`_build_facet_taxonomy_listing_filters`)                      |
+| Dropdown visibility (Work / News)   | `tbx/core/listing/mixins.py` (`_taxonomy_listing_filter_visibility`)                        |
+| Dropdown visibility (Events)        | `tbx/core/listing/events.py` (`_event_listing_filter_visibility`)                           |
+| Work / blog listing context         | `tbx/core/listing/mixins.py`                                                                |
+| Events listing context              | `tbx/core/listing/events.py`                                                                |
+| Blog index integration              | `tbx/blog/models.py` → `BlogIndexPageMixin`                                                 |
+| Work index integration              | `tbx/work/models.py`                                                                        |
+| Events index integration            | `tbx/events/models.py`                                                                      |
+| Taxonomy models                     | `tbx/taxonomy/models.py`                                                                    |
+| Filter templates                    | `tbx/project_styleguide/templates/patterns/molecules/listing-filters/`                      |
+| Shared dropdown partial             | `patterns/molecules/listing-filters/includes/filter-dropdown.html`                          |
+| No-results partial                  | `patterns/pages/listing/includes/listing_no_results.html`                                   |
+| OOB partials                        | `tbx/project_styleguide/templates/patterns/pages/listing/includes/`                         |
+| Page / partial templates            | `tbx/project_styleguide/templates/patterns/pages/listing/`                                  |
+| Pagination htmx attrs               | `tbx/project_styleguide/templates/patterns/molecules/pagination/pagination.html`            |
+| Unit / integration tests            | `tbx/core/listing/tests/`                                                                   |
 
 Run tests:
 
