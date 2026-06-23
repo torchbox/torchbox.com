@@ -1,4 +1,7 @@
+import json
+
 from django import template
+from django.utils.safestring import mark_safe
 from django.utils.text import camel_case_to_spaces, slugify
 
 from wagtail.blocks import StreamValue
@@ -7,6 +10,12 @@ from tbx.core.utils.models import SocialMediaSettings
 
 
 register = template.Library()
+
+
+@register.filter(name="json")
+def json_filter(value):
+    """Serialize a value to JSON."""
+    return mark_safe(json.dumps(value, indent=4))  # noqa: S308
 
 
 # Social text
