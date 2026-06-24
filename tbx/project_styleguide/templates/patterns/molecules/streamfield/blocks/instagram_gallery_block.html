@@ -8,7 +8,9 @@
             {% else %}
                 {% srcset_image post.image format-webp fill-{250x250,500x500} sizes="(max-width: 598px) 50vw, (max-width: 1021px) 25vw, (min-width: 1022px) 250px" class="instagram-post__image" loading="lazy" %}
             {% endif %}
-            {% include "patterns/atoms/icons/icon.html" with name="instagram" classname="instagram-post__icon" %}
+            {% if value.display_instagram_icon %}
+                {% include "patterns/atoms/icons/icon.html" with name="instagram" classname="instagram-post__icon" %}
+            {% endif %}
         </a>
     {% endfor %}
 </div>
