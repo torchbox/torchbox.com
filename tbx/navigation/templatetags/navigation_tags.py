@@ -21,9 +21,10 @@ def _build_primary_nav_context(context):
     request = context["request"]
     nav_settings = _navigation_settings(context)
     current_page = context.get("page")
-    site = Site.find_for_request(request) or Site.objects.filter(
-        is_default_site=True
-    ).first()
+    site = (
+        Site.find_for_request(request)
+        or Site.objects.filter(is_default_site=True).first()
+    )
 
     cached_dropdowns = get_primary_nav_dropdowns(nav_settings, site)
 
