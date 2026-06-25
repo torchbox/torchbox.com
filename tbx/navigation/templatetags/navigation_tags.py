@@ -1,5 +1,7 @@
 from django import template
 
+from wagtail.models import Site
+
 from tbx.navigation.utils import (
     get_primary_nav_dropdowns,
     primary_nav_item_is_current,
@@ -19,7 +21,9 @@ def _build_primary_nav_context(context):
     request = context["request"]
     nav_settings = _navigation_settings(context)
     current_page = context.get("page")
-    site = request.site
+    site = Site.find_for_request(request) or Site.objects.filter(
+        is_default_site=True
+    ).first()
 
     cached_dropdowns = get_primary_nav_dropdowns(nav_settings, site)
 
