@@ -292,7 +292,9 @@ Use this when setting up or reviewing Navigation settings:
 
 ## Caching
 
-Primary navigation and header actions are cached for 10 minutes. Cache is cleared automatically when navigation settings are saved.
+Primary navigation dropdown content is resolved in Python and cached for one hour per site. The cache is rebuilt automatically when navigation settings are saved. Dropdown resolution stays out of the template fragment cache so `aria-current` can reflect the current page on each request.
+
+Footer links and header actions remain cached via template fragments for 10 minutes; that cache is cleared when navigation settings are saved.
 
 ---
 

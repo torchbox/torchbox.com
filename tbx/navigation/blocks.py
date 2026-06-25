@@ -165,10 +165,12 @@ class PrimaryNavLinkBlock(LinkBlock):
         choices=ContentSource.choices,
         default=ContentSource.MANUAL,
         icon="cogs",
-        help_text="Choose whether the main column is edited manually or generated "
-        "from site content. Main links below are only used when this is set "
-        "to “Manual links”. Supporting links can be added for mixed dropdowns "
-        "(page children or division pages), but not for sectors and services.",
+        help_text=(
+            "Choose whether the main column is edited manually or generated "
+            "from site content. Main links below are only used when this is set "
+            "to “Manual links”. Supporting links can be added for mixed dropdowns "
+            "(page children or division pages), but not for sectors and services."
+        ),
     )
     main_heading = blocks.CharBlock(
         required=False,
@@ -186,9 +188,11 @@ class PrimaryNavLinkBlock(LinkBlock):
     supporting_links = blocks.StreamBlock(
         [("link", SupportingNavLinkBlock(icon="link"))],
         required=False,
-        help_text="Supporting column links. Used for manual and mixed dropdowns "
-        "(page children or division pages with a curated supporting column). "
-        "Not used when content source is “Auto-generate sectors and services”.",
+        help_text=(
+            "Supporting column links. Used for manual and mixed dropdowns "
+            "(page children or division pages with a curated supporting column). "
+            "Not used when content source is “Auto-generate sectors and services”."
+        ),
     )
     page_children_depth = blocks.ChoiceBlock(
         choices=PageChildrenDepth.choices,
@@ -206,6 +210,7 @@ class PrimaryNavLinkBlock(LinkBlock):
         "promoted_links": "supporting_links",
     }
 
+    # cleanup(2026jun): remove once all Navigation settings have been re-saved.
     @classmethod
     def _migrate_legacy_value(cls, value):
         if not isinstance(value, dict):

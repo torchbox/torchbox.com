@@ -6,6 +6,7 @@ from django.db import models
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.models import Site
 
 from tbx.core.utils.fields import StreamField
 from tbx.navigation.blocks import (
@@ -13,6 +14,7 @@ from tbx.navigation.blocks import (
     LinkBlock,
     PrimaryNavLinkBlock,
 )
+from tbx.navigation.utils import rebuild_primary_nav_cache
 
 
 @register_setting(icon="list-ul")
@@ -74,6 +76,9 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
 
     def save(self, **kwargs):
         super().save(**kwargs)
+
+        for site in Site.objects.all():
+            rebuild_primary_nav_cache(self, site)
 
         fragment_keys = [
             "footerlinks",

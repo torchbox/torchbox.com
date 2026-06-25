@@ -39,14 +39,10 @@ def get_raw_stream_data(value):
 
 def migrate_primary_navigation(apps, schema_editor):
     NavigationSettings = apps.get_model("navigation", "NavigationSettings")
-    table = NavigationSettings._meta.db_table
-    quoted_table = schema_editor.quote_name(table)
 
-    with schema_editor.connection.cursor() as cursor:
-        cursor.execute(f"SELECT id, primary_navigation FROM {quoted_table}")  # noqa: S608
-        rows = list(cursor.fetchall())
-
-    for pk, stream_data in rows:
+    for row in NavigationSettings.objects.values("id", "primary_navigation"):
+        pk = row["id"]
+        stream_data = row["primary_navigation"]
         stream_data = get_raw_stream_data(stream_data)
         if not stream_data:
             continue

@@ -3,6 +3,7 @@ from types import SimpleNamespace
 from django.test import TestCase
 
 import wagtail_factories
+from wagtail.models import Site
 
 from tbx.core.factories import HomePageFactory
 from tbx.navigation.blocks import PrimaryNavLinkBlock
@@ -22,6 +23,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
         self.home_page = HomePageFactory(parent=root_page)
         self.work_index = WorkIndexPageFactory(parent=self.home_page)
         self.block = PrimaryNavLinkBlock()
+        self.site = Site.objects.get(is_default_site=True)
 
     def test_manual_mixed_list_dropdown(self):
         value = self.block.to_python(
@@ -61,13 +63,13 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value)
+        dropdown = resolve_primary_nav_dropdown(value, self.site)
         self.assertEqual(dropdown["style"], "mixed_list")
         self.assertEqual(dropdown["main_heading"], "Core services")
         self.assertEqual(len(dropdown["main_items"]), 1)
         self.assertEqual(dropdown["main_items"][0].text, "Websites")
         self.assertEqual(len(dropdown["supporting_items"]), 1)
-        self.assertTrue(item_has_dropdown(value))
+        self.assertTrue(item_has_dropdown(value, self.site))
 
     def test_legacy_streamfield_keys(self):
         """Existing saved nav data uses secondary/promoted keys until re-saved."""
@@ -108,7 +110,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value)
+        dropdown = resolve_primary_nav_dropdown(value, self.site)
         self.assertEqual(dropdown["main_heading"], "Core services")
         self.assertEqual(dropdown["supporting_heading"], "Quick start")
         self.assertEqual(len(dropdown["main_items"]), 1)
@@ -133,7 +135,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value)
+        dropdown = resolve_primary_nav_dropdown(value, self.site)
         self.assertEqual(dropdown["style"], "taxonomy_index")
         self.assertEqual(dropdown["main_heading"], "By sector")
         self.assertEqual(dropdown["supporting_heading"], "By service")
@@ -170,7 +172,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value)
+        dropdown = resolve_primary_nav_dropdown(value, self.site)
         self.assertEqual(len(dropdown["supporting_items"]), 1)
         self.assertEqual(dropdown["supporting_items"][0].text, "SEO")
 
@@ -194,7 +196,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value)
+        dropdown = resolve_primary_nav_dropdown(value, self.site)
         self.assertIsNotNone(dropdown)
         self.assertEqual(dropdown["style"], "mixed_list")
         self.assertEqual(len(dropdown["main_items"]), 1)
@@ -230,7 +232,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value)
+        dropdown = resolve_primary_nav_dropdown(value, self.site)
         self.assertEqual(len(dropdown["main_items"]), 1)
         self.assertEqual(dropdown["main_items"][0].text, "Child page")
         self.assertEqual(len(dropdown["supporting_items"]), 1)
@@ -262,7 +264,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value)
+        dropdown = resolve_primary_nav_dropdown(value, self.site)
         self.assertIsNotNone(dropdown)
         self.assertEqual(len(dropdown["supporting_items"]), 1)
         self.assertEqual(dropdown["supporting_items"][0].text, "Wagtail")
@@ -283,8 +285,8 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        self.assertFalse(item_has_dropdown(value))
-        self.assertIsNone(resolve_primary_nav_dropdown(value))
+        self.assertFalse(item_has_dropdown(value, self.site))
+        self.assertIsNone(resolve_primary_nav_dropdown(value, self.site))
 
     def test_format_nav_tags(self):
         self.assertEqual(format_nav_tags("SEO, PPC"), "SEO · PPC")
@@ -293,6 +295,9 @@ class TestResolvePrimaryNavDropdown(TestCase):
 
 
 class TestPrimaryNavItemIsCurrent(TestCase):
+    def setUp(self):
+        self.site = Site.objects.get(is_default_site=True)
+
     def _nav_item(self, page):
         return SimpleNamespace(
             get=lambda key, default=None: page if key == "page" else default
@@ -300,24 +305,30 @@ class TestPrimaryNavItemIsCurrent(TestCase):
 
     def test_returns_true_for_matching_page(self):
         page = SimpleNamespace(pk=1, url="/about/")
-        self.assertTrue(primary_nav_item_is_current(self._nav_item(page), page))
+        self.assertTrue(primary_nav_item_is_current(self._nav_item(page), page, self.site))
 
     def test_returns_true_for_descendant_page(self):
         section = SimpleNamespace(pk=1, url="/about/")
         child = SimpleNamespace(pk=2, url="/about/team/")
-        self.assertTrue(primary_nav_item_is_current(self._nav_item(section), child))
+        self.assertTrue(
+            primary_nav_item_is_current(self._nav_item(section), child, self.site)
+        )
 
     def test_returns_false_when_nav_page_has_no_url(self):
         section = SimpleNamespace(pk=1, url=None)
         current = SimpleNamespace(pk=2, url="/home/")
-        self.assertFalse(primary_nav_item_is_current(self._nav_item(section), current))
+        self.assertFalse(
+            primary_nav_item_is_current(self._nav_item(section), current, self.site)
+        )
 
     def test_returns_false_when_current_page_has_no_url(self):
         section = SimpleNamespace(pk=1, url="/about/")
         current = SimpleNamespace(pk=2, url=None)
-        self.assertFalse(primary_nav_item_is_current(self._nav_item(section), current))
+        self.assertFalse(
+            primary_nav_item_is_current(self._nav_item(section), current, self.site)
+        )
 
     def test_returns_false_when_no_nav_page(self):
         current = SimpleNamespace(pk=1, url="/home/")
         item = SimpleNamespace(get=lambda key, default=None: default)
-        self.assertFalse(primary_nav_item_is_current(item, current))
+        self.assertFalse(primary_nav_item_is_current(item, current, self.site))

@@ -1,8 +1,8 @@
 from django import template
 
 from tbx.navigation.utils import (
+    get_primary_nav_dropdowns,
     primary_nav_item_is_current,
-    resolve_primary_nav_dropdown,
 )
 from tbx.people.models import Contact
 from tbx.sitemap.models import SitemapPage
@@ -19,16 +19,20 @@ def _build_primary_nav_context(context):
     request = context["request"]
     nav_settings = _navigation_settings(context)
     current_page = context.get("page")
+    site = request.site
+
+    cached_dropdowns = get_primary_nav_dropdowns(nav_settings, site)
 
     items = []
-    for block in nav_settings.primary_navigation:
+    for block, dropdown in zip(
+        nav_settings.primary_navigation, cached_dropdowns, strict=True
+    ):
         link = block.value
-        dropdown = resolve_primary_nav_dropdown(link)
         items.append(
             {
                 "link": link,
                 "dropdown": dropdown,
-                "is_current": primary_nav_item_is_current(link, current_page),
+                "is_current": primary_nav_item_is_current(link, current_page, site),
             }
         )
 
