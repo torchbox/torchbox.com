@@ -32,7 +32,9 @@ describe('focus-trap', () => {
             const menu = document.getElementById('menu');
 
             expect(
-                getFocusableElements([toggle, menu]).map((el) => el.textContent),
+                getFocusableElements([toggle, menu]).map(
+                    (el) => el.textContent,
+                ),
             ).toEqual(['Menu', 'About', 'Contact', 'Hidden back']);
         });
 

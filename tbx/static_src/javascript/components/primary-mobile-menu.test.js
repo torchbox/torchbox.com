@@ -179,9 +179,9 @@ describe('PrimaryMobileMenu', () => {
         expect(document.activeElement).toBe(trigger);
         expect(trigger.getAttribute('aria-expanded')).toBe('false');
         expect(
-            document.querySelector('[data-primary-subnav]').classList.contains(
-                'is-visible',
-            ),
+            document
+                .querySelector('[data-primary-subnav]')
+                .classList.contains('is-visible'),
         ).toBe(false);
     });
 

@@ -44,11 +44,7 @@ export function getFocusableElements(roots, isTabbable = defaultIsTabbable) {
             (root) => root && (root === element || root.contains(element)),
         );
 
-        if (
-            isInsideRoot &&
-            isTabbable(element) &&
-            !seen.has(element)
-        ) {
+        if (isInsideRoot && isTabbable(element) && !seen.has(element)) {
             seen.add(element);
             elements.push(element);
         }
