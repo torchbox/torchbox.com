@@ -7,6 +7,7 @@ from tbx.divisions.models import DivisionPage
 from tbx.taxonomy.models import Sector, Service
 from tbx.work.models import WorkIndexPage
 
+
 PRIMARY_NAV_CACHE_TIMEOUT = 3600  # 1 hour staleness backstop
 
 

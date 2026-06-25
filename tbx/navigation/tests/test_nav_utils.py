@@ -2,8 +2,9 @@ from types import SimpleNamespace
 
 from django.test import TestCase
 
-import wagtail_factories
 from wagtail.models import Site
+
+import wagtail_factories
 
 from tbx.core.factories import HomePageFactory
 from tbx.navigation.blocks import PrimaryNavLinkBlock
@@ -305,7 +306,9 @@ class TestPrimaryNavItemIsCurrent(TestCase):
 
     def test_returns_true_for_matching_page(self):
         page = SimpleNamespace(pk=1, url="/about/")
-        self.assertTrue(primary_nav_item_is_current(self._nav_item(page), page, self.site))
+        self.assertTrue(
+            primary_nav_item_is_current(self._nav_item(page), page, self.site)
+        )
 
     def test_returns_true_for_descendant_page(self):
         section = SimpleNamespace(pk=1, url="/about/")
