@@ -15,10 +15,19 @@ class PrimaryDesktopSubMenu {
         this.backdrop = document.querySelector(
             '[data-primary-nav-dropdown-backdrop]',
         );
+
+        if (!this.toggleNode) {
+            return;
+        }
+
         this.bindEventListeners();
     }
 
     close() {
+        if (!this.toggleNode) {
+            return;
+        }
+
         this.toggleNode.classList.remove(this.activeClass);
         this.node.setAttribute('aria-expanded', 'false');
         this.body.classList.remove('no-scroll');
@@ -30,6 +39,10 @@ class PrimaryDesktopSubMenu {
     }
 
     open() {
+        if (!this.toggleNode) {
+            return;
+        }
+
         const menuOpenEvent = new Event('onMenuOpen');
         document.dispatchEvent(menuOpenEvent);
         this.toggleNode.classList.add(this.activeClass);

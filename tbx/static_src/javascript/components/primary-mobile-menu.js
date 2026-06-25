@@ -1,3 +1,34 @@
+import { trapFocus } from './focus-trap';
+
+function isMobileMenuFocusTrapTabbable(element) {
+    const hiddenSubnav = element.closest('[data-primary-subnav]');
+
+    if (hiddenSubnav && !hiddenSubnav.classList.contains('is-visible')) {
+        return false;
+    }
+
+    if (element.disabled || element.getAttribute('aria-hidden') === 'true') {
+        return false;
+    }
+
+    let parent = element.parentElement;
+    while (parent) {
+        const style = window.getComputedStyle(parent);
+
+        if (
+            style.visibility === 'hidden' ||
+            style.display === 'none' ||
+            parent.getAttribute('aria-hidden') === 'true'
+        ) {
+            return false;
+        }
+
+        parent = parent.parentElement;
+    }
+
+    return true;
+}
+
 class PrimaryMobileMenu {
     static selector() {
         return '[data-primary-mobile-menu-toggle]';
@@ -15,6 +46,10 @@ class PrimaryMobileMenu {
         );
         this.header = this.node.closest('.header');
 
+        if (!this.primaryMobileMenu) {
+            return;
+        }
+
         this.state = {
             open: false,
         };
@@ -22,7 +57,37 @@ class PrimaryMobileMenu {
         this.bindEventListeners();
     }
 
-    closeSubMenus() {
+    getFocusTrapRoots() {
+        if (!this.primaryMobileMenu) {
+            return [];
+        }
+
+        const visibleSubnav = this.primaryMobileMenu.querySelector(
+            '[data-primary-subnav].is-visible',
+        );
+
+        if (visibleSubnav) {
+            return [visibleSubnav];
+        }
+
+        return [this.node, this.primaryMobileMenu];
+    }
+
+    closeSubMenus({ restoreFocus = false } = {}) {
+        if (!this.primaryMobileMenu) {
+            return;
+        }
+
+        const visibleSubnav = this.primaryMobileMenu.querySelector(
+            '[data-primary-subnav].is-visible',
+        );
+        const triggerToFocus =
+            restoreFocus && visibleSubnav
+                ? this.primaryMobileMenu.querySelector(
+                      `[data-open-primary-subnav][aria-controls="${visibleSubnav.id}"]`,
+                  )
+                : null;
+
         this.primaryMobileMenu
             .querySelectorAll('[data-primary-subnav]')
             .forEach((subnav) => {
@@ -36,29 +101,42 @@ class PrimaryMobileMenu {
         this.primaryMobileMenu.classList.remove(
             'primary-nav-mobile--subnav-open',
         );
+
+        if (triggerToFocus) {
+            triggerToFocus.focus();
+        }
     }
 
     bindEventListeners() {
         this.node.addEventListener('click', () => {
             if (this.state.open) {
-                this.close();
+                this.close({ restoreFocus: true });
             } else {
                 this.open();
             }
         });
 
         document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && this.state.open) {
+            if (!this.state.open) {
+                return;
+            }
+
+            if (event.key === 'Escape') {
                 if (
                     this.primaryMobileMenu.querySelector(
                         '[data-primary-subnav].is-visible',
                     )
                 ) {
-                    this.closeSubMenus();
+                    this.closeSubMenus({ restoreFocus: true });
                     return;
                 }
-                this.close();
+                this.close({ restoreFocus: true });
+                return;
             }
+
+            trapFocus(event, this.getFocusTrapRoots(), {
+                isTabbable: isMobileMenuFocusTrapTabbable,
+            });
         });
 
         document.addEventListener('click', (event) => {
@@ -91,7 +169,7 @@ class PrimaryMobileMenu {
         this.state.open = true;
     }
 
-    close() {
+    close({ restoreFocus = false } = {}) {
         this.closeSubMenus();
         this.node.setAttribute('aria-expanded', 'false');
         this.node.classList.remove('is-open');
@@ -101,6 +179,9 @@ class PrimaryMobileMenu {
             this.header.classList.remove('header--mobile-menu-open');
         }
         this.state.open = false;
+        if (restoreFocus) {
+            this.node.focus();
+        }
     }
 }
 

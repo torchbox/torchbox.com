@@ -54,4 +54,19 @@ describe('PrimaryMobileSubMenu', () => {
             document.querySelector('[data-primary-mobile-menu]').className,
         ).toBe('primary-nav-mobile');
     });
+
+    it('does not throw when aria-controls is missing', () => {
+        document.body.innerHTML = `
+            <nav class="primary-nav-mobile" data-primary-mobile-menu>
+                <button data-open-primary-subnav aria-expanded="false">Services</button>
+            </nav>
+        `;
+
+        expect(() => {
+            // eslint-disable-next-line no-new
+            new PrimaryMobileSubMenu(
+                document.querySelector(PrimaryMobileSubMenu.selector()),
+            );
+        }).not.toThrow();
+    });
 });

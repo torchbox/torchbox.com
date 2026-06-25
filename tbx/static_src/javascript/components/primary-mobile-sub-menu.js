@@ -9,7 +9,14 @@ class PrimaryMobileSubMenu {
         this.subnav = document.getElementById(
             this.node.getAttribute('aria-controls'),
         );
-        this.backLink = this.subnav.querySelector('[data-primary-subnav-back]');
+        this.backLink = this.subnav?.querySelector(
+            '[data-primary-subnav-back]',
+        );
+
+        if (!this.subnav || !this.backLink || !this.mobileMenu) {
+            return;
+        }
+
         this.bindEventListeners();
     }
 
