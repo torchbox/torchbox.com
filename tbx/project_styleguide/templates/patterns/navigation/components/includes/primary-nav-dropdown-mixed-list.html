@@ -3,8 +3,8 @@
     id="primary-nav-dropdown-{{ dropdown_id }}"
     data-primary-subnav
 >
-    <div class="grid">
-        <div class="primary-nav-dropdown__inner primary-nav-dropdown__columns">
+    <div class="grid grid__primary-nav-dropdown">
+        <div class="primary-nav-dropdown__inner grid__primary-nav-dropdown-inner primary-nav-dropdown__columns">
             {% if dropdown.main_items %}
                 <div class="primary-nav-dropdown__column">
                     {% if dropdown.main_heading %}
@@ -20,7 +20,7 @@
                                             <span class="primary-nav-dropdown__row-description">{{ child.description }}</span>
                                         {% endif %}
                                     </span>
-                                    {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown__row-arrow" only %}
+                                    {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown__row-arrow" %}
                                 </a>
                             </li>
                         {% endfor %}

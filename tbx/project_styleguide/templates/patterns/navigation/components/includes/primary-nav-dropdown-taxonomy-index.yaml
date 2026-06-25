@@ -20,15 +20,6 @@ context:
         url: '#'
       - text: SEO
         url: '#'
-      - text: PPC
-        url: '#'
-      - text: Email marketing
-        url: '#'
-      - text: Wagtail CMS
-        url: '#'
-      - text: Digital products
-        url: '#'
-      - text: Innovation
-        url: '#'
     parent_url: '#'
     parent_text: Work
+  dropdown_id: 1

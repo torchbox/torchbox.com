@@ -3,8 +3,8 @@
     id="primary-nav-dropdown-{{ dropdown_id }}"
     data-primary-subnav
 >
-    <div class="grid">
-        <div class="primary-nav-dropdown__inner{% if dropdown.supporting_items %} primary-nav-dropdown__columns{% endif %}">
+    <div class="grid grid__primary-nav-dropdown">
+        <div class="primary-nav-dropdown__inner grid__primary-nav-dropdown-inner{% if dropdown.supporting_items %} primary-nav-dropdown__columns{% endif %}">
             <div class="primary-nav-dropdown__column">
                 {% if dropdown.main_heading %}
                     <h2 class="primary-nav-dropdown__heading">{{ dropdown.main_heading }}</h2>
@@ -22,7 +22,7 @@
                                         <span class="primary-nav-dropdown__row-description">{{ child.description }}</span>
                                     {% endif %}
                                 </span>
-                                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown__row-arrow" only %}
+                                {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown__row-arrow" %}
                             </a>
                         </li>
                     {% endfor %}
@@ -38,7 +38,7 @@
                             <li class="primary-nav-dropdown__row-item">
                                 <a href="{{ child.url }}" class="primary-nav-dropdown__row-link primary-nav-dropdown__row-link--compact">
                                     <span class="primary-nav-dropdown__row-title">{{ child.text }}</span>
-                                    {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown__row-arrow" only %}
+                                    {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown__row-arrow" %}
                                 </a>
                             </li>
                         {% endfor %}

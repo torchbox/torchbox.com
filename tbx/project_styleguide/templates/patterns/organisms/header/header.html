@@ -6,9 +6,9 @@
         <div class="grid__header-nav header__bar">
             <div class="header__logo">
                 <a
-                    href="{% pageurl current_site.root_page %}"
+                    href="{% if page.final_division and page.final_division.logo %}{% pageurl page.final_division %}{% else %}{% pageurl current_site.root_page %}{% endif %}"
                     class="header__logo-link"
-                    aria-label="Homepage"
+                    aria-label="{% if page.final_division and page.final_division.logo %}{{ page.final_division.get_logo_display }} home{% else %}Homepage{% endif %}"
                 >
                     {% if page.final_division and page.final_division.logo %}
                         {% with class_name="logo logo--"|add:page.final_division.logo %}

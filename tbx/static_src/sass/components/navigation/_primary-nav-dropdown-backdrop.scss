@@ -1,0 +1,66 @@
+@use '../../config' as *;
+
+/*
+Fixed overlay behind open desktop dropdowns. Clicks pass through to
+document listeners; the tint and backdrop blur sit above page content while
+the dropdown panel itself stays transparent.
+*/
+.primary-nav-dropdown-backdrop {
+    display: none;
+
+    @include media-query(menu) {
+        @include z-index(nav-backdrop);
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgb(0 0 0 / 0.22);
+        backdrop-filter: blur($nav-dropdown-blur);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            opacity $transition 50ms,
+            visibility 0ms 300ms;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        .mode-light & {
+            background: rgb(255 255 255 / 0.45);
+        }
+
+        body.primary-nav-dropdown-open &,
+        body:has(.primary-nav-desktop__item.active) & {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transition:
+                opacity $transition 50ms,
+                visibility 0ms;
+        }
+    }
+}
+
+// Blur page content when a desktop dropdown is open. The dropdown shell is
+// transparent so this remains visible; the backdrop adds a tint on top.
+@include media-query(menu) {
+    .breadcrumbs-nav,
+    .page {
+        transition: filter $transition;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+    }
+}
+
+body.primary-nav-dropdown-open,
+body:has(.primary-nav-desktop__item.active) {
+    @include media-query(menu) {
+        .breadcrumbs-nav,
+        .page {
+            filter: blur($nav-dropdown-blur);
+        }
+    }
+}

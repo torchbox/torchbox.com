@@ -1,0 +1,19 @@
+context:
+  dropdown:
+    style: teaser_grid
+    main_heading: Sectors we support
+    main_items:
+      - text: Charities & non-profits
+        url: '#'
+        description: Growing income, extending reach, and expanding real-world impact for non-profits.
+        tags: Health charities · International development · Human rights
+        accent_colour: theme-coral
+      - text: Public sector
+        url: '#'
+        description: Navigate complex public sector challenges and transform civic services through digital.
+        tags: Local government · NHS · Higher education
+        accent_colour: theme-nebuline
+    supporting_items: []
+    parent_url: '#'
+    parent_text: Sectors
+  dropdown_id: 1

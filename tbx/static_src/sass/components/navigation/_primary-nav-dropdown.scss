@@ -5,91 +5,6 @@
 Styles for primary navigation dropdown panels at desktop
 */
 
-$nav-dropdown-blur: 20px;
-$nav-dropdown-header-gap: 40px;
-$nav-dropdown-item-hover-bg: rgb(255 255 255 / 0.08);
-$nav-dropdown-item-hover-bg-light: var(--color--grey-5);
-
-@mixin nav-dropdown-item-hover-bg() {
-    background-color: $nav-dropdown-item-hover-bg;
-
-    .mode-light & {
-        background-color: $nav-dropdown-item-hover-bg-light;
-    }
-}
-
-@mixin nav-dropdown-item-hover-underline() {
-    text-decoration: underline;
-    text-decoration-thickness: $link-underline-thickness-interaction;
-    text-underline-offset: 2px;
-    text-decoration-color: var(--color--theme-primary);
-}
-
-.primary-nav-dropdown-backdrop {
-    display: none;
-
-    @include media-query(menu) {
-        @include z-index(nav-backdrop);
-        display: block;
-        position: fixed;
-        inset: 0;
-        background: rgb(0 0 0 / 0.22);
-        backdrop-filter: blur($nav-dropdown-blur);
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transition:
-            opacity $transition ease-out 50ms,
-            visibility 0ms ease-out 300ms;
-
-        @include reduced-motion() {
-            backdrop-filter: none;
-            transition: none;
-        }
-
-        .mode-light & {
-            background: rgb(255 255 255 / 0.45);
-        }
-
-        body.primary-nav-dropdown-open &,
-        body:has(.primary-nav-desktop__item.active) & {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            transition:
-                opacity $transition ease-out 50ms,
-                visibility 0ms ease-out 0ms;
-        }
-    }
-}
-
-// Blur page content when a desktop dropdown is open. The dropdown shell is
-// transparent so this remains visible; the backdrop adds a tint on top.
-@include media-query(menu) {
-    .breadcrumbs-nav,
-    main {
-        transition: filter $transition;
-
-        @include reduced-motion() {
-            transition: none;
-        }
-    }
-}
-
-body.primary-nav-dropdown-open,
-body:has(.primary-nav-desktop__item.active) {
-    @include media-query(menu) {
-        .breadcrumbs-nav,
-        main {
-            filter: blur($nav-dropdown-blur);
-
-            @include reduced-motion() {
-                filter: none;
-            }
-        }
-    }
-}
-
 .primary-nav-dropdown {
     $root: &;
     @include z-index(nav);
@@ -112,12 +27,6 @@ body:has(.primary-nav-desktop__item.active) {
         max-height: calc(100dvh - #{$header-full-height-large});
     }
 
-    > .grid {
-        max-width: $site-width;
-        width: 100%;
-        margin: 0 auto;
-    }
-
     .primary-nav-desktop__item.active & {
         opacity: 1;
         visibility: visible;
@@ -132,15 +41,9 @@ body:has(.primary-nav-desktop__item.active) {
     }
 
     &__inner {
-        // Match grid__header-nav: columns 2–13, excluding outer gutter tracks.
-        grid-column: 2 / span 4;
         padding: $spacer-small-plus 0;
         transform: translate3d(0, -#{$nav-dropdown-header-gap}, 0);
         transition: transform $transition;
-
-        @include media-query(large) {
-            grid-column: 2 / span 12;
-        }
 
         @include reduced-motion() {
             transform: none;
@@ -153,7 +56,7 @@ body:has(.primary-nav-desktop__item.active) {
     }
 
     &__heading {
-        @include font-size('size-six');
+        @include font-size('size-five');
         color: var(--color--grey-50);
         font-weight: $weight--semibold;
         text-transform: uppercase;
@@ -231,12 +134,12 @@ body:has(.primary-nav-desktop__item.active) {
 
         &:hover,
         &:focus-visible {
-            @include nav-dropdown-item-hover-bg();
+            @include list-item-hover-bg();
         }
 
         &:hover #{$root}__row-title,
         &:focus-visible #{$root}__row-title {
-            @include nav-dropdown-item-hover-underline();
+            @include link-underline-interaction();
         }
 
         &:focus-visible {
@@ -250,17 +153,17 @@ body:has(.primary-nav-desktop__item.active) {
             #{$root}__row-title {
                 @include font-size('size-six');
                 font-weight: $weight--regular;
-                color: var(--color--link);
+                color: var(--color--heading);
                 text-decoration: underline;
                 text-decoration-thickness: $link-underline-thickness;
                 text-underline-offset: 2px;
-                text-decoration-color: var(--color--link);
+                text-decoration-color: var(--color--link-underline);
             }
 
             // Interaction styles live on the anchor so padding and text share one hover state.
             &:hover #{$root}__row-title,
             &:focus-visible #{$root}__row-title {
-                @include nav-dropdown-item-hover-underline();
+                @include link-underline-interaction();
             }
         }
     }
@@ -365,13 +268,13 @@ body:has(.primary-nav-desktop__item.active) {
 
         &:has(#{$root}__card-link:hover),
         &:has(#{$root}__card-link:focus-visible) {
-            @include nav-dropdown-item-hover-bg();
+            @include list-item-hover-bg();
         }
     }
 
     &__card-link:hover &__card-title,
     &__card-link:focus-visible &__card-title {
-        @include nav-dropdown-item-hover-underline();
+        @include link-underline-interaction();
     }
 
     &__card-title {
@@ -398,8 +301,9 @@ body:has(.primary-nav-desktop__item.active) {
         @include font-size('size-six');
         @include link-styles(
             $color: var(--color--link),
-            $interaction-color: var(--color--theme-primary),
-            $underline-color: var(--color--link)
+            $interaction-color: var(--color--heading),
+            $underline-color: var(--color--link-underline),
+            $underline-hover-color: var(--color--heading)
         );
         display: inline-flex;
         align-items: center;
@@ -419,10 +323,9 @@ body:has(.primary-nav-desktop__item.active) {
     &__footer-arrow {
         @include arrow-link-icon-styles(
             $width: 14px,
-            $interaction-color: var(--color--theme-primary)
+            $color: var(--color--decoration),
+            $interaction-color: var(--color--heading)
         );
-        color: var(--color--theme-primary);
         vertical-align: text-top;
     }
 }
-

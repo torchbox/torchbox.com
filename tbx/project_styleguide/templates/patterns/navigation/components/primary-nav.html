@@ -14,8 +14,8 @@
                 >
                     <span class="primary-nav-desktop__text">{{ link.text }}</span>
                     <span class="primary-nav-desktop__icon-wrapper" aria-hidden="true">
-                        {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="primary-nav-desktop__icon-closed" only %}
-                        {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="primary-nav-desktop__icon-open" only %}
+                        {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="primary-nav-desktop__icon-closed" %}
+                        {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="primary-nav-desktop__icon-open" %}
                     </span>
                 </button>
                 {% include "patterns/navigation/components/includes/primary-nav-dropdown.html" with dropdown=dropdown dropdown_id=forloop.counter %}

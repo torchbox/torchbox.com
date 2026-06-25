@@ -51,7 +51,7 @@ Styles for primary navigation dropdown panels at mobile
     }
 
     &__heading {
-        @include font-size('size-six');
+        @include font-size('size-five');
         color: var(--color--grey-50);
         text-transform: uppercase;
         letter-spacing: 0.04em;
