@@ -3,6 +3,14 @@
 {% load static wagtailuserbar wagtailcore_tags wagtailimages_tags navigation_tags util_tags %}
 
 {% block meta_tags %}
+    {% if page.canonical_url %}
+        <link rel="canonical" href="{{ page.canonical_url }}">
+    {% elif 'page' in request.GET %}
+        <link rel="canonical" href="{% fullpageurl self %}?page={{ request.GET.page }}">
+    {% else %}
+        <link rel="canonical" href="{% fullpageurl self %}">
+    {% endif %}
+
     {% if GOOGLE_TAG_MANAGER_ID and not request.in_preview_panel %}
         <!-- Google Tag Manager -->
         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
