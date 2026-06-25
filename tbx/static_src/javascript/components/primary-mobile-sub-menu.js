@@ -6,7 +6,9 @@ class PrimaryMobileSubMenu {
     constructor(node) {
         this.node = node;
         this.mobileMenu = this.node.closest('[data-primary-mobile-menu]');
-        this.subnav = this.node.nextElementSibling;
+        this.subnav = document.getElementById(
+            this.node.getAttribute('aria-controls'),
+        );
         this.backLink = this.subnav.querySelector('[data-primary-subnav-back]');
         this.bindEventListeners();
     }

@@ -67,10 +67,6 @@ class DesktopCloseMenus {
             return;
         }
 
-        document.addEventListener('touchstart', (e) => {
-            this.closeMenus(e);
-        });
-
         document.addEventListener('click', (e) => {
             this.closeMenus(e);
         });

@@ -4,8 +4,8 @@ describe('PrimaryMobileSubMenu', () => {
     beforeEach(() => {
         document.body.innerHTML = `
             <nav class="primary-nav-mobile" data-primary-mobile-menu>
-                <button data-open-primary-subnav aria-expanded="false">Services</button>
-                <div data-primary-subnav>
+                <button data-open-primary-subnav aria-expanded="false" aria-controls="primary-nav-mobile-dropdown-1">Services</button>
+                <div id="primary-nav-mobile-dropdown-1" data-primary-subnav>
                     <button data-primary-subnav-back>Back</button>
                     <a href="/services/">Services</a>
                 </div>
