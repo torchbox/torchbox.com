@@ -49,10 +49,6 @@ class PrimaryDesktopSubMenu {
         this.node.setAttribute('aria-expanded', 'true');
         this.body.classList.add('no-scroll');
         this.body.classList.add(this.openBodyClass);
-
-        if (this.backdrop) {
-            this.backdrop.setAttribute('aria-hidden', 'false');
-        }
     }
 
     bindEventListeners() {
