@@ -100,5 +100,7 @@
     @include meta.load-css('components/navigation/footerlinks-nav');
     @include meta.load-css('components/navigation/primary-nav-desktop');
     @include meta.load-css('components/navigation/primary-nav-dropdown');
+    @include meta.load-css('components/navigation/primary-nav-dropdown-mobile');
+    @include meta.load-css('components/navigation/primary-nav-dropdown-preview');
     @include meta.load-css('components/navigation/primary-nav-mobile');
 }

@@ -13,7 +13,7 @@ class PrimaryDesktopSubMenu {
         this.activeClass = 'active';
         this.openBodyClass = 'primary-nav-dropdown-open';
         this.backdrop = document.querySelector(
-            '.primary-nav-dropdown-backdrop',
+            '[data-primary-nav-dropdown-backdrop]',
         );
         this.bindEventListeners();
     }

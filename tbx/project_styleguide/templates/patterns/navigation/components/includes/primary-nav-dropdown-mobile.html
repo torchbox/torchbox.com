@@ -16,7 +16,7 @@
         </li>
         {% if dropdown.main_heading %}
             <li class="primary-nav-dropdown-mobile__item primary-nav-dropdown-mobile__item--heading">
-                <span class="primary-nav-dropdown-mobile__heading">{{ dropdown.main_heading }}</span>
+                <h2 class="primary-nav-dropdown-mobile__heading">{{ dropdown.main_heading }}</h2>
             </li>
         {% endif %}
         {% for child in dropdown.main_items %}
@@ -32,7 +32,7 @@
         {% endfor %}
         {% if dropdown.supporting_heading %}
             <li class="primary-nav-dropdown-mobile__item primary-nav-dropdown-mobile__item--heading">
-                <span class="primary-nav-dropdown-mobile__heading">{{ dropdown.supporting_heading }}</span>
+                <h2 class="primary-nav-dropdown-mobile__heading">{{ dropdown.supporting_heading }}</h2>
             </li>
         {% endif %}
         {% for child in dropdown.supporting_items %}

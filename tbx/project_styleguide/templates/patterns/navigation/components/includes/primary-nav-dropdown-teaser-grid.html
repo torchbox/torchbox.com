@@ -7,7 +7,7 @@
         <div class="primary-nav-dropdown__inner{% if dropdown.supporting_items %} primary-nav-dropdown__columns{% endif %}">
             <div class="primary-nav-dropdown__column">
                 {% if dropdown.main_heading %}
-                    <p class="primary-nav-dropdown__heading">{{ dropdown.main_heading }}</p>
+                    <h2 class="primary-nav-dropdown__heading">{{ dropdown.main_heading }}</h2>
                 {% endif %}
                 <ul class="primary-nav-dropdown__row-list primary-nav-dropdown__row-list--two-columns">
                     {% for child in dropdown.main_items %}
@@ -31,7 +31,7 @@
             {% if dropdown.supporting_items %}
                 <div class="primary-nav-dropdown__column primary-nav-dropdown__column--supporting">
                     {% if dropdown.supporting_heading %}
-                        <p class="primary-nav-dropdown__heading">{{ dropdown.supporting_heading }}</p>
+                        <h2 class="primary-nav-dropdown__heading">{{ dropdown.supporting_heading }}</h2>
                     {% endif %}
                     <ul class="primary-nav-dropdown__row-list primary-nav-dropdown__row-list--compact">
                         {% for child in dropdown.supporting_items %}

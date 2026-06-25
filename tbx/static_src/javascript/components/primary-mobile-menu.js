@@ -3,11 +3,15 @@ class PrimaryMobileMenu {
         return '[data-primary-mobile-menu-toggle]';
     }
 
+    static menuSelector() {
+        return '[data-primary-mobile-menu]';
+    }
+
     constructor(node) {
         this.node = node;
         this.body = document.querySelector('body');
         this.primaryMobileMenu = document.querySelector(
-            '[data-primary-mobile-menu]',
+            PrimaryMobileMenu.menuSelector(),
         );
         this.header = this.node.closest('.header');
 

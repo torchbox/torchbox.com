@@ -10,6 +10,7 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                     aria-controls="primary-nav-dropdown-{{ forloop.counter }}"
+                    {% if item.is_current %}aria-current="page"{% endif %}
                 >
                     <span class="primary-nav-desktop__text">{{ link.text }}</span>
                     <span class="primary-nav-desktop__icon-wrapper" aria-hidden="true">

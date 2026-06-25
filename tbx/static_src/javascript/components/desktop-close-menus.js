@@ -2,6 +2,7 @@
 // It's a separate class because it captures events outside those components.
 
 import PrimaryDesktopSubMenu from './primary-desktop-sub-menu';
+import PrimaryMobileMenu from './primary-mobile-menu';
 
 class DesktopCloseMenus {
     constructor() {
@@ -12,12 +13,12 @@ class DesktopCloseMenus {
             '[data-primary-desktop-menu] .primary-nav-desktop__list',
         );
         this.primaryMobileNav = document.querySelector(
-            '[data-primary-mobile-menu]',
+            PrimaryMobileMenu.menuSelector(),
         );
         this.body = document.querySelector('body');
         this.openBodyClass = 'primary-nav-dropdown-open';
         this.backdrop = document.querySelector(
-            '.primary-nav-dropdown-backdrop',
+            '[data-primary-nav-dropdown-backdrop]',
         );
         this.bindEvents();
     }

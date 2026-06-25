@@ -1,0 +1,31 @@
+@use 'sass:color';
+@use '../../config' as *;
+
+/*
+Pattern-library preview wrapper for primary navigation dropdown panels
+*/
+
+.primary-nav-dropdown-preview {
+    background-color: var(--color--black);
+    padding: $spacer-medium $grid-gutters;
+
+    @include media-query(large) {
+        padding: $spacer-medium $grid-gutters-large;
+    }
+
+    .primary-nav-dropdown {
+        @include reset-nav-fixed-position();
+        visibility: visible;
+        opacity: 1;
+        width: 100%;
+        background-color: color.adjust($color--eclipse, $alpha: -0.06);
+
+        .mode-light & {
+            background-color: color.adjust($color--white, $alpha: -0.06);
+        }
+
+        &__inner {
+            transform: none;
+        }
+    }
+}
