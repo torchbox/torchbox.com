@@ -3,7 +3,6 @@ from django import template
 from wagtail.models import Site
 
 from tbx.navigation.utils import (
-    current_page_url,
     get_primary_navigation,
     is_current_nav_item,
 )
@@ -26,17 +25,20 @@ def _build_primary_nav_context(context):
         or Site.objects.filter(is_default_site=True).first()
     )
 
-    # Memoise on the request so desktop + mobile inclusion tags share one lookup.
-    resolved_items = getattr(request, "_primary_navigation", None)
-    if resolved_items is None:
+    # Memoise on the request so desktop + mobile inclusion tags share one
+    # lookup. Keyed on site.pk so a request resolving to a different site
+    # between calls (e.g. preview switching) doesn't reuse a stale list.
+    memo = getattr(request, "_primary_navigation", None)
+    if memo is None or memo[0] != site.pk:
         resolved_items = get_primary_navigation(site)
-        request._primary_navigation = resolved_items
+        request._primary_navigation = (site.pk, resolved_items)
+    else:
+        resolved_items = memo[1]
 
-    # Resolve the current page URL once — same for every nav item this request.
-    # request.path is reliable and avoids re-resolving via Page.get_url() for
-    # every nav item; fall back to the page's own URL if there's no request
-    # (e.g. pattern library previews).
-    current_url = getattr(request, "path", "") or current_page_url(current_page, site)
+    # request.path is the canonical current URL — Django guarantees it on
+    # any real request, and it avoids re-resolving via Page.get_url() per
+    # nav item. Empty string is harmless: is_current_nav_item short-circuits.
+    current_url = getattr(request, "path", "")
 
     return {
         "nav_items": [

@@ -343,3 +343,40 @@ class TestIsCurrentNavItem(TestCase):
         self.assertFalse(
             is_current_nav_item(self._item(url="/about/", page_id=1), None, "/about/")
         )
+
+    def test_returns_true_for_exact_url_match_without_page_id(self):
+        # External-link nav entry: page_id is None, URL must match exactly.
+        page = SimpleNamespace(pk=99)
+        self.assertTrue(
+            is_current_nav_item(
+                self._item(url="/contact/", page_id=None), page, "/contact/"
+            )
+        )
+
+    def test_returns_true_for_url_descendant_without_page_id(self):
+        page = SimpleNamespace(pk=99)
+        self.assertTrue(
+            is_current_nav_item(
+                self._item(url="/contact/", page_id=None), page, "/contact/form/"
+            )
+        )
+
+    def test_site_root_item_matches_only_root(self):
+        # An item whose URL is "/" (rstrips to "") should highlight only on
+        # the site root, not on every page.
+        page = SimpleNamespace(pk=99)
+        self.assertTrue(
+            is_current_nav_item(self._item(url="/", page_id=None), page, "/")
+        )
+        self.assertFalse(
+            is_current_nav_item(self._item(url="/", page_id=None), page, "/about/")
+        )
+
+    def test_unrelated_url_does_not_match(self):
+        # `/contact-us/` must not match `/contact/`.
+        page = SimpleNamespace(pk=99)
+        self.assertFalse(
+            is_current_nav_item(
+                self._item(url="/contact/", page_id=None), page, "/contact-us/"
+            )
+        )

@@ -40,7 +40,7 @@ class NavItem(TypedDict):
     supporting_items: list[NavLink]
 
 
-def _resolved_nav_link(
+def _nav_link(
     *,
     text: str,
     url: str,
@@ -68,11 +68,10 @@ def format_nav_tags(tags: str) -> str:
 
 def _primary_nav_cache_key(site_pk: int) -> str:
     # Anchored on the domain ("a site's primary navigation"), not on the
-    # Python identifiers that read/write it — so code renames don't churn
-    # the cache. Site is the only natural key: NavigationSettings is a
-    # BaseSiteSetting, so it's 1:1 with Site. Bump PRIMARY_NAV_CACHE_VERSION
-    # when the *payload shape* changes.
-    return ":".join(["navigation", "primary", f"site-{site_pk}"])
+    # Python identifiers that read/write it. Site is the only natural key:
+    # NavigationSettings is a BaseSiteSetting, so it's 1:1 with Site. Bump
+    # PRIMARY_NAV_CACHE_VERSION when the *payload shape* changes.
+    return f"navigation:primary:site-{site_pk}"
 
 
 def _page_url(page, site) -> str:
@@ -89,7 +88,7 @@ def _link_from_block(block_value, site) -> NavLink | None:
     page = block_value.get("page")
     page_id = page.pk if page else None
 
-    return _resolved_nav_link(
+    return _nav_link(
         text=block_value.text(),
         url=url,
         description=block_value.get("description", ""),
@@ -126,7 +125,7 @@ def _auto_division_links(site) -> list[NavLink]:
     links = []
     for division in DivisionPage.objects.live().public().specific():
         links.append(
-            _resolved_nav_link(
+            _nav_link(
                 text=division.nav_text,
                 url=_page_url(division, site),
                 description=division.search_description or "",
@@ -146,7 +145,7 @@ def _auto_taxonomy_sectors(site) -> list[NavLink]:
         if not url:
             continue
         links.append(
-            _resolved_nav_link(
+            _nav_link(
                 text=sector.name,
                 url=url,
                 description=sector.description,
@@ -165,7 +164,7 @@ def _auto_taxonomy_services(site) -> list[NavLink]:
         if not url:
             continue
         links.append(
-            _resolved_nav_link(
+            _nav_link(
                 text=service.name,
                 url=url,
                 description=service.description,
@@ -186,7 +185,7 @@ def _page_child_links(page, max_depth: int, site) -> list[NavLink]:
         ):
             specific = child.specific
             links.append(
-                _resolved_nav_link(
+                _nav_link(
                     text=getattr(specific, "nav_text", child.title),
                     url=_page_url(child, site),
                     description=getattr(specific, "search_description", "") or "",
@@ -228,16 +227,25 @@ def _nav_stream(item: Any, key: str):
     return None
 
 
-def _resolve_panel(
-    item: Any, site
-) -> tuple[str, str, str, list[NavLink], list[NavLink]]:
-    """Return (style, main_heading, supporting_heading, main_items, supporting_items).
+def _empty_panel() -> dict:
+    return {
+        "style": NAV_STYLE_NONE,
+        "main_heading": "",
+        "supporting_heading": "",
+        "main_items": [],
+        "supporting_items": [],
+    }
 
-    Style is NAV_STYLE_NONE when there's no expandable panel.
+
+def _resolve_panel(item: Any, site) -> dict:
+    """Resolve the dropdown panel for a nav item.
+
+    Returns a dict with style/headings/items. Style is NAV_STYLE_NONE when
+    there's no expandable panel — empty lists for main/supporting items.
     """
     dropdown_style = item.get("dropdown_style", NAV_STYLE_NONE)
     if dropdown_style == NAV_STYLE_NONE:
-        return (NAV_STYLE_NONE, "", "", [], [])
+        return _empty_panel()
 
     content_source = item.get("content_source", "manual")
     main_heading = _nav_field(item, "main_heading")
@@ -269,9 +277,15 @@ def _resolve_panel(
         )
 
     if not main_items and not supporting_items:
-        return (NAV_STYLE_NONE, "", "", [], [])
+        return _empty_panel()
 
-    return (dropdown_style, main_heading, supporting_heading, main_items, supporting_items)
+    return {
+        "style": dropdown_style,
+        "main_heading": main_heading,
+        "supporting_heading": supporting_heading,
+        "main_items": main_items,
+        "supporting_items": supporting_items,
+    }
 
 
 def resolve_primary_nav_item(item: Any, site) -> NavItem:
@@ -281,19 +295,36 @@ def resolve_primary_nav_item(item: Any, site) -> NavItem:
     Always returns a NavItem; entries with no expandable panel have
     style == NAV_STYLE_NONE and empty main/supporting lists.
     """
-    style, main_heading, supporting_heading, main_items, supporting_items = (
-        _resolve_panel(item, site)
-    )
     page = item.get("page")
     return NavItem(
         text=item.text(),
         url=item.url(site=site),
         page_id=page.pk if page else None,
-        style=style,
-        main_heading=main_heading,
-        supporting_heading=supporting_heading,
-        main_items=main_items,
-        supporting_items=supporting_items,
+        **_resolve_panel(item, site),
+    )
+
+
+def _navigation_settings(site):
+    # Local import: NavigationSettings -> utils, so we can't import at module load.
+    from tbx.navigation.models import NavigationSettings
+
+    return NavigationSettings.for_site(site)
+
+
+def _build_primary_navigation(site) -> list[NavItem]:
+    nav_settings = _navigation_settings(site)
+    return [
+        resolve_primary_nav_item(block.value, site)
+        for block in nav_settings.primary_navigation
+    ]
+
+
+def get_primary_navigation(site) -> list[NavItem]:
+    return cache.get_or_set(
+        _primary_nav_cache_key(site.pk),
+        lambda: _build_primary_navigation(site),
+        PRIMARY_NAV_CACHE_TIMEOUT,
+        version=PRIMARY_NAV_CACHE_VERSION,
     )
 
 
@@ -303,49 +334,16 @@ def invalidate_primary_nav_cache(site) -> None:
     )
 
 
-def _build_primary_navigation(site) -> list[NavItem]:
-    # Local import: NavigationSettings -> utils, so we can't import at module load.
-    from tbx.navigation.models import NavigationSettings
-
-    nav_settings = NavigationSettings.for_site(site)
-    return [
-        resolve_primary_nav_item(block.value, site)
-        for block in nav_settings.primary_navigation
-    ]
-
-
-def get_primary_navigation(site) -> list[NavItem]:
-    from tbx.navigation.models import NavigationSettings
-
-    resolved = cache.get_or_set(
+def rebuild_primary_nav_cache(site) -> list[NavItem]:
+    """Force rebuild — used on NavigationSettings.save() to warm the cache."""
+    resolved = _build_primary_navigation(site)
+    cache.set(
         _primary_nav_cache_key(site.pk),
-        lambda: _build_primary_navigation(site),
+        resolved,
         PRIMARY_NAV_CACHE_TIMEOUT,
         version=PRIMARY_NAV_CACHE_VERSION,
     )
-
-    # Defensive: if a stale cache entry no longer matches the current
-    # number of primary_navigation blocks (e.g. settings changed but
-    # invalidation didn't fire, or cache was warmed in another process),
-    # rebuild rather than let templates render against stale shape.
-    expected = len(NavigationSettings.for_site(site).primary_navigation)
-    if len(resolved) != expected:
-        return rebuild_primary_nav_cache(site)
     return resolved
-
-
-def rebuild_primary_nav_cache(site) -> list[NavItem]:
-    """Force rebuild — used on NavigationSettings.save() to warm the cache."""
-    invalidate_primary_nav_cache(site)
-    return get_primary_navigation(site)
-
-
-def current_page_url(current_page, site) -> str:
-    if current_page is None:
-        return ""
-    if hasattr(current_page, "get_url"):
-        return current_page.get_url(request=None, current_site=site) or ""
-    return getattr(current_page, "url", None) or ""
 
 
 def is_current_nav_item(item: NavItem, current_page, current_url: str) -> bool:
@@ -353,7 +351,7 @@ def is_current_nav_item(item: NavItem, current_page, current_url: str) -> bool:
     if current_page is None:
         return False
 
-    if item["page_id"] and item["page_id"] == current_page.pk:
+    if item["page_id"] is not None and item["page_id"] == current_page.pk:
         return True
 
     if not item["url"] or not current_url:

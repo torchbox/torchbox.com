@@ -140,11 +140,7 @@ class NavigationSettingsPrimaryNavCacheTestCase(WagtailPageTestCase):
         self, mock_get_or_set
     ):
         site = Site.objects.get(is_default_site=True)
-        # Ensure NavigationSettings exists so for_site() doesn't trigger
-        # a save() (and thus a rebuild) inside the call under test.
-        nav_settings = NavigationSettings.for_site(site)
-        mock_get_or_set.return_value = [None] * len(nav_settings.primary_navigation)
-        mock_get_or_set.reset_mock()
+        mock_get_or_set.return_value = []
 
         get_primary_navigation(site)
 
@@ -155,3 +151,42 @@ class NavigationSettingsPrimaryNavCacheTestCase(WagtailPageTestCase):
         self.assertEqual(
             mock_get_or_set.call_args.kwargs["version"], PRIMARY_NAV_CACHE_VERSION
         )
+
+    def test_page_publish_only_invalidates_own_site(self):
+        from tbx.core.factories import HomePageFactory
+
+        site_a = Site.objects.get(is_default_site=True)
+        other_root = HomePageFactory(parent=site_a.root_page, title="Site B root")
+        site_b = Site.objects.create(
+            hostname="site-b.test", port=80, root_page=other_root
+        )
+        key_a = _primary_nav_cache_key(site_a.pk)
+        key_b = _primary_nav_cache_key(site_b.pk)
+
+        page = HomePageFactory(parent=site_a.root_page, title="On site A")
+        with patch.object(type(page), "get_site", return_value=site_a):
+            cache.set(key_a, ["stale-a"], 600, version=PRIMARY_NAV_CACHE_VERSION)
+            cache.set(key_b, ["stale-b"], 600, version=PRIMARY_NAV_CACHE_VERSION)
+            page.save_revision().publish()
+
+            self.assertIsNone(
+                cache.get(key_a, version=PRIMARY_NAV_CACHE_VERSION)
+            )
+            self.assertEqual(
+                cache.get(key_b, version=PRIMARY_NAV_CACHE_VERSION), ["stale-b"]
+            )
+
+    def test_page_move_invalidates_primary_nav_cache(self):
+        from tbx.core.factories import HomePageFactory
+
+        site = Site.objects.get(is_default_site=True)
+        cache_key = _primary_nav_cache_key(site.pk)
+        page = HomePageFactory(parent=site.root_page, title="Moves")
+        new_parent = HomePageFactory(parent=site.root_page, title="New parent")
+
+        with patch.object(type(page), "get_site", return_value=site):
+            cache.set(cache_key, ["stale"], 600, version=PRIMARY_NAV_CACHE_VERSION)
+            page.move(new_parent, pos="last-child")
+            self.assertIsNone(
+                cache.get(cache_key, version=PRIMARY_NAV_CACHE_VERSION)
+            )
