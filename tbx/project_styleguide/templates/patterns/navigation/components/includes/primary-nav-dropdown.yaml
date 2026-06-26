@@ -1,0 +1,21 @@
+context:
+  dropdown:
+    style: mixed_list
+    main_heading: Core services
+    supporting_heading: Quick-start engagements
+    main_items:
+      - text: Websites & platforms
+        url: '#'
+        description: Accessible, high-performing websites and digital products built to last.
+    supporting_items:
+      - text: Website audit
+        url: '#'
+        description: Performance, accessibility, SEO and content reviewed in full.
+    parent_url: '#'
+    parent_text: Services
+  dropdown_id: 1
+
+tags:
+  pageurl:
+    link:
+      raw: '#'

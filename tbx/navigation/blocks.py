@@ -9,9 +9,9 @@ from tbx.core.blocks import CustomImageChooserBlock
 
 
 class LinkBlockStructValue(blocks.StructValue):
-    def url(self):
+    def url(self, request=None, site=None):
         if page := self.get("page"):
-            return page.url
+            return page.get_url(request=request, current_site=site)
 
         if external_link := self.get("external_link"):
             return external_link
@@ -99,7 +99,9 @@ class LinkBlock(LinkValidationMixin, blocks.StructBlock):
         return struct_value
 
 
-class SecondaryNavLinkBlock(LinkBlock):
+class SupportingNavLinkBlock(LinkBlock):
+    """Dropdown supporting-column link with optional description."""
+
     description = blocks.TextBlock(required=False)
 
 
@@ -115,50 +117,112 @@ class FooterLinkBlock(LinkValidationMixin, blocks.StructBlock):
         value_class = LinkBlockStructValue
 
 
+ACCENT_COLOUR_CHOICES = [
+    ("theme-coral", "Coral"),
+    ("theme-nebuline", "Nebuline"),
+    ("theme-lagoon", "Lagoon"),
+    ("theme-green", "Green"),
+    ("theme-earth", "Earth"),
+]
+
+
+class MainNavLinkBlock(SupportingNavLinkBlock):
+    tags = blocks.CharBlock(
+        required=False,
+        help_text="Optional sub-items, separated by middle dots when displayed",
+    )
+    accent_colour = blocks.ChoiceBlock(
+        choices=ACCENT_COLOUR_CHOICES,
+        required=False,
+        label="Accent colour",
+    )
+
+
 class PrimaryNavLinkBlock(LinkBlock):
-    class ChildDisplay(models.TextChoices):
-        HIDE = "hide_children", "Do not show child pages"
-        SHOW_UP_TO_LEVEL1 = (
-            "show_up_to_level1",
-            "Show child pages up to level 1 (children)",
-        )
-        SHOW_UP_TO_LEVEL2 = (
-            "show_up_to_level2",
-            "Show child pages up to level 2 (grandchildren)",
-        )
+    class DropdownStyle(models.TextChoices):
+        NONE = "none", "No dropdown"
+        TEASER_GRID = "teaser_grid", "Teaser grid / card list"
+        MIXED_LIST = "mixed_list", "Mixed list + supporting links"
+        TAXONOMY_INDEX = "taxonomy_index", "Taxonomy index"
 
-    child_display_behaviour = blocks.ChoiceBlock(
-        choices=ChildDisplay.choices,
-        default=ChildDisplay.SHOW_UP_TO_LEVEL2,
+    class ContentSource(models.TextChoices):
+        MANUAL = "manual", "Manual links"
+        AUTO_DIVISIONS = "auto_divisions", "Auto-generate from division pages"
+        AUTO_TAXONOMY = "auto_taxonomy", "Auto-generate sectors and services"
+        PAGE_CHILDREN = "page_children", "Auto-generate from page children"
+
+    class PageChildrenDepth(models.TextChoices):
+        LEVEL1 = "1", "Children only"
+        LEVEL2 = "2", "Children and grandchildren"
+
+    dropdown_style = blocks.ChoiceBlock(
+        choices=DropdownStyle.choices,
+        default=DropdownStyle.NONE,
+        icon="list-ul",
+        help_text="Choose how this item's dropdown is displayed.",
+    )
+    content_source = blocks.ChoiceBlock(
+        choices=ContentSource.choices,
+        default=ContentSource.MANUAL,
+        icon="cogs",
+        help_text=(
+            "Choose whether the main column is edited manually or generated "
+            "from site content. Main links below are only used when this is set "
+            "to “Manual links”. Supporting links can be added for mixed dropdowns "
+            "(page children or division pages), but not for sectors and services."
+        ),
+    )
+    main_heading = blocks.CharBlock(
+        required=False,
+        help_text="Heading for the main column of dropdown links.",
+    )
+    supporting_heading = blocks.CharBlock(
+        required=False,
+        help_text="Heading for the supporting column of dropdown links.",
+    )
+    main_links = blocks.StreamBlock(
+        [("link", MainNavLinkBlock(icon="link"))],
+        required=False,
+        help_text="Main column links. Only used when content source is “Manual links”.",
+    )
+    supporting_links = blocks.StreamBlock(
+        [("link", SupportingNavLinkBlock(icon="link"))],
+        required=False,
+        help_text=(
+            "Supporting column links. Used for manual and mixed dropdowns "
+            "(page children or division pages with a curated supporting column). "
+            "Not used when content source is “Auto-generate sectors and services”."
+        ),
+    )
+    page_children_depth = blocks.ChoiceBlock(
+        choices=PageChildrenDepth.choices,
+        default=PageChildrenDepth.LEVEL2,
+        required=False,
         icon="collapse-down",
-        help_text="By default, the navigation menu displays the children and "
-        "grandchildren of the selected page if their “Show in menus” checkbox "
-        " is checked.<br/>You can alter this behaviour here.",
+        help_text="Only used when content source is “Auto-generate from page children”. "
+        "Includes child pages with “Show in menus” enabled.",
     )
 
+    _LEGACY_FIELD_RENAMES = {
+        "secondary_heading": "main_heading",
+        "promoted_heading": "supporting_heading",
+        "secondary_links": "main_links",
+        "promoted_links": "supporting_links",
+    }
 
-class SecondaryNavInnerMenuBlock(blocks.StructBlock):
-    section_heading = blocks.CharBlock(required=False)
-    child_links = blocks.StreamBlock(
-        [("link", SecondaryNavLinkBlock(icon="link"))],
-        required=False,
-    )
-    section_link = blocks.PageChooserBlock(required=False)
-    section_link_text = blocks.CharBlock(
-        help_text="Leave blank to use the page's own title",
-        required=False,
-    )
+    # cleanup(2026jun): remove once all Navigation settings have been re-saved.
+    @classmethod
+    def _migrate_legacy_value(cls, value):
+        if not isinstance(value, dict):
+            return value
+        value = value.copy()
+        for old_key, new_key in cls._LEGACY_FIELD_RENAMES.items():
+            if old_key in value and new_key not in value:
+                value[new_key] = value.pop(old_key)
+        return value
 
-
-class SecondaryNavMenuBlock(blocks.StructBlock):
-    section_heading = blocks.CharBlock()
-    child_links = blocks.StreamBlock(
-        [
-            ("link", SecondaryNavLinkBlock(icon="link")),
-            ("menu", SecondaryNavInnerMenuBlock()),
-        ],
-        required=False,
-    )
+    def to_python(self, value):
+        return super().to_python(self._migrate_legacy_value(value))
 
 
 class FooterLogoBlock(blocks.StructBlock):

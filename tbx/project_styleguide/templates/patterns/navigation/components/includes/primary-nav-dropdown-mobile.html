@@ -1,0 +1,50 @@
+<div class="primary-nav-dropdown-mobile" id="primary-nav-mobile-dropdown-{{ dropdown_id }}" data-primary-subnav>
+    <ul class="primary-nav-dropdown-mobile__list">
+        <li class="primary-nav-dropdown-mobile__item primary-nav-dropdown-mobile__item--back">
+            <button data-primary-subnav-back class="primary-nav-dropdown-mobile__link primary-nav-dropdown-mobile__link--back">
+                {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="primary-nav-dropdown-mobile__icon-back" %}
+                Back
+            </button>
+        </li>
+        <li class="primary-nav-dropdown-mobile__item primary-nav-dropdown-mobile__item--parent">
+            <a
+                class="primary-nav-dropdown-mobile__link primary-nav-dropdown-mobile__link--parent"
+                href="{{ dropdown.parent_url }}"
+            >
+                <span class="primary-nav-dropdown-mobile__link-text">{{ dropdown.parent_text }}</span>
+            </a>
+        </li>
+        {% if dropdown.main_heading %}
+            <li class="primary-nav-dropdown-mobile__item primary-nav-dropdown-mobile__item--heading">
+                <h2 class="primary-nav-dropdown-mobile__heading">{{ dropdown.main_heading }}</h2>
+            </li>
+        {% endif %}
+        {% for child in dropdown.main_items %}
+            <li class="primary-nav-dropdown-mobile__item">
+                <a href="{{ child.url }}" class="primary-nav-dropdown-mobile__link">
+                    <span class="primary-nav-dropdown-mobile__link-text">{{ child.text }}</span>
+                    {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown-mobile__icon" %}
+                </a>
+                {% if child.description %}
+                    <span class="primary-nav-dropdown-mobile__description">{{ child.description }}</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+        {% if dropdown.supporting_heading %}
+            <li class="primary-nav-dropdown-mobile__item primary-nav-dropdown-mobile__item--heading">
+                <h2 class="primary-nav-dropdown-mobile__heading">{{ dropdown.supporting_heading }}</h2>
+            </li>
+        {% endif %}
+        {% for child in dropdown.supporting_items %}
+            <li class="primary-nav-dropdown-mobile__item primary-nav-dropdown-mobile__item--supporting">
+                <a href="{{ child.url }}" class="primary-nav-dropdown-mobile__link primary-nav-dropdown-mobile__link--supporting">
+                    <span class="primary-nav-dropdown-mobile__link-text">{{ child.text }}</span>
+                    {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown-mobile__icon" %}
+                </a>
+                {% if child.description %}
+                    <span class="primary-nav-dropdown-mobile__description">{{ child.description }}</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>

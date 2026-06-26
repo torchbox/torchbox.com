@@ -1,60 +1,140 @@
 @use '../config' as *;
 
 .header {
-    &__top {
-        background-color: var(--color--black);
-        padding: 10px 0;
+    @include z-index(header);
+    position: relative;
+    background-color: var(--color--header-background);
+    border-bottom: 1px solid transparent;
+
+    .mode-light & {
+        border-bottom-color: var(--color--light-border);
     }
 
-    &__bottom {
+    body.primary-nav-dropdown-open &,
+    body:has(.primary-nav-desktop__item.active) & {
+        @include media-query(menu) {
+            @include z-index(header-controls);
+        }
+    }
+
+    &--mobile-menu-open {
+        border-bottom-color: var(--color--eclipse);
+
+        .mode-light & {
+            border-bottom-color: var(--color--light-border);
+        }
+    }
+
+    &--mobile-menu-open &__logo,
+    &--mobile-menu-open &__mobile-controls {
+        @include z-index(header-controls);
+        position: relative;
+    }
+
+    &__bar {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        padding: $spacer-small 0;
+        gap: $spacer-small;
+        padding: 10px 0;
+        flex-wrap: nowrap;
+        position: relative;
+        z-index: 2;
 
         @include media-query(menu) {
-            padding: $spacer-small-plus 0 $spacer-mini-plus;
+            align-items: stretch;
+            gap: $spacer-small-plus;
+            padding: $spacer-small 0;
         }
     }
 
     &__logo {
         display: flex;
+        flex-shrink: 0;
         align-self: center;
     }
 
-    &__primary-menu-toggle {
-        @include link-styles(
-            $color: var(--color--white),
-            $underline-color: var(--color--white),
-            $interaction-color: var(--color--white)
-        );
+    &__logo-link {
+        @include high-contrast-text-decoration();
+        display: inline-flex;
+        color: var(--color--heading);
+
+        .logo {
+            color: var(--color--heading);
+        }
+
+        &:focus-visible {
+            @include focus-style();
+        }
+    }
+
+    &__end {
+        display: none;
+        align-items: center;
+        gap: $spacer-small;
+        margin-left: auto;
+        flex-shrink: 0;
+
+        @include media-query(menu) {
+            display: flex;
+            align-self: center;
+        }
+    }
+
+    &__mode-switcher {
+        display: none;
+        flex-shrink: 0;
+
+        @include media-query(menu) {
+            display: block;
+        }
+
+        .mode-switcher {
+            margin-left: 0;
+        }
+    }
+
+    &__mobile-controls {
+        @include z-index(header);
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: $spacer-mini;
+        margin-left: auto;
+        flex-shrink: 0;
 
         @include media-query(menu) {
             display: none;
+        }
+    }
+
+    &__primary-menu-toggle-wrapper {
+        display: flex;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: $spacer-small;
+    }
+
+    &__cta {
+        @include font-size('size-seven');
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px $spacer-mini-plus;
+        line-height: 1.2;
+        white-space: nowrap;
+        border-color: var(--color--link);
+        color: var(--color--link);
+
+        &:hover,
+        &:focus {
+            color: var(--color--background);
+            background-color: var(--color--link);
         }
 
         &:focus {
-            @include focus-style($keyboard-only: true);
-        }
-    }
-
-    &__primary-menu-toggle-icon {
-        width: 12px;
-        height: 12px;
-        transform: rotate(90deg);
-    }
-
-    &__secondary-menu-toggle {
-        @include z-index(header);
-        display: flex;
-        width: 100%;
-        justify-content: flex-end;
-
-        @include media-query(menu) {
-            display: none;
+            @include focus-style();
         }
     }
 }

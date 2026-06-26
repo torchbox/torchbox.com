@@ -1,0 +1,39 @@
+context:
+  dropdown:
+    style: mixed_list
+    main_heading: Core services
+    supporting_heading: Quick-start engagements
+    main_items:
+      - text: Websites & platforms
+        url: '#'
+        description: Accessible, high-performing websites and digital products built to last.
+        tags: ''
+        accent_colour: ''
+      - text: Research & design
+        url: '#'
+        description: User research, service design, and prototyping to de-risk delivery.
+        tags: ''
+        accent_colour: ''
+      - text: Digital marketing
+        url: '#'
+        description: Data-driven SEO, PPC, email and social campaigns for mission-driven organisations.
+        tags: ''
+        accent_colour: ''
+      - text: Wagtail CMS
+        url: '#'
+        description: Support, hosting, training and development from Wagtail's creators.
+        tags: ''
+        accent_colour: ''
+    supporting_items:
+      - text: Website audit
+        url: '#'
+        description: Performance, accessibility, SEO and content reviewed in full.
+        tags: ''
+        accent_colour: ''
+      - text: Discovery sprint
+        url: '#'
+        description: A focused week to clarify goals, audiences and the right digital approach.
+        tags: ''
+        accent_colour: ''
+    parent_url: '#'
+    parent_text: Services

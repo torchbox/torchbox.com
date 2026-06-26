@@ -1,0 +1,120 @@
+@use '../../config' as *;
+
+/*
+Styles for primary navigation dropdown panels at mobile
+*/
+
+.primary-nav-dropdown-mobile {
+    @include z-index(nav);
+    @include nav-fixed-position($header-height: $header-height);
+    top: 0;
+    height: 100vh;
+    height: 100dvh;
+    background-color: var(--color--black);
+    left: 0;
+    width: 100%;
+    padding-top: $header-height;
+    padding-bottom: 0;
+
+    .mode-light & {
+        background-color: var(--color--background);
+    }
+
+    &.is-visible {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__item {
+        width: 100%;
+
+        &--heading {
+            padding: $spacer-mini $spacer-small;
+        }
+
+        &--parent {
+            padding-top: $spacer-mini;
+        }
+
+        &--supporting {
+            border-top: 1px solid var(--color--eclipse);
+
+            .mode-light & {
+                border-top-color: var(--color--light-border);
+            }
+        }
+    }
+
+    &__heading {
+        @include font-size('size-five');
+        color: var(--color--grey-50);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-weight: $weight--semibold;
+        margin: 0;
+    }
+
+    &__link {
+        @include font-size('size-six');
+        @include link-styles(
+            $color: var(--color--text),
+            $interaction-color: var(--color--heading)
+        );
+        @include high-contrast-text-decoration();
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: $spacer-mini;
+        width: 100%;
+        margin: 0;
+        padding: 10px $spacer-small;
+        background: transparent;
+        border: 0;
+        text-align: left;
+
+        &:focus-visible {
+            @include focus-style();
+        }
+
+        &--back {
+            justify-content: flex-start;
+            color: var(--color--text);
+        }
+
+        &--parent {
+            @include font-size('size-four');
+            font-weight: $weight--semibold;
+            color: var(--color--heading);
+        }
+    }
+
+    &__icon-back {
+        width: 12px;
+        height: 12px;
+        transform: rotate(180deg);
+        margin-right: $spacer-mini;
+    }
+
+    &__icon,
+    &__icon-front {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+    }
+
+    &__icon-front {
+        transform: rotate(90deg);
+    }
+
+    &__description {
+        @include font-size('size-six');
+        display: block;
+        color: var(--color--grey-20);
+        padding: 0 $spacer-small $spacer-mini;
+    }
+}

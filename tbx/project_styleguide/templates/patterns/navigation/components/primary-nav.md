@@ -1,5 +1,6 @@
 # Primary navigation menu
 
-- The top level of the navigation
-- Styles depend on parent elements, and may be hidden by default, so will not display correctly in the pattern library/
-- To view the navigation in the pattern library go to `organisms/header.html`.
+- The top level of the site navigation, including dropdown panels for Sectors, Services, Work, Thinking, and About.
+- The Torchbox logo and primary nav sit in a single header row on desktop.
+- To preview dropdown layouts, see the patterns under `styleguide/navigation/` (`dropdown-teaser-grid.html`, `dropdown-mixed-list.html`, and `dropdown-taxonomy-index.html`).
+- To view the full header in the pattern library go to `organisms/header.html`.

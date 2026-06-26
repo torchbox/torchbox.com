@@ -53,6 +53,7 @@ $color--black: #000;
     // The following base variables do not change with the theme
     --color--dark-background: #{$color--eclipse-dark};
     --color--background: #{$color--eclipse};
+    --color--header-background: #{$color--eclipse-dark};
     --color--light-background-text: #{$color--eclipse};
     --color--heading: #{$color--white};
     --color--text: #{$color--grey-20};
@@ -168,6 +169,7 @@ $color--black: #000;
     --color--nebuline-lighter: #{$color--nebuline-lighter};
     --color--lagoon-lighter: #{$color--lagoon-lighter};
     --color--green-lighter: #{$color--green-lighter};
+    --color--header-background: #{$color--white};
 }
 
 // Coral theme, light mode
@@ -407,7 +409,9 @@ $z-index: (
     overlap: 20,
     header: 30,
     footer: 40,
+    nav-backdrop: 45,
     nav: 50,
+    header-controls: 55,
     cookie-message: 100,
     sticky: 110,
     modal: 120,
@@ -427,4 +431,10 @@ $avatar-size-100: 100px;
 $avatar-size-72: 72px;
 $avatar-size-80: 80px;
 
-$header-height: 46px;
+$header-height: 50px; // mobile bar: 10px padding + 30px logo + 10px padding
+$header-full-height: (
+    $spacer-small * 2 + 30px
+); // desktop: padding + logo + padding
+$header-full-height-large: ($spacer-small * 2 + 39px);
+$nav-dropdown-blur: 20px;
+$nav-dropdown-header-gap: 40px;

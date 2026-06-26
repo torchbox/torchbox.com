@@ -99,9 +99,13 @@
     @include meta.load-css('components/navigation/breadcrumbs-nav');
     @include meta.load-css('components/navigation/footerlinks-nav');
     @include meta.load-css('components/navigation/primary-nav-desktop');
+    @include meta.load-css(
+        'components/navigation/primary-nav-dropdown-backdrop'
+    );
+    @include meta.load-css('components/navigation/primary-nav-dropdown');
+    @include meta.load-css('components/navigation/primary-nav-dropdown-mobile');
+    @include meta.load-css(
+        'components/navigation/primary-nav-dropdown-preview'
+    );
     @include meta.load-css('components/navigation/primary-nav-mobile');
-    @include meta.load-css('components/navigation/secondary-nav-desktop');
-    @include meta.load-css('components/navigation/secondary-nav-mobile');
-    @include meta.load-css('components/navigation/sub-nav-desktop');
-    @include meta.load-css('components/navigation/sub-nav-mobile');
 }

@@ -354,6 +354,20 @@
         }
     }
 
+    &__primary-nav-dropdown {
+        max-width: $site-width;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    &__primary-nav-dropdown-inner {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+    }
+
     &__header-toggle {
         grid-column: 5 / span 1;
     }

@@ -5,12 +5,9 @@ tags:
   primarynavmobile:
     '':
       template_name: 'patterns/navigation/components/primary-nav-mobile.html'
-  secondarynav:
+  headeractions:
     '':
-      template_name: 'patterns/navigation/components/secondary-nav.html'
-  secondarynavmobile:
-    '':
-      template_name: 'patterns/navigation/components/secondary-nav-mobile.html'
+      template_name: 'patterns/navigation/components/header-actions.html'
   pageurl:
     link:
       raw: '#'

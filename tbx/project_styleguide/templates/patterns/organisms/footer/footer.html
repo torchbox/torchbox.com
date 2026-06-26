@@ -7,7 +7,7 @@
             {% endif %}
         {% endwith %}
         <div class="grid__footer-links">
-            {% wagtailcache 600 "footerlinks" current_site.pk is_pattern_library %}
+            {% wagtailcache 600 footerlinks current_site.pk is_pattern_library %}
                 {% footerlinks %}
             {% endwagtailcache %}
             {% with settings.navigation.NavigationSettings as global_settings %}

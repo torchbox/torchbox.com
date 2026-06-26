@@ -1,0 +1,25 @@
+context:
+  dropdown:
+    style: taxonomy_index
+    main_heading: By sector
+    supporting_heading: By service
+    main_items:
+      - text: Charities & non-profits
+        url: '#'
+        tags: Health charities · International development · Human rights
+      - text: Public sector
+        url: '#'
+        tags: Local government · NHS
+      - text: Higher education
+        url: '#'
+        tags: Student recruitment · Research
+    supporting_items:
+      - text: Websites & platforms
+        url: '#'
+      - text: Research & design
+        url: '#'
+      - text: SEO
+        url: '#'
+    parent_url: '#'
+    parent_text: Work
+  dropdown_id: 1

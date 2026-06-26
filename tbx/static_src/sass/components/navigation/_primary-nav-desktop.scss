@@ -4,24 +4,34 @@
 Styles for the primary navigation at desktop (top level)
 */
 
-// The nav element surrounding the whole navigation
-// There are separate nav elements for desktop and mobile
 .primary-nav-desktop {
     $root: &;
 
-    // At desktop the top level of the menu is always visible in the header
     display: none;
+    flex: 1;
 
     @include media-query(menu) {
-        display: inline-block;
+        display: flex;
+        align-items: stretch;
+        margin-left: $spacer-small;
+    }
+
+    @include media-query(large) {
+        margin-left: $spacer-medium;
     }
 
     &__list {
         display: flex;
         flex-direction: row;
-        justify-content: flex-end;
-        gap: 4vw;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: $spacer-small;
         overflow: visible;
+
+        @include media-query(menu) {
+            height: 100%;
+            align-items: stretch;
+        }
 
         @include media-query(large) {
             gap: $spacer-small-plus;
@@ -31,11 +41,37 @@ Styles for the primary navigation at desktop (top level)
     &__item {
         position: relative;
         width: auto;
+
+        @include media-query(menu) {
+            display: flex;
+            align-items: center;
+        }
+
+        &.active {
+            #{$root}__link::after {
+                background-color: var(--color--theme-primary);
+            }
+        }
     }
 
     &__link {
         @include high-contrast-text-decoration();
-        color: var(--color--grey-20);
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--color--text);
+        background: transparent;
+        border: 0;
+        padding: 0;
+        font: inherit;
+        font-weight: $weight--semibold;
+        cursor: pointer;
+        text-decoration: none;
+
+        @include media-query(menu) {
+            height: 100%;
+        }
 
         &::after {
             content: '';
@@ -46,10 +82,19 @@ Styles for the primary navigation at desktop (top level)
             height: 1.5px;
             background-color: transparent;
             transition: background-color $transition;
+
+            @include media-query(menu) {
+                bottom: calc(-1 * #{$spacer-small});
+            }
+
+            @include reduced-motion() {
+                transition: none;
+            }
         }
 
-        &:hover {
-            color: var(--color--white);
+        &:hover,
+        &:focus-visible {
+            color: var(--color--heading);
 
             &::after {
                 background-color: var(--color--theme-primary);
@@ -58,6 +103,53 @@ Styles for the primary navigation at desktop (top level)
 
         &:focus-visible {
             @include focus-style();
+        }
+
+        &--has-children {
+            .active & {
+                color: var(--color--heading);
+            }
+        }
+    }
+
+    &__icon-wrapper {
+        @include z-index(overlap);
+        width: 12px;
+        position: relative;
+        display: inline-block;
+    }
+
+    &__icon-closed {
+        display: block;
+        width: 11px;
+        height: 11px;
+        color: var(--color--text);
+        transform: rotate(90deg);
+        transition: color $transition;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        #{$root}__item:not(.active) #{$root}__link:hover & {
+            display: none;
+        }
+
+        .active & {
+            color: var(--color--heading);
+        }
+    }
+
+    &__icon-open {
+        display: none;
+        width: 11px;
+        height: 16px;
+        position: absolute;
+        top: -8px;
+        color: var(--color--heading);
+
+        #{$root}__item:not(.active) #{$root}__link:hover & {
+            display: block;
         }
     }
 }

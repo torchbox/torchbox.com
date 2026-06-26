@@ -1,28 +1,60 @@
 context:
-  children: True
-  primarynav:
-    - item:
-      value:
-        text: Services
-        url: '#'
-    - item:
-      value:
+  nav_items:
+    - link:
         text: Sectors
-        url: '#'
-    - item:
-      value:
-        text: About
-        url: '#'
-    - item:
-      value:
-        text: Thinking
-        url: '#'
-    - item:
-      value:
+        external_link: '#'
+      dropdown:
+        style: teaser_grid
+        main_heading: Sectors we support
+        main_items:
+          - text: Charities
+            url: '#'
+            description: Growing income, extending reach, and expanding real-world impact for non-profits.
+            tags: ''
+            accent_colour: theme-coral
+        supporting_items: []
+        parent_url: '#'
+        parent_text: Sectors
+      is_current: false
+    - link:
+        text: Services
+        external_link: '#'
+      dropdown:
+        style: mixed_list
+        main_heading: Core services
+        supporting_heading: Quick-start engagements
+        main_items:
+          - text: Websites & platforms
+            url: '#'
+            description: ''
+            tags: ''
+            accent_colour: ''
+        supporting_items:
+          - text: Website audit
+            url: '#'
+            description: Performance, accessibility, SEO and content reviewed in full.
+            tags: ''
+            accent_colour: ''
+        parent_url: '#'
+        parent_text: Services
+      is_current: false
+    - link:
         text: Work
-        url: '#'
+        external_link: '#'
+      dropdown: null
+      is_current: true
+    - link:
+        text: Thinking
+        external_link: '#'
+      dropdown: null
+      is_current: false
+    - link:
+        text: About
+        external_link: '#'
+      dropdown: null
+      is_current: false
 
 tags:
   pageurl:
-    'link.url':
+    link:
       raw: '#'
