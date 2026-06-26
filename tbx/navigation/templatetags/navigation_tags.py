@@ -26,11 +26,15 @@ def _build_primary_nav_context(context):
         or Site.objects.filter(is_default_site=True).first()
     )
 
-    cached_dropdowns = get_primary_nav_dropdowns(nav_settings, site)
+    # Memoise on the request so desktop + mobile inclusion tags share one lookup.
+    resolved_items = getattr(request, "_primary_navigation", None)
+    if resolved_items is None:
+        resolved_items = get_primary_nav_dropdowns(site)
+        request._primary_navigation = resolved_items
 
     items = []
     for block, dropdown in zip(
-        nav_settings.primary_navigation, cached_dropdowns, strict=True
+        nav_settings.primary_navigation, resolved_items, strict=True
     ):
         link = block.value
         items.append(

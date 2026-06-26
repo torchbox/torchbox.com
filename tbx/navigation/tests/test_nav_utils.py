@@ -67,7 +67,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
         self.assertEqual(dropdown["style"], "mixed_list")
         self.assertEqual(dropdown["main_heading"], "Core services")
         self.assertEqual(len(dropdown["main_items"]), 1)
-        self.assertEqual(dropdown["main_items"][0].text, "Websites")
+        self.assertEqual(dropdown["main_items"][0]["text"], "Websites")
         self.assertEqual(len(dropdown["supporting_items"]), 1)
 
     def test_legacy_streamfield_keys(self):
@@ -139,8 +139,8 @@ class TestResolvePrimaryNavDropdown(TestCase):
         self.assertEqual(dropdown["main_heading"], "By sector")
         self.assertEqual(dropdown["supporting_heading"], "By service")
         self.assertEqual(len(dropdown["main_items"]), 1)
-        self.assertIn("filter=charities", dropdown["main_items"][0].url)
-        self.assertIn("filter=seo", dropdown["supporting_items"][0].url)
+        self.assertIn("filter=charities", dropdown["main_items"][0]["url"])
+        self.assertIn("filter=seo", dropdown["supporting_items"][0]["url"])
 
     def test_auto_taxonomy_ignores_manual_supporting_links(self):
         SectorFactory(name="Charities", slug="charities", sort_order=1)
@@ -173,7 +173,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
 
         dropdown = resolve_primary_nav_dropdown(value, self.site)
         self.assertEqual(len(dropdown["supporting_items"]), 1)
-        self.assertEqual(dropdown["supporting_items"][0].text, "SEO")
+        self.assertEqual(dropdown["supporting_items"][0]["text"], "SEO")
 
     def test_page_children_dropdown(self):
         child = HomePageFactory(parent=self.home_page, title="Child page")
@@ -199,7 +199,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
         self.assertIsNotNone(dropdown)
         self.assertEqual(dropdown["style"], "mixed_list")
         self.assertEqual(len(dropdown["main_items"]), 1)
-        self.assertEqual(dropdown["main_items"][0].text, "Child page")
+        self.assertEqual(dropdown["main_items"][0]["text"], "Child page")
 
     def test_page_children_with_manual_supporting_links(self):
         child = HomePageFactory(parent=self.home_page, title="Child page")
@@ -233,9 +233,9 @@ class TestResolvePrimaryNavDropdown(TestCase):
 
         dropdown = resolve_primary_nav_dropdown(value, self.site)
         self.assertEqual(len(dropdown["main_items"]), 1)
-        self.assertEqual(dropdown["main_items"][0].text, "Child page")
+        self.assertEqual(dropdown["main_items"][0]["text"], "Child page")
         self.assertEqual(len(dropdown["supporting_items"]), 1)
-        self.assertEqual(dropdown["supporting_items"][0].text, "Featured article")
+        self.assertEqual(dropdown["supporting_items"][0]["text"], "Featured article")
 
     def test_auto_divisions_with_manual_supporting_links(self):
         value = self.block.to_python(
@@ -266,7 +266,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
         dropdown = resolve_primary_nav_dropdown(value, self.site)
         self.assertIsNotNone(dropdown)
         self.assertEqual(len(dropdown["supporting_items"]), 1)
-        self.assertEqual(dropdown["supporting_items"][0].text, "Wagtail")
+        self.assertEqual(dropdown["supporting_items"][0]["text"], "Wagtail")
 
     def test_no_dropdown_when_style_none(self):
         value = self.block.to_python(
