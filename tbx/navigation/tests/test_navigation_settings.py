@@ -16,12 +16,22 @@ from tbx.navigation.utils import (
     get_primary_navigation,
 )
 
+
 # A sentinel non-empty payload — get_primary_navigation only writes to the
 # cache when the rebuild returns something, so tests that assert cache
 # population must patch _build_primary_navigation to a non-empty list.
-_SENTINEL_NAV = [{"text": "Home", "url": "/", "page_id": None,
-                  "style": "none", "main_heading": "", "supporting_heading": "",
-                  "main_items": [], "supporting_items": []}]
+_SENTINEL_NAV = [
+    {
+        "text": "Home",
+        "url": "/",
+        "page_id": None,
+        "style": "none",
+        "main_heading": "",
+        "supporting_heading": "",
+        "main_items": [],
+        "supporting_items": [],
+    }
+]
 
 
 class NavigationSettingsFormTestCase(SimpleTestCase):
@@ -128,15 +138,11 @@ class NavigationSettingsPrimaryNavCacheTestCase(WagtailPageTestCase):
         with patch.object(type(page), "get_site", return_value=site):
             cache.set(cache_key, ["stale"], 600, version=PRIMARY_NAV_CACHE_VERSION)
             page.save_revision().publish()
-            self.assertIsNone(
-                cache.get(cache_key, version=PRIMARY_NAV_CACHE_VERSION)
-            )
+            self.assertIsNone(cache.get(cache_key, version=PRIMARY_NAV_CACHE_VERSION))
 
             cache.set(cache_key, ["stale"], 600, version=PRIMARY_NAV_CACHE_VERSION)
             page.unpublish()
-            self.assertIsNone(
-                cache.get(cache_key, version=PRIMARY_NAV_CACHE_VERSION)
-            )
+            self.assertIsNone(cache.get(cache_key, version=PRIMARY_NAV_CACHE_VERSION))
 
     def test_page_publish_without_site_does_not_error(self):
         from tbx.core.factories import HomePageFactory
@@ -156,9 +162,7 @@ class NavigationSettingsPrimaryNavCacheTestCase(WagtailPageTestCase):
     ):
         mock_build.return_value = list(_SENTINEL_NAV)
         site = Site.objects.get(is_default_site=True)
-        cache.delete(
-            _primary_nav_cache_key(site.pk), version=PRIMARY_NAV_CACHE_VERSION
-        )
+        cache.delete(_primary_nav_cache_key(site.pk), version=PRIMARY_NAV_CACHE_VERSION)
 
         get_primary_navigation(site)
 
@@ -197,9 +201,7 @@ class NavigationSettingsPrimaryNavCacheTestCase(WagtailPageTestCase):
             cache.set(key_b, ["stale-b"], 600, version=PRIMARY_NAV_CACHE_VERSION)
             page.save_revision().publish()
 
-            self.assertIsNone(
-                cache.get(key_a, version=PRIMARY_NAV_CACHE_VERSION)
-            )
+            self.assertIsNone(cache.get(key_a, version=PRIMARY_NAV_CACHE_VERSION))
             self.assertEqual(
                 cache.get(key_b, version=PRIMARY_NAV_CACHE_VERSION), ["stale-b"]
             )
@@ -215,6 +217,4 @@ class NavigationSettingsPrimaryNavCacheTestCase(WagtailPageTestCase):
         with patch.object(type(page), "get_site", return_value=site):
             cache.set(cache_key, ["stale"], 600, version=PRIMARY_NAV_CACHE_VERSION)
             page.move(new_parent, pos="last-child")
-            self.assertIsNone(
-                cache.get(cache_key, version=PRIMARY_NAV_CACHE_VERSION)
-            )
+            self.assertIsNone(cache.get(cache_key, version=PRIMARY_NAV_CACHE_VERSION))

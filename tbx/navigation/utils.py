@@ -337,9 +337,7 @@ def get_primary_navigation(site) -> list[NavItem]:
 
 
 def invalidate_primary_nav_cache(site) -> None:
-    cache.delete(
-        _primary_nav_cache_key(site.pk), version=PRIMARY_NAV_CACHE_VERSION
-    )
+    cache.delete(_primary_nav_cache_key(site.pk), version=PRIMARY_NAV_CACHE_VERSION)
 
 
 def rebuild_primary_nav_cache(site) -> list[NavItem]:
