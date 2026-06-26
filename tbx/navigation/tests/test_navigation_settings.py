@@ -13,7 +13,7 @@ from tbx.navigation.utils import (
     PRIMARY_NAV_CACHE_TIMEOUT,
     PRIMARY_NAV_CACHE_VERSION,
     _primary_nav_cache_key,
-    get_primary_nav_dropdowns,
+    get_primary_navigation,
 )
 
 
@@ -80,7 +80,7 @@ class NavigationSettingsPrimaryNavCacheTestCase(WagtailPageTestCase):
         cache_key = _primary_nav_cache_key(site.pk)
 
         cache.delete(cache_key, version=PRIMARY_NAV_CACHE_VERSION)
-        dropdowns = get_primary_nav_dropdowns(site)
+        dropdowns = get_primary_navigation(site)
         self.assertEqual(len(dropdowns), len(nav_settings.primary_navigation))
         self.assertIsNotNone(cache.get(cache_key, version=PRIMARY_NAV_CACHE_VERSION))
 
@@ -89,13 +89,13 @@ class NavigationSettingsPrimaryNavCacheTestCase(WagtailPageTestCase):
         self.assertIsNotNone(cached_after_save)
         self.assertEqual(len(cached_after_save), len(nav_settings.primary_navigation))
 
-    def test_get_primary_nav_dropdowns_rebuilds_when_cache_missing(self):
+    def test_get_primary_navigation_rebuilds_when_cache_missing(self):
         site = Site.objects.get(is_default_site=True)
         nav_settings = NavigationSettings.for_site(site)
         cache_key = _primary_nav_cache_key(site.pk)
 
         cache.delete(cache_key, version=PRIMARY_NAV_CACHE_VERSION)
-        dropdowns = get_primary_nav_dropdowns(site)
+        dropdowns = get_primary_navigation(site)
 
         self.assertEqual(len(dropdowns), len(nav_settings.primary_navigation))
         self.assertIsNotNone(cache.get(cache_key, version=PRIMARY_NAV_CACHE_VERSION))
@@ -136,7 +136,7 @@ class NavigationSettingsPrimaryNavCacheTestCase(WagtailPageTestCase):
             page.save_revision().publish()  # must not raise
 
     @patch("tbx.navigation.utils.cache.get_or_set")
-    def test_get_primary_nav_dropdowns_passes_timeout_and_version(
+    def test_get_primary_navigation_passes_timeout_and_version(
         self, mock_get_or_set
     ):
         site = Site.objects.get(is_default_site=True)
@@ -146,7 +146,7 @@ class NavigationSettingsPrimaryNavCacheTestCase(WagtailPageTestCase):
         mock_get_or_set.return_value = [None] * len(nav_settings.primary_navigation)
         mock_get_or_set.reset_mock()
 
-        get_primary_nav_dropdowns(site)
+        get_primary_navigation(site)
 
         mock_get_or_set.assert_called_once()
         self.assertEqual(

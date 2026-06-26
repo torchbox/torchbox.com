@@ -1,30 +1,28 @@
-{% load wagtailcore_tags %}
-
-{% for item in nav_items %}
-    {% with link=item.link dropdown=item.dropdown %}
-        <li class="primary-nav-desktop__item{% if dropdown %} primary-nav-desktop__item--has-children{% endif %}{% if item.is_current %} primary-nav-desktop__item--current{% endif %}"{% if dropdown %} data-has-subnav{% endif %}>
-            {% if dropdown %}
+{% for nav_item in nav_items %}
+    {% with item=nav_item.item is_current=nav_item.is_current %}
+        <li class="primary-nav-desktop__item{% if item.style != "none" %} primary-nav-desktop__item--has-children{% endif %}{% if is_current %} primary-nav-desktop__item--current{% endif %}"{% if item.style != "none" %} data-has-subnav{% endif %}>
+            {% if item.style != "none" %}
                 <button
                     class="primary-nav-desktop__link primary-nav-desktop__link--has-children"
                     data-open-primary-subnav
                     aria-expanded="false"
                     aria-controls="primary-nav-dropdown-{{ forloop.counter }}"
-                    {% if item.is_current %}aria-current="page"{% endif %}
+                    {% if is_current %}aria-current="page"{% endif %}
                 >
-                    <span class="primary-nav-desktop__text">{{ link.text }}</span>
+                    <span class="primary-nav-desktop__text">{{ item.text }}</span>
                     <span class="primary-nav-desktop__icon-wrapper" aria-hidden="true">
                         {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="primary-nav-desktop__icon-closed" %}
                         {% include "patterns/atoms/icons/icon.html" with name="arrow-short" classname="primary-nav-desktop__icon-open" %}
                     </span>
                 </button>
-                {% include "patterns/navigation/components/includes/primary-nav-dropdown.html" with dropdown=dropdown dropdown_id=forloop.counter %}
+                {% include "patterns/navigation/components/includes/primary-nav-dropdown.html" with dropdown=item dropdown_id=forloop.counter %}
             {% else %}
                 <a
                     class="primary-nav-desktop__link"
-                    href="{% if link.page %}{% pageurl link.page %}{% elif link.external_link %}{{ link.external_link }}{% endif %}"
-                    {% if item.is_current %}aria-current="page"{% endif %}
+                    href="{{ item.url }}"
+                    {% if is_current %}aria-current="page"{% endif %}
                 >
-                    <span class="primary-nav-desktop__text">{{ link.text }}</span>
+                    <span class="primary-nav-desktop__text">{{ item.text }}</span>
                 </a>
             {% endif %}
         </li>

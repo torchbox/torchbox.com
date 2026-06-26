@@ -20,6 +20,6 @@ context:
         url: '#'
       - text: SEO
         url: '#'
-    parent_url: '#'
-    parent_text: Work
+    url: '#'
+    text: Work
   dropdown_id: 1

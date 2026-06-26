@@ -3,8 +3,9 @@ from django import template
 from wagtail.models import Site
 
 from tbx.navigation.utils import (
-    get_primary_nav_dropdowns,
-    primary_nav_item_is_current,
+    current_page_url,
+    get_primary_navigation,
+    is_current_nav_item,
 )
 from tbx.people.models import Contact
 from tbx.sitemap.models import SitemapPage
@@ -19,7 +20,6 @@ def _navigation_settings(context):
 
 def _build_primary_nav_context(context):
     request = context["request"]
-    nav_settings = _navigation_settings(context)
     current_page = context.get("page")
     site = (
         Site.find_for_request(request)
@@ -29,24 +29,20 @@ def _build_primary_nav_context(context):
     # Memoise on the request so desktop + mobile inclusion tags share one lookup.
     resolved_items = getattr(request, "_primary_navigation", None)
     if resolved_items is None:
-        resolved_items = get_primary_nav_dropdowns(site)
+        resolved_items = get_primary_navigation(site)
         request._primary_navigation = resolved_items
 
-    items = []
-    for block, dropdown in zip(
-        nav_settings.primary_navigation, resolved_items, strict=True
-    ):
-        link = block.value
-        items.append(
-            {
-                "link": link,
-                "dropdown": dropdown,
-                "is_current": primary_nav_item_is_current(link, current_page, site),
-            }
-        )
+    # Resolve the current page URL once — same for every nav item this request.
+    current_url = current_page_url(current_page, site)
 
     return {
-        "nav_items": items,
+        "nav_items": [
+            {
+                "item": item,
+                "is_current": is_current_nav_item(item, current_page, current_url),
+            }
+            for item in resolved_items
+        ],
         "request": request,
     }
 

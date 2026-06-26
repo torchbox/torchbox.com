@@ -9,7 +9,9 @@ from tbx.work.models import WorkIndexPage
 
 PRIMARY_NAV_CACHE_TIMEOUT = 3600  # 1 hour staleness backstop
 # Bump when the cached payload shape changes so stale entries are bypassed.
-PRIMARY_NAV_CACHE_VERSION = 2
+PRIMARY_NAV_CACHE_VERSION = 3
+
+NAV_STYLE_NONE = "none"
 
 
 class NavLink(TypedDict):
@@ -21,14 +23,21 @@ class NavLink(TypedDict):
     page_id: int | None
 
 
-class NavDropdown(TypedDict):
+class NavItem(TypedDict):
+    """
+    A resolved primary navigation entry — self-sufficient for rendering.
+    `style == NAV_STYLE_NONE` means there's no expandable panel; the
+    other fields still describe the top-level link.
+    """
+
+    text: str
+    url: str
+    page_id: int | None
     style: str
     main_heading: str
     supporting_heading: str
     main_items: list[NavLink]
     supporting_items: list[NavLink]
-    parent_url: str
-    parent_text: str
 
 
 def _resolved_nav_link(
@@ -219,16 +228,16 @@ def _nav_stream(item: Any, key: str):
     return None
 
 
-def resolve_primary_nav_dropdown(item: Any, site) -> NavDropdown | None:
-    """
-    Resolve dropdown content for a primary navigation item.
+def _resolve_panel(
+    item: Any, site
+) -> tuple[str, str, str, list[NavLink], list[NavLink]]:
+    """Return (style, main_heading, supporting_heading, main_items, supporting_items).
 
-    Returns None when the item has no dropdown, otherwise a dict with layout
-    metadata and resolved link lists for templates.
+    Style is NAV_STYLE_NONE when there's no expandable panel.
     """
-    dropdown_style = item.get("dropdown_style", "none")
-    if dropdown_style == "none":
-        return None
+    dropdown_style = item.get("dropdown_style", NAV_STYLE_NONE)
+    if dropdown_style == NAV_STYLE_NONE:
+        return (NAV_STYLE_NONE, "", "", [], [])
 
     content_source = item.get("content_source", "manual")
     main_heading = _nav_field(item, "main_heading")
@@ -260,16 +269,31 @@ def resolve_primary_nav_dropdown(item: Any, site) -> NavDropdown | None:
         )
 
     if not main_items and not supporting_items:
-        return None
+        return (NAV_STYLE_NONE, "", "", [], [])
 
-    return NavDropdown(
-        style=dropdown_style,
+    return (dropdown_style, main_heading, supporting_heading, main_items, supporting_items)
+
+
+def resolve_primary_nav_item(item: Any, site) -> NavItem:
+    """
+    Resolve a primary navigation block into a self-sufficient render record.
+
+    Always returns a NavItem; entries with no expandable panel have
+    style == NAV_STYLE_NONE and empty main/supporting lists.
+    """
+    style, main_heading, supporting_heading, main_items, supporting_items = (
+        _resolve_panel(item, site)
+    )
+    page = item.get("page")
+    return NavItem(
+        text=item.text(),
+        url=item.url(site=site),
+        page_id=page.pk if page else None,
+        style=style,
         main_heading=main_heading,
         supporting_heading=supporting_heading,
         main_items=main_items,
         supporting_items=supporting_items,
-        parent_url=item.url(site=site),
-        parent_text=item.text(),
     )
 
 
@@ -279,18 +303,18 @@ def invalidate_primary_nav_cache(site) -> None:
     )
 
 
-def _build_primary_navigation(site) -> list[NavDropdown | None]:
+def _build_primary_navigation(site) -> list[NavItem]:
     # Local import: NavigationSettings -> utils, so we can't import at module load.
     from tbx.navigation.models import NavigationSettings
 
     nav_settings = NavigationSettings.for_site(site)
     return [
-        resolve_primary_nav_dropdown(block.value, site)
+        resolve_primary_nav_item(block.value, site)
         for block in nav_settings.primary_navigation
     ]
 
 
-def get_primary_nav_dropdowns(site) -> list[NavDropdown | None]:
+def get_primary_navigation(site) -> list[NavItem]:
     from tbx.navigation.models import NavigationSettings
 
     resolved = cache.get_or_set(
@@ -303,38 +327,38 @@ def get_primary_nav_dropdowns(site) -> list[NavDropdown | None]:
     # Defensive: if a stale cache entry no longer matches the current
     # number of primary_navigation blocks (e.g. settings changed but
     # invalidation didn't fire, or cache was warmed in another process),
-    # rebuild rather than let zip(strict=True) blow up at render time.
+    # rebuild rather than let templates render against stale shape.
     expected = len(NavigationSettings.for_site(site).primary_navigation)
     if len(resolved) != expected:
         return rebuild_primary_nav_cache(site)
     return resolved
 
 
-def rebuild_primary_nav_cache(site) -> list[NavDropdown | None]:
+def rebuild_primary_nav_cache(site) -> list[NavItem]:
     """Force rebuild — used on NavigationSettings.save() to warm the cache."""
     invalidate_primary_nav_cache(site)
-    return get_primary_nav_dropdowns(site)
+    return get_primary_navigation(site)
 
 
-def _page_url_for_current_check(page, site) -> str:
-    if hasattr(page, "get_url"):
-        return page.get_url(request=None, current_site=site) or ""
-    return getattr(page, "url", None) or ""
+def current_page_url(current_page, site) -> str:
+    if current_page is None:
+        return ""
+    if hasattr(current_page, "get_url"):
+        return current_page.get_url(request=None, current_site=site) or ""
+    return getattr(current_page, "url", None) or ""
 
 
-def primary_nav_item_is_current(item: Any, current_page, site) -> bool:
-    page = item.get("page")
-    if not page or current_page is None:
+def is_current_nav_item(item: NavItem, current_page, current_url: str) -> bool:
+    """Match against pre-computed current_url so we don't recompute per item."""
+    if current_page is None or not item["url"]:
         return False
 
-    if current_page.pk == page.pk:
+    if item["page_id"] and item["page_id"] == current_page.pk:
         return True
 
-    page_url = _page_url_for_current_check(page, site)
-    current_url = _page_url_for_current_check(current_page, site)
-    if not page_url or not current_url:
+    if not current_url:
         return False
 
-    page_url = page_url.rstrip("/")
-    current_url = current_url.rstrip("/")
-    return current_url.startswith(page_url + "/")
+    item_url = item["url"].rstrip("/")
+    current = current_url.rstrip("/")
+    return current.startswith(item_url + "/")

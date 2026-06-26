@@ -1,4 +1,4 @@
 context:
   dropdown:
-    parent_url: '#'
-    parent_text: Services
+    url: '#'
+    text: Services

@@ -25,5 +25,5 @@ context:
         tags: CMS · Support · Training
         accent_colour: theme-green
     supporting_items: []
-    parent_url: '#'
-    parent_text: Sectors
+    url: '#'
+    text: Sectors

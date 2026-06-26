@@ -9,15 +9,16 @@ import wagtail_factories
 from tbx.core.factories import HomePageFactory
 from tbx.navigation.blocks import PrimaryNavLinkBlock
 from tbx.navigation.utils import (
+    NAV_STYLE_NONE,
     format_nav_tags,
-    primary_nav_item_is_current,
-    resolve_primary_nav_dropdown,
+    is_current_nav_item,
+    resolve_primary_nav_item,
 )
 from tbx.taxonomy.factories import SectorFactory, ServiceFactory
 from tbx.work.factories import WorkIndexPageFactory
 
 
-class TestResolvePrimaryNavDropdown(TestCase):
+class TestResolvePrimaryNavItem(TestCase):
     def setUp(self):
         root_page = wagtail_factories.PageFactory(parent=None)
         self.home_page = HomePageFactory(parent=root_page)
@@ -63,7 +64,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value, self.site)
+        dropdown = resolve_primary_nav_item(value, self.site)
         self.assertEqual(dropdown["style"], "mixed_list")
         self.assertEqual(dropdown["main_heading"], "Core services")
         self.assertEqual(len(dropdown["main_items"]), 1)
@@ -109,7 +110,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value, self.site)
+        dropdown = resolve_primary_nav_item(value, self.site)
         self.assertEqual(dropdown["main_heading"], "Core services")
         self.assertEqual(dropdown["supporting_heading"], "Quick start")
         self.assertEqual(len(dropdown["main_items"]), 1)
@@ -134,7 +135,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value, self.site)
+        dropdown = resolve_primary_nav_item(value, self.site)
         self.assertEqual(dropdown["style"], "taxonomy_index")
         self.assertEqual(dropdown["main_heading"], "By sector")
         self.assertEqual(dropdown["supporting_heading"], "By service")
@@ -171,7 +172,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value, self.site)
+        dropdown = resolve_primary_nav_item(value, self.site)
         self.assertEqual(len(dropdown["supporting_items"]), 1)
         self.assertEqual(dropdown["supporting_items"][0]["text"], "SEO")
 
@@ -195,7 +196,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value, self.site)
+        dropdown = resolve_primary_nav_item(value, self.site)
         self.assertIsNotNone(dropdown)
         self.assertEqual(dropdown["style"], "mixed_list")
         self.assertEqual(len(dropdown["main_items"]), 1)
@@ -231,7 +232,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value, self.site)
+        dropdown = resolve_primary_nav_item(value, self.site)
         self.assertEqual(len(dropdown["main_items"]), 1)
         self.assertEqual(dropdown["main_items"][0]["text"], "Child page")
         self.assertEqual(len(dropdown["supporting_items"]), 1)
@@ -263,7 +264,7 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        dropdown = resolve_primary_nav_dropdown(value, self.site)
+        dropdown = resolve_primary_nav_item(value, self.site)
         self.assertIsNotNone(dropdown)
         self.assertEqual(len(dropdown["supporting_items"]), 1)
         self.assertEqual(dropdown["supporting_items"][0]["text"], "Wagtail")
@@ -284,7 +285,14 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        self.assertIsNone(resolve_primary_nav_dropdown(value, self.site))
+        item = resolve_primary_nav_item(value, self.site)
+        self.assertEqual(item["style"], NAV_STYLE_NONE)
+        self.assertEqual(item["main_items"], [])
+        self.assertEqual(item["supporting_items"], [])
+        # Top-level link details are still populated, so templates can render the
+        # plain link without falling back to the live block.
+        self.assertEqual(item["text"], "Home")
+        self.assertEqual(item["page_id"], self.home_page.pk)
 
     def test_format_nav_tags(self):
         self.assertEqual(format_nav_tags("SEO, PPC"), "SEO · PPC")
@@ -292,43 +300,46 @@ class TestResolvePrimaryNavDropdown(TestCase):
         self.assertEqual(format_nav_tags(""), "")
 
 
-class TestPrimaryNavItemIsCurrent(TestCase):
-    def setUp(self):
-        self.site = Site.objects.get(is_default_site=True)
-
-    def _nav_item(self, page):
-        return SimpleNamespace(
-            get=lambda key, default=None: page if key == "page" else default
-        )
+class TestIsCurrentNavItem(TestCase):
+    def _item(self, *, url="", page_id=None):
+        return {
+            "text": "",
+            "url": url,
+            "page_id": page_id,
+            "style": "none",
+            "main_heading": "",
+            "supporting_heading": "",
+            "main_items": [],
+            "supporting_items": [],
+        }
 
     def test_returns_true_for_matching_page(self):
-        page = SimpleNamespace(pk=1, url="/about/")
+        page = SimpleNamespace(pk=1)
         self.assertTrue(
-            primary_nav_item_is_current(self._nav_item(page), page, self.site)
+            is_current_nav_item(self._item(url="/about/", page_id=1), page, "/about/")
         )
 
     def test_returns_true_for_descendant_page(self):
-        section = SimpleNamespace(pk=1, url="/about/")
-        child = SimpleNamespace(pk=2, url="/about/team/")
+        page = SimpleNamespace(pk=2)
         self.assertTrue(
-            primary_nav_item_is_current(self._nav_item(section), child, self.site)
+            is_current_nav_item(
+                self._item(url="/about/", page_id=1), page, "/about/team/"
+            )
         )
 
-    def test_returns_false_when_nav_page_has_no_url(self):
-        section = SimpleNamespace(pk=1, url=None)
-        current = SimpleNamespace(pk=2, url="/home/")
+    def test_returns_false_when_item_has_no_url(self):
+        page = SimpleNamespace(pk=2)
         self.assertFalse(
-            primary_nav_item_is_current(self._nav_item(section), current, self.site)
+            is_current_nav_item(self._item(url="", page_id=1), page, "/home/")
         )
 
-    def test_returns_false_when_current_page_has_no_url(self):
-        section = SimpleNamespace(pk=1, url="/about/")
-        current = SimpleNamespace(pk=2, url=None)
+    def test_returns_false_when_current_url_missing_and_pks_differ(self):
+        page = SimpleNamespace(pk=2)
         self.assertFalse(
-            primary_nav_item_is_current(self._nav_item(section), current, self.site)
+            is_current_nav_item(self._item(url="/about/", page_id=1), page, "")
         )
 
-    def test_returns_false_when_no_nav_page(self):
-        current = SimpleNamespace(pk=1, url="/home/")
-        item = SimpleNamespace(get=lambda key, default=None: default)
-        self.assertFalse(primary_nav_item_is_current(item, current, self.site))
+    def test_returns_false_when_current_page_is_none(self):
+        self.assertFalse(
+            is_current_nav_item(self._item(url="/about/", page_id=1), None, "/about/")
+        )
