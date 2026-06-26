@@ -350,15 +350,19 @@ def current_page_url(current_page, site) -> str:
 
 def is_current_nav_item(item: NavItem, current_page, current_url: str) -> bool:
     """Match against pre-computed current_url so we don't recompute per item."""
-    if current_page is None or not item["url"]:
+    if current_page is None:
         return False
 
     if item["page_id"] and item["page_id"] == current_page.pk:
         return True
 
-    if not current_url:
+    if not item["url"] or not current_url:
         return False
 
     item_url = item["url"].rstrip("/")
     current = current_url.rstrip("/")
-    return current.startswith(item_url + "/")
+    if not item_url:
+        # Item points at the site root; only the root itself is current
+        # (otherwise every page would highlight the root nav entry).
+        return current == ""
+    return current == item_url or current.startswith(item_url + "/")

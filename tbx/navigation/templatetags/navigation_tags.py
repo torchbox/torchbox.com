@@ -33,7 +33,10 @@ def _build_primary_nav_context(context):
         request._primary_navigation = resolved_items
 
     # Resolve the current page URL once — same for every nav item this request.
-    current_url = current_page_url(current_page, site)
+    # request.path is reliable and avoids re-resolving via Page.get_url() for
+    # every nav item; fall back to the page's own URL if there's no request
+    # (e.g. pattern library previews).
+    current_url = getattr(request, "path", "") or current_page_url(current_page, site)
 
     return {
         "nav_items": [
