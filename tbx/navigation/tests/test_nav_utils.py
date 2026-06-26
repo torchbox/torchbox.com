@@ -10,7 +10,6 @@ from tbx.core.factories import HomePageFactory
 from tbx.navigation.blocks import PrimaryNavLinkBlock
 from tbx.navigation.utils import (
     format_nav_tags,
-    item_has_dropdown,
     primary_nav_item_is_current,
     resolve_primary_nav_dropdown,
 )
@@ -70,7 +69,6 @@ class TestResolvePrimaryNavDropdown(TestCase):
         self.assertEqual(len(dropdown["main_items"]), 1)
         self.assertEqual(dropdown["main_items"][0].text, "Websites")
         self.assertEqual(len(dropdown["supporting_items"]), 1)
-        self.assertTrue(item_has_dropdown(value, self.site))
 
     def test_legacy_streamfield_keys(self):
         """Existing saved nav data uses secondary/promoted keys until re-saved."""
@@ -286,7 +284,6 @@ class TestResolvePrimaryNavDropdown(TestCase):
             }
         )
 
-        self.assertFalse(item_has_dropdown(value, self.site))
         self.assertIsNone(resolve_primary_nav_dropdown(value, self.site))
 
     def test_format_nav_tags(self):

@@ -38,26 +38,13 @@ def _page_url(page, site) -> str:
     return page.get_url(request=None, current_site=site) or ""
 
 
-def _nav_item_url(item, site) -> str:
-    page = item.get("page")
-    if page:
-        return _page_url(page, site)
-    return item.get("external_link") or ""
-
-
 def _link_from_block(block_value, site) -> ResolvedNavLink | None:
-    page = block_value.get("page")
-    if page:
-        url = _page_url(page, site)
-        page_id = page.pk
-    elif external_link := block_value.get("external_link"):
-        url = external_link
-        page_id = None
-    else:
-        return None
-
+    url = block_value.url(site=site)
     if not url:
         return None
+
+    page = block_value.get("page")
+    page_id = page.pk if page else None
 
     return ResolvedNavLink(
         text=block_value.text(),
@@ -247,7 +234,7 @@ def resolve_primary_nav_dropdown(item: Any, site) -> dict | None:
         "supporting_heading": supporting_heading,
         "main_items": main_items,
         "supporting_items": supporting_items,
-        "parent_url": _nav_item_url(item, site),
+        "parent_url": item.url(site=site),
         "parent_text": item.text(),
     }
 
@@ -274,12 +261,6 @@ def get_primary_nav_dropdowns(nav_settings, site) -> list[dict | None]:
         return rebuild_primary_nav_cache(nav_settings, site)
 
     return dropdowns
-
-
-def item_has_dropdown(item: Any, site) -> bool:
-    if item.get("dropdown_style", "none") == "none":
-        return False
-    return resolve_primary_nav_dropdown(item, site) is not None
 
 
 def _page_url_for_current_check(page, site) -> str:

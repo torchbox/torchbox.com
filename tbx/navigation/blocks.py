@@ -9,9 +9,9 @@ from tbx.core.blocks import CustomImageChooserBlock
 
 
 class LinkBlockStructValue(blocks.StructValue):
-    def url(self):
+    def url(self, request=None, site=None):
         if page := self.get("page"):
-            return page.url
+            return page.get_url(request=request, current_site=site)
 
         if external_link := self.get("external_link"):
             return external_link
