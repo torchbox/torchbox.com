@@ -14,6 +14,6 @@ context:
         tags: Local government · NHS · Higher education
         accent_colour: theme-nebuline
     supporting_items: []
-    parent_url: '#'
-    parent_text: Sectors
+    url: '#'
+    text: Sectors
   dropdown_id: 1

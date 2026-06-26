@@ -14,6 +14,6 @@ context:
       - text: Website audit
         url: '#'
         description: Performance, accessibility, SEO and content reviewed in full.
-    parent_url: '#'
-    parent_text: Services
+    url: '#'
+    text: Services
   dropdown_id: 1

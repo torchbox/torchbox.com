@@ -35,5 +35,5 @@ context:
         description: A focused week to clarify goals, audiences and the right digital approach.
         tags: ''
         accent_colour: ''
-    parent_url: '#'
-    parent_text: Services
+    url: '#'
+    text: Services

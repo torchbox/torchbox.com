@@ -1,7 +1,7 @@
-{% if dropdown.parent_url %}
+{% if dropdown.url %}
     <div class="primary-nav-dropdown__footer">
-        <a href="{{ dropdown.parent_url }}" class="primary-nav-dropdown__footer-link">
-            View all {{ dropdown.parent_text|lower }}<span class="primary-nav-dropdown__footer-tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown__footer-arrow" %}</span>
+        <a href="{{ dropdown.url }}" class="primary-nav-dropdown__footer-link">
+            View all {{ dropdown.text|lower }}<span class="primary-nav-dropdown__footer-tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown__footer-arrow" %}</span>
         </a>
     </div>
 {% endif %}

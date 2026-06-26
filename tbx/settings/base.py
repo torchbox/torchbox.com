@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "tbx.divisions",
     "tbx.events",
     "tbx.impact_reports",
-    "tbx.navigation",
+    "tbx.navigation.apps.NavigationConfig",
     "tbx.people",
     "tbx.taxonomy",
     "tbx.work",

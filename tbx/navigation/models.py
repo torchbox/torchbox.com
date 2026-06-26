@@ -78,7 +78,7 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
         super().save(**kwargs)
 
         for site in Site.objects.all():
-            rebuild_primary_nav_cache(self, site)
+            rebuild_primary_nav_cache(site)
 
         fragment_keys = [
             "footerlinks",

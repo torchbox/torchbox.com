@@ -3,8 +3,8 @@ from django import template
 from wagtail.models import Site
 
 from tbx.navigation.utils import (
-    get_primary_nav_dropdowns,
-    primary_nav_item_is_current,
+    get_primary_navigation,
+    is_current_nav_item,
 )
 from tbx.people.models import Contact
 from tbx.sitemap.models import SitemapPage
@@ -19,30 +19,35 @@ def _navigation_settings(context):
 
 def _build_primary_nav_context(context):
     request = context["request"]
-    nav_settings = _navigation_settings(context)
     current_page = context.get("page")
     site = (
         Site.find_for_request(request)
         or Site.objects.filter(is_default_site=True).first()
     )
 
-    cached_dropdowns = get_primary_nav_dropdowns(nav_settings, site)
+    # Memoise on the request so desktop + mobile inclusion tags share one
+    # lookup. Keyed on site.pk so a request resolving to a different site
+    # between calls (e.g. preview switching) doesn't reuse a stale list.
+    memo = getattr(request, "_primary_navigation", None)
+    if memo is None or memo[0] != site.pk:
+        resolved_items = get_primary_navigation(site)
+        request._primary_navigation = (site.pk, resolved_items)
+    else:
+        resolved_items = memo[1]
 
-    items = []
-    for block, dropdown in zip(
-        nav_settings.primary_navigation, cached_dropdowns, strict=True
-    ):
-        link = block.value
-        items.append(
-            {
-                "link": link,
-                "dropdown": dropdown,
-                "is_current": primary_nav_item_is_current(link, current_page, site),
-            }
-        )
+    # request.path is the canonical current URL — Django guarantees it on
+    # any real request, and it avoids re-resolving via Page.get_url() per
+    # nav item. Empty string is harmless: is_current_nav_item short-circuits.
+    current_url = getattr(request, "path", "")
 
     return {
-        "nav_items": items,
+        "nav_items": [
+            {
+                "item": item,
+                "is_current": is_current_nav_item(item, current_page, current_url),
+            }
+            for item in resolved_items
+        ],
         "request": request,
     }
 

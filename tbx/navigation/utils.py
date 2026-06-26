@@ -1,5 +1,4 @@
-from dataclasses import dataclass
-from typing import Any
+from typing import Any, TypedDict
 
 from django.core.cache import cache
 
@@ -9,16 +8,55 @@ from tbx.work.models import WorkIndexPage
 
 
 PRIMARY_NAV_CACHE_TIMEOUT = 3600  # 1 hour staleness backstop
+# Bump when the cached payload shape changes so stale entries are bypassed.
+PRIMARY_NAV_CACHE_VERSION = 3
+
+NAV_STYLE_NONE = "none"
 
 
-@dataclass(frozen=True)
-class ResolvedNavLink:
+class NavLink(TypedDict):
     text: str
     url: str
-    description: str = ""
-    tags: str = ""
-    accent_colour: str = ""
-    page_id: int | None = None
+    description: str
+    tags: str
+    accent_colour: str
+    page_id: int | None
+
+
+class NavItem(TypedDict):
+    """
+    A resolved primary navigation entry — self-sufficient for rendering.
+    `style == NAV_STYLE_NONE` means there's no expandable panel; the
+    other fields still describe the top-level link.
+    """
+
+    text: str
+    url: str
+    page_id: int | None
+    style: str
+    main_heading: str
+    supporting_heading: str
+    main_items: list[NavLink]
+    supporting_items: list[NavLink]
+
+
+def _nav_link(
+    *,
+    text: str,
+    url: str,
+    description: str = "",
+    tags: str = "",
+    accent_colour: str = "",
+    page_id: int | None = None,
+) -> NavLink:
+    return NavLink(
+        text=text,
+        url=url,
+        description=description,
+        tags=tags,
+        accent_colour=accent_colour,
+        page_id=page_id,
+    )
 
 
 def format_nav_tags(tags: str) -> str:
@@ -28,8 +66,12 @@ def format_nav_tags(tags: str) -> str:
     return " · ".join(parts)
 
 
-def _primary_nav_cache_key(nav_settings_pk: int, site_pk: int) -> str:
-    return f"primary_nav_dropdowns:{nav_settings_pk}:{site_pk}"
+def _primary_nav_cache_key(site_pk: int) -> str:
+    # Anchored on the domain ("a site's primary navigation"), not on the
+    # Python identifiers that read/write it. Site is the only natural key:
+    # NavigationSettings is a BaseSiteSetting, so it's 1:1 with Site. Bump
+    # PRIMARY_NAV_CACHE_VERSION when the *payload shape* changes.
+    return f"navigation:primary:site-{site_pk}"
 
 
 def _page_url(page, site) -> str:
@@ -38,7 +80,7 @@ def _page_url(page, site) -> str:
     return page.get_url(request=None, current_site=site) or ""
 
 
-def _link_from_block(block_value, site) -> ResolvedNavLink | None:
+def _link_from_block(block_value, site) -> NavLink | None:
     url = block_value.url(site=site)
     if not url:
         return None
@@ -46,7 +88,7 @@ def _link_from_block(block_value, site) -> ResolvedNavLink | None:
     page = block_value.get("page")
     page_id = page.pk if page else None
 
-    return ResolvedNavLink(
+    return _nav_link(
         text=block_value.text(),
         url=url,
         description=block_value.get("description", ""),
@@ -56,7 +98,7 @@ def _link_from_block(block_value, site) -> ResolvedNavLink | None:
     )
 
 
-def _links_from_stream(stream, site) -> list[ResolvedNavLink]:
+def _links_from_stream(stream, site) -> list[NavLink]:
     links = []
     for block in stream or []:
         if block.block_type != "link":
@@ -79,11 +121,11 @@ def _filtered_work_url(slug: str, site) -> str:
     return ""
 
 
-def _auto_division_links(site) -> list[ResolvedNavLink]:
+def _auto_division_links(site) -> list[NavLink]:
     links = []
     for division in DivisionPage.objects.live().public().specific():
         links.append(
-            ResolvedNavLink(
+            _nav_link(
                 text=division.nav_text,
                 url=_page_url(division, site),
                 description=division.search_description or "",
@@ -94,7 +136,7 @@ def _auto_division_links(site) -> list[ResolvedNavLink]:
     return links
 
 
-def _auto_taxonomy_sectors(site) -> list[ResolvedNavLink]:
+def _auto_taxonomy_sectors(site) -> list[NavLink]:
     links = []
     work_index = WorkIndexPage.objects.live().public().first()
     work_index_id = work_index.pk if work_index else None
@@ -103,7 +145,7 @@ def _auto_taxonomy_sectors(site) -> list[ResolvedNavLink]:
         if not url:
             continue
         links.append(
-            ResolvedNavLink(
+            _nav_link(
                 text=sector.name,
                 url=url,
                 description=sector.description,
@@ -113,7 +155,7 @@ def _auto_taxonomy_sectors(site) -> list[ResolvedNavLink]:
     return links
 
 
-def _auto_taxonomy_services(site) -> list[ResolvedNavLink]:
+def _auto_taxonomy_services(site) -> list[NavLink]:
     links = []
     work_index = WorkIndexPage.objects.live().public().first()
     work_index_id = work_index.pk if work_index else None
@@ -122,7 +164,7 @@ def _auto_taxonomy_services(site) -> list[ResolvedNavLink]:
         if not url:
             continue
         links.append(
-            ResolvedNavLink(
+            _nav_link(
                 text=service.name,
                 url=url,
                 description=service.description,
@@ -132,7 +174,7 @@ def _auto_taxonomy_services(site) -> list[ResolvedNavLink]:
     return links
 
 
-def _page_child_links(page, max_depth: int, site) -> list[ResolvedNavLink]:
+def _page_child_links(page, max_depth: int, site) -> list[NavLink]:
     links = []
 
     def add_children(parent_page, depth: int):
@@ -143,7 +185,7 @@ def _page_child_links(page, max_depth: int, site) -> list[ResolvedNavLink]:
         ):
             specific = child.specific
             links.append(
-                ResolvedNavLink(
+                _nav_link(
                     text=getattr(specific, "nav_text", child.title),
                     url=_page_url(child, site),
                     description=getattr(specific, "search_description", "") or "",
@@ -185,23 +227,32 @@ def _nav_stream(item: Any, key: str):
     return None
 
 
-def resolve_primary_nav_dropdown(item: Any, site) -> dict | None:
-    """
-    Resolve dropdown content for a primary navigation item.
+def _empty_panel() -> dict:
+    return {
+        "style": NAV_STYLE_NONE,
+        "main_heading": "",
+        "supporting_heading": "",
+        "main_items": [],
+        "supporting_items": [],
+    }
 
-    Returns None when the item has no dropdown, otherwise a dict with layout
-    metadata and resolved link lists for templates.
+
+def _resolve_panel(item: Any, site) -> dict:
+    """Resolve the dropdown panel for a nav item.
+
+    Returns a dict with style/headings/items. Style is NAV_STYLE_NONE when
+    there's no expandable panel — empty lists for main/supporting items.
     """
-    dropdown_style = item.get("dropdown_style", "none")
-    if dropdown_style == "none":
-        return None
+    dropdown_style = item.get("dropdown_style", NAV_STYLE_NONE)
+    if dropdown_style == NAV_STYLE_NONE:
+        return _empty_panel()
 
     content_source = item.get("content_source", "manual")
     main_heading = _nav_field(item, "main_heading")
     supporting_heading = _nav_field(item, "supporting_heading")
 
-    main_items: list[ResolvedNavLink] = []
-    supporting_items: list[ResolvedNavLink] = []
+    main_items: list[NavLink] = []
+    supporting_items: list[NavLink] = []
 
     if content_source == "auto_divisions":
         main_items = _auto_division_links(site)
@@ -226,7 +277,7 @@ def resolve_primary_nav_dropdown(item: Any, site) -> dict | None:
         )
 
     if not main_items and not supporting_items:
-        return None
+        return _empty_panel()
 
     return {
         "style": dropdown_style,
@@ -234,54 +285,88 @@ def resolve_primary_nav_dropdown(item: Any, site) -> dict | None:
         "supporting_heading": supporting_heading,
         "main_items": main_items,
         "supporting_items": supporting_items,
-        "parent_url": item.url(site=site),
-        "parent_text": item.text(),
     }
 
 
-def rebuild_primary_nav_cache(nav_settings, site) -> list[dict | None]:
-    dropdowns = [
-        resolve_primary_nav_dropdown(block.value, site)
+def resolve_primary_nav_item(item: Any, site) -> NavItem:
+    """
+    Resolve a primary navigation block into a self-sufficient render record.
+
+    Always returns a NavItem; entries with no expandable panel have
+    style == NAV_STYLE_NONE and empty main/supporting lists.
+    """
+    page = item.get("page")
+    return NavItem(
+        text=item.text(),
+        url=item.url(site=site),
+        page_id=page.pk if page else None,
+        **_resolve_panel(item, site),
+    )
+
+
+def _navigation_settings(site):
+    # Local import: NavigationSettings -> utils, so we can't import at module load.
+    from tbx.navigation.models import NavigationSettings
+
+    return NavigationSettings.for_site(site)
+
+
+def _build_primary_navigation(site) -> list[NavItem]:
+    nav_settings = _navigation_settings(site)
+    return [
+        resolve_primary_nav_item(block.value, site)
         for block in nav_settings.primary_navigation
     ]
+
+
+def get_primary_navigation(site) -> list[NavItem]:
+    key = _primary_nav_cache_key(site.pk)
+    cached = cache.get(key, version=PRIMARY_NAV_CACHE_VERSION)
+    # Treat an empty cached list as a miss: it could be a stale write from
+    # before nav was configured, or a partial state mid-invalidation. We'd
+    # rather pay one rebuild than render an empty nav for an hour.
+    if cached:
+        return cached
+
+    resolved = _build_primary_navigation(site)
+    if resolved:
+        cache.set(
+            key, resolved, PRIMARY_NAV_CACHE_TIMEOUT, version=PRIMARY_NAV_CACHE_VERSION
+        )
+    return resolved
+
+
+def invalidate_primary_nav_cache(site) -> None:
+    cache.delete(_primary_nav_cache_key(site.pk), version=PRIMARY_NAV_CACHE_VERSION)
+
+
+def rebuild_primary_nav_cache(site) -> list[NavItem]:
+    """Force rebuild — used on NavigationSettings.save() to warm the cache."""
+    resolved = _build_primary_navigation(site)
     cache.set(
-        _primary_nav_cache_key(nav_settings.pk, site.pk),
-        dropdowns,
+        _primary_nav_cache_key(site.pk),
+        resolved,
         PRIMARY_NAV_CACHE_TIMEOUT,
+        version=PRIMARY_NAV_CACHE_VERSION,
     )
-    return dropdowns
+    return resolved
 
 
-def get_primary_nav_dropdowns(nav_settings, site) -> list[dict | None]:
-    key = _primary_nav_cache_key(nav_settings.pk, site.pk)
-    dropdowns = cache.get(key)
-    nav_item_count = len(nav_settings.primary_navigation)
-
-    if dropdowns is None or len(dropdowns) != nav_item_count:
-        return rebuild_primary_nav_cache(nav_settings, site)
-
-    return dropdowns
-
-
-def _page_url_for_current_check(page, site) -> str:
-    if hasattr(page, "get_url"):
-        return page.get_url(request=None, current_site=site) or ""
-    return getattr(page, "url", None) or ""
-
-
-def primary_nav_item_is_current(item: Any, current_page, site) -> bool:
-    page = item.get("page")
-    if not page or current_page is None:
+def is_current_nav_item(item: NavItem, current_page, current_url: str) -> bool:
+    """Match against pre-computed current_url so we don't recompute per item."""
+    if current_page is None:
         return False
 
-    if current_page.pk == page.pk:
+    if item["page_id"] is not None and item["page_id"] == current_page.pk:
         return True
 
-    page_url = _page_url_for_current_check(page, site)
-    current_url = _page_url_for_current_check(current_page, site)
-    if not page_url or not current_url:
+    if not item["url"] or not current_url:
         return False
 
-    page_url = page_url.rstrip("/")
-    current_url = current_url.rstrip("/")
-    return current_url.startswith(page_url + "/")
+    item_url = item["url"].rstrip("/")
+    current = current_url.rstrip("/")
+    if not item_url:
+        # Item points at the site root; only the root itself is current
+        # (otherwise every page would highlight the root nav entry).
+        return current == ""
+    return current == item_url or current.startswith(item_url + "/")

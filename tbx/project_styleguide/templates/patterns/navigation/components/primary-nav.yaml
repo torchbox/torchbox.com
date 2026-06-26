@@ -1,11 +1,12 @@
 context:
   nav_items:
-    - link:
+    - item:
         text: Sectors
-        external_link: '#'
-      dropdown:
+        url: '#'
+        page_id: null
         style: teaser_grid
         main_heading: Sectors we support
+        supporting_heading: ''
         main_items:
           - text: Charities
             url: '#'
@@ -18,13 +19,11 @@ context:
             tags: ''
             accent_colour: theme-lagoon
         supporting_items: []
-        parent_url: '#'
-        parent_text: Sectors
       is_current: false
-    - link:
+    - item:
         text: Services
-        external_link: '#'
-      dropdown:
+        url: '#'
+        page_id: null
         style: mixed_list
         main_heading: Core services
         supporting_heading: Quick-start engagements
@@ -45,13 +44,11 @@ context:
             description: Performance, accessibility, SEO and content reviewed in full.
             tags: ''
             accent_colour: ''
-        parent_url: '#'
-        parent_text: Services
       is_current: false
-    - link:
+    - item:
         text: Work
-        external_link: '#'
-      dropdown:
+        url: '#'
+        page_id: null
         style: taxonomy_index
         main_heading: By sector
         supporting_heading: By service
@@ -67,13 +64,11 @@ context:
             description: ''
             tags: ''
             accent_colour: ''
-        parent_url: '#'
-        parent_text: Work
       is_current: false
-    - link:
+    - item:
         text: Thinking
-        external_link: '#'
-      dropdown:
+        url: '#'
+        page_id: null
         style: mixed_list
         main_heading: Thinking
         supporting_heading: Latest insights
@@ -94,13 +89,11 @@ context:
             description: How non-profits can demonstrate search credibility and authority.
             tags: ''
             accent_colour: ''
-        parent_url: '#'
-        parent_text: Thinking
       is_current: false
-    - link:
+    - item:
         text: About
-        external_link: '#'
-      dropdown:
+        url: '#'
+        page_id: null
         style: mixed_list
         main_heading: About us
         supporting_heading: ''
@@ -121,11 +114,4 @@ context:
             description: We are proudly employee-owned, putting our clients and values first.
             tags: ''
             accent_colour: ''
-        parent_url: '#'
-        parent_text: About
       is_current: false
-
-tags:
-  pageurl:
-    link:
-      raw: '#'
