@@ -288,17 +288,25 @@ def _resolve_panel(item: Any, site) -> dict:
     }
 
 
-def resolve_primary_nav_item(item: Any, site) -> NavItem:
+def resolve_primary_nav_item(item: Any, site) -> NavItem | None:
     """
     Resolve a primary navigation block into a self-sufficient render record.
 
-    Always returns a NavItem; entries with no expandable panel have
-    style == NAV_STYLE_NONE and empty main/supporting lists.
+    Returns None when the entry no longer points anywhere — e.g. the
+    referenced page was deleted and no external link was set — so we
+    don't render an empty `<a href="">` placeholder. Otherwise returns
+    a NavItem; entries with no expandable panel have style == NAV_STYLE_NONE
+    and empty main/supporting lists.
     """
+    url = item.url(site=site)
+    text = item.text()
+    if not url or not text:
+        return None
+
     page = item.get("page")
     return NavItem(
-        text=item.text(),
-        url=item.url(site=site),
+        text=text,
+        url=url,
         page_id=page.pk if page else None,
         **_resolve_panel(item, site),
     )
@@ -313,10 +321,11 @@ def _navigation_settings(site):
 
 def _build_primary_navigation(site) -> list[NavItem]:
     nav_settings = _navigation_settings(site)
-    return [
+    resolved = (
         resolve_primary_nav_item(block.value, site)
         for block in nav_settings.primary_navigation
-    ]
+    )
+    return [item for item in resolved if item is not None]
 
 
 def get_primary_navigation(site) -> list[NavItem]:

@@ -294,6 +294,25 @@ class TestResolvePrimaryNavItem(TestCase):
         self.assertEqual(item["text"], "Home")
         self.assertEqual(item["page_id"], self.home_page.pk)
 
+    def test_returns_none_when_block_has_no_target(self):
+        # No page reference and no external link — the resolver should
+        # drop this entry instead of rendering an empty <a href="">.
+        value = self.block.to_python(
+            {
+                "page": None,
+                "external_link": "",
+                "title": "Orphan",
+                "dropdown_style": "none",
+                "content_source": "manual",
+                "main_heading": "",
+                "supporting_heading": "",
+                "main_links": [],
+                "supporting_links": [],
+                "page_children_depth": "2",
+            }
+        )
+        self.assertIsNone(resolve_primary_nav_item(value, self.site))
+
     def test_format_nav_tags(self):
         self.assertEqual(format_nav_tags("SEO, PPC"), "SEO · PPC")
         self.assertEqual(format_nav_tags("SEO · PPC"), "SEO · PPC")
