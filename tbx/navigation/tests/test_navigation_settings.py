@@ -140,7 +140,11 @@ class NavigationSettingsPrimaryNavCacheTestCase(WagtailPageTestCase):
         self, mock_get_or_set
     ):
         site = Site.objects.get(is_default_site=True)
-        mock_get_or_set.return_value = []
+        # Ensure NavigationSettings exists so for_site() doesn't trigger
+        # a save() (and thus a rebuild) inside the call under test.
+        nav_settings = NavigationSettings.for_site(site)
+        mock_get_or_set.return_value = [None] * len(nav_settings.primary_navigation)
+        mock_get_or_set.reset_mock()
 
         get_primary_nav_dropdowns(site)
 

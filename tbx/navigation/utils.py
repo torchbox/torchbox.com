@@ -291,12 +291,23 @@ def _build_primary_navigation(site) -> list[NavDropdown | None]:
 
 
 def get_primary_nav_dropdowns(site) -> list[NavDropdown | None]:
-    return cache.get_or_set(
+    from tbx.navigation.models import NavigationSettings
+
+    resolved = cache.get_or_set(
         _primary_nav_cache_key(site.pk),
         lambda: _build_primary_navigation(site),
         PRIMARY_NAV_CACHE_TIMEOUT,
         version=PRIMARY_NAV_CACHE_VERSION,
     )
+
+    # Defensive: if a stale cache entry no longer matches the current
+    # number of primary_navigation blocks (e.g. settings changed but
+    # invalidation didn't fire, or cache was warmed in another process),
+    # rebuild rather than let zip(strict=True) blow up at render time.
+    expected = len(NavigationSettings.for_site(site).primary_navigation)
+    if len(resolved) != expected:
+        return rebuild_primary_nav_cache(site)
+    return resolved
 
 
 def rebuild_primary_nav_cache(site) -> list[NavDropdown | None]:
