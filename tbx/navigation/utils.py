@@ -320,12 +320,20 @@ def _build_primary_navigation(site) -> list[NavItem]:
 
 
 def get_primary_navigation(site) -> list[NavItem]:
-    return cache.get_or_set(
-        _primary_nav_cache_key(site.pk),
-        lambda: _build_primary_navigation(site),
-        PRIMARY_NAV_CACHE_TIMEOUT,
-        version=PRIMARY_NAV_CACHE_VERSION,
-    )
+    key = _primary_nav_cache_key(site.pk)
+    cached = cache.get(key, version=PRIMARY_NAV_CACHE_VERSION)
+    # Treat an empty cached list as a miss: it could be a stale write from
+    # before nav was configured, or a partial state mid-invalidation. We'd
+    # rather pay one rebuild than render an empty nav for an hour.
+    if cached:
+        return cached
+
+    resolved = _build_primary_navigation(site)
+    if resolved:
+        cache.set(
+            key, resolved, PRIMARY_NAV_CACHE_TIMEOUT, version=PRIMARY_NAV_CACHE_VERSION
+        )
+    return resolved
 
 
 def invalidate_primary_nav_cache(site) -> None:
