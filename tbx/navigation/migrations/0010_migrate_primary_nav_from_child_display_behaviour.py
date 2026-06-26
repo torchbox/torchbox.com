@@ -58,7 +58,7 @@ def migrate_primary_navigation(apps, schema_editor):
     column = "primary_navigation"
 
     with connection.cursor() as cursor:
-        cursor.execute(f"SELECT id, {column} FROM {table}")
+        cursor.execute(f"SELECT id, {column} FROM {table}")  # noqa: S608
         rows = cursor.fetchall()
 
     for pk, raw in rows:
@@ -91,7 +91,7 @@ def migrate_primary_navigation(apps, schema_editor):
         if updated:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    f"UPDATE {table} SET {column} = %s WHERE id = %s",
+                    f"UPDATE {table} SET {column} = %s WHERE id = %s",  # noqa: S608
                     [json.dumps(stream_data), pk],
                 )
 
