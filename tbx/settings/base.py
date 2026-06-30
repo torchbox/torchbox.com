@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "tbx.blog",
     "tbx.core.apps.TorchboxCoreAppConfig",
     "tbx.divisions",
+    "tbx.sectors",
     "tbx.events",
     "tbx.impact_reports",
     "tbx.navigation.apps.NavigationConfig",
