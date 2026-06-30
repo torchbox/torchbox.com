@@ -238,7 +238,11 @@ class TestResolvePrimaryNavItem(TestCase):
         self.assertEqual(len(dropdown["supporting_items"]), 1)
         self.assertEqual(dropdown["supporting_items"][0]["text"], "Featured article")
 
-    def test_auto_divisions_with_manual_supporting_links(self):
+    def test_legacy_auto_divisions_falls_back_to_manual(self):
+        # The auto_divisions content source was removed. Saved values
+        # should normalise to "manual" on read so the dropdown still
+        # renders the editor's manually-curated links instead of
+        # rejecting the unknown choice.
         value = self.block.to_python(
             {
                 "page": self.home_page.pk,
@@ -264,6 +268,7 @@ class TestResolvePrimaryNavItem(TestCase):
             }
         )
 
+        self.assertEqual(value["content_source"], "manual")
         dropdown = resolve_primary_nav_item(value, self.site)
         self.assertIsNotNone(dropdown)
         self.assertEqual(len(dropdown["supporting_items"]), 1)
@@ -349,14 +354,14 @@ class TestResolvePrimaryNavItem(TestCase):
         items, _resolve_panel must collapse to style=NAV_STYLE_NONE — not
         preserve the requested dropdown_style with empty lists.
         """
-        # No DivisionPage rows exist, so auto_divisions returns [].
+        # No Sector or Service taxonomy rows exist, so auto_taxonomy returns [].
         value = self.block.to_python(
             {
                 "page": self.home_page.pk,
                 "external_link": "",
                 "title": "Sectors",
-                "dropdown_style": "teaser_grid",
-                "content_source": "auto_divisions",
+                "dropdown_style": "taxonomy_index",
+                "content_source": "auto_taxonomy",
                 "main_heading": "Sectors we support",
                 "supporting_heading": "",
                 "main_links": [],

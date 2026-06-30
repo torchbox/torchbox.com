@@ -147,7 +147,6 @@ class PrimaryNavLinkBlock(LinkBlock):
 
     class ContentSource(models.TextChoices):
         MANUAL = "manual", "Manual links"
-        AUTO_DIVISIONS = "auto_divisions", "Auto-generate from division pages"
         AUTO_TAXONOMY = "auto_taxonomy", "Auto-generate sectors and services"
         PAGE_CHILDREN = "page_children", "Auto-generate from page children"
 
@@ -169,7 +168,7 @@ class PrimaryNavLinkBlock(LinkBlock):
             "Choose whether the main column is edited manually or generated "
             "from site content. Main links below are only used when this is set "
             "to “Manual links”. Supporting links can be added for mixed dropdowns "
-            "(page children or division pages), but not for sectors and services."
+            "(page children), but not for sectors and services."
         ),
     )
     main_heading = blocks.CharBlock(
@@ -219,6 +218,12 @@ class PrimaryNavLinkBlock(LinkBlock):
         for old_key, new_key in cls._LEGACY_FIELD_RENAMES.items():
             if old_key in value and new_key not in value:
                 value[new_key] = value.pop(old_key)
+        # cleanup(2026jun): remove once all Navigation settings have been
+        # re-saved. The auto_divisions content source was removed; map any
+        # saved values to manual so editors can re-curate the dropdown by
+        # hand without the ChoiceBlock rejecting an unknown value.
+        if value.get("content_source") == "auto_divisions":
+            value["content_source"] = cls.ContentSource.MANUAL
         return value
 
     def to_python(self, value):
