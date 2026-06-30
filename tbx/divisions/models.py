@@ -25,6 +25,14 @@ class DivisionPage(BasePage):
     hero = StreamField([("hero", DynamicHeroBlock())], max_num=1, min_num=1)
     body = StreamField(DivisionStoryBlock(), blank=True)
 
+    sector = models.ForeignKey(
+        "taxonomy.Sector",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="division_pages",
+    )
+
     content_panels = BasePage.content_panels + [
         FieldPanel(
             "logo",
@@ -36,6 +44,7 @@ class DivisionPage(BasePage):
         ),
         FieldPanel("hero"),
         FieldPanel("body"),
+        FieldPanel("sector"),
     ]
 
     promote_panels = BasePage.promote_panels
