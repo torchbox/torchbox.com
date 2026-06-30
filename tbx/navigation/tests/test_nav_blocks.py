@@ -41,6 +41,43 @@ class PrimaryNavLinkBlockCleanTests(TestCase):
         with self.assertRaises(StructBlockValidationError):
             self.block.clean(value)
 
+    def test_no_dropdown_with_page_and_no_title_is_valid(self):
+        """
+        When dropdown_style == NONE and a page is set, title may be empty —
+        the page title will be derived at render time via LinkBlockStructValue.text().
+        """
+        import wagtail_factories
+
+        from tbx.core.factories import HomePageFactory
+
+        root_page = wagtail_factories.PageFactory(parent=None)
+        home_page = HomePageFactory(parent=root_page)
+
+        value = self._value(
+            page=home_page.pk,
+            title="",
+            dropdown_style=PrimaryNavLinkBlock.DropdownStyle.NONE,
+        )
+        cleaned = self.block.clean(value)
+        self.assertIsNotNone(cleaned["page"])
+
+    def test_no_dropdown_with_external_link_and_no_title_is_invalid(self):
+        """
+        When dropdown_style == NONE and external_link is set (no page),
+        title is required — there's no page title to fall back to.
+        """
+        from wagtail.blocks.struct_block import StructBlockValidationError
+
+        value = self._value(
+            page=None,
+            external_link="https://example.com",
+            title="",
+            dropdown_style=PrimaryNavLinkBlock.DropdownStyle.NONE,
+        )
+        with self.assertRaises(StructBlockValidationError) as ctx:
+            self.block.clean(value)
+        self.assertIn("title", ctx.exception.block_errors)
+
     def test_label_required_when_no_link(self):
         from wagtail.blocks.struct_block import StructBlockValidationError
 

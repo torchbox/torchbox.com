@@ -277,15 +277,22 @@ def _resolve_panel(item: Any, site) -> dict:
         )
 
     if not main_items and not supporting_items:
-        # Preserve the requested style so label-only entries (no link, no
-        # resolved children) still advertise their panel type to templates.
-        return {
-            "style": dropdown_style,
-            "main_heading": main_heading,
-            "supporting_heading": supporting_heading,
-            "main_items": [],
-            "supporting_items": [],
-        }
+        if content_source == "manual":
+            # Preserve the requested style so label-only manual entries (no
+            # link, no links yet) still advertise their panel type to
+            # templates — the editor can save an empty header and add links
+            # later.
+            return {
+                "style": dropdown_style,
+                "main_heading": main_heading,
+                "supporting_heading": supporting_heading,
+                "main_items": [],
+                "supporting_items": [],
+            }
+        # For auto-sourced content (auto_divisions, auto_taxonomy,
+        # page_children), an empty result means nothing resolved — collapse
+        # to NAV_STYLE_NONE so no hollow dropdown shell is rendered.
+        return _empty_panel()
 
     return {
         "style": dropdown_style,

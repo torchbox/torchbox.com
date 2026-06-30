@@ -229,7 +229,13 @@ class PrimaryNavLinkBlock(LinkBlock):
         Top-level nav items may be label-only headers when they carry a
         dropdown — the title opens the panel, nothing links anywhere on
         click. Without a dropdown we still need a link target, otherwise
-        the item is a dead click. Title is always required.
+        the item is a dead click.
+
+        Title rules:
+        - dropdown != NONE → title required (no page to derive a label from).
+        - dropdown == NONE + page set → title optional (falls back to page.title
+          via LinkBlockStructValue.text()).
+        - dropdown == NONE + external_link → title required (no page fallback).
         """
         dropdown_style = value.get("dropdown_style") or self.DropdownStyle.NONE
         page = value.get("page")
@@ -238,7 +244,14 @@ class PrimaryNavLinkBlock(LinkBlock):
 
         errors = {}
 
-        if not title:
+        # Title is required when a dropdown is present (label-only header with
+        # no page to derive text from) or when an external link is set without
+        # a page (no page.title fallback). For page-linked plain items the
+        # title is optional — LinkBlockStructValue.text() derives it at render.
+        title_required = dropdown_style != self.DropdownStyle.NONE or (
+            external_link and not page
+        )
+        if title_required and not title:
             errors["title"] = ErrorList(
                 [ValidationError("A navigation label is required.")]
             )

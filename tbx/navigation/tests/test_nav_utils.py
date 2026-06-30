@@ -343,6 +343,60 @@ class TestResolvePrimaryNavItem(TestCase):
         self.assertIsNone(resolved["page_id"])
         self.assertNotEqual(resolved["style"], NAV_STYLE_NONE)
 
+    def test_auto_source_yields_nothing_collapses_to_none_style(self):
+        """
+        When content_source is not 'manual' and the auto-query returns zero
+        items, _resolve_panel must collapse to style=NAV_STYLE_NONE — not
+        preserve the requested dropdown_style with empty lists.
+        """
+        # No DivisionPage rows exist, so auto_divisions returns [].
+        value = self.block.to_python(
+            {
+                "page": self.home_page.pk,
+                "external_link": "",
+                "title": "Sectors",
+                "dropdown_style": "teaser_grid",
+                "content_source": "auto_divisions",
+                "main_heading": "Sectors we support",
+                "supporting_heading": "",
+                "main_links": [],
+                "supporting_links": [],
+                "page_children_depth": "2",
+            }
+        )
+
+        item = resolve_primary_nav_item(value, self.site)
+        # The item itself is kept (it has a url and title), but the panel
+        # collapses because no divisions exist.
+        self.assertIsNotNone(item)
+        self.assertEqual(item["style"], NAV_STYLE_NONE)
+        self.assertEqual(item["main_items"], [])
+
+    def test_manual_empty_panel_preserves_dropdown_style(self):
+        """
+        A manually-authored item with dropdown_style set but no links yet
+        still advertises its panel type — so an editor can save an empty
+        header and add links later.
+        """
+        value = self.block.to_python(
+            {
+                "page": None,
+                "external_link": "",
+                "title": "What we do",
+                "dropdown_style": "mixed_list",
+                "content_source": "manual",
+                "main_heading": "",
+                "supporting_heading": "",
+                "main_links": [],
+                "supporting_links": [],
+                "page_children_depth": "2",
+            }
+        )
+
+        item = resolve_primary_nav_item(value, self.site)
+        self.assertIsNotNone(item)
+        self.assertEqual(item["style"], "mixed_list")
+
     def test_format_nav_tags(self):
         self.assertEqual(format_nav_tags("SEO, PPC"), "SEO · PPC")
         self.assertEqual(format_nav_tags("SEO · PPC"), "SEO · PPC")
