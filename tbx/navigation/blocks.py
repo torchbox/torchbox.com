@@ -257,7 +257,27 @@ class PrimaryNavLinkBlock(LinkBlock):
             )
 
         if dropdown_style == self.DropdownStyle.NONE:
-            # Defer to the LinkBlock rule: must have exactly one of page/external_link.
+            # Without a dropdown the item must link to something — otherwise
+            # it would be a dead click. Surface that explicitly rather than
+            # letting LinkBlock raise its more generic "must specify a page
+            # or an external link" error, which doesn't hint that picking
+            # a dropdown style is the other valid option.
+            if not page and not external_link:
+                missing_target = ErrorList(
+                    [
+                        ValidationError(
+                            "Choose a page or external link, or pick a "
+                            "dropdown style to make this a label-only header."
+                        )
+                    ]
+                )
+                errors["page"] = missing_target
+                errors["external_link"] = missing_target
+                errors["dropdown_style"] = missing_target
+                raise StructBlockValidationError(errors)
+
+            # Defer to the LinkBlock rule for the "both set" / external-link
+            # title rules.
             try:
                 return super().clean(value)
             except StructBlockValidationError as exc:
