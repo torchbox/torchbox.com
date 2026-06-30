@@ -9,7 +9,7 @@ from tbx.work.models import WorkIndexPage
 
 PRIMARY_NAV_CACHE_TIMEOUT = 3600  # 1 hour staleness backstop
 # Bump when the cached payload shape changes so stale entries are bypassed.
-PRIMARY_NAV_CACHE_VERSION = 3
+PRIMARY_NAV_CACHE_VERSION = 4
 
 NAV_STYLE_NONE = "none"
 
@@ -277,7 +277,15 @@ def _resolve_panel(item: Any, site) -> dict:
         )
 
     if not main_items and not supporting_items:
-        return _empty_panel()
+        # Preserve the requested style so label-only entries (no link, no
+        # resolved children) still advertise their panel type to templates.
+        return {
+            "style": dropdown_style,
+            "main_heading": main_heading,
+            "supporting_heading": supporting_heading,
+            "main_items": [],
+            "supporting_items": [],
+        }
 
     return {
         "style": dropdown_style,
@@ -300,7 +308,14 @@ def resolve_primary_nav_item(item: Any, site) -> NavItem | None:
     """
     url = item.url(site=site)
     text = item.text()
-    if not url or not text:
+    dropdown_style = item.get("dropdown_style", NAV_STYLE_NONE)
+
+    if not text:
+        return None
+    # Label-only top-level entries (no link) are valid when they carry a
+    # dropdown — the title opens the panel, nothing links on click. Without
+    # a dropdown an empty url means the target was deleted; drop the entry.
+    if not url and dropdown_style == NAV_STYLE_NONE:
         return None
 
     page = item.get("page")

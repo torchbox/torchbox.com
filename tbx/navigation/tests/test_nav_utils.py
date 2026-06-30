@@ -313,6 +313,36 @@ class TestResolvePrimaryNavItem(TestCase):
         )
         self.assertIsNone(resolve_primary_nav_item(value, self.site))
 
+    def test_label_only_top_level_with_dropdown_is_kept(self):
+        # Use the block directly to build a value so we exercise resolve_primary_nav_item.
+        from tbx.navigation.blocks import PrimaryNavLinkBlock
+        from tbx.navigation.utils import NAV_STYLE_NONE, resolve_primary_nav_item
+
+        block = PrimaryNavLinkBlock()
+        value = block.to_python(
+            {
+                "page": None,
+                "external_link": "",
+                "title": "What we do",
+                "dropdown_style": PrimaryNavLinkBlock.DropdownStyle.MIXED_LIST,
+                "content_source": PrimaryNavLinkBlock.ContentSource.MANUAL,
+                "main_heading": "",
+                "supporting_heading": "",
+                "main_links": [],
+                "supporting_links": [],
+                "page_children_depth": PrimaryNavLinkBlock.PageChildrenDepth.LEVEL2,
+            }
+        )
+        site = Site.objects.get(is_default_site=True)
+
+        resolved = resolve_primary_nav_item(value, site)
+
+        self.assertIsNotNone(resolved)
+        self.assertEqual(resolved["text"], "What we do")
+        self.assertEqual(resolved["url"], "")
+        self.assertIsNone(resolved["page_id"])
+        self.assertNotEqual(resolved["style"], NAV_STYLE_NONE)
+
     def test_format_nav_tags(self):
         self.assertEqual(format_nav_tags("SEO, PPC"), "SEO · PPC")
         self.assertEqual(format_nav_tags("SEO · PPC"), "SEO · PPC")
