@@ -224,6 +224,55 @@ class PrimaryNavLinkBlock(LinkBlock):
     def to_python(self, value):
         return super().to_python(self._migrate_legacy_value(value))
 
+    def clean(self, value):
+        """
+        Top-level nav items may be label-only headers when they carry a
+        dropdown — the title opens the panel, nothing links anywhere on
+        click. Without a dropdown we still need a link target, otherwise
+        the item is a dead click. Title is always required.
+        """
+        dropdown_style = value.get("dropdown_style") or self.DropdownStyle.NONE
+        page = value.get("page")
+        external_link = value.get("external_link")
+        title = value.get("title")
+
+        errors = {}
+
+        if not title:
+            errors["title"] = ErrorList(
+                [ValidationError("A navigation label is required.")]
+            )
+
+        if dropdown_style == self.DropdownStyle.NONE:
+            # Defer to the LinkBlock rule: must have exactly one of page/external_link.
+            try:
+                return super().clean(value)
+            except StructBlockValidationError as exc:
+                # Merge so a missing title plus a missing link both surface.
+                for field, error in exc.block_errors.items():
+                    errors[field] = error
+                raise StructBlockValidationError(errors) from exc
+
+        # dropdown present → page/external_link both optional, but
+        # mutually exclusive when both supplied.
+        if page and external_link:
+            err = ErrorList(
+                [
+                    ValidationError(
+                        "You must specify either a page or an external link, not both"
+                    )
+                ]
+            )
+            errors["page"] = err
+            errors["external_link"] = err
+
+        if errors:
+            raise StructBlockValidationError(errors)
+
+        # Use the StructBlock base clean to coerce sub-values normally,
+        # bypassing LinkBlock's "must have a target" rule.
+        return blocks.StructBlock.clean(self, value)
+
 
 class FooterLogoBlock(blocks.StructBlock):
     image = CustomImageChooserBlock()
