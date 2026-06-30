@@ -12,7 +12,7 @@ from .blocks import DivisionStoryBlock
 class DivisionPage(BasePage):
     template = "patterns/pages/divisions/division_page.html"
 
-    parent_page_types = ["torchbox.HomePage"]
+    parent_page_types = ["torchbox.HomePage", "sectors.SectorsIndexPage"]
 
     class Logo(models.TextChoices):
         TORCHBOX = "logo-torchbox", "Torchbox"

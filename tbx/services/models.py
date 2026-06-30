@@ -30,7 +30,7 @@ class ServiceAreaPage(BasePage):
     page_description = "A group of services for a division"
     template = "patterns/pages/service/service_area_page.html"
 
-    parent_page_types = ["divisions.DivisionPage"]
+    parent_page_types = ["divisions.DivisionPage", "sectors.SectorsIndexPage"]
 
     # Fields
     subtitle = models.CharField(max_length=255)
