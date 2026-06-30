@@ -24,9 +24,16 @@ class ServicePage(BasePage):
     )
 
     content_panels = BasePage.content_panels + [
+        FieldPanel(
+            "service",
+            help_text=(
+                "Tag this page with a service so related blog posts, case "
+                "studies and other pages sharing the same service can be "
+                "surfaced alongside it."
+            ),
+        ),
         FieldPanel("intro"),
         FieldPanel("body"),
-        FieldPanel("service"),
     ]
 
     search_fields = BasePage.search_fields + [
@@ -54,9 +61,16 @@ class ServiceAreaPage(BasePage):
     # Panels
 
     content_panels = BasePage.content_panels + [
+        FieldPanel(
+            "sector",
+            help_text=(
+                "Tag this page with a sector so related blog posts, case "
+                "studies and other pages sharing the same sector can be "
+                "surfaced alongside it."
+            ),
+        ),
         FieldPanel("subtitle"),
         FieldPanel("body"),
-        FieldPanel("sector"),
     ]
 
     search_fields = BasePage.search_fields + [

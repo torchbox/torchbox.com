@@ -35,6 +35,14 @@ class DivisionPage(BasePage):
 
     content_panels = BasePage.content_panels + [
         FieldPanel(
+            "sector",
+            help_text=(
+                "Tag this page with a sector so related blog posts, case "
+                "studies and other pages sharing the same sector can be "
+                "surfaced alongside it."
+            ),
+        ),
+        FieldPanel(
             "logo",
             heading="Division logo",
             help_text=(
@@ -44,7 +52,6 @@ class DivisionPage(BasePage):
         ),
         FieldPanel("hero"),
         FieldPanel("body"),
-        FieldPanel("sector"),
     ]
 
     promote_panels = BasePage.promote_panels
