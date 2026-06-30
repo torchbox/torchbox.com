@@ -15,10 +15,18 @@ class ServicePage(BasePage):
 
     intro = RichTextField(blank=True)
     body = StreamField(ServiceStoryBlock())
+    service = models.ForeignKey(
+        "taxonomy.Service",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="service_pages",
+    )
 
     content_panels = BasePage.content_panels + [
         FieldPanel("intro"),
         FieldPanel("body"),
+        FieldPanel("service"),
     ]
 
     search_fields = BasePage.search_fields + [
@@ -35,12 +43,20 @@ class ServiceAreaPage(BasePage):
     # Fields
     subtitle = models.CharField(max_length=255)
     body = StreamField(ServiceAreaStoryBlock())
+    sector = models.ForeignKey(
+        "taxonomy.Sector",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="service_area_pages",
+    )
 
     # Panels
 
     content_panels = BasePage.content_panels + [
         FieldPanel("subtitle"),
         FieldPanel("body"),
+        FieldPanel("sector"),
     ]
 
     search_fields = BasePage.search_fields + [
