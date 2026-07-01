@@ -4,7 +4,7 @@
 {% block extra_css %}
     {# We load the division page js/css in base.html in the pattern library #}
     {% if not pattern_library_rendered_pattern %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/division-page.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/sector-pages.css' %}">
     {% endif %}
 {% endblock %}
 
@@ -21,6 +21,6 @@
 {% block extra_js %}
     {# We load the division page js/css in base.html in the pattern library #}
     {% if not pattern_library_rendered_pattern %}
-        <script src="{% static 'js/division-page.js' %}"></script>
+        <script src="{% static 'js/sector-pages.js' %}"></script>
     {% endif %}
 {% endblock %}
