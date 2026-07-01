@@ -147,7 +147,6 @@ class PrimaryNavLinkBlock(LinkBlock):
 
     class ContentSource(models.TextChoices):
         MANUAL = "manual", "Manual links"
-        AUTO_DIVISIONS = "auto_divisions", "Auto-generate from division pages"
         AUTO_TAXONOMY = "auto_taxonomy", "Auto-generate sectors and services"
         PAGE_CHILDREN = "page_children", "Auto-generate from page children"
 
@@ -169,7 +168,7 @@ class PrimaryNavLinkBlock(LinkBlock):
             "Choose whether the main column is edited manually or generated "
             "from site content. Main links below are only used when this is set "
             "to “Manual links”. Supporting links can be added for mixed dropdowns "
-            "(page children or division pages), but not for sectors and services."
+            "(page children), but not for sectors and services."
         ),
     )
     main_heading = blocks.CharBlock(
@@ -219,10 +218,98 @@ class PrimaryNavLinkBlock(LinkBlock):
         for old_key, new_key in cls._LEGACY_FIELD_RENAMES.items():
             if old_key in value and new_key not in value:
                 value[new_key] = value.pop(old_key)
+        # cleanup(2026jun): remove once all Navigation settings have been
+        # re-saved. The auto_divisions content source was removed; map any
+        # saved values to manual so editors can re-curate the dropdown by
+        # hand without the ChoiceBlock rejecting an unknown value.
+        if value.get("content_source") == "auto_divisions":
+            value["content_source"] = cls.ContentSource.MANUAL
         return value
 
     def to_python(self, value):
         return super().to_python(self._migrate_legacy_value(value))
+
+    def clean(self, value):
+        """
+        Top-level nav items may be label-only headers when they carry a
+        dropdown — the title opens the panel, nothing links anywhere on
+        click. Without a dropdown we still need a link target, otherwise
+        the item is a dead click.
+
+        Title rules:
+        - dropdown != NONE → title required (no page to derive a label from).
+        - dropdown == NONE + page set → title optional (falls back to page.title
+          via LinkBlockStructValue.text()).
+        - dropdown == NONE + external_link → title required (no page fallback).
+        """
+        dropdown_style = value.get("dropdown_style") or self.DropdownStyle.NONE
+        page = value.get("page")
+        external_link = value.get("external_link")
+        title = value.get("title")
+
+        errors = {}
+
+        # Title is required when a dropdown is present (label-only header with
+        # no page to derive text from) or when an external link is set without
+        # a page (no page.title fallback). For page-linked plain items the
+        # title is optional — LinkBlockStructValue.text() derives it at render.
+        title_required = dropdown_style != self.DropdownStyle.NONE or (
+            external_link and not page
+        )
+        if title_required and not title:
+            errors["title"] = ErrorList(
+                [ValidationError("A navigation label is required.")]
+            )
+
+        if dropdown_style == self.DropdownStyle.NONE:
+            # Without a dropdown the item must link to something — otherwise
+            # it would be a dead click. Surface that explicitly rather than
+            # letting LinkBlock raise its more generic "must specify a page
+            # or an external link" error, which doesn't hint that picking
+            # a dropdown style is the other valid option.
+            if not page and not external_link:
+                missing_target = ErrorList(
+                    [
+                        ValidationError(
+                            "Choose a page or external link, or pick a "
+                            "dropdown style to make this a label-only header."
+                        )
+                    ]
+                )
+                errors["page"] = missing_target
+                errors["external_link"] = missing_target
+                errors["dropdown_style"] = missing_target
+                raise StructBlockValidationError(errors)
+
+            # Defer to the LinkBlock rule for the "both set" / external-link
+            # title rules.
+            try:
+                return super().clean(value)
+            except StructBlockValidationError as exc:
+                # Merge so a missing title plus a missing link both surface.
+                for field, error in exc.block_errors.items():
+                    errors[field] = error
+                raise StructBlockValidationError(errors) from exc
+
+        # dropdown present → page/external_link both optional, but
+        # mutually exclusive when both supplied.
+        if page and external_link:
+            err = ErrorList(
+                [
+                    ValidationError(
+                        "You must specify either a page or an external link, not both"
+                    )
+                ]
+            )
+            errors["page"] = err
+            errors["external_link"] = err
+
+        if errors:
+            raise StructBlockValidationError(errors)
+
+        # Use the StructBlock base clean to coerce sub-values normally,
+        # bypassing LinkBlock's "must have a target" rule.
+        return blocks.StructBlock.clean(self, value)
 
 
 class FooterLogoBlock(blocks.StructBlock):

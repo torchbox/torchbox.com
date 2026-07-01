@@ -2,14 +2,13 @@ from typing import Any, TypedDict
 
 from django.core.cache import cache
 
-from tbx.divisions.models import DivisionPage
 from tbx.taxonomy.models import Sector, Service
 from tbx.work.models import WorkIndexPage
 
 
 PRIMARY_NAV_CACHE_TIMEOUT = 3600  # 1 hour staleness backstop
 # Bump when the cached payload shape changes so stale entries are bypassed.
-PRIMARY_NAV_CACHE_VERSION = 3
+PRIMARY_NAV_CACHE_VERSION = 4
 
 NAV_STYLE_NONE = "none"
 
@@ -119,21 +118,6 @@ def _filtered_work_url(slug: str, site) -> str:
     if base_url := _work_index_url(site):
         return f"{base_url}?filter={slug}"
     return ""
-
-
-def _auto_division_links(site) -> list[NavLink]:
-    links = []
-    for division in DivisionPage.objects.live().public().specific():
-        links.append(
-            _nav_link(
-                text=division.nav_text,
-                url=_page_url(division, site),
-                description=division.search_description or "",
-                accent_colour=division.theme_class or "",
-                page_id=division.pk,
-            )
-        )
-    return links
 
 
 def _auto_taxonomy_sectors(site) -> list[NavLink]:
@@ -254,9 +238,7 @@ def _resolve_panel(item: Any, site) -> dict:
     main_items: list[NavLink] = []
     supporting_items: list[NavLink] = []
 
-    if content_source == "auto_divisions":
-        main_items = _auto_division_links(site)
-    elif content_source == "auto_taxonomy":
+    if content_source == "auto_taxonomy":
         main_items = _auto_taxonomy_sectors(site)
         supporting_items = _auto_taxonomy_services(site)
         if not main_heading:
@@ -271,12 +253,27 @@ def _resolve_panel(item: Any, site) -> dict:
     else:
         main_items = _links_from_stream(_nav_stream(item, "main_links"), site)
 
-    if content_source in ("manual", "auto_divisions", "page_children"):
+    if content_source in ("manual", "page_children"):
         supporting_items = _links_from_stream(
             _nav_stream(item, "supporting_links"), site
         )
 
     if not main_items and not supporting_items:
+        if content_source == "manual":
+            # Preserve the requested style so label-only manual entries (no
+            # link, no links yet) still advertise their panel type to
+            # templates — the editor can save an empty header and add links
+            # later.
+            return {
+                "style": dropdown_style,
+                "main_heading": main_heading,
+                "supporting_heading": supporting_heading,
+                "main_items": [],
+                "supporting_items": [],
+            }
+        # For auto-sourced content (auto_taxonomy, page_children), an empty
+        # result means nothing resolved — collapse to NAV_STYLE_NONE so no
+        # hollow dropdown shell is rendered.
         return _empty_panel()
 
     return {
@@ -300,7 +297,14 @@ def resolve_primary_nav_item(item: Any, site) -> NavItem | None:
     """
     url = item.url(site=site)
     text = item.text()
-    if not url or not text:
+    dropdown_style = item.get("dropdown_style", NAV_STYLE_NONE)
+
+    if not text:
+        return None
+    # Label-only top-level entries (no link) are valid when they carry a
+    # dropdown — the title opens the panel, nothing links on click. Without
+    # a dropdown an empty url means the target was deleted; drop the entry.
+    if not url and dropdown_style == NAV_STYLE_NONE:
         return None
 
     page = item.get("page")

@@ -15,8 +15,23 @@ class ServicePage(BasePage):
 
     intro = RichTextField(blank=True)
     body = StreamField(ServiceStoryBlock())
+    service = models.ForeignKey(
+        "taxonomy.Service",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="service_pages",
+    )
 
     content_panels = BasePage.content_panels + [
+        FieldPanel(
+            "service",
+            help_text=(
+                "Tag this page with a service so related blog posts, case "
+                "studies and other pages sharing the same service can be "
+                "surfaced alongside it."
+            ),
+        ),
         FieldPanel("intro"),
         FieldPanel("body"),
     ]
@@ -30,15 +45,30 @@ class ServiceAreaPage(BasePage):
     page_description = "A group of services for a division"
     template = "patterns/pages/service/service_area_page.html"
 
-    parent_page_types = ["divisions.DivisionPage"]
+    parent_page_types = ["divisions.DivisionPage", "sectors.SectorsIndexPage"]
 
     # Fields
     subtitle = models.CharField(max_length=255)
     body = StreamField(ServiceAreaStoryBlock())
+    sector = models.ForeignKey(
+        "taxonomy.Sector",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="service_area_pages",
+    )
 
     # Panels
 
     content_panels = BasePage.content_panels + [
+        FieldPanel(
+            "sector",
+            help_text=(
+                "Tag this page with a sector so related blog posts, case "
+                "studies and other pages sharing the same sector can be "
+                "surfaced alongside it."
+            ),
+        ),
         FieldPanel("subtitle"),
         FieldPanel("body"),
     ]

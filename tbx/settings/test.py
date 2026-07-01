@@ -34,3 +34,18 @@ XFF_ALWAYS_PROXY = False
 STORAGES["staticfiles"] = {  # noqa: F405
     "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
 }
+
+# Use an in-memory cache for tests so they don't read from or write to the
+# Redis instance shared with the dev server. Otherwise tests that exercise
+# NavigationSettings.save() leave their fixture data in the real cache and
+# the dev site renders a stale nav until TTL expires.
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "tests-default",
+    },
+    "renditions": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "tests-renditions",
+    },
+}

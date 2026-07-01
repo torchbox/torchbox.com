@@ -12,7 +12,7 @@ from .blocks import DivisionStoryBlock
 class DivisionPage(BasePage):
     template = "patterns/pages/divisions/division_page.html"
 
-    parent_page_types = ["torchbox.HomePage"]
+    parent_page_types = ["torchbox.HomePage", "sectors.SectorsIndexPage"]
 
     class Logo(models.TextChoices):
         TORCHBOX = "logo-torchbox", "Torchbox"
@@ -25,7 +25,23 @@ class DivisionPage(BasePage):
     hero = StreamField([("hero", DynamicHeroBlock())], max_num=1, min_num=1)
     body = StreamField(DivisionStoryBlock(), blank=True)
 
+    sector = models.ForeignKey(
+        "taxonomy.Sector",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="division_pages",
+    )
+
     content_panels = BasePage.content_panels + [
+        FieldPanel(
+            "sector",
+            help_text=(
+                "Tag this page with a sector so related blog posts, case "
+                "studies and other pages sharing the same sector can be "
+                "surfaced alongside it."
+            ),
+        ),
         FieldPanel(
             "logo",
             heading="Division logo",

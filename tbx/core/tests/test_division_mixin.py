@@ -104,3 +104,16 @@ class TestDivisionMixin(WagtailPageTestCase):
         self.assertIsNone(self.service_1.final_division)
         self.assertIsNone(self.service_2.final_division)
         self.assertIsNone(service_3.final_division)
+
+    def test_final_division_resolves_when_division_nested_under_sectors_index(self):
+        """
+        final_division should still resolve to the DivisionPage even when
+        a SectorsIndexPage sits between the home page and the division.
+        """
+        from tbx.sectors.factories import SectorsIndexPageFactory
+
+        sectors_index = SectorsIndexPageFactory(parent=self.home, title="Sectors")
+        division = DivisionPageFactory(parent=sectors_index, title="Charity")
+        service = ServiceAreaPageFactory(parent=division, title="Services")
+
+        self.assertEqual(service.final_division, division)

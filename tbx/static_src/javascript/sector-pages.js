@@ -1,6 +1,6 @@
 import DynamicHero from './components/dynamic-hero';
 
-import '../sass/division-page.scss';
+import '../sass/sector-pages.scss';
 
 function initComponent(ComponentClass) {
     const items = document.querySelectorAll(ComponentClass.selector());

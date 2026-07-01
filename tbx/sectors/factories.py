@@ -6,32 +6,30 @@ import wagtail_factories
 from tbx.core.blocks import DynamicHeroBlock
 from tbx.core.factories import DynamicHeroBlockFactory, StoryBlockFactory
 
-from .models import DivisionPage
+from .models import SectorsIndexPage
 
 
-class DynamicHeroStreamBlock(blocks.StreamBlock):
+class SectorsIndexHeroStreamBlock(blocks.StreamBlock):
     hero = DynamicHeroBlock()
 
 
-class DynamicHeroStreamBlockFactory(wagtail_factories.StreamBlockFactory):
+class SectorsIndexHeroStreamBlockFactory(wagtail_factories.StreamBlockFactory):
     class Meta:
-        model = DynamicHeroStreamBlock
+        model = SectorsIndexHeroStreamBlock
 
     hero = factory.SubFactory(DynamicHeroBlockFactory)
 
 
-class DivisionPageFactory(wagtail_factories.PageFactory):
+class SectorsIndexPageFactory(wagtail_factories.PageFactory):
     class Meta:
-        model = DivisionPage
+        model = SectorsIndexPage
 
-    title = "Charity"
-    logo = DivisionPage.Logo.CHARITY
-    sector = None
+    title = "Sectors"
 
     @factory.post_generation
     def hero(obj, create, extracted, **kwargs):
         blocks = kwargs or {"0": "hero"}
-        obj.hero = DynamicHeroStreamBlockFactory(**blocks)
+        obj.hero = SectorsIndexHeroStreamBlockFactory(**blocks)
 
     @factory.post_generation
     def body(obj, create, extracted, **kwargs):

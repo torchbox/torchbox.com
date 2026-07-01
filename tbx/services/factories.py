@@ -11,6 +11,7 @@ class ServicePageFactory(wagtail_factories.PageFactory):
         model = ServicePage
 
     title = factory.Faker("text", max_nb_chars=100)
+    service = None
 
     @factory.post_generation
     def body(obj, create, extracted, **kwargs):
@@ -24,6 +25,7 @@ class ServiceAreaPageFactory(wagtail_factories.PageFactory):
 
     title = factory.Faker("text", max_nb_chars=100)
     subtitle = factory.Faker("text", max_nb_chars=100)
+    sector = None
 
     @factory.post_generation
     def body(obj, create, extracted, **kwargs):
