@@ -145,12 +145,10 @@ class BasePage(
     @cached_property
     def breadcrumbs(self):
         """
-        Return a a list of the current page's ancestors where the first one is
-        either a division page, or the homepage if no ancestor is a division page.
+        Return the current page's ancestors starting at the homepage.
         """
-        # The homepage has depth=2
-        min_depth = 2 if self.final_division is None else self.final_division.depth
-        return self.get_ancestors().filter(depth__gte=min_depth)
+        # The homepage has depth=2; anything shallower is the Wagtail root.
+        return self.get_ancestors().filter(depth__gte=2)
 
 
 class HomePagePartnerLogo(Orderable):

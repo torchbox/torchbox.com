@@ -214,10 +214,10 @@ class DivisionMixin(models.Model):
         FieldPanel(
             "division",
             help_text=_(
-                "The division will be applied to this page and its descendants. "
-                "If no division is selected, it will be derived from "
-                "this page's ancestors. "
-                "If one of the ancestors is a division page, that will be used."
+                "Controls the branded logo shown in the site header for this "
+                "page and its descendants. If left blank, the division is "
+                "derived from this page's ancestors — the closest ancestor "
+                "with a division set, or an ancestor DivisionPage."
             ),
         ),
     ]
