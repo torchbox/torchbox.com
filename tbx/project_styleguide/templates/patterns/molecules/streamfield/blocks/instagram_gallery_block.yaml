@@ -1,5 +1,6 @@
 context:
   value:
+    display_instagram_icon: true
     items:
       - post:
         link: https://example.com
