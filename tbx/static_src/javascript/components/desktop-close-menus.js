@@ -37,13 +37,16 @@ class DesktopCloseMenus {
         }
     }
 
-    // Close desktop menus when clicking on document
-    closeMenus(e) {
-        let close = true;
+    isOutsideNav(target) {
+        if (!target) {
+            return true;
+        }
+
+        let outside = true;
 
         this.allPrimaryNavs.forEach((item) => {
-            if (item.contains(e.target)) {
-                close = false;
+            if (item.contains(target)) {
+                outside = false;
             }
         });
 
@@ -51,10 +54,22 @@ class DesktopCloseMenus {
             this.primaryMobileNav &&
             this.primaryMobileNav.classList.contains('is-visible')
         ) {
-            close = false;
+            outside = false;
         }
 
-        if (close) {
+        return outside;
+    }
+
+    // Close desktop menus when clicking on document
+    closeMenus(e) {
+        if (this.isOutsideNav(e.target)) {
+            this.closeDesktopMenus();
+        }
+    }
+
+    // Close desktop menus when focus (eg. via Tab) moves outside them
+    closeMenusOnFocusOut(e) {
+        if (this.isOutsideNav(e.relatedTarget)) {
             this.closeDesktopMenus();
         }
     }
@@ -69,6 +84,10 @@ class DesktopCloseMenus {
 
         document.addEventListener('click', (e) => {
             this.closeMenus(e);
+        });
+
+        document.addEventListener('focusout', (e) => {
+            this.closeMenusOnFocusOut(e);
         });
 
         document.addEventListener('keydown', (event) => {
