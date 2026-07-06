@@ -79,6 +79,7 @@ Styles for primary navigation dropdown panels at mobile
 
         &:focus-visible {
             @include focus-style();
+            outline-offset: -3px;
         }
 
         &--back {
