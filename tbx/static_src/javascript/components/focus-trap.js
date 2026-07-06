@@ -8,13 +8,21 @@ const FOCUSABLE_SELECTOR = [
 ].join(', ');
 
 function isElementVisible(element) {
+    // A parent can be hidden while a child sets itself visible again —
+    // the browser handles that automatically, so just ask the element
+    // directly instead of checking every parent by hand. The mobile nav
+    // does exactly this: an inactive item's <li> is hidden, but its open
+    // submenu panel resets itself back to visible.
+    if (window.getComputedStyle(element).visibility === 'hidden') {
+        return false;
+    }
+
     let node = element;
 
     while (node) {
         const style = window.getComputedStyle(node);
 
         if (
-            style.visibility === 'hidden' ||
             style.display === 'none' ||
             node.getAttribute('aria-hidden') === 'true'
         ) {
