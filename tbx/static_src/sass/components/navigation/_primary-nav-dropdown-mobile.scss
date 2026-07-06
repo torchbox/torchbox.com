@@ -23,6 +23,15 @@ Styles for primary navigation dropdown panels at mobile
     &.is-visible {
         visibility: visible;
         opacity: 1;
+        // Become visible with no delay — JS focuses the back button right
+        // away, and a hidden element can't be focused yet.
+        transition:
+            visibility 0ms ease-out,
+            opacity 250ms ease-out 50ms;
+
+        @include reduced-motion() {
+            transition: none;
+        }
     }
 
     &__list {
