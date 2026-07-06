@@ -10,11 +10,11 @@
         border-bottom-color: var(--color--light-border);
     }
 
-    body.primary-nav-dropdown-open &,
-    body:has(.primary-nav-desktop__item.active) & {
-        @include media-query(menu) {
-            @include z-index(header-controls);
-        }
+    // Always stay above the dropdown/backdrop at this breakpoint. Toggling
+    // this only while open caused the header to duck below them mid
+    // fade-out, since the class is removed before they finish fading.
+    @include media-query(menu) {
+        @include z-index(header-controls);
     }
 
     &--mobile-menu-open {

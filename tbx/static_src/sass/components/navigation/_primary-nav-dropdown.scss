@@ -12,9 +12,24 @@ Styles for primary navigation dropdown panels at desktop
         $header-height: $header-full-height,
         $full-height: false
     );
+    // Extend the mixin's visibility/opacity transition to also cover
+    // background-color and box-shadow — otherwise those snap instantly
+    // on close while the panel is still rendered (opacity/visibility
+    // haven't finished fading), leaving a bare, colourless panel
+    // visible for a moment: reads as a flash.
+    transition:
+        visibility 0ms ease-out 50ms,
+        opacity $transition 50ms,
+        background-color $transition 50ms,
+        box-shadow $transition 50ms;
     background-color: transparent;
+    box-shadow: none;
     border: 0;
     padding: 0;
+
+    @include reduced-motion() {
+        transition: none;
+    }
 
     @include media-query(menu) {
         max-height: calc(100vh - #{$header-full-height});
@@ -31,7 +46,6 @@ Styles for primary navigation dropdown panels at desktop
         opacity: 1;
         visibility: visible;
         background-color: color.adjust($color--eclipse, $alpha: -0.06);
-        backdrop-filter: blur(16px);
         box-shadow: 0 8px 32px rgb(0 0 0 / 0.15);
 
         .mode-light & {
