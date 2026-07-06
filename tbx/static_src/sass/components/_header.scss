@@ -42,8 +42,14 @@
 
         @include media-query(menu) {
             align-items: stretch;
-            gap: $spacer-small-plus;
+            flex-wrap: wrap;
+            gap: 10px;
             padding: $spacer-small 0;
+        }
+
+        @include media-query(x-large) {
+            flex-wrap: nowrap;
+            gap: $spacer-mini-plus;
         }
     }
 

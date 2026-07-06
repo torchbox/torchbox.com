@@ -50,9 +50,14 @@
             height: 30px;
         }
 
-        @include media-query(large) {
-            width: 436px;
-            height: 39px;
+        @include media-query(menu) {
+            width: 280px;
+            height: 30px;
+        }
+
+        @include media-query(x-large) {
+            width: 366px;
+            height: 30px;
         }
     }
 }
