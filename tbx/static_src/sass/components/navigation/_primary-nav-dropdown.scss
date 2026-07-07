@@ -32,11 +32,12 @@ Styles for primary navigation dropdown panels at desktop
     }
 
     @include media-query(menu) {
+        top: $header-full-height + 34px;
         max-height: calc(100vh - #{$header-full-height});
         max-height: calc(100dvh - #{$header-full-height});
     }
 
-    @include media-query(large) {
+    @include media-query(x-large) {
         top: $header-full-height-large;
         max-height: calc(100vh - #{$header-full-height-large});
         max-height: calc(100dvh - #{$header-full-height-large});
