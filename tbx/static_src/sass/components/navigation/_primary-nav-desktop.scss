@@ -13,7 +13,7 @@ Styles for the primary navigation at desktop (top level)
     @include media-query(menu) {
         display: flex;
         align-items: stretch;
-        order: 10;
+        order: 1;
         flex-basis: 100%;
         margin-left: 0;
     }
