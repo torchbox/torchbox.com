@@ -32,7 +32,8 @@ Styles for primary navigation dropdown panels at desktop
     }
 
     @include media-query(menu) {
-        top: $header-full-height + 34px;
+        // Extra top offset for dropdowns at the `menu` breakpoint, where the nav sits below the logo.
+        top: $header-full-height + $nav-dropdown-menu-breakpoint-offset;
         max-height: calc(100vh - #{$header-full-height});
         max-height: calc(100dvh - #{$header-full-height});
     }
