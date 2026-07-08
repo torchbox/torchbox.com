@@ -35,7 +35,7 @@ Styles for the primary navigation at desktop (top level)
         @include media-query(menu) {
             height: 100%;
             align-items: stretch;
-            gap: $spacer-mini-plus;
+            gap: $spacer-small;
         }
 
         @include media-query(x-large) {
