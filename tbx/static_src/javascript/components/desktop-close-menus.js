@@ -86,8 +86,10 @@ class DesktopCloseMenus {
             this.closeMenus(e);
         });
 
-        document.addEventListener('focusout', (e) => {
-            this.closeMenusOnFocusOut(e);
+        this.allPrimaryNavs.forEach((nav) => {
+            nav.addEventListener('focusout', (e) => {
+                this.closeMenusOnFocusOut(e);
+            });
         });
 
         document.addEventListener('keydown', (event) => {
