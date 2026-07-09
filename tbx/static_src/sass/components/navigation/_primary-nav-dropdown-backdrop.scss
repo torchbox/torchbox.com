@@ -1,9 +1,10 @@
 @use '../../config' as *;
 
 /*
-Fixed overlay behind open desktop dropdowns. Clicks pass through to
-document listeners; the tint and backdrop blur sit above page content while
-the dropdown panel itself stays transparent.
+Dims and blurs the page behind an open desktop dropdown. Clicks pass
+through to document listeners rather than being caught here. Kept as
+one fixed-size layer covering just the viewport, rather than blurring
+the page content itself, so the blur stays cheap to render.
 */
 .primary-nav-dropdown-backdrop {
     display: none;
@@ -13,7 +14,7 @@ the dropdown panel itself stays transparent.
         display: block;
         position: fixed;
         inset: 0;
-        background: rgb(0 0 0 / 0.22);
+        background: rgb(0 0 0 / 0.55);
         backdrop-filter: blur($nav-dropdown-blur);
         opacity: 0;
         visibility: hidden;
@@ -38,29 +39,6 @@ the dropdown panel itself stays transparent.
             transition:
                 opacity $transition 50ms,
                 visibility 0ms;
-        }
-    }
-}
-
-// Blur page content when a desktop dropdown is open. The dropdown shell is
-// transparent so this remains visible; the backdrop adds a tint on top.
-@include media-query(menu) {
-    .breadcrumbs-nav,
-    .page {
-        transition: filter $transition;
-
-        @include reduced-motion() {
-            transition: none;
-        }
-    }
-}
-
-body.primary-nav-dropdown-open,
-body:has(.primary-nav-desktop__item.active) {
-    @include media-query(menu) {
-        .breadcrumbs-nav,
-        .page {
-            filter: blur($nav-dropdown-blur);
         }
     }
 }

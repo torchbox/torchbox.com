@@ -13,10 +13,14 @@ Styles for the primary navigation at desktop (top level)
     @include media-query(menu) {
         display: flex;
         align-items: stretch;
-        margin-left: $spacer-small;
+        order: 1;
+        flex-basis: 100%;
+        margin-left: 0;
     }
 
-    @include media-query(large) {
+    @include media-query(x-large) {
+        order: 0;
+        flex: 1;
         margin-left: $spacer-medium;
     }
 
@@ -31,9 +35,10 @@ Styles for the primary navigation at desktop (top level)
         @include media-query(menu) {
             height: 100%;
             align-items: stretch;
+            gap: $spacer-small;
         }
 
-        @include media-query(large) {
+        @include media-query(x-large) {
             gap: $spacer-small-plus;
         }
     }

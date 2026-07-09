@@ -55,6 +55,79 @@ describe('PrimaryMobileSubMenu', () => {
         ).toBe('primary-nav-mobile');
     });
 
+    it('loops focus from the last item back to the back button on Tab', () => {
+        // eslint-disable-next-line no-new
+        new PrimaryMobileSubMenu(
+            document.querySelector(PrimaryMobileSubMenu.selector()),
+        );
+
+        document
+            .querySelector('[data-open-primary-subnav]')
+            .dispatchEvent(new Event('click'));
+
+        const lastLink = document.querySelector('a[href="/services/"]');
+        const back = document.querySelector('[data-primary-subnav-back]');
+        lastLink.focus();
+
+        const tabEvent = new KeyboardEvent('keydown', {
+            key: 'Tab',
+            bubbles: true,
+            cancelable: true,
+        });
+        document.dispatchEvent(tabEvent);
+
+        expect(tabEvent.defaultPrevented).toBe(true);
+        expect(document.activeElement).toBe(back);
+    });
+
+    it('loops focus from the back button to the last item on Shift+Tab', () => {
+        // eslint-disable-next-line no-new
+        new PrimaryMobileSubMenu(
+            document.querySelector(PrimaryMobileSubMenu.selector()),
+        );
+
+        document
+            .querySelector('[data-open-primary-subnav]')
+            .dispatchEvent(new Event('click'));
+
+        const lastLink = document.querySelector('a[href="/services/"]');
+        const back = document.querySelector('[data-primary-subnav-back]');
+        back.focus();
+
+        const tabEvent = new KeyboardEvent('keydown', {
+            key: 'Tab',
+            shiftKey: true,
+            bubbles: true,
+            cancelable: true,
+        });
+        document.dispatchEvent(tabEvent);
+
+        expect(tabEvent.defaultPrevented).toBe(true);
+        expect(document.activeElement).toBe(lastLink);
+    });
+
+    it('does not trap focus once the subnav is closed', () => {
+        // eslint-disable-next-line no-new
+        new PrimaryMobileSubMenu(
+            document.querySelector(PrimaryMobileSubMenu.selector()),
+        );
+
+        const trigger = document.querySelector('[data-open-primary-subnav]');
+        trigger.dispatchEvent(new Event('click'));
+        document
+            .querySelector('[data-primary-subnav-back]')
+            .dispatchEvent(new Event('click'));
+
+        const tabEvent = new KeyboardEvent('keydown', {
+            key: 'Tab',
+            bubbles: true,
+            cancelable: true,
+        });
+        document.dispatchEvent(tabEvent);
+
+        expect(tabEvent.defaultPrevented).toBe(false);
+    });
+
     it('does not throw when aria-controls is missing', () => {
         document.body.innerHTML = `
             <nav class="primary-nav-mobile" data-primary-mobile-menu>

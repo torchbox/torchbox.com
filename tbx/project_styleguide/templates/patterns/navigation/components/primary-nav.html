@@ -1,3 +1,6 @@
+{# This markup is re-created in desktop-close-menus.test.js — if you change #}
+{# classes/attributes here (eg. data-has-subnav, data-open-primary-subnav, #}
+{# aria-expanded), update that test fixture too. #}
 {% for nav_item in nav_items %}
     {% with item=nav_item.item is_current=nav_item.is_current %}
         <li class="primary-nav-desktop__item{% if item.style != "none" %} primary-nav-desktop__item--has-children{% endif %}{% if is_current %} primary-nav-desktop__item--current{% endif %}"{% if item.style != "none" %} data-has-subnav{% endif %}>

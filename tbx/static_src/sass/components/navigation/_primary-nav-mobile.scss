@@ -92,6 +92,7 @@ Styles for the primary navigation at mobile (top level)
 
         &:focus-visible {
             @include focus-style();
+            outline-offset: -3px;
         }
     }
 

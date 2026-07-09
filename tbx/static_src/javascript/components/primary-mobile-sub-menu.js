@@ -1,3 +1,5 @@
+import { trapFocus } from './focus-trap';
+
 class PrimaryMobileSubMenu {
     static selector() {
         return '[data-primary-mobile-menu] [data-open-primary-subnav]';
@@ -29,6 +31,15 @@ class PrimaryMobileSubMenu {
         this.backLink.addEventListener('click', (e) => {
             e.preventDefault();
             this.close();
+        });
+
+        // Trap the focus inside the submenu while it's open
+        document.addEventListener('keydown', (event) => {
+            if (!this.subnav.classList.contains('is-visible')) {
+                return;
+            }
+
+            trapFocus(event, [this.subnav]);
         });
     }
 

@@ -56,6 +56,40 @@ describe('focus-trap', () => {
             ).toEqual(['About', 'Contact', 'Hidden back']);
         });
 
+        it('treats an element as visible when it overrides a hidden ancestor', () => {
+            // Mirrors the mobile nav: the open subnav's containing <li> is
+            // set visibility: hidden (to hide inactive top-level items),
+            // but the subnav panel itself re-asserts visibility: visible —
+            // CSS inheritance means its contents render fine, so the
+            // default visibility check must resolve the same way rather
+            // than rejecting them for their ancestor's hidden value.
+            document.body.innerHTML = `
+                <li style="visibility: hidden;">
+                    <div style="visibility: visible;">
+                        <a href="/design/">Design</a>
+                    </div>
+                </li>
+            `;
+
+            const li = document.querySelector('li');
+
+            expect(
+                getFocusableElements([li]).map((el) => el.textContent),
+            ).toEqual(['Design']);
+        });
+
+        it('excludes an element with no visible override under a hidden ancestor', () => {
+            document.body.innerHTML = `
+                <li style="visibility: hidden;">
+                    <a href="/design/">Design</a>
+                </li>
+            `;
+
+            const li = document.querySelector('li');
+
+            expect(getFocusableElements([li])).toEqual([]);
+        });
+
         it('includes focusable elements inside visible subnav panels', () => {
             document
                 .getElementById('hidden-subnav')
