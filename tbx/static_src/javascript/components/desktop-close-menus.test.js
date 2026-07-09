@@ -7,11 +7,6 @@ describe('DesktopCloseMenus', () => {
     // instantiated once here rather than per test. classList/aria state is
     // reset in beforeEach instead of recreating the DOM.
     beforeAll(() => {
-        // This markup mirrors patterns/organisms/header/header.html and
-        // patterns/navigation/components/primary-nav.html. If you change the
-        // classes/attributes those templates use (eg. data-has-subnav,
-        // data-open-primary-subnav, data-primary-subnav, aria-expanded),
-        // update this fixture too.
         document.body.innerHTML = `
             <nav aria-label="Main navigation" class="primary-nav-desktop" data-primary-desktop-menu>
                 <ul class="primary-nav-desktop__list">
