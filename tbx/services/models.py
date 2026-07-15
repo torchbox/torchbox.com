@@ -36,6 +36,8 @@ class ServicePage(BasePage):
         FieldPanel("body"),
     ]
 
+    subpage_types = ["services.ServicePage", "services.ServiceAreaPage"]
+
     search_fields = BasePage.search_fields + [
         index.SearchField("body"),
     ]
@@ -45,7 +47,12 @@ class ServiceAreaPage(BasePage):
     page_description = "A group of services for a division"
     template = "patterns/pages/service/service_area_page.html"
 
-    parent_page_types = ["divisions.DivisionPage", "sectors.SectorsIndexPage"]
+    parent_page_types = [
+        "divisions.DivisionPage",
+        "sectors.SectorsIndexPage",
+        "services.ServicePage",
+    ]
+    subpage_types = ["services.ServicePage"]
 
     # Fields
     subtitle = models.CharField(max_length=255)
