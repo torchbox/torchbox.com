@@ -36,7 +36,11 @@ class ServicePage(BasePage):
         FieldPanel("body"),
     ]
 
-    subpage_types = ["services.ServicePage", "services.ServiceAreaPage"]
+    subpage_types = [
+        "services.ServicePage",
+        "services.ServiceAreaPage",
+        "divisions.DivisionPage",
+    ]
 
     search_fields = BasePage.search_fields + [
         index.SearchField("body"),
