@@ -1,0 +1,6 @@
+context:
+  carbon_impact_figure: 0.05
+tags:
+  pageurl:
+    CARBON_EMISSIONS_PAGE:
+      raw: '#'
