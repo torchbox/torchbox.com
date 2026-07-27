@@ -127,6 +127,15 @@
         }
     }
 
+    &__division-signpost {
+        // On desktop this container fits four cards in the same row
+        // We break out from the inner grid column so card contents aren't too squashed
+        @include media-query(xx-large) {
+            padding: 0 $spacer-medium;
+            grid-column: 1 / span 14;
+        }
+    }
+
     &__wide-image {
         margin-bottom: $spacer-medium;
         grid-column: 2 / span 5;

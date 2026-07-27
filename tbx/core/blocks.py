@@ -574,6 +574,7 @@ class DivisionSignpostCardBlock(blocks.StructBlock):
         CORAL = "theme-coral", "Coral"
         NEBULINE = "theme-nebuline", "Nebuline"
         LAGOON = "theme-lagoon", "Lagoon"
+        GREEN = "theme-green", "Green"
 
     card_colour = blocks.ChoiceBlock(
         choices=ColourTheme.choices, default=ColourTheme.CORAL, max_length=20
@@ -602,8 +603,8 @@ class DivisionSignpostBlock(blocks.StructBlock):
     )
     cards = blocks.ListBlock(
         DivisionSignpostCardBlock(),
-        max_num=3,
-        min_num=3,
+        max_num=4,
+        min_num=4,
     )
 
     class Meta:

@@ -70,6 +70,14 @@
         }
     }
 
+    &--theme-green {
+        background-color: $color--green;
+
+        &:focus {
+            @include focus-style($outline-color: var(--color--green));
+        }
+    }
+
     &__tail {
         // Keep the arrow attached to the last word so it's not orphaned on a new line
         white-space: nowrap;
@@ -81,6 +89,8 @@
             $interaction-color: var(--color--button-link-interaction)
         );
         color: inherit;
-        margin-left: $spacer-mini;
+        margin-left: 10px;
+        // Nudge the vertical position of the arrow to align with the text
+        margin-top: 8px;
     }
 }
