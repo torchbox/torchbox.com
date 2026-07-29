@@ -26,6 +26,6 @@ context:
 
 tags:
   srcset_image:
-    'card.image format-webp fill-{580x280,490x280} sizes="(max-width: 598px) 580px, (min-width: 599px) 490px" alt="" loading="lazy"':
+    'card.image format-webp fill-{700x280,490x280} sizes="(max-width: 598px) 700px, (min-width: 599px) 490px" alt="" loading="lazy"':
       raw: |
-        <img alt="" loading="lazy" height="280" sizes="(max-width: 598px) 580px, (min-width: 599px) 490px" src="https://picsum.photos/580/280.webp" srcset="https://picsum.photos/580/280.webp 580w, https://picsum.photos/490/280.webp 490w" width="580">
+        <img alt="" loading="lazy" height="280" sizes="(max-width: 598px) 700px, (min-width: 599px) 490px" src="https://picsum.photos/700/280.webp" srcset="https://picsum.photos/700/280.webp 700w, https://picsum.photos/490/280.webp 490w" width="700">
