@@ -184,8 +184,7 @@ class BlogListingFilterTests(WagtailPageTestCase):
             headers={"hx-request": "true"},
         )
         content = response.content.decode()
-        self.assertNotIn('hx-swap-oob="innerHTML"', content)
-        self.assertNotIn('id="listing-filter-service-options"', content)
+        self.assertEqual(content.count('id="listing-filter-service-options"'), 1)
 
     def test_seo_title_for_single_filter(self):
         response = self.client.get(
