@@ -317,43 +317,36 @@ def apply_work_page_filters(queryset, filter_state: TaxonomyFilterState):
     return queryset.distinct()
 
 
-def _apply_division_filter(queryset, division_slugs: tuple[str, ...]):
+def _division_paths(division_slugs: tuple[str, ...]) -> list[str]:
     from tbx.divisions.models import DivisionPage
 
-    division_paths = list(
+    return list(
         DivisionPage.objects.filter(slug__in=division_slugs).values_list(
             "path", flat=True
         )
     )
-    if not division_paths:
-        return queryset.none()
 
-    path_query = Q()
-    for path in division_paths:
-        path_query |= Q(path__startswith=path)
-    return queryset.filter(path_query | Q(division__slug__in=division_slugs))
+
+def _apply_division_filter(queryset, division_slugs: tuple[str, ...]):
+    paths = _division_paths(division_slugs)
+    if not paths:
+        return queryset.none()
+    query = Q(division__slug__in=division_slugs)
+    for path in paths:
+        query |= Q(path__startswith=path)
+    return queryset.filter(query)
 
 
 def _apply_page_division_filter(queryset, division_slugs: tuple[str, ...]):
-    from tbx.divisions.models import DivisionPage
-
-    division_paths = list(
-        DivisionPage.objects.filter(slug__in=division_slugs).values_list(
-            "path", flat=True
-        )
-    )
-    if not division_paths:
+    paths = _division_paths(division_slugs)
+    if not paths:
         return queryset.none()
-
-    path_query = Q()
-    for path in division_paths:
-        path_query |= Q(path__startswith=path)
-    return queryset.filter(
-        path_query
-        | Q(workpage__division__slug__in=division_slugs)
-        | Q(historicalworkpage__division__slug__in=division_slugs)
-        | Q(division__slug__in=division_slugs)
+    query = Q(workpage__division__slug__in=division_slugs) | Q(
+        historicalworkpage__division__slug__in=division_slugs
     )
+    for path in paths:
+        query |= Q(path__startswith=path)
+    return queryset.filter(query)
 
 
 def paginate_queryset(queryset_or_list, page_number, per_page: int = 10):
