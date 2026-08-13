@@ -1,11 +1,12 @@
 @use '../config' as *;
 
+// Grid placement for `.listing-header` and `.listing-panel` lives in
+// `components/_grid.scss` with every other grid child.
+
 .listing-header {
-    grid-column: 2 / span 4;
     margin-bottom: $spacer-small-plus;
 
     @include media-query(large) {
-        grid-column: 2 / span 12;
         margin-bottom: $spacer-medium;
     }
 
@@ -18,7 +19,6 @@
 }
 
 .listing-filters {
-    grid-column: 2 / span 4;
     margin-bottom: $spacer-small;
 
     @include media-query(medium) {
@@ -26,7 +26,6 @@
     }
 
     @include media-query(large) {
-        grid-column: 2 / span 12;
         margin-bottom: $spacer-large;
     }
 
@@ -303,14 +302,6 @@
 
     &__submit {
         margin-top: $spacer-small;
-    }
-}
-
-[id='listing-panel'] {
-    grid-column: 2 / span 4;
-
-    @include media-query(large) {
-        grid-column: 2 / span 12;
     }
 }
 
