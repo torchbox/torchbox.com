@@ -38,7 +38,7 @@ class TestWorkIndexPageFactory(WagtailPageTestCase):
         context = self.work_index.get_context(get_dummy_request())
         work_pages = context["works"]
         self.assertIsInstance(work_pages, PaginatorPage)
-        self.assertEqual(work_pages[0]["title"], self.work_page.title)
+        self.assertEqual(work_pages[0].title, self.work_page.title)
 
     def test_works_property(self):
         """Checks that the works property returns public and published work pages under the given work index."""

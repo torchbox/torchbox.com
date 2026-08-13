@@ -5,57 +5,29 @@ from tbx.core.listing.filters import (
     EventFilterState,
     TaxonomyFilterState,
     build_listing_seo_context,
+    dropdown_is_visible,
     filter_state_for_facet,
-    get_listing_paths,
     merge_selected_filter_options,
     split_service_filter_options,
     split_service_filter_slugs,
 )
 
 
-class GetListingPathsTests(SimpleTestCase):
-    def test_uses_request_host_for_absolute_url(self):
-        class Page:
-            def get_url(self, request):
-                return "/public-sector/work/"
-
-        request = type(
-            "Request",
-            (),
-            {
-                "build_absolute_uri": lambda self, path: f"http://localhost:8000{path}",
-            },
-        )()
-
-        listing_path, absolute_url = get_listing_paths(Page(), request)
-        self.assertEqual(listing_path, "/public-sector/work/")
-        self.assertEqual(absolute_url, "http://localhost:8000/public-sector/work/")
-
-
 class TaxonomyFilterStateTests(SimpleTestCase):
-    def test_parses_multiple_params(self):
-        request = self._request({"sector": ["public"], "service": ["ai", "wagtail"]})
-        state = TaxonomyFilterState.from_request(
-            request,
-            valid_sector_slugs={"public"},
-            valid_service_slugs={"ai", "wagtail"},
-            valid_division_slugs=set(),
-        )
-        self.assertEqual(state.sectors, ("public",))
-        self.assertEqual(state.services, ("ai", "wagtail"))
+    def test_active_filter_count_and_indexability(self):
+        state = TaxonomyFilterState(sectors=("public",), services=("ai", "wagtail"))
         self.assertEqual(state.active_filter_count, 3)
+        self.assertTrue(state.has_filters)
         self.assertFalse(state.is_indexable)
 
-    def test_legacy_filter_param_maps_to_taxonomy(self):
-        request = self._request({"filter": ["ai"]})
-        state = TaxonomyFilterState.from_request(
-            request,
-            valid_sector_slugs=set(),
-            valid_service_slugs={"ai"},
-            valid_division_slugs=set(),
-        )
-        self.assertEqual(state.services, ("ai",))
+    def test_single_filter_is_indexable(self):
+        state = TaxonomyFilterState(services=("ai",))
         self.assertTrue(state.is_indexable)
+
+    def test_no_filters_is_not_indexable(self):
+        state = TaxonomyFilterState()
+        self.assertFalse(state.has_filters)
+        self.assertFalse(state.is_indexable)
 
     def test_urlencode_preserves_repeated_params(self):
         state = TaxonomyFilterState(sectors=("public",), services=("ai", "wagtail"))
@@ -86,16 +58,6 @@ class TaxonomyFilterStateTests(SimpleTestCase):
                 ("service", "unused-service", "unused-service"),
             ],
         )
-
-    def _request(self, params):
-        class Request:
-            GET = QueryDict("", mutable=True)
-
-        request = Request()
-        for key, values in params.items():
-            for value in values:
-                request.GET.appendlist(key, value)
-        return request
 
 
 class SplitServiceFilterOptionsTests(SimpleTestCase):
@@ -144,6 +106,17 @@ class FacetFilterTests(SimpleTestCase):
         self.assertEqual(facet_state.sectors, ("public-sector",))
         self.assertEqual(facet_state.services, ("ai",))
 
+    def test_filter_state_for_sector_facet_drops_sector_selection(self):
+        state = TaxonomyFilterState(sectors=("public-sector",), services=("ai",))
+        facet_state = filter_state_for_facet(state, "sector")
+        self.assertEqual(facet_state.sectors, ())
+        self.assertEqual(facet_state.services, ("ai",))
+
+    def test_unknown_facet_raises(self):
+        state = TaxonomyFilterState()
+        with self.assertRaises(ValueError):
+            filter_state_for_facet(state, "not-a-facet")
+
     def test_merge_selected_filter_options_keeps_selected_slug(self):
         options = [{"value": "ai", "label": "AI"}]
         merged = merge_selected_filter_options(
@@ -158,63 +131,138 @@ class FacetFilterTests(SimpleTestCase):
 
 
 class EventFilterStateTests(SimpleTestCase):
-    def test_legacy_past_filter(self):
-        class Request:
-            GET = QueryDict("filter=past")
+    def test_active_filter_count_and_indexability(self):
+        state = EventFilterState(timings=("upcoming",), types=("webinar",))
+        self.assertEqual(state.active_filter_count, 2)
+        self.assertTrue(state.has_filters)
+        self.assertFalse(state.is_indexable)
 
-        state = EventFilterState.from_request(Request(), valid_type_slugs=set())
-        self.assertEqual(state.timing, "past")
+    def test_single_timing_is_indexable(self):
+        state = EventFilterState(timings=("upcoming",))
+        self.assertTrue(state.is_indexable)
 
-    def test_multiple_types_not_indexable(self):
-        class Request:
-            GET = QueryDict("type=webinar&type=meetup")
-
-        state = EventFilterState.from_request(
-            Request(),
-            valid_type_slugs={"webinar", "meetup"},
-        )
+    def test_both_timings_selected_is_not_indexable(self):
+        state = EventFilterState(timings=("upcoming", "past"))
         self.assertEqual(state.active_filter_count, 2)
         self.assertFalse(state.is_indexable)
 
+    def test_no_timings_selected_has_no_filters(self):
+        state = EventFilterState()
+        self.assertFalse(state.has_filters)
+
+    def test_urlencode_preserves_both_timings(self):
+        state = EventFilterState(timings=("upcoming", "past"))
+        encoded = state.urlencode()
+        self.assertEqual(
+            QueryDict(encoded),
+            QueryDict("timing=upcoming&timing=past"),
+        )
+
+    def test_without_removes_one_timing_keeps_the_other(self):
+        state = EventFilterState(timings=("upcoming", "past"))
+        updated = state.without(param="timing", slug="upcoming")
+        self.assertEqual(updated.timings, ("past",))
+
+    def test_without_removes_type(self):
+        state = EventFilterState(types=("webinar", "meetup"))
+        updated = state.without(param="type", slug="webinar")
+        self.assertEqual(updated.types, ("meetup",))
+
+    def test_selected_labels_only_includes_known_timings(self):
+        state = EventFilterState(timings=("upcoming",), types=("webinar",))
+        self.assertEqual(
+            state.selected_labels(
+                type_labels={"webinar": "Webinar"},
+                timing_labels={"upcoming": "Upcoming events"},
+            ),
+            [
+                ("timing", "upcoming", "Upcoming events"),
+                ("type", "webinar", "Webinar"),
+            ],
+        )
+
 
 class ListingSeoContextTests(SimpleTestCase):
-    def test_single_filter_title_and_canonical(self):
+    def test_no_filters_uses_plain_title_and_no_robots(self):
+        context = build_listing_seo_context(
+            page_title="Work",
+            filter_labels=[],
+            active_filter_count=0,
+        )
+        self.assertEqual(context["listing_document_title"], "Work")
+        self.assertIsNone(context["listing_robots_content"])
+
+    def test_single_filter_title_and_no_robots(self):
         context = build_listing_seo_context(
             page_title="Work",
             filter_labels=["Public sector"],
             active_filter_count=1,
-            base_url="https://torchbox.com/work/",
-            current_url="https://torchbox.com/work/?sector=public",
-            has_page_param=False,
         )
         self.assertEqual(
             context["listing_document_title"], "Work filtered by Public sector"
         )
         self.assertIsNone(context["listing_robots_content"])
-        self.assertEqual(
-            context["listing_canonical_url"],
-            "https://torchbox.com/work/?sector=public",
-        )
 
     def test_multi_filter_is_noindex(self):
         context = build_listing_seo_context(
             page_title="News",
             filter_labels=["AI", "Public sector"],
             active_filter_count=2,
-            base_url="https://torchbox.com/news/",
-            current_url="https://torchbox.com/news/?service=ai&sector=public",
-            has_page_param=False,
+        )
+        self.assertEqual(
+            context["listing_document_title"], "News filtered by AI, Public sector"
         )
         self.assertEqual(context["listing_robots_content"], "noindex, nofollow")
-        self.assertEqual(context["listing_canonical_url"], "https://torchbox.com/news/")
 
-    def test_paginated_unfiltered_canonicalises_to_base(self):
+    def test_context_only_contains_title_and_robots(self):
         context = build_listing_seo_context(
             page_title="Work",
             filter_labels=[],
             active_filter_count=0,
-            base_url="https://torchbox.com/work/",
-            current_url="https://torchbox.com/work/?page=2",
-            has_page_param=True,
         )
-        self.assertEqual(context["listing_canonical_url"], "https://torchbox.com/work/")
+        self.assertEqual(
+            set(context), {"listing_document_title", "listing_robots_content"}
+        )
+
+
+class DropdownIsVisibleTests(SimpleTestCase):
+    def test_hides_when_only_option_repeats_dropdown_label(self):
+        self.assertFalse(
+            dropdown_is_visible(
+                [{"value": "culture", "label": "Culture"}], (), "Culture"
+            )
+        )
+
+    def test_hides_case_insensitively(self):
+        self.assertFalse(
+            dropdown_is_visible(
+                [{"value": "culture", "label": "culture"}], (), "Culture"
+            )
+        )
+
+    def test_stays_visible_with_two_options(self):
+        self.assertTrue(
+            dropdown_is_visible(
+                [
+                    {"value": "culture", "label": "Culture"},
+                    {"value": "sustainability", "label": "Sustainability"},
+                ],
+                (),
+                "Culture",
+            )
+        )
+
+    def test_stays_visible_when_single_option_label_differs(self):
+        self.assertTrue(
+            dropdown_is_visible([{"value": "ai", "label": "AI"}], (), "Culture")
+        )
+
+    def test_stays_visible_when_a_slug_is_already_selected(self):
+        self.assertTrue(
+            dropdown_is_visible(
+                [{"value": "culture", "label": "Culture"}], ("culture",), "Culture"
+            )
+        )
+
+    def test_hides_when_baseline_has_no_options(self):
+        self.assertFalse(dropdown_is_visible([], (), "Sector"))

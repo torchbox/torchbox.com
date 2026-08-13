@@ -1,15 +1,5 @@
 {% for option in listing_filters.timings %}
-    <li class="listing-filters__option" role="presentation">
-        <label class="listing-filters__option-label">
-            <input
-                type="radio"
-                name="timing"
-                value="{{ option.value }}"
-                {% if filter_state.timing == option.value or not filter_state.timing and option.value == "upcoming" %}checked{% endif %}
-            >
-            <span>{{ option.label }}</span>
-        </label>
-    </li>
+    {% include "patterns/molecules/listing-filters/includes/filter-option.html" with param="timing" value=option.value label=option.label selected=filter_state.timings %}
 {% empty %}
     {% include "patterns/molecules/listing-filters/includes/filter-options-empty.html" %}
 {% endfor %}

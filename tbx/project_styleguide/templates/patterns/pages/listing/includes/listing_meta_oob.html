@@ -1,14 +1,4 @@
 {% load wagtailcore_tags %}
 {% wagtail_site as current_site %}
+{# Only the title is swapped: robots is what crawlers read, and they see the server-rendered response, not this one. #}
 <title id="document-title" hx-swap-oob="true">{{ listing_document_title }}{% if current_site and page.pk != current_site.root_page.pk and current_site.site_name %} | {{ current_site.site_name }}{% endif %}</title>
-{% if listing_robots_content %}
-    <meta id="document-robots" name="robots" content="{{ listing_robots_content }}" hx-swap-oob="true">
-{% else %}
-    <meta id="document-robots" data-inactive="true" hx-swap-oob="true">
-{% endif %}
-<link
-    id="document-canonical"
-    rel="canonical"
-    href="{% if listing_canonical_url %}{{ listing_canonical_url }}{% else %}{% fullpageurl page %}{% endif %}"
-    hx-swap-oob="true"
->

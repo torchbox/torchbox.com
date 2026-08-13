@@ -9,9 +9,9 @@
     <fieldset class="listing-filters__groups">
         <legend class="sr-only">Filter the {{ item.title }} listing</legend>
 
-        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Sector" param="sector" options=listing_filters.sectors selected=filter_state.sectors selected_count=filter_state.sectors|length show_dropdown=listing_filter_visibility.sector %}
-        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Service" param="service" id_param="service" options=listing_filters.services selected=selected_services selected_count=selected_services|length show_dropdown=listing_filter_visibility.service %}
-        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Culture" param="service" id_param="culture" options=listing_filters.culture selected=selected_culture selected_count=selected_culture|length show_dropdown=listing_filter_visibility.culture %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label=listing_dropdown_labels.sector param="sector" options=listing_filters.sectors selected=filter_state.sectors selected_count=filter_state.sectors|length show_dropdown=listing_filter_visibility.sector %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label=listing_dropdown_labels.service param="service" id_param="service" options=listing_filters.services selected=selected_services selected_count=selected_services|length show_dropdown=listing_filter_visibility.service %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label=listing_dropdown_labels.culture param="service" id_param="culture" options=listing_filters.culture selected=selected_culture selected_count=selected_culture|length show_dropdown=listing_filter_visibility.culture %}
     </fieldset>
 
     <div id="listing-active-filters">
@@ -20,5 +20,6 @@
         {% endif %}
     </div>
 
+    {# The no-JS path. Hidden by listing.js, which applies filters as they change instead. #}
     <button type="submit" class="listing-filters__submit button" data-listing-filters-submit>Apply filters</button>
 </form>

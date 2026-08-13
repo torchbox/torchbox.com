@@ -11,6 +11,17 @@ TAXONOMY_FILTER_PARAMS = ("sector", "service", "division")
 EVENT_FILTER_PARAMS = ("timing", "type")
 LEGACY_FILTER_PARAM = "filter"
 
+# Visible labels for each dropdown, kept here rather than in the templates so the
+# visibility rule in `dropdown_is_visible` can compare an option against the label
+# of the dropdown it would sit in.
+DROPDOWN_LABELS = {
+    "sector": "Sector",
+    "service": "Service",
+    "culture": "Culture",
+    "timing": "When",
+    "type": "Event type",
+}
+
 # Service slugs shown in the Culture listing dropdown (UI-only split for now).
 # Both groups still filter via the `service` query param. Replace with a dedicated
 # taxonomy when content modelling catches up.
@@ -90,8 +101,44 @@ def merge_selected_filter_options(
     return sorted(merged.values(), key=lambda item: item["label"].lower())
 
 
+def dropdown_is_visible(
+    baseline_options: list[dict[str, str]],
+    selected_slugs: tuple[str, ...],
+    label: str,
+) -> bool:
+    """Whether a filter dropdown is worth showing at all.
+
+    Visibility is computed from the options available on the *unfiltered* listing so
+    that a dropdown doesn't disappear mid-session when facet narrowing empties it.
+    A dropdown is shown when the unfiltered listing has usable options, or when
+    something in that dimension is already selected.
+
+    A single option whose label repeats the dropdown's own label ("Culture" inside
+    the "Culture" dropdown) tells the user nothing they can act on, so that
+    dropdown is hidden.
+    """
+    if selected_slugs:
+        return True
+    if not baseline_options:
+        return False
+    return not _only_option_repeats_label(baseline_options, label)
+
+
+def _only_option_repeats_label(options: list[dict[str, str]], label: str) -> bool:
+    return (
+        len(options) == 1
+        and options[0]["label"].strip().casefold() == label.strip().casefold()
+    )
+
+
 @dataclass(frozen=True)
 class TaxonomyFilterState:
+    """The selected taxonomy filters, as slugs, for a single listing request.
+
+    Values are allow-listed in `from_request`; the state then renders URLs, pills and
+    SEO strings and describes the facet queries needed to narrow the dropdowns.
+    """
+
     sectors: tuple[str, ...] = ()
     services: tuple[str, ...] = ()
     divisions: tuple[str, ...] = ()
@@ -101,50 +148,26 @@ class TaxonomyFilterState:
         cls,
         request,
         *,
-        valid_sector_slugs: set[str] | None = None,
-        valid_service_slugs: set[str] | None = None,
-        valid_division_slugs: set[str] | None = None,
+        valid_sector_slugs: set[str],
+        valid_service_slugs: set[str],
+        valid_division_slugs: set[str],
     ) -> TaxonomyFilterState:
-        sectors = _validated_slugs(
-            request.GET.getlist("sector"),
-            valid_sector_slugs,
-        )
+        sectors = _validated_slugs(request.GET.getlist("sector"), valid_sector_slugs)
         services = _validated_slugs(
-            request.GET.getlist("service"),
-            valid_service_slugs,
+            request.GET.getlist("service"), valid_service_slugs
         )
         divisions = _validated_slugs(
-            request.GET.getlist("division"),
-            valid_division_slugs,
+            request.GET.getlist("division"), valid_division_slugs
         )
-
         if not sectors and not services and not divisions:
             legacy_slug = request.GET.get(LEGACY_FILTER_PARAM)
-            if legacy_slug:
-                sectors, services, divisions = cls._resolve_legacy_slug(
-                    legacy_slug,
-                    valid_sector_slugs=valid_sector_slugs,
-                    valid_service_slugs=valid_service_slugs,
-                    valid_division_slugs=valid_division_slugs,
-                )
-
+            if legacy_slug in valid_sector_slugs:
+                sectors = (legacy_slug,)
+            elif legacy_slug in valid_service_slugs:
+                services = (legacy_slug,)
+            elif legacy_slug in valid_division_slugs:
+                divisions = (legacy_slug,)
         return cls(sectors=sectors, services=services, divisions=divisions)
-
-    @staticmethod
-    def _resolve_legacy_slug(
-        slug: str,
-        *,
-        valid_sector_slugs: set[str] | None,
-        valid_service_slugs: set[str] | None,
-        valid_division_slugs: set[str] | None,
-    ) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
-        if valid_sector_slugs and slug in valid_sector_slugs:
-            return (slug,), (), ()
-        if valid_service_slugs and slug in valid_service_slugs:
-            return (), (slug,), ()
-        if valid_division_slugs and slug in valid_division_slugs:
-            return (), (), (slug,)
-        return (), (), ()
 
     @property
     def active_filter_count(self) -> int:
@@ -206,36 +229,19 @@ class TaxonomyFilterState:
 
 @dataclass(frozen=True)
 class EventFilterState:
-    timing: str | None = None
+    """The selected event filters for a single listing request.
+
+    `timings` holds any subset of `upcoming` / `past`. An empty tuple means "no
+    timing filter", which the listing renders as its default view of upcoming
+    events — distinct from explicitly choosing "Upcoming events".
+    """
+
+    timings: tuple[str, ...] = ()
     types: tuple[str, ...] = ()
-
-    @classmethod
-    def from_request(
-        cls,
-        request,
-        *,
-        valid_type_slugs: set[str] | None = None,
-    ) -> EventFilterState:
-        timing_values = request.GET.getlist("timing")
-        timing = timing_values[0] if timing_values else None
-        if timing not in {"upcoming", "past"}:
-            legacy_filter = request.GET.get(LEGACY_FILTER_PARAM)
-            if legacy_filter in {"upcoming", "past"}:
-                timing = legacy_filter
-            elif timing_values:
-                timing = None
-            else:
-                timing = None
-
-        types = _validated_slugs(request.GET.getlist("type"), valid_type_slugs)
-        return cls(timing=timing, types=types)
 
     @property
     def active_filter_count(self) -> int:
-        count = len(self.types)
-        if self.timing:
-            count += 1
-        return count
+        return len(self.timings) + len(self.types)
 
     @property
     def has_filters(self) -> bool:
@@ -247,8 +253,8 @@ class EventFilterState:
 
     def to_querydict(self, *, page: int | str | None = None) -> QueryDict:
         params: list[tuple[str, str]] = []
-        if self.timing:
-            params.append(("timing", self.timing))
+        for timing in self.timings:
+            params.append(("timing", timing))
         for slug in self.types:
             params.append(("type", slug))
         if page and str(page) != "1":
@@ -260,9 +266,12 @@ class EventFilterState:
 
     def without(self, *, param: str, slug: str | None = None) -> EventFilterState:
         if param == "timing":
-            return EventFilterState(timing=None, types=self.types)
+            return EventFilterState(
+                timings=tuple(timing for timing in self.timings if timing != slug),
+                types=self.types,
+            )
         return EventFilterState(
-            timing=self.timing,
+            timings=self.timings,
             types=tuple(s for s in self.types if s != slug),
         )
 
@@ -273,21 +282,15 @@ class EventFilterState:
         timing_labels: dict[str, str],
     ) -> list[tuple[str, str, str]]:
         selected: list[tuple[str, str, str]] = []
-        if self.timing and self.timing in timing_labels:
-            selected.append(("timing", self.timing, timing_labels[self.timing]))
+        for timing in self.timings:
+            if timing in timing_labels:
+                selected.append(("timing", timing, timing_labels[timing]))
         for slug in self.types:
             selected.append(("type", slug, type_labels[slug]))
         return selected
 
 
-def _validated_slugs(
-    slugs: list[str],
-    valid_slugs: set[str] | None,
-) -> tuple[str, ...]:
-    if not slugs:
-        return ()
-    if valid_slugs is None:
-        return tuple(dict.fromkeys(slugs))
+def _validated_slugs(slugs: list[str], valid_slugs: set[str]) -> tuple[str, ...]:
     return tuple(dict.fromkeys(slug for slug in slugs if slug in valid_slugs))
 
 
@@ -366,10 +369,13 @@ def build_listing_seo_context(
     page_title: str,
     filter_labels: list[str],
     active_filter_count: int,
-    base_url: str,
-    current_url: str,
-    has_page_param: bool,
 ) -> dict:
+    """Document title and robots rules for a filtered listing.
+
+    Canonical URLs are deliberately not set here — `base_page.html` emits the one
+    canonical tag for the page, and a filtered listing repeats content that the
+    unfiltered listing already covers.
+    """
     document_title = page_title
     if len(filter_labels) == 1:
         document_title = f"{page_title} filtered by {filter_labels[0]}"
@@ -380,18 +386,9 @@ def build_listing_seo_context(
     if active_filter_count > 1:
         robots_content = "noindex, nofollow"
 
-    canonical_url = None
-    if active_filter_count == 0 and has_page_param:
-        canonical_url = base_url
-    elif active_filter_count == 1:
-        canonical_url = current_url
-    elif active_filter_count > 1:
-        canonical_url = base_url
-
     return {
         "listing_document_title": document_title,
         "listing_robots_content": robots_content,
-        "listing_canonical_url": canonical_url,
     }
 
 
@@ -436,9 +433,6 @@ def build_listing_urls_context(
     filter_state: TaxonomyFilterState | EventFilterState,
     selected_filters: list[dict[str, str]],
     page_title: str,
-    absolute_base_url: str,
-    current_absolute_url: str,
-    has_page_param: bool,
 ) -> dict:
     filter_labels = [item["label"] for item in selected_filters]
     return {
@@ -450,19 +444,10 @@ def build_listing_urls_context(
         "clear_filters_url": listing_path,
         "extra_url_params": filter_state.urlencode(),
         "listing_base_url": listing_path,
+        "listing_dropdown_labels": DROPDOWN_LABELS,
         **build_listing_seo_context(
             page_title=page_title,
             filter_labels=filter_labels,
             active_filter_count=filter_state.active_filter_count,
-            base_url=absolute_base_url,
-            current_url=current_absolute_url,
-            has_page_param=has_page_param,
         ),
     }
-
-
-def get_listing_paths(page, request) -> tuple[str, str]:
-    """Return (relative_path, absolute_url) for the listing page."""
-    listing_path = page.get_url(request)
-    absolute_url = request.build_absolute_uri(listing_path)
-    return listing_path, absolute_url

@@ -8,9 +8,9 @@
     <fieldset class="listing-filters__groups">
         <legend class="sr-only">Filter the {{ item.title }} listing</legend>
 
-        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="When" param="timing" id_param="timing" options_include="patterns/molecules/listing-filters/includes/filter-timing-options.html" show_dropdown=listing_filter_visibility.timing %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label=listing_dropdown_labels.timing param="timing" id_param="timing" options_include="patterns/molecules/listing-filters/includes/filter-timing-options.html" selected_count=filter_state.timings|length show_dropdown=listing_filter_visibility.timing %}
 
-        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Event type" param="type" id_param="type" options=listing_filters.types selected=filter_state.types selected_count=filter_state.types|length show_dropdown=listing_filter_visibility.type %}
+        {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label=listing_dropdown_labels.type param="type" id_param="type" options=listing_filters.types selected=filter_state.types selected_count=filter_state.types|length show_dropdown=listing_filter_visibility.type %}
     </fieldset>
 
     <div id="listing-active-filters">
@@ -19,5 +19,6 @@
         {% endif %}
     </div>
 
+    {# The no-JS path. Hidden by listing.js, which applies filters as they change instead. #}
     <button type="submit" class="listing-filters__submit button" data-listing-filters-submit>Apply filters</button>
 </form>
