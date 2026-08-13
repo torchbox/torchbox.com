@@ -104,7 +104,11 @@ def get_available_event_types(
     today=None,
 ):
     today = today or timezone.localdate()
-    timing_state = EventFilterState(timings=filter_state.timings, types=())
+    # With no timing selected the listing defaults to upcoming only, but the type
+    # options should still offer a type used only by past events.
+    timing_state = EventFilterState(
+        timings=filter_state.timings or ALL_TIMINGS, types=()
+    )
     filtered = filter_events(events, timing_state, today=today)
 
     available_slugs: set[str] = set()
