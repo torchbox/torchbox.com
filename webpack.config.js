@@ -47,6 +47,7 @@ const options = {
             filename: 'css/[name].css',
         }),
         new ESLintPlugin({
+            configType: 'eslintrc',
             failOnError: false,
             lintDirtyModulesOnly: true,
             emitWarning: true,
