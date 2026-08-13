@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 from modelcluster.models import ClusterableModel
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, HelpPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 
 from tbx.core.utils.fields import StreamField
@@ -51,6 +51,11 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
         default="Get in touch",
         help_text="Text for the header “Get in touch” button.",
     )
+    carbon_impact_figure = models.FloatField(
+        blank=True,
+        null=True,
+        help_text=("Estimated carbon emitted (in grams) when loading the home page."),
+    )
 
     panels = [
         FieldPanel("primary_navigation"),
@@ -69,6 +74,18 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
                 FieldPanel("footer_newsletter_cta_text", heading="Text"),
             ],
             heading="Footer newsletter CTA",
+        ),
+        MultiFieldPanel(
+            [
+                HelpPanel(
+                    content="Any changes made here should be reflected in the Carbon "
+                    "emissions page, which is set in the "
+                    "<a href='/admin/settings/torchbox/importantpagesettings/'>"
+                    "Important Page Settings</a>."
+                ),
+                FieldPanel("carbon_impact_figure"),
+            ],
+            heading="Carbon impact",
         ),
     ]
 

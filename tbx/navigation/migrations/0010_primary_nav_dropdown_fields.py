@@ -6,7 +6,7 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("navigation", "0008_navigationsettings_footer_newsletter_cta"),
+        ("navigation", "0009_navigationsettings_carbon_impact_figure"),
     ]
 
     operations = [

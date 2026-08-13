@@ -7,7 +7,7 @@ import tbx.core.utils.fields
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("navigation", "0011_delete_navigationset"),
+        ("navigation", "0012_delete_navigationset"),
     ]
 
     operations = [

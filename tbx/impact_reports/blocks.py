@@ -1,4 +1,5 @@
 from wagtail.blocks import (
+    BooleanBlock,
     CharBlock,
     ListBlock,
     RichTextBlock,
@@ -60,6 +61,11 @@ class InstagramGalleryItemBlock(StructBlock):
 
 
 class InstagramGalleryGridBlock(StructBlock):
+    display_instagram_icon = BooleanBlock(
+        required=False,
+        default=True,
+        help_text="If checked, display the Instagram icon in the bottom-right corner of each card.",
+    )
     items = ListBlock(InstagramGalleryItemBlock())
 
     class Meta:

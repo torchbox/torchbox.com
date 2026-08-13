@@ -5,7 +5,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("navigation", "0010_migrate_primary_nav_from_child_display_behaviour"),
+        ("navigation", "0011_migrate_primary_nav_from_child_display_behaviour"),
         ("torchbox", "0043_remove_override_navigation_set"),
         ("divisions", "0004_remove_override_navigation_set"),
         ("blog", "0030_remove_override_navigation_set"),

@@ -76,7 +76,7 @@ def migrate_primary_navigation(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("navigation", "0009_primary_nav_dropdown_fields"),
+        ("navigation", "0010_primary_nav_dropdown_fields"),
     ]
 
     operations = [

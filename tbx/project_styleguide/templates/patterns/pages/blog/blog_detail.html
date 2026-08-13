@@ -22,6 +22,10 @@
     {{ block.super }}
 {% endblock %}
 
+{% block extra_jsonld %}
+    {% include "patterns/pages/blog/blog-posting-jsonld.html" %}
+{% endblock %}
+
 {% block content %}
     <div class="grid grid--spacer-large streamfield lg:relative">
         <div class="authors">
