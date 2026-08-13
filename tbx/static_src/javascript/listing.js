@@ -10,6 +10,16 @@ import {
 
 window.htmx = htmx;
 
+// Don't let htmx snapshot and restore whole pages for back/forward navigation.
+//
+// Restoring a snapshot re-runs the page's scripts, and main.js registers custom
+// elements at import time — so going back after a filter change threw
+// `NotSupportedError: the name "lite-youtube" has already been used`. A real
+// navigation costs a round trip but renders the filtered state from the URL
+// server-side, which is what we want anyway.
+htmx.config.historyCacheSize = 0;
+htmx.config.refreshOnHistoryMiss = true;
+
 function scrollToListingResults(resultsElement) {
     if (!resultsElement) {
         return;
