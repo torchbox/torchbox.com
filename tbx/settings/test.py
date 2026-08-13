@@ -25,6 +25,19 @@ ALLOWED_HOSTS = ["example.com", "localhost", "127.0.0.1"]
 # We don't need such a strong algorithm in tests, so use MD5
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 
+# Give tests their own in-memory cache.
+#
+# `base.py` uses Redis whenever REDIS_URL is set, which is the case inside the dev
+# container — so tests would otherwise share a cache with the running dev site. That
+# leaks state across databases: Wagtail caches site root paths under a fixed key and
+# only invalidates it when a Site is saved, so a stale entry written against the dev
+# database makes `page.url` resolve to None in tests, and cached values survive between
+# test runs. Locmem is per-process, which also matches how CI behaves (no REDIS_URL).
+CACHES = {
+    "default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"},
+    "renditions": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"},
+}
+
 WAGTAILADMIN_BASE_URL = "http://localhost:8000"
 
 # Ignore proxy count in tests
