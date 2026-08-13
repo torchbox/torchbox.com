@@ -60,15 +60,13 @@ $nav-dropdown-item-hover-bg-light: var(--color--grey-5);
                 visibility 0ms ease-out 0ms;
         }
 
-        @supports selector(body:has(.primary-nav-desktop__item.active)) {
-            body:has(.primary-nav-desktop__item.active) & {
-                opacity: 1;
-                visibility: visible;
-                pointer-events: auto;
-                transition:
-                    opacity $transition ease-out 50ms,
-                    visibility 0ms ease-out 0ms;
-            }
+        body:has(.primary-nav-desktop__item.active) & {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transition:
+                opacity $transition ease-out 50ms,
+                visibility 0ms ease-out 0ms;
         }
     }
 }
@@ -95,13 +93,11 @@ body.primary-nav-dropdown-open {
     }
 }
 
-@supports selector(body:has(.primary-nav-desktop__item.active)) {
-    body:has(.primary-nav-desktop__item.active) {
-        @include media-query(menu) {
-            .breadcrumbs-nav,
-            main {
-                opacity: 0.88;
-            }
+body:has(.primary-nav-desktop__item.active) {
+    @include media-query(menu) {
+        .breadcrumbs-nav,
+        main {
+            opacity: 0.88;
         }
     }
 }

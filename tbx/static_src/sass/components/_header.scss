@@ -16,11 +16,9 @@
         }
     }
 
-    @supports selector(body:has(.primary-nav-desktop__item.active)) {
-        body:has(.primary-nav-desktop__item.active) & {
-            @include media-query(menu) {
-                @include z-index(header-controls);
-            }
+    body:has(.primary-nav-desktop__item.active) & {
+        @include media-query(menu) {
+            @include z-index(header-controls);
         }
     }
 
