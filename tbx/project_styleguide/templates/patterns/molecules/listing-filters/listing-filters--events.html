@@ -6,7 +6,7 @@
     data-listing-filters-url="{{ listing_base_url }}"
 >
     <fieldset class="listing-filters__groups">
-        <legend class="sr-only">Filter {{ item.title }}</legend>
+        <legend class="sr-only">Filter the {{ item.title }} listing</legend>
 
         {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="When" param="timing" id_param="timing" options_include="patterns/molecules/listing-filters/includes/filter-timing-options.html" show_dropdown=listing_filter_visibility.timing %}
 

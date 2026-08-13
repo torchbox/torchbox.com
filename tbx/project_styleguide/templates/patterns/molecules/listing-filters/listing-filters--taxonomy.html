@@ -7,7 +7,7 @@
     {% if culture_service_slugs %}data-listing-culture-service-slugs="{{ culture_service_slugs|join:',' }}"{% endif %}
 >
     <fieldset class="listing-filters__groups">
-        <legend class="sr-only">Filter {{ item.title }}</legend>
+        <legend class="sr-only">Filter the {{ item.title }} listing</legend>
 
         {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Sector" param="sector" options=listing_filters.sectors selected=filter_state.sectors selected_count=filter_state.sectors|length show_dropdown=listing_filter_visibility.sector %}
         {% include "patterns/molecules/listing-filters/includes/filter-dropdown.html" with label="Service" param="service" id_param="service" options=listing_filters.services selected=selected_services selected_count=selected_services|length show_dropdown=listing_filter_visibility.service %}
