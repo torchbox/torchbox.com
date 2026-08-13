@@ -1,6 +1,7 @@
 import htmx from 'htmx.org';
 import {
     LISTING_PANEL_SELECTOR,
+    LISTING_RESULTS_SELECTOR,
     bindListingFilterDelegation,
     bindListingFilterHtmxConfig,
     handleListingFilterSettle,
@@ -56,14 +57,16 @@ if (document.readyState === 'loading') {
 }
 
 document.body.addEventListener('htmx:afterSwap', (event) => {
-    const isResults = event.target.classList.contains('listing-panel__results');
-
-    if (!isResults) {
+    if (!event.target.matches?.(LISTING_RESULTS_SELECTOR)) {
         return;
     }
 
     if (wasListingPaginationRequest(event)) {
-        scrollToListingResults(event.target);
+        // The swap replaces the results wrapper, so `event.target` is the detached old
+        // node by now — scroll to whichever one is currently in the document.
+        scrollToListingResults(
+            document.querySelector(LISTING_RESULTS_SELECTOR),
+        );
     }
 });
 

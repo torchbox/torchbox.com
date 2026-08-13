@@ -10,9 +10,9 @@
                         aria-label="Go to previous page"
                         {% if listing_htmx_enabled %}
                             hx-get="{{ listing_base_url }}?page={{ pages.previous_page_number }}{% if extra_url_params %}&amp;{{ extra_url_params }}{% endif %}"
-                            hx-target=".listing-panel__results"
-                            hx-select=".listing-panel__results"
-                            hx-swap="innerHTML"
+                            hx-target="[data-listing-results]"
+                            hx-select="[data-listing-results]"
+                            hx-swap="outerHTML"
                             hx-push-url="true"
                         {% endif %}
                     >
@@ -28,9 +28,9 @@
                             aria-label="Page 1 of {{ pages.paginator.num_pages }}"
                             {% if listing_htmx_enabled %}
                                 hx-get="{{ listing_base_url }}?page=1{% if extra_url_params %}&amp;{{ extra_url_params }}{% endif %}"
-                                hx-target=".listing-panel__results"
-                                hx-select=".listing-panel__results"
-                                hx-swap="innerHTML"
+                                hx-target="[data-listing-results]"
+                                hx-select="[data-listing-results]"
+                                hx-swap="outerHTML"
                                 hx-push-url="true"
                             {% endif %}
                         >
@@ -54,9 +54,9 @@
                             aria-current="page"
                             {% if listing_htmx_enabled %}
                                 hx-get="{{ listing_base_url }}?page={{ num }}{% if extra_url_params %}&amp;{{ extra_url_params }}{% endif %}"
-                                hx-target=".listing-panel__results"
-                                hx-select=".listing-panel__results"
-                                hx-swap="innerHTML"
+                                hx-target="[data-listing-results]"
+                                hx-select="[data-listing-results]"
+                                hx-swap="outerHTML"
                                 hx-push-url="true"
                             {% endif %}
                         >
@@ -71,9 +71,9 @@
                             aria-label="Page {{ num }} of {{ pages.paginator.num_pages }}"
                             {% if listing_htmx_enabled %}
                                 hx-get="{{ listing_base_url }}?page={{ num }}{% if extra_url_params %}&amp;{{ extra_url_params }}{% endif %}"
-                                hx-target=".listing-panel__results"
-                                hx-select=".listing-panel__results"
-                                hx-swap="innerHTML"
+                                hx-target="[data-listing-results]"
+                                hx-select="[data-listing-results]"
+                                hx-swap="outerHTML"
                                 hx-push-url="true"
                             {% endif %}
                         >
@@ -96,9 +96,9 @@
                             aria-label="Page {{ pages.paginator.num_pages }} of {{ pages.paginator.num_pages }}"
                             {% if listing_htmx_enabled %}
                                 hx-get="{{ listing_base_url }}?page={{ pages.paginator.num_pages }}{% if extra_url_params %}&amp;{{ extra_url_params }}{% endif %}"
-                                hx-target=".listing-panel__results"
-                                hx-select=".listing-panel__results"
-                                hx-swap="innerHTML"
+                                hx-target="[data-listing-results]"
+                                hx-select="[data-listing-results]"
+                                hx-swap="outerHTML"
                                 hx-push-url="true"
                             {% endif %}
                         >
@@ -114,9 +114,9 @@
                         aria-label="Go to next page"
                         {% if listing_htmx_enabled %}
                             hx-get="{{ listing_base_url }}?page={{ pages.next_page_number }}{% if extra_url_params %}&amp;{{ extra_url_params }}{% endif %}"
-                            hx-target=".listing-panel__results"
-                            hx-select=".listing-panel__results"
-                            hx-swap="innerHTML"
+                            hx-target="[data-listing-results]"
+                            hx-select="[data-listing-results]"
+                            hx-swap="outerHTML"
                             hx-push-url="true"
                         {% endif %}
                     >

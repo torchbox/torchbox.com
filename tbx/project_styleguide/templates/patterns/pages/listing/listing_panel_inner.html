@@ -1,5 +1,12 @@
 {% include listing_filters_template with item=page %}
 
-<div class="listing-panel__results">
+{% comment %}
+    Sits outside the swapped region so it survives every htmx swap. listing.js writes a
+    short summary here after results update, rather than letting a screen reader
+    re-announce the whole result set.
+{% endcomment %}
+<div class="sr-only" aria-live="polite" data-listing-announcer></div>
+
+<div class="listing-panel__results" data-listing-results>
     {% include listing_results_template %}
 </div>

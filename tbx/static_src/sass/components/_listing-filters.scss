@@ -19,6 +19,8 @@
 }
 
 .listing-filters {
+    $root: &;
+
     margin-bottom: $spacer-small;
 
     @include media-query(medium) {
@@ -44,6 +46,7 @@
         }
     }
 
+    // Button-controlled disclosure; option panels remain visible without JavaScript.
     &__dropdown {
         --listing-filter-panel-inset: 6px;
         --listing-filter-option-padding-x: 12px;
@@ -53,10 +56,6 @@
         position: relative;
         flex: 0 1 auto;
         min-width: 0;
-
-        @include media-query(medium) {
-            min-width: 9rem;
-        }
     }
 
     &__dropdown-toggle {
@@ -79,13 +78,17 @@
             border-color: var(--color--heading);
         }
 
-        &[aria-expanded='true'] {
-            border-color: var(--color--theme-primary);
-        }
-
-        &:focus {
+        &:focus-visible {
             @include focus-style(var(--color--theme-primary), $shadow: true);
         }
+    }
+
+    &__dropdown-toggle[aria-expanded='true'] {
+        border-color: var(--color--theme-primary);
+    }
+
+    &__dropdown-toggle[aria-expanded='true'] #{$root}__dropdown-icon {
+        transform: rotate(-90deg);
     }
 
     &__dropdown-label {
@@ -139,47 +142,29 @@
         }
     }
 
-    &__dropdown-toggle[aria-expanded='true'] &__dropdown-icon {
-        transform: rotate(-90deg);
-    }
-
     &__dropdown-panel {
-        position: absolute;
         z-index: 5;
-        top: calc(100% + 6px);
-        left: 0;
-        width: max-content;
-        min-width: max(100%, 20rem);
-        max-width: min(24rem, calc(100vw - #{$grid-gutters} * 2));
-        max-height: min(28rem, calc(100vh - 12rem));
+        width: 100%;
         overflow-x: hidden;
         overflow-y: auto;
         border: 1px solid var(--color--border);
         border-radius: 8px;
         background-color: var(--color--streamfield-background);
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-6px);
-        pointer-events: none;
         scrollbar-width: thin;
         scrollbar-color: var(--color--border) transparent;
 
-        &[aria-hidden='true'] {
-            visibility: hidden;
-        }
+        &--enhanced {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            width: max-content;
+            min-width: 100%;
+            max-width: min(24rem, calc(100vw - #{$grid-gutters} * 2));
+            max-height: min(28rem, calc(100vh - 12rem));
 
-        @media (prefers-reduced-motion: no-preference) {
-            transition:
-                opacity 0.2s ease,
-                transform 0.2s ease,
-                visibility 0.2s ease;
-        }
-
-        &--open {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-            pointer-events: auto;
+            @include media-query(medium) {
+                min-width: max(100%, 20rem);
+            }
         }
 
         &::-webkit-scrollbar {
@@ -230,6 +215,10 @@
             height: var(--listing-filter-checkbox-size);
             margin: 0;
             accent-color: var(--color--theme-primary);
+
+            &:focus-visible {
+                outline-offset: 3px;
+            }
         }
 
         span {

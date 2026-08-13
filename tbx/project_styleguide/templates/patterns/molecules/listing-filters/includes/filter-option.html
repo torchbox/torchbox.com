@@ -1,8 +1,12 @@
 {% load util_tags %}
 
 <li class="listing-filters__option" role="presentation">
-    <label class="listing-filters__option-label">
+    <label
+        class="listing-filters__option-label"
+        for="listing-filter-option-{{ param }}-{{ value }}"
+    >
         <input
+            id="listing-filter-option-{{ param }}-{{ value }}"
             type="checkbox"
             name="{{ param }}"
             value="{{ value }}"

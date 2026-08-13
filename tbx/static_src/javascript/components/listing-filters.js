@@ -1,78 +1,44 @@
 const LISTING_PANEL_SELECTOR = '#listing-panel';
-const DROPDOWN_PANEL_OPEN_CLASS = 'listing-filters__dropdown-panel--open';
-const LISTING_FILTER_DEBOUNCE_MS = 200;
-
-let listingFilterTimer = null;
+const LISTING_RESULTS_SELECTOR = '[data-listing-results]';
+const FOCUSABLE_SELECTOR = [
+    'a[href]',
+    'button:not([disabled])',
+    'input:not([disabled])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])',
+].join(',');
 let pendingOpenDropdownId = null;
 
-function prefersReducedMotion() {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
 function getOpenDropdownId(panel) {
-    const openPanel = panel?.querySelector(
-        '[data-listing-filter-panel].listing-filters__dropdown-panel--open',
-    );
-    return openPanel?.closest('[data-listing-filter-dropdown]')?.id ?? null;
+    return panel
+        ?.querySelector('[data-listing-filter-toggle][aria-expanded="true"]')
+        ?.closest('[data-listing-filter-dropdown]')?.id;
 }
 
-function openDropdownPanel(dropdown) {
-    const toggle = dropdown.querySelector('[data-listing-filter-toggle]');
+function openDropdown(dropdown) {
+    dropdown
+        .querySelector('[data-listing-filter-toggle]')
+        ?.setAttribute('aria-expanded', 'true');
     const panel = dropdown.querySelector('[data-listing-filter-panel]');
-    if (!toggle || !panel) {
-        return;
-    }
-
-    toggle.setAttribute('aria-expanded', 'true');
-    panel.setAttribute('aria-hidden', 'false');
-    requestAnimationFrame(() => {
-        panel.classList.add(DROPDOWN_PANEL_OPEN_CLASS);
-    });
+    if (panel) panel.hidden = false;
 }
 
-function closeDropdownPanel(dropdown, { immediate = false } = {}) {
-    const toggle = dropdown.querySelector('[data-listing-filter-toggle]');
+function closeDropdown(dropdown) {
+    dropdown
+        .querySelector('[data-listing-filter-toggle]')
+        ?.setAttribute('aria-expanded', 'false');
     const panel = dropdown.querySelector('[data-listing-filter-panel]');
-    if (
-        !toggle ||
-        !panel ||
-        !panel.classList.contains(DROPDOWN_PANEL_OPEN_CLASS)
-    ) {
-        return;
-    }
-
-    toggle.setAttribute('aria-expanded', 'false');
-    panel.setAttribute('aria-hidden', 'true');
-    panel.classList.remove(DROPDOWN_PANEL_OPEN_CLASS);
-
-    if (immediate || prefersReducedMotion()) {
-        return;
-    }
-
-    let fallbackTimer;
-    const finishClose = (event) => {
-        if (event.target !== panel || event.propertyName !== 'opacity') {
-            return;
-        }
-        panel.removeEventListener('transitionend', finishClose);
-        clearTimeout(fallbackTimer);
-    };
-
-    panel.addEventListener('transitionend', finishClose);
-    fallbackTimer = setTimeout(() => {
-        panel.removeEventListener('transitionend', finishClose);
-    }, 300);
+    if (panel) panel.hidden = true;
 }
 
-function closeDropdown(dropdown, options) {
-    closeDropdownPanel(dropdown, options);
-}
-
-function closeAllDropdowns(container) {
+function closeAllDropdowns(container, { except = null } = {}) {
     container
         .querySelectorAll('[data-listing-filter-dropdown]')
         .forEach((dropdown) => {
-            closeDropdown(dropdown);
+            if (dropdown !== except) {
+                closeDropdown(dropdown);
+            }
         });
 }
 
@@ -84,7 +50,7 @@ function restoreOpenDropdown(panel) {
     const dropdown = panel.querySelector(`#${pendingOpenDropdownId}`);
     pendingOpenDropdownId = null;
     if (dropdown) {
-        openDropdownPanel(dropdown);
+        openDropdown(dropdown);
     }
 }
 
@@ -110,6 +76,10 @@ function countFromUrl(dropdownId, params, cultureSlugs) {
     if (dropdownId === 'listing-filter-dropdown-culture') {
         return params.getAll('service').filter((slug) => cultureSlugs.has(slug))
             .length;
+    }
+
+    if (dropdownId === 'listing-filter-dropdown-timing') {
+        return params.getAll('timing').length;
     }
 
     if (dropdownId === 'listing-filter-dropdown-type') {
@@ -164,25 +134,6 @@ function collectListingFilterParameters(form) {
         parameters[input.name].push(input.value);
     });
 
-    const checkedTiming = form.querySelector(
-        'input[type="radio"][name="timing"]:checked',
-    );
-    if (checkedTiming?.name && checkedTiming.value) {
-        parameters[checkedTiming.name] = [checkedTiming.value];
-    }
-
-    form.querySelectorAll('input[type="radio"][name="type"]:checked').forEach(
-        (input) => {
-            if (!input.name) {
-                return;
-            }
-            if (!parameters[input.name]) {
-                parameters[input.name] = [];
-            }
-            parameters[input.name].push(input.value);
-        },
-    );
-
     return parameters;
 }
 
@@ -200,30 +151,31 @@ function syncFilterFormFromUrl(form) {
         input.checked = params.getAll(input.name).includes(input.value);
     });
 
-    const timingInputs = form.querySelectorAll(
-        'input[type="radio"][name="timing"]',
-    );
-    if (timingInputs.length) {
-        const timing = params.get('timing');
-        timingInputs.forEach((input) => {
-            if (timing) {
-                input.checked = input.value === timing;
-            } else {
-                input.checked = input.value === 'upcoming';
-            }
-        });
+    updateDropdownCounts(form);
+}
+
+function announceListingUpdate(panel) {
+    const announcer = panel.querySelector('[data-listing-announcer]');
+    if (!announcer) {
+        return;
     }
 
-    form.querySelectorAll('input[type="radio"][name="type"]').forEach(
-        (input) => {
-            if (!input.name) {
-                return;
-            }
-            input.checked = params.getAll(input.name).includes(input.value);
-        },
-    );
+    const results = panel.querySelector('[data-listing-result-count]');
+    const count = Number(results?.dataset.listingResultCount);
 
-    updateDropdownCounts(form);
+    if (!Number.isFinite(count)) {
+        announcer.textContent = 'Listing updated';
+        return;
+    }
+
+    if (count === 0) {
+        announcer.textContent = 'Listing updated, no results';
+        return;
+    }
+
+    announcer.textContent = `Listing updated, ${count} ${
+        count === 1 ? 'result' : 'results'
+    }`;
 }
 
 function submitListingFilters(form) {
@@ -234,24 +186,16 @@ function submitListingFilters(form) {
 
     pendingOpenDropdownId = getOpenDropdownId(panel);
     const url = form.dataset.listingFiltersUrl || form.getAttribute('action');
-    const parameters = collectListingFilterParameters(form);
 
     window.htmx.ajax('GET', url, {
         source: form,
-        target: '.listing-panel__results',
-        select: '.listing-panel__results',
-        swap: 'innerHTML',
-        values: parameters,
+        target: LISTING_RESULTS_SELECTOR,
+        select: LISTING_RESULTS_SELECTOR,
+        swap: 'outerHTML',
+        values: collectListingFilterParameters(form),
         push: 'true',
         headers: { 'HX-Request': 'true' },
     });
-}
-
-function scheduleListingFilterRequest(form) {
-    clearTimeout(listingFilterTimer);
-    listingFilterTimer = setTimeout(() => {
-        submitListingFilters(form);
-    }, LISTING_FILTER_DEBOUNCE_MS);
 }
 
 function bindListingFilterHtmxConfig() {
@@ -275,17 +219,13 @@ function bindListingFilterDelegation() {
 
     document.addEventListener('change', (event) => {
         const input = event.target;
-        if (!input.matches('[data-listing-filters] input')) {
+        if (!input.matches('[data-listing-filters] input[type="checkbox"]')) {
             return;
         }
         const form = input.closest('[data-listing-filters]');
-        if (!form) {
-            return;
+        if (form) {
+            submitListingFilters(form);
         }
-        updateDropdownCounts(form, {
-            parameters: collectListingFilterParameters(form),
-        });
-        scheduleListingFilterRequest(form);
     });
 
     document.addEventListener('click', (event) => {
@@ -296,16 +236,10 @@ function bindListingFilterDelegation() {
 
         const toggle = event.target.closest('[data-listing-filter-toggle]');
         if (toggle) {
-            event.preventDefault();
             const dropdown = toggle.closest('[data-listing-filter-dropdown]');
-            if (!dropdown) {
-                return;
-            }
-            const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+            const willOpen = toggle.getAttribute('aria-expanded') !== 'true';
             closeAllDropdowns(panel);
-            if (!isExpanded) {
-                openDropdownPanel(dropdown);
-            }
+            if (willOpen) openDropdown(dropdown);
             return;
         }
 
@@ -315,6 +249,51 @@ function bindListingFilterDelegation() {
     });
 
     document.addEventListener('keydown', (event) => {
+        if (
+            event.key === 'Enter' &&
+            event.target.matches?.(
+                '[data-listing-filters] input[type="checkbox"]',
+            )
+        ) {
+            // Checkbox activation follows the native/APG convention: Space toggles.
+            // Suppress Enter so it cannot submit the surrounding form and close the
+            // disclosure, but do not invent a second activation key.
+            event.preventDefault();
+            return;
+        }
+
+        if (event.key === 'Tab') {
+            const dropdown = event.target.closest?.(
+                '[data-listing-filter-dropdown]',
+            );
+            const filterPanel = event.target.closest?.(
+                '[data-listing-filter-panel]',
+            );
+            if (!dropdown || !filterPanel) {
+                return;
+            }
+
+            const panelControls = Array.from(
+                filterPanel.querySelectorAll(FOCUSABLE_SELECTOR),
+            );
+            const firstControl = panelControls[0];
+            const lastControl = panelControls[panelControls.length - 1];
+
+            if (event.shiftKey && event.target === firstControl) {
+                event.preventDefault();
+                closeDropdown(dropdown);
+                dropdown.querySelector('[data-listing-filter-toggle]')?.focus();
+                return;
+            }
+
+            if (!event.shiftKey && event.target === lastControl) {
+                event.preventDefault();
+                closeDropdown(dropdown);
+                dropdown.querySelector('[data-listing-filter-toggle]')?.focus();
+                return;
+            }
+        }
+
         if (event.key !== 'Escape') {
             return;
         }
@@ -322,7 +301,15 @@ function bindListingFilterDelegation() {
         if (!panel) {
             return;
         }
+
+        // Closing the dropdown removes whatever had focus from view, which would
+        // otherwise drop focus to <body> and leave keyboard users with no visible
+        // position. Hand it back to the summary they came from.
+        const focusedDropdown = document.activeElement?.closest?.(
+            '[data-listing-filter-dropdown]',
+        );
         closeAllDropdowns(panel);
+        focusedDropdown?.querySelector('[data-listing-filter-toggle]')?.focus();
     });
 }
 
@@ -335,7 +322,10 @@ function initListingFilters(panel) {
 
         form.querySelectorAll('[data-listing-filter-panel]').forEach(
             (filterPanel) => {
-                filterPanel.setAttribute('aria-hidden', 'true');
+                filterPanel.classList.add(
+                    'listing-filters__dropdown-panel--enhanced',
+                );
+                filterPanel.hidden = true;
             },
         );
 
@@ -351,7 +341,7 @@ function initListingFilters(panel) {
 
 function isListingPanelHtmxEvent(event) {
     const requestElement = event.detail.requestConfig?.elt;
-    if (requestElement?.closest?.('#listing-panel')) {
+    if (requestElement?.closest?.(LISTING_PANEL_SELECTOR)) {
         return true;
     }
 
@@ -361,10 +351,9 @@ function isListingPanelHtmxEvent(event) {
     }
 
     return (
-        Boolean(target.closest('#listing-panel')) ||
-        target.classList.contains('listing-panel__results') ||
-        target.id === 'listing-active-filters' ||
-        target.classList.contains('listing-filters__options')
+        Boolean(target.closest(LISTING_PANEL_SELECTOR)) ||
+        target.matches('[data-listing-results]') ||
+        target.id === 'listing-active-filters'
     );
 }
 
@@ -379,7 +368,7 @@ function handleListingFilterSettle(event) {
     }
 
     const form = panel.querySelector('[data-listing-filters]');
-    const results = panel.querySelector('.listing-panel__results');
+    const results = panel.querySelector(LISTING_RESULTS_SELECTOR);
     const requestElement = event.detail.requestConfig?.elt;
 
     if (results) {
@@ -387,6 +376,7 @@ function handleListingFilterSettle(event) {
     }
 
     syncFilterFormFromUrl(form);
+    announceListingUpdate(panel);
 
     if (requestElement?.matches?.('[data-listing-filters]')) {
         restoreOpenDropdown(panel);
@@ -405,11 +395,7 @@ function handleListingFilterSwap(event) {
         return;
     }
 
-    const shouldSyncForm =
-        target.id === 'listing-active-filters' ||
-        target.classList.contains('listing-filters__options');
-
-    if (!shouldSyncForm) {
+    if (target.id !== 'listing-active-filters') {
         return;
     }
 
@@ -420,11 +406,13 @@ function handleListingFilterSwap(event) {
 
 export {
     LISTING_PANEL_SELECTOR,
+    LISTING_RESULTS_SELECTOR,
     bindListingFilterDelegation,
     bindListingFilterHtmxConfig,
     handleListingFilterSettle,
     handleListingFilterSwap,
     initListingFilters,
     restoreOpenDropdown,
+    submitListingFilters,
     syncFilterFormFromUrl,
 };
