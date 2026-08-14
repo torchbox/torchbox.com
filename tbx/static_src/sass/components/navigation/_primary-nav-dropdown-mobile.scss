@@ -124,7 +124,7 @@ Styles for primary navigation dropdown panels at mobile
     &__description {
         @include font-size('size-six');
         display: block;
-        color: var(--color--grey-20);
+        color: var(--color--text);
         padding: 0 $spacer-small $spacer-mini;
     }
 }
