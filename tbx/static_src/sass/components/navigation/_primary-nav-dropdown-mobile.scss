@@ -7,13 +7,9 @@ Styles for primary navigation dropdown panels at mobile
 .primary-nav-dropdown-mobile {
     @include z-index(nav);
     @include nav-fixed-position($header-height: $header-height);
-    top: 0;
-    height: 100vh;
-    height: 100dvh;
     background-color: var(--color--black);
     left: 0;
     width: 100%;
-    padding-top: $header-height;
     padding-bottom: 0;
 
     .mode-light & {
