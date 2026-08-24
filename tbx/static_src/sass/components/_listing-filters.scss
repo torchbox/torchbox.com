@@ -171,7 +171,7 @@
         @include font-size('size-six');
         @include button-styles();
         flex-shrink: 0;
-        padding: 8px $spacer-mini-plus;
+        padding: 6px $spacer-mini-plus;
         cursor: pointer;
         border-radius: 999px;
     }
