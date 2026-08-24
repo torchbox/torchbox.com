@@ -174,16 +174,6 @@
         padding: 8px $spacer-mini-plus;
         cursor: pointer;
         border-radius: 999px;
-
-        &:focus-visible {
-            @include focus-style(var(--color--theme-primary), $shadow: true);
-            outline-offset: 2px;
-        }
-
-        @include high-contrast-mode() {
-            outline: 2px solid LinkText;
-            color: LinkText;
-        }
     }
 
     &__active {
