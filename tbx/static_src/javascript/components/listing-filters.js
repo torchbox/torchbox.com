@@ -28,7 +28,9 @@ class ListingFilters {
         });
 
         document.addEventListener('click', (event) => this.handleClick(event));
-        document.addEventListener('keydown', (event) => this.handleKeydown(event));
+        document.addEventListener('keydown', (event) =>
+            this.handleKeydown(event),
+        );
     }
 
     closeAll(except) {

@@ -48,7 +48,9 @@ class BlogListingFilterTests(WagtailPageTestCase):
         )
 
     def test_and_between_filters(self):
-        self.assertEqual(self.titles({"sector": ["charity"], "service": ["strategy"]}), set())
+        self.assertEqual(
+            self.titles({"sector": ["charity"], "service": ["strategy"]}), set()
+        )
         self.assertEqual(
             self.titles({"sector": ["health"], "service": ["strategy"]}),
             {"Health strategy"},

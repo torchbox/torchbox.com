@@ -5,7 +5,7 @@ import string
 from django import forms
 from django.core.paginator import Paginator
 from django.db import models
-from django.db.models import Case, Q, When
+from django.db.models import Case, When
 from django.dispatch import receiver
 from django.utils.functional import cached_property
 
@@ -84,7 +84,6 @@ class BlogIndexPage(BasePage):
             pk__in=models.Subquery(self.blog_posts.values("related_services"))
         )
 
-        # Validate the query string through a form; only trust cleaned_data.
         form = TaxonomyFilterForm(
             request.GET,
             sector_choices=[(s.slug, s.name) for s in related_sectors],

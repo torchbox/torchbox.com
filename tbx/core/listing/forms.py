@@ -1,8 +1,8 @@
 from django import forms
 
-# Timing choices for the events "When" filter. An empty selection means the
-# default (upcoming) view, which is deliberately distinct from explicitly
-# selecting "Upcoming events".
+
+# Timing choices for the events "When" filter. An empty selection displays
+# upcoming events only by default.
 TIMING_CHOICES = (
     ("upcoming", "Upcoming"),
     ("past", "Past"),

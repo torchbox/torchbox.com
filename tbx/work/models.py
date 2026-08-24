@@ -434,7 +434,6 @@ class WorkIndexPage(BasePage):
             )
         )
 
-        # Validate the query string through a form; only trust cleaned_data.
         form = TaxonomyFilterForm(
             request.GET,
             sector_choices=[(s.slug, s.name) for s in related_sectors],
@@ -442,8 +441,7 @@ class WorkIndexPage(BasePage):
         )
         form.is_valid()
 
-        # OR within a filter, AND between filters. Both WorkPage and
-        # HistoricalWorkPage subtypes are matched.
+        # OR within a filter, AND between filters.
         if sectors := form.cleaned_data.get("sector"):
             works = works.filter(
                 Q(workpage__related_sectors__slug__in=sectors)

@@ -76,7 +76,9 @@ class WorkListingFilterTests(WagtailPageTestCase):
 
     def test_and_between_filters(self):
         # Charity work is all Design, so charity + strategy matches nothing.
-        self.assertEqual(self.titles({"sector": ["charity"], "service": ["strategy"]}), set())
+        self.assertEqual(
+            self.titles({"sector": ["charity"], "service": ["strategy"]}), set()
+        )
         self.assertEqual(
             self.titles({"sector": ["charity"], "service": ["design"]}),
             {"Charity design", "Historical charity design"},

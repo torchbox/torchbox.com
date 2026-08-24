@@ -40,8 +40,8 @@ class EventIndexPage(BasePage):
         """Filter and order the listing's events.
 
         ``timings`` is a list drawn from ``upcoming``/``past``; an empty list
-        defaults to upcoming only. ``types`` is a list of event-type slugs
-        (OR-matched: an event is kept if it has any of the selected types).
+        defaults to upcoming only. ``types`` is a list of event-type slugs,
+        an event is kept if it has any of the selected types.
         """
         today = timezone.localdate()
         timings = timings or ["upcoming"]
@@ -54,7 +54,6 @@ class EventIndexPage(BasePage):
         want_upcoming = "upcoming" in timings
         want_past = "past" in timings
 
-        # Single pass over the StreamField, partitioning by timing.
         upcoming = []
         past = []
         for event in self.events:
@@ -79,10 +78,7 @@ class EventIndexPage(BasePage):
     def get_context(self, request):
         context = super().get_context(request)
 
-        # Validate the query string through a form; only trust cleaned_data.
-        form = EventFilterForm(
-            request.GET, type_choices=self.get_event_type_choices()
-        )
+        form = EventFilterForm(request.GET, type_choices=self.get_event_type_choices())
         form.is_valid()
 
         events = self.get_events(

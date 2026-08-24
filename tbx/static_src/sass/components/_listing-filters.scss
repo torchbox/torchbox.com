@@ -1,9 +1,5 @@
 @use '../config' as *;
 
-// Multi-select listing filter (Work, News, Events). Built on native
-// <details>/<summary>, so the dropdowns open and close without JavaScript; the
-// panel is positioned as an overlay purely in CSS. Styling follows the design
-// on `feature/listing-rework`.
 .listing-filters {
     $root: &;
 
@@ -31,17 +27,11 @@
     }
 
     &__dropdown {
-        --listing-filter-panel-inset: 6px;
-        --listing-filter-option-padding-x: 12px;
-        --listing-filter-checkbox-size: 1rem;
-        --listing-filter-checkbox-gap: 8px;
-
         position: relative;
         flex: 0 1 auto;
         min-width: 0;
     }
 
-    // The <summary> is the toggle. Hide the native disclosure marker.
     &__dropdown-toggle {
         @include font-size('size-six');
         display: flex;
@@ -58,6 +48,7 @@
         white-space: nowrap;
         list-style: none;
 
+        // The <summary> is the toggle, so we hide the native disclosure marker
         &::-webkit-details-marker {
             display: none;
         }
@@ -94,8 +85,6 @@
         }
     }
 
-    // Overlay panel. Only rendered while the <details> is open, so no JS is
-    // needed to show or hide it — CSS just positions it below the toggle.
     &__dropdown-panel {
         position: absolute;
         top: calc(100% + 6px);
@@ -132,7 +121,7 @@
     &__options {
         list-style: none;
         margin: 0;
-        padding: var(--listing-filter-panel-inset);
+        padding: 6px;
     }
 
     &__option {
@@ -141,7 +130,7 @@
 
     &__option--empty {
         @include font-size('size-seven');
-        padding: 8px var(--listing-filter-option-padding-x, 12px);
+        padding: 8px 12px;
         line-height: 1.35;
         color: var(--color--text);
         text-wrap: balance;
@@ -151,8 +140,8 @@
         @include font-size('size-six');
         display: flex;
         align-items: center;
-        gap: var(--listing-filter-checkbox-gap);
-        padding: 8px var(--listing-filter-option-padding-x);
+        gap: 8px;
+        padding: 8px 12px;
         border-radius: 4px;
         color: var(--color--heading);
         cursor: pointer;
@@ -163,8 +152,8 @@
 
         input {
             flex-shrink: 0;
-            width: var(--listing-filter-checkbox-size);
-            height: var(--listing-filter-checkbox-size);
+            width: 1rem;
+            height: 1rem;
             margin: 0;
             accent-color: var(--color--theme-primary);
 
@@ -178,8 +167,30 @@
         }
     }
 
-    &__submit {
+    &__submit-button {
+        @include font-size('size-six');
         flex-shrink: 0;
+        padding: 8px $spacer-mini-plus;
+        border: 0;
+        border-radius: 999px;
+        background-color: var(--color--theme-primary);
+        color: var(--color--white);
+        cursor: pointer;
+        transition: filter 0.2s ease;
+
+        &:hover {
+            background-color: var(--color--theme-primary-dark);
+        }
+
+        &:focus-visible {
+            @include focus-style(var(--color--theme-primary), $shadow: true);
+            outline-offset: 2px;
+        }
+
+        @include high-contrast-mode() {
+            outline: 2px solid LinkText;
+            color: LinkText;
+        }
     }
 
     &__active {

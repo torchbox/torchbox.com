@@ -45,7 +45,9 @@ class EventListingFilterTests(WagtailPageTestCase):
         cls.index.events = StreamValue(
             stream_block,
             [
-                event_data("Upcoming webinar", [cls.webinar], today + timedelta(days=10)),
+                event_data(
+                    "Upcoming webinar", [cls.webinar], today + timedelta(days=10)
+                ),
                 event_data(
                     "Upcoming workshop", [cls.workshop], today + timedelta(days=20)
                 ),
@@ -60,9 +62,7 @@ class EventListingFilterTests(WagtailPageTestCase):
         return [event.get("title") for event in context["events"]]
 
     def test_default_shows_upcoming_only(self):
-        self.assertEqual(
-            self.titles(None), ["Upcoming webinar", "Upcoming workshop"]
-        )
+        self.assertEqual(self.titles(None), ["Upcoming webinar", "Upcoming workshop"])
 
     def test_upcoming_sorted_ascending(self):
         titles = self.titles({"timing": ["upcoming"]})
