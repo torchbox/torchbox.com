@@ -55,6 +55,7 @@
     @include meta.load-css('components/listing');
     @include meta.load-css('components/listing-avatar');
     @include meta.load-css('components/listing-event');
+    @include meta.load-css('components/listing-filters');
     @include meta.load-css('components/listing-image');
     @include meta.load-css('components/logo');
     @include meta.load-css('components/mailchimp');

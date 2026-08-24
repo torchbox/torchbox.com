@@ -116,6 +116,17 @@
         }
     }
 
+    // Places the listing heading and its filter panel in the content columns
+    // so the filters sit directly under the title rather than in a gutter.
+    &__listing-header,
+    &__listing-panel {
+        grid-column: 2 / span 4;
+
+        @include media-query(large) {
+            grid-column: 2 / span 12;
+        }
+    }
+
     &__division-signpost,
     &__featured-services,
     &__keypoints {
