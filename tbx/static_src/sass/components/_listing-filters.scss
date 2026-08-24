@@ -93,28 +93,15 @@
         width: max-content;
         min-width: 100%;
         max-width: min(24rem, calc(100vw - #{$grid-gutters} * 2));
-        max-height: min(28rem, calc(100vh - 12rem));
         margin: 0;
         padding: 0;
         border: 1px solid var(--color--border);
         border-radius: 8px;
         background-color: var(--color--streamfield-background);
         overflow-x: hidden;
-        overflow-y: auto;
-        scrollbar-width: thin;
-        scrollbar-color: var(--color--border) transparent;
 
         @include media-query(medium) {
             min-width: max(100%, 20rem);
-        }
-
-        &::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            border-radius: 3px;
-            background-color: var(--color--border);
         }
     }
 
