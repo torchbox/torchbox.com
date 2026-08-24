@@ -1,0 +1,23 @@
+context:
+  filter_dropdowns:
+    - param: sector
+      label: Sector
+      selected_count: 1
+      options:
+        - { value: charity, label: Charity, checked: true, id: filter-sector-charity }
+        - { value: education, label: Education, checked: false, id: filter-sector-education }
+        - { value: government, label: Government, checked: false, id: filter-sector-government }
+        - { value: health, label: Health, checked: false, id: filter-sector-health }
+    - param: service
+      label: Service
+      selected_count: 0
+      options:
+        - { value: design, label: Design, checked: false, id: filter-service-design }
+        - { value: development, label: Development, checked: false, id: filter-service-development }
+        - { value: strategy, label: Strategy, checked: false, id: filter-service-strategy }
+
+  has_active_filters: true
+  active_filters:
+    - { label: Charity, remove_url: '#' }
+
+  clear_filters_url: '#'
