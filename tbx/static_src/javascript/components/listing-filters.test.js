@@ -4,8 +4,8 @@ describe('ListingFilters', () => {
     beforeEach(() => {
         document.body.innerHTML = `
             <form data-listing-filters>
-                <details id="d1"><summary>Sector</summary><label><input type="checkbox"></label></details>
-                <details id="d2"><summary>Service</summary><label><input type="checkbox"></label></details>
+                <details id="d1" data-listing-filters-dropdown><summary>Sector</summary><label><input type="checkbox"></label></details>
+                <details id="d2" data-listing-filters-dropdown><summary>Service</summary><label><input type="checkbox"></label></details>
             </form>
             <a href="/" id="outside">Outside</a>
         `;
