@@ -3,16 +3,28 @@
 
 {% block content %}
     <div class="grid grid--spacer-large">
-        {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=tags %}
-
+        <div class="listing-header grid__listing-header mb-spacerSmallPlus lg:mb-spacerMedium">
+            <h1 class="heading heading--mega">{{ page.title }}</h1>
+        </div>
+        <div class="grid__listing-panel">
+            {% include "patterns/molecules/listing-filters/listing-filters.html" %}
+        </div>
         <ul class="page-listing page-listing--work">
             {% for post in works %}
                 {% include "patterns/molecules/listing/listing--image.html" with title=post.title name=post.client link=post.url date=post.date reading_time=post.read_time tags=post.tags listing_image=post.listing_image tag_link_base="." tags_screenreader_text="See more work posts in this category" base_class="page-listing__item" %}
+            {% empty %}
+                <li class="grid__paragraph rich-text">
+                    {% if has_active_filters %}
+                        <p>No work matches the selected filters.</p>
+                    {% else %}
+                        <p>There is no work to show.</p>
+                    {% endif %}
+                </li>
             {% endfor %}
         </ul>
 
         <div class="page-listing__pagination">
-            {% include "patterns/molecules/pagination/pagination.html" with pages=works %}
+            {% include "patterns/molecules/pagination/pagination.html" with pages=works extra_url_params=extra_url_params %}
         </div>
     </div>
 {% endblock %}

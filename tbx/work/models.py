@@ -3,12 +3,11 @@ import math
 import string
 
 from django import forms
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import Paginator
 from django.db import models
 from django.db.models import Case, DateField, F, Q, When
 from django.dispatch import receiver
 from django.utils.functional import cached_property
-from django.utils.http import urlencode
 
 from modelcluster.fields import ParentalManyToManyField
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -19,6 +18,8 @@ from wagtail.signals import page_published
 from bs4 import BeautifulSoup
 
 from tbx.core.blocks import StoryBlock
+from tbx.core.listing.context import build_listing_filter_context
+from tbx.core.listing.forms import TaxonomyFilterForm
 from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
@@ -388,6 +389,7 @@ class WorkIndexPage(BasePage):
                 "historicalworkpage",
                 "workpage__related_sectors",
                 "workpage__related_services",
+                "historicalworkpage__related_sectors",
                 "historicalworkpage__related_services",
                 "authors",
                 "authors__author",
@@ -414,18 +416,43 @@ class WorkIndexPage(BasePage):
         # Get work pages
         works = self.works
 
-        # for pagination
-        extra_url_params = {}
-
-        # Filter by related_service slug
-        if slug_filter := request.GET.get("filter"):
-            works = works.filter(
-                Q(workpage__related_services__slug=slug_filter)
-                | Q(historicalworkpage__related_services__slug=slug_filter)
-                | Q(workpage__related_sectors__slug=slug_filter)
-                | Q(historicalworkpage__related_sectors__slug=slug_filter),
+        # Only offer Sectors and Services that are actually used on this listing.
+        related_sectors = Sector.objects.filter(
+            Q(pk__in=models.Subquery(self.works.values("workpage__related_sectors")))
+            | Q(
+                pk__in=models.Subquery(
+                    self.works.values("historicalworkpage__related_sectors")
+                )
             )
-            extra_url_params["filter"] = slug_filter
+        )
+        related_services = Service.objects.filter(
+            Q(pk__in=models.Subquery(self.works.values("workpage__related_services")))
+            | Q(
+                pk__in=models.Subquery(
+                    self.works.values("historicalworkpage__related_services")
+                )
+            )
+        )
+
+        form = TaxonomyFilterForm(
+            request.GET,
+            sector_choices=[(s.slug, s.name) for s in related_sectors],
+            service_choices=[(s.slug, s.name) for s in related_services],
+        )
+        form.is_valid()
+
+        # OR within a filter, AND between filters.
+        if sectors := form.cleaned_data.get("sector"):
+            works = works.filter(
+                Q(workpage__related_sectors__slug__in=sectors)
+                | Q(historicalworkpage__related_sectors__slug__in=sectors)
+            )
+        if services := form.cleaned_data.get("service"):
+            works = works.filter(
+                Q(workpage__related_services__slug__in=services)
+                | Q(historicalworkpage__related_services__slug__in=services)
+            )
+        works = works.distinct()
 
         # format for template
         works = [
@@ -442,39 +469,17 @@ class WorkIndexPage(BasePage):
             for work in works
         ]
 
-        # use page to filter
-        page = request.GET.get("page", 1)
-
         # Pagination
         paginator = Paginator(works, 10)  # Show 10 works per page
+        works = paginator.get_page(request.GET.get("page", 1))
 
-        try:
-            works = paginator.page(page)
-        except PageNotAnInteger:
-            works = paginator.page(1)
-        except EmptyPage:
-            works = paginator.page(paginator.num_pages)
-
-        # Only show Sectors and Services that have been used
-        related_sectors = Sector.objects.filter(
-            pk__in=models.Subquery(self.works.values("workpage__related_sectors"))
-        )
-        related_services = Service.objects.filter(
-            Q(pk__in=models.Subquery(self.works.values("workpage__related_services")))
-            | Q(
-                pk__in=models.Subquery(
-                    self.works.values("historicalworkpage__related_services")
-                )
-            )
-        )
-
-        # Used for the purposes of defining the filterable tags
-        tags = chain(related_services, related_sectors)
-
+        context.update(works=works)
         context.update(
-            works=works,
-            tags=tags,
-            extra_url_params=urlencode(extra_url_params),
+            build_listing_filter_context(
+                request,
+                form,
+                dropdowns=(("sector", "Sector"), ("service", "Service")),
+            )
         )
 
         return context

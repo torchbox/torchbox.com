@@ -1,0 +1,224 @@
+@use '../config' as *;
+
+.listing-filters {
+    $root: &;
+
+    margin-bottom: $spacer-small;
+
+    @include media-query(medium) {
+        margin-bottom: $spacer-medium;
+    }
+
+    @include media-query(large) {
+        margin-bottom: $spacer-large;
+    }
+
+    &__group {
+        display: flex;
+        flex-direction: column;
+        gap: $spacer-mini;
+
+        @include media-query(medium) {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: $spacer-mini;
+        }
+    }
+
+    &__dropdown {
+        position: relative;
+    }
+
+    &__dropdown-toggle {
+        @include font-size('size-six');
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: $spacer-mini;
+        width: 100%;
+        padding: 6px 12px 6px 17px;
+        border: 1px solid var(--color--border);
+        border-radius: 999px;
+        background-color: transparent;
+        color: var(--color--heading);
+        cursor: pointer;
+        white-space: nowrap;
+        list-style: none;
+
+        // The <summary> is the toggle, so we hide the native disclosure marker
+        &::-webkit-details-marker {
+            display: none;
+        }
+
+        &:hover {
+            border-color: var(--color--heading);
+        }
+
+        &:focus-visible {
+            @include focus-style(var(--color--theme-primary), $shadow: true);
+            background-color: var(--color--heading);
+            color: var(--color--background);
+        }
+    }
+
+    &__dropdown[open] &__dropdown-toggle {
+        border-color: var(--color--theme-primary);
+    }
+
+    &__dropdown[open] &__dropdown-icon {
+        transform: rotate(-90deg);
+    }
+
+    &__dropdown-label {
+        font-weight: $weight--regular;
+    }
+
+    &__dropdown-icon {
+        flex-shrink: 0;
+        width: 12px;
+        height: 12px;
+        transform: rotate(90deg);
+
+        @media (prefers-reduced-motion: no-preference) {
+            transition: transform 0.2s ease;
+        }
+    }
+
+    &__dropdown-panel {
+        @include z-index(overlap);
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        width: max-content;
+        min-width: 100%;
+        // Set the maximum width so the panel fits inside the screen on mobile devices
+        // with spacing either side of the panel that matches dropdown button.
+        max-width: min(24rem, calc(100vw - #{$grid-gutters} * 2));
+        margin: 0;
+        padding: 0;
+        border: 1px solid var(--color--border);
+        border-radius: 8px;
+        background-color: var(--color--streamfield-background);
+        overflow-x: hidden;
+
+        @include media-query(medium) {
+            min-width: max(100%, 20rem);
+        }
+    }
+
+    &__options {
+        list-style: none;
+        margin: 0;
+        padding: 6px;
+    }
+
+    &__option {
+        margin: 0;
+    }
+
+    &__option-label {
+        @include font-size('size-six');
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        color: var(--color--heading);
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--color--background);
+        }
+    }
+
+    &__checkbox {
+        flex-shrink: 0;
+        width: 1rem;
+        height: 1rem;
+        margin: 0;
+        accent-color: var(--color--theme-primary);
+
+        &:focus-visible {
+            outline-offset: 3px;
+        }
+    }
+
+    &__option-text {
+        line-height: 1.3;
+    }
+
+    &__submit-button {
+        @include font-size('size-six');
+        @include button-styles();
+        flex-shrink: 0;
+        padding: 6px $spacer-mini-plus;
+        cursor: pointer;
+        border-radius: 999px;
+    }
+
+    &__active {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: $spacer-mini;
+        margin-top: $spacer-small;
+    }
+
+    &__active-label {
+        @include font-size('size-seven');
+        margin: 0;
+        color: var(--color--text);
+    }
+
+    &__active-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacer-mini;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__active-item {
+        @include font-size('size-eight');
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px $spacer-mini;
+        border-radius: 999px;
+        border: 1px solid var(--color--border);
+        background-color: var(--color--background);
+        color: var(--color--heading);
+
+        &:hover,
+        &:focus {
+            border-color: var(--color--heading);
+            background-color: var(--color--heading);
+            color: var(--color--background);
+        }
+
+        &:focus {
+            @include focus-style(var(--color--heading), $shadow: true);
+        }
+    }
+
+    &__remove-icon {
+        width: 12px;
+        height: 12px;
+    }
+
+    &__clear {
+        @include font-size('size-seven');
+        flex-shrink: 0;
+        color: var(--color--heading);
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+
+        &:focus-visible {
+            @include focus-style(var(--color--theme-primary), $shadow: false);
+        }
+    }
+}

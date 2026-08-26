@@ -5,7 +5,12 @@
 {% block content %}
     <div class="grid grid--spacer-large">
         {# Title and Filters #}
-        {% include "patterns/molecules/title-filters/title-filters--event.html" with item=page tags=tags %}
+        <div class="listing-header grid__listing-header mb-spacerSmallPlus lg:mb-spacerMedium">
+            <h1 class="heading heading--mega">{{ page.title }}</h1>
+        </div>
+        <div class="grid__listing-panel">
+            {% include "patterns/molecules/listing-filters/listing-filters.html" %}
+        </div>
 
         {# Events #}
         <ul class="page-listing page-listing--events">
@@ -13,8 +18,8 @@
                 {% include "patterns/molecules/listing/listing--event.html" with base_class="page-listing__item" end_date=event.end_date end_time=event.end_time link=event.get_button_link listing_image=event.image location=event.location start_date=event.start_date start_time=event.start_time title=event.title type=event.type %}
             {% empty %}
                 <li class="grid__paragraph rich-text">
-                    {% if request.GET.filter == "past" %}
-                        <p>There are no past events.</p>
+                    {% if has_active_filters and not is_upcoming_only %}
+                        <p>No events match the selected filters.</p>
                     {% else %}
                         {{ page.no_events_message|richtext }}
                     {% endif %}

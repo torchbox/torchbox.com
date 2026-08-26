@@ -3,17 +3,30 @@
 
 {% block content %}
     <div class="grid grid--spacer-large">
-        {% include "patterns/molecules/title-filters/title-filters.html" with item=page tags=tags %}
+        <div class="listing-header grid__listing-header mb-spacerSmallPlus lg:mb-spacerMedium">
+            <h1 class="heading heading--mega">{{ page.title }}</h1>
+        </div>
+        <div class="grid__listing-panel">
+            {% include "patterns/molecules/listing-filters/listing-filters.html" %}
+        </div>
 
         <ul class="page-listing page-listing--blog">
             {% for post in blog_posts %}
                 {% pageurl post as link %}
                 {% include "patterns/molecules/listing/listing--avatar.html" with link=link avatar=post.first_author.image title=post.title name=post.first_author.name job_title=post.first_author.role date=post.date reading_time=post.read_time tags=post.tags tag_link_base=blog_index_url base_class="page-listing__item" %}
+            {% empty %}
+                <li class="grid__paragraph rich-text">
+                    {% if has_active_filters %}
+                        <p>No news matches the selected filters.</p>
+                    {% else %}
+                        <p>There are no news posts to show.</p>
+                    {% endif %}
+                </li>
             {% endfor %}
         </ul>
 
         <div class="page-listing__pagination">
-            {% include "patterns/molecules/pagination/pagination.html" with pages=blog_posts %}
+            {% include "patterns/molecules/pagination/pagination.html" with pages=blog_posts extra_url_params=extra_url_params %}
         </div>
     </div>
 {% endblock %}

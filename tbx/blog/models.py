@@ -3,12 +3,11 @@ import math
 import string
 
 from django import forms
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import Paginator
 from django.db import models
-from django.db.models import Case, Q, When
+from django.db.models import Case, When
 from django.dispatch import receiver
 from django.utils.functional import cached_property
-from django.utils.http import urlencode
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.admin.panels import (
@@ -24,6 +23,8 @@ from wagtail.signals import page_published
 from bs4 import BeautifulSoup
 
 from tbx.core.blocks import StoryBlock
+from tbx.core.listing.context import build_listing_filter_context
+from tbx.core.listing.forms import TaxonomyFilterForm
 from tbx.core.models import BasePage
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
@@ -39,12 +40,6 @@ class BlogIndexPage(BasePage):
     template = "patterns/pages/blog/blog_listing.html"
 
     subpage_types = ["BlogPage"]
-
-    @cached_property
-    def taxonomy_slugs(self):
-        services = Service.objects.values_list("slug", flat=True)
-        sectors = Sector.objects.values_list("slug", flat=True)
-        return services.union(sectors)
 
     @property
     def blog_posts(self):
@@ -81,44 +76,39 @@ class BlogIndexPage(BasePage):
         # Get blog_posts
         blog_posts = self.blog_posts
 
-        # Filter by related_service slug
-        slug_filter = request.GET.get("filter")
-        extra_url_params = {}
-
-        if slug_filter and slug_filter in self.taxonomy_slugs:
-            blog_posts = blog_posts.filter(
-                Q(related_sectors__slug=slug_filter)
-                | Q(related_services__slug=slug_filter)
-            )
-            extra_url_params["filter"] = slug_filter
-
-        # use page to filter
-        page = request.GET.get("page", 1)
-
-        # Pagination
-        paginator = Paginator(blog_posts, 10)  # Show 10 blog_posts per page
-
-        try:
-            blog_posts = paginator.page(page)
-        except PageNotAnInteger:
-            blog_posts = paginator.page(1)
-        except EmptyPage:
-            blog_posts = paginator.page(paginator.num_pages)
-
-        # Only show Sectors and Services that have been used
+        # Only offer Sectors and Services that are actually used on this listing.
         related_sectors = Sector.objects.filter(
             pk__in=models.Subquery(self.blog_posts.values("related_sectors"))
         )
-
         related_services = Service.objects.filter(
             pk__in=models.Subquery(self.blog_posts.values("related_services"))
         )
-        tags = chain(related_services, related_sectors)
 
+        form = TaxonomyFilterForm(
+            request.GET,
+            sector_choices=[(s.slug, s.name) for s in related_sectors],
+            service_choices=[(s.slug, s.name) for s in related_services],
+        )
+        form.is_valid()
+
+        # OR within a filter, AND between filters.
+        if sectors := form.cleaned_data.get("sector"):
+            blog_posts = blog_posts.filter(related_sectors__slug__in=sectors)
+        if services := form.cleaned_data.get("service"):
+            blog_posts = blog_posts.filter(related_services__slug__in=services)
+        blog_posts = blog_posts.distinct()
+
+        # Pagination
+        paginator = Paginator(blog_posts, 10)  # Show 10 blog_posts per page
+        blog_posts = paginator.get_page(request.GET.get("page", 1))
+
+        context.update(blog_posts=blog_posts)
         context.update(
-            blog_posts=blog_posts,
-            tags=tags,
-            extra_url_params=urlencode(extra_url_params),
+            build_listing_filter_context(
+                request,
+                form,
+                dropdowns=(("sector", "Sector"), ("service", "Service")),
+            )
         )
         return context
 
