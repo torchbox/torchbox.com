@@ -81,10 +81,10 @@ class EventIndexPage(BasePage):
         form = EventFilterForm(request.GET, type_choices=self.get_event_type_choices())
         form.is_valid()
 
-        events = self.get_events(
-            timings=form.cleaned_data.get("timing"),
-            types=form.cleaned_data.get("type"),
-        )
+        timings = form.cleaned_data.get("timing", [])
+        types = form.cleaned_data.get("type", [])
+        events = self.get_events(timings=timings, types=types)
+        is_upcoming_only = set(timings or ["upcoming"]) == {"upcoming"} and not types
 
         # Use `page` to filter.
         page = request.GET.get("page", 1)
@@ -101,4 +101,5 @@ class EventIndexPage(BasePage):
                 dropdowns=(("timing", "When"), ("type", "Event type")),
             )
         )
+        context["is_upcoming_only"] = is_upcoming_only
         return context
