@@ -5,12 +5,15 @@ Native <details>/<summary> gives collapsible panels with no JavaScript. The
 whole thing is one GET form; "Apply filters" submits it and the page reloads.
 The listing-filters JS component adds outside-click/Escape closing as
 progressive enhancement.
+
+The listing filter Jest test will need updating if the dropdown HTML changes,
+see tbx/static_src/javascript/components/listing-filters.test.js
 {% endcomment %}
 <form method="get" class="listing-filters" data-listing-filters>
     <div class="listing-filters__group">
         {% for dropdown in filter_dropdowns %}
             {% if dropdown.options %}
-                <details class="listing-filters__dropdown">
+                <details class="listing-filters__dropdown" data-listing-filters-dropdown>
                     <summary class="listing-filters__dropdown-toggle">
                         <span class="listing-filters__dropdown-label">{{ dropdown.label }}</span>
                         {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="listing-filters__dropdown-icon" %}

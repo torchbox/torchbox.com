@@ -13,7 +13,9 @@ class ListingFilters {
 
     constructor(node) {
         this.node = node;
-        this.dropdowns = Array.from(node.querySelectorAll('details'));
+        this.dropdowns = Array.from(
+            node.querySelectorAll('[data-listing-filters-dropdown]'),
+        );
         this.bindEventListeners();
     }
 

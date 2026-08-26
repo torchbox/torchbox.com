@@ -56,6 +56,8 @@
 
         &:focus-visible {
             @include focus-style(var(--color--theme-primary), $shadow: true);
+            background-color: var(--color--heading);
+            color: var(--color--background);
         }
     }
 
@@ -112,14 +114,6 @@
 
     &__option {
         margin: 0;
-    }
-
-    &__option--empty {
-        @include font-size('size-seven');
-        padding: 8px 12px;
-        line-height: 1.35;
-        color: var(--color--text);
-        text-wrap: balance;
     }
 
     &__option-label {
@@ -219,9 +213,12 @@
         color: var(--color--heading);
         text-decoration: underline;
 
-        &:hover,
-        &:focus {
+        &:hover {
             text-decoration: none;
+        }
+
+        &:focus-visible {
+            @include focus-style(var(--color--theme-primary), $shadow: false);
         }
     }
 }

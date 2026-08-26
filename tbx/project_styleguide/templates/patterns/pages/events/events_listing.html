@@ -5,7 +5,9 @@
 {% block content %}
     <div class="grid grid--spacer-large">
         {# Title and Filters #}
-        {% include "patterns/molecules/listing-filters/listing-header.html" with item=page %}
+        <div class="listing-header grid__listing-header mb-spacerSmallPlus lg:mb-spacerMedium">
+            <h1 class="heading heading--mega">{{ page.title }}</h1>
+        </div>
         <div class="grid__listing-panel">
             {% include "patterns/molecules/listing-filters/listing-filters.html" %}
         </div>
