@@ -21,15 +21,12 @@
         @include media-query(medium) {
             flex-direction: row;
             flex-wrap: wrap;
-            align-items: center;
             gap: $spacer-mini;
         }
     }
 
     &__dropdown {
         position: relative;
-        flex: 0 1 auto;
-        min-width: 0;
     }
 
     &__dropdown-toggle {
@@ -86,12 +83,14 @@
     }
 
     &__dropdown-panel {
+        @include z-index(overlap);
         position: absolute;
         top: calc(100% + 6px);
         left: 0;
-        z-index: 5;
         width: max-content;
         min-width: 100%;
+        // Set the maximum width so the panel fits inside the screen on mobile devices
+        // with spacing either side of the panel that matches dropdown button.
         max-width: min(24rem, calc(100vw - #{$grid-gutters} * 2));
         margin: 0;
         padding: 0;
@@ -136,22 +135,22 @@
         &:hover {
             background-color: var(--color--background);
         }
+    }
 
-        input {
-            flex-shrink: 0;
-            width: 1rem;
-            height: 1rem;
-            margin: 0;
-            accent-color: var(--color--theme-primary);
+    &__checkbox {
+        flex-shrink: 0;
+        width: 1rem;
+        height: 1rem;
+        margin: 0;
+        accent-color: var(--color--theme-primary);
 
-            &:focus-visible {
-                outline-offset: 3px;
-            }
+        &:focus-visible {
+            outline-offset: 3px;
         }
+    }
 
-        span {
-            line-height: 1.3;
-        }
+    &__option-text {
+        line-height: 1.3;
     }
 
     &__submit-button {

@@ -9,36 +9,35 @@ progressive enhancement.
 <form method="get" class="listing-filters" data-listing-filters>
     <div class="listing-filters__group">
         {% for dropdown in filter_dropdowns %}
-            <details class="listing-filters__dropdown">
-                <summary class="listing-filters__dropdown-toggle">
-                    <span class="listing-filters__dropdown-label">{{ dropdown.label }}</span>
-                    {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="listing-filters__dropdown-icon" %}
-                </summary>
+            {% if dropdown.options %}
+                <details class="listing-filters__dropdown">
+                    <summary class="listing-filters__dropdown-toggle">
+                        <span class="listing-filters__dropdown-label">{{ dropdown.label }}</span>
+                        {% include "patterns/atoms/icons/icon.html" with name="chevron" classname="listing-filters__dropdown-icon" %}
+                    </summary>
 
-                <fieldset class="listing-filters__dropdown-panel">
-                    <legend class="sr-only">Filter by {{ dropdown.label|lower }}</legend>
-                    <ul class="listing-filters__options">
-                        {% for option in dropdown.options %}
-                            <li class="listing-filters__option">
-                                <label class="listing-filters__option-label" for="{{ option.id }}">
-                                    <input
-                                        type="checkbox"
-                                        id="{{ option.id }}"
-                                        name="{{ dropdown.param }}"
-                                        value="{{ option.value }}"
-                                        {% if option.checked %}checked{% endif %}
-                                    >
-                                    <span>{{ option.label }}</span>
-                                </label>
-                            </li>
-                        {% empty %}
-                            <li class="listing-filters__option listing-filters__option--empty">
-                                No options available.
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </fieldset>
-            </details>
+                    <fieldset class="listing-filters__dropdown-panel">
+                        <legend class="sr-only">Filter by {{ dropdown.label|lower }}</legend>
+                        <ul class="listing-filters__options">
+                            {% for option in dropdown.options %}
+                                <li class="listing-filters__option">
+                                    <label class="listing-filters__option-label" for="{{ option.id }}">
+                                        <input
+                                            class="listing-filters__checkbox"
+                                            type="checkbox"
+                                            id="{{ option.id }}"
+                                            name="{{ dropdown.param }}"
+                                            value="{{ option.value }}"
+                                            {% if option.checked %}checked{% endif %}
+                                        >
+                                        <span class="listing-filters__option-text">{{ option.label }}</span>
+                                    </label>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </fieldset>
+                </details>
+            {% endif %}
         {% endfor %}
 
         <button type="submit" class="listing-filters__submit-button">
