@@ -93,9 +93,10 @@ const REPLACE_STRIPPED_QUERYSTRING_ON_REDIRECT_LOCATION = false;
 // Disabled by default, but highly recommended
 const STRIP_VALUELESS_QUERYSTRING_KEYS = false;
 
-// Only these status codes should be considered cacheable
+// Only these status codes should be considered cacheable.
 // (from https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.4)
-const CACHABLE_HTTP_STATUS_CODES = [200, 203, 206, 300, 301, 410];
+// 404 is added to reduce server load on spammed requests.
+const CACHABLE_HTTP_STATUS_CODES = [200, 203, 206, 300, 301, 404, 410];
 
 addEventListener('fetch', (event) => {
     event.respondWith(main(event));
