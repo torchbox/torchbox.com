@@ -107,4 +107,4 @@ There is no newer `ts-jest` release that supports TypeScript 7 (checked all publ
 
 ### ESLint ceiling (global, not project-specific)
 
-`eslint` and `eslint-webpack-plugin` are held at `^8.57.1` / `^5.0.3` — the range `eslint-config-torchbox@^1.1.0` supports. This is the standard, global ESLint v8→v9 ceiling enforced automatically by the Node bump tooling; it lifts only via the ESLint→Biome migration, not a per-project decision.
+`eslint` and `eslint-webpack-plugin` are held at `^8.57.1` / `^5.0.3` — the range `eslint-config-torchbox@^1.1.0` supports. `eslint-config-torchbox` has not yet published a flat-config (ESLint v9) release; see the [ESLint v9 migration guide](https://eslint.org/docs/latest/use/migrate-to-9.0.0) for what that release will need to adopt. This is the standard, global ESLint v8→v9 ceiling enforced automatically by the Node bump tooling; it lifts only via the ESLint→Biome migration, not a per-project decision.
