@@ -1,4 +1,4 @@
-[Link to Ticket]()
+[Link to Ticket](<>)
 
 ### Description of Changes Made
 

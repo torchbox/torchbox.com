@@ -87,3 +87,24 @@ As much as possible, we want to use the official releases available on PyPI for 
 **Last checked** Wagtail 7.3 upgrade
 
 Add references to any custom templates that override the Wagtail admin templates. These should be checked to ensure they still work as expected after the upgrade.
+
+## Node dependency holds
+
+### typescript held at `^6.0.3` (< 7)
+
+**Instated:** 2026-09-01 (TWE-728 Node bump)
+
+`ncu` advanced `typescript` to `7.0.2`, but `ts-jest@29.4.12` (the latest published release) declares `peerDependencies.typescript: ">=4.3 <7"`, so a clean-state install fails:
+
+```
+npm error ERESOLVE unable to resolve dependency tree
+npm error peer typescript@">=4.3 <7" from ts-jest@29.4.12
+```
+
+There is no newer `ts-jest` release that supports TypeScript 7 (checked all published versions up to 29.4.12). `typescript` is held at `^6.0.3` (the latest 6.x) until `ts-jest` ships a release with a `typescript: ">=7"`-compatible peer range.
+
+**Lift condition:** re-check `ts-jest`'s peer range each cycle; lift once it supports TypeScript 7.
+
+### ESLint ceiling (global, not project-specific)
+
+`eslint` and `eslint-webpack-plugin` are held at `^8.57.1` / `^5.0.3` — the range `eslint-config-torchbox@^1.1.0` supports. This is the standard, global ESLint v8→v9 ceiling enforced automatically by the Node bump tooling; it lifts only via the ESLint→Biome migration, not a per-project decision.
