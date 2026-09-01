@@ -12,10 +12,6 @@ import Modal from './components/modal';
 import ModeSwitcher from './components/mode-switcher';
 import ListingFilters from './components/listing-filters';
 
-// IE11 polyfills
-import foreachPolyfill from './polyfills/foreach-polyfill';
-import closestPolyfill from './polyfills/closest-polyfill';
-
 import '../css/tailwind.css';
 import '../sass/main.scss';
 
@@ -30,9 +26,6 @@ htmx.config.refreshOnHistoryMiss = true;
 // Keep HTMX working under a strict CSP.
 htmx.config.includeIndicatorStyles = false;
 htmx.config.allowEval = false;
-
-foreachPolyfill();
-closestPolyfill();
 
 function initComponent(ComponentClass) {
     const items = document.querySelectorAll(ComponentClass.selector());
