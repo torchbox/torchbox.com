@@ -3,8 +3,7 @@
     // Webpack will convert ES modules to the required format.
     "module": "esnext",
     "esModuleInterop": true,
-    // Setting a very low target for IE11 compatibility.
-    "target": "es5",
+    "target": "es2016",
     // Make it possible to gradually adopt TypeScript, or not use it at all.
     "allowJs": true,
     // Turn on stricter type checking.
@@ -20,7 +19,6 @@
     "jsx": "react",
     "moduleResolution": "bundler",
     "types": ["jest"],
-    "ignoreDeprecations": "6.0",
     "rootDir": "tbx/static_src"
   },
   "include": ["tbx/static_src"],
