@@ -116,3 +116,7 @@ Last checked on Wagtail 8.0
 `tailwind.config.js` is loaded via the v4 `@config` fallback (from `tbx/static_src/css/tailwind.css`) rather than translated to a CSS `@theme` block, because `theme.colors` is not a flat translatable map: two token names are camelCase (`offBlack`, `themePrimary`), which can't survive as v4 CSS custom-property tokens, and several values reference CSS custom properties (`var(--color--background)`, `var(--color--heading)`, `var(--color--theme-primary)`) that need a value-preserving translation, not a mechanical copy. Moving to `@theme` needs a hand-authored token rewrite — renaming the camelCase tokens everywhere they're used as classes, and re-expressing the `var(--color--…)` values as v4 theme values — a design-token effort rather than a mechanical migration.
 
 Tailwind is kept in its own plain-CSS entry (`tbx/static_src/css/tailwind.css`, imported directly from `main.js`) rather than folded into the Sass entry (`main.scss`): Dart Sass hoists `@import` to the top of its output, which would separate `@import 'tailwindcss'` from the adjacent `@config` directive and stop `@tailwindcss/postcss` generating utilities. Don't merge it into `main.scss` to "simplify" the entry points.
+
+## Security
+
+Last security review: 2026-09-01
