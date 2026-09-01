@@ -108,3 +108,18 @@ There is no newer `ts-jest` release that supports TypeScript 7 (checked all publ
 ### ESLint ceiling (global, not project-specific)
 
 `eslint` and `eslint-webpack-plugin` are held at `^8.57.1` / `^5.0.3` — the range `eslint-config-torchbox@^1.1.0` supports. `eslint-config-torchbox` has not yet published a flat-config (ESLint v9) release; see the [ESLint v9 migration guide](https://eslint.org/docs/latest/use/migrate-to-9.0.0) for what that release will need to adopt. This is the standard, global ESLint v8→v9 ceiling enforced automatically by the Node bump tooling; it lifts only via the ESLint→Biome migration, not a per-project decision.
+
+## Tailwind CSS v4 migration (TWE-728)
+
+The project's Tailwind config remains on the v4 `@config` JS-config fallback (`tailwind.config.js`, loaded from `tbx/static_src/css/tailwind.css` via `@config '../../../tailwind.config.js';`) rather than a CSS `@theme` block, because `theme.colors` is not a flat translatable map:
+
+- Two token names are camelCase (`offBlack`, `themePrimary`), which cannot survive as v4 CSS custom-property tokens.
+- Several color values reference CSS custom properties (`var(--color--background)`, `var(--color--heading)`, `var(--color--theme-primary)`), which need a value-preserving translation strategy, not a mechanical copy.
+
+**Lift condition:** a hand-authored `@theme` rewrite that renames the camelCase tokens (checking every template/class usage of `offBlack`/`themePrimary` is updated to match) and re-expresses the `var(--color--…)`-backed colors as v4 theme values. This is a deliberate design/token effort, not a mechanical migration step, so it was not attempted as part of the v3→v4 migration itself.
+
+Tailwind is intentionally kept in its own plain-CSS entry (`tbx/static_src/css/tailwind.css`, imported directly from `main.js`) rather than folded into the Sass entry (`main.scss`) — this is a valid, already-working v4 setup (Dart Sass would otherwise hoist the `@import 'tailwindcss'` away from the adjacent `@config` directive and break utility generation). Do not "fix" this by merging it into the Sass entry.
+
+The v4 CSS dir (`tbx/static_src/css`) is linted by `lint:css` alongside `tbx/static_src/sass`. `.stylelintrc.js` scopes `nesting-selector-no-missing-scoping-root` and `no-invalid-position-declaration` to `null` for that directory only (via `overrides`), because a newer stylelint's plain-CSS rules don't recognise Tailwind's v4 CSS-first at-rules (`@utility`, `@theme`, etc.) as scoping contexts. Every other stylelint rule, including in that directory, stays live — do not widen this to a blanket exclusion.
+
+**Outstanding manual item:** the cascade-`@layer` visual-regression QA — v4 emits utilities into real CSS cascade layers, so per-element style resolution can shift versus v3 even with identical classes. A green build does not certify this; it needs a human visual pass against the rendered templates before this is fully signed off.
