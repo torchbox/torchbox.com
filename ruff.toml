@@ -1,7 +1,7 @@
 target-version = "py313"
 
 [lint]
-extend-select = [
+select = [
     "B",    # flake8-bugbear
     "C4",   # flake8-comprehensions
     "DJ",   # flake8-django
