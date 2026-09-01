@@ -3,7 +3,7 @@ default_language_version:
   python: python3.13
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.15.15' # held back from v0.16.x pending a follow-up (see MR for details) — do not bump without one
+    rev: 'v0.16.5' # keep in sync with pyproject.toml
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
