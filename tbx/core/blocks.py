@@ -386,7 +386,7 @@ class ServiceAreaFeaturedServicesBlock(FeaturedServicesBlock):
     cards = blocks.ListBlock(
         ServiceAreaFeaturedPageCardBlock(),
         max_num=8,
-        min_num=6,
+        min_num=4,
     )
 
     def clean(self, value):
