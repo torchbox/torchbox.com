@@ -466,7 +466,7 @@ class IconKeyPointBlock(blocks.StructBlock):
 
 
 class IconKeyPointsBlock(blocks.StructBlock):
-    """Used on the service area page."""
+    """Used on the service area and division pages."""
 
     title = blocks.CharBlock(max_length=255, required=False)
     intro = blocks.RichTextBlock(
