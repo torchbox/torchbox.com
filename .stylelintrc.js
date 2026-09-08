@@ -19,7 +19,7 @@ module.exports = {
             {
                 ignoreAtRules: [
                     'container',
-                    'config',
+                    'custom-variant',
                     'source',
                     'utility',
                     'theme',
@@ -31,7 +31,7 @@ module.exports = {
     },
     overrides: [
         {
-            // Tailwind v4 CSS-first syntax (@utility/@theme/@config/@variant).
+            // Tailwind v4 CSS-first syntax (@utility/@theme/@custom-variant).
             // A newer stylelint's plain-CSS rules don't recognise these
             // at-rules as scoping contexts, so they false-positive on valid
             // v4 syntax. Null exactly these two rules for this directory —

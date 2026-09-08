@@ -90,32 +90,19 @@ Add references to any custom templates that override the Wagtail admin templates
 
 ## Node dependency holds
 
-### typescript held at `^6.0.3` (< 7)
+### typescript
 
-**Instated:** 2026-09-01 (TWE-728 Node bump)
+**Last checked** Wagtail 8.0 upgrade
 
-`ncu` advanced `typescript` to `7.0.2`, but `ts-jest@29.4.12` (the latest published release) declares `peerDependencies.typescript: ">=4.3 <7"`, so a clean-state install fails:
+- Held at `^6.0.3`. `ts-jest` (latest 29.4.12) declares a peer range of `typescript >=4.3 <7`, so TypeScript 7 fails to install.
+- Lift when a `ts-jest` release supports TypeScript 7.
 
-```
-npm error ERESOLVE unable to resolve dependency tree
-npm error peer typescript@">=4.3 <7" from ts-jest@29.4.12
-```
+### eslint and eslint-webpack-plugin
 
-There is no newer `ts-jest` release that supports TypeScript 7 (checked all published versions up to 29.4.12). `typescript` is held at `^6.0.3` (the latest 6.x) until `ts-jest` ships a release with a `typescript: ">=7"`-compatible peer range.
+**Last checked** Wagtail 8.0 upgrade
 
-**Lift condition:** re-check `ts-jest`'s peer range each cycle; lift once it supports TypeScript 7.
-
-### ESLint ceiling (global, not project-specific)
-
-`eslint` and `eslint-webpack-plugin` are held at `^8.57.1` / `^5.0.3` — the range `eslint-config-torchbox@^1.1.0` supports. `eslint-config-torchbox` has not yet published a flat-config (ESLint v9) release; see the [ESLint v9 migration guide](https://eslint.org/docs/latest/use/migrate-to-9.0.0) for what that release will need to adopt. This is the standard, global ESLint v8→v9 ceiling enforced automatically by the Node bump tooling; it lifts only via the ESLint→Biome migration, not a per-project decision.
-
-### Tailwind CSS `@config` fallback
-
-Last checked on Wagtail 8.0
-
-`tailwind.config.js` is loaded via the v4 `@config` fallback (from `tbx/static_src/css/tailwind.css`) rather than translated to a CSS `@theme` block, because `theme.colors` is not a flat translatable map: two token names are camelCase (`offBlack`, `themePrimary`), which can't survive as v4 CSS custom-property tokens, and several values reference CSS custom properties (`var(--color--background)`, `var(--color--heading)`, `var(--color--theme-primary)`) that need a value-preserving translation, not a mechanical copy. Moving to `@theme` needs a hand-authored token rewrite — renaming the camelCase tokens everywhere they're used as classes, and re-expressing the `var(--color--…)` values as v4 theme values — a design-token effort rather than a mechanical migration.
-
-Tailwind is kept in its own plain-CSS entry (`tbx/static_src/css/tailwind.css`, imported directly from `main.js`) rather than folded into the Sass entry (`main.scss`): Dart Sass hoists `@import` to the top of its output, which would separate `@import 'tailwindcss'` from the adjacent `@config` directive and stop `@tailwindcss/postcss` generating utilities. Don't merge it into `main.scss` to "simplify" the entry points.
+- Held at `^8.57.1` and `^5.0.3`, the range `eslint-config-torchbox@^1.1.0` supports. No flat-config (ESLint v9) release of that package exists yet.
+- This is the fleet-wide ESLint v8 ceiling applied by the Node bump tooling. It lifts via the ESLint to Biome migration, not per project. See the [ESLint v9 migration guide](https://eslint.org/docs/latest/use/migrate-to-9.0.0).
 
 ## Security
 
