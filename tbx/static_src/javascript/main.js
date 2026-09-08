@@ -11,18 +11,11 @@ import TableHint from './components/table-hint';
 import Modal from './components/modal';
 import ModeSwitcher from './components/mode-switcher';
 
-// IE11 polyfills
-import foreachPolyfill from './polyfills/foreach-polyfill';
-import closestPolyfill from './polyfills/closest-polyfill';
-
 import '../css/tailwind.css';
 import '../sass/main.scss';
 
 // Third party imports
 import 'lite-youtube-embed/src/lite-yt-embed';
-
-foreachPolyfill();
-closestPolyfill();
 
 function initComponent(ComponentClass) {
     const items = document.querySelectorAll(ComponentClass.selector());

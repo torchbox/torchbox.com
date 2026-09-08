@@ -21,4 +21,4 @@ $breakpoints: (
 
 Other breakpoints can be added to this map as required, however the breakpoints should be used sparingly and only when the design requires it.
 
-These breakpoints should match the screen sizes set up in `tailwind.config.js`.
+These breakpoints should match the breakpoints set up in the `@theme` block in `tbx/static_src/css/tailwind.css`.

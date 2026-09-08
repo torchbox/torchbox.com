@@ -6,4 +6,4 @@ Some, such as the `listing` component are designed to be a base with variations 
 
 However, we have some utility classes which are designed for re-use, along with the option to to use Tailwind utility classes. Classes that are designed for re-use include `button`, `heading--[xyz]`, `text--[xyz]`, `link`, and `icon--listing-arrow`.
 
-The same tailwind utility classes that are avialable in `wagtail-kit` are available in this build. `tailwind.config.js` includes the custom spacing for the build, allowing us to use classes such as `mb-spacerMini` where it wouldn't be practical to create a new scss component just for a one-off spacing adjustment.
+The same tailwind utility classes that are avialable in `wagtail-kit` are available in this build. The `@theme` block in `tbx/static_src/css/tailwind.css` includes the custom spacing for the build, allowing us to use classes such as `mb-spacerMini` where it wouldn't be practical to create a new scss component just for a one-off spacing adjustment.
