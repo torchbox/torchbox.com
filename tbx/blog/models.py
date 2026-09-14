@@ -89,12 +89,17 @@ class BlogIndexPage(BasePage):
             sector_choices=[(s.slug, s.name) for s in related_sectors],
             service_choices=[(s.slug, s.name) for s in related_services],
         )
-        form.is_valid()
+
+        if form.is_valid():
+            sectors = form.cleaned_data.get("sector")
+            services = form.cleaned_data.get("service")
+        else:
+            sectors = services = None
 
         # OR within a filter, AND between filters.
-        if sectors := form.cleaned_data.get("sector"):
+        if sectors:
             blog_posts = blog_posts.filter(related_sectors__slug__in=sectors)
-        if services := form.cleaned_data.get("service"):
+        if services:
             blog_posts = blog_posts.filter(related_services__slug__in=services)
         blog_posts = blog_posts.distinct()
 
