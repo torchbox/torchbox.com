@@ -418,18 +418,30 @@ class WorkIndexPage(BasePage):
 
         # Only offer Sectors and Services that are actually used on this listing.
         related_sectors = Sector.objects.filter(
-            Q(pk__in=models.Subquery(self.works.values("workpage__related_sectors")))
+            Q(
+                pk__in=models.Subquery(
+                    self.works.values_list("workpage__related_sectors__pk", flat=True)
+                )
+            )
             | Q(
                 pk__in=models.Subquery(
-                    self.works.values("historicalworkpage__related_sectors")
+                    self.works.values_list(
+                        "historicalworkpage__related_sectors__pk", flat=True
+                    )
                 )
             )
         )
         related_services = Service.objects.filter(
-            Q(pk__in=models.Subquery(self.works.values("workpage__related_services")))
+            Q(
+                pk__in=models.Subquery(
+                    self.works.values_list("workpage__related_services__pk", flat=True)
+                )
+            )
             | Q(
                 pk__in=models.Subquery(
-                    self.works.values("historicalworkpage__related_services")
+                    self.works.values_list(
+                        "historicalworkpage__related_services__pk", flat=True
+                    )
                 )
             )
         )
