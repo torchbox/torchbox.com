@@ -46,21 +46,21 @@ There are three dropdown layouts (plus “No dropdown” for plain header links)
 
 ## Content sources
 
-| Source                                 | Populates                                                                                                                |
-| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| **Manual links**                       | Main and supporting link streams edited in Navigation settings                                                           |
-| **Auto-generate from division pages**  | Main column from live `DivisionPage` records; supporting column from manual **Supporting links** if added                |
+| Source                                 | Populates                                                                                                                                        |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Manual links**                       | Main and supporting link streams edited in Navigation settings                                                                                   |
+| **Auto-generate from division pages**  | Main column from live `DivisionPage` records; supporting column from manual **Supporting links** if added                                        |
 | **Auto-generate sectors and services** | `Sector` snippets in the main column (links to work index with `?sector=`); `Service` snippets in the supporting column (links with `?service=`) |
-| **Auto-generate from page children**   | Main column from child pages with **Show in menus** enabled; supporting column from manual **Supporting links** if added |
+| **Auto-generate from page children**   | Main column from child pages with **Show in menus** enabled; supporting column from manual **Supporting links** if added                         |
 
 ### What each auto source reads
 
-| Source         | Link text                 | Description                  | Tags | Accent colour  | URL                    |
-| -------------- | ------------------------- | ---------------------------- | ---- | -------------- | ---------------------- |
-| Division pages | Page **Navigation text**  | Page **Search description**  | —    | Page **Theme** | Division page URL      |
+| Source         | Link text                 | Description                  | Tags | Accent colour  | URL                     |
+| -------------- | ------------------------- | ---------------------------- | ---- | -------------- | ----------------------- |
+| Division pages | Page **Navigation text**  | Page **Search description**  | —    | Page **Theme** | Division page URL       |
 | Sectors        | Snippet **Name**          | Snippet **Description**      | —    | —              | `/work/?sector={slug}`  |
 | Services       | Snippet **Name**          | —                            | —    | —              | `/work/?service={slug}` |
-| Page children  | Child **Navigation text** | Child **Search description** | —    | —              | Child page URL         |
+| Page children  | Child **Navigation text** | Child **Search description** | —    | —              | Child page URL          |
 
 Manual **main links** support description, tags (middle-dot separated), and accent colour. Manual **supporting links** support description only.
 
