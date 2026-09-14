@@ -1,4 +1,5 @@
 from types import SimpleNamespace
+from urllib.parse import parse_qs, urlparse
 
 from django.test import TestCase
 
@@ -119,6 +120,9 @@ class TestResolvePrimaryNavItem(TestCase):
     def test_auto_taxonomy_dropdown(self):
         SectorFactory(name="Charities", slug="charities", sort_order=1)
         ServiceFactory(name="SEO", slug="seo", sort_order=1)
+        # Confirm no conflict when using identical slugs in different taxonomies
+        SectorFactory(name="Design (sector)", slug="design", sort_order=2)
+        ServiceFactory(name="Design (service)", slug="design", sort_order=2)
 
         value = self.block.to_python(
             {
@@ -139,9 +143,32 @@ class TestResolvePrimaryNavItem(TestCase):
         self.assertEqual(dropdown["style"], "taxonomy_index")
         self.assertEqual(dropdown["main_heading"], "By sector")
         self.assertEqual(dropdown["supporting_heading"], "By service")
-        self.assertEqual(len(dropdown["main_items"]), 1)
-        self.assertIn("filter=charities", dropdown["main_items"][0]["url"])
-        self.assertIn("filter=seo", dropdown["supporting_items"][0]["url"])
+
+        # The parameter & slug renders correctly for filter links
+        sector_queries = [
+            parse_qs(urlparse(item["url"]).query) for item in dropdown["main_items"]
+        ]
+        service_queries = [
+            parse_qs(urlparse(item["url"]).query)
+            for item in dropdown["supporting_items"]
+        ]
+
+        # Taxonomy filters should all link back to the work index
+        expected_work_path = urlparse(
+            self.work_index.get_url(current_site=self.site)
+        ).path
+        main_items = dropdown["main_items"]
+
+        # Confirm both configured sectors are included
+        self.assertEqual(len(main_items), 2)
+        for item in main_items:
+            with self.subTest(item=item["text"]):
+                self.assertEqual(urlparse(item["url"]).path, expected_work_path)
+
+        self.assertEqual(sector_queries[0], {"sector": ["charities"]})
+        self.assertEqual(service_queries[0], {"service": ["seo"]})
+        self.assertEqual(sector_queries[1], {"sector": ["design"]})
+        self.assertEqual(service_queries[1], {"service": ["design"]})
 
     def test_auto_taxonomy_ignores_manual_supporting_links(self):
         SectorFactory(name="Charities", slug="charities", sort_order=1)
