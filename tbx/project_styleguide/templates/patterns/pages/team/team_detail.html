@@ -9,7 +9,7 @@
             <div class="team-page-meta">
                 <div class="tags">
                     {% for tag in page.teams %}
-                        {% include "patterns/atoms/tag/tag.html" with tag_name=tag.name tag_slug=tag.slug tag_link_base="../" %}
+                        {% include "patterns/atoms/tag/tag.html" with tag_name=tag.name tag_slug=tag.slug tag_link_base="../" tag_filter_param="filter" %}
                     {% endfor %}
                 </div>
                 <span class="team-page-meta__role">{{ page.role }}</span>
