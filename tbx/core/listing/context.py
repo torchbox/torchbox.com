@@ -54,13 +54,31 @@ def _build_active_filters(base_url, form, dropdowns):
     return pills
 
 
+def _build_canonical_query_string(request, selected):
+    """Return the canonical query string for a listing request."""
+
+    # If paginating content, then just return the current page number,
+    # as site crawlers don't need to index filter & page combinations.
+    if "page" in request.GET:
+        return _urlencode_selected({"page": [request.GET["page"]]})
+
+    # With multiple or no filters applied, return the listing URL without params.
+    # With a single filter applied, return the canonical query string for that filter.
+    distinct_filters = {
+        param: list(dict.fromkeys(values)) for param, values in selected.items()
+    }
+    filter_count = sum(len(values) for values in distinct_filters.values())
+    canonical_params = distinct_filters if filter_count == 1 else {}
+    return _urlencode_selected(canonical_params)
+
+
 def build_listing_filter_context(request, form, dropdowns):
     """Build the template context for the shared listing-filter UI.
 
     ``dropdowns`` is an iterable of ``(param, label)`` in display order. The
     form must already be validated (``is_valid()`` called). Returns the dropdown
     definitions, active-filter pills, a clear-all URL, and the encoded params
-    that pagination links need to carry the current selection.
+    used by pagination links and the page's canonical URL.
     """
     base_url = request.path
     selected = {param: form.cleaned_data.get(param, []) for param, _ in dropdowns}
@@ -69,5 +87,6 @@ def build_listing_filter_context(request, form, dropdowns):
         "active_filters": _build_active_filters(base_url, form, dropdowns),
         "clear_filters_url": base_url,
         "extra_url_params": _urlencode_selected(selected),
+        "canonical_query_string": _build_canonical_query_string(request, selected),
         "has_active_filters": any(selected.values()),
     }
