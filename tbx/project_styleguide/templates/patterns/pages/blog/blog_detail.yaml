@@ -17,10 +17,13 @@ context:
     tags:
       - name: Digital products
         slug: digital-products
+        filter_param: service
       - name: Wagtail
         slug: wagtail
+        filter_param: service
       - name: Digital Marketing
         slug: digital-marketing
+        filter_param: service
     related_blog_posts:
       - link: '/'
         title: Reimagining our Agile training and ways of working

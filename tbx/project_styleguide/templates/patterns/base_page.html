@@ -6,7 +6,7 @@
     {% if page %}
         {% if page.canonical_url %}
             <link rel="canonical" href="{{ page.canonical_url }}">
-        {% else %}
+        {% elif page.full_url %}
             <link rel="canonical" href="{% fullpageurl page %}{% if 'page' in request.GET %}?page={{ request.GET.page|urlencode }}{% endif %}">
         {% endif %}
     {% endif %}

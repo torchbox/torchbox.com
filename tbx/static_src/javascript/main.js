@@ -9,6 +9,7 @@ import Tabs from './components/tabs';
 import TableHint from './components/table-hint';
 import Modal from './components/modal';
 import ModeSwitcher from './components/mode-switcher';
+import ListingFilters from './components/listing-filters';
 
 // IE11 polyfills
 import foreachPolyfill from './polyfills/foreach-polyfill';
@@ -40,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initComponent(TableHint);
     initComponent(Modal);
     initComponent(ModeSwitcher);
+    initComponent(ListingFilters);
     new DesktopCloseMenus();
 
     // Move sticky CTA(s) to the end of the main content for natural tab order

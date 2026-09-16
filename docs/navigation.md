@@ -46,21 +46,21 @@ There are three dropdown layouts (plus “No dropdown” for plain header links)
 
 ## Content sources
 
-| Source                                 | Populates                                                                                                                |
-| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| **Manual links**                       | Main and supporting link streams edited in Navigation settings                                                           |
-| **Auto-generate from division pages**  | Main column from live `DivisionPage` records; supporting column from manual **Supporting links** if added                |
-| **Auto-generate sectors and services** | `Sector` snippets in the main column; `Service` snippets in the supporting column (links to work index with `?filter=`)  |
-| **Auto-generate from page children**   | Main column from child pages with **Show in menus** enabled; supporting column from manual **Supporting links** if added |
+| Source                                 | Populates                                                                                                                                        |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Manual links**                       | Main and supporting link streams edited in Navigation settings                                                                                   |
+| **Auto-generate from division pages**  | Main column from live `DivisionPage` records; supporting column from manual **Supporting links** if added                                        |
+| **Auto-generate sectors and services** | `Sector` snippets in the main column (links to work index with `?sector=`); `Service` snippets in the supporting column (links with `?service=`) |
+| **Auto-generate from page children**   | Main column from child pages with **Show in menus** enabled; supporting column from manual **Supporting links** if added                         |
 
 ### What each auto source reads
 
-| Source         | Link text                 | Description                  | Tags | Accent colour  | URL                    |
-| -------------- | ------------------------- | ---------------------------- | ---- | -------------- | ---------------------- |
-| Division pages | Page **Navigation text**  | Page **Search description**  | —    | Page **Theme** | Division page URL      |
-| Sectors        | Snippet **Name**          | Snippet **Description**      | —    | —              | `/work/?filter={slug}` |
-| Services       | Snippet **Name**          | —                            | —    | —              | `/work/?filter={slug}` |
-| Page children  | Child **Navigation text** | Child **Search description** | —    | —              | Child page URL         |
+| Source         | Link text                 | Description                  | Tags | Accent colour  | URL                     |
+| -------------- | ------------------------- | ---------------------------- | ---- | -------------- | ----------------------- |
+| Division pages | Page **Navigation text**  | Page **Search description**  | —    | Page **Theme** | Division page URL       |
+| Sectors        | Snippet **Name**          | Snippet **Description**      | —    | —              | `/work/?sector={slug}`  |
+| Services       | Snippet **Name**          | —                            | —    | —              | `/work/?service={slug}` |
+| Page children  | Child **Navigation text** | Child **Search description** | —    | —              | Child page URL          |
 
 Manual **main links** support description, tags (middle-dot separated), and accent colour. Manual **supporting links** support description only.
 
@@ -78,7 +78,7 @@ The new IA prototype defines five primary nav items. Each maps to one dropdown s
 | **Thinking**   | Mixed list + supporting links | Page children + manual supporting  | Left: News, Insights, Events; right: latest insight cards              |
 | **About**      | Mixed list + supporting links | Page children + manual supporting  | Left: Careers, Culture, Team; right: employee ownership / values cards |
 
-**Sectors vs Work:** both show similar sector names but serve different purposes. **Sectors** links to division landing pages. **Work** links to filtered views on the work index (`/work/?filter=…`).
+**Sectors vs Work:** both show similar sector names but serve different purposes. **Sectors** links to division landing pages. **Work** links to filtered views on the work index (`/work/?sector=…` and `/work/?service=…`).
 
 ---
 
@@ -165,7 +165,7 @@ All content is edited in Navigation settings; no automatic sync with the page tr
 - **Snippets → Sectors** populated (name, slug, description, sort order).
 - **Snippets → Services** populated (name, slug, sort order).
 
-Links resolve to `{work_index_url}?filter={slug}`.
+Sector links resolve to `{work_index_url}?sector={slug}` and service links to `{work_index_url}?service={slug}`. The parameter is chosen by taxonomy type, so a sector and a service that share a slug still produce distinct URLs.
 
 **Sector sub-labels (prototype):** the taxonomy index template supports **tags**, but auto-generated sector links do not populate them. Switch content source to **Manual links** and enter tagged rows in **Main links**, or extend `_auto_taxonomy_sectors` in `tbx/navigation/utils.py`.
 
