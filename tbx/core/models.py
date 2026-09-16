@@ -29,6 +29,17 @@ from .blocks import HomePageStoryBlock, StandardPageStoryBlock
 @register_snippet
 class EventType(models.Model):
     name = models.CharField(max_length=255)
+    slug = models.SlugField(
+        max_length=255,
+        unique=True,
+        help_text="Used as the value in event-filter URLs. "
+        "Changing it will break existing filter links.",
+    )
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("slug"),
+    ]
 
     def __str__(self):
         return self.name

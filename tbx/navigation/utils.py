@@ -1,4 +1,5 @@
 from typing import Any, TypedDict
+from urllib.parse import urlencode
 
 from django.core.cache import cache
 
@@ -114,9 +115,10 @@ def _work_index_url(site) -> str | None:
     return None
 
 
-def _filtered_work_url(slug: str, site) -> str:
+def _filtered_work_url(slug: str, site, *, param: str) -> str:
+    # `param` is the taxonomy query parameter used to filter listing results
     if base_url := _work_index_url(site):
-        return f"{base_url}?filter={slug}"
+        return f"{base_url}?{urlencode({param: slug})}"
     return ""
 
 
@@ -125,7 +127,7 @@ def _auto_taxonomy_sectors(site) -> list[NavLink]:
     work_index = WorkIndexPage.objects.live().public().first()
     work_index_id = work_index.pk if work_index else None
     for sector in Sector.objects.all():
-        url = _filtered_work_url(sector.slug, site)
+        url = _filtered_work_url(sector.slug, site, param="sector")
         if not url:
             continue
         links.append(
@@ -144,7 +146,7 @@ def _auto_taxonomy_services(site) -> list[NavLink]:
     work_index = WorkIndexPage.objects.live().public().first()
     work_index_id = work_index.pk if work_index else None
     for service in Service.objects.all():
-        url = _filtered_work_url(service.slug, site)
+        url = _filtered_work_url(service.slug, site, param="service")
         if not url:
             continue
         links.append(
