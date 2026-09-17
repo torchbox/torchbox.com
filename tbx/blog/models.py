@@ -3,6 +3,7 @@ import math
 import string
 
 from django import forms
+from django.conf import settings
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.db.models import Case, Q, When
@@ -96,7 +97,7 @@ class BlogIndexPage(BasePage):
         page = request.GET.get("page", 1)
 
         # Pagination
-        paginator = Paginator(blog_posts, 10)  # Show 10 blog_posts per page
+        paginator = Paginator(blog_posts, settings.DEFAULT_PER_PAGE)
 
         try:
             blog_posts = paginator.page(page)

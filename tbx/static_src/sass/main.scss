@@ -62,6 +62,8 @@
     @include meta.load-css('components/modal');
     @include meta.load-css('components/mode-switcher');
     @include meta.load-css('components/motif-heading');
+    @include meta.load-css('components/search-results');
+    @include meta.load-css('components/section-title');
     @include meta.load-css('components/stats-group');
     @include meta.load-css('components/pagination');
     @include meta.load-css('components/partners');
