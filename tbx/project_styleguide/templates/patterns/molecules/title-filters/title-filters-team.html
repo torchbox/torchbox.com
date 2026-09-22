@@ -1,11 +1,12 @@
 {% load wagtailcore_tags %}
 
-<div class="title-filters {% if hide_tags %}title-filters--no-tags{% endif %}">
+<div class="title-filters title-filters--team">
     <div class="title-filters__title">
         <h1 class="heading heading--mega">{{ item.title }}</h1>
+        <p class="title-filters__strapline">{{ strapline }}</p>
     </div>
 
-    {% if tags and not hide_tags %}
+    {% if tags %}
         <div class="title-filters__tags">
             <div class="tags">
                 <p class="sr-only">Filter by category</p>
@@ -18,9 +19,9 @@
 
                 {% for tag in tags %}
                     {% if request.GET.filter == tag.slug %}
-                        {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name is_active=True %}
+                        {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name tag_link_base=index tag_filter_param="filter" is_active=True %}
                     {% else %}
-                        {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name %}
+                        {% include "patterns/atoms/tag/tag.html" with tag_slug=tag.slug tag_name=tag.name tag_link_base=index tag_filter_param="filter" %}
                     {% endif %}
                 {% endfor %}
             </div>
