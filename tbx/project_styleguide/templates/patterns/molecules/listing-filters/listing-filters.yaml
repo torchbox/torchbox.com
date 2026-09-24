@@ -53,6 +53,7 @@ context:
 
   has_active_filters: true
   active_filters:
-    - { label: Charity, remove_url: '#' }
+    - { label: Charity, param: sector, value: charity, remove_url: '#' }
 
   clear_filters_url: '#'
+  result_count: 12

@@ -1,7 +1,14 @@
+from wagtail.models import Site
 from wagtail.test.utils import WagtailPageTestCase
 
 from tbx.blog.factories import BlogIndexPageFactory, BlogPageFactory
-from tbx.core.listing.tests.test_work_listing import request_for
+from tbx.core.factories import HomePageFactory
+from tbx.core.listing.tests.test_work_listing import (
+    SWAP_TARGET_IDS,
+    render_listing,
+    request_for,
+    status_text,
+)
 from tbx.taxonomy.factories import SectorFactory, ServiceFactory
 
 
@@ -61,3 +68,58 @@ class BlogListingFilterTests(WagtailPageTestCase):
             self.titles({"service": ["bogus"]}),
             {"Charity design", "Health strategy"},
         )
+
+
+class BlogListingMarkupTests(WagtailPageTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        root = Site.objects.get(is_default_site=True).root_page
+        home = HomePageFactory(parent=root)
+        cls.index = BlogIndexPageFactory(parent=home, title="News")
+
+        cls.charity = SectorFactory(name="Charity", slug="charity")
+        cls.health = SectorFactory(name="Health", slug="health")
+        cls.design = ServiceFactory(name="Design", slug="design")
+
+        BlogPageFactory(
+            title="Charity one",
+            parent=cls.index,
+            related_sectors=[cls.charity],
+            related_services=[cls.design],
+        )
+        BlogPageFactory(
+            title="Charity two", parent=cls.index, related_sectors=[cls.charity]
+        )
+        BlogPageFactory(
+            title="Health one", parent=cls.index, related_sectors=[cls.health]
+        )
+
+    def test_swap_targets_are_always_rendered(self):
+        for params in ({}, {"sector": "charity"}):
+            with self.subTest(params=params):
+                soup = render_listing(self, self.index, params)
+                for element_id in SWAP_TARGET_IDS:
+                    self.assertIsNotNone(soup.find(id=element_id), element_id)
+
+    def test_status_announces_result_count(self):
+        cases = (
+            ({}, "3 results"),
+            ({"sector": "charity"}, "2 results"),
+            ({"sector": "health"}, "1 result"),
+            ({"sector": "health", "service": "design"}, "0 results"),
+        )
+        for params, expected in cases:
+            with self.subTest(params=params):
+                soup = render_listing(self, self.index, params)
+                self.assertEqual(status_text(soup), expected)
+
+    def test_pills_identify_the_filter_they_remove(self):
+        soup = render_listing(
+            self, self.index, {"sector": "charity", "service": "design"}
+        )
+        pills = soup.select("[data-listing-filters-pill]")
+        self.assertEqual(
+            [(pill["data-param"], pill["data-value"]) for pill in pills],
+            [("sector", "charity"), ("service", "design")],
+        )
+        self.assertIsNotNone(soup.select_one("[data-listing-filters-clear]"))

@@ -1,8 +1,12 @@
 from urllib.parse import urlencode
 
 from wagtail.coreutils import get_dummy_request
+from wagtail.models import Site
 from wagtail.test.utils import WagtailPageTestCase
 
+from bs4 import BeautifulSoup
+
+from tbx.core.factories import HomePageFactory
 from tbx.taxonomy.factories import SectorFactory, ServiceFactory
 from tbx.work.factories import (
     HistoricalWorkPageFactory,
@@ -11,9 +15,29 @@ from tbx.work.factories import (
 )
 
 
+# The listing-filters component swaps these elements in place with HTMX, so
+# every listing page must render them, with or without filters selected.
+SWAP_TARGET_IDS = (
+    "listing-results",
+    "listing-pagination",
+    "listing-active-filters",
+    "listing-status",
+)
+
+
 def request_for(path, params=None):
     query = f"?{urlencode(params, doseq=True)}" if params else ""
     return get_dummy_request(path=f"{path}{query}")
+
+
+def render_listing(test_case, page, params=None):
+    response = test_case.client.get(page.url, params)
+    test_case.assertEqual(response.status_code, 200)
+    return BeautifulSoup(response.content, "html.parser")
+
+
+def status_text(soup):
+    return " ".join(soup.find(id="listing-status").get_text().split())
 
 
 class WorkListingFilterTests(WagtailPageTestCase):
@@ -114,3 +138,44 @@ class WorkListingFilterTests(WagtailPageTestCase):
         )
         self.assertIn("sector=charity", context["extra_url_params"])
         self.assertEqual(context["works"].number, 2)
+
+
+class WorkListingMarkupTests(WagtailPageTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        root = Site.objects.get(is_default_site=True).root_page
+        home = HomePageFactory(parent=root)
+        cls.index = WorkIndexPageFactory(parent=home, title="Our work")
+
+        cls.charity = SectorFactory(name="Charity", slug="charity")
+        cls.health = SectorFactory(name="Health", slug="health")
+        cls.design = ServiceFactory(name="Design", slug="design")
+
+        for title, sector in (
+            ("Charity one", cls.charity),
+            ("Charity two", cls.charity),
+            ("Health one", cls.health),
+        ):
+            work = WorkPageFactory(
+                title=title, parent=cls.index, related_services=[cls.design]
+            )
+            work.related_sectors.add(sector)
+            work.save()
+
+    def test_swap_targets_are_always_rendered(self):
+        for params in ({}, {"sector": "charity"}):
+            with self.subTest(params=params):
+                soup = render_listing(self, self.index, params)
+                for element_id in SWAP_TARGET_IDS:
+                    self.assertIsNotNone(soup.find(id=element_id), element_id)
+
+    def test_status_announces_result_count(self):
+        cases = (
+            ({}, "3 results"),
+            ({"sector": "charity"}, "2 results"),
+            ({"sector": "health"}, "1 result"),
+        )
+        for params, expected in cases:
+            with self.subTest(params=params):
+                soup = render_listing(self, self.index, params)
+                self.assertEqual(status_text(soup), expected)
