@@ -7,7 +7,12 @@ from wagtail.models import Site
 from wagtail.test.utils import WagtailPageTestCase
 
 from tbx.core.factories import EventTypeFactory, HomePageFactory
-from tbx.core.listing.tests.test_work_listing import request_for
+from tbx.core.listing.tests.test_work_listing import (
+    SWAP_TARGET_IDS,
+    render_listing,
+    request_for,
+    status_text,
+)
 from tbx.events.factories import EventIndexPageFactory
 
 
@@ -91,3 +96,21 @@ class EventListingFilterTests(WagtailPageTestCase):
         )
         slugs = {option["value"] for option in type_dropdown["options"]}
         self.assertEqual(slugs, {"webinar", "workshop"})
+
+    def test_swap_targets_are_always_rendered(self):
+        for params in ({}, {"type": "webinar"}):
+            with self.subTest(params=params):
+                soup = render_listing(self, self.index, params)
+                for element_id in SWAP_TARGET_IDS:
+                    self.assertIsNotNone(soup.find(id=element_id), element_id)
+
+    def test_status_announces_result_count(self):
+        cases = (
+            ({}, "2 results"),
+            ({"timing": ["past"]}, "1 result"),
+            ({"timing": ["past"], "type": ["workshop"]}, "0 results"),
+        )
+        for params, expected in cases:
+            with self.subTest(params=params):
+                soup = render_listing(self, self.index, params)
+                self.assertEqual(status_text(soup), expected)

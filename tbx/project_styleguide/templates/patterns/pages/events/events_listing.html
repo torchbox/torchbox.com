@@ -7,11 +7,11 @@
         {# Title and Filters #}
         {% include "patterns/molecules/listing-filters/listing-header.html" with item=page %}
         <div class="grid__listing-panel">
-            {% include "patterns/molecules/listing-filters/listing-filters.html" %}
+            {% include "patterns/molecules/listing-filters/listing-filters.html" with result_count=events.paginator.count %}
         </div>
 
         {# Events #}
-        <ul class="page-listing page-listing--events">
+        <ul id="listing-results" class="page-listing page-listing--events">
             {% for event in events %}
                 {% include "patterns/molecules/listing/listing--event.html" with base_class="page-listing__item" end_date=event.end_date end_time=event.end_time link=event.get_button_link listing_image=event.image location=event.location start_date=event.start_date start_time=event.start_time title=event.title type=event.type %}
             {% empty %}
@@ -25,11 +25,11 @@
             {% endfor %}
         </ul>
 
-        {% if events.paginator %}
-            <div class="page-listing__pagination">
+        <div id="listing-pagination" class="page-listing__pagination">
+            {% if events.paginator %}
                 {% include "patterns/molecules/pagination/pagination.html" with extra_url_params=extra_url_params pages=events %}
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
 
         {% include_block page.call_to_action %}
     </div>

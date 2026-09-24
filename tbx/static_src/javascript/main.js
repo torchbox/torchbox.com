@@ -1,3 +1,4 @@
+import htmx from 'htmx.org';
 import PrimaryMobileMenu from './components/primary-mobile-menu';
 import PrimaryMobileSubMenu from './components/primary-mobile-sub-menu';
 import PrimaryDesktopSubMenu from './components/primary-desktop-sub-menu';
@@ -20,6 +21,15 @@ import '../sass/main.scss';
 
 // Third party imports
 import 'lite-youtube-embed/src/lite-yt-embed';
+
+// Components are only initialised on DOMContentLoaded, so restoring HTMX's
+// history snapshot would leave them unbound. Do a full page load on back and
+// forward instead.
+htmx.config.historyCacheSize = 0;
+htmx.config.refreshOnHistoryMiss = true;
+// Keep HTMX working under a strict CSP.
+htmx.config.includeIndicatorStyles = false;
+htmx.config.allowEval = false;
 
 foreachPolyfill();
 closestPolyfill();
