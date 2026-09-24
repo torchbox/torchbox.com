@@ -2,9 +2,9 @@
  * Progressive enhancement for the listing-filter form.
  *
  * The dropdowns work without JavaScript (open/close via <summary>). This adds
- * the two behaviours native <details> can't: closing when you click outside an
- * open dropdown, and closing on Escape (returning focus to its summary). Opening
- * one dropdown also closes any other open one.
+ * the behaviours native <details> can't: closing when you click or tab outside
+ * an open dropdown, and closing on Escape (returning focus to its summary).
+ * Opening one dropdown also closes any other open one.
  *
  * HTMX re-requests the page whenever the form changes (see the hx-* attributes
  * in listing-filters.html), so this also hides the Apply button, and turns the
@@ -43,12 +43,35 @@ class ListingFilters {
                     this.closeAll(dropdown);
                 }
             });
+
+            // relatedTarget is null when focus leaves the page (e.g. switching
+            // windows), or on a click that doesn't focus anything. Clicks are
+            // handled by handleClick.
+            dropdown.addEventListener('focusout', (event) => {
+                if (
+                    event.relatedTarget &&
+                    !dropdown.contains(event.relatedTarget)
+                ) {
+                    dropdown.open = false;
+                }
+            });
         });
 
         document.addEventListener('click', (event) => this.handleClick(event));
         document.addEventListener('keydown', (event) =>
             this.handleKeydown(event),
         );
+
+        // Browsers treat Enter on a checkbox as implicit form submission. HTMX
+        // only listens for change, so that would be a full page load.
+        this.node.addEventListener('keydown', (event) => {
+            if (
+                event.key === 'Enter' &&
+                event.target.matches('input[type="checkbox"]')
+            ) {
+                event.preventDefault();
+            }
+        });
 
         // Delegated, because the pills are replaced on every swap.
         this.node.addEventListener('click', (event) =>

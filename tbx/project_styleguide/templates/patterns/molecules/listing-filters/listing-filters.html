@@ -11,8 +11,8 @@ text of #listing-status. The dropdowns are never swapped, so their
 options must not depend on the current selection.
 
 The listing-filters JS component hides the Apply button, handles pill removal
-and "Clear all" without a page reload, and adds outside-click/Escape closing
-for the dropdowns.
+and "Clear all" without a page reload, adds outside-click/tab-away/Escape
+closing for the dropdowns, and stops Enter on a checkbox submitting the form.
 
 The listing filter Jest test will need updating if the dropdown HTML changes,
 see tbx/static_src/javascript/components/listing-filters.test.js

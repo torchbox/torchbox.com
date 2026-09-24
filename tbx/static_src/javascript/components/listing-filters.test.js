@@ -56,6 +56,62 @@ describe('ListingFilters', () => {
         expect(first.open).toBe(false);
         expect(second.open).toBe(true);
     });
+
+    it('closes a dropdown when focus moves outside it', () => {
+        const dropdown = document.getElementById('d1');
+        dropdown.open = true;
+
+        dropdown.querySelector('input').dispatchEvent(
+            new FocusEvent('focusout', {
+                bubbles: true,
+                relatedTarget: document.getElementById('outside'),
+            }),
+        );
+
+        expect(dropdown.open).toBe(false);
+    });
+
+    it('keeps a dropdown open when focus moves within it', () => {
+        const dropdown = document.getElementById('d1');
+        dropdown.open = true;
+
+        dropdown.querySelector('input').dispatchEvent(
+            new FocusEvent('focusout', {
+                bubbles: true,
+                relatedTarget: dropdown.querySelector('summary'),
+            }),
+        );
+
+        expect(dropdown.open).toBe(true);
+    });
+
+    it('keeps a dropdown open when focus leaves the page', () => {
+        const dropdown = document.getElementById('d1');
+        dropdown.open = true;
+
+        dropdown
+            .querySelector('input')
+            .dispatchEvent(
+                new FocusEvent('focusout', {
+                    bubbles: true,
+                    relatedTarget: null,
+                }),
+            );
+
+        expect(dropdown.open).toBe(true);
+    });
+
+    it('stops Enter on a checkbox from submitting the form', () => {
+        const event = new KeyboardEvent('keydown', {
+            key: 'Enter',
+            bubbles: true,
+            cancelable: true,
+        });
+
+        document.querySelector('#d1 input').dispatchEvent(event);
+
+        expect(event.defaultPrevented).toBe(true);
+    });
 });
 
 describe('ListingFilters with HTMX', () => {
