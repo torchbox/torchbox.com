@@ -89,14 +89,12 @@ describe('ListingFilters', () => {
         const dropdown = document.getElementById('d1');
         dropdown.open = true;
 
-        dropdown
-            .querySelector('input')
-            .dispatchEvent(
-                new FocusEvent('focusout', {
-                    bubbles: true,
-                    relatedTarget: null,
-                }),
-            );
+        dropdown.querySelector('input').dispatchEvent(
+            new FocusEvent('focusout', {
+                bubbles: true,
+                relatedTarget: null,
+            }),
+        );
 
         expect(dropdown.open).toBe(true);
     });
