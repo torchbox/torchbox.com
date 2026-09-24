@@ -123,3 +123,8 @@ class BlogListingMarkupTests(WagtailPageTestCase):
             [("sector", "charity"), ("service", "design")],
         )
         self.assertIsNotNone(soup.select_one("[data-listing-filters-clear]"))
+
+    def test_filter_requests_go_back_to_the_first_page(self):
+        soup = render_listing(self, self.index, {"sector": "charity", "page": "2"})
+        form = soup.select_one("[data-listing-filters]")
+        self.assertEqual(form["hx-get"], self.index.url)

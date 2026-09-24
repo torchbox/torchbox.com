@@ -17,7 +17,19 @@ for the dropdowns.
 The listing filter Jest test will need updating if the dropdown HTML changes,
 see tbx/static_src/javascript/components/listing-filters.test.js
 {% endcomment %}
-<form method="get" class="listing-filters" data-listing-filters>
+<form
+    method="get"
+    class="listing-filters"
+    data-listing-filters
+    hx-get="{{ request.path }}"
+    hx-trigger="change"
+    hx-target="#listing-results"
+    hx-select="#listing-results"
+    hx-swap="outerHTML"
+    hx-select-oob="#listing-pagination,#listing-active-filters,#listing-status:innerHTML"
+    hx-push-url="true"
+    hx-sync="this:replace"
+>
     <div class="listing-filters__group">
         {% for dropdown in filter_dropdowns %}
             {% if dropdown.options %}
