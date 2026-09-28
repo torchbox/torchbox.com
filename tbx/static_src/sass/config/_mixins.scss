@@ -424,7 +424,13 @@
     }
 }
 
-@mixin high-contrast-text-decoration() {
+// Underlines links in forced colors mode.
+// Pass $remove-underline: true to hide the underline the rest of the time.
+@mixin high-contrast-text-decoration($remove-underline: false) {
+    @if $remove-underline {
+        text-decoration: none;
+    }
+
     @include high-contrast-mode() {
         text-decoration: underline;
         text-decoration-thickness: $link-underline-thickness;

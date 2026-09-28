@@ -130,6 +130,7 @@ Styles for primary navigation dropdown panels at desktop
     }
 
     &__row-link {
+        @include high-contrast-text-decoration($remove-underline: true);
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -137,7 +138,6 @@ Styles for primary navigation dropdown panels at desktop
         width: 100%;
         padding: $spacer-mini;
         border-radius: 4px;
-        text-decoration: none;
         color: inherit;
         transition:
             background-color $transition,
@@ -275,9 +275,9 @@ Styles for primary navigation dropdown panels at desktop
     }
 
     &__card-link {
+        @include high-contrast-text-decoration($remove-underline: true);
         display: block;
         padding: $spacer-mini;
-        text-decoration: none;
         color: inherit;
 
         &:focus-visible {
