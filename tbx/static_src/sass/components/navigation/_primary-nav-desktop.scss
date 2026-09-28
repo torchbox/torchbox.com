@@ -60,7 +60,7 @@ Styles for the primary navigation at desktop (top level)
     }
 
     &__link {
-        @include high-contrast-text-decoration();
+        @include high-contrast-text-decoration($remove-underline: true);
         position: relative;
         display: inline-flex;
         align-items: center;
@@ -72,7 +72,6 @@ Styles for the primary navigation at desktop (top level)
         font: inherit;
         font-weight: $weight--semibold;
         cursor: pointer;
-        text-decoration: none;
 
         @include media-query(menu) {
             height: 100%;
