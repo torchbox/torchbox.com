@@ -136,7 +136,6 @@ Styles for primary navigation dropdown panels at desktop
         gap: $spacer-mini;
         width: 100%;
         padding: $spacer-mini;
-        border-left: 3px solid transparent;
         border-radius: 4px;
         text-decoration: none;
         color: inherit;
@@ -185,24 +184,38 @@ Styles for primary navigation dropdown panels at desktop
     }
 
     &__row-item {
-        &--theme-coral #{$root}__row-link {
-            border-left-color: var(--color--coral);
+        &--show-accent-colour #{$root}__row-link {
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -1.5px;
+                bottom: 0;
+                width: 3px;
+                border-radius: 1.5px;
+            }
         }
 
-        &--theme-nebuline #{$root}__row-link {
-            border-left-color: var(--color--nebuline);
+        &--theme-coral #{$root}__row-link::before {
+            background-color: var(--color--coral);
         }
 
-        &--theme-lagoon #{$root}__row-link {
-            border-left-color: var(--color--lagoon);
+        &--theme-nebuline #{$root}__row-link::before {
+            background-color: var(--color--nebuline);
         }
 
-        &--theme-green #{$root}__row-link {
-            border-left-color: var(--color--green);
+        &--theme-lagoon #{$root}__row-link::before {
+            background-color: var(--color--lagoon);
         }
 
-        &--theme-earth #{$root}__row-link {
-            border-left-color: var(--color--earth);
+        &--theme-green #{$root}__row-link::before {
+            background-color: var(--color--green);
+        }
+
+        &--theme-earth #{$root}__row-link::before {
+            background-color: var(--color--earth);
         }
     }
 
