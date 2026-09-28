@@ -106,9 +106,9 @@ class EventListingFilterTests(WagtailPageTestCase):
 
     def test_status_announces_result_count(self):
         cases = (
-            ({}, "2 results"),
-            ({"timing": ["past"]}, "1 result"),
-            ({"timing": ["past"], "type": ["workshop"]}, "0 results"),
+            ({}, "2 results loaded"),
+            ({"timing": ["past"]}, "1 result loaded"),
+            ({"timing": ["past"], "type": ["workshop"]}, "0 results loaded"),
         )
         for params, expected in cases:
             with self.subTest(params=params):

@@ -169,6 +169,7 @@ describe('ListingFilters with HTMX', () => {
                         ['service', 'design'],
                     ])}
                 </div>
+                <p id="listing-status" role="status">3 results loaded</p>
             </form>
             <ul id="listing-results"></ul>
         `;

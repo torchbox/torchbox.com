@@ -171,9 +171,9 @@ class WorkListingMarkupTests(WagtailPageTestCase):
 
     def test_status_announces_result_count(self):
         cases = (
-            ({}, "3 results"),
-            ({"sector": "charity"}, "2 results"),
-            ({"sector": "health"}, "1 result"),
+            ({}, "3 results loaded"),
+            ({"sector": "charity"}, "2 results loaded"),
+            ({"sector": "health"}, "1 result loaded"),
         )
         for params, expected in cases:
             with self.subTest(params=params):

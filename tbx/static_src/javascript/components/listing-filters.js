@@ -97,6 +97,9 @@ class ListingFilters {
             if (results) {
                 results.setAttribute('aria-busy', 'true');
             }
+            // Emptied so the swapped-in count is always a change, and gets
+            // announced even when it's the same as before.
+            this.setStatus('');
         });
         this.node.addEventListener('htmx:afterRequest', () => {
             const results = document.getElementById('listing-results');
@@ -104,6 +107,13 @@ class ListingFilters {
                 results.removeAttribute('aria-busy');
             }
         });
+    }
+
+    setStatus(text) {
+        const status = this.node.querySelector('#listing-status');
+        if (status) {
+            status.textContent = text;
+        }
     }
 
     closeAll(except) {
