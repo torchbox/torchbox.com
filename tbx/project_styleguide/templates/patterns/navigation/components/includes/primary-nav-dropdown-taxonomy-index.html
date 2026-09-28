@@ -12,7 +12,7 @@
                     {% endif %}
                     <ul class="primary-nav-dropdown__row-list">
                         {% for child in dropdown.main_items %}
-                            <li class="primary-nav-dropdown__row-item{% if child.accent_colour %} primary-nav-dropdown__row-item--{{ child.accent_colour }}{% endif %}">
+                            <li class="primary-nav-dropdown__row-item{% if child.accent_colour %} primary-nav-dropdown__row-item--show-accent-colour primary-nav-dropdown__row-item--{{ child.accent_colour }}{% endif %}">
                                 <a href="{{ child.url }}" class="primary-nav-dropdown__row-link">
                                     <span class="primary-nav-dropdown__row-body">
                                         <span class="primary-nav-dropdown__row-title">{{ child.text }}</span>
