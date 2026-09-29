@@ -154,6 +154,10 @@
         padding: 6px $spacer-mini-plus;
         cursor: pointer;
         border-radius: 999px;
+
+        &--hidden {
+            display: none;
+        }
     }
 
     &__active {

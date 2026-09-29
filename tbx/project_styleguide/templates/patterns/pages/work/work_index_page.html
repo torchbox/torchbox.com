@@ -5,9 +5,9 @@
     <div class="grid grid--spacer-large">
         {% include "patterns/molecules/listing-filters/listing-header.html" with item=page %}
         <div class="grid__listing-panel">
-            {% include "patterns/molecules/listing-filters/listing-filters.html" %}
+            {% include "patterns/molecules/listing-filters/listing-filters.html" with result_count=works.paginator.count %}
         </div>
-        <ul class="page-listing page-listing--work">
+        <ul id="listing-results" class="page-listing page-listing--work">
             {% for post in works %}
                 {% include "patterns/molecules/listing/listing--image.html" with title=post.title name=post.client link=post.url date=post.date reading_time=post.read_time tags=post.tags listing_image=post.listing_image tag_link_base="." tags_screenreader_text="See more work posts in this category" base_class="page-listing__item" %}
             {% empty %}
@@ -21,7 +21,7 @@
             {% endfor %}
         </ul>
 
-        <div class="page-listing__pagination">
+        <div id="listing-pagination" class="page-listing__pagination">
             {% include "patterns/molecules/pagination/pagination.html" with pages=works extra_url_params=extra_url_params %}
         </div>
     </div>

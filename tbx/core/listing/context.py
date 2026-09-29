@@ -48,6 +48,8 @@ def _build_active_filters(base_url, form, dropdowns):
             pills.append(
                 {
                     "label": value_labels.get(value, value),
+                    "param": param,
+                    "value": value,
                     "remove_url": f"{base_url}?{query}" if query else base_url,
                 }
             )

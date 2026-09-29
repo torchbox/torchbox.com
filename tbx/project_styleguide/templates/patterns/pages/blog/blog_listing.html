@@ -5,10 +5,10 @@
     <div class="grid grid--spacer-large">
         {% include "patterns/molecules/listing-filters/listing-header.html" with item=page %}
         <div class="grid__listing-panel">
-            {% include "patterns/molecules/listing-filters/listing-filters.html" %}
+            {% include "patterns/molecules/listing-filters/listing-filters.html" with result_count=blog_posts.paginator.count %}
         </div>
 
-        <ul class="page-listing page-listing--blog">
+        <ul id="listing-results" class="page-listing page-listing--blog">
             {% for post in blog_posts %}
                 {% pageurl post as link %}
                 {% include "patterns/molecules/listing/listing--avatar.html" with link=link avatar=post.first_author.image title=post.title name=post.first_author.name job_title=post.first_author.role date=post.date reading_time=post.read_time tags=post.tags tag_link_base=blog_index_url base_class="page-listing__item" %}
@@ -23,7 +23,7 @@
             {% endfor %}
         </ul>
 
-        <div class="page-listing__pagination">
+        <div id="listing-pagination" class="page-listing__pagination">
             {% include "patterns/molecules/pagination/pagination.html" with pages=blog_posts extra_url_params=extra_url_params %}
         </div>
     </div>
