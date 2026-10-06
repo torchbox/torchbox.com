@@ -6,7 +6,7 @@ Add your changes to the Unreleased section and move them to the appropriate sect
 
 ## Unreleased
 
-- [TWE-730](https://torchbox.atlassian.net/browse/TWE-730) - Django 5.2.18 security update
+- [TWE-730](https://torchbox.atlassian.net/browse/TWE-730) - Django 5.2.18 security update and dependency CVE fixes
 
 ## 2026-05-21
 
