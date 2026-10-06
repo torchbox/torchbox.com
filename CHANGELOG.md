@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. This projec
 
 Add your changes to the Unreleased section and move them to the appropriate section when they are merged.
 
+## Unreleased
+
+- [TWE-730](https://torchbox.atlassian.net/browse/TWE-730) - Django 5.2.18 security update
+
 ## 2026-05-21
 
 - [TWE-711](https://torchbox.atlassian.net/browse/TWE-711) - Fix RelatedBlog error edge case

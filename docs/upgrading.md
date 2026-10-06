@@ -87,3 +87,23 @@ As much as possible, we want to use the official releases available on PyPI for 
 **Last checked** Wagtail 7.3 upgrade
 
 Add references to any custom templates that override the Wagtail admin templates. These should be checked to ensure they still work as expected after the upgrade.
+
+## Node dependency holds
+
+### typescript
+
+**Last checked** Wagtail 8.0 upgrade
+
+- Held at `^6.0.3`. `ts-jest` (latest 29.4.12) declares a peer range of `typescript >=4.3 <7`, so TypeScript 7 fails to install.
+- Lift when a `ts-jest` release supports TypeScript 7.
+
+### eslint and eslint-webpack-plugin
+
+**Last checked** Wagtail 8.0 upgrade
+
+- Held at `^8.57.1` and `^5.0.3`, the range `eslint-config-torchbox@^1.1.0` supports. No flat-config (ESLint v9) release of that package exists yet.
+- This is the fleet-wide ESLint v8 ceiling applied by the Node bump tooling. It lifts via the ESLint to Biome migration, not per project. See the [ESLint v9 migration guide](https://eslint.org/docs/latest/use/migrate-to-9.0.0).
+
+## Security
+
+Last security review: 2026-09-01

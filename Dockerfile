@@ -6,7 +6,7 @@ ARG CI=true
 WORKDIR /app
 
 # Install front-end dependencies.
-COPY package.json package-lock.json tsconfig.json webpack.config.js tailwind.config.js  ./
+COPY package.json package-lock.json tsconfig.json webpack.config.js ./
 RUN npm ci --no-audit --progress=false
 
 FROM frontend-deps AS frontend

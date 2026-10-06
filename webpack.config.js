@@ -7,6 +7,35 @@ const StylelintPlugin = require('stylelint-webpack-plugin');
 
 const projectRoot = 'tbx';
 
+// Shared by the SCSS and plain-CSS rules below.
+const styleLoaders = [
+    {
+        loader: MiniCssExtractPlugin.loader,
+        options: {
+            esModule: false,
+        },
+    },
+    {
+        loader: 'css-loader',
+        options: {
+            sourceMap: true,
+        },
+    },
+    {
+        loader: 'postcss-loader',
+        options: {
+            sourceMap: true,
+            postcssOptions: {
+                plugins: [
+                    '@tailwindcss/postcss',
+                    'postcss-custom-properties',
+                    ['cssnano', { preset: 'default' }],
+                ],
+            },
+        },
+    },
+];
+
 const options = {
     entry: {
         // multiple entries can be added here
@@ -67,33 +96,9 @@ const options = {
                 },
             },
             {
-                test: /\.(scss|css)$/,
+                test: /\.scss$/,
                 use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            esModule: false,
-                        },
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true,
-                        },
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            sourceMap: true,
-                            postcssOptions: {
-                                plugins: [
-                                    '@tailwindcss/postcss',
-                                    'postcss-custom-properties',
-                                    ['cssnano', { preset: 'default' }],
-                                ],
-                            },
-                        },
-                    },
+                    ...styleLoaders,
                     {
                         loader: 'sass-loader',
                         options: {
@@ -102,6 +107,13 @@ const options = {
                         },
                     },
                 ],
+            },
+            {
+                // Plain CSS (the Tailwind entry) must not go through Sass:
+                // Dart Sass can't parse Tailwind v4 syntax such as
+                // `--color-*: initial` inside @theme.
+                test: /\.css$/,
+                use: styleLoaders,
             },
             {
                 // Copies font files referenced by CSS/JS to the fonts

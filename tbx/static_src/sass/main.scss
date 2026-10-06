@@ -2,7 +2,7 @@
 
 // Tailwind directives live in css/tailwind.css (a pure CSS file, not SCSS).
 // Dart Sass hoists CSS @import to the top of the output, which would separate
-// @import 'tailwindcss' from the adjacent @config/@source directives that must
+// @import 'tailwindcss' from the adjacent @theme/@source directives that must
 // follow it — causing @tailwindcss/postcss to skip utility generation.
 
 // Base

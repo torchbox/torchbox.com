@@ -4,7 +4,6 @@
 
 // Commented out rules are in the default config but deliberately disabled in ours
 module.exports = {
-    js2svg: { useShortTags: false }, // add closing tags for ie11
     plugins: [
         'removeDoctype',
         'removeXMLProcInst',

@@ -1,9 +1,52 @@
-/* Tailwind 4 directives — kept in a pure CSS file so that Dart Sass cannot
-   hoist the @import away from the adjacent @config directive (which would
-   prevent @tailwindcss/postcss from associating them and generating utilities).
-   Auto-detection scans from WORKDIR /app (set in Dockerfile). */
-@import 'tailwindcss';
-@config '../../../tailwind.config.js';
+/* Tailwind 4 entry. Kept as plain CSS (not in main.scss) because Dart Sass
+   hoists @import to the top of its output, separating it from the directives
+   below and stopping @tailwindcss/postcss generating utilities.
+
+   source(none) disables filesystem auto-detection; the @source globs below
+   are the explicit content paths (relative to this file). */
+@import 'tailwindcss' source(none);
+@source '../../**/*.{py,html}';
+@source '../**/*.{js,ts,tsx,vue}';
+
+@theme {
+    /* Replaces Tailwind's default colour palette entirely. */
+    --color-*: initial;
+    --color-primary: #444;
+    --color-white: #fff;
+    --color-black: #000;
+    --color-offBlack: #141414;
+    --color-red: #f00;
+    --color-background: var(--color--background);
+    --color-heading: var(--color--heading);
+    --color-themePrimary: var(--color--theme-primary);
+
+    /* Replaces Tailwind's default breakpoints entirely.
+       Any changes here will also need to be made in _variables.scss */
+    --breakpoint-*: initial;
+    --breakpoint-sm: 410px;
+    --breakpoint-md: 599px;
+    --breakpoint-lg: 1023px;
+    --breakpoint-xlg: 1280px;
+    --breakpoint-xxlg: 1800px;
+
+    /* Extends the default spacing scale.
+       Any changes here will also need to be made in _variables.scss */
+    --spacing-spacerMini: 15px;
+    --spacing-spacerMiniPlus: 20px;
+    --spacing-spacerSmall: 30px;
+    --spacing-spacerSmallPlus: 40px;
+    --spacing-spacerMedium: 60px;
+    --spacing-spacerMediumPlus: 100px;
+    --spacing-spacerLarge: 120px;
+    --spacing-spacer: 160px;
+    --spacing-spacerHalf: 80px;
+    --spacing-spacerXLarge: 240px;
+    --spacing-spacerMassive: 360px;
+}
+
+/* forced-colors media query for Windows High-Contrast mode support
+   See: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors */
+@custom-variant forced-colors (@media (forced-colors: active));
 
 @utility container {
     margin-inline: auto;
