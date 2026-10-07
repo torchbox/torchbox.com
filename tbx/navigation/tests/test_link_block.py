@@ -117,7 +117,18 @@ class TestPrimaryNavLinkBlock(TestCase):
         link_block = PrimaryNavLinkBlock()
         self.assertEqual(
             list(link_block.child_blocks.keys()),
-            ["page", "external_link", "title", "child_display_behaviour"],
+            [
+                "page",
+                "external_link",
+                "title",
+                "dropdown_style",
+                "content_source",
+                "main_heading",
+                "supporting_heading",
+                "main_links",
+                "supporting_links",
+                "page_children_depth",
+            ],
         )
         default_value = link_block.get_default()
         self.assertIsInstance(default_value, LinkBlockStructValue)

@@ -26,8 +26,8 @@
             flex-basis: calc(50% - #{$spacer-mini-plus} * 0.5);
         }
 
-        @include media-query(large) {
-            flex-basis: calc(33.33% - ($spacer-mini-plus * 2 / 3));
+        @include media-query(xx-large) {
+            flex-basis: calc(25% - ($spacer-mini-plus * 0.75));
         }
 
         @include high-contrast-mode() {
@@ -52,6 +52,13 @@
             @include card-hover-style(
                 var(--color--lagoon),
                 var(--color--lagoon-dark)
+            );
+        }
+
+        &--theme-green {
+            @include card-hover-style(
+                var(--color--green),
+                var(--color--green-dark)
             );
         }
     }

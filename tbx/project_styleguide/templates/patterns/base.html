@@ -47,7 +47,7 @@
 
         {# Load the division page js/css in the pattern library #}
         {% if pattern_library_rendered_pattern %}
-            <link rel="stylesheet" type="text/css" href="{% static 'css/division-page.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'css/sector-pages.css' %}">
         {% endif %}
 
         {% block extra_css %}{% endblock %}
@@ -70,6 +70,8 @@
             {% endblock %}
         </main>
 
+        <div class="primary-nav-dropdown-backdrop" data-primary-nav-dropdown-backdrop aria-hidden="true"></div>
+
         {% block footer %}{% endblock %}
 
         <script>
@@ -84,7 +86,7 @@
 
         {# Load the division page js/css in the pattern library #}
         {% if pattern_library_rendered_pattern %}
-            <script src="{% static 'js/division-page.js' %}"></script>
+            <script src="{% static 'js/sector-pages.js' %}"></script>
         {% endif %}
 
         {% tota11y %}

@@ -178,6 +178,26 @@
     }
 }
 
+@mixin link-underline-interaction(
+    $underline-color: var(--color--link-underline)
+) {
+    text-decoration: underline;
+    text-decoration-thickness: $link-underline-thickness-interaction;
+    text-underline-offset: 2px;
+    text-decoration-color: $underline-color;
+}
+
+@mixin list-item-hover-bg(
+    $bg: rgb(255 255 255 / 0.08),
+    $bg-light: var(--color--grey-5)
+) {
+    background-color: $bg;
+
+    .mode-light & {
+        background-color: $bg-light;
+    }
+}
+
 /* ============================================
     Arrow icon styles - Translates on hover
 */
@@ -404,7 +424,13 @@
     }
 }
 
-@mixin high-contrast-text-decoration() {
+// Underlines links in forced colors mode.
+// Pass $remove-underline: true to hide the underline the rest of the time.
+@mixin high-contrast-text-decoration($remove-underline: false) {
+    @if $remove-underline {
+        text-decoration: none;
+    }
+
     @include high-contrast-mode() {
         text-decoration: underline;
         text-decoration-thickness: $link-underline-thickness;

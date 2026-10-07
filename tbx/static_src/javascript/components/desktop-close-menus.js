@@ -1,71 +1,102 @@
-// Adds "close" functionality for all DesktopSubMenus at once.
+// Adds "close" functionality for all desktop sub-menus at once.
 // It's a separate class because it captures events outside those components.
 
-import DesktopSubMenu from './desktop-sub-menu';
+import PrimaryDesktopSubMenu from './primary-desktop-sub-menu';
+import PrimaryMobileMenu from './primary-mobile-menu';
 
 class DesktopCloseMenus {
     constructor() {
-        this.desktopSubMenus = document.querySelectorAll(
-            DesktopSubMenu.selector(),
+        this.primaryDesktopSubMenus = document.querySelectorAll(
+            PrimaryDesktopSubMenu.selector(),
         );
         this.allPrimaryNavs = document.querySelectorAll(
-            '[data-desktop-menu] [data-secondary-nav]',
+            '[data-primary-desktop-menu] .primary-nav-desktop__list',
         );
-        this.mobileNav = document.querySelector('[data-mobile-menu]');
-        this.mobileNavToggle = document.querySelector(
-            '[data-mobile-menu-toggle]',
+        this.primaryMobileNav = document.querySelector(
+            PrimaryMobileMenu.menuSelector(),
         );
         this.body = document.querySelector('body');
+        this.openBodyClass = 'primary-nav-dropdown-open';
+        this.backdrop = document.querySelector(
+            '[data-primary-nav-dropdown-backdrop]',
+        );
         this.bindEvents();
+    }
+
+    closeDesktopMenus() {
+        this.primaryDesktopSubMenus.forEach((item) => {
+            item.closest('[data-has-subnav]').classList.remove('active');
+            item.setAttribute('aria-expanded', 'false');
+        });
+
+        this.body.classList.remove('no-scroll');
+        this.body.classList.remove(this.openBodyClass);
+
+        if (this.backdrop) {
+            this.backdrop.setAttribute('aria-hidden', 'true');
+        }
+    }
+
+    isOutsideNav(target) {
+        if (!target) {
+            return true;
+        }
+
+        let outside = true;
+
+        this.allPrimaryNavs.forEach((item) => {
+            if (item.contains(target)) {
+                outside = false;
+            }
+        });
+
+        if (
+            this.primaryMobileNav &&
+            this.primaryMobileNav.classList.contains('is-visible')
+        ) {
+            outside = false;
+        }
+
+        return outside;
     }
 
     // Close desktop menus when clicking on document
     closeMenus(e) {
-        let close = true;
-
-        this.allPrimaryNavs.forEach((item) => {
-            if (item.contains(e.target)) {
-                // don't close the menus if we are clicking anywhere on the primary navigation
-                close = false;
-            }
-        });
-
-        if (this.mobileNav.classList.contains('is-visible')) {
-            // don't close the menus (or allow the page to scroll) if we are opening the mobile menu or clicking on it
-            close = false;
+        if (this.isOutsideNav(e.target)) {
+            this.closeDesktopMenus();
         }
+    }
 
-        if (close) {
-            this.desktopSubMenus.forEach((item) => {
-                item.closest('[data-has-subnav]').classList.remove('active');
-                item.setAttribute('aria-expanded', 'false');
-                this.body.classList.remove('no-scroll');
-            });
+    // Close desktop menus when focus (eg. via Tab) moves outside them
+    closeMenusOnFocusOut(e) {
+        if (this.isOutsideNav(e.relatedTarget)) {
+            this.closeDesktopMenus();
         }
     }
 
     bindEvents() {
-        if (this.desktopSubMenus && this.desktopSubMenus.length !== 0) {
-            document.addEventListener('touchstart', (e) => {
-                this.closeMenus(e);
-            });
-
-            document.addEventListener('click', (e) => {
-                this.closeMenus(e);
-            });
-
-            // Close desktop menu with escape key for improved accessibility
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape') {
-                    this.desktopSubMenus.forEach((item) => {
-                        item.closest('[data-has-subnav]').classList.remove(
-                            'active',
-                        );
-                        item.setAttribute('aria-expanded', 'false');
-                    });
-                }
-            });
+        if (
+            !this.primaryDesktopSubMenus ||
+            this.primaryDesktopSubMenus.length === 0
+        ) {
+            return;
         }
+
+        document.addEventListener('click', (e) => {
+            this.closeMenus(e);
+        });
+
+        this.allPrimaryNavs.forEach((nav) => {
+            nav.addEventListener('focusout', (e) => {
+                this.closeMenusOnFocusOut(e);
+            });
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                this.closeDesktopMenus();
+            }
+        });
     }
 }
 

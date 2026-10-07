@@ -7,5 +7,7 @@ context:
   tags:
     - name: Innovation
       slug: innovation
+      filter_param: sector
     - name: Culture
       slug: culture
+      filter_param: service

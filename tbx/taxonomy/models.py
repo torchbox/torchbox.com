@@ -30,12 +30,18 @@ class Service(BaseTaxonomy):
     This will be assigned to blog posts and work articles, and users will be able to filter by service
     """
 
+    # The query parameter name used when filtering results by this taxonomy.
+    # E.g. `/thinking/?service=design`
+    filter_param = "service"
+
 
 class Sector(BaseTaxonomy):
     """Represents a sector that Torchbox works in
 
     This will be assigned to blog posts and work articles, and users will be able to filter by sector
     """
+
+    filter_param = "sector"
 
 
 class Team(BaseTaxonomy):

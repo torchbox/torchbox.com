@@ -1,7 +1,3 @@
 {% if text %}
-    {% if filter_by %}
-        <a class="button{% if classes %} {{ classes }}{% endif %}" href="{{ link|add:'?filter='|add:filter_by }}">{{ text }}</a>
-    {% else %}
-        <a class="button{% if classes %} {{ classes }}{% endif %}" href="{{ link }}">{{ text }}</a>
-    {% endif %}
+    <a class="button{% if classes %} {{ classes }}{% endif %}" href="{{ link }}">{{ text }}</a>
 {% endif %}

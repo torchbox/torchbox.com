@@ -1,29 +1,117 @@
 context:
-  primarynav:
+  nav_items:
     - item:
-      value:
-        text: Services
-        external_url: '#'
-    - item:
-      value:
         text: Sectors
-        external_url: '#'
+        url: '#'
+        page_id: null
+        style: teaser_grid
+        main_heading: Sectors we support
+        supporting_heading: ''
+        main_items:
+          - text: Charities
+            url: '#'
+            description: Growing income, extending reach, and expanding real-world impact for non-profits.
+            tags: Health charities · International development · Human rights
+            accent_colour: theme-coral
+          - text: Health
+            url: '#'
+            description: Improving patient outcomes and supporting care delivery with accessible health services.
+            tags: ''
+            accent_colour: theme-lagoon
+        supporting_items: []
+      is_current: false
     - item:
-      value:
-        text: About
-        external_url: '#'
+        text: Services
+        url: '#'
+        page_id: null
+        style: mixed_list
+        main_heading: Core services
+        supporting_heading: Quick-start engagements
+        main_items:
+          - text: Websites & platforms
+            url: '#'
+            description: ''
+            tags: ''
+            accent_colour: ''
+          - text: Research & design
+            url: '#'
+            description: ''
+            tags: ''
+            accent_colour: ''
+        supporting_items:
+          - text: Website audit
+            url: '#'
+            description: Performance, accessibility, SEO and content reviewed in full.
+            tags: ''
+            accent_colour: ''
+      is_current: false
     - item:
-      value:
-        text: Thinking
-        external_link: '#'
-    - item:
-      value:
         text: Work
-        external_link: '#'
-
-tags:
-  pageurl:
-    'link.url':
-      raw: '#'
-    link:
-      raw: '#'
+        url: '#'
+        page_id: null
+        style: taxonomy_index
+        main_heading: By sector
+        supporting_heading: By service
+        main_items:
+          - text: Charities
+            url: '#'
+            description: ''
+            tags: Health charities · International development · Human rights
+            accent_colour: theme-coral
+        supporting_items:
+          - text: Websites & platforms
+            url: '#'
+            description: ''
+            tags: ''
+            accent_colour: ''
+      is_current: false
+    - item:
+        text: Thinking
+        url: '#'
+        page_id: null
+        style: mixed_list
+        main_heading: Thinking
+        supporting_heading: Latest insights
+        main_items:
+          - text: News
+            url: '#'
+            description: The latest updates and company announcements from Torchbox.
+            tags: ''
+            accent_colour: ''
+          - text: Insights
+            url: '#'
+            description: In-depth perspectives, deep dives, and expert tutorials.
+            tags: ''
+            accent_colour: ''
+        supporting_items:
+          - text: EEAT for Charities
+            url: '#'
+            description: How non-profits can demonstrate search credibility and authority.
+            tags: ''
+            accent_colour: ''
+      is_current: false
+    - item:
+        text: About
+        url: '#'
+        page_id: null
+        style: mixed_list
+        main_heading: About us
+        supporting_heading: ''
+        main_items:
+          - text: Careers
+            url: '#'
+            description: Join our employee-owned agency and do work that matters.
+            tags: ''
+            accent_colour: ''
+          - text: Team
+            url: '#'
+            description: Meet the designers, engineers, and strategists at Torchbox.
+            tags: ''
+            accent_colour: ''
+        supporting_items:
+          - text: 100% Employee owned
+            url: '#'
+            description: We are proudly employee-owned, putting our clients and values first.
+            tags: ''
+            accent_colour: ''
+      is_current: false

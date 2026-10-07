@@ -3,6 +3,8 @@ name: CI
 on:
   push:
     paths-ignore: ['docs/**']
+  pull_request:
+    paths-ignore: ['docs/**']
 
 jobs:
   lint:
@@ -65,7 +67,7 @@ jobs:
           name: static
           path: tbx/static_compiled/
   test_python:
-    needs: lint
+    needs: [lint, compile_static]
     runs-on: ubuntu-latest
 
     env:

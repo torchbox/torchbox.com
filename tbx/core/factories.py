@@ -1,3 +1,5 @@
+from django.utils.text import slugify
+
 from wagtail import blocks
 
 import factory
@@ -5,10 +7,19 @@ from faker import Faker
 import wagtail_factories
 
 from tbx.core.blocks import DynamicHeroBlock, StoryBlock
-from tbx.core.models import HomePage, StandardPage
+from tbx.core.models import EventType, HomePage, StandardPage
 
 
 fake = Faker()
+
+
+class EventTypeFactory(factory.django.DjangoModelFactory):
+    name = factory.Faker("text", max_nb_chars=20)
+    slug = factory.LazyAttribute(lambda o: slugify(o.name))
+
+    class Meta:
+        model = EventType
+        django_get_or_create = ("slug",)
 
 
 class DynamicHeroBlockFactory(wagtail_factories.StructBlockFactory):

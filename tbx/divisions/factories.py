@@ -26,6 +26,8 @@ class DivisionPageFactory(wagtail_factories.PageFactory):
 
     title = "Charity"
     logo = DivisionPage.Logo.CHARITY
+    sector = None
+    service = None
 
     @factory.post_generation
     def hero(obj, create, extracted, **kwargs):

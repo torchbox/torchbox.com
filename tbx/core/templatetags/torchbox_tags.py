@@ -2,7 +2,6 @@ from django import template
 from django.conf import settings
 
 from tbx.blog.models import BlogPage
-from tbx.core.models import MainMenu
 
 
 register = template.Library()
@@ -69,11 +68,6 @@ def get_site_root(context):
 @register.filter
 def content_type(value):
     return value.__class__.__name__.lower()
-
-
-@register.simple_tag
-def main_menu():
-    return MainMenu.objects.first()
 
 
 # Format times e.g. on event page

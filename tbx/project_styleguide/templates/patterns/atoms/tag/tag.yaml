@@ -2,3 +2,4 @@ context:
   tag_name: tag
   tag_slug: 'tag'
   tag_link_base: '#'
+  tag_filter_param: 'sector'

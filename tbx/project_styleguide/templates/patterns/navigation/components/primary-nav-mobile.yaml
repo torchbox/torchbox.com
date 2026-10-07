@@ -1,28 +1,67 @@
 context:
-  children: True
-  primarynav:
+  nav_items:
     - item:
-      value:
-        text: Services
-        url: '#'
-    - item:
-      value:
         text: Sectors
         url: '#'
+        page_id: null
+        style: teaser_grid
+        main_heading: Sectors we support
+        supporting_heading: ''
+        main_items:
+          - text: Charities
+            url: '#'
+            description: Growing income, extending reach, and expanding real-world impact for non-profits.
+            tags: ''
+            accent_colour: theme-coral
+        supporting_items: []
+      is_current: false
     - item:
-      value:
-        text: About
+        text: Services
         url: '#'
+        page_id: null
+        style: mixed_list
+        main_heading: Core services
+        supporting_heading: Quick-start engagements
+        main_items:
+          - text: Websites & platforms
+            url: '#'
+            description: ''
+            tags: ''
+            accent_colour: ''
+        supporting_items:
+          - text: Website audit
+            url: '#'
+            description: Performance, accessibility, SEO and content reviewed in full.
+            tags: ''
+            accent_colour: ''
+      is_current: false
     - item:
-      value:
-        text: Thinking
-        url: '#'
-    - item:
-      value:
         text: Work
         url: '#'
-
-tags:
-  pageurl:
-    'link.url':
-      raw: '#'
+        page_id: null
+        style: none
+        main_heading: ''
+        supporting_heading: ''
+        main_items: []
+        supporting_items: []
+      is_current: true
+    - item:
+        text: Thinking
+        url: '#'
+        page_id: null
+        style: none
+        main_heading: ''
+        supporting_heading: ''
+        main_items: []
+        supporting_items: []
+      is_current: false
+    - item:
+        text: About
+        url: '#'
+        page_id: null
+        style: none
+        main_heading: ''
+        supporting_heading: ''
+        main_items: []
+        supporting_items: []
+      is_current: false

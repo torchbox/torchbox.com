@@ -4,7 +4,6 @@ from django.utils.safestring import mark_safe
 
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.blocks import PageChooserBlock, StreamBlock, StructBlock
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page
@@ -21,7 +20,6 @@ from tbx.core.utils.models import (
     ContactMixin,
     DivisionMixin,
     NavigationFields,
-    NavigationSetMixin,
     SocialFields,
 )
 
@@ -31,6 +29,17 @@ from .blocks import HomePageStoryBlock, StandardPageStoryBlock
 @register_snippet
 class EventType(models.Model):
     name = models.CharField(max_length=255)
+    slug = models.SlugField(
+        max_length=255,
+        unique=True,
+        help_text="Used as the value in event-filter URLs. "
+        "Changing it will break existing filter links.",
+    )
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("slug"),
+    ]
 
     def __str__(self):
         return self.name
@@ -125,7 +134,6 @@ class BasePage(
     ContactMixin,
     DivisionMixin,
     NavigationFields,
-    NavigationSetMixin,
     SocialFields,
     Page,
 ):
@@ -137,7 +145,6 @@ class BasePage(
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + NavigationFields.promote_panels
-        + NavigationSetMixin.promote_panels
         + ColourThemeMixin.promote_panels
         + DivisionMixin.promote_panels
         + ContactMixin.promote_panels
@@ -149,12 +156,10 @@ class BasePage(
     @cached_property
     def breadcrumbs(self):
         """
-        Return a a list of the current page's ancestors where the first one is
-        either a division page, or the homepage if no ancestor is a division page.
+        Return the current page's ancestors starting at the homepage.
         """
-        # The homepage has depth=2
-        min_depth = 2 if self.final_division is None else self.final_division.depth
-        return self.get_ancestors().filter(depth__gte=min_depth)
+        # The homepage has depth=2; anything shallower is the Wagtail root.
+        return self.get_ancestors().filter(depth__gte=2)
 
 
 class HomePagePartnerLogo(Orderable):
@@ -177,7 +182,6 @@ class HomePage(
     ColourThemeMixin,
     ContactMixin,
     NavigationFields,
-    NavigationSetMixin,
     SocialFields,
     Page,
 ):
@@ -240,7 +244,6 @@ class HomePage(
             MultiFieldPanel(Page.promote_panels, "Common page configuration"),
         ]
         + NavigationFields.promote_panels
-        + NavigationSetMixin.promote_panels
         + ColourThemeMixin.promote_panels
         + ContactMixin.promote_panels
         + [
@@ -275,32 +278,6 @@ class StandardPage(BasePage):
 # No longer in use but kept for migration history
 class Tag(models.Model):  # noqa: DJ008
     pass
-
-
-class SubMenuItemBlock(StreamBlock):
-    # subitem = PageChooserBlock()
-    related_listing_page = PageChooserBlock()
-
-
-class MenuItemBlock(StructBlock):
-    page = PageChooserBlock()
-    subitems = SubMenuItemBlock(blank=True, null=True)
-
-    class Meta:
-        template = "torchbox/includes/menu_item.html"
-
-
-class MenuBlock(StreamBlock):
-    items = MenuItemBlock()
-
-
-@register_setting
-class MainMenu(BaseSiteSetting):
-    menu = StreamField(MenuBlock(), blank=True)
-
-    panels = [
-        FieldPanel("menu"),
-    ]
 
 
 @register_setting

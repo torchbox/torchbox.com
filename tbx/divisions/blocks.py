@@ -1,6 +1,7 @@
 from tbx.core.blocks import (
     FeaturedServicesBlock,
     FourPhotoCollageBlock,
+    IconKeyPointsBlock,
     IntroductionWithImagesBlock,
     LinkColumnsBlock,
     NumericStatisticsGroupBlock,
@@ -15,6 +16,7 @@ class DivisionStoryBlock(StoryBlock):
     introduction_with_images = IntroductionWithImagesBlock()
     numeric_statistics = NumericStatisticsGroupBlock()
     textual_statistics = TextualStatisticsGroupBlock()
+    key_points = IconKeyPointsBlock(label="Key points with icons")
     partners_block = PartnersBlock()
     featured_services = FeaturedServicesBlock()
     link_columns = LinkColumnsBlock()

@@ -15,8 +15,10 @@ context:
         tags:
           - name: Digital products
             slug: digital-products
+            filter_param: service
           - name: Wagtail
             slug: wagtail
+            filter_param: service
         read_time: '4'
       - title: Another lovely blog post I wrote
         url: '#'
@@ -24,8 +26,10 @@ context:
         tags:
           - name: Digital products
             slug: digital-products
+            filter_param: service
           - name: Wagtail
             slug: wagtail
+            filter_param: service
         read_time: '2'
     related_works:
       - title: A work case study I wrote

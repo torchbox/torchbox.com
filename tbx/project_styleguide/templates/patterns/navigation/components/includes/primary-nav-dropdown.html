@@ -1,0 +1,7 @@
+{% if dropdown.style == "teaser_grid" %}
+    {% include "patterns/navigation/components/includes/primary-nav-dropdown-teaser-grid.html" %}
+{% elif dropdown.style == "taxonomy_index" %}
+    {% include "patterns/navigation/components/includes/primary-nav-dropdown-taxonomy-index.html" %}
+{% else %}
+    {% include "patterns/navigation/components/includes/primary-nav-dropdown-mixed-list.html" %}
+{% endif %}

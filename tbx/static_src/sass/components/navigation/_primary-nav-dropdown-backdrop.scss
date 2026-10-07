@@ -1,0 +1,44 @@
+@use '../../config' as *;
+
+/*
+Dims and blurs the page behind an open desktop dropdown. Clicks pass
+through to document listeners rather than being caught here. Kept as
+one fixed-size layer covering just the viewport, rather than blurring
+the page content itself, so the blur stays cheap to render.
+*/
+.primary-nav-dropdown-backdrop {
+    display: none;
+
+    @include media-query(menu) {
+        @include z-index(nav-backdrop);
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgb(0 0 0 / 0.55);
+        backdrop-filter: blur($nav-dropdown-blur);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            opacity $transition 50ms,
+            visibility 0ms 300ms;
+
+        @include reduced-motion() {
+            transition: none;
+        }
+
+        .mode-light & {
+            background: rgb(255 255 255 / 0.45);
+        }
+
+        body.primary-nav-dropdown-open &,
+        body:has(.primary-nav-desktop__item.active) & {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transition:
+                opacity $transition 50ms,
+                visibility 0ms;
+        }
+    }
+}

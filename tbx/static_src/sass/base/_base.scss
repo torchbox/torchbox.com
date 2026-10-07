@@ -8,6 +8,9 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
+    // Reserve the scrollbar's width permanently so toggling `.no-scroll`
+    // (nav dropdowns, modals) never shifts layout width mid-transition.
+    scrollbar-gutter: stable;
 
     @media (prefers-reduced-motion: reduce) {
         scroll-behavior: auto;

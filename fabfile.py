@@ -23,6 +23,7 @@ LOCAL_DUMP_DIR = "database_dumps"
 
 PRODUCTION_APP_INSTANCE = "torchbox-com-production"
 STAGING_APP_INSTANCE = "torchbox-com-staging"
+MIGRATION_APP_INSTANCE = "torchbox-com-migration"
 DEVELOPMENT_APP_INSTANCE = ""
 
 LOCAL_MEDIA_DIR = "media"
@@ -226,6 +227,35 @@ def pull_staging_data(c):
 def staging_shell(c):
     """Spin up a one-time Heroku staging dyno and connect to shell"""
     open_heroku_shell(c, STAGING_APP_INSTANCE)
+
+
+###########
+# Migration
+###########
+
+
+@task
+def pull_migration_media(c):
+    """Pull media from migration AWS S3"""
+    pull_media_from_s3_heroku(c, MIGRATION_APP_INSTANCE)
+
+
+@task
+def pull_migration_images(c):
+    """Pull images from migration AWS S3"""
+    pull_images_from_s3_heroku(c, MIGRATION_APP_INSTANCE)
+
+
+@task
+def pull_migration_data(c):
+    """Pull database from migration Heroku Postgres"""
+    pull_database_from_heroku(c, MIGRATION_APP_INSTANCE)
+
+
+@task
+def migration_shell(c):
+    """Spin up a one-time Heroku migration dyno and connect to shell"""
+    open_heroku_shell(c, MIGRATION_APP_INSTANCE)
 
 
 #############

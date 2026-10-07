@@ -1,7 +1,7 @@
+import htmx from 'htmx.org';
 import PrimaryMobileMenu from './components/primary-mobile-menu';
-import MobileMenu from './components/mobile-menu';
-import MobileSubMenu from './components/mobile-sub-menu';
-import DesktopSubMenu from './components/desktop-sub-menu';
+import PrimaryMobileSubMenu from './components/primary-mobile-sub-menu';
+import PrimaryDesktopSubMenu from './components/primary-desktop-sub-menu';
 import DesktopCloseMenus from './components/desktop-close-menus';
 import SkipLink from './components/skip-link';
 import CookieWarning from './components/cookie-message';
@@ -10,6 +10,7 @@ import Tabs from './components/tabs';
 import TableHint from './components/table-hint';
 import Modal from './components/modal';
 import ModeSwitcher from './components/mode-switcher';
+import ListingFilters from './components/listing-filters';
 
 // IE11 polyfills
 import foreachPolyfill from './polyfills/foreach-polyfill';
@@ -20,6 +21,15 @@ import '../sass/main.scss';
 
 // Third party imports
 import 'lite-youtube-embed/src/lite-yt-embed';
+
+// Components are only initialised on DOMContentLoaded, so restoring HTMX's
+// history snapshot would leave them unbound. Do a full page load on back and
+// forward instead.
+htmx.config.historyCacheSize = 0;
+htmx.config.refreshOnHistoryMiss = true;
+// Keep HTMX working under a strict CSP.
+htmx.config.includeIndicatorStyles = false;
+htmx.config.allowEval = false;
 
 foreachPolyfill();
 closestPolyfill();
@@ -32,9 +42,8 @@ function initComponent(ComponentClass) {
 document.addEventListener('DOMContentLoaded', () => {
     /* eslint-disable no-new */
     initComponent(PrimaryMobileMenu);
-    initComponent(MobileMenu);
-    initComponent(MobileSubMenu);
-    initComponent(DesktopSubMenu);
+    initComponent(PrimaryMobileSubMenu);
+    initComponent(PrimaryDesktopSubMenu);
     initComponent(SkipLink);
     initComponent(CookieWarning);
     initComponent(YouTubeConsentManager);
@@ -42,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initComponent(TableHint);
     initComponent(Modal);
     initComponent(ModeSwitcher);
+    initComponent(ListingFilters);
     new DesktopCloseMenus();
 
     // Move sticky CTA(s) to the end of the main content for natural tab order

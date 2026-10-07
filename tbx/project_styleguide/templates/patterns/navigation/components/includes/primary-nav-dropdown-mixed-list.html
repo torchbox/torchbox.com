@@ -1,0 +1,52 @@
+<div
+    class="primary-nav-dropdown primary-nav-dropdown--mixed-list"
+    id="primary-nav-dropdown-{{ dropdown_id }}"
+    data-primary-subnav
+>
+    <div class="grid grid__primary-nav-dropdown">
+        <div class="primary-nav-dropdown__inner grid__primary-nav-dropdown-inner primary-nav-dropdown__columns">
+            {% if dropdown.main_items %}
+                <div class="primary-nav-dropdown__column">
+                    {% if dropdown.main_heading %}
+                        <h2 class="primary-nav-dropdown__heading">{{ dropdown.main_heading }}</h2>
+                    {% endif %}
+                    <ul class="primary-nav-dropdown__row-list">
+                        {% for child in dropdown.main_items %}
+                            <li class="primary-nav-dropdown__row-item">
+                                <a href="{{ child.url }}" class="primary-nav-dropdown__row-link">
+                                    <span class="primary-nav-dropdown__row-body">
+                                        <span class="primary-nav-dropdown__row-title">{{ child.text }}</span>
+                                        {% if child.description %}
+                                            <span class="primary-nav-dropdown__row-description">{{ child.description }}</span>
+                                        {% endif %}
+                                    </span>
+                                    {% include "patterns/atoms/icons/icon.html" with name="arrow" classname="primary-nav-dropdown__row-arrow" %}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% if dropdown.supporting_items %}
+                <div class="primary-nav-dropdown__column primary-nav-dropdown__column--supporting">
+                    {% if dropdown.supporting_heading %}
+                        <h2 class="primary-nav-dropdown__heading">{{ dropdown.supporting_heading }}</h2>
+                    {% endif %}
+                    <ul class="primary-nav-dropdown__card-list">
+                        {% for child in dropdown.supporting_items %}
+                            <li class="primary-nav-dropdown__card-item">
+                                <a href="{{ child.url }}" class="primary-nav-dropdown__card-link">
+                                    <span class="primary-nav-dropdown__card-title">{{ child.text }}</span>
+                                    {% if child.description %}
+                                        <span class="primary-nav-dropdown__card-description">{{ child.description }}</span>
+                                    {% endif %}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% include "patterns/navigation/components/includes/primary-nav-dropdown-footer.html" %}
+        </div>
+    </div>
+</div>
