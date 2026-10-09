@@ -1,0 +1,20 @@
+{% load static wagtailcore_tags wagtailimages_tags %}
+{% pageurl result as link %}
+<li class="listing listing-simple page-listing__item">
+    <a class="listing__link" href="{{ link }}" aria-label="{{ aria_text|default:result.title }}">
+        <h2 class="listing__title">
+            {# The title and icon need to be on the same line with no whitespace to prevent the arrow being orphaned on a new line #}
+            <span class="listing__title-text">{{ result.title }}</span><span class="listing__tail">&nbsp;{% include "patterns/atoms/icons/icon.html" with name="arrow-wide" classname="listing__arrow icon--listing-arrow" %}</span>
+        </h2>
+        <div class="listing__details--simple">
+            {% if result.listing_summary or result.search_description %}
+                <p class="mb-2">{% firstof result.listing_summary result.search_description %}</p>
+            {% endif %}
+            {% if result.date or result.reading_time %}
+                <div class="listing__meta">
+                    {% include "patterns/atoms/date_and_reading_time/date_and_reading_time.html" with date=result.date reading_time=result.read_time %}
+                </div>
+            {% endif %}
+        </div>
+    </a>
+</li>
