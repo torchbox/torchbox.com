@@ -83,6 +83,8 @@
     @include meta.load-css('components/small-image-with-text');
     @include meta.load-css('components/sprites-preview-icons');
     @include meta.load-css('components/stats');
+    @include meta.load-css('components/search-header');
+    @include meta.load-css('components/search-results');
     @include meta.load-css('components/streamfield');
     @include meta.load-css('components/swirls');
     @include meta.load-css('components/team-page-meta');
