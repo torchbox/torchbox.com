@@ -30,8 +30,8 @@ dj-database-url = "~3.1"
 wagtail-accessibility = "~2.0"
 wagtail-ai = "~3.1"
 wagtail-lite-youtube-embed = "~0.3"
-wagtail-markdown = "~0.14"
-wagtailmedia = "~0.18"
+wagtail-markdown = "~0.15"
+wagtailmedia = "~0.19"
 wagtail-purge = "~0.4"
 
 # Production
@@ -43,7 +43,7 @@ django-xff = "~1.5"
 
 [tool.poetry.group.dev.dependencies]
 Werkzeug = "~3.1"
-django-debug-toolbar = "~7.1"
+django-debug-toolbar = "~8.0"
 django-extensions = "~4.1"
 fabric = "~3.2"
 pudb = "~2025.1"
