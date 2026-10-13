@@ -12,7 +12,7 @@ class BaseTaxonomy(models.Model):
     sort_order = models.IntegerField()
 
     class Meta:
-        ordering = ("sort_order",)
+        ordering = ["sort_order"]
         abstract = True
 
     def __str__(self) -> str:
