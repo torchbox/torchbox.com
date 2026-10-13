@@ -39,7 +39,7 @@
             </ul>
 
             <div class="page-listing__pagination">
-                {% include "patterns/molecules/pagination/pagination.html" with pages=search_results %}
+                {% include "patterns/molecules/pagination/pagination.html" with pages=search_results extra_url_params=extra_url_params %}
             </div>
 
         {% elif search_query %}

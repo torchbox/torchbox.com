@@ -7,6 +7,7 @@ from wagtail.models import Page
 
 from tbx.core.utils.cache import get_default_cache_control_kwargs
 
+from ..core.listing.context import _urlencode_selected
 from .forms import SearchForm
 
 
@@ -30,7 +31,11 @@ def search(request):
     response = TemplateResponse(
         request,
         "patterns/pages/search/search.html",
-        {"search_query": search_query, "search_results": search_results},
+        {
+            "search_query": search_query,
+            "search_results": search_results,
+            "extra_url_params": _urlencode_selected({"query": [search_query]}),
+        },
     )
     # Instruct FE cache to not cache when the search query is present.
     # It's so hits get added to the database and results include newly
