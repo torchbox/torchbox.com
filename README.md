@@ -25,7 +25,7 @@ mkdocs serve
 
 The documentation will be available at: <http://localhost:8001/>
 
-It is also available via github pages at https://torchbox.github.io/torchbox.com/
+It is also available via github pages at <https://torchbox.github.io/torchbox.com/>
 
 ## Setting up a local build
 
@@ -50,7 +50,7 @@ if you have older versions already installed they _may_ work, but are not guaran
   - [Install instructions](https://docs.docker.com/compose/install/) (Linux-only: Compose is already installed for Mac users as part of Docker Desktop or Orbstack.)
 - [Fabric](https://www.fabfile.org/), version 2.4.0 or up
   - [Install instructions](https://www.fabfile.org/installing.html)
-- Python, version 3.6.9 or up
+- Python, version 3.14 or up
 
 Note that on Mac OS, if you have an older version of fabric installed, you may need to uninstall the old one and then install the new version with pip3:
 
@@ -59,7 +59,7 @@ pip uninstall fabric
 pip3 install fabric
 ```
 
-You can manage different python versions by setting up `pyenv`: https://realpython.com/intro-to-pyenv/
+You can manage different python versions by setting up `pyenv`: <https://realpython.com/intro-to-pyenv/>
 
 Additionally, for interacting with production / staging environments, you'll need:
 
@@ -89,7 +89,7 @@ dj createcachetable
 dj createsuperuser
 ```
 
-The site should be available on the host machine at: http://127.0.0.1:8000/
+The site should be available on the host machine at: <http://127.0.0.1:8000/>
 
 If you only wish to run the frontend or backend tooling, the commands `honcho` runs are in `docker/Procfile`.
 
