@@ -57,7 +57,7 @@ class SitemapPage(BasePage):
         """
         try:
             site = Site.objects.get(is_default_site=True)
-        except (Site.DoesNotExist, Site.MultipleObjectsReturned):
+        except Site.DoesNotExist, Site.MultipleObjectsReturned:
             # Fail closed on misconfigured installs — empty sitemap beats 500.
             return []
 

@@ -37,13 +37,7 @@ def newsletter_subsribe(request):
 
 
 def robots(request):
-    content = "\n".join(
-        [
-            "User-Agent: *",
-            "Disallow: /search/",
-            "Allow: /",
-        ]
-    )
+    content = "User-Agent: *\nDisallow: /search/\nAllow: /"
     return HttpResponse(content, content_type="text/plain")
 
 

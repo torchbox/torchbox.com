@@ -377,7 +377,7 @@ class Author(index.Indexed, models.Model):
 
 @receiver(page_published, sender=PersonPage)
 def update_author_on_page_publish(instance, **kwargs):
-    author, created = Author.objects.get_or_create(person_page=instance)
+    author, _created = Author.objects.get_or_create(person_page=instance)
     author.update_manual_fields(instance)
     author.save()
 

@@ -33,9 +33,8 @@ class Command(BaseCommand):
                         f"{index}/{len(urls)}. Successfully created embed for {url}"
                     )
                 )
-            except EmbedException as e:
+            except EmbedException:
                 logger.exception(
-                    "Error occured while attempting to create an embed for %s:\n%s",
+                    "Error occured while attempting to create an embed for %s",
                     url,
-                    e,
                 )

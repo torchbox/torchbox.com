@@ -86,7 +86,7 @@ class ContactFactory(DjangoModelFactory):
             return
 
         if not isinstance(extracted, dict):
-            raise ValueError(
+            raise TypeError(
                 "`cta` value must be provided as a dictionary with acceptable keys: `link_type` and `page`.\n"
                 "Examples:\n\n"
                 "ContactFactory(cta={'link_type': 'external_link'})\n"

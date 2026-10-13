@@ -1113,8 +1113,8 @@ class EmbedBlock(WagtailEmbedBlock):
     def get_embed_instance(self, value):
         try:
             return get_embed(value.url)
-        except EmbedException as e:
-            logger.exception("Embed exception: %s", e)
+        except EmbedException:
+            logger.exception("Embed exception")
             return None
 
     def get_context(self, value, parent_context=None):

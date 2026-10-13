@@ -22,13 +22,15 @@ extend-select = [
 
 extend-ignore = [
     "E501",  # no line length errors
+    "RUF012",  # mutable class attributes (migrations, Wagtail page/model config) are idiomatic here, not bugs
 ]
 fixable = ["C4", "E", "F", "I", "UP"]
 
 [lint.per-file-ignores]
-"fabfile.py" = ["S603", "S607", "T201"]
+"fabfile.py" = ["S603", "S607", "T201", "DTZ005"]
 "tbx/core/utils/scripts/run_flightpath.py" = ["T201"]
 "tbx/core/utils/scripts/run_flightpath_status_check.py" = ["T201"]
+"tbx/core/tests/test_util_tags.py" = ["DTZ001"]
 
 
 [lint.isort.sections]

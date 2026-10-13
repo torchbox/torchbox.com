@@ -1,7 +1,7 @@
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
-from wagtail.models import Page
+from wagtail.models import Page, Site
 from wagtail.signals import (
     page_published,
     page_slug_changed,
@@ -46,7 +46,7 @@ def invalidate_primary_nav_on_page_delete(sender, instance, **kwargs):
     site = None
     try:
         site = instance.get_site()
-    except Exception:
+    except Site.DoesNotExist, Site.MultipleObjectsReturned:
         site = None
 
     if site is not None:
@@ -54,7 +54,5 @@ def invalidate_primary_nav_on_page_delete(sender, instance, **kwargs):
         return
 
     # Fallback: page is gone so site lookup may fail — clear all sites.
-    from wagtail.models import Site
-
     for site in Site.objects.all():
         _invalidate(site)
