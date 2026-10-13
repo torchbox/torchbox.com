@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from django.core.exceptions import ValidationError
 from django.db import models
 
@@ -13,7 +15,7 @@ from .blocks import DivisionStoryBlock
 class DivisionPage(BasePage):
     template = "patterns/pages/divisions/division_page.html"
 
-    parent_page_types = [
+    parent_page_types: ClassVar[list[str]] = [
         "torchbox.HomePage",
         "sectors.SectorsIndexPage",
         "services.ServicePage",

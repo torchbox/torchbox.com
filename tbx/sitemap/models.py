@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
 
@@ -22,8 +24,8 @@ class SitemapPage(BasePage):
 
     template = "patterns/pages/sitemap/sitemap_page.html"
 
-    parent_page_types = ["torchbox.HomePage"]
-    subpage_types = []
+    parent_page_types: ClassVar[list[str]] = ["torchbox.HomePage"]
+    subpage_types: ClassVar[list[str]] = []
     max_count = 1
 
     class Meta:
@@ -57,7 +59,7 @@ class SitemapPage(BasePage):
         """
         try:
             site = Site.objects.get(is_default_site=True)
-        except (Site.DoesNotExist, Site.MultipleObjectsReturned):
+        except Site.DoesNotExist, Site.MultipleObjectsReturned:
             # Fail closed on misconfigured installs — empty sitemap beats 500.
             return []
 

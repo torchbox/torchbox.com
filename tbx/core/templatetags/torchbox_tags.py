@@ -96,4 +96,4 @@ def time_display(time):
     pm_string = "pm" if pm else "am"
 
     # Join and return
-    return "".join([hour_string, minute_string, pm_string])
+    return f"{hour_string}{minute_string}{pm_string}"

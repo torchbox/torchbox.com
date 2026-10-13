@@ -1,6 +1,7 @@
 from itertools import chain
 import math
 import string
+from typing import ClassVar
 
 from django import forms
 from django.core.paginator import Paginator
@@ -44,7 +45,7 @@ class HistoricalWorkPage(BasePage):
 
     # Prevent this page type from being created in Wagtail Admin
     is_creatable = False
-    parent_page_types = ["WorkIndexPage"]
+    parent_page_types: ClassVar[list[str]] = ["WorkIndexPage"]
 
     date = models.DateField("Post date", blank=True, null=True)
     body = StreamField(StoryBlock())
@@ -184,7 +185,7 @@ class HistoricalWorkPage(BasePage):
 
 class WorkPage(BasePage):
     template = "patterns/pages/work/work_page.html"
-    parent_page_types = ["WorkIndexPage"]
+    parent_page_types: ClassVar[list[str]] = ["WorkIndexPage"]
 
     intro = RichTextField(blank=True)
     logo = models.ForeignKey(
@@ -364,7 +365,7 @@ class WorkPage(BasePage):
 class WorkIndexPage(BasePage):
     template = "patterns/pages/work/work_index_page.html"
 
-    subpage_types = ["HistoricalWorkPage", "WorkPage"]
+    subpage_types: ClassVar[list[str]] = ["HistoricalWorkPage", "WorkPage"]
 
     @cached_property
     def works(self):

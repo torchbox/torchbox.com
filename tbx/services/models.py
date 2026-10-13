@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from django.db import models
 
 from wagtail.admin.panels import FieldPanel
@@ -36,7 +38,7 @@ class ServicePage(BasePage):
         FieldPanel("body"),
     ]
 
-    subpage_types = [
+    subpage_types: ClassVar[list[str]] = [
         "services.ServicePage",
         "services.ServiceAreaPage",
         "divisions.DivisionPage",
@@ -51,12 +53,12 @@ class ServiceAreaPage(BasePage):
     page_description = "A group of services for a division"
     template = "patterns/pages/service/service_area_page.html"
 
-    parent_page_types = [
+    parent_page_types: ClassVar[list[str]] = [
         "divisions.DivisionPage",
         "sectors.SectorsIndexPage",
         "services.ServicePage",
     ]
-    subpage_types = ["services.ServicePage"]
+    subpage_types: ClassVar[list[str]] = ["services.ServicePage"]
 
     # Fields
     subtitle = models.CharField(max_length=255)

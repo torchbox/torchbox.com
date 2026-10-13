@@ -1,9 +1,11 @@
+from typing import ClassVar
+
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, Panel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page
@@ -36,7 +38,7 @@ class EventType(models.Model):
         "Changing it will break existing filter links.",
     )
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         FieldPanel("name"),
         FieldPanel("slug"),
     ]
@@ -49,7 +51,7 @@ class EventType(models.Model):
 class ContentBlock(models.Model):
     content = RichTextField()
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         FieldPanel("content"),
     ]
 
@@ -74,7 +76,7 @@ class LinkFields(models.Model):
         related_name="+",
     )
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         FieldPanel("link_external"),
         FieldPanel("link_page"),
         FieldPanel("link_document"),
@@ -105,7 +107,7 @@ class CarouselItem(LinkFields):
     embed_url = models.URLField("Embed URL", blank=True)
     caption = models.CharField(max_length=255, blank=True)
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         FieldPanel("image"),
         FieldPanel("embed_url"),
         FieldPanel("caption"),
@@ -120,7 +122,7 @@ class CarouselItem(LinkFields):
 class RelatedLink(LinkFields):
     title = models.CharField(max_length=255, help_text="Link title")
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         FieldPanel("title"),
         MultiFieldPanel(LinkFields.panels, "Link"),
     ]
@@ -172,7 +174,7 @@ class HomePagePartnerLogo(Orderable):
         related_name="+",
     )
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         FieldPanel("image"),
     ]
 
@@ -187,7 +189,7 @@ class HomePage(
 ):
     template = "patterns/pages/home/home_page.html"
 
-    parent_page_types = ["wagtailcore.Page"]
+    parent_page_types: ClassVar[list[str]] = ["wagtailcore.Page"]
 
     hero_heading_1 = models.CharField(max_length=255)
     hero_heading_2 = models.CharField(max_length=255)
@@ -298,7 +300,7 @@ class ImportantPageSettings(BaseSiteSetting):
         related_name="+",
     )
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         FieldPanel("cookie_policy_page"),
         FieldPanel("carbon_emissions_page"),
     ]

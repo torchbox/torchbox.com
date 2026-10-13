@@ -1,9 +1,11 @@
+from typing import ClassVar
+
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, Panel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.models import Orderable
 
@@ -17,7 +19,7 @@ class PageAuthor(Orderable):
         "people.Author", on_delete=models.CASCADE, related_name="+"
     )
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         FieldPanel("author"),
     ]
 
@@ -35,7 +37,7 @@ class NavigationFields(models.Model):
     class Meta:
         abstract = True
 
-    promote_panels = [
+    promote_panels: ClassVar[list[Panel]] = [
         FieldPanel("navigation_text"),
     ]
 
@@ -58,7 +60,7 @@ class SocialFields(models.Model):
     class Meta:
         abstract = True
 
-    promote_panels = [
+    promote_panels: ClassVar[list[Panel]] = [
         MultiFieldPanel(
             [FieldPanel("social_image"), FieldPanel("social_text")],
         )
@@ -121,7 +123,7 @@ class ColourThemeMixin(models.Model):
         choices=ColourTheme,
     )
 
-    promote_panels = [
+    promote_panels: ClassVar[list[Panel]] = [
         FieldPanel(
             "theme",
             help_text=_(
@@ -167,7 +169,7 @@ class ContactMixin(models.Model):
         "this page's ancestors, eventually falling back to the default contact.",
     )
 
-    promote_panels = [FieldPanel("contact")]
+    promote_panels: ClassVar[list[Panel]] = [FieldPanel("contact")]
 
     class Meta:
         abstract = True
@@ -210,7 +212,7 @@ class DivisionMixin(models.Model):
         on_delete=models.SET_NULL,
     )
 
-    promote_panels = [
+    promote_panels: ClassVar[list[Panel]] = [
         FieldPanel(
             "division",
             help_text=_(

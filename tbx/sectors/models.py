@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from wagtail.admin.panels import FieldPanel
 
 from tbx.core.blocks import DynamicHeroBlock
@@ -19,8 +21,11 @@ class SectorsIndexPage(BasePage):
 
     template = "patterns/pages/sectors/sectors_index_page.html"
 
-    parent_page_types = ["torchbox.HomePage"]
-    subpage_types = ["divisions.DivisionPage", "services.ServiceAreaPage"]
+    parent_page_types: ClassVar[list[str]] = ["torchbox.HomePage"]
+    subpage_types: ClassVar[list[str]] = [
+        "divisions.DivisionPage",
+        "services.ServiceAreaPage",
+    ]
 
     hero = StreamField([("hero", DynamicHeroBlock())], max_num=1, min_num=1)
     body = StreamField(SectorsIndexStoryBlock(), blank=True)

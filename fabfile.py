@@ -10,7 +10,7 @@ from invoke.tasks import task
 # Process .env file
 if os.path.exists(".env"):
     with open(".env") as f:
-        for line in f.readlines():
+        for line in f:
             if not line or line.startswith("#") or "=" not in line:
                 continue
             var, value = line.strip().split("=", 1)
@@ -102,7 +102,7 @@ def sh(c, service="web"):
     """
     Run bash in a local container
     """
-    subprocess.run(["docker", "compose", "exec", service, "bash"])
+    subprocess.run(["docker", "compose", "exec", service, "bash"], check=False)
 
 
 @task
@@ -110,7 +110,9 @@ def sh_root(c, service="web"):
     """
     Run bash as root in the local web container.
     """
-    subprocess.run(["docker", "compose", "exec", "--user=root", "web", "bash"])
+    subprocess.run(
+        ["docker", "compose", "exec", "--user=root", "web", "bash"], check=False
+    )
 
 
 @task
@@ -130,7 +132,7 @@ def psql(c, command=None):
     if command:
         cmd_list.extend(["-c", command])
 
-    subprocess.run(cmd_list)
+    subprocess.run(cmd_list, check=False)
 
 
 # TODO check the rest of these work correctly from here down
@@ -474,5 +476,6 @@ def migrate(c):
     Run database migrations
     """
     subprocess.run(
-        ["docker", "compose", "run", "--rm", "web", "./manage.py", "migrate"]
+        ["docker", "compose", "run", "--rm", "web", "./manage.py", "migrate"],
+        check=False,
     )

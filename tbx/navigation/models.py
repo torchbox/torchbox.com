@@ -1,10 +1,12 @@
+from typing import ClassVar
+
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 from django.core.exceptions import ValidationError
 from django.db import models
 
 from modelcluster.models import ClusterableModel
-from wagtail.admin.panels import FieldPanel, HelpPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, HelpPanel, MultiFieldPanel, Panel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.models import Site
 
@@ -59,7 +61,7 @@ class NavigationSettings(BaseSiteSetting, ClusterableModel):
         help_text=("Estimated carbon emitted (in grams) when loading the home page."),
     )
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         FieldPanel("primary_navigation"),
         MultiFieldPanel(
             [

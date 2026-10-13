@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 
 from . import models
@@ -9,7 +11,7 @@ class ServiceModelAdmin(SnippetViewSet):
     menu_icon = "info-circle"
     icon = "info-circle"
     list_display = ("name", "slug", "sort_order")
-    ordering = ["sort_order"]
+    ordering: ClassVar[list[str]] = ["sort_order"]
 
 
 class TeamModelAdmin(SnippetViewSet):
@@ -18,7 +20,7 @@ class TeamModelAdmin(SnippetViewSet):
     menu_icon = "group"
     icon = "group"
     list_display = ("name", "slug", "sort_order")
-    ordering = ["sort_order"]
+    ordering: ClassVar[list[str]] = ["sort_order"]
 
 
 class SectorModelAdmin(SnippetViewSet):
@@ -27,11 +29,15 @@ class SectorModelAdmin(SnippetViewSet):
     menu_icon = "globe"
     icon = "globe"
     list_display = ("name", "slug", "sort_order")
-    ordering = ["sort_order"]
+    ordering: ClassVar[list[str]] = ["sort_order"]
 
 
 class TaxonomyModelAdminGroup(SnippetViewSetGroup):
     menu_label = "Taxonomy"
     menu_icon = "folder-open-inverse"
     menu_order = 750
-    items = [ServiceModelAdmin, SectorModelAdmin, TeamModelAdmin]
+    items: ClassVar[list[type[SnippetViewSet]]] = [
+        ServiceModelAdmin,
+        SectorModelAdmin,
+        TeamModelAdmin,
+    ]

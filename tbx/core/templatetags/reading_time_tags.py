@@ -56,7 +56,7 @@ def get_reading_time_minutes(context, page, streamfield_name):
         page._reading_time[streamfield_name] = reading_time
 
     # Convert seconds to minutes
-    reading_time_minutes = int(round(reading_time.seconds / 60))
+    reading_time_minutes = round(reading_time.seconds / 60)
     if reading_time_minutes <= 0:
         reading_time_minutes = 1
 

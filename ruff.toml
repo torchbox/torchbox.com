@@ -1,7 +1,7 @@
-target-version = "py313"
+target-version = "py314"
 
 [lint]
-select = [
+extend-select = [
     "B",    # flake8-bugbear
     "C4",   # flake8-comprehensions
     "DJ",   # flake8-django
@@ -26,9 +26,12 @@ extend-ignore = [
 fixable = ["C4", "E", "F", "I", "UP"]
 
 [lint.per-file-ignores]
-"fabfile.py" = ["S603", "S607", "T201"]
+"fabfile.py" = ["S603", "S607", "T201", "DTZ005"]
 "tbx/core/utils/scripts/run_flightpath.py" = ["T201"]
 "tbx/core/utils/scripts/run_flightpath_status_check.py" = ["T201"]
+"tbx/core/tests/test_util_tags.py" = ["DTZ001"]
+"*/migrations/*.py" = ["RUF012"]  # Django migration dependencies/operations lists are idiomatic here, not bugs
+"tbx/taxonomy/models.py" = ["RUF012"]  # Meta.ordering as a tuple would need a migration for no behaviour change
 
 
 [lint.isort.sections]
