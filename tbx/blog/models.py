@@ -1,6 +1,7 @@
 from itertools import chain
 import math
 import string
+from typing import ClassVar
 
 from django import forms
 from django.core.paginator import Paginator
@@ -15,6 +16,7 @@ from wagtail.admin.panels import (
     InlinePanel,
     MultiFieldPanel,
     PageChooserPanel,
+    Panel,
 )
 from wagtail.models import Page
 from wagtail.search import index
@@ -39,7 +41,7 @@ from tbx.taxonomy.models import Sector, Service
 class BlogIndexPage(BasePage):
     template = "patterns/pages/blog/blog_listing.html"
 
-    subpage_types = ["BlogPage"]
+    subpage_types: ClassVar[list[str]] = ["BlogPage"]
 
     @property
     def blog_posts(self):
@@ -121,7 +123,7 @@ class BlogIndexPage(BasePage):
 class BlogPage(BasePage):
     template = "patterns/pages/blog/blog_detail.html"
 
-    parent_page_types = ["BlogIndexPage"]
+    parent_page_types: ClassVar[list[str]] = ["BlogIndexPage"]
 
     date = models.DateField("Post date")
     body = StreamField(StoryBlock())
@@ -324,7 +326,7 @@ class RelatedBlogPage(models.Model):
     def __str__(self):
         return self.page.title
 
-    panels = [PageChooserPanel("page")]
+    panels: ClassVar[list[Panel]] = [PageChooserPanel("page")]
 
 
 @receiver(page_published, sender=BlogPage)

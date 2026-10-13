@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from django.apps import apps
 from django.test import TestCase
 from django.utils.module_loading import import_string, module_has_submodule
@@ -19,7 +21,7 @@ class TestPageFactory(TestCase):
 
     # Exclude these modules from the check.
     # (They currently don't have factories. Un-exclude once they have factories.)
-    EXCLUDE = ["tbx.events", "tbx.impact_reports"]
+    EXCLUDE: ClassVar[list[str]] = ["tbx.events", "tbx.impact_reports"]
 
     def test_pages(self):
         app_configs = apps.get_app_configs()

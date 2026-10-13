@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.forms.utils import ErrorList
@@ -202,7 +204,7 @@ class PrimaryNavLinkBlock(LinkBlock):
         "Includes child pages with “Show in menus” enabled.",
     )
 
-    _LEGACY_FIELD_RENAMES = {
+    _LEGACY_FIELD_RENAMES: ClassVar[dict[str, str]] = {
         "secondary_heading": "main_heading",
         "promoted_heading": "supporting_heading",
         "secondary_links": "main_links",

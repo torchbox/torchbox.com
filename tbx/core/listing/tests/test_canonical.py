@@ -1,4 +1,5 @@
 from datetime import timedelta
+from typing import ClassVar
 from urllib.parse import urlencode
 
 from django.test import SimpleTestCase
@@ -26,7 +27,7 @@ def request_for(params=None):
 
 
 class ListingCanonicalQueryStringTests(SimpleTestCase):
-    taxonomy_choices = {
+    taxonomy_choices: ClassVar[dict[str, list[tuple[str, str]]]] = {
         "sector_choices": [("charity", "Charity"), ("health", "Health")],
         "service_choices": [
             ("design", "Design"),

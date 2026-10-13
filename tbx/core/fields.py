@@ -1,4 +1,5 @@
 import re
+from typing import ClassVar
 
 from django.core.validators import RegexValidator
 from django.db import models
@@ -10,7 +11,7 @@ color_validator = RegexValidator(color_re, _("Enter a valid color."), "invalid")
 
 
 class ColorField(models.CharField):
-    default_validators = [color_validator]
+    default_validators: ClassVar[list[RegexValidator]] = [color_validator]
 
     def __init__(self, *args, **kwargs):
         kwargs["max_length"] = 6

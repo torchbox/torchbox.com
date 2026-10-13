@@ -1,4 +1,5 @@
 from itertools import chain
+from typing import ClassVar
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -10,7 +11,7 @@ from django.utils.http import urlencode
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, Panel
 from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page
 from wagtail.search import index
@@ -104,12 +105,12 @@ class Contact(index.Indexed, models.Model):
 
         return ""
 
-    search_fields = [
+    search_fields: ClassVar[list[index.BaseField]] = [
         index.AutocompleteField("name"),
         index.SearchField("name"),
     ]
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         FieldPanel("title"),
         FieldPanel("text"),
         FieldPanel("email_text"),
@@ -129,7 +130,7 @@ class Contact(index.Indexed, models.Model):
 class PersonPage(BasePage):
     template = "patterns/pages/team/team_detail.html"
 
-    parent_page_types = ["PersonIndexPage"]
+    parent_page_types: ClassVar[list[str]] = ["PersonIndexPage"]
 
     role = models.CharField(max_length=255)
     intro = RichTextField(blank=True)
@@ -265,7 +266,7 @@ class PersonIndexPage(BasePage):
 
     template = "patterns/pages/team/team_listing.html"
 
-    subpage_types = ["PersonPage"]
+    subpage_types: ClassVar[list[str]] = ["PersonPage"]
 
     content_panels = BasePage.content_panels + [
         FieldPanel("strapline"),
@@ -361,12 +362,12 @@ class Author(index.Indexed, models.Model):
         if self.person_page:
             self.update_manual_fields(self.person_page)
 
-    search_fields = [
+    search_fields: ClassVar[list[index.BaseField]] = [
         index.AutocompleteField("name"),
         index.SearchField("name"),
     ]
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         FieldPanel("person_page"),
         MultiFieldPanel(
             [FieldPanel("name"), FieldPanel("role"), FieldPanel("image")],
@@ -397,7 +398,7 @@ class ContactReasonsList(ClusterableModel):
     def __str__(self):
         return self.name
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         FieldPanel("name"),
         FieldPanel("heading"),
         FieldPanel("is_default", widget=forms.CheckboxInput),

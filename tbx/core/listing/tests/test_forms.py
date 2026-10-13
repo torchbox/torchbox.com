@@ -1,10 +1,12 @@
+from typing import ClassVar
+
 from django.test import SimpleTestCase
 
 from tbx.core.listing.forms import EventFilterForm, TaxonomyFilterForm
 
 
 class TaxonomyFilterFormTests(SimpleTestCase):
-    choices = {
+    choices: ClassVar[dict[str, list[tuple[str, str]]]] = {
         "sector_choices": [("charity", "Charity"), ("health", "Health")],
         "service_choices": [("design", "Design"), ("strategy", "Strategy")],
     }

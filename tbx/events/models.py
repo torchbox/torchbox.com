@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from django.core.paginator import Paginator
 from django.utils import timezone
 
@@ -18,8 +20,8 @@ class EventIndexPage(BasePage):
         help_text="Message to display if there are no events",
     )
 
-    parent_page_types = ["torchbox.HomePage"]
-    subpage_types = []
+    parent_page_types: ClassVar[list[str]] = ["torchbox.HomePage"]
+    subpage_types: ClassVar[list[str]] = []
 
     events = StreamField([("event", EventItemBlock())], blank=True)
 

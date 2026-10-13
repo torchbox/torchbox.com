@@ -1,6 +1,8 @@
+from typing import ClassVar
+
 from django.db import models
 
-from wagtail.admin.panels import FieldPanel, TitleFieldPanel
+from wagtail.admin.panels import FieldPanel, Panel, TitleFieldPanel
 
 
 class BaseTaxonomy(models.Model):
@@ -10,13 +12,13 @@ class BaseTaxonomy(models.Model):
     sort_order = models.IntegerField()
 
     class Meta:
-        ordering = ["sort_order"]
+        ordering = ("sort_order",)
         abstract = True
 
     def __str__(self) -> str:
         return self.name
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         TitleFieldPanel("name"),
         FieldPanel("slug"),
         FieldPanel("description"),

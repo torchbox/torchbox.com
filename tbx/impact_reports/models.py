@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.text import slugify
@@ -6,6 +8,7 @@ from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
+    Panel,
     TitleFieldPanel,
 )
 from wagtail.search import index
@@ -42,7 +45,7 @@ class ImpactReportPage(BasePage):
 
     body = StreamField(ImpactReportStoryBlock())
 
-    content_panels = [
+    content_panels: ClassVar[list[Panel]] = [
         MultiFieldPanel(
             [
                 TitleFieldPanel("title"),
