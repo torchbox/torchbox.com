@@ -35,7 +35,7 @@ fab pull-production-media
 
 ### Front end
 
-We use Cloudflare's front-end caching for the production site, according to request response headers.
+We use Cloudflare's front-end caching for the production site, according to request response headers. Caching is controlled using the standard `Vary` and `Cache-Control` headers.
 
 Cache purging is enabled as per <https://docs.wagtail.org/en/stable/reference/contrib/frontendcache.html#cloudflare>, using the limited-access API Token option, and a token with `Zone.Cache Purge` permission.
 
