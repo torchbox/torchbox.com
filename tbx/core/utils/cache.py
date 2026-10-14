@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
+from django.views.decorators.vary import vary_on_headers
 
 from wagtail.contrib.frontend_cache.utils import purge_url_from_cache
 from wagtail.models import Site
@@ -33,3 +34,16 @@ def get_default_cache_control_method_decorator(original_method):
         return original_method(self, *args, **kwargs)
 
     return decorated_method
+
+
+# A helper decorator to vary on HTMX's headers
+htmx_vary = vary_on_headers(
+    "HX-Boosted",
+    "HX-Current-URL",
+    "HX-History-Restore-Request",
+    "HX-Prompt",
+    "HX-Request",
+    "HX-Target",
+    "HX-Trigger-Name",
+    "HX-Trigger",
+)
