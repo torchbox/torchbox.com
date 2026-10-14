@@ -6,7 +6,7 @@ ARG CI=true
 WORKDIR /app
 
 # Install front-end dependencies.
-COPY package.json package-lock.json tsconfig.json webpack.config.js tailwind.config.js  ./
+COPY package.json package-lock.json tsconfig.json webpack.config.js ./
 RUN npm ci --no-audit --progress=false
 
 FROM frontend-deps AS frontend
@@ -21,7 +21,7 @@ RUN npm run build:prod
 # all useful packages required for image manipulation out of the box. They
 # however weight a lot, approx. up to 1.5GiB per built image.
 # Pinned to a particlar version as requested by support team 6/10/25
-FROM python:3.13-trixie AS python-base
+FROM python:3.14-trixie AS python-base
 
 ARG POETRY_INSTALL_ARGS="--no-dev"
 
