@@ -33,6 +33,8 @@
 
         {% block extra_jsonld %}{% endblock %}
 
+        <link rel="preload" href="{% static 'fonts/outfit-variable-font.woff2' %}" as="font" type="font/woff2" crossorigin>
+
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
         {# Add syntax highlighting for gists if a gist exists within a raw html streamfield #}
