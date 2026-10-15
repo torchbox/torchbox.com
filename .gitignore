@@ -19,3 +19,4 @@ node_modules*
 !/.vscode/launch.json
 /database_dumps/
 .planning/
+bundle-report.html

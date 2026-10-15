@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const sass = require('sass');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const projectRoot = 'tbx';
 
@@ -167,6 +168,17 @@ const webpackConfig = (environment, argv) => {
     const isProduction = argv.mode === 'production';
 
     options.mode = isProduction ? 'production' : 'development';
+
+    if (process.env.ANALYZE) {
+        options.plugins.push(
+            new BundleAnalyzerPlugin({
+                analyzerMode: 'static',
+                reportFilename: path.resolve('./bundle-report.html'),
+                openAnalyzer: true,
+                generateStatsFile: false,
+            }),
+        );
+    }
 
     if (!isProduction) {
         // https://webpack.js.org/configuration/stats/
