@@ -3,6 +3,7 @@ import math
 import string
 
 from django import forms
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.db import models
 from django.db.models import Case, DateField, F, Q, When
@@ -482,7 +483,7 @@ class WorkIndexPage(BasePage):
         ]
 
         # Pagination
-        paginator = Paginator(works, 10)  # Show 10 works per page
+        paginator = Paginator(works, settings.DEFAULT_PER_PAGE)
         works = paginator.get_page(request.GET.get("page", 1))
 
         context.update(works=works)

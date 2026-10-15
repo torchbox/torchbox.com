@@ -3,6 +3,7 @@ import math
 import string
 
 from django import forms
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.db import models
 from django.db.models import Case, When
@@ -104,7 +105,7 @@ class BlogIndexPage(BasePage):
         blog_posts = blog_posts.distinct()
 
         # Pagination
-        paginator = Paginator(blog_posts, 10)  # Show 10 blog_posts per page
+        paginator = Paginator(blog_posts, settings.DEFAULT_PER_PAGE)
         blog_posts = paginator.get_page(request.GET.get("page", 1))
 
         context.update(blog_posts=blog_posts)
