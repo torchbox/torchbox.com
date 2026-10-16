@@ -1,28 +1,4 @@
-// NOTE: A 'Cache Level' page rule set to 'Cache Everything' will
-// prevent private cookie cache skipping from working, as it is
-// applied after this worker runs.
-
-// When any cookie in this list is present in the request, cache will be skipped
-const PRIVATE_COOKIES = ['sessionid'];
-
-// Cookies to include in the cache key
-const VARY_COOKIES = ['torchbox-mode'];
-
-// Request headers to include in the cache key.
-// Note: Do not add `cookie` to this list!
-const VARY_HEADERS = [
-    'X-Requested-With',
-
-    // HTMX
-    'HX-Boosted',
-    'HX-Current-URL',
-    'HX-History-Restore-Request',
-    'HX-Prompt',
-    'HX-Request',
-    'HX-Target',
-    'HX-Trigger-Name',
-    'HX-Trigger',
-];
+// A modified worker to strip querystrings we don't need.
 
 // These querystring keys are stripped from the request as they are generally not
 // needed by the origin.
@@ -93,37 +69,17 @@ const REPLACE_STRIPPED_QUERYSTRING_ON_REDIRECT_LOCATION = false;
 // Disabled by default, but highly recommended
 const STRIP_VALUELESS_QUERYSTRING_KEYS = false;
 
-// Only these status codes should be considered cacheable
-// (from https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.4)
-const CACHABLE_HTTP_STATUS_CODES = [200, 203, 206, 300, 301, 410];
-
 addEventListener('fetch', (event) => {
     event.respondWith(main(event));
 });
 
 async function main(event) {
-    const cache = caches.default;
     let { request } = event;
     let strippedParams;
     // eslint-disable-next-line prefer-const
     [request, strippedParams] = stripQuerystring(request);
 
-    if (!requestIsCachable(request)) {
-        // If the request isn't cacheable, return a Response directly from the origin.
-        return fetch(request);
-    }
-
-    const cachingRequest = getCachingRequest(request);
-    let response = await cache.match(cachingRequest);
-
-    if (!response) {
-        // If we didn't get a response from the cache, fetch one from the origin
-        // and put it in the cache.
-        response = await fetch(request);
-        if (responseIsCachable(response)) {
-            event.waitUntil(cache.put(cachingRequest, response.clone()));
-        }
-    }
+    let response = await fetch(request);
 
     if (REPLACE_STRIPPED_QUERYSTRING_ON_REDIRECT_LOCATION) {
         response = replaceStrippedQsOnRedirectResponse(
@@ -135,58 +91,6 @@ async function main(event) {
     return response;
 }
 
-/*
- * Cacheability Utilities
- */
-function requestIsCachable(request) {
-    /*
-     * Given a Request, determine if it should be cached.
-     * Currently the only factor here is whether a private cookie is present.
-     */
-    return !hasPrivateCookie(request);
-}
-
-function responseIsCachable(response) {
-    /*
-     * Given a Response, determine if it should be cached.
-     * Currently the only factor here is whether the status code is cachable.
-     */
-    return CACHABLE_HTTP_STATUS_CODES.includes(response.status);
-}
-
-function getCachingRequest(request) {
-    /**
-     * Create a new request for use as a cache key.
-     *
-     * Note: Modifications to this request are not sent upstream.
-     */
-
-    const cookies = getCookies(request);
-
-    const requestURL = new URL(request.url);
-
-    // Include specified cookies in cache key
-    VARY_COOKIES.forEach((cookieName) =>
-        requestURL.searchParams.set(
-            `cookie-${cookieName}`,
-            cookies[cookieName] || '',
-        ),
-    );
-
-    // Include specified headers in cache key
-    VARY_HEADERS.forEach((headerName) =>
-        requestURL.searchParams.set(
-            `header-${headerName}`,
-            request.headers.get(headerName) || '',
-        ),
-    );
-
-    return new Request(requestURL, request);
-}
-
-/*
- * Request Utilities
- */
 function stripQuerystring(request) {
     /**
      * Given a Request, return a new Request with the ignored or blank querystring keys stripped out,
@@ -220,37 +124,6 @@ function stripQuerystring(request) {
 
     return [new Request(url, request), strippedParams];
 }
-
-function hasPrivateCookie(request) {
-    /*
-     * Given a Request, determine if one of the 'private' cookies are present.
-     */
-    const allCookies = getCookies(request);
-
-    // Check if any of the private cookies are present and have a non-empty value
-    return PRIVATE_COOKIES.some(
-        (cookieName) => cookieName in allCookies && allCookies[cookieName],
-    );
-}
-
-function getCookies(request) {
-    /*
-     * Extract the cookies from a given request
-     */
-    const cookieHeader = request.headers.get('Cookie');
-    if (!cookieHeader) {
-        return {};
-    }
-
-    return cookieHeader.split(';').reduce((cookieMap, cookieString) => {
-        const [cookieKey, cookieValue] = cookieString.split('=');
-        return { ...cookieMap, [cookieKey.trim()]: cookieValue.trim() };
-    }, {});
-}
-
-/**
- * Response Utilities
- */
 
 function replaceStrippedQsOnRedirectResponse(response, strippedParams) {
     /**
@@ -301,9 +174,6 @@ function replaceStrippedQsOnRedirectResponse(response, strippedParams) {
     return response;
 }
 
-/**
- * URL Utilities
- */
 function isUrlAbsolute(url) {
     return url.indexOf('://') > 0 || url.indexOf('//') === 0;
 }
