@@ -46,11 +46,6 @@
             gap: 10px;
             padding: $spacer-small 0;
         }
-
-        @include media-query(x-large) {
-            flex-wrap: nowrap;
-            gap: $spacer-mini-plus;
-        }
     }
 
     &__logo {
