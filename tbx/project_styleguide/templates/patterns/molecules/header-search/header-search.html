@@ -1,0 +1,23 @@
+{% comment %}
+Header search form. Included twice from
+patterns/organisms/header/header.html:
+  - Inside .header__end — visible at the `menu` breakpoint and above (desktop).
+  - Inside .primary-nav-mobile__footer — visible only when the mobile menu
+    is open, below the `menu` breakpoint.
+The two instances are never visible simultaneously, so they can share ids.
+{% endcomment %}
+{% load wagtailcore_tags %}
+<form class="header-search" role="search" action="{% url 'search' %}" method="get">
+    <label for="header-search-input" class="sr-only">Search</label>
+    <input
+        type="search"
+        id="header-search-input"
+        name="query"
+        class="header-search__input"
+        placeholder="Search&hellip;"
+        autocomplete="off"
+    >
+    <button type="submit" id="header-search-button" class="header-search__button" aria-label="Submit search">
+        {% include "patterns/atoms/icons/icon.html" with name="search" classname="header-search__icon" %}
+    </button>
+</form>

@@ -1,0 +1,52 @@
+@use '../config' as *;
+
+.header-search {
+    display: flex;
+    max-width: 150px;
+
+    @include media-query(x-large) {
+        max-width: 200px;
+    }
+
+    &__input {
+        @include font-size('size-seven');
+        @include placeholder-text();
+        min-width: 0;
+        flex: 1 1 auto;
+        padding: 6px $spacer-mini;
+        line-height: 1.2;
+        color: var(--color--heading);
+        background-color: transparent;
+        border: 1px solid var(--color--border);
+        border-inline-end: 0;
+        border-start-start-radius: 4px;
+        border-end-start-radius: 4px;
+    }
+
+    &__button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px $spacer-mini;
+        color: var(--color--heading);
+        background: transparent;
+        border: 1px solid var(--color--border);
+        border-start-end-radius: 4px;
+        border-end-end-radius: 4px;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--color--background);
+            background-color: var(--color--heading);
+        }
+
+        &:focus-visible {
+            @include focus-style();
+        }
+    }
+
+    &__icon {
+        width: 18px;
+        height: 18px;
+    }
+}

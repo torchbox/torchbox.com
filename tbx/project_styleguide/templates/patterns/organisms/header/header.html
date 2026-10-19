@@ -61,11 +61,15 @@
                     </ul>
                 </div>
                 <div class="primary-nav-mobile__footer">
+                    {% include "patterns/molecules/header-search/header-search.html" %}
                     {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}
                 </div>
             </nav>
 
             <div class="header__end">
+                {# Search desktop #}
+                {% include "patterns/molecules/header-search/header-search.html" %}
+
                 {# Mode switcher desktop #}
                 <div class="header__mode-switcher">
                     {% include "patterns/molecules/mode_switcher/mode_switcher.html" %}

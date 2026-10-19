@@ -53,9 +53,11 @@ Styles for the primary navigation at mobile (top level)
     }
 
     &__footer {
-        flex-shrink: 0;
+        display: flex;
+        align-items: center;
         padding: $spacer-small;
         border-top: 1px solid var(--color--eclipse);
+        justify-content: space-between;
 
         .mode-light & {
             border-top-color: var(--color--light-border);

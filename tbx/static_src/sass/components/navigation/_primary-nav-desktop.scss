@@ -18,12 +18,6 @@ Styles for the primary navigation at desktop (top level)
         margin-left: 0;
     }
 
-    @include media-query(x-large) {
-        order: 0;
-        flex: 1;
-        margin-left: $spacer-medium;
-    }
-
     &__list {
         display: flex;
         flex-direction: row;
