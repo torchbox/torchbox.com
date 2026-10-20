@@ -106,4 +106,4 @@ Add references to any custom templates that override the Wagtail admin templates
 
 ## Security
 
-Last security review: 2026-09-01
+Last security review: 2026-10-20
