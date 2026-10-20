@@ -6,7 +6,7 @@ Add your changes to the Unreleased section and move them to the appropriate sect
 
 ## Unreleased
 
-- [TWE-733](https://torchbox.atlassian.net/browse/TWE-733) - Security update: Wagtail 8.0.1 (GHSA-jm43-45cc-q9rr, GHSA-g6cr-c9h3-6j2m, GHSA-3xgh-xc8p-9h54, GHSA-4pg7-87vv-vrh7, GHSA-jrgm-fhgv-hmj9)
+- [TWE-733](https://torchbox.atlassian.net/browse/TWE-733) - Security update: Wagtail 8.0.1 and certifi 2026.10.18 (GHSA-jm43-45cc-q9rr, GHSA-g6cr-c9h3-6j2m, GHSA-3xgh-xc8p-9h54, GHSA-4pg7-87vv-vrh7, GHSA-jrgm-fhgv-hmj9, GHSA-6q48-6c7w-9gw2)
 
 ## 2026-10-21
 
