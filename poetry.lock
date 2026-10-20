@@ -3500,13 +3500,13 @@ python-discovery = ">=1.6"
 
 [[package]]
 name = "wagtail"
-version = "8.0"
+version = "8.0.1"
 description = "A Django content management system."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "wagtail-8.0-py3-none-any.whl", hash = "sha256:34dde727917ace7e4ab182054f78f01c2cc24d85ccc402932d3d5c6315a7cd00"},
-    {file = "wagtail-8.0.tar.gz", hash = "sha256:8fb2aa39bb8ff9e7709ba848a1bba2fea332ce32368c7ba4820008c0cfcc0019"},
+    {file = "wagtail-8.0.1-py3-none-any.whl", hash = "sha256:1e6ad5c7891a54efce1400e168298b5a2cc343b642cee89c31bf5ec30c98b26c"},
+    {file = "wagtail-8.0.1.tar.gz", hash = "sha256:819865a10bce86b16288cfaefa4195b90ffb5e7ac494fb18659e7be099ef386f"},
 ]
 
 [package.dependencies]
