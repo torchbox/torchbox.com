@@ -6,6 +6,15 @@ Add your changes to the Unreleased section and move them to the appropriate sect
 
 ## Unreleased
 
+## 2026-10-21
+
+- [TWE-728](https://torchbox.atlassian.net/browse/TWE-728) - Upgrade Wagtail 7.4 → 8.0
+  - Upgrade Python dependencies; upgrade platform to Python 3.14
+  - Upgrade Node dependencies (Webpack, webpack-cli, webpack-dev-server and others)
+  - Migrate Tailwind CSS to v4
+
+## 2026-10-13
+
 - [TWE-730](https://torchbox.atlassian.net/browse/TWE-730) - Django 5.2.18 security update
 
 ## 2026-05-21
