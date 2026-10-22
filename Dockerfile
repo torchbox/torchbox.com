@@ -35,6 +35,10 @@ RUN useradd tbx --create-home && mkdir /app $VIRTUAL_ENV && chown -R tbx /app $V
 
 WORKDIR /app
 
+RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+    jpegoptim pngquant gifsicle libjpeg-progs webp \
+    && apt-get autoremove && rm -rf /var/lib/apt/lists/*
+
 # Set default environment variables. They are used at build time and runtime.
 # If you specify your own environment variables on Heroku or Dokku, they will
 # override the ones set here. The ones below serve as sane defaults only.
@@ -111,8 +115,7 @@ FROM python-base AS dev
 USER root
 
 # Install `psql`, useful for `manage.py dbshell`
-RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
-    postgresql-client jpegoptim pngquant gifsicle libjpeg-progs webp \
+RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends postgresql-client \
     && apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
 # Restore user
