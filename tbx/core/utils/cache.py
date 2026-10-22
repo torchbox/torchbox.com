@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
+from django.views.decorators.vary import vary_on_headers
 
 from wagtail.contrib.frontend_cache.utils import purge_url_from_cache
 from wagtail.models import Site
@@ -15,13 +16,8 @@ def purge_cache_on_all_sites(path):
 
 
 def get_default_cache_control_kwargs():
-    s_maxage = getattr(settings, "CACHE_CONTROL_S_MAXAGE", None)
-    stale_while_revalidate = getattr(
-        settings, "CACHE_CONTROL_STALE_WHILE_REVALIDATE", None
-    )
     cache_control_kwargs = {
-        "s_maxage": s_maxage,
-        "stale_while_revalidate": stale_while_revalidate,
+        "s_maxage": settings.CACHE_CONTROL_S_MAXAGE,
         "public": True,
     }
     return {k: v for k, v in cache_control_kwargs.items() if v is not None}
@@ -38,3 +34,16 @@ def get_default_cache_control_method_decorator(original_method):
         return original_method(self, *args, **kwargs)
 
     return decorated_method
+
+
+# A helper decorator to vary on HTMX's headers
+htmx_vary = vary_on_headers(
+    "HX-Boosted",
+    "HX-Current-URL",
+    "HX-History-Restore-Request",
+    "HX-Prompt",
+    "HX-Request",
+    "HX-Target",
+    "HX-Trigger-Name",
+    "HX-Trigger",
+)
