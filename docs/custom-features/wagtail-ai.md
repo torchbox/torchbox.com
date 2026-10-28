@@ -4,12 +4,7 @@ AI-assisted content editing in the Wagtail admin, powered by [wagtail-ai](https:
 
 ## Configuration
 
-The package is installed but `wagtail_ai` is currently **not** in `INSTALLED_APPS`, because loading it adds around 55MB of memory per worker.
-See [TWE-712](https://torchbox.atlassian.net/browse/TWE-712) for where this is tracked.
-
-Once it's ready to be reinstalled, add it back to `INSTALLED_APPS` in `tbx/settings/base.py` and set the environment variables below.
-
-The integration requires these environment variables to function. The provider and model are both configurable at runtime.
+The integration is always active but requires environment variables to function. The provider and model are both configurable at runtime.
 
 | Variable              | Required             | Default        | Description                                               |
 | --------------------- | -------------------- | -------------- | --------------------------------------------------------- |
