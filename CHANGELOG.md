@@ -6,6 +6,9 @@ Add your changes to the Unreleased section and move them to the appropriate sect
 
 ## Unreleased
 
+- [TWE-712](https://torchbox.atlassian.net/browse/TWE-712) - Remove Wagtail AI
+  - Uninstall `wagtail-ai` (and its `django-ai-core` / `any-llm-sdk` dependencies) to resolve memory usage issues. To be revisited once upstream improvements are released.
+
 ## 2026-10-21
 
 - [TWE-733](https://torchbox.atlassian.net/browse/TWE-733) - Security update: Wagtail 8.0.1
