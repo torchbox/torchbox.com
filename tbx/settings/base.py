@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     "tbx.users",
     "tbx.services",
     "tbx.sitemap",
-    "wagtail_ai",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -487,6 +486,10 @@ if "PRIMARY_HOST" in env:
     WAGTAILADMIN_BASE_URL = "https://{}".format(env["PRIMARY_HOST"])
 
 # Wagtail AI
+# NOTE: "wagtail_ai" is currently not in INSTALLED_APPS due to memory usage
+# issues, so these settings will not have any effect.
+# See https://torchbox.atlassian.net/browse/TWE-712 for more details
+#
 # https://wagtail-ai.readthedocs.io/latest/installation/
 # WAGTAIL_AI_PROVIDER: any-llm provider name (e.g. "openai", "anthropic", "mistral")
 # WAGTAIL_AI_MODEL: model identifier for the chosen provider

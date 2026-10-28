@@ -6,6 +6,9 @@ Add your changes to the Unreleased section and move them to the appropriate sect
 
 ## Unreleased
 
+- [TWE-712](https://torchbox.atlassian.net/browse/TWE-712) - configure Wagtail AI
+  - Remove the currently-unused `wagtail_ai` app from `INSTALLED_APPS` to resolve memory usage issues.
+
 ## 2026-10-21
 
 - [TWE-733](https://torchbox.atlassian.net/browse/TWE-733) - Security update: Wagtail 8.0.1
