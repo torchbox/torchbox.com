@@ -11,7 +11,13 @@
 
 </details>
 
-### MR Checklist
+### Checklists
+
+<details>
+
+<summary>See checklists</summary>
+
+### PR Checklist
 
 - [ ] Add a description of your pull request and instructions for the reviewer to verify your work.
 - [ ] If your pull request is for a specific ticket, link to it in the description.
@@ -73,3 +79,5 @@
 - [ ] The pattern library component for this template displays correctly, and does not break parent templates
 - [ ] The styleguide is updated if relevant
 - [ ] Changes are not relevant the pattern library
+
+</details>
