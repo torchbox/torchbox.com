@@ -6,6 +6,10 @@ Add your changes to the Unreleased section and move them to the appropriate sect
 
 ## Unreleased
 
+- [TWE-738](https://torchbox.atlassian.net/browse/TWE-738) - Security update: Django 5.2.19 (CVE-2026-108147, CVE-2026-111211, CVE-2026-111362, CVE-2026-113593, CVE-2026-113733, CVE-2026-114582)
+
+## 2026-10-29
+
 - [TWE-712](https://torchbox.atlassian.net/browse/TWE-712) - Remove Wagtail AI
   - Uninstall `wagtail-ai` (and its `django-ai-core` / `any-llm-sdk` dependencies) to resolve memory usage issues. To be revisited once upstream improvements are released.
 
