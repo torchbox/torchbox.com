@@ -60,6 +60,11 @@ class TestStandardPage(WagtailPageTestCase):
         site.root_page = cls.home_page
         site.save()
 
+        cls.standard_page = StandardPageFactory(
+            parent=cls.home_page, title="Test Standard Page"
+        )
+        cls.standard_page_url = cls.standard_page.url
+
     def test_can_create_standard_page_under_home_page(self):
         self.assertCanCreateAt(HomePage, StandardPage)
 
@@ -85,8 +90,55 @@ class TestStandardPage(WagtailPageTestCase):
         )
 
     def test_standard_page_is_routable(self):
-        standard_page = StandardPageFactory(
-            parent=self.home_page, title="Test Standard Page"
+        self.assertPageIsRoutable(self.standard_page)
+        self.assertEqual(self.standard_page.url, "/test-standard-page/")
+
+    def test_page_response_media_types(self):
+        self.assertEqual(
+            self.standard_page.response_media_types, ["text/html", "text/markdown"]
         )
-        self.assertPageIsRoutable(standard_page)
-        self.assertEqual(standard_page.url, "/test-standard-page/")
+
+    def test_content_negotiation(self):
+        scenarios = [
+            # Accept, response content type, has link rel="alternate" in html
+            (None, "text/html; charset=utf-8", True),
+            ("*/*", "text/html; charset=utf-8", True),
+            ("text/*", "text/html; charset=utf-8", True),
+            (
+                "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                "text/html; charset=utf-8",
+                True,
+            ),
+            ("text/html, text/markdown;q=0.5", "text/html; charset=utf-8", True),
+            ("text/markdown;q=0, */*", "text/html; charset=utf-8", True),
+            ("text/markdown", "text/markdown; charset=utf-8", False),
+            ("text/markdown, text/html;q=0.9", "text/markdown; charset=utf-8", False),
+            ("text/markdown, text/html", "text/markdown; charset=utf-8", False),
+        ]
+        for accept, expected_content_type, is_html in scenarios:
+            with self.subTest(accept=accept):
+                headers = {"accept": accept} if accept is not None else {}
+                response = self.client.get(self.standard_page_url, headers=headers)
+
+                self.assertEqual(
+                    response.headers["Content-Type"], expected_content_type
+                )
+                if is_html:
+                    self.assertContains(
+                        response,
+                        f'<link rel="alternate" type="text/markdown" href="{self.standard_page_url}?format=md" title="Markdown version" />',
+                        html=True,
+                    )
+                else:
+                    self.assertNotContains(response, "<!doctype html>")
+
+    def test_page_markdown_variant_via_query_param(self):
+        response = self.client.get(
+            self.standard_page_url,
+            headers={"accept": "text/html"},
+            query_params={"format": "md"},
+        )
+        self.assertEqual(
+            response.headers["Content-Type"], "text/markdown; charset=utf-8"
+        )
+        self.assertNotContains(response, "<!doctype html>")

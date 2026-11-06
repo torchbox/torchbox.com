@@ -4,10 +4,15 @@
 
 {% block meta_tags %}
     {% if page %}
+        <link rel="alternate" type="text/markdown" href="{% pageurl page %}?format=md" title="Markdown version" />
+
         {% if page.canonical_url %}
             <link rel="canonical" href="{{ page.canonical_url }}">
-        {% elif page.full_url %}
-            <link rel="canonical" href="{% fullpageurl page %}{% if canonical_query_string %}?{{ canonical_query_string }}{% elif 'page' in request.GET %}?page={{ request.GET.page|urlencode }}{% endif %}">
+        {% else %}
+            {% fullpageurl page as full_url %}
+            {% if full_url %}
+                <link rel="canonical" href="{{ full_url }}{% if canonical_query_string %}?{{ canonical_query_string }}{% elif 'page' in request.GET %}?page={{ request.GET.page|urlencode }}{% endif %}">
+            {% endif %}
         {% endif %}
     {% endif %}
 
