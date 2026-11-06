@@ -531,18 +531,6 @@ wheels = [
 ]
 
 [[package]]
-name = "django-phonenumber-field"
-version = "9.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "django" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/56/22/e4de820d243224a16fd6156583d2ee401f9ac98d4caa68db1a5b58f29c01/django_phonenumber_field-9.0.0.tar.gz", hash = "sha256:b4a641fc8ae3fdec7aeaf28e3af92bb8d36aefad085b955420807de7e8d37abe", size = 46891, upload-time = "2026-10-21T22:07:59.992Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/4a/fd/f1b1c1ba78af197f12d430795e84b92732ab1aa220cd0f3e5fd2d1999102/django_phonenumber_field-9.0.0-py3-none-any.whl", hash = "sha256:53731bf139ba82004aff6087ccdd55f8ba5c4e11c623557cc1873eeed46eba2a", size = 69494, upload-time = "2026-10-21T22:07:58.694Z" },
-]
-
-[[package]]
 name = "django-redis"
 version = "7.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1117,15 +1105,6 @@ wheels = [
 ]
 
 [[package]]
-name = "phonenumbers"
-version = "9.0.43"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/0b/d5/b3ad857b2cdd09c806436b48d2c9afcdde2673475b1a894f74da0db32e75/phonenumbers-9.0.43.tar.gz", hash = "sha256:d4e508ab800c3e5ce219b14be339deb3d55a0ab81af82fea44749fcabd01e908", size = 2314544, upload-time = "2026-11-06T11:43:26.829Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/1b/4c/b33a2189464f0f67215e9c8401cb2931ad3ab3f7c8060929f84fe4970544/phonenumbers-9.0.43-py2.py3-none-any.whl", hash = "sha256:349bc799f15e010e35bd2c7d28149950ae74479cb1e11fb054ed9a95ecb4b437", size = 2596726, upload-time = "2026-11-06T11:43:23.63Z" },
-]
-
-[[package]]
 name = "pillow"
 version = "13.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1579,13 +1558,11 @@ dependencies = [
     { name = "django-csp" },
     { name = "django-pattern-library" },
     { name = "django-permissions-policy" },
-    { name = "django-phonenumber-field" },
     { name = "django-redis" },
     { name = "django-storages", extra = ["boto3"] },
     { name = "django-xff" },
     { name = "gunicorn" },
     { name = "html5lib" },
-    { name = "phonenumbers" },
     { name = "psycopg" },
     { name = "scout-apm" },
     { name = "sentry-sdk" },
@@ -1634,13 +1611,11 @@ requires-dist = [
     { name = "django-csp", specifier = "~=4.0.0" },
     { name = "django-pattern-library", specifier = "~=1.6.0" },
     { name = "django-permissions-policy", specifier = "~=4.34.0" },
-    { name = "django-phonenumber-field", specifier = "~=9.0.0" },
     { name = "django-redis", specifier = "~=7.0.0" },
     { name = "django-storages", extras = ["boto3"], specifier = "~=1.14.0" },
     { name = "django-xff", specifier = "~=1.5.0" },
     { name = "gunicorn", specifier = "~=27.0.0" },
     { name = "html5lib", specifier = "~=1.1.0" },
-    { name = "phonenumbers", specifier = "~=9.0.0" },
     { name = "psycopg", specifier = "~=3.3.0" },
     { name = "scout-apm", specifier = "~=4.1.0" },
     { name = "sentry-sdk", specifier = "~=2.75.0" },
