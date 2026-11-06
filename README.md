@@ -50,7 +50,7 @@ if you have older versions already installed they _may_ work, but are not guaran
   - [Install instructions](https://docs.docker.com/compose/install/) (Linux-only: Compose is already installed for Mac users as part of Docker Desktop or Orbstack.)
 - [Fabric](https://www.fabfile.org/), version 2.4.0 or up
   - [Install instructions](https://www.fabfile.org/installing.html)
-- Python, version 3.14 or up
+- Python, version 3.15 or up
 
 Note that on Mac OS, if you have an older version of fabric installed, you may need to uninstall the old one and then install the new version with pip3:
 
