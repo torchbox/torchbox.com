@@ -900,25 +900,6 @@ asgiref = ">=3.6"
 django = ">=5.2"
 
 [[package]]
-name = "django-phonenumber-field"
-version = "9.0.0"
-description = "An international phone number field for django models."
-optional = false
-python-versions = ">=3.11"
-files = [
-    {file = "django_phonenumber_field-9.0.0-py3-none-any.whl", hash = "sha256:53731bf139ba82004aff6087ccdd55f8ba5c4e11c623557cc1873eeed46eba2a"},
-    {file = "django_phonenumber_field-9.0.0.tar.gz", hash = "sha256:b4a641fc8ae3fdec7aeaf28e3af92bb8d36aefad085b955420807de7e8d37abe"},
-]
-
-[package.dependencies]
-Django = ">=5.2"
-
-[package.extras]
-babel = ["Babel"]
-phonenumbers = ["phonenumbers (>=7.0.2)"]
-phonenumberslite = ["phonenumberslite (>=7.0.2)"]
-
-[[package]]
 name = "django-redis"
 version = "7.0.0"
 description = "Full featured redis cache backend for Django."
@@ -1793,17 +1774,6 @@ files = [
 hyperscan = ["hyperscan (>=0.7)"]
 optional = ["typing-extensions (>=4)"]
 re2 = ["google-re2 (>=1.1)"]
-
-[[package]]
-name = "phonenumbers"
-version = "9.0.43"
-description = "Python version of Google's common library for parsing, formatting, storing and validating international phone numbers."
-optional = false
-python-versions = ">=2.5"
-files = [
-    {file = "phonenumbers-9.0.43-py2.py3-none-any.whl", hash = "sha256:349bc799f15e010e35bd2c7d28149950ae74479cb1e11fb054ed9a95ecb4b437"},
-    {file = "phonenumbers-9.0.43.tar.gz", hash = "sha256:d4e508ab800c3e5ce219b14be339deb3d55a0ab81af82fea44749fcabd01e908"},
-]
 
 [[package]]
 name = "pillow"
@@ -3334,4 +3304,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.15"
-content-hash = "e5a27431783f5293cc7351d870e480c3bf03075a253a6fa2db36d06788e5bba4"
+content-hash = "2309a1b65a69f70f067f763cd1c3bb0c71899ab5f3af1d87b062c3b2117d59c2"
