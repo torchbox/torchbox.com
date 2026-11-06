@@ -1,6 +1,10 @@
+from typing import Any
+lazy from http import HTTPStatus
+
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
+lazy from django.http import HttpRequest, HttpResponse
 
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -9,6 +13,9 @@ from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
+lazy from wagtail.admin.rich_text.converters.html_markdown import (
+    HTMLToMarkdownConverter,
+)
 
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.formatting import (
@@ -37,8 +44,8 @@ class EventType(models.Model):
     )
 
     panels = [
-        FieldPanel("name"),
-        FieldPanel("slug"),
+        "name",
+        "slug",
     ]
 
     def __str__(self):
@@ -49,9 +56,7 @@ class EventType(models.Model):
 class ContentBlock(models.Model):
     content = RichTextField()
 
-    panels = [
-        FieldPanel("content"),
-    ]
+    panels = ["content"]
 
     class Meta:
         abstract = True
@@ -74,11 +79,7 @@ class LinkFields(models.Model):
         related_name="+",
     )
 
-    panels = [
-        FieldPanel("link_external"),
-        FieldPanel("link_page"),
-        FieldPanel("link_document"),
-    ]
+    panels = ["link_external", "link_page", "link_document"]
 
     class Meta:
         abstract = True
@@ -86,6 +87,7 @@ class LinkFields(models.Model):
     @property
     def link(self):
         if self.link_page_id:
+            # FIXME: find a way to pass request to use .get_url(request)
             return self.link_page.url
         elif self.link_document:
             return self.link_document.url
@@ -106,9 +108,9 @@ class CarouselItem(LinkFields):
     caption = models.CharField(max_length=255, blank=True)
 
     panels = [
-        FieldPanel("image"),
-        FieldPanel("embed_url"),
-        FieldPanel("caption"),
+        "image",
+        "embed_url",
+        "caption",
         MultiFieldPanel(LinkFields.panels, "Link"),
     ]
 
@@ -121,7 +123,7 @@ class RelatedLink(LinkFields):
     title = models.CharField(max_length=255, help_text="Link title")
 
     panels = [
-        FieldPanel("title"),
+        "title",
         MultiFieldPanel(LinkFields.panels, "Link"),
     ]
 
@@ -140,18 +142,16 @@ class BasePage(
     class Meta:
         abstract = True
 
-    promote_panels = (
-        [
-            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ]
-        + NavigationFields.promote_panels
-        + ColourThemeMixin.promote_panels
-        + DivisionMixin.promote_panels
-        + ContactMixin.promote_panels
-        + [
-            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-        ]
-    )
+    response_media_types = ["text/html", "text/markdown"]
+
+    promote_panels = [
+        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        *NavigationFields.promote_panels,
+        *ColourThemeMixin.promote_panels,
+        *DivisionMixin.promote_panels,
+        *ContactMixin.promote_panels,
+        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+    ]
 
     @cached_property
     def breadcrumbs(self):
@@ -160,6 +160,37 @@ class BasePage(
         """
         # The homepage has depth=2; anything shallower is the Wagtail root.
         return self.get_ancestors().filter(depth__gte=2)
+
+    def get_response_media_type(self, request: HttpRequest):
+        # Demo only: ?format=md shows the Markdown in a browser, which can't
+        # easily send an Accept: text/markdown header.
+        if request.GET.get("format") == "md":
+            return "text/markdown"
+        return super().get_response_media_type(request)
+
+    def serve(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        response = super().serve(request, *args, **kwargs)
+        if self.get_response_media_type(request) != "text/markdown":
+            return response
+
+        # Page responses are TemplateResponses, rendered lazily.
+        if hasattr(response, "render"):
+            response.render()
+        # Leave redirects, errors and non-HTML responses as they are.
+        if response.status_code != HTTPStatus.OK or "text/html" not in response.get(
+            "Content-Type", ""
+        ):
+            return response
+
+        converter = HTMLToMarkdownConverter(base_url=self.get_full_url(request))
+        markdown = converter.convert(response.content.decode(response.charset))
+        response = HttpResponse(markdown, content_type="text/markdown; charset=utf-8")
+
+        # Rough token count for the `x-markdown-tokens` header, using the common ~4 characters per token heuristic.
+        # Agents only use it to budget context, so an estimate avoids pulling in a tokenizer.
+        response["x-markdown-tokens"] = max(1, round(len(markdown) / 4))
+
+        return response
 
 
 class HomePagePartnerLogo(Orderable):
@@ -172,9 +203,7 @@ class HomePagePartnerLogo(Orderable):
         related_name="+",
     )
 
-    panels = [
-        FieldPanel("image"),
-    ]
+    panels = ["image"]
 
 
 # Home Page
@@ -236,22 +265,18 @@ class HomePage(
             ),
         ),
         InlinePanel("logos", heading="Partner logos", label="logo", max_num=12),
-        FieldPanel("body"),
+        "body",
     ]
 
-    promote_panels = (
-        [
-            MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ]
-        + NavigationFields.promote_panels
-        + ColourThemeMixin.promote_panels
-        + ContactMixin.promote_panels
-        + [
-            MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
-        ]
-    )
+    promote_panels = [
+        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+        *NavigationFields.promote_panels,
+        *ColourThemeMixin.promote_panels,
+        *ContactMixin.promote_panels,
+        MultiFieldPanel(SocialFields.promote_panels, "Social fields"),
+    ]
 
-    def get_context(self, request):
+    def get_context(self, request: HttpRequest) -> dict[str, Any]:
         context = super().get_context(request)
         context["is_home_page"] = True
         context["hero_introduction"] = convert_bold_links_to_pink(
@@ -266,8 +291,9 @@ class StandardPage(BasePage):
 
     body = StreamField(StandardPageStoryBlock())
 
-    content_panels = BasePage.content_panels + [
-        FieldPanel("body"),
+    content_panels = [
+        *BasePage.content_panels,
+        "body",
     ]
 
     search_fields = BasePage.search_fields + [
@@ -299,6 +325,6 @@ class ImportantPageSettings(BaseSiteSetting):
     )
 
     panels = [
-        FieldPanel("cookie_policy_page"),
-        FieldPanel("carbon_emissions_page"),
+        "cookie_policy_page",
+        "carbon_emissions_page",
     ]
