@@ -10,6 +10,10 @@ on:
         description: 'Please provide the Flightpath job_id. You can find this in the output from run_flightpath.py when running "Copy prod to staging" Github Action.'
         required: true
         type: string
+
+permissions:
+  contents: read # to fetch code (actions/checkout)
+
 jobs:
   run_flightpath_status_check:
     runs-on: ubuntu-latest

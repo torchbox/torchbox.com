@@ -8,6 +8,10 @@ name: Copy prod to staging
 run-name: Copy production to staging by @${{ github.actor }}
 on: [workflow_dispatch]
 concurrency: staging_environment
+
+permissions:
+  contents: read # to fetch code (actions/checkout)
+
 jobs:
   run_flightpath:
     runs-on: ubuntu-latest

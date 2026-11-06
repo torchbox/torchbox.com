@@ -21,9 +21,14 @@ concurrency:
   group: 'pages'
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # to fetch code (actions/checkout)
+
     steps:
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -65,7 +70,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Deploy Docs to GitHub Pages
         id: deployment
