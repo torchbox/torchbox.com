@@ -30,8 +30,9 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install requests
       - name: Run run_flightpath_status_check.py script
-        run: |
-          python tbx/core/utils/scripts/run_flightpath_status_check.py --job_id=${{ inputs.job_id }}
         env:
+          JOB_ID: ${{ inputs.job_id }}
           FLIGHTPATH_AUTH_KEY: ${{ secrets.FLIGHTPATH_AUTH_KEY }}
           FLIGHTPATH_URL: ${{ secrets.FLIGHTPATH_URL }}
+        run: |
+          python tbx/core/utils/scripts/run_flightpath_status_check.py --job_id=$JOB_ID
