@@ -21,12 +21,12 @@ RUN npm run build:prod
 # all useful packages required for image manipulation out of the box. They
 # however weight a lot, approx. up to 1.5GiB per built image.
 # Pinned to a particlar version as requested by support team 6/10/25
-FROM python:3.14-trixie AS python-base
+FROM python:3.15-trixie AS python-base
 
 ARG POETRY_INSTALL_ARGS="--no-dev"
 
 # IMPORTANT: Remember to review both of these when upgrading
-ARG POETRY_VERSION=1.8.5
+ARG POETRY_VERSION=2.5.1
 
 # Install dependencies in a virtualenv
 ENV VIRTUAL_ENV=/venv

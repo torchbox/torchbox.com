@@ -27,10 +27,6 @@ class Migration(migrations.Migration):
         ),
         migrations.RemoveField(
             model_name="valuespage",
-            name="page_ptr",
-        ),
-        migrations.RemoveField(
-            model_name="valuespage",
             name="social_image",
         ),
         migrations.RemoveField(

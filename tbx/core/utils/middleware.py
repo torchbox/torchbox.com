@@ -1,14 +1,8 @@
-from typing import TYPE_CHECKING, Optional
-
 from django.http import Http404, HttpResponseRedirect
+lazy from django.http import HttpRequest, HttpResponse
 
 from wagtail.models import Site
-
-
-if TYPE_CHECKING:
-    from django.http import HttpRequest, HttpResponse
-
-    from wagtail.models import Page
+lazy from wagtail.models import Page
 
 
 class URLCaseNormalizeMiddleware:
@@ -21,8 +15,8 @@ class URLCaseNormalizeMiddleware:
         self.get_response = get_response
 
     def get_page_for_path(
-        self, site: Site, request: "HttpRequest", path: str
-    ) -> Optional["Page"]:
+        self, site: Site, request: HttpRequest, path: str
+    ) -> Page | None:
         """
         Implementation lifted from `wagtail.views.serve`.
         """
@@ -38,7 +32,7 @@ class URLCaseNormalizeMiddleware:
 
         return page
 
-    def __call__(self, request: "HttpRequest") -> "HttpResponse":
+    def __call__(self, request: HttpRequest) -> HttpResponse:
         response = self.get_response(request)
 
         if response.status_code != 404:

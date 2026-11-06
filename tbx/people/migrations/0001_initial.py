@@ -10,8 +10,6 @@ import wagtail.fields
 import wagtail.images.blocks
 import wagtail.search.index
 
-import phonenumber_field.modelfields
-
 
 class Migration(migrations.Migration):
     initial = True
@@ -996,9 +994,7 @@ class Migration(migrations.Migration):
                 ("email_address", models.EmailField(max_length=254)),
                 (
                     "phone_number",
-                    phonenumber_field.modelfields.PhoneNumberField(
-                        blank=True, max_length=128, null=True, region=None
-                    ),
+                    models.CharField(blank=True, max_length=128, null=True),
                 ),
                 (
                     "default_contact",

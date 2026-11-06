@@ -1,4 +1,3 @@
-from itertools import chain
 import math
 import string
 
@@ -167,7 +166,7 @@ class BlogPage(BasePage):
 
     @property
     def tags(self):
-        return chain(self.services, self.sectors)
+        return (*it for it in (self.services, self.sectors))
 
     def get_related_blog_posts(self):
         # Assumption that blog posts for the same division
