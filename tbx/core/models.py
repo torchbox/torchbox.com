@@ -184,7 +184,13 @@ class BasePage(
 
         converter = HTMLToMarkdownConverter(base_url=self.get_full_url(request))
         markdown = converter.convert(response.content.decode(response.charset))
-        return HttpResponse(markdown, content_type="text/markdown; charset=utf-8")
+        response = HttpResponse(markdown, content_type="text/markdown; charset=utf-8")
+
+        # Rough token count for the `x-markdown-tokens` header, using the common ~4 characters per token heuristic.
+        # Agents only use it to budget context, so an estimate avoids pulling in a tokenizer.
+        response["x-markdown-tokens"] = max(1, round(len(markdown) / 4))
+
+        return response
 
 
 class HomePagePartnerLogo(Orderable):

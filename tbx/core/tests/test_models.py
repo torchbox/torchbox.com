@@ -131,6 +131,7 @@ class TestStandardPage(WagtailPageTestCase):
                     )
                 else:
                     self.assertNotContains(response, "<!doctype html>")
+                    self.assertIn("x-markdown-tokens", response.headers)
 
     def test_page_markdown_variant_via_query_param(self):
         response = self.client.get(
