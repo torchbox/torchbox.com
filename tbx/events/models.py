@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.utils import timezone
+from django.utils.decorators import method_decorator
 
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
@@ -7,10 +8,12 @@ from wagtail.fields import RichTextField
 from tbx.core.listing.context import build_listing_filter_context
 from tbx.core.listing.forms import EventFilterForm
 from tbx.core.models import BasePage
+from tbx.core.utils.cache import htmx_vary
 from tbx.core.utils.fields import StreamField
 from tbx.events.blocks import EventItemBlock
 
 
+@method_decorator(htmx_vary, name="serve")
 class EventIndexPage(BasePage):
     template = "patterns/pages/events/events_listing.html"
     no_events_message = RichTextField(

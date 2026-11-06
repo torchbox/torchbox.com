@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from django.db import models
 from django.db.models import Case, DateField, F, Q, When
 from django.dispatch import receiver
+from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
 
 from modelcluster.fields import ParentalManyToManyField
@@ -21,6 +22,7 @@ from tbx.core.blocks import StoryBlock
 from tbx.core.listing.context import build_listing_filter_context
 from tbx.core.listing.forms import TaxonomyFilterForm
 from tbx.core.models import BasePage
+from tbx.core.utils.cache import htmx_vary
 from tbx.core.utils.fields import StreamField
 from tbx.core.utils.models import (
     ColourThemeMixin,
@@ -360,7 +362,7 @@ class WorkPage(BasePage):
             return WorkIndexPage.objects.live().public().first()
 
 
-# Work index page
+@method_decorator(htmx_vary, name="serve")
 class WorkIndexPage(BasePage):
     template = "patterns/pages/work/work_index_page.html"
 
