@@ -26,7 +26,7 @@ FROM python:3.14-trixie AS python-base
 ARG POETRY_INSTALL_ARGS="--no-dev"
 
 # IMPORTANT: Remember to review both of these when upgrading
-ARG POETRY_VERSION=1.8.5
+ARG POETRY_VERSION=2.5.1
 
 # Install dependencies in a virtualenv
 ENV VIRTUAL_ENV=/venv
