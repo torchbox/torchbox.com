@@ -101,8 +101,6 @@ Add references to any custom templates that override the Wagtail admin templates
   Evidence: `npm update --package-lock-only --ignore-scripts` fails with `npm error ERESOLVE unable to resolve dependency tree ... peer stylelint@"^17.0.0" from stylelint-config-torchbox@5.0.0`
   Release notes: https://github.com/stylelint/stylelint/releases/tag/18.0.0
 
-The fleet-wide ESLint v8 ceiling (`eslint` held at `^8.57.1`, `eslint-webpack-plugin` at `^5.0.3`, the range `eslint-config-torchbox@^1.1.0` supports) is applied automatically by the Node bump tooling, not logged per project here. No flat-config (ESLint v9) release of `eslint-config-torchbox` exists yet. It lifts via the ESLint to Biome migration. See the [ESLint v9 migration guide](https://eslint.org/docs/latest/use/migrate-to-9.0.0).
-
 ## Security
 
 Last security review: 2026-11-10
