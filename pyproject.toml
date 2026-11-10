@@ -33,10 +33,11 @@ wagtail-purge = "~0.4"
 
 # Production
 scout-apm = "~4.1"
-sentry-sdk = "~2.73"
+sentry-sdk = "~2.74"
 html5lib = "~1.1"
 beautifulsoup4 = "~4.15"
 django-xff = "~1.5"
+tzdata = "~2026.6"
 
 [tool.poetry.group.dev.dependencies]
 Werkzeug = "~3.1"
@@ -51,13 +52,13 @@ detect-secrets = "~1.5"
 django-upgrade = "~1.33"
 djhtml = "~3.0"
 pyupgrade = "~3.22"
-pre-commit = "~4.6"
+pre-commit = "~4.7"
 ruff = "~0.17"
 
 # Documentation
 mkdocs = "~1.6"
-mkdocs-material = "~9.7"
-pymdown-extensions = "~11.0"
+mkdocs-material = "~9.8"
+pymdown-extensions = "~12.3"
 
 # Testing
 factory-boy = "~3.3"
