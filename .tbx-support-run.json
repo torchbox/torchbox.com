@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "run_type": "full",
+  "tickets": {
+    "upgrade": "TWE-736",
+    "migration": "TWE-736"
+  },
+  "run_base": "support/TWE-736-wagtail-81-upgrade",
+  "python_root": null,
+  "targets": {},
+  "platform_upgrade": null,
+  "postgres_version": null,
+  "heads_up": null,
+  "selected_migrations": ["poetry-to-uv", "npm-to-pnpm", "eslint-to-biome"],
+  "hold_calls": {},
+  "decisions": []
+}
