@@ -90,19 +90,14 @@ Add references to any custom templates that override the Wagtail admin templates
 
 ## Node dependency holds
 
-### typescript
+- `typescript` (`^6.0.3`): `ts-jest@29.4.15` (latest) still declares a peer range of `typescript >=4.3 <7`, so TypeScript 7 breaks `ts-jest`. Lift when a `ts-jest` release supports TypeScript 7.
+  Evidence: `ts-jest@29.4.15` (latest) peer dependency still `typescript: >=4.3 <7`; TypeScript latest is 7.0.2 — floating would break ts-jest
+  Release notes: https://github.com/kulshekhar/ts-jest/releases
+- `stylelint` (`^17.16.0`): `stylelint-config-torchbox@5.0.0` (latest) declares a peer range of `stylelint ^17.0.0`, so stylelint 18 fails to install. Lift when `stylelint-config-torchbox` ships a release supporting stylelint 18.
+  Evidence: `npm update --package-lock-only --ignore-scripts` fails with `npm error ERESOLVE unable to resolve dependency tree ... peer stylelint@"^17.0.0" from stylelint-config-torchbox@5.0.0`
+  Release notes: https://github.com/stylelint/stylelint/releases/tag/18.0.0
 
-**Last checked** Wagtail 8.0 upgrade
-
-- Held at `^6.0.3`. `ts-jest` (latest 29.4.12) declares a peer range of `typescript >=4.3 <7`, so TypeScript 7 fails to install.
-- Lift when a `ts-jest` release supports TypeScript 7.
-
-### eslint and eslint-webpack-plugin
-
-**Last checked** Wagtail 8.0 upgrade
-
-- Held at `^8.57.1` and `^5.0.3`, the range `eslint-config-torchbox@^1.1.0` supports. No flat-config (ESLint v9) release of that package exists yet.
-- This is the fleet-wide ESLint v8 ceiling applied by the Node bump tooling. It lifts via the ESLint to Biome migration, not per project. See the [ESLint v9 migration guide](https://eslint.org/docs/latest/use/migrate-to-9.0.0).
+The fleet-wide ESLint v8 ceiling (`eslint` held at `^8.57.1`, `eslint-webpack-plugin` at `^5.0.3`, the range `eslint-config-torchbox@^1.1.0` supports) is applied automatically by the Node bump tooling, not logged per project here. No flat-config (ESLint v9) release of `eslint-config-torchbox` exists yet. It lifts via the ESLint to Biome migration. See the [ESLint v9 migration guide](https://eslint.org/docs/latest/use/migrate-to-9.0.0).
 
 ## Security
 
