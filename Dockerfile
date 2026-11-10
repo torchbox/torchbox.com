@@ -1,4 +1,4 @@
-FROM node:24-slim AS frontend-deps
+FROM node:26-slim AS frontend-deps
 
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true
