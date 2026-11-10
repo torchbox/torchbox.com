@@ -23,7 +23,7 @@ RUN npm run build:prod
 # Pinned to a particlar version as requested by support team 6/10/25
 FROM python:3.15-trixie AS python-base
 
-ARG POETRY_INSTALL_ARGS="--no-dev"
+ARG POETRY_INSTALL_ARGS="--without dev"
 
 # IMPORTANT: Remember to review both of these when upgrading
 ARG POETRY_VERSION=2.5.1
