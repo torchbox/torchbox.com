@@ -33,7 +33,7 @@
     "build:analyse": "ANALYZE=1 webpack --mode production",
     "start": "webpack --mode development --progress --watch",
     "start:reload": "webpack-dev-server",
-    "pa11y": "pa11y-ci --sitemap http://localhost:8000/sitemap.xml --config ./pa11y.config.js || (echo 'Please install pa11y-ci globally using: pnpm install -g pa11y-ci' && exit 1)"
+    "pa11y": "pa11y-ci --sitemap http://localhost:8000/sitemap.xml --config ./pa11y.config.js || (echo 'Please install pa11y-ci globally using: pnpm add -g pa11y-ci' && exit 1)"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.7",
