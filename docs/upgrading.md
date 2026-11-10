@@ -113,8 +113,6 @@ The project's base image is `python:3.15-trixie`. Debian Trixie no longer instal
   Evidence: `tbx-support run trivy-scan run_relock --project-root . --ecosystem node --package minimatch --fixed-version 11.0.1` fails with `Error: minimatch is still locked at 3.1.5, 10.2.6, 11.0.5 (fixed in 11.0.1); nothing was kept.` A first attempt at a global override made `npm run lint:js` fail with `TypeError: Error while loading rule 'import/no-extraneous-dependencies': (0 , _minimatch2.default) is not a function`; scoping the override to `test-exclude` in `package.json` clears it.
   Release notes: https://github.com/isaacs/minimatch/blob/main/changelog.md
 
-The fleet-wide ESLint v8 ceiling (`eslint` held at `^8.57.1`, `eslint-webpack-plugin` at `^5.0.3`, the range `eslint-config-torchbox@^1.1.0` supports) is applied automatically by the Node bump tooling, not logged per project here. No flat-config (ESLint v9) release of `eslint-config-torchbox` exists yet. It lifts via the ESLint to Biome migration. See the [ESLint v9 migration guide](https://eslint.org/docs/latest/use/migrate-to-9.0.0).
-
 ## Security
 
 Last security review: 2026-11-10

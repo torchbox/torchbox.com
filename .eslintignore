@@ -1,5 +1,0 @@
-node_modules
-coverage
-static_compiled
-venv
-cloudflare/workers.js

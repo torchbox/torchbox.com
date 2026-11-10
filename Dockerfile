@@ -3,17 +3,25 @@ FROM node:26-slim AS frontend-deps
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true
 
+# node:26-slim ships no corepack (Node 25+ dropped it), so install one new
+# enough to provision pnpm, then prepare the pinned pnpm release.
+ARG PNPM_VERSION=12.18.0
+ARG PNPM_HASH=9d7882d5dc82147ecfc4e062aa34834e0ad0296710a1837a1115ae012127d36b7109e321ac1598a1dd0a65597681b1e99917e12ed0d749eae91187943363beb3
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN npm install -g corepack@0.36.0 && corepack enable pnpm && corepack prepare "pnpm@${PNPM_VERSION}+sha512.${PNPM_HASH}" --activate
+
 WORKDIR /app
 
 # Install front-end dependencies.
-COPY package.json package-lock.json tsconfig.json webpack.config.js ./
-RUN npm ci --no-audit --progress=false
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json webpack.config.js ./
+RUN pnpm install --frozen-lockfile
 
 FROM frontend-deps AS frontend
 
 # Compile static files
 COPY ./tbx/ ./tbx/
-RUN npm run build:prod
+RUN pnpm run build:prod
 
 
 # We use Debian images because they are considered more stable than the alpine
@@ -129,6 +137,14 @@ ARG NVM_VERSION=0.40.3
 COPY --chown=tbx .nvmrc ./
 RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash \
     && bash --login -c "nvm install --no-progress && nvm alias default $(nvm run --silent --version)"
+
+# Provision pnpm (via corepack) so engineers can run pnpm commands in this
+# container. The nvm-installed node ships no corepack (Node 25+ dropped it).
+ARG PNPM_VERSION=12.18.0
+ARG PNPM_HASH=9d7882d5dc82147ecfc4e062aa34834e0ad0296710a1837a1115ae012127d36b7109e321ac1598a1dd0a65597681b1e99917e12ed0d749eae91187943363beb3
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN bash --login -c "npm install -g corepack@0.36.0 && corepack enable pnpm && corepack prepare \"pnpm@${PNPM_VERSION}+sha512.${PNPM_HASH}\" --activate && pnpm --version"
 
 # Pull in the node modules for the frontend (from deps-only stage, no build needed)
 COPY --chown=tbx --from=frontend-deps /app/node_modules ./node_modules
