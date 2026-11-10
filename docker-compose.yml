@@ -59,7 +59,7 @@ services:
       - redis
 
   db:
-    image: postgres:17
+    image: postgres:18
     expose:
       - 5432
     environment:
