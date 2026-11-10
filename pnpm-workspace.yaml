@@ -1,8 +1,7 @@
 publicHoistPattern:
-  - '*eslint*'
+  - '*biome*'
   - '*prettier*'
   - '*stylelint*'
-  - '@eslint/*'
   - '@tailwindcss/*'
 allowBuilds:
   '@parcel/watcher': true
