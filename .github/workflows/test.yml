@@ -18,13 +18,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
+      - name: Enable pnpm via corepack
+        run: npm install -g corepack@0.36.0 && corepack enable pnpm && corepack prepare "pnpm@12.18.0+sha512.9d7882d5dc82147ecfc4e062aa34834e0ad0296710a1837a1115ae012127d36b7109e321ac1598a1dd0a65597681b1e99917e12ed0d749eae91187943363beb3" --activate
       - id: node-cache
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/.nvmrc') }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/.nvmrc') }}-${{ hashFiles('**/pnpm-lock.yaml') }}
       - if: steps.node-cache.outputs.cache-hit != 'true'
-        run: npm ci --no-audit
+        run: pnpm install --frozen-lockfile
       - uses: actions/cache@v4
         with:
           path: ${{ env.HOME }}/.cache/pre-commit
@@ -38,14 +40,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
+      - name: Enable pnpm via corepack
+        run: npm install -g corepack@0.36.0 && corepack enable pnpm && corepack prepare "pnpm@12.18.0+sha512.9d7882d5dc82147ecfc4e062aa34834e0ad0296710a1837a1115ae012127d36b7109e321ac1598a1dd0a65597681b1e99917e12ed0d749eae91187943363beb3" --activate
       - id: node-cache
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/.nvmrc') }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/.nvmrc') }}-${{ hashFiles('**/pnpm-lock.yaml') }}
       - if: steps.node-cache.outputs.cache-hit != 'true'
-        run: npm ci --no-audit
-      - run: npm run test
+        run: pnpm install --frozen-lockfile
+      - run: pnpm run test
   compile_static:
     runs-on: ubuntu-latest
     needs: lint
@@ -54,14 +58,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
+      - name: Enable pnpm via corepack
+        run: npm install -g corepack@0.36.0 && corepack enable pnpm && corepack prepare "pnpm@12.18.0+sha512.9d7882d5dc82147ecfc4e062aa34834e0ad0296710a1837a1115ae012127d36b7109e321ac1598a1dd0a65597681b1e99917e12ed0d749eae91187943363beb3" --activate
       - id: node-cache
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/.nvmrc') }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/.nvmrc') }}-${{ hashFiles('**/pnpm-lock.yaml') }}
       - if: steps.node-cache.outputs.cache-hit != 'true'
-        run: npm ci --no-audit
-      - run: npm run build:prod
+        run: pnpm install --frozen-lockfile
+      - run: pnpm run build:prod
       - uses: actions/upload-artifact@v4
         with:
           name: static

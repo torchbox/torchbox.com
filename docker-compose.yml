@@ -49,7 +49,8 @@ services:
       - ./.prettierignore:/app/.prettierignore:rw
       - ./.prettierrc.toml:/app/.prettierrc.toml:rw
       - ./.stylelintrc.js:/app/.stylelintrc.js:rw
-      - ./package-lock.json:/app/package-lock.json:rw
+      - ./pnpm-lock.yaml:/app/pnpm-lock.yaml:rw
+      - ./pnpm-workspace.yaml:/app/pnpm-workspace.yaml:rw
       - ./package.json:/app/package.json:rw
       - ./tsconfig.json:/app/tsconfig.json:rw
       - ./webpack.config.js:/app/webpack.config.js:rw
