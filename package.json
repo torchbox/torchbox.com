@@ -21,7 +21,7 @@
     "lint:css": "stylelint --report-needless-disables './tbx/static_src/sass' './tbx/static_src/css'",
     "lint:js": "eslint --ext .js,.ts,.tsx --report-unused-disable-directives .",
     "lint:format": "prettier --check '**/?(.)*.{md,css,scss,js,ts,tsx,json,yaml,yml,vue}'",
-    "lint": "npm run lint:format && npm run lint:js && npm run lint:css",
+    "lint": "pnpm run lint:format && pnpm run lint:js && pnpm run lint:css",
     "format": "prettier --write '**/?(.)*.{md,css,scss,js,ts,tsx,json,yaml,yml,vue}'",
     "//[ Tests ]//": "",
     "test": "jest",
@@ -33,7 +33,7 @@
     "build:analyse": "ANALYZE=1 webpack --mode production",
     "start": "webpack --mode development --progress --watch",
     "start:reload": "webpack-dev-server",
-    "pa11y": "pa11y-ci --sitemap http://localhost:8000/sitemap.xml --config ./pa11y.config.js || (echo 'Please install pa11y-ci globally using: npm install -g pa11y-ci' && exit 1)"
+    "pa11y": "pa11y-ci --sitemap http://localhost:8000/sitemap.xml --config ./pa11y.config.js || (echo 'Please install pa11y-ci globally using: pnpm add -g pa11y-ci' && exit 1)"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.7",
@@ -73,11 +73,11 @@
     "micromodal": "^0.7.0",
     "swiper": "^14.4.0"
   },
-  "overrides": {
-    "glob": "14.0.4",
-    "test-exclude": {
-      "glob": "14.0.4",
-      "minimatch": "11.0.5"
+  "packageManager": "pnpm@12.18.0+sha512.9d7882d5dc82147ecfc4e062aa34834e0ad0296710a1837a1115ae012127d36b7109e321ac1598a1dd0a65597681b1e99917e12ed0d749eae91187943363beb3",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.18.0"
     }
   }
 }

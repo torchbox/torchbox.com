@@ -1,0 +1,20 @@
+publicHoistPattern:
+  - '*eslint*'
+  - '*prettier*'
+  - '*stylelint*'
+  - '@eslint/*'
+  - '@tailwindcss/*'
+allowBuilds:
+  '@parcel/watcher': true
+  unrs-resolver: true
+  esbuild: false
+  '@tailwindcss/oxide': true
+blockExoticSubdeps: true
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  - eslint-config-prettier@8.10.2
+minimumReleaseAge: 4320
+overrides:
+  glob: 14.0.4
+  test-exclude>glob: 14.0.4
+  test-exclude>minimatch: 11.0.5
