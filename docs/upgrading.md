@@ -100,9 +100,15 @@ The project's base image is `python:3.15-trixie`. Debian Trixie no longer instal
 - `stylelint` (`^17.16.0`): `stylelint-config-torchbox@5.0.0` (latest) declares a peer range of `stylelint ^17.0.0`, so stylelint 18 fails to install. Lift when `stylelint-config-torchbox` ships a release supporting stylelint 18.
   Evidence: `npm update --package-lock-only --ignore-scripts` fails with `npm error ERESOLVE unable to resolve dependency tree ... peer stylelint@"^17.0.0" from stylelint-config-torchbox@5.0.0`
   Release notes: https://github.com/stylelint/stylelint/releases/tag/18.0.0
+- `glob` (`14.0.4`, forced via npm `overrides`): `test-exclude@7.0.1` (babel-plugin-istanbul's coverage-exclusion matcher) still declares `glob: ^10.4.1`, a range that resolves to the CVE-2026-118773-vulnerable 7.2.3/10.5.0/13.0.7 copies without the override, and the exact pin means a future glob patch needs the override bumped by hand. Lift when `test-exclude` ships a release declaring `glob ^14` natively.
+  Evidence: `tbx-support run trivy-scan run_relock --project-root . --ecosystem node --package glob --fixed-version 14.0.2` fails with `Error: glob is still locked at 7.2.3, 10.5.0, 13.0.7 (fixed in 14.0.2); nothing was kept.`
+  Release notes: https://github.com/isaacs/node-glob/blob/main/changelog.md
+- `minimatch` (`11.0.5`, forced via npm `overrides`): `test-exclude@7.0.1` still declares `minimatch: ^10.2.2`, a range that resolves to the CVE-2026-118764-vulnerable 3.1.5/9.0.9/10.2.6 copies without the override, and the exact pin means a future minimatch patch needs the override bumped by hand. Lift when `test-exclude` ships a release declaring `minimatch ^11` natively.
+  Evidence: `tbx-support run trivy-scan run_relock --project-root . --ecosystem node --package minimatch --fixed-version 11.0.1` fails with `Error: minimatch is still locked at 3.1.5, 10.2.6, 11.0.5 (fixed in 11.0.1); nothing was kept.`
+  Release notes: https://github.com/isaacs/minimatch/blob/main/changelog.md
 
 The fleet-wide ESLint v8 ceiling (`eslint` held at `^8.57.1`, `eslint-webpack-plugin` at `^5.0.3`, the range `eslint-config-torchbox@^1.1.0` supports) is applied automatically by the Node bump tooling, not logged per project here. No flat-config (ESLint v9) release of `eslint-config-torchbox` exists yet. It lifts via the ESLint to Biome migration. See the [ESLint v9 migration guide](https://eslint.org/docs/latest/use/migrate-to-9.0.0).
 
 ## Security
 
-Last security review: 2026-10-20
+Last security review: 2026-11-10
