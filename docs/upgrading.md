@@ -88,6 +88,10 @@ As much as possible, we want to use the official releases available on PyPI for 
 
 Add references to any custom templates that override the Wagtail admin templates. These should be checked to ensure they still work as expected after the upgrade.
 
+## Timezone data
+
+The `tzdata` PyPI package is a declared dependency as of the Python package bump that moved the base image to `python:3.15-trixie`. Debian Trixie no longer installs `tzdata-legacy` by default, so a stored legacy timezone alias (e.g. `US/Eastern`) could no longer resolve through the base image's system tz database. `tzdata` bundles its own IANA database, including the legacy aliases, so timezone resolution no longer depends on what the base image ships.
+
 ## Node dependency holds
 
 ### typescript
