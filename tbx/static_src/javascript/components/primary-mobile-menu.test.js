@@ -9,7 +9,6 @@ describe('PrimaryMobileMenu', () => {
     });
 
     it('hides the menu by default', () => {
-        // eslint-disable-next-line no-new
         new PrimaryMobileMenu(
             document.querySelector(PrimaryMobileMenu.selector()),
         );
@@ -20,7 +19,6 @@ describe('PrimaryMobileMenu', () => {
     });
 
     it('shows the menu when clicked', () => {
-        // eslint-disable-next-line no-new
         new PrimaryMobileMenu(
             document.querySelector(PrimaryMobileMenu.selector()),
         );
@@ -37,7 +35,6 @@ describe('PrimaryMobileMenu', () => {
     });
 
     it('hides the menu when clicked outside once open', () => {
-        // eslint-disable-next-line no-new
         new PrimaryMobileMenu(
             document.querySelector(PrimaryMobileMenu.selector()),
             () => {},
@@ -66,7 +63,6 @@ describe('PrimaryMobileMenu', () => {
             <button id="outside">Outside</button>
         `;
 
-        // eslint-disable-next-line no-new
         new PrimaryMobileMenu(
             document.querySelector(PrimaryMobileMenu.selector()),
         );
@@ -94,7 +90,6 @@ describe('PrimaryMobileMenu', () => {
             <a href="/outside/">Outside</a>
         `;
 
-        // eslint-disable-next-line no-new
         new PrimaryMobileMenu(
             document.querySelector(PrimaryMobileMenu.selector()),
         );
@@ -126,7 +121,6 @@ describe('PrimaryMobileMenu', () => {
             </nav>
         `;
 
-        // eslint-disable-next-line no-new
         new PrimaryMobileMenu(
             document.querySelector(PrimaryMobileMenu.selector()),
         );

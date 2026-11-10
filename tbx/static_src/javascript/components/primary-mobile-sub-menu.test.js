@@ -14,7 +14,6 @@ describe('PrimaryMobileSubMenu', () => {
     });
 
     it('moves focus into the submenu when opened', () => {
-        // eslint-disable-next-line no-new
         new PrimaryMobileSubMenu(
             document.querySelector(PrimaryMobileSubMenu.selector()),
         );
@@ -37,7 +36,6 @@ describe('PrimaryMobileSubMenu', () => {
     });
 
     it('returns focus to the trigger when closed', () => {
-        // eslint-disable-next-line no-new
         new PrimaryMobileSubMenu(
             document.querySelector(PrimaryMobileSubMenu.selector()),
         );
@@ -56,7 +54,6 @@ describe('PrimaryMobileSubMenu', () => {
     });
 
     it('loops focus from the last item back to the back button on Tab', () => {
-        // eslint-disable-next-line no-new
         new PrimaryMobileSubMenu(
             document.querySelector(PrimaryMobileSubMenu.selector()),
         );
@@ -81,7 +78,6 @@ describe('PrimaryMobileSubMenu', () => {
     });
 
     it('loops focus from the back button to the last item on Shift+Tab', () => {
-        // eslint-disable-next-line no-new
         new PrimaryMobileSubMenu(
             document.querySelector(PrimaryMobileSubMenu.selector()),
         );
@@ -107,7 +103,6 @@ describe('PrimaryMobileSubMenu', () => {
     });
 
     it('does not trap focus once the subnav is closed', () => {
-        // eslint-disable-next-line no-new
         new PrimaryMobileSubMenu(
             document.querySelector(PrimaryMobileSubMenu.selector()),
         );
@@ -136,7 +131,6 @@ describe('PrimaryMobileSubMenu', () => {
         `;
 
         expect(() => {
-            // eslint-disable-next-line no-new
             new PrimaryMobileSubMenu(
                 document.querySelector(PrimaryMobileSubMenu.selector()),
             );
