@@ -2,7 +2,7 @@
 
 ## Code styleguide
 
-This project’s code formatting is enforced with [Prettier](https://prettier.io/) for supported languages, [black](https://github.com/psf/black), [flake8](https://github.com/pycqa/flake8), and [isort](https://github.com/PyCQA/isort) for Python. Make sure to have all integrated with your editor to auto-format when saving files, or to manually run them before committing (`npm run format` for Prettier).
+This project’s code formatting is enforced with [Prettier](https://prettier.io/) for supported languages, [black](https://github.com/psf/black), [flake8](https://github.com/pycqa/flake8), and [isort](https://github.com/PyCQA/isort) for Python. Make sure to have all integrated with your editor to auto-format when saving files, or to manually run them before committing (`pnpm run format` for Prettier).
 
 ## Automatic linting locally
 
