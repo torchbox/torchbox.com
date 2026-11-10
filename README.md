@@ -93,7 +93,7 @@ The site should be available on the host machine at: <http://127.0.0.1:8000/>
 
 If you only wish to run the frontend or backend tooling, the commands `honcho` runs are in `docker/Procfile`.
 
-Upon first starting the container, the static files may not exist, or may be out of date. To resolve this, simply run `npm run build`.
+Upon first starting the container, the static files may not exist, or may be out of date. To resolve this, simply run `pnpm run build`.
 
 ### Frontend tooling
 
@@ -101,34 +101,34 @@ Here are the common commands:
 
 ```bash
 # Install front-end dependencies.
-npm install
+pnpm install
 # Start the Webpack build in watch mode, without live-reload.
-npm run start
+pnpm run start
 # Start the Webpack server build on port 3000 only with live-reload.
-npm run build
+pnpm run build
 # Do a one-off Webpack production build.
-npm run build:prod
+pnpm run build:prod
 ```
 
 There are two ways to run the frontend tooling:
 
 - In Docker. This is the default, most portable and secure, but much slower on macOS.
-- Or run npm commands from a terminal on your local machine. Create a `.env` file in the project root (see `.env.example`) with `FRONTEND=local`. `fab start` will no longer start a `frontend` container. Now, when running `fab start`, Docker won't attempt to bind to the ports needed for the frontend dev server, meaning they can be run locally. All the tooling still remains available in the container.
+- Or run pnpm commands from a terminal on your local machine. Create a `.env` file in the project root (see `.env.example`) with `FRONTEND=local`. `fab start` will no longer start a `frontend` container. Now, when running `fab start`, Docker won't attempt to bind to the ports needed for the frontend dev server, meaning they can be run locally. All the tooling still remains available in the container.
 
 ## Installing python packages
 
-Python packages can be installed using `poetry` in the web container:
+Python packages can be installed using `uv` in the web container:
 
 ```
 fab sh
-poetry add wagtail-guide
+uv add wagtail-guide
 ```
 
-To reset installed dependencies back to how they are in the `poetry.lock` file:
+To reset installed dependencies back to how they are in the `uv.lock` file:
 
 ```
 fab sh
-poetry install --no-root
+uv sync --no-install-project
 ```
 
 ## Deployments

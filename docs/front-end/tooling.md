@@ -30,11 +30,11 @@ JavaScript unit tests for this project use [Jest](https://jestjs.io/). Here are 
 
 ```sh
 # Run the whole test suite once.
-npm run test
+pnpm run test
 # Run the whole test suite, collecting test coverage information.
-npm run test:coverage
+pnpm run test:coverage
 # Start Jest in watch mode, to run tests on a subset of the files.
-npm run test:watch
+pnpm run test:watch
 ```
 
 ## Deploying it
@@ -43,8 +43,8 @@ npm run test:watch
 
 To only build assets for either development or production you can use
 
-- `npm run build` To build development assets
-- `npm run build:prod` To build assets with minification and vendor prefixes
+- `pnpm run build` To build development assets
+- `pnpm run build:prod` To build assets with minification and vendor prefixes
 
 ## Third party libraries
 
@@ -72,7 +72,7 @@ We provide a config file for svgo which has some recommended presets - but alway
 
 First, install svgo globally if you have not done this previously:
 
-`npm install -g svgo`
+`pnpm add -g svgo`
 
 You can then run the `svgo` command from the terminal. Here are some examples:
 
@@ -96,7 +96,7 @@ Full svgo reference: https://www.npmjs.com/package/svgo
 
 First, globally install imagemin and imagemin-mozjpeg if you have not done so before. We use the lossy mozjpeg plugin because the default (lossless), imagemin-jpegtran, can result in larger images than the original.
 
-npm install -g imagemin-cli imagemin-mozjpeg imagemin-pngquant
+pnpm add -g imagemin-cli imagemin-mozjpeg imagemin-pngquant
 
 You can then run the `imagemin` command from the terminal. Here are some examples:
 

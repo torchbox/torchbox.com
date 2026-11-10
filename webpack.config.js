@@ -2,7 +2,6 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const sass = require('sass');
-const ESLintPlugin = require('eslint-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
@@ -41,15 +40,13 @@ const styleLoaders = [
 const options = {
     entry: {
         // multiple entries can be added here
-        // 'main' is ignored from prettier because if vue (or anything else) isn't added
-        // here, it will deem the quotes uneccessary.
-        'main': `./${projectRoot}/static_src/javascript/main.js`, // prettier-ignore
-        'admin': `./${projectRoot}/static_src/javascript/admin.js`, // prettier-ignore
-        'gist': `./${projectRoot}/static_src/sass/vendor/gist.scss`, // prettier-ignore
-        'codehilite': `./${projectRoot}/static_src/sass/vendor/codehilite.scss`, // prettier-ignore
+        main: `./${projectRoot}/static_src/javascript/main.js`,
+        admin: `./${projectRoot}/static_src/javascript/admin.js`,
+        gist: `./${projectRoot}/static_src/sass/vendor/gist.scss`,
+        codehilite: `./${projectRoot}/static_src/sass/vendor/codehilite.scss`,
 
         // Divison Page and Sector Index Page
-        'sector-pages': `./${projectRoot}/static_src/javascript/sector-pages.js`, // prettier-ignore
+        'sector-pages': `./${projectRoot}/static_src/javascript/sector-pages.js`,
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],
@@ -77,11 +74,6 @@ const options = {
         }),
         new MiniCssExtractPlugin({
             filename: 'css/[name].css',
-        }),
-        new ESLintPlugin({
-            failOnError: false,
-            lintDirtyModulesOnly: true,
-            emitWarning: true,
         }),
         new StylelintPlugin({
             failOnError: false,

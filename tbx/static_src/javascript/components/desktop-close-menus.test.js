@@ -36,7 +36,6 @@ describe('DesktopCloseMenus', () => {
             .querySelectorAll(PrimaryDesktopSubMenu.selector())
             .forEach((node) => new PrimaryDesktopSubMenu(node));
 
-        // eslint-disable-next-line no-new
         new DesktopCloseMenus();
     });
 
