@@ -1,3 +1,5 @@
+ARG UV_VERSION=0.13.7
+
 FROM node:26-slim AS frontend-deps
 
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
@@ -16,7 +18,6 @@ COPY ./tbx/ ./tbx/
 RUN npm run build:prod
 
 
-ARG UV_VERSION=0.13.7
 FROM ghcr.io/astral-sh/uv:${UV_VERSION}@sha256:96f40d3904aad8d0bd010539001d36c8e2188b981e1334471a90c4a1d93bb490 AS uv-binary
 
 # We use Debian images because they are considered more stable than the alpine
