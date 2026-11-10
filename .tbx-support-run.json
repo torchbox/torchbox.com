@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "run_type": "full",
+  "tickets": {
+    "upgrade": "TWE-736",
+    "migration": "TWE-736"
+  },
+  "run_base": null,
+  "python_root": null,
+  "targets": {
+    "wagtail": "8.1",
+    "django": "6.1.3",
+    "python": "3.15",
+    "node": "26",
+    "debian": "trixie"
+  },
+  "platform_upgrade": true,
+  "postgres_version": "18",
+  "heads_up": "In-flight PR #479 (branch feat/wagtail-8.2-and-markdown-alternatives) already hand-bumps Python 3.15/Django 6.1/Wagtail 8.1 plus related code fixes (blog feeds, middleware, people migrations, settings, sitemap). Engineer chose to cut this upgrade integration branch off #479's branch (not main) so this run builds on that work instead of duplicating it; the integration MR still targets main, so #479 auto-resolves as merged by reachability once this lands. No toolchain migrations this cycle (Poetry->uv and npm->pnpm both declined for this run).",
+  "selected_migrations": [],
+  "hold_calls": {
+    "django-upgrade": "lift",
+    "djhtml": "lift",
+    "pyupgrade": "lift",
+    "ruff": "lift",
+    "typescript": "keep"
+  },
+  "decisions": []
+}
