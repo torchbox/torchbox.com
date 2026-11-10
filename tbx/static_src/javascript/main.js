@@ -1,15 +1,15 @@
-import PrimaryMobileMenu from './components/primary-mobile-menu';
-import PrimaryMobileSubMenu from './components/primary-mobile-sub-menu';
-import PrimaryDesktopSubMenu from './components/primary-desktop-sub-menu';
-import DesktopCloseMenus from './components/desktop-close-menus';
-import SkipLink from './components/skip-link';
 import CookieWarning from './components/cookie-message';
-import YouTubeConsentManager from './components/youtube-embed';
-import Tabs from './components/tabs';
-import TableHint from './components/table-hint';
+import DesktopCloseMenus from './components/desktop-close-menus';
+import ListingFilters from './components/listing-filters';
 import Modal from './components/modal';
 import ModeSwitcher from './components/mode-switcher';
-import ListingFilters from './components/listing-filters';
+import PrimaryDesktopSubMenu from './components/primary-desktop-sub-menu';
+import PrimaryMobileMenu from './components/primary-mobile-menu';
+import PrimaryMobileSubMenu from './components/primary-mobile-sub-menu';
+import SkipLink from './components/skip-link';
+import TableHint from './components/table-hint';
+import Tabs from './components/tabs';
+import YouTubeConsentManager from './components/youtube-embed';
 
 import '../css/tailwind.css';
 import '../sass/main.scss';
@@ -43,7 +43,6 @@ function initComponent(ComponentClass) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    /* eslint-disable no-new */
     initComponent(PrimaryMobileMenu);
     initComponent(PrimaryMobileSubMenu);
     initComponent(PrimaryDesktopSubMenu);
