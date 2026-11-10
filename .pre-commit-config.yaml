@@ -15,7 +15,7 @@ repos:
         name: lint:js
         language: system
         entry: pnpm run lint:js
-        types_or: [javascript, ts, tsx]
+        types_or: [javascript, ts, tsx, json]
       - id: lint:css
         name: lint:css
         language: system
@@ -25,7 +25,7 @@ repos:
         name: lint:format
         language: system
         entry: pnpm run format
-        types_or: [markdown, css, scss, javascript, ts, tsx, json, yaml, vue]
+        types_or: [markdown, css, scss, yaml, vue]
 
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.5.0

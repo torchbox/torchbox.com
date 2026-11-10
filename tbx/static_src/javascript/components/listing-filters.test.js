@@ -9,7 +9,6 @@ describe('ListingFilters', () => {
             </form>
             <a href="/" id="outside">Outside</a>
         `;
-        // eslint-disable-next-line no-new
         new ListingFilters(document.querySelector(ListingFilters.selector()));
     });
 
@@ -178,7 +177,6 @@ describe('ListingFilters with HTMX', () => {
         form.addEventListener('change', () => {
             changeCount += 1;
         });
-        // eslint-disable-next-line no-new
         new ListingFilters(form);
     });
 

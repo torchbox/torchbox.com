@@ -1,0 +1,105 @@
+{
+  // Keep the $schema version in sync with @biomejs/biome in package.json.
+  // See docs/upgrading.md for instructions.
+  "$schema": "https://biomejs.dev/schemas/2.6.6/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "style": {
+        "useTemplate": "error",
+        "useNumberNamespace": "error",
+        "noNegationElse": "warn",
+        "useDefaultParameterLast": "error",
+        "useExponentiationOperator": "error",
+        "useNodejsImportProtocol": "off" // ESLint never enforced unicorn/prefer-node-protocol; off to keep the migration like-for-like
+      },
+      "suspicious": {
+        "noVar": "error",
+        "noConsole": "warn",
+        "noDoubleEquals": "error",
+        "useIterableCallbackReturn": {
+          "level": "error",
+          // Matches the project's old array-callback-return options: ESLint allowed an
+          // implicit `return;` and never checked forEach() callbacks at all.
+          "options": { "checkForEach": false, "allowImplicit": true }
+        }
+      },
+      "correctness": {
+        "noUndeclaredVariables": "error",
+        "noUnusedFunctionParameters": "off" // Biome-native rule with no ESLint source; ESLint never enforced it, so off to keep the migration like-for-like
+      },
+      "complexity": {
+        "useOptionalChain": "off", // ESLint never enforced @typescript-eslint/prefer-optional-chain; off to keep the migration like-for-like
+        "noStaticOnlyClass": "off" // ESLint never enforced @typescript-eslint/no-extraneous-class; off to keep the migration like-for-like
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 4,
+    "lineWidth": 80
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingCommas": "all",
+      "arrowParentheses": "always"
+    }
+  },
+  "json": {
+    "formatter": {
+      "indentWidth": 2
+    }
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": [
+      "**",
+      "!**/*.html",
+      "!**/*.css",
+      "!**/*.scss",
+      "!**/*.svg",
+      "!**/*.md",
+      "!**/*.yaml",
+      "!**/*.yml",
+      "!**/fixtures",
+      "!**/static",
+      "!**/coverage",
+      "!cloudflare/workers.js"
+    ]
+  },
+  "overrides": [
+    {
+      // Jest injects these globals into test files. Scope them to test files
+      // only so noUndeclaredVariables still flags undeclared globals in
+      // application code.
+      "includes": ["**/*.test.{js,jsx,ts,tsx}"],
+      "javascript": {
+        "globals": [
+          "jest",
+          "describe",
+          "it",
+          "test",
+          "expect",
+          "beforeAll",
+          "beforeEach",
+          "afterAll",
+          "afterEach"
+        ]
+      }
+    }
+  ]
+}
