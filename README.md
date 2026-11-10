@@ -117,18 +117,18 @@ There are two ways to run the frontend tooling:
 
 ## Installing python packages
 
-Python packages can be installed using `poetry` in the web container:
+Python packages can be installed using `uv` in the web container:
 
 ```
 fab sh
-poetry add wagtail-guide
+uv add wagtail-guide
 ```
 
-To reset installed dependencies back to how they are in the `poetry.lock` file:
+To reset installed dependencies back to how they are in the `uv.lock` file:
 
 ```
 fab sh
-poetry install --no-root
+uv sync --no-install-project
 ```
 
 ## Deployments
