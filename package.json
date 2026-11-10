@@ -72,5 +72,12 @@
     "lite-youtube-embed": "^0.3.4",
     "micromodal": "^0.7.0",
     "swiper": "^14.4.0"
+  },
+  "overrides": {
+    "glob": "14.0.4",
+    "test-exclude": {
+      "glob": "14.0.4",
+      "minimatch": "11.0.5"
+    }
   }
 }
