@@ -48,11 +48,11 @@ honcho = "~2.0"
 
 # Linters etc.
 detect-secrets = "~1.5"
-django-upgrade = "~1.33"  # update pre-commit-config.yaml too
-djhtml = "~3.0"          # update pre-commit-config.yaml too
-pyupgrade = "~3.22"       # update pre-commit-config.yaml too
+django-upgrade = "~1.33"
+djhtml = "~3.0"
+pyupgrade = "~3.22"
 pre-commit = "~4.6"
-ruff = "~0.17"           # update pre-commit-config.yaml too
+ruff = "~0.17"
 
 # Documentation
 mkdocs = "~1.6"
