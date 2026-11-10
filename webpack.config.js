@@ -30,6 +30,7 @@ const styleLoaders = [
                 plugins: [
                     '@tailwindcss/postcss',
                     'postcss-custom-properties',
+                    'autoprefixer',
                     ['cssnano', { preset: 'default' }],
                 ],
             },

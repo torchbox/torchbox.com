@@ -58,7 +58,6 @@
     "stylelint": "^17.16.0",
     "stylelint-config-torchbox": "^5.0.0",
     "stylelint-webpack-plugin": "^5.1.0",
-    "tailwindcss": "^4.3.5",
     "ts-jest": "^29.4.15",
     "ts-loader": "^9.6.2",
     "typescript": "^6.0.3",
