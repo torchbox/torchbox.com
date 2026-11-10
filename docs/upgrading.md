@@ -74,7 +74,7 @@ As much as possible, we want to use the official releases available on PyPI for 
 
 ### Check these packages for updates
 
-**Last checked** Wagtail 8.1 upgrade
+**Last checked** Wagtail 8.1 upgrade — all five confirmed at their latest PyPI release (wagtail-accessibility 2.0.0, wagtail-lite-youtube-embed 0.3.0, wagtail-markdown 0.15.0, wagtailmedia 0.19.1, wagtail-purge 0.4.0), matching the project's current tilde pins.
 
 - wagtail-accessibility
 - [wagtail-lite-youtube-embed](front-end/lite-youtube.md)
@@ -84,11 +84,17 @@ As much as possible, we want to use the official releases available on PyPI for 
 
 ## Custom wagtail admin templates
 
-**Last checked** Wagtail 8.1 upgrade
+**Last checked** Wagtail 8.1 upgrade — no `templates/wagtailadmin/` overrides exist in the project (checked via a project-wide search).
 
 Add references to any custom templates that override the Wagtail admin templates. These should be checked to ensure they still work as expected after the upgrade.
 
-## tzdata
+## Toolchain quirks
+
+### Poetry install flag
+
+Poetry 2.0 removed the deprecated `--no-dev` flag entirely (replaced by `--without dev` for the project's `[tool.poetry.group.dev]` group). The Dockerfile's `POETRY_INSTALL_ARGS` default was still `--no-dev`, which broke the `production`/`dev` build stages outright ("The option \"--no-dev\" does not exist") once Poetry was bumped to 2.5.1. Fixed by switching the default to `--without dev`. Worth checking again on any future Poetry major, since the group-exclusion flag syntax has moved before.
+
+## Timezone data
 
 `tzdata` is a direct dependency because Debian Trixie, which the base image runs on, doesn't install `tzdata-legacy`. Without it, legacy timezone names such as `US/Eastern` don't resolve. Keep it while the base image is on Trixie or later.
 
