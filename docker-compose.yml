@@ -4,7 +4,7 @@ services:
       context: .
       args:
         BUILD_ENV: dev
-        POETRY_INSTALL_ARGS: ''
+        UV_SYNC_ARGS: ''
       target: dev
     environment:
       ALLOWED_HOSTS: 127.0.0.1,0.0.0.0,localhost
@@ -38,7 +38,7 @@ services:
       # Backend config
       - ./manage.py:/app/manage.py:rw
       - ./pyproject.toml:/app/pyproject.toml:rw
-      - ./poetry.lock:/app/poetry.lock:rw
+      - ./uv.lock:/app/uv.lock:rw
       - ./cloudflare:/app/cloudflare:rw
 
       # Frontend config
