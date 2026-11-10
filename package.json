@@ -75,6 +75,9 @@
   },
   "overrides": {
     "glob": "14.0.4",
-    "minimatch": "11.0.5"
+    "test-exclude": {
+      "glob": "14.0.4",
+      "minimatch": "11.0.5"
+    }
   }
 }
