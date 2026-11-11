@@ -129,6 +129,10 @@ class TestStandardPage(WagtailPageTestCase):
                         f'<link rel="alternate" type="text/markdown" href="{self.standard_page_url}?format=md" title="Markdown version" />',
                         html=True,
                     )
+                    self.assertEqual(
+                        response.headers["Link"],
+                        f'{self.standard_page_url}?format=md; rel="alternate"; type="text/markdown"',
+                    )
                 else:
                     self.assertNotContains(response, "<!doctype html>")
                     self.assertIn("x-markdown-tokens", response.headers)

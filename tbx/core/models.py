@@ -170,9 +170,6 @@ class BasePage(
 
     def serve(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         response = super().serve(request, *args, **kwargs)
-        if self.get_response_media_type(request) != "text/markdown":
-            return response
-
         # Page responses are TemplateResponses, rendered lazily.
         if hasattr(response, "render"):
             response.render()
@@ -182,6 +179,14 @@ class BasePage(
         ):
             return response
 
+        if self.get_response_media_type(request) != "text/markdown":
+            # add the Link header and return
+            response["Link"] = (
+                f'{self.get_url(request)}?format=md; rel="alternate"; type="text/markdown"'
+            )
+            return response
+
+        # Finally, convert to Markdown
         converter = HTMLToMarkdownConverter(base_url=self.get_full_url(request))
         markdown = converter.convert(response.content.decode(response.charset))
         response = HttpResponse(markdown, content_type="text/markdown; charset=utf-8")
