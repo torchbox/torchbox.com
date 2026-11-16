@@ -85,6 +85,7 @@ nav:
       - 'Migration-friendly StreamFields': 'custom-features/migration-friendly-streamfields.md'
       - 'Modes': 'custom-features/modes.md'
       - 'Theme': 'custom-features/theme.md'
+      - 'Wagtail AI': 'custom-features/wagtail-ai.md'
   - 'Continuous integration': 'continuous-integration.md'
   - 'Anonymised data': 'anonymised-data.md'
   - 'Data import': 'data-import.md'
