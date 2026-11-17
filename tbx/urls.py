@@ -80,16 +80,6 @@ if getattr(settings, "PATTERN_LIBRARY_ENABLED", False) and apps.is_installed(
 # Set public URLs to use public cache.
 urlpatterns = decorate_urlpatterns(urlpatterns, get_default_cache_control_decorator())
 
-# Set vary header to instruct cache to serve different version on different
-# cookies, different request method (e.g. AJAX) and different protocol
-# (http vs https).
-urlpatterns = decorate_urlpatterns(
-    urlpatterns,
-    vary_on_headers(
-        "Cookie", "X-Requested-With", "X-Forwarded-Proto", "Accept-Encoding"
-    ),
-)
-
 Page.serve = get_default_cache_control_method_decorator(Page.serve)
 
 # Join private and public URLs.
@@ -102,6 +92,17 @@ urlpatterns = (
         path("", include(wagtail_urls))
     ]
 )
+
+# Set vary header to instruct cache to serve different version on different
+# cookies, different request method (e.g. AJAX) and different protocol
+# (http vs https).
+urlpatterns = decorate_urlpatterns(
+    urlpatterns,
+    vary_on_headers(
+        "Cookie", "X-Requested-With", "X-Forwarded-Proto", "Accept-Encoding"
+    ),
+)
+
 
 # Error handlers
 handler404 = "tbx.core.utils.views.page_not_found"
