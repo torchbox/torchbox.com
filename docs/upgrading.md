@@ -98,6 +98,14 @@ Poetry 2.0 removed the deprecated `--no-dev` flag entirely (replaced by `--witho
 
 The project's base image is `python:3.15-trixie`. Debian Trixie no longer installs `tzdata-legacy` by default, so a stored legacy timezone alias (e.g. `US/Eastern`) could no longer resolve through the base image's system tz database. The `tzdata` PyPI package is declared as a direct dependency to bundle its own IANA database, including the legacy aliases, so timezone resolution no longer depends on what the base image ships.
 
+## Django URL field default scheme
+
+Django 6.0 changed `forms.URLField`'s default scheme for bare hostnames (e.g. `example.com`) from `http://` to `https://`, and removed the transitional `FORMS_URLFIELD_ASSUME_HTTPS` setting entirely — there's no settings-based way back to the old behaviour. The project's one direct usage, `tbx/project_styleguide/forms.py`'s `ExampleForm.url` field, is a style-guide demo field rather than user-facing input, so the practical impact is low. Worth checking again if `forms.URLField` is ever used for real input. (release notes: https://docs.djangoproject.com/en/6.0/releases/6.0/)
+
+## Wagtail redirect auto-creation
+
+Wagtail 8.1 changed `WAGTAILREDIRECTS_AUTO_CREATE`'s default behaviour to only auto-create a redirect when a _live_ page is moved or renamed — draft moves/renames no longer get one. The project uses `wagtail.contrib.redirects` and hasn't set this setting, so it now gets the new default. Set `WAGTAILREDIRECTS_AUTO_CREATE = "always"` to restore the old behaviour if needed. (release notes: https://docs.wagtail.org/en/stable/releases/8.1.html)
+
 ## Node dependency holds
 
 - `typescript` (`^6.0.3`): `ts-jest@29.4.15` declares a peer range of `typescript >=4.3 <7`, so TypeScript 7 breaks `ts-jest`. Lift when a `ts-jest` release supports TypeScript 7.
