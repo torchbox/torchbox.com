@@ -89,26 +89,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Install Poetry
-        run: pipx install poetry==1.8.5 # Make sure this matches POETRY_VERSION in the Dockerfile
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
         with:
+          version: '0.13.7' # Make sure this matches UV_VERSION in the Dockerfile
           python-version: '3.15'
-          cache: 'poetry'
+          enable-cache: true
       - uses: actions/download-artifact@v4
         with:
           name: static
           path: tbx/static_compiled/
       - name: Install Python dependencies
-        run: poetry install
+        run: uv sync
       - name: collectstatic
-        run: poetry run ./manage.py collectstatic --verbosity 0 --noinput --clear
+        run: uv run ./manage.py collectstatic --verbosity 0 --noinput --clear
       - name: System checks
-        run: poetry run ./manage.py check
+        run: uv run ./manage.py check
       - name: Check for missing migrations
-        run: poetry run ./manage.py makemigrations --check --noinput
+        run: uv run ./manage.py makemigrations --check --noinput
       - name: Create cache table
-        run: poetry run ./manage.py createcachetable
+        run: uv run ./manage.py createcachetable
       - name: Test
-        run: poetry run ./manage.py test
+        run: uv run ./manage.py test
