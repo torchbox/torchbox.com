@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
@@ -245,7 +247,7 @@ class PersonPage(BasePage):
             )
 
             # Combine the two querysets and get the first three results
-            works = [*it for it in (historical_works, recent_works)]
+            works = list(chain(historical_works, recent_works))
 
         return works
 
