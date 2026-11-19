@@ -14,17 +14,17 @@ repos:
       - id: lint:js
         name: lint:js
         language: system
-        entry: npm run lint:js
+        entry: pnpm run lint:js
         types_or: [javascript, ts, tsx]
       - id: lint:css
         name: lint:css
         language: system
-        entry: npm run lint:css
+        entry: pnpm run lint:css
         types_or: [css, scss]
       - id: lint:format
         name: lint:format
         language: system
-        entry: npm run format
+        entry: pnpm run format
         types_or: [markdown, css, scss, javascript, ts, tsx, json, yaml, vue]
 
   - repo: https://github.com/Yelp/detect-secrets
@@ -35,7 +35,7 @@ repos:
         exclude: >
           (?x)^(
               .*/tests/.*|
-              package-lock.json|
+              pnpm-lock.yaml|
               poetry.lock
           )$
   - repo: https://github.com/rtts/djhtml
