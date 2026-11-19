@@ -1,15 +1,19 @@
+from __future__ import annotations
+
 from datetime import datetime, time
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from django.contrib.syndication.views import Feed
-lazy from django.http import HttpRequest, HttpResponse
-
-lazy from wagtail.query import PageQuerySet
 
 import filetype
 
 from .models import BlogPage
 
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest, HttpResponse
+
+    from wagtail.query import PageQuerySet
 
 # Main blog feed
 
@@ -62,7 +66,7 @@ class BlogFeed(Feed):
             try:
                 if image_format := filetype.guess_extension(item.feed_image.file):
                     return f"image/{image_format}"
-            except AttributeError, OSError, TypeError:
+            except (AttributeError, OSError, TypeError):  # fmt: skip
                 pass
 
         return None
@@ -71,7 +75,7 @@ class BlogFeed(Feed):
         if item.feed_image:
             try:
                 return str(item.feed_image.file.size)
-            except AttributeError, OSError, TypeError:
+            except (AttributeError, OSError, TypeError):  # fmt: skip
                 pass
 
         return None
