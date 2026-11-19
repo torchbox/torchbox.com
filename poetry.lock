@@ -708,20 +708,20 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "django-basic-auth-ip-whitelist"
-version = "0.8.0"
+version = "0.9.0"
 description = "Hide your Django site behind basic authentication mechanism with IP whitelisting support."
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.11"
 files = [
-    {file = "django_basic_auth_ip_whitelist-0.8.0-py3-none-any.whl", hash = "sha256:e4e46c2c59b4dde3a318d8812b6640b4a714bc2d1a0647854dead7743f1202ee"},
-    {file = "django_basic_auth_ip_whitelist-0.8.0.tar.gz", hash = "sha256:edcff4ad789c9cf0c335c12366d5356f1f07d44172c2ecbfa5cb8ec914ea8252"},
+    {file = "django_basic_auth_ip_whitelist-0.9.0-py3-none-any.whl", hash = "sha256:68d357049b1f74d95f0b288ec03051c44f2480f2c84c4c04c7f0579db818dd39"},
+    {file = "django_basic_auth_ip_whitelist-0.9.0.tar.gz", hash = "sha256:b1221fd2fbaf7087aa1935367a60bc68968169c4ee44cdd19552a9f754cb1a13"},
 ]
 
 [package.dependencies]
-Django = ">=4.2"
+Django = ">=5.2"
 
 [package.extras]
-lint = ["ruff (==0.9.6)"]
+lint = ["ruff (==0.17.5)"]
 
 [[package]]
 name = "django-birdbath"
@@ -3201,4 +3201,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.14"
-content-hash = "42e97f8b5295c369d91e3f593744f237bf4be1d1cd23ec7244a32fcc93982069"
+content-hash = "59bb35625ab31a83e44c69c9e26290ab570197b41c702b2643299bfab056f5db"
