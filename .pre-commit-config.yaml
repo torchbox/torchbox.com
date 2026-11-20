@@ -51,11 +51,11 @@ repos:
         files: ^pyproject.toml$
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: '1.32.0' # update with latest tag on GitHub
+    rev: '1.33.0' # update with latest tag on GitHub
     hooks:
       - id: django-upgrade
         args: [--target-version, '5.2'] # Django version used in this site
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.21.2
+    rev: v3.22.0
     hooks:
       - id: pyupgrade
