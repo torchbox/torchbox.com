@@ -1,14 +1,8 @@
-from typing import TYPE_CHECKING
-
 from django.http import Http404, HttpResponseRedirect
+lazy from django.http import HttpRequest, HttpResponse
 
 from wagtail.models import Site
-
-
-if TYPE_CHECKING:
-    from django.http import HttpRequest, HttpResponse
-
-    from wagtail.models import Page
+lazy from wagtail.models import Page
 
 
 class URLCaseNormalizeMiddleware:

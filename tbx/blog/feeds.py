@@ -1,17 +1,15 @@
 from datetime import datetime, time
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 from django.contrib.syndication.views import Feed
+lazy from django.http import HttpRequest, HttpResponse
+
+lazy from wagtail.query import PageQuerySet
 
 import filetype
 
 from .models import BlogPage
 
-
-if TYPE_CHECKING:
-    from django.http import HttpRequest, HttpResponse
-
-    from wagtail.query import PageQuerySet
 
 # Main blog feed
 
