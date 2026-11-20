@@ -21,7 +21,7 @@ django-birdbath = "~2.0"
 django-csp = "~4.0"
 django-pattern-library = "~1.6"
 django-permissions-policy = "~4.34"
-django-phonenumber-field = "~8.5"
+django-phonenumber-field = "~9.0"
 django-redis = "~7.0"
 django-storages = {extras = ["boto3"], version = "~1.14"}
 dj-database-url = "~3.1"
