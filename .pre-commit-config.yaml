@@ -59,3 +59,4 @@ repos:
     rev: v3.22.0
     hooks:
       - id: pyupgrade
+        args: [--py315-plus] # Python version used in this site
