@@ -88,19 +88,9 @@ As much as possible, we want to use the official releases available on PyPI for 
 
 Add references to any custom templates that override the Wagtail admin templates. These should be checked to ensure they still work as expected after the upgrade.
 
-## Toolchain quirks
-
-### Poetry install flag
-
-Poetry 2.0 removed the deprecated `--no-dev` flag entirely (replaced by `--without dev` for the project's `[tool.poetry.group.dev]` group). The Dockerfile's `POETRY_INSTALL_ARGS` default was still `--no-dev`, which broke the `production`/`dev` build stages outright ("The option \"--no-dev\" does not exist") once Poetry was bumped to 2.5.1. Fixed by switching the default to `--without dev`. Worth checking again on any future Poetry major, since the group-exclusion flag syntax has moved before.
-
 ## Timezone data
 
 The project's base image is `python:3.15-trixie`. Debian Trixie no longer installs `tzdata-legacy` by default, so a stored legacy timezone alias (e.g. `US/Eastern`) could no longer resolve through the base image's system tz database. The `tzdata` PyPI package is declared as a direct dependency to bundle its own IANA database, including the legacy aliases, so timezone resolution no longer depends on what the base image ships.
-
-## Django URL field default scheme
-
-Django 6.0 changed `forms.URLField`'s default scheme for bare hostnames (e.g. `example.com`) from `http://` to `https://`, and removed the transitional `FORMS_URLFIELD_ASSUME_HTTPS` setting entirely — there's no settings-based way back to the old behaviour. The project's one direct usage, `tbx/project_styleguide/forms.py`'s `ExampleForm.url` field, is a style-guide demo field rather than user-facing input, so the practical impact is low. Worth checking again if `forms.URLField` is ever used for real input. (release notes: https://docs.djangoproject.com/en/6.0/releases/6.0/)
 
 ## Wagtail redirect auto-creation
 
