@@ -74,7 +74,7 @@ As much as possible, we want to use the official releases available on PyPI for 
 
 ### Check these packages for updates
 
-**Last checked** Wagtail 8.1 upgrade — all five confirmed at their latest PyPI release (wagtail-accessibility 2.0.0, wagtail-lite-youtube-embed 0.3.0, wagtail-markdown 0.15.0, wagtailmedia 0.19.1, wagtail-purge 0.4.0), matching the project's current tilde pins.
+**Last checked** Wagtail 8.1 upgrade
 
 - wagtail-accessibility
 - [wagtail-lite-youtube-embed](front-end/lite-youtube.md)
@@ -84,17 +84,13 @@ As much as possible, we want to use the official releases available on PyPI for 
 
 ## Custom wagtail admin templates
 
-**Last checked** Wagtail 8.1 upgrade — no `templates/wagtailadmin/` overrides exist in the project (checked via a project-wide search).
+**Last checked** Wagtail 8.1 upgrade
 
 Add references to any custom templates that override the Wagtail admin templates. These should be checked to ensure they still work as expected after the upgrade.
 
-## Timezone data
+## tzdata
 
-The project's base image is `python:3.15-trixie`. Debian Trixie no longer installs `tzdata-legacy` by default, so a stored legacy timezone alias (e.g. `US/Eastern`) could no longer resolve through the base image's system tz database. The `tzdata` PyPI package is declared as a direct dependency to bundle its own IANA database, including the legacy aliases, so timezone resolution no longer depends on what the base image ships.
-
-## Wagtail redirect auto-creation
-
-Wagtail 8.1 changed `WAGTAILREDIRECTS_AUTO_CREATE`'s default behaviour to only auto-create a redirect when a _live_ page is moved or renamed — draft moves/renames no longer get one. The project uses `wagtail.contrib.redirects` and hasn't set this setting, so it now gets the new default. Set `WAGTAILREDIRECTS_AUTO_CREATE = "always"` to restore the old behaviour if needed. (release notes: https://docs.wagtail.org/en/stable/releases/8.1.html)
+`tzdata` is a direct dependency because Debian Trixie, which the base image runs on, doesn't install `tzdata-legacy`. Without it, legacy timezone names such as `US/Eastern` don't resolve. Keep it while the base image is on Trixie or later.
 
 ## Node dependency holds
 
@@ -104,12 +100,6 @@ Wagtail 8.1 changed `WAGTAILREDIRECTS_AUTO_CREATE`'s default behaviour to only a
 - `stylelint` (`^17.16.0`): `stylelint-config-torchbox@5.0.0` (latest) declares a peer range of `stylelint ^17.0.0`, so stylelint 18 fails to install. Lift when `stylelint-config-torchbox` ships a release supporting stylelint 18.
   Evidence: `npm update --package-lock-only --ignore-scripts` fails with `npm error ERESOLVE unable to resolve dependency tree ... peer stylelint@"^17.0.0" from stylelint-config-torchbox@5.0.0`
   Release notes: https://github.com/stylelint/stylelint/releases/tag/18.0.0
-- `glob` (`14.0.4`, forced via npm `overrides`): `test-exclude@7.0.1` declares `glob: ^10.4.1`, resolving to the CVE-2026-118773-vulnerable 7.2.3/10.5.0/13.0.7 copies unpinned. Lift when `test-exclude` ships a release declaring `glob ^14` natively.
-  Evidence: `tbx-support run trivy-scan run_relock --project-root . --ecosystem node --package glob --fixed-version 14.0.2` fails with `Error: glob is still locked at 7.2.3, 10.5.0, 13.0.7 (fixed in 14.0.2); nothing was kept.`
-  Release notes: https://github.com/isaacs/node-glob/blob/main/changelog.md
-- `minimatch` (`11.0.5`, scoped to `test-exclude` only): `test-exclude@7.0.1` declares `minimatch: ^10.2.2`, resolving to the CVE-2026-118764-vulnerable 9.0.9/10.2.6 copies unpinned; a global override breaks `eslint-plugin-import`'s old CJS `minimatch` import. Lift when `test-exclude` ships a release declaring `minimatch ^11` natively.
-  Evidence: `tbx-support run trivy-scan run_relock --project-root . --ecosystem node --package minimatch --fixed-version 11.0.1` fails with `Error: minimatch is still locked at 3.1.5, 10.2.6, 11.0.5 (fixed in 11.0.1); nothing was kept.`
-  Release notes: https://github.com/isaacs/minimatch/blob/main/changelog.md
 
 The fleet-wide ESLint v8 ceiling (`eslint` held at `^8.57.1`, `eslint-webpack-plugin` at `^5.0.3`, the range `eslint-config-torchbox@^1.1.0` supports) is applied automatically by the Node bump tooling, not logged per project here. No flat-config (ESLint v9) release of `eslint-config-torchbox` exists yet. It lifts via the ESLint to Biome migration. See the [ESLint v9 migration guide](https://eslint.org/docs/latest/use/migrate-to-9.0.0).
 
