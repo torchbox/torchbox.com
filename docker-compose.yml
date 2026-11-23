@@ -44,8 +44,7 @@ services:
       # Frontend config
       - ./.babelrc.js:/app/.babelrc.js:rw
       - ./.editorconfig:/app/.editorconfig:rw
-      - ./.eslintignore:/app/.eslintignore:rw
-      - ./.eslintrc.js:/app/.eslintrc.js:rw
+      - ./biome.jsonc:/app/biome.jsonc:rw
       - ./.prettierignore:/app/.prettierignore:rw
       - ./.prettierrc.toml:/app/.prettierrc.toml:rw
       - ./.stylelintrc.js:/app/.stylelintrc.js:rw
