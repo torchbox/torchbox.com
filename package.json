@@ -37,7 +37,7 @@
     "fix:js": "biome check --write ."
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.6.6",
+    "@biomejs/biome": "^2.6.8",
     "@tailwindcss/postcss": "^4.3.5",
     "@types/jest": "^30.0.0",
     "autoprefixer": "^10.6.2",
