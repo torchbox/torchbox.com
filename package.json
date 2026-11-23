@@ -19,10 +19,10 @@
   "scripts": {
     "//[ Linting & formatting ]//": "",
     "lint:css": "stylelint --report-needless-disables './tbx/static_src/sass' './tbx/static_src/css'",
-    "lint:js": "eslint --ext .js,.ts,.tsx --report-unused-disable-directives .",
-    "lint:format": "prettier --check '**/?(.)*.{md,css,scss,js,ts,tsx,json,yaml,yml,vue}'",
-    "lint": "npm run lint:format && npm run lint:js && npm run lint:css",
-    "format": "prettier --write '**/?(.)*.{md,css,scss,js,ts,tsx,json,yaml,yml,vue}'",
+    "lint:js": "biome check .",
+    "lint:format": "prettier --check '**/?(.)*.{md,css,scss,yaml,yml,vue}'",
+    "lint": "pnpm run lint:format && pnpm run lint:js && pnpm run lint:css",
+    "format": "prettier --write '**/?(.)*.{md,css,scss,yaml,yml,vue}'",
     "//[ Tests ]//": "",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -33,51 +33,49 @@
     "build:analyse": "ANALYZE=1 webpack --mode production",
     "start": "webpack --mode development --progress --watch",
     "start:reload": "webpack-dev-server",
-    "pa11y": "pa11y-ci --sitemap http://localhost:8000/sitemap.xml --config ./pa11y.config.js || (echo 'Please install pa11y-ci globally using: npm install -g pa11y-ci' && exit 1)"
+    "pa11y": "pa11y-ci --sitemap http://localhost:8000/sitemap.xml --config ./pa11y.config.js || (echo 'Please install pa11y-ci globally using: pnpm add -g pa11y-ci' && exit 1)",
+    "fix:js": "biome check --write ."
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.7",
+    "@biomejs/biome": "^2.6.8",
     "@tailwindcss/postcss": "^4.3.5",
     "@types/jest": "^30.0.0",
     "autoprefixer": "^10.6.2",
     "copy-webpack-plugin": "^14.0.0",
     "css-loader": "^7.1.5",
     "cssnano": "^9.9.0",
-    "eslint": "^8.57.1",
-    "eslint-config-torchbox": "^1.1.0",
-    "eslint-webpack-plugin": "^5.0.3",
     "jest": "^30.5.2",
     "jest-environment-jsdom": "^30.5.2",
     "mini-css-extract-plugin": "^2.10.2",
-    "postcss": "^8.5.32",
+    "postcss": "^8.5.33",
     "postcss-custom-properties": "^15.0.4",
     "postcss-loader": "^8.2.1",
-    "prettier": "^3.9.10",
-    "sass": "^1.108.1",
+    "prettier": "^3.10.1",
+    "sass": "^1.108.2",
     "sass-loader": "^17.1.0",
-    "stylelint": "^17.16.0",
-    "stylelint-config-torchbox": "^5.0.0",
+    "stylelint": "^18.1.0",
+    "stylelint-config-torchbox": "github:torchbox-forks/stylelint-config-torchbox#v6.0.0+tbx.1",
     "stylelint-webpack-plugin": "^5.1.0",
     "ts-jest": "^29.4.15",
     "ts-loader": "^9.6.2",
     "typescript": "^6.0.3",
     "webpack": "^5.112.2",
-    "webpack-bundle-analyzer": "^5.4.2",
+    "webpack-bundle-analyzer": "^5.4.3",
     "webpack-cli": "^7.3.1",
     "webpack-dev-server": "^6.1.0"
   },
   "dependencies": {
     "htmx.org": "^2.0.11",
     "js-cookie": "^3.0.8",
-    "lite-youtube-embed": "^0.3.4",
+    "lite-youtube-embed": "^0.4.0",
     "micromodal": "^0.7.0",
     "swiper": "^14.4.0"
   },
-  "overrides": {
-    "glob": "14.0.4",
-    "test-exclude": {
-      "glob": "14.0.4",
-      "minimatch": "11.0.5"
+  "packageManager": "pnpm@12.22.0+sha512.894940a3d9a57dfa6fd373990fb4e41e09c2f2d76d982ed1d75275d39267f988fb4e2d40900cbe9921c68d97c67aa1a1096d276633db248f7b34927ac9ddb7a4",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.22.0"
     }
   }
 }

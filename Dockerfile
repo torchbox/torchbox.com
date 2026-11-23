@@ -1,20 +1,34 @@
+ARG UV_VERSION=0.13.9
+ARG PNPM_VERSION=12.22.0
+ARG PNPM_HASH=894940a3d9a57dfa6fd373990fb4e41e09c2f2d76d982ed1d75275d39267f988fb4e2d40900cbe9921c68d97c67aa1a1096d276633db248f7b34927ac9ddb7a4
+
 FROM node:26-slim AS frontend-deps
 
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true
 
+# node:26-slim ships no corepack (Node 25+ dropped it), so install one new
+# enough to provision pnpm, then prepare the pinned pnpm release.
+ARG PNPM_VERSION
+ARG PNPM_HASH
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN npm install -g corepack@0.36.0 && corepack enable pnpm && corepack prepare "pnpm@${PNPM_VERSION}+sha512.${PNPM_HASH}" --activate
+
 WORKDIR /app
 
 # Install front-end dependencies.
-COPY package.json package-lock.json tsconfig.json webpack.config.js ./
-RUN npm ci --no-audit --progress=false
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json webpack.config.js ./
+RUN pnpm install --frozen-lockfile
 
 FROM frontend-deps AS frontend
 
 # Compile static files
 COPY ./tbx/ ./tbx/
-RUN npm run build:prod
+RUN pnpm run build:prod
 
+
+FROM ghcr.io/astral-sh/uv:${UV_VERSION}@sha256:d3b601f0c7b118bc1753febf7c41cc80981df678445e0254284eecf84db79a7d AS uv-binary
 
 # We use Debian images because they are considered more stable than the alpine
 # ones becase they use a different C compiler. Debian images also come with
@@ -23,10 +37,7 @@ RUN npm run build:prod
 # Pinned to a particlar version as requested by support team 6/10/25
 FROM python:3.15-trixie AS python-base
 
-ARG POETRY_INSTALL_ARGS="--no-dev"
-
-# IMPORTANT: Remember to review both of these when upgrading
-ARG POETRY_VERSION=1.8.5
+ARG UV_SYNC_ARGS="--no-dev"
 
 # Install dependencies in a virtualenv
 ENV VIRTUAL_ENV=/venv
@@ -42,7 +53,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 # Set default environment variables. They are used at build time and runtime.
 # If you specify your own environment variables on Heroku or Dokku, they will
 # override the ones set here. The ones below serve as sane defaults only.
-#  * PATH - Make sure that Poetry is on the PATH, along with our venv
+#  * PATH - Make sure that uv is on the PATH, along with our venv
 #  * PYTHONUNBUFFERED - This is useful so Python does not hold any messages
 #    from being output.
 #    https://docs.python.org/3.9/using/cmdline.html#envvar-PYTHONUNBUFFERED
@@ -56,7 +67,11 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 #  * GUNICORN_CMD_ARGS - additional arguments to be passed to Gunicorn. This
 #    variable is read by Gunicorn
 ENV PATH=$VIRTUAL_ENV/bin:$PATH \
-    POETRY_INSTALL_ARGS=${POETRY_INSTALL_ARGS} \
+    UV_SYNC_ARGS=${UV_SYNC_ARGS} \
+    UV_PROJECT_ENVIRONMENT=$VIRTUAL_ENV \
+    UV_PYTHON_DOWNLOADS=never \
+    UV_LINK_MODE=copy \
+    UV_COMPILE_BYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     DJANGO_SETTINGS_MODULE=tbx.settings.production \
     PORT=8000 \
@@ -72,15 +87,15 @@ ENV BUILD_ENV=${BUILD_ENV}
 # server (Gunicorn). This is read by Dokku only. Heroku will ignore this.
 EXPOSE 8000
 
-# Install poetry at the system level
-RUN pip install --no-cache poetry==${POETRY_VERSION}
+# Install uv
+COPY --from=uv-binary /uv /usr/local/bin/uv
 
 USER tbx
 
 # Install your app's Python requirements.
 RUN python -m venv $VIRTUAL_ENV
-COPY --chown=tbx pyproject.toml poetry.lock ./
-RUN pip install --no-cache --upgrade pip && poetry install ${POETRY_INSTALL_ARGS} --no-root && rm -rf $HOME/.cache
+COPY --chown=tbx pyproject.toml uv.lock ./
+RUN uv sync ${UV_SYNC_ARGS} --no-install-project && rm -rf $HOME/.cache
 
 
 FROM python-base AS production
@@ -90,8 +105,8 @@ COPY --chown=tbx --from=frontend /app/tbx/static_compiled ./tbx/static_compiled
 # Copy application code.
 COPY --chown=tbx . .
 
-# Run poetry install again to install our project (so the the tbx package is always importable)
-RUN poetry install ${POETRY_INSTALL_ARGS}
+# Run uv sync again to install our project (so the the tbx package is always importable)
+RUN uv sync ${UV_SYNC_ARGS}
 
 # Collect static. This command will move static files from application
 # directories and "static_compiled" folder to the main static directory that
@@ -129,6 +144,14 @@ ARG NVM_VERSION=0.40.3
 COPY --chown=tbx .nvmrc ./
 RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash \
     && bash --login -c "nvm install --no-progress && nvm alias default $(nvm run --silent --version)"
+
+# Provision pnpm (via corepack) so engineers can run pnpm commands in this
+# container. The nvm-installed node ships no corepack (Node 25+ dropped it).
+ARG PNPM_VERSION
+ARG PNPM_HASH
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN bash --login -c "npm install -g corepack@0.36.0 && corepack enable pnpm && corepack prepare \"pnpm@${PNPM_VERSION}+sha512.${PNPM_HASH}\" --activate && pnpm --version"
 
 # Pull in the node modules for the frontend (from deps-only stage, no build needed)
 COPY --chown=tbx --from=frontend-deps /app/node_modules ./node_modules
