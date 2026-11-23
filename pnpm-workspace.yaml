@@ -9,6 +9,7 @@ allowBuilds:
   unrs-resolver: true
   esbuild: false
   '@tailwindcss/oxide': true
+  stylelint-config-torchbox: false
 blockExoticSubdeps: true
 trustPolicy: no-downgrade
 trustPolicyExclude:

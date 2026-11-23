@@ -103,9 +103,9 @@ Poetry 2.0 removed the deprecated `--no-dev` flag entirely (replaced by `--witho
 - `typescript` (`^6.0.3`): `ts-jest@29.4.15` declares a peer range of `typescript >=4.3 <7`, so TypeScript 7 breaks `ts-jest`. Lift when a `ts-jest` release supports TypeScript 7.
   Evidence: `npm update --package-lock-only --ignore-scripts` fails with `npm error ERESOLVE unable to resolve dependency tree ... peer typescript@">=4.3 <7" from ts-jest@29.4.15`
   Release notes: https://github.com/kulshekhar/ts-jest/releases
-- `stylelint` (`^17.16.0`): `stylelint-config-torchbox@5.0.0` (latest) declares a peer range of `stylelint ^17.0.0`, so stylelint 18 fails to install. Lift when `stylelint-config-torchbox` ships a release supporting stylelint 18.
-  Evidence: `npm update --package-lock-only --ignore-scripts` fails with `npm error ERESOLVE unable to resolve dependency tree ... peer stylelint@"^17.0.0" from stylelint-config-torchbox@5.0.0`
-  Release notes: https://github.com/stylelint/stylelint/releases/tag/18.0.0
+- `stylelint-config-torchbox` (git tag `v6.0.0+tbx.1` from `torchbox-forks`): 5.0.0, the latest on npm, still pulls in a config using a rule stylelint 18 removed, so every `.scss` file fails `lint:css`. Lift when stylelint-config-torchbox 6.0.0 is published to npm.
+  Evidence: `pnpm run lint:css` with `stylelint-config-torchbox@5.0.0` fails with `✖ Unknown rule declaration-block-single-line-max-declarations` on every `.scss` file.
+  Release notes: https://github.com/torchbox/stylelint-config-torchbox/pull/54
 - `glob` (`14.0.4`, forced via npm `overrides`): `test-exclude@7.0.1` (babel-plugin-istanbul's coverage-exclusion matcher) still declares `glob: ^10.4.1`, a range that resolves to the CVE-2026-118773-vulnerable 7.2.3/10.5.0/13.0.7 copies without the override, and the exact pin means a future glob patch needs the override bumped by hand. Lift when `test-exclude` ships a release declaring `glob ^14` natively.
   Evidence: `tbx-support run trivy-scan run_relock --project-root . --ecosystem node --package glob --fixed-version 14.0.2` fails with `Error: glob is still locked at 7.2.3, 10.5.0, 13.0.7 (fixed in 14.0.2); nothing was kept.`
   Release notes: https://github.com/isaacs/node-glob/blob/main/changelog.md
