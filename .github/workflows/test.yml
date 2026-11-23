@@ -92,7 +92,7 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
-          version: '0.13.7' # Make sure this matches UV_VERSION in the Dockerfile
+          version: '0.13.9' # Make sure this matches UV_VERSION in the Dockerfile
           python-version: '3.15'
           enable-cache: true
       - uses: actions/download-artifact@v4

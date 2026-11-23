@@ -1,4 +1,4 @@
-ARG UV_VERSION=0.13.7
+ARG UV_VERSION=0.13.9
 
 FROM node:26-slim AS frontend-deps
 
@@ -18,7 +18,7 @@ COPY ./tbx/ ./tbx/
 RUN npm run build:prod
 
 
-FROM ghcr.io/astral-sh/uv:${UV_VERSION}@sha256:96f40d3904aad8d0bd010539001d36c8e2188b981e1334471a90c4a1d93bb490 AS uv-binary
+FROM ghcr.io/astral-sh/uv:${UV_VERSION}@sha256:d3b601f0c7b118bc1753febf7c41cc80981df678445e0254284eecf84db79a7d AS uv-binary
 
 # We use Debian images because they are considered more stable than the alpine
 # ones becase they use a different C compiler. Debian images also come with
