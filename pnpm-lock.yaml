@@ -247,8 +247,8 @@ importers:
         specifier: ^3.0.8
         version: 3.0.8
       lite-youtube-embed:
-        specifier: ^0.3.4
-        version: 0.3.4
+        specifier: ^0.4.0
+        version: 0.4.0
       micromodal:
         specifier: ^0.7.0
         version: 0.7.0
@@ -267,7 +267,7 @@ importers:
         version: 30.0.0
       autoprefixer:
         specifier: ^10.6.2
-        version: 10.6.2(postcss@8.5.32)
+        version: 10.6.2(postcss@8.5.33)
       copy-webpack-plugin:
         specifier: ^14.0.0
         version: 14.0.0(webpack@5.112.2)
@@ -276,7 +276,7 @@ importers:
         version: 7.1.5(webpack@5.112.2)
       cssnano:
         specifier: ^9.9.0
-        version: 9.9.0(postcss@8.5.32)
+        version: 9.9.0(postcss@8.5.33)
       eslint:
         specifier: ^8.57.1
         version: 8.57.1(supports-color@8.1.1)
@@ -296,29 +296,29 @@ importers:
         specifier: ^2.10.2
         version: 2.10.2(webpack@5.112.2)
       postcss:
-        specifier: ^8.5.32
-        version: 8.5.32
+        specifier: ^8.5.33
+        version: 8.5.33
       postcss-custom-properties:
         specifier: ^15.0.4
-        version: 15.0.4(postcss@8.5.32)
+        version: 15.0.4(postcss@8.5.33)
       postcss-loader:
         specifier: ^8.2.1
-        version: 8.2.1(postcss@8.5.32)(typescript@6.0.3)(webpack@5.112.2)
+        version: 8.2.1(postcss@8.5.33)(typescript@6.0.3)(webpack@5.112.2)
       prettier:
-        specifier: ^3.9.10
-        version: 3.9.10
+        specifier: ^3.10.1
+        version: 3.10.1
       sass:
-        specifier: ^1.108.1
-        version: 1.108.1
+        specifier: ^1.108.2
+        version: 1.108.2
       sass-loader:
         specifier: ^17.1.0
-        version: 17.1.0(sass@1.108.1)(webpack@5.112.2)
+        version: 17.1.0(sass@1.108.2)(webpack@5.112.2)
       stylelint:
         specifier: ^18.1.0
         version: 18.1.0
       stylelint-config-torchbox:
         specifier: github:torchbox-forks/stylelint-config-torchbox#v6.0.0+tbx.1
-        version: https://codeload.github.com/torchbox-forks/stylelint-config-torchbox/tar.gz/f871f1777620fa8950269dd3d9694efb904f6770(postcss@8.5.32)(stylelint@18.1.0)
+        version: https://codeload.github.com/torchbox-forks/stylelint-config-torchbox/tar.gz/f871f1777620fa8950269dd3d9694efb904f6770(postcss@8.5.33)(stylelint@18.1.0)
       stylelint-webpack-plugin:
         specifier: ^5.1.0
         version: 5.1.0(stylelint@18.1.0)(webpack@5.112.2)
@@ -333,13 +333,13 @@ importers:
         version: 6.0.3
       webpack:
         specifier: ^5.112.2
-        version: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+        version: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
       webpack-bundle-analyzer:
-        specifier: ^5.4.2
-        version: 5.4.2
+        specifier: ^5.4.3
+        version: 5.4.3
       webpack-cli:
         specifier: ^7.3.1
-        version: 7.3.1(js-yaml@4.3.2)(json5@2.2.3)(webpack-bundle-analyzer@5.4.2)(webpack-dev-server@6.1.0)(webpack@5.112.2)
+        version: 7.3.1(js-yaml@4.3.2)(json5@2.2.3)(webpack-bundle-analyzer@5.4.3)(webpack-dev-server@6.1.0)(webpack@5.112.2)
       webpack-dev-server:
         specifier: ^6.1.0
         version: 6.1.0(supports-color@8.1.1)(webpack-cli@7.3.1)(webpack@5.112.2)
@@ -4942,10 +4942,10 @@ packages:
         integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==,
       }
 
-  lite-youtube-embed@0.3.4:
+  lite-youtube-embed@0.4.0:
     resolution:
       {
-        integrity: sha512-aXgxpwK7AIW58GEbRzA8EYaY4LWvF3FKak6B9OtSJmuNyLhX2ouD4cMTxz/yR5HFInhknaYd2jLWOTRTvT8oAw==,
+        integrity: sha512-82CmQVLWv1P1FNUWgiXJtbkBQbyF8UQB0s0F+pSegbcx53uylX4kgJ6QJsXseVHzNtVxa9t8yjryA2B9sTkFKg==,
       }
 
   locate-path@5.0.0:
@@ -5730,13 +5730,6 @@ packages:
         integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==,
       }
 
-  postcss@8.5.32:
-    resolution:
-      {
-        integrity: sha512-LJlKCCAUFKOuZxipUdYw1NzIITEsPcgyOG9LkvRJvuKj/bRzbuRY0ARXvL0pWGpsZvn8jku+LMep2eU0seHp8g==,
-      }
-    engines: { node: ^10 || ^12 || >=14 }
-
   postcss@8.5.33:
     resolution:
       {
@@ -5758,10 +5751,10 @@ packages:
       }
     engines: { node: '>= 0.8.0' }
 
-  prettier@3.9.10:
+  prettier@3.10.1:
     resolution:
       {
-        integrity: sha512-skGHTH1Yb9QvaTC4hWnRTzEYtCpApF0UMBPz+t/0ZPzP8ihefo/btKd+QA7pUE0fEwA1SbS/NmhyEcstdXOIdA==,
+        integrity: sha512-70vp3ZUYoPlFbF9uiTdXHUUCGEIp7d4+6p+8DYbkm2jP7x/3i/paXVF6dopSI3zd/CEitrZN1rc4i85xWmmXlg==,
       }
     engines: { node: '>=14' }
     hasBin: true
@@ -6036,10 +6029,10 @@ packages:
       webpack:
         optional: true
 
-  sass@1.108.1:
+  sass@1.108.2:
     resolution:
       {
-        integrity: sha512-sIYgSvOPeD9wABwDS/ofNjHASSck+7h3jLkk7wG1NPFL3XeS6vOQjBlAFSmRV09kZr1yt/Tuayt6kKtBbLjHNQ==,
+        integrity: sha512-kugK8djotnG9HQRPTOf36asKYlxg8rWWsNLYHOgWDIVOiZQqlRfKBgF4XXM6kfw146kIDMvm57B4GIkvDSyTzA==,
       }
     engines: { node: '>=20.19.0' }
     hasBin: true
@@ -6875,10 +6868,10 @@ packages:
       }
     engines: { node: '>=12' }
 
-  webpack-bundle-analyzer@5.4.2:
+  webpack-bundle-analyzer@5.4.3:
     resolution:
       {
-        integrity: sha512-STw41VwPFXH2SDo/S9E3V1MRNOwusR0OOnqvrO1RYoaFRq01hZaSPsHzn1LuJ0nXnyHVQoe2ELMcJKmUyXPdbg==,
+        integrity: sha512-MIdBirXyiUmQeIc6C0SSBQtbDdwGRL2UsyHVzWqOYu2ZrPRgZEewjydVR81qgMPXbtxT1o1/zCr3yBJ1Q6FIsA==,
       }
     engines: { node: '>= 20.9.0' }
     hasBin: true
@@ -7395,9 +7388,9 @@ snapshots:
     dependencies:
       postcss-selector-parser: 7.2.1
 
-  '@csstools/utilities@3.0.0(postcss@8.5.32)':
+  '@csstools/utilities@3.0.0(postcss@8.5.33)':
     dependencies:
-      postcss: 8.5.32
+      postcss: 8.5.33
 
   '@discoveryjs/json-ext@0.6.3': {}
 
@@ -8069,7 +8062,7 @@ snapshots:
       '@alloc/quick-lru': 5.3.0
       '@tailwindcss/node': 4.3.5
       '@tailwindcss/oxide': 4.3.5
-      postcss: 8.5.32
+      postcss: 8.5.33
       tailwindcss: 4.3.5
 
   '@types/babel__core@7.20.5':
@@ -8575,13 +8568,13 @@ snapshots:
 
   async-function@1.0.0: {}
 
-  autoprefixer@10.6.2(postcss@8.5.32):
+  autoprefixer@10.6.2(postcss@8.5.33):
     dependencies:
       browserslist: 4.29.5
       caniuse-lite: 1.0.30001823
       fraction.js: 5.3.4
       picocolors: 1.1.1
-      postcss: 8.5.32
+      postcss: 8.5.33
       postcss-value-parser: 4.2.0
 
   available-typed-arrays@1.0.7:
@@ -8827,7 +8820,7 @@ snapshots:
       schema-utils: 4.8.3(webpack@5.112.2)
       serialize-javascript: 7.1.4
       tinyglobby: 0.2.17
-      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
 
   cosmiconfig@10.0.1:
     dependencies:
@@ -8851,16 +8844,16 @@ snapshots:
 
   css-loader@7.1.5(webpack@5.112.2):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.32)
-      postcss: 8.5.32
-      postcss-modules-extract-imports: 3.1.0(postcss@8.5.32)
-      postcss-modules-local-by-default: 4.2.0(postcss@8.5.32)
-      postcss-modules-scope: 3.2.1(postcss@8.5.32)
-      postcss-modules-values: 4.0.0(postcss@8.5.32)
+      icss-utils: 5.1.0(postcss@8.5.33)
+      postcss: 8.5.33
+      postcss-modules-extract-imports: 3.1.0(postcss@8.5.33)
+      postcss-modules-local-by-default: 4.2.0(postcss@8.5.33)
+      postcss-modules-scope: 3.2.1(postcss@8.5.33)
+      postcss-modules-values: 4.0.0(postcss@8.5.33)
       postcss-value-parser: 4.2.0
       semver: 7.8.6
     optionalDependencies:
-      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
 
   css-tree@3.2.1:
     dependencies:
@@ -8869,14 +8862,14 @@ snapshots:
 
   cssesc@3.0.0: {}
 
-  cssnano@9.9.0(postcss@8.5.32):
+  cssnano@9.9.0(postcss@8.5.33):
     dependencies:
       '@colordx/core': 7.3.0
       '@csstools/css-tokenizer': 4.0.2
       browserslist: 4.29.5
       caniuse-api: 4.0.0
-      postcss: 8.5.32
-      postcss-calc: 11.2.3(postcss@8.5.32)
+      postcss: 8.5.33
+      postcss-calc: 11.2.3(postcss@8.5.33)
 
   cssstyle@4.6.0:
     dependencies:
@@ -9289,7 +9282,7 @@ snapshots:
       micromatch: 4.0.8
       normalize-path: 3.0.0
       schema-utils: 4.8.3(webpack@5.112.2)
-      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
 
   eslint@8.57.1(supports-color@8.1.1):
     dependencies:
@@ -9688,9 +9681,9 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
-  icss-utils@5.1.0(postcss@8.5.32):
+  icss-utils@5.1.0(postcss@8.5.33):
     dependencies:
-      postcss: 8.5.32
+      postcss: 8.5.33
 
   ignore@5.3.2: {}
 
@@ -10409,7 +10402,7 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  lite-youtube-embed@0.3.4: {}
+  lite-youtube-embed@0.4.0: {}
 
   locate-path@5.0.0:
     dependencies:
@@ -10499,7 +10492,7 @@ snapshots:
     dependencies:
       schema-utils: 4.8.3(webpack@5.112.2)
       tapable: 2.3.3
-      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
 
   minimatch@11.0.5:
     dependencies:
@@ -10512,16 +10505,16 @@ snapshots:
 
   minimist@1.2.8: {}
 
-  minimizer-webpack-plugin@5.14.0(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack@5.112.2):
+  minimizer-webpack-plugin@5.14.0(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack@5.112.2):
     dependencies:
       jest-worker: 27.5.1
       schema-utils: 4.8.3(webpack@5.112.2)
       terser: 5.51.2
-      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
     optionalDependencies:
-      cssnano: 9.9.0(postcss@8.5.32)
+      cssnano: 9.9.0(postcss@8.5.33)
       lightningcss: 1.33.0
-      postcss: 8.5.32
+      postcss: 8.5.33
       uglify-js: 3.19.3
 
   minipass@7.1.3: {}
@@ -10736,53 +10729,53 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  postcss-calc@11.2.3(postcss@8.5.32):
+  postcss-calc@11.2.3(postcss@8.5.33):
     dependencies:
       '@csstools/css-tokenizer': 4.0.2
-      postcss: 8.5.32
+      postcss: 8.5.33
 
-  postcss-custom-properties@15.0.4(postcss@8.5.32):
+  postcss-custom-properties@15.0.4(postcss@8.5.33):
     dependencies:
       '@csstools/cascade-layer-name-parser': 3.0.2(@csstools/css-parser-algorithms@4.0.2(@csstools/css-tokenizer@4.0.2))(@csstools/css-tokenizer@4.0.2)
       '@csstools/css-parser-algorithms': 4.0.2(@csstools/css-tokenizer@4.0.2)
       '@csstools/css-tokenizer': 4.0.2
-      '@csstools/utilities': 3.0.0(postcss@8.5.32)
-      postcss: 8.5.32
+      '@csstools/utilities': 3.0.0(postcss@8.5.33)
+      postcss: 8.5.33
       postcss-value-parser: 4.2.0
 
-  postcss-loader@8.2.1(postcss@8.5.32)(typescript@6.0.3)(webpack@5.112.2):
+  postcss-loader@8.2.1(postcss@8.5.33)(typescript@6.0.3)(webpack@5.112.2):
     dependencies:
       cosmiconfig: 9.0.2(typescript@6.0.3)
       jiti: 2.7.0
-      postcss: 8.5.32
+      postcss: 8.5.33
       semver: 7.8.6
     optionalDependencies:
-      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
     transitivePeerDependencies:
       - typescript
 
   postcss-media-query-parser@0.2.3: {}
 
-  postcss-modules-extract-imports@3.1.0(postcss@8.5.32):
+  postcss-modules-extract-imports@3.1.0(postcss@8.5.33):
     dependencies:
-      postcss: 8.5.32
+      postcss: 8.5.33
 
-  postcss-modules-local-by-default@4.2.0(postcss@8.5.32):
+  postcss-modules-local-by-default@4.2.0(postcss@8.5.33):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.32)
-      postcss: 8.5.32
+      icss-utils: 5.1.0(postcss@8.5.33)
+      postcss: 8.5.33
       postcss-selector-parser: 7.1.7
       postcss-value-parser: 4.2.0
 
-  postcss-modules-scope@3.2.1(postcss@8.5.32):
+  postcss-modules-scope@3.2.1(postcss@8.5.33):
     dependencies:
-      postcss: 8.5.32
+      postcss: 8.5.33
       postcss-selector-parser: 7.1.7
 
-  postcss-modules-values@4.0.0(postcss@8.5.32):
+  postcss-modules-values@4.0.0(postcss@8.5.33):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.32)
-      postcss: 8.5.32
+      icss-utils: 5.1.0(postcss@8.5.33)
+      postcss: 8.5.33
 
   postcss-resolve-nested-selector@0.1.7: {}
 
@@ -10790,9 +10783,9 @@ snapshots:
     dependencies:
       postcss: 8.5.33
 
-  postcss-scss@4.0.9(postcss@8.5.32):
+  postcss-scss@4.0.9(postcss@8.5.33):
     dependencies:
-      postcss: 8.5.32
+      postcss: 8.5.33
 
   postcss-selector-parser@7.1.7:
     dependencies:
@@ -10803,17 +10796,11 @@ snapshots:
     dependencies:
       util-deprecate: 1.0.2
 
-  postcss-sorting@10.0.0(postcss@8.5.32):
+  postcss-sorting@10.0.0(postcss@8.5.33):
     dependencies:
-      postcss: 8.5.32
+      postcss: 8.5.33
 
   postcss-value-parser@4.2.0: {}
-
-  postcss@8.5.32:
-    dependencies:
-      nanoid: 3.3.20
-      picocolors: 1.1.1
-      source-map-js: 1.2.2
 
   postcss@8.5.33:
     dependencies:
@@ -10825,7 +10812,7 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier@3.9.10: {}
+  prettier@3.10.1: {}
 
   pretty-format@30.5.1:
     dependencies:
@@ -10980,12 +10967,12 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass-loader@17.1.0(sass@1.108.1)(webpack@5.112.2):
+  sass-loader@17.1.0(sass@1.108.2)(webpack@5.112.2):
     optionalDependencies:
-      sass: 1.108.1
-      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+      sass: 1.108.2
+      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
 
-  sass@1.108.1:
+  sass@1.108.2:
     dependencies:
       chokidar: 5.0.0
       immutable: 5.1.9
@@ -11004,7 +10991,7 @@ snapshots:
       ajv-formats: 3.0.1
       ajv-keywords: 5.1.0(ajv@8.20.0)
     optionalDependencies:
-      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
 
   selfsigned@5.5.0:
     dependencies:
@@ -11230,36 +11217,36 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  stylelint-config-recommended-scss@18.0.0(postcss@8.5.32)(stylelint@18.1.0):
+  stylelint-config-recommended-scss@18.0.0(postcss@8.5.33)(stylelint@18.1.0):
     dependencies:
-      postcss-scss: 4.0.9(postcss@8.5.32)
+      postcss-scss: 4.0.9(postcss@8.5.33)
       stylelint: 18.1.0
       stylelint-config-recommended: 19.1.0(stylelint@18.1.0)
       stylelint-scss: 7.5.0(stylelint@18.1.0)
     optionalDependencies:
-      postcss: 8.5.32
+      postcss: 8.5.33
 
   stylelint-config-recommended@19.1.0(stylelint@18.1.0):
     dependencies:
       stylelint: 18.1.0
 
-  stylelint-config-standard-scss@18.0.0(postcss@8.5.32)(stylelint@18.1.0):
+  stylelint-config-standard-scss@18.0.0(postcss@8.5.33)(stylelint@18.1.0):
     dependencies:
       stylelint: 18.1.0
-      stylelint-config-recommended-scss: 18.0.0(postcss@8.5.32)(stylelint@18.1.0)
+      stylelint-config-recommended-scss: 18.0.0(postcss@8.5.33)(stylelint@18.1.0)
       stylelint-config-standard: 41.1.0(stylelint@18.1.0)
     optionalDependencies:
-      postcss: 8.5.32
+      postcss: 8.5.33
 
   stylelint-config-standard@41.1.0(stylelint@18.1.0):
     dependencies:
       stylelint: 18.1.0
       stylelint-config-recommended: 19.1.0(stylelint@18.1.0)
 
-  stylelint-config-torchbox@https://codeload.github.com/torchbox-forks/stylelint-config-torchbox/tar.gz/f871f1777620fa8950269dd3d9694efb904f6770(postcss@8.5.32)(stylelint@18.1.0):
+  stylelint-config-torchbox@https://codeload.github.com/torchbox-forks/stylelint-config-torchbox/tar.gz/f871f1777620fa8950269dd3d9694efb904f6770(postcss@8.5.33)(stylelint@18.1.0):
     dependencies:
       stylelint: 18.1.0
-      stylelint-config-standard-scss: 18.0.0(postcss@8.5.32)(stylelint@18.1.0)
+      stylelint-config-standard-scss: 18.0.0(postcss@8.5.33)(stylelint@18.1.0)
       stylelint-declaration-strict-value: 1.13.0(stylelint@18.1.0)
       stylelint-order: 8.1.3(stylelint@18.1.0)
     transitivePeerDependencies:
@@ -11272,8 +11259,8 @@ snapshots:
 
   stylelint-order@8.1.3(stylelint@18.1.0):
     dependencies:
-      postcss: 8.5.32
-      postcss-sorting: 10.0.0(postcss@8.5.32)
+      postcss: 8.5.33
+      postcss-sorting: 10.0.0(postcss@8.5.33)
       stylelint: 18.1.0
 
   stylelint-scss@7.5.0(stylelint@18.1.0):
@@ -11299,7 +11286,7 @@ snapshots:
       normalize-path: 3.0.0
       schema-utils: 4.8.3(webpack@5.112.2)
       stylelint: 18.1.0
-      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
 
   stylelint@18.1.0:
     dependencies:
@@ -11423,7 +11410,7 @@ snapshots:
       picomatch: 4.0.7
       source-map: 0.7.6
       typescript: 6.0.3
-      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
 
   tsconfig-paths@3.15.0:
     dependencies:
@@ -11567,7 +11554,7 @@ snapshots:
 
   webidl-conversions@7.0.0: {}
 
-  webpack-bundle-analyzer@5.4.2:
+  webpack-bundle-analyzer@5.4.3:
     dependencies:
       '@discoveryjs/json-ext': 0.6.3
       acorn: 8.19.0
@@ -11583,19 +11570,19 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  webpack-cli@7.3.1(js-yaml@4.3.2)(json5@2.2.3)(webpack-bundle-analyzer@5.4.2)(webpack-dev-server@6.1.0)(webpack@5.112.2):
+  webpack-cli@7.3.1(js-yaml@4.3.2)(json5@2.2.3)(webpack-bundle-analyzer@5.4.3)(webpack-dev-server@6.1.0)(webpack@5.112.2):
     dependencies:
       '@discoveryjs/json-ext': 1.1.0
       commander: 14.0.3
       envinfo: 7.21.0
       interpret: 3.1.1
       rechoir: 1.0.0
-      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
       webpack-merge: 6.0.1
     optionalDependencies:
       js-yaml: 4.3.2
       json5: 2.2.3
-      webpack-bundle-analyzer: 5.4.2
+      webpack-bundle-analyzer: 5.4.3
       webpack-dev-server: 6.1.0(supports-color@8.1.1)(webpack-cli@7.3.1)(webpack@5.112.2)
 
   webpack-dev-middleware@8.6.0(webpack@5.112.2):
@@ -11605,7 +11592,7 @@ snapshots:
       range-parser: 1.3.0
       schema-utils: 4.8.3(webpack@5.112.2)
     optionalDependencies:
-      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
       ws: 8.22.1
     transitivePeerDependencies:
       - bufferutil
@@ -11638,8 +11625,8 @@ snapshots:
       webpack-dev-middleware: 8.6.0(webpack@5.112.2)
       ws: 8.22.1
     optionalDependencies:
-      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1)
-      webpack-cli: 7.3.1(js-yaml@4.3.2)(json5@2.2.3)(webpack-bundle-analyzer@5.4.2)(webpack-dev-server@6.1.0)(webpack@5.112.2)
+      webpack: 5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1)
+      webpack-cli: 7.3.1(js-yaml@4.3.2)(json5@2.2.3)(webpack-bundle-analyzer@5.4.3)(webpack-dev-server@6.1.0)(webpack@5.112.2)
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -11653,7 +11640,7 @@ snapshots:
 
   webpack-sources@3.7.0: {}
 
-  webpack@5.112.2(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack-cli@7.3.1):
+  webpack@5.112.2(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack-cli@7.3.1):
     dependencies:
       '@types/estree': 1.0.10
       '@types/json-schema': 7.0.15
@@ -11667,13 +11654,13 @@ snapshots:
       events: 3.3.0
       graceful-fs: 4.2.11
       mime-db: 1.54.0
-      minimizer-webpack-plugin: 5.14.0(cssnano@9.9.0(postcss@8.5.32))(lightningcss@1.33.0)(postcss@8.5.32)(uglify-js@3.19.3)(webpack@5.112.2)
+      minimizer-webpack-plugin: 5.14.0(cssnano@9.9.0(postcss@8.5.33))(lightningcss@1.33.0)(postcss@8.5.33)(uglify-js@3.19.3)(webpack@5.112.2)
       schema-utils: 4.8.3(webpack@5.112.2)
       tapable: 2.3.3
       watchpack: 2.6.4
       webpack-sources: 3.7.0
     optionalDependencies:
-      webpack-cli: 7.3.1(js-yaml@4.3.2)(json5@2.2.3)(webpack-bundle-analyzer@5.4.2)(webpack-dev-server@6.1.0)(webpack@5.112.2)
+      webpack-cli: 7.3.1(js-yaml@4.3.2)(json5@2.2.3)(webpack-bundle-analyzer@5.4.3)(webpack-dev-server@6.1.0)(webpack@5.112.2)
     transitivePeerDependencies:
       - '@minify-html/node'
       - '@napi-rs/image'
