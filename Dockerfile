@@ -1,3 +1,6 @@
+ARG PNPM_VERSION=12.22.0
+ARG PNPM_HASH=894940a3d9a57dfa6fd373990fb4e41e09c2f2d76d982ed1d75275d39267f988fb4e2d40900cbe9921c68d97c67aa1a1096d276633db248f7b34927ac9ddb7a4
+
 FROM node:26-slim AS frontend-deps
 
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
@@ -5,8 +8,8 @@ ARG CI=true
 
 # node:26-slim ships no corepack (Node 25+ dropped it), so install one new
 # enough to provision pnpm, then prepare the pinned pnpm release.
-ARG PNPM_VERSION=12.18.0
-ARG PNPM_HASH=9d7882d5dc82147ecfc4e062aa34834e0ad0296710a1837a1115ae012127d36b7109e321ac1598a1dd0a65597681b1e99917e12ed0d749eae91187943363beb3
+ARG PNPM_VERSION
+ARG PNPM_HASH
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN npm install -g corepack@0.36.0 && corepack enable pnpm && corepack prepare "pnpm@${PNPM_VERSION}+sha512.${PNPM_HASH}" --activate
@@ -140,8 +143,8 @@ RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh
 
 # Provision pnpm (via corepack) so engineers can run pnpm commands in this
 # container. The nvm-installed node ships no corepack (Node 25+ dropped it).
-ARG PNPM_VERSION=12.18.0
-ARG PNPM_HASH=9d7882d5dc82147ecfc4e062aa34834e0ad0296710a1837a1115ae012127d36b7109e321ac1598a1dd0a65597681b1e99917e12ed0d749eae91187943363beb3
+ARG PNPM_VERSION
+ARG PNPM_HASH
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN bash --login -c "npm install -g corepack@0.36.0 && corepack enable pnpm && corepack prepare \"pnpm@${PNPM_VERSION}+sha512.${PNPM_HASH}\" --activate && pnpm --version"
