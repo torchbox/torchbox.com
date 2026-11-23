@@ -11,8 +11,6 @@ allowBuilds:
   stylelint-config-torchbox: false
 blockExoticSubdeps: true
 trustPolicy: no-downgrade
-trustPolicyExclude:
-  - eslint-config-prettier@8.10.2
 minimumReleaseAge: 4320
 overrides:
   # Jest declares glob ^13.0.6, and test-exclude, which it uses for coverage,
