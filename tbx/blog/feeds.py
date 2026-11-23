@@ -1,17 +1,15 @@
 from datetime import datetime, time
-from typing import TYPE_CHECKING, Any, Optional
+from typing import Any
 
 from django.contrib.syndication.views import Feed
+lazy from django.http import HttpRequest, HttpResponse
+
+lazy from wagtail.query import PageQuerySet
 
 import filetype
 
 from .models import BlogPage
 
-
-if TYPE_CHECKING:
-    from django.http import HttpRequest, HttpResponse
-
-    from wagtail.query import PageQuerySet
 
 # Main blog feed
 
@@ -20,16 +18,14 @@ class BlogFeed(Feed):
     title = "The Torchbox Blog"
     link = "/news/"
     description = "The latest news and views from Torchbox on the work we do, the web and the wider world"
-    request: Optional["HttpRequest"] = None
+    request: HttpRequest | None = None
 
-    def __call__(
-        self, request: "HttpRequest", *args: Any, **kwargs: Any
-    ) -> "HttpResponse":
+    def __call__(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         self.request = request
 
         return super().__call__(request, *args, **kwargs)
 
-    def items(self) -> "PageQuerySet[BlogPage]":
+    def items(self) -> PageQuerySet[BlogPage]:
         return (
             BlogPage.objects.live()
             .public()
@@ -66,7 +62,7 @@ class BlogFeed(Feed):
             try:
                 if image_format := filetype.guess_extension(item.feed_image.file):
                     return f"image/{image_format}"
-            except (AttributeError, OSError, TypeError):
+            except AttributeError, OSError, TypeError:
                 pass
 
         return None
@@ -75,7 +71,7 @@ class BlogFeed(Feed):
         if item.feed_image:
             try:
                 return str(item.feed_image.file.size)
-            except (AttributeError, OSError, TypeError):
+            except AttributeError, OSError, TypeError:
                 pass
 
         return None

@@ -1,4 +1,4 @@
-FROM node:24-slim AS frontend-deps
+FROM node:26-slim AS frontend-deps
 
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true
@@ -21,7 +21,7 @@ RUN npm run build:prod
 # all useful packages required for image manipulation out of the box. They
 # however weight a lot, approx. up to 1.5GiB per built image.
 # Pinned to a particlar version as requested by support team 6/10/25
-FROM python:3.14-trixie AS python-base
+FROM python:3.15-trixie AS python-base
 
 ARG POETRY_INSTALL_ARGS="--no-dev"
 
