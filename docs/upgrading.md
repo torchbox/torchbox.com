@@ -95,7 +95,7 @@ Add references to any custom templates that override the Wagtail admin templates
 ## Node dependency holds
 
 - `typescript` (`^6.0.3`): `ts-jest@29.4.15` declares a peer range of `typescript >=4.3 <7`, so TypeScript 7 breaks `ts-jest`. Lift when a `ts-jest` release supports TypeScript 7.
-  Evidence: `npm update --package-lock-only --ignore-scripts` fails with `npm error ERESOLVE unable to resolve dependency tree ... peer typescript@">=4.3 <7" from ts-jest@29.4.15`
+  Evidence: with `typescript` bumped to 7.0.2, `pnpm peers check` fails with `✕ unmet peer typescript` / `Installed: 7.0.2` / `Wanted: ">=4.3 <7": ts-jest@29.4.15`
   Release notes: https://github.com/kulshekhar/ts-jest/releases
 - `stylelint-config-torchbox` (git tag `v6.0.0+tbx.1` from `torchbox-forks`): 5.0.0, the latest on npm, still pulls in a config using a rule stylelint 18 removed, so every `.scss` file fails `lint:css`. Lift when stylelint-config-torchbox 6.0.0 is published to npm.
   Evidence: `pnpm run lint:css` with `stylelint-config-torchbox@5.0.0` fails with `✖ Unknown rule declaration-block-single-line-max-declarations` on every `.scss` file.
