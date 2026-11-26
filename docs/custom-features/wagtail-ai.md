@@ -4,64 +4,53 @@ AI-assisted content editing in the Wagtail admin, powered by [wagtail-ai](https:
 
 ## Configuration
 
-The integration is off by default. Set `WAGTAIL_AI_ENABLED=true` to add `wagtail_ai` to `INSTALLED_APPS`, load its settings and add the AI button to the default rich text editor. When the flag is off, nothing from wagtail-ai or the LLM SDKs is imported. The provider and model are both configurable at runtime.
+Off by default. With the flag off, nothing from wagtail-ai or the LLM SDKs is imported.
 
-| Variable              | Required             | Default      | Description                                               |
-| --------------------- | -------------------- | ------------ | --------------------------------------------------------- |
-| `WAGTAIL_AI_ENABLED`  | Yes, to turn it on   | `false`      | Set to `true` to enable Wagtail AI                        |
-| `WAGTAIL_AI_PROVIDER` | No                   | `openai`     | [any-llm](https://docs.mozilla.ai/any-llm/) provider name |
-| `WAGTAIL_AI_MODEL`    | No                   | `gpt-6-luna` | Model identifier for the chosen provider                  |
-| `OPENAI_API_KEY`      | When using OpenAI    | —            | API key read directly by the OpenAI SDK                   |
-| `ANTHROPIC_API_KEY`   | When using Anthropic | —            | API key read directly by the Anthropic SDK                |
+| Variable                 | Required             | Default      | Description                                                             |
+| ------------------------ | -------------------- | ------------ | ----------------------------------------------------------------------- |
+| `WAGTAIL_AI_ENABLED`     | Yes, to turn it on   | `false`      | Set to `true` to enable Wagtail AI                                      |
+| `OPENAI_API_KEY`         | Yes                  | —            | OpenAI key. Always needed, because the rich text AI button uses OpenAI  |
+| `WAGTAIL_AI_MODEL_ID`    | No                   | `gpt-6-luna` | Model for the rich text AI button, as known to the `llm` package        |
+| `WAGTAIL_AI_TOKEN_LIMIT` | No                   | `8192`       | Token limit for `WAGTAIL_AI_MODEL_ID`, used to split long text          |
+| `WAGTAIL_AI_PROVIDER`    | No                   | `openai`     | [any-llm](https://docs.mozilla.ai/any-llm/) provider for agent features |
+| `WAGTAIL_AI_MODEL`       | No                   | `gpt-6-luna` | Model for agent features, for the chosen provider                       |
+| `ANTHROPIC_API_KEY`      | When using Anthropic | —            | Anthropic key, if `WAGTAIL_AI_PROVIDER=anthropic`                       |
 
-## Examples
+wagtail-ai has two separate configs, and `base.py` sets both:
 
-**OpenAI (default):**
-
-```
-WAGTAIL_AI_ENABLED=true
-WAGTAIL_AI_PROVIDER=openai
-WAGTAIL_AI_MODEL=gpt-6-luna
-OPENAI_API_KEY=sk-...
-```
-
-**Anthropic:**
-
-```
-WAGTAIL_AI_ENABLED=true
-WAGTAIL_AI_PROVIDER=anthropic
-WAGTAIL_AI_MODEL=claude-3-5-sonnet-20241022
-ANTHROPIC_API_KEY=sk-ant-...
-```
-
-For a full list of supported providers and their model identifiers, see the [any-llm documentation](https://docs.mozilla.ai/any-llm/).
+- **`BACKENDS`**, used by the rich text AI button, goes through the [`llm`](https://llm.datasette.io/) package. Only OpenAI models are installed for it.
+- **`PROVIDERS`**, used by agent features such as content feedback, goes through any-llm and can use any supported provider.
 
 ## Where editors see it
 
-With Wagtail AI enabled:
+- **AI button (wand icon) in the rich text toolbar**, on fields that use the default editor (no `features` argument), such as a Showcase block paragraph's **Summary**.
+- **Content feedback** in the page editor's **Checks** side panel.
+- **AI agent settings** in the **Settings** menu, and the button's prompts in their own admin menu item.
 
-- **AI button in the rich text toolbar.** A wand icon in the toolbar sends the field's text to the model with one of the configured prompts. It only appears on rich text fields that use the default editor, i.e. fields with no `features` argument, such as the **Summary** field in a Showcase block's paragraphs. Fields that pass `NO_HEADING_RICH_TEXT_FEATURES` or `PARAGRAPH_RICH_TEXT_FEATURES` don't get it.
-- **Content feedback.** The page editor's **Checks** side panel gets a "Content feedback" section that asks the model to review the page.
-- **Admin settings.** The AI agent settings are in the **Settings** menu, and the prompts used by the AI button have their own admin menu item.
-
-The AI title and description field panels (`AITitleFieldPanel`, `AIDescriptionFieldPanel`) and image description aren't set up in this project.
+AI title and description panels and image description aren't set up in this project.
 
 ## Local development
 
-You can turn Wagtail AI on locally in either of two ways.
-
-**Environment variables.** Pass the flag and your API key when starting the server:
+Either pass the environment variables when starting the server:
 
 ```
 docker compose exec -e WAGTAIL_AI_ENABLED=true -e OPENAI_API_KEY=sk-... web python manage.py runserver 0.0.0.0:8000
 ```
 
-**`local.py`.** Uncomment the Wagtail AI block in `tbx/settings/local.py.example` and copy it to your `local.py`, then add your own API key. Setting `WAGTAIL_AI_ENABLED = True` in `local.py` isn't enough on its own. `local.py` is loaded after `base.py` has already built `INSTALLED_APPS` and the rich text features, so the block installs the app and adds the `ai` feature itself.
+Or copy the Wagtail AI block from `tbx/settings/local.py.example` into your `local.py`, uncomment it and set `LOCAL_TESTING_OPENAI_API_KEY`. Copy the whole block: `local.py` loads after `base.py` has built `INSTALLED_APPS` and the rich text features, and its `WAGTAIL_AI` replaces the one from `base.py`.
 
-To find the AI button, edit a page with a Showcase block (the home page or most service pages) and click into a paragraph's **Summary** field. On Wagtail 8 the rich text toolbar only appears while the cursor is in the field.
+On Wagtail 8 the rich text toolbar only appears while the cursor is in the field.
 
 ## Notes for developers
 
-- **App order.** `wagtail_ai` has to come before `wagtail.admin` in `INSTALLED_APPS`. It overrides some Wagtail admin templates, including the Checks side panel, and Django uses the first matching template it finds. If it comes after `wagtail.admin`, Content feedback disappears without any error.
-- **Rich text features.** The project defines its own `DEFAULT_RICH_TEXT_FEATURES`, so wagtail-ai can't add its `ai` feature to Wagtail's built-in defaults. `base.py` appends `"ai"` to `DEFAULT_RICH_TEXT_FEATURES` when the flag is on. To offer AI on other rich text fields, add `"ai"` to their feature list behind the same flag.
-- **Memory.** `django-ai-core` 0.1.7 and later load the provider SDK the first time an AI feature is used, not at startup. A worker that has handled an AI request keeps that SDK in memory for the rest of its life.
+- **App order.** `wagtail_ai` must come before `wagtail.admin` in `INSTALLED_APPS`. It overrides Wagtail admin templates, including the Checks side panel, and loses them silently otherwise.
+- **Rich text features.** The project defines its own `DEFAULT_RICH_TEXT_FEATURES`, so `base.py` appends `"ai"` to it when the flag is on. Fields using `NO_HEADING_RICH_TEXT_FEATURES` or `PARAGRAPH_RICH_TEXT_FEATURES` don't get the button. Add `"ai"` to those lists, behind the flag, to offer it there.
+- **Memory.** The provider SDK loads the first time an AI feature is used, not at startup, and stays in that worker's memory afterwards.
+
+## Troubleshooting
+
+A failed AI button shows `POST /admin/ai/text_completion/ 500` in the browser console, often followed by `Minified React error #200`, which can be ignored. The real error is in the runserver console:
+
+- **`KeyError: 'BACKENDS'`:** `WAGTAIL_AI` has no `BACKENDS`, usually because `local.py` defines only `PROVIDERS`.
+- **`openai.AuthenticationError` (401):** the OpenAI key is missing or wrong.
+- **`NoTokenLimitFound`:** a custom `BACKENDS` config has no `TOKEN_LIMIT` for a model wagtail-ai doesn't know.
