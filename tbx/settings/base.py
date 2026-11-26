@@ -494,17 +494,32 @@ if "PRIMARY_HOST" in env:
 
 # Wagtail AI
 # https://wagtail-ai.readthedocs.io/latest/installation/
-# WAGTAIL_AI_PROVIDER: any-llm provider name (e.g. "openai", "anthropic", "mistral")
-# WAGTAIL_AI_MODEL: model identifier for the chosen provider
-# The corresponding API key env var is provider-specific (e.g. OPENAI_API_KEY, ANTHROPIC_API_KEY)
+# wagtail-ai has two separate configs:
+# - BACKENDS is used by the rich text AI button. It goes through the `llm` package,
+#   which reads OPENAI_API_KEY. wagtail-ai raises a KeyError if BACKENDS is missing.
+#   WAGTAIL_AI_MODEL_ID: model ID known to `llm`
+#   WAGTAIL_AI_TOKEN_LIMIT: needed for models wagtail-ai has no default limit for
+# - PROVIDERS is used by the agent features, e.g. content feedback. It goes through any-llm.
+#   WAGTAIL_AI_PROVIDER: any-llm provider name (e.g. "openai", "anthropic", "mistral")
+#   WAGTAIL_AI_MODEL: model identifier for the chosen provider
+#   The API key env var is provider-specific (e.g. OPENAI_API_KEY, ANTHROPIC_API_KEY)
 if WAGTAIL_AI_ENABLED:
     WAGTAIL_AI = {
+        "BACKENDS": {
+            "default": {
+                "CLASS": "wagtail_ai.ai.llm.LLMBackend",
+                "CONFIG": {
+                    "MODEL_ID": env.get("WAGTAIL_AI_MODEL_ID", "gpt-6-luna"),
+                    "TOKEN_LIMIT": int(env.get("WAGTAIL_AI_TOKEN_LIMIT", 8192)),
+                },
+            },
+        },
         "PROVIDERS": {
             "default": {
                 "provider": env.get("WAGTAIL_AI_PROVIDER", "openai"),
                 "model": env.get("WAGTAIL_AI_MODEL", "gpt-6-luna"),
             },
-        }
+        },
     }
 
 
