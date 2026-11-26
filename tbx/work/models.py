@@ -1,4 +1,3 @@
-from itertools import chain
 import math
 import string
 
@@ -140,7 +139,7 @@ class HistoricalWorkPage(BasePage):
 
     @property
     def tags(self):
-        return chain(self.services, self.sectors)
+        return (*it for it in (self.services, self.sectors))
 
     @property
     def read_time(self):
@@ -284,7 +283,7 @@ class WorkPage(BasePage):
 
     @property
     def tags(self):
-        return chain(self.services, self.sectors)
+        return (*it for it in (self.services, self.sectors))
 
     @cached_property
     def first_author(self):
