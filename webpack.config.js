@@ -126,10 +126,10 @@ const options = {
                 },
             },
             {
-                // Handles CSS background images in the cssBackgrounds folder
+                // Handles CSS background images in the cssBackgrounds folder.
                 // Files smaller than 1024 bytes are automatically encoded in
-                // the CSS - see `_test-background-images.scss`. Otherwise, the
-                // image is copied to the images/cssBackgrounds directory.
+                // the CSS. Otherwise, the image is copied to the
+                // images/cssBackgrounds directory.
                 test: /\.(svg|jpg|png)$/,
                 include: path.resolve(
                     `./${projectRoot}/static_src/images/cssBackgrounds/`,
