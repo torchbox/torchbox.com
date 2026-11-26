@@ -2,20 +2,21 @@ ARG UV_VERSION=0.13.9
 ARG PNPM_VERSION=12.22.0
 ARG PNPM_HASH=894940a3d9a57dfa6fd373990fb4e41e09c2f2d76d982ed1d75275d39267f988fb4e2d40900cbe9921c68d97c67aa1a1096d276633db248f7b34927ac9ddb7a4
 
-FROM node:26-slim AS frontend-deps
+# When bumping pnpm, update all of these together:
+#   - PNPM_VERSION and PNPM_HASH above (PNPM_HASH is used by the dev stage)
+#   - the image digest on this FROM line
+#   - packageManager and devEngines.packageManager.version in package.json
+FROM ghcr.io/pnpm/pnpm:${PNPM_VERSION}@sha256:81346f048d668195928d441b80efc0df300474ed8bf81789e4554ec0079079d0 AS frontend-deps
 
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true
 
-# node:26-slim ships no corepack (Node 25+ dropped it), so install one new
-# enough to provision pnpm, then prepare the pinned pnpm release.
-ARG PNPM_VERSION
-ARG PNPM_HASH
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN npm install -g corepack@0.36.0 && corepack enable pnpm && corepack prepare "pnpm@${PNPM_VERSION}+sha512.${PNPM_HASH}" --activate
-
 WORKDIR /app
+
+# The pnpm image has no Node, so install the version from .nvmrc,
+# the same file CI and the dev stage use.
+COPY .nvmrc ./
+RUN pnpm runtime set node "$(cat .nvmrc)" -g
 
 # Install front-end dependencies.
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json webpack.config.js ./
