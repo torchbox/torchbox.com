@@ -90,7 +90,9 @@ INSTALLED_APPS = [
 ]
 
 if WAGTAIL_AI_ENABLED:
-    INSTALLED_APPS += ["wagtail_ai"]
+    # wagtail_ai overrides some wagtailadmin templates (e.g. the Checks side
+    # panel), so it has to come before wagtail.admin to take effect.
+    INSTALLED_APPS.insert(INSTALLED_APPS.index("wagtail.contrib.forms"), "wagtail_ai")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
