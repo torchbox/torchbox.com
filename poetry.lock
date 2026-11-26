@@ -43,13 +43,13 @@ webhooks = ["standardwebhooks (>=1.0.1,<2)"]
 
 [[package]]
 name = "any-llm-sdk"
-version = "1.51.0"
+version = "1.53.1"
 description = ""
 optional = false
 python-versions = ">=3.11"
 files = [
-    {file = "any_llm_sdk-1.51.0-py3-none-any.whl", hash = "sha256:861c5c4cd96d76e6ad0650d2ab0a3e8264502835ba4a69824c3247eb3528520b"},
-    {file = "any_llm_sdk-1.51.0.tar.gz", hash = "sha256:88e7dee2924fab5074943dd04cc4c971ad290f5a5b4af89adad1ad6e929535de"},
+    {file = "any_llm_sdk-1.53.1-py3-none-any.whl", hash = "sha256:80cf9ed6079a658a675da00779f58055105199f452e135978bc7f4d9ea873cc8"},
+    {file = "any_llm_sdk-1.53.1.tar.gz", hash = "sha256:44e3489c4dee839bb53d331bdadd238c60480df3248b40c7d87792c95afbecd4"},
 ]
 
 [package.dependencies]
@@ -62,7 +62,7 @@ rich = "*"
 typing_extensions = ">=4.5.0"
 
 [package.extras]
-all = ["any-llm-sdk[anthropic,atlascloud,azure,azureanthropic,azureopenai,bedrock,cascadia,cerebras,cohere,dashscope,databricks,deepinfra,deepseek,edenai,fireworks,gemini,github,gmi,groq,huggingface,inception,kenari,liner,llama,llamacpp,llamafile,lmstudio,meta,minimax,mistral,moonshot,mzai,nebius,neosantara,ollama,openai,openrouter,otari,perplexity,platform,portkey,qiniu,requesty,sagemaker,sambanova,telnyx,together,typesafe,vertexai,vertexaianthropic,vllm,voyage,watsonx,xai,zai]"]
+all = ["any-llm-sdk[anthropic,atlascloud,azure,azureanthropic,azureopenai,bedrock,cascadia,cerebras,cohere,dashscope,databricks,deepinfra,deepseek,edenai,fireworks,gemini,github,gmi,groq,huggingface,inception,kenari,liner,llama,llamacpp,llamafile,lmstudio,meta,minimax,mistral,moonshot,mzai,nebius,neosantara,ollama,openai,openrouter,otari,perplexity,platform,portkey,qiniu,requesty,sagemaker,sambanova,telnyx,tinfoil,together,typesafe,vertexai,vertexaianthropic,vllm,voyage,watsonx,xai,zai]"]
 azure = ["azure-ai-inference"]
 azureanthropic = ["anthropic (>=1.2.0,<3)"]
 bedrock = ["boto3"]
@@ -78,6 +78,7 @@ ollama = ["ollama (>=0.6.0)"]
 otari = ["otari (>=0.4.0,<0.5)"]
 platform = ["any-llm-platform-client (>=0.3.0)", "opentelemetry-exporter-otlp-proto-http (>=1.30.0)", "opentelemetry-sdk (>=1.30.0)"]
 sagemaker = ["boto3"]
+tinfoil = ["tinfoil (>=0.15.0,<0.16)"]
 together = ["together (>=3.0.0,<4)"]
 typesafe = ["typesafe-sdk (>=0.7.3,<0.8)"]
 vertexai = ["google-cloud-storage", "google-genai (>=1.70.0)"]
