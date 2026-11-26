@@ -3,3 +3,4 @@ static_compiled
 coverage
 venv
 .venv
+pnpm-lock.yaml
