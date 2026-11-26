@@ -675,6 +675,11 @@ DEFAULT_RICH_TEXT_FEATURES = [
 ]
 NO_HEADING_RICH_TEXT_FEATURES = ["bold", "italic", "ul", "ol", "link", "document-link"]
 PARAGRAPH_RICH_TEXT_FEATURES = ["bold", "italic", "link", "document-link"]
+
+if WAGTAIL_AI_ENABLED:
+    # Add the Wagtail AI button to rich text fields that use the default editor.
+    DEFAULT_RICH_TEXT_FEATURES.append("ai")
+
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
     "default": {
         "WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea",
