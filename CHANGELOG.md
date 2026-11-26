@@ -8,6 +8,10 @@ Add your changes to the Unreleased section and move them to the appropriate sect
 
 - [AHMJ-525](https://torchbox.atlassian.net/browse/AHMJ-525) - Re-enable Wagtail AI
   - Reinstall `wagtail-ai`, now that `django-ai-core` lazy-loads its LLM provider SDKs, resolving the memory usage issue that led to its removal in TWE-712.
+  - Put Wagtail AI behind a `WAGTAIL_AI_ENABLED` environment flag, off by default. Set it to `true` on any environment that should have Wagtail AI.
+  - Add the AI button to the default rich text editor when the flag is on.
+  - Change the default model to `gpt-6-luna`.
+  - Bump `any-llm-sdk` from 1.51.0 to 1.53.1.
 
 ## 2026-11-10
 
