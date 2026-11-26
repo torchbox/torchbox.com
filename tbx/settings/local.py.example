@@ -52,16 +52,30 @@ BASE_DOMAIN = 'localhost'
 #     # Add the Wagtail AI button to rich text fields that use the default editor.
 #     DEFAULT_RICH_TEXT_FEATURES.append("ai")
 #
+# # Your own OpenAI API key for local testing only. Used by both configs below.
+# LOCAL_TESTING_OPENAI_API_KEY = "sk-..."  # pragma: allowlist secret
+#
 # WAGTAIL_AI_ENABLED = True
 # WAGTAIL_AI = {
+#     # Used by the rich text AI button, via the `llm` package.
+#     "BACKENDS": {
+#         "default": {
+#             "CLASS": "wagtail_ai.ai.llm.LLMBackend",
+#             "CONFIG": {
+#                 "MODEL_ID": "gpt-6-luna",
+#                 "TOKEN_LIMIT": 8192,
+#                 "INIT_KWARGS": {"key": LOCAL_TESTING_OPENAI_API_KEY},
+#             },
+#         },
+#     },
+#     # Used by the agent features, e.g. content feedback, via any-llm.
 #     "PROVIDERS": {
 #         "default": {
-#             # Any any-llm provider name, e.g. "openai", "anthropic", "mistral"
+#             # Any any-llm provider name, e.g. "openai", "anthropic", "mistral".
+#             # For a provider other than OpenAI, set api_key to that provider's key.
 #             "provider": "openai",
 #             "model": "gpt-6-luna",
-#             # Your own key for the provider. Leave this out to use the provider's
-#             # environment variable instead, e.g. OPENAI_API_KEY.
-#             "api_key": "sk-...",  # pragma: allowlist secret
+#             "api_key": LOCAL_TESTING_OPENAI_API_KEY,
 #         },
-#     }
+#     },
 # }
