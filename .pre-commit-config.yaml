@@ -53,7 +53,7 @@ repos:
     rev: '1.33.0' # update with latest tag on GitHub
     hooks:
       - id: django-upgrade
-        args: [--target-version, '5.2'] # Django version used in this site
+        args: [--target-version, '6.1'] # Django version used in this site
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.22.0
     hooks:
