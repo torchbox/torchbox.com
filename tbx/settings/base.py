@@ -31,6 +31,8 @@ if "SECRET_KEY" in env:
 if "ALLOWED_HOSTS" in env:
     ALLOWED_HOSTS = env["ALLOWED_HOSTS"].split(",")
 
+# Set WAGTAIL_AI_ENABLED=true to enable AI-assisted editing tools.
+WAGTAIL_AI_ENABLED = env.get("WAGTAIL_AI_ENABLED", "false").lower() == "true"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -54,7 +56,6 @@ INSTALLED_APPS = [
     "tbx.users",
     "tbx.services",
     "tbx.sitemap",
-    "wagtail_ai",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -87,6 +88,9 @@ INSTALLED_APPS = [
     "wagtailmedia",
     "wagtail.contrib.typed_table_block",
 ]
+
+if WAGTAIL_AI_ENABLED:
+    INSTALLED_APPS += ["wagtail_ai"]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -491,14 +495,15 @@ if "PRIMARY_HOST" in env:
 # WAGTAIL_AI_PROVIDER: any-llm provider name (e.g. "openai", "anthropic", "mistral")
 # WAGTAIL_AI_MODEL: model identifier for the chosen provider
 # The corresponding API key env var is provider-specific (e.g. OPENAI_API_KEY, ANTHROPIC_API_KEY)
-WAGTAIL_AI = {
-    "PROVIDERS": {
-        "default": {
-            "provider": env.get("WAGTAIL_AI_PROVIDER", "openai"),
-            "model": env.get("WAGTAIL_AI_MODEL", "gpt-6-luna"),
-        },
+if WAGTAIL_AI_ENABLED:
+    WAGTAIL_AI = {
+        "PROVIDERS": {
+            "default": {
+                "provider": env.get("WAGTAIL_AI_PROVIDER", "openai"),
+                "model": env.get("WAGTAIL_AI_MODEL", "gpt-6-luna"),
+            },
+        }
     }
-}
 
 
 # Override the Image class used by wagtailimages with a custom one

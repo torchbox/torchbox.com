@@ -4,10 +4,11 @@ AI-assisted content editing in the Wagtail admin, powered by [wagtail-ai](https:
 
 ## Configuration
 
-The integration is always active but requires environment variables to function. The provider and model are both configurable at runtime.
+The integration is off by default. Set `WAGTAIL_AI_ENABLED=true` to add `wagtail_ai` to `INSTALLED_APPS` and load its settings. When the flag is off, nothing from wagtail-ai or the LLM SDKs is imported. The provider and model are both configurable at runtime.
 
 | Variable              | Required             | Default      | Description                                               |
 | --------------------- | -------------------- | ------------ | --------------------------------------------------------- |
+| `WAGTAIL_AI_ENABLED`  | Yes, to turn it on   | `false`      | Set to `true` to enable Wagtail AI                        |
 | `WAGTAIL_AI_PROVIDER` | No                   | `openai`     | [any-llm](https://docs.mozilla.ai/any-llm/) provider name |
 | `WAGTAIL_AI_MODEL`    | No                   | `gpt-6-luna` | Model identifier for the chosen provider                  |
 | `OPENAI_API_KEY`      | When using OpenAI    | —            | API key read directly by the OpenAI SDK                   |
@@ -18,6 +19,7 @@ The integration is always active but requires environment variables to function.
 **OpenAI (default):**
 
 ```
+WAGTAIL_AI_ENABLED=true
 WAGTAIL_AI_PROVIDER=openai
 WAGTAIL_AI_MODEL=gpt-6-luna
 OPENAI_API_KEY=sk-...
@@ -26,6 +28,7 @@ OPENAI_API_KEY=sk-...
 **Anthropic:**
 
 ```
+WAGTAIL_AI_ENABLED=true
 WAGTAIL_AI_PROVIDER=anthropic
 WAGTAIL_AI_MODEL=claude-3-5-sonnet-20241022
 ANTHROPIC_API_KEY=sk-ant-...
