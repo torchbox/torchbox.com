@@ -495,7 +495,7 @@ WAGTAIL_AI = {
     "PROVIDERS": {
         "default": {
             "provider": env.get("WAGTAIL_AI_PROVIDER", "openai"),
-            "model": env.get("WAGTAIL_AI_MODEL", "gpt-4.1-mini"),
+            "model": env.get("WAGTAIL_AI_MODEL", "gpt-6-luna"),
         },
     }
 }

@@ -6,12 +6,12 @@ AI-assisted content editing in the Wagtail admin, powered by [wagtail-ai](https:
 
 The integration is always active but requires environment variables to function. The provider and model are both configurable at runtime.
 
-| Variable              | Required             | Default        | Description                                               |
-| --------------------- | -------------------- | -------------- | --------------------------------------------------------- |
-| `WAGTAIL_AI_PROVIDER` | No                   | `openai`       | [any-llm](https://docs.mozilla.ai/any-llm/) provider name |
-| `WAGTAIL_AI_MODEL`    | No                   | `gpt-4.1-mini` | Model identifier for the chosen provider                  |
-| `OPENAI_API_KEY`      | When using OpenAI    | —              | API key read directly by the OpenAI SDK                   |
-| `ANTHROPIC_API_KEY`   | When using Anthropic | —              | API key read directly by the Anthropic SDK                |
+| Variable              | Required             | Default      | Description                                               |
+| --------------------- | -------------------- | ------------ | --------------------------------------------------------- |
+| `WAGTAIL_AI_PROVIDER` | No                   | `openai`     | [any-llm](https://docs.mozilla.ai/any-llm/) provider name |
+| `WAGTAIL_AI_MODEL`    | No                   | `gpt-6-luna` | Model identifier for the chosen provider                  |
+| `OPENAI_API_KEY`      | When using OpenAI    | —            | API key read directly by the OpenAI SDK                   |
+| `ANTHROPIC_API_KEY`   | When using Anthropic | —            | API key read directly by the Anthropic SDK                |
 
 ## Examples
 
@@ -19,7 +19,7 @@ The integration is always active but requires environment variables to function.
 
 ```
 WAGTAIL_AI_PROVIDER=openai
-WAGTAIL_AI_MODEL=gpt-4.1-mini
+WAGTAIL_AI_MODEL=gpt-6-luna
 OPENAI_API_KEY=sk-...
 ```
 
