@@ -34,3 +34,48 @@ SHOW_TOOLBAR = True
 # }
 
 BASE_DOMAIN = 'localhost'
+
+# Wagtail AI
+# See docs/custom-features/wagtail-ai.md.
+# base.py only installs wagtail_ai when WAGTAIL_AI_ENABLED=true is set in the
+# environment, and it has already run by the time this file is loaded. Setting
+# WAGTAIL_AI_ENABLED here won't install the app on its own, so uncomment the
+# whole block below to turn Wagtail AI on locally.
+
+# from .base import DEFAULT_RICH_TEXT_FEATURES, INSTALLED_APPS
+#
+# if "wagtail_ai" not in INSTALLED_APPS:
+#     # wagtail_ai must come before wagtail.admin so its admin template overrides apply.
+#     INSTALLED_APPS.insert(INSTALLED_APPS.index("wagtail.contrib.forms"), "wagtail_ai")
+#
+# if "ai" not in DEFAULT_RICH_TEXT_FEATURES:
+#     # Add the Wagtail AI button to rich text fields that use the default editor.
+#     DEFAULT_RICH_TEXT_FEATURES.append("ai")
+#
+# # Your own OpenAI API key for local testing only. Used by both configs below.
+# LOCAL_TESTING_OPENAI_API_KEY = "sk-..."  # pragma: allowlist secret
+#
+# WAGTAIL_AI_ENABLED = True
+# WAGTAIL_AI = {
+#     # Used by the rich text AI button, via the `llm` package.
+#     "BACKENDS": {
+#         "default": {
+#             "CLASS": "wagtail_ai.ai.llm.LLMBackend",
+#             "CONFIG": {
+#                 "MODEL_ID": "gpt-6-luna",
+#                 "TOKEN_LIMIT": 8192,
+#                 "INIT_KWARGS": {"key": LOCAL_TESTING_OPENAI_API_KEY},
+#             },
+#         },
+#     },
+#     # Used by the agent features, e.g. content feedback, via any-llm.
+#     "PROVIDERS": {
+#         "default": {
+#             # Any any-llm provider name, e.g. "openai", "anthropic", "mistral".
+#             # For a provider other than OpenAI, set api_key to that provider's key.
+#             "provider": "openai",
+#             "model": "gpt-6-luna",
+#             "api_key": LOCAL_TESTING_OPENAI_API_KEY,
+#         },
+#     },
+# }

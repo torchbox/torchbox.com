@@ -31,6 +31,8 @@ if "SECRET_KEY" in env:
 if "ALLOWED_HOSTS" in env:
     ALLOWED_HOSTS = env["ALLOWED_HOSTS"].split(",")
 
+# Set WAGTAIL_AI_ENABLED=true to enable AI-assisted editing tools.
+WAGTAIL_AI_ENABLED = env.get("WAGTAIL_AI_ENABLED", "false").lower() == "true"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -86,6 +88,11 @@ INSTALLED_APPS = [
     "wagtailmedia",
     "wagtail.contrib.typed_table_block",
 ]
+
+if WAGTAIL_AI_ENABLED:
+    # wagtail_ai overrides some wagtailadmin templates (e.g. the Checks side
+    # panel), so it has to come before wagtail.admin to take effect.
+    INSTALLED_APPS.insert(INSTALLED_APPS.index("wagtail.contrib.forms"), "wagtail_ai")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -485,6 +492,36 @@ WAGTAIL_SITE_NAME = "Torchbox"
 if "PRIMARY_HOST" in env:
     WAGTAILADMIN_BASE_URL = "https://{}".format(env["PRIMARY_HOST"])
 
+# Wagtail AI
+# https://wagtail-ai.readthedocs.io/latest/installation/
+# wagtail-ai has two separate configs:
+# - BACKENDS is used by the rich text AI button. It goes through the `llm` package,
+#   which reads OPENAI_API_KEY. wagtail-ai raises a KeyError if BACKENDS is missing.
+#   WAGTAIL_AI_MODEL_ID: model ID known to `llm`
+#   WAGTAIL_AI_TOKEN_LIMIT: needed for models wagtail-ai has no default limit for
+# - PROVIDERS is used by the agent features, e.g. content feedback. It goes through any-llm.
+#   WAGTAIL_AI_PROVIDER: any-llm provider name (e.g. "openai", "anthropic", "mistral")
+#   WAGTAIL_AI_MODEL: model identifier for the chosen provider
+#   The API key env var is provider-specific (e.g. OPENAI_API_KEY, ANTHROPIC_API_KEY)
+if WAGTAIL_AI_ENABLED:
+    WAGTAIL_AI = {
+        "BACKENDS": {
+            "default": {
+                "CLASS": "wagtail_ai.ai.llm.LLMBackend",
+                "CONFIG": {
+                    "MODEL_ID": env.get("WAGTAIL_AI_MODEL_ID", "gpt-6-luna"),
+                    "TOKEN_LIMIT": int(env.get("WAGTAIL_AI_TOKEN_LIMIT", 8192)),
+                },
+            },
+        },
+        "PROVIDERS": {
+            "default": {
+                "provider": env.get("WAGTAIL_AI_PROVIDER", "openai"),
+                "model": env.get("WAGTAIL_AI_MODEL", "gpt-6-luna"),
+            },
+        },
+    }
+
 
 # Override the Image class used by wagtailimages with a custom one
 WAGTAILIMAGES_IMAGE_MODEL = "images.CustomImage"
@@ -653,6 +690,11 @@ DEFAULT_RICH_TEXT_FEATURES = [
 ]
 NO_HEADING_RICH_TEXT_FEATURES = ["bold", "italic", "ul", "ol", "link", "document-link"]
 PARAGRAPH_RICH_TEXT_FEATURES = ["bold", "italic", "link", "document-link"]
+
+if WAGTAIL_AI_ENABLED:
+    # Add the Wagtail AI button to rich text fields that use the default editor.
+    DEFAULT_RICH_TEXT_FEATURES.append("ai")
+
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
     "default": {
         "WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea",
