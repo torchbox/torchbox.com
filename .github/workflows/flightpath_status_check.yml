@@ -10,13 +10,19 @@ on:
         description: 'Please provide the Flightpath job_id. You can find this in the output from run_flightpath.py when running "Copy prod to staging" Github Action.'
         required: true
         type: string
+
+permissions:
+  contents: read # to fetch code (actions/checkout)
+
 jobs:
   run_flightpath_status_check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.14'
       - name: Install dependencies
@@ -24,8 +30,9 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install requests
       - name: Run run_flightpath_status_check.py script
-        run: |
-          python tbx/core/utils/scripts/run_flightpath_status_check.py --job_id=${{ inputs.job_id }}
         env:
+          JOB_ID: ${{ inputs.job_id }}
           FLIGHTPATH_AUTH_KEY: ${{ secrets.FLIGHTPATH_AUTH_KEY }}
           FLIGHTPATH_URL: ${{ secrets.FLIGHTPATH_URL }}
+        run: |
+          python tbx/core/utils/scripts/run_flightpath_status_check.py --job_id=$JOB_ID
